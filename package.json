@@ -1,47 +1,48 @@
 {
-  "name": "@salesforce/plugin-template",
-  "description": "A template repository for sfdx plugins",
+  "name": "@salesforce/plugin-packaging",
+  "description": "SFDX plugin that support Salesforce Packaging Platform",
   "version": "1.0.0",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/config": "^1",
-    "@salesforce/command": "^3.1.3",
-    "@salesforce/core": "^2.28.0",
+    "@salesforce/command": "^5.1.3",
+    "@salesforce/core": "^3.19.5",
     "tslib": "^2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@oclif/plugin-command-snapshot": "^2.2.2",
     "@salesforce/cli-plugins-testkit": "^1.5.3",
-    "@salesforce/dev-config": "^2.1.2",
-    "@salesforce/dev-scripts": "^1.0.2",
-    "@salesforce/plugin-command-reference": "^1.3.18",
+    "@salesforce/dev-config": "^2.1.3",
+    "@salesforce/dev-scripts": "^1.0.4",
+    "@salesforce/plugin-command-reference": "^1.3.20",
     "@salesforce/prettier-config": "^0.0.2",
     "@salesforce/ts-sinon": "1.3.21",
+    "@salesforce/ts-types": "^1.5.20",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.32.0",
-    "chai": "^4.3.4",
+    "@typescript-eslint/parser": "^4.33.0",
+    "chai": "^4.3.6",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-salesforce": "^0.1.6",
     "eslint-config-salesforce-license": "^0.1.6",
     "eslint-config-salesforce-typescript": "^0.2.8",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsdoc": "^35.5.1",
     "eslint-plugin-prettier": "^3.4.1",
     "husky": "^7.0.4",
-    "lint-staged": "^11.2.0",
+    "lint-staged": "^11.2.6",
     "mocha": "^8.4.0",
     "nyc": "^15.1.0",
     "prettier": "^2.4.1",
-    "pretty-quick": "^3.1.0",
-    "shx": "0.2.2",
-    "sinon": "^11.1.1",
-    "ts-node": "^10.2.1",
-    "typescript": "^4.1.3"
+    "pretty-quick": "^3.1.3",
+    "shx": "0.3.4",
+    "sinon": "^11.1.2",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.6.4"
   },
   "config": {
     "commitizen": {
@@ -74,12 +75,12 @@
       "@salesforce/plugin-command-reference"
     ],
     "topics": {
-      "hello": {
-        "description": "Commands to say hello."
+      "force": {
+        "description": "placeholder for force commands"
       }
     }
   },
-  "repository": "salesforcecli/plugin-template",
+  "repository": "salesforcecli/plugin-packaging",
   "scripts": {
     "build": "sf-build",
     "clean": "sf-clean",
@@ -95,7 +96,7 @@
     "prepare": "sf-install",
     "pretest": "sf-compile-test",
     "test": "sf-test",
-    "test:command-reference": "./bin/run commandreference:generate --erroronwarnings",
+    "test:command-reference": "./bin/run commandreference:generate",
     "test:deprecation-policy": "./bin/run snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "version": "oclif-dev readme"

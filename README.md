@@ -1,45 +1,19 @@
-### Use the [lerna template](https://github.com/salesforcecli/lerna-template) if you need a library and plugin
+# plugin-packaging;
 
-### This template is useful if the library is already in another repository or the plugin is a wrapper around an API.
+> :warning: **This module is under heavy development, please do not use in production.**
 
-# plugin-&lt;REPLACE ME&gt;
-
-[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-template.svg?label=@salesforce/plugin-template)](https://www.npmjs.com/package/@salesforce/plugin-template) [![CircleCI](https://circleci.com/gh/salesforcecli/plugin-template/tree/main.svg?style=shield)](https://circleci.com/gh/salesforcecli/plugin-template/tree/main) [![Downloads/week](https://img.shields.io/npm/dw/@salesforce/plugin-template.svg)](https://npmjs.org/package/@salesforce/plugin-template) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/salesforcecli/plugin-template/main/LICENSE.txt)
+[![NPM](https://img.shields.io/npm/v/@salesforce/plugin-packaging.svg?label=@salesforce/plugin-packaging)](https://www.npmjs.com/package/@salesforce/plugin-packaging) [![CircleCI](https://circleci.com/gh/salesforcecli/plugin-packaging/tree/main.svg?style=shield)](https://circleci.com/gh/salesforcecli/plugin-packaging/tree/main) [![Downloads/week](https://img.shields.io/npm/dw/@salesforce/plugin-packaging.svg)](https://npmjs.org/package/@salesforce/plugin-packaging) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/salesforcecli/plugin-packaging/main/LICENSE.txt)
 
 Change above to <REPLACE_ME> before finalizing
 
-&lt;REPLACE ME DESCRIPTION START&gt;
+## This plugin provides the sfdx cli commands that support Salesforce Packaging Platform
 
-This repository provides a template for creating a plugin for the Salesforce CLI. To convert this template to a working plugin:
-
-1. Clone this repo
-2. Delete the .git folder
-3. Replace filler values
-   a) Every instance of `<REPLACE_ME>` can be directly substitued for the name of the new plugin. However beware, things like github paths are for the salesforcecli Github organization
-   b) Search for case-matching `REPLACE` to find other filler values, such as for the plugin description
-4. Use `git init` to set up the desired git information
-5. Follow the getting started steps below until the `sfdx hello:org` commmand is functioning
-
-&lt;REPLACE ME DESCRIPTION END&gt;
-
-## Learn about the plugin-template
-
-Salesforce CLI plugins are based on the [oclif plugin framework](<(https://oclif.io/docs/introduction.html)>). Read the [plugin developer guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_plugins.meta/sfdx_cli_plugins/cli_plugins_architecture_sf_cli.htm) to learn about Salesforce CLI plugin development.
-
-This repository contains a lot of additional scripts and tools to help with general Salesforce node development and enforce coding standards. You should familiarize yourself with some of the [node developer packages](https://github.com/forcedotcom/sfdx-dev-packages/) used by Salesforce. There is also a default circleci config using the [release management orb](https://github.com/forcedotcom/npm-release-management-orb) standards.
-
-Additionally, there are some additional tests that the Salesforce CLI will enforce if this plugin is ever bundled with the CLI. These test are included by default under the `posttest` script and it is recommended to keep these tests active in your plugin, regardless if you plan to have it bundled.
-
-# Everything past here is only a suggestion as to what should be in your specific plugin's description
-
-This plugin is bundled with the [Salesforce CLI](https://developer.salesforce.com/tools/sfdxcli). For more information on the CLI, read the [getting started guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm).
-
-We always recommend using the latest version of these commands bundled with the CLI, however, you can install a specific version or tag if needed.
+## Learn about the plugin-packaging
 
 ## Install
 
 ```bash
-sfdx plugins:install <REPLACE_ME>@x.y.z
+sfdx plugins:install @salesforce/plugin-packaging@x.y.z
 ```
 
 ## Issues
@@ -71,7 +45,7 @@ To build the plugin locally, make sure to have yarn installed and run the follow
 
 ```bash
 # Clone the repository
-git clone git@github.com:salesforcecli/plugin-<REPLACE_ME>
+git clone git@github.com:salesforcecli/plugin-packaging.git
 
 # Install the dependencies and compile
 yarn install
@@ -82,7 +56,7 @@ To use your plugin, run using the local `./bin/run` or `./bin/run.cmd` file.
 
 ```bash
 # Run using local run file.
-./bin/run <REPLACE_ME>
+./bin/run package:create --help
 ```
 
 There should be no differences when running via the Salesforce CLI or using the local run file. However, it can be useful to link the plugin to do some additional testing or run your commands from anywhere on your machine.

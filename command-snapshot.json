@@ -1,7 +1,7 @@
 [
   {
-    "command": "hello:org",
-    "plugin": "@salesforce/plugin-template",
-    "flags": ["apiversion", "force", "json", "loglevel", "name", "targetdevhubusername", "targetusername"]
+    "command": "force:package:placeholder",
+    "plugin": "@salesforce/plugin-packaging",
+    "flags": ["json", "loglevel"]
   }
 ]
