@@ -8,6 +8,7 @@ import { SfdxCommand } from '@salesforce/command';
 import { AnyJson } from '@salesforce/ts-types';
 
 export class Placeholder extends SfdxCommand {
+  public static readonly description = 'placeholder';
   public async run(): Promise<AnyJson> {
     return Promise.resolve({});
   }

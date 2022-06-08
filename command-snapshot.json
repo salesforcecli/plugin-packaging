@@ -2,6 +2,13 @@
   {
     "command": "force:package:placeholder",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["json", "loglevel"]
+    "flags": ["json", "loglevel"],
+    "alias": []
+  },
+  {
+    "command": "version",
+    "plugin": "@oclif/plugin-version",
+    "flags": [],
+    "alias": []
   }
 ]
