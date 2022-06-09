@@ -30,19 +30,16 @@ export class PackageUpdateCommand extends SfdxCommand {
       char: 'n',
       description: messages.getMessage('name'),
       longDescription: messages.getMessage('nameLong'),
-      required: false,
     }),
     description: flags.string({
       char: 'd',
       description: messages.getMessage('description'),
       longDescription: messages.getMessage('descriptionLong'),
-      required: false,
     }),
     errornotificationusername: flags.string({
       char: 'o',
       description: packageCreate.getMessage('errorNotificationUsername'),
       longDescription: packageCreate.getMessage('errorNotificationUsernameLong'),
-      required: false,
     }),
   };
 

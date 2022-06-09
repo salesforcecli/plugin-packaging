@@ -22,7 +22,6 @@ export class Package1VersionListCommand extends SfdxCommand {
       char: 'i',
       description: messages.getMessage('packageId'),
       longDescription: messages.getMessage('packageIdLong'),
-      required: false,
     }),
   };
 

@@ -29,7 +29,6 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       char: 'n',
       description: messages.getMessage('setasreleasedForce'),
       longDescription: messages.getMessage('setasreleasedForceLong'),
-      required: false,
     }),
   };
 

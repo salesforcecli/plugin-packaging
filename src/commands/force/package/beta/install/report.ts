@@ -7,6 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
+
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install_report');
 
@@ -14,7 +15,7 @@ export class PackageInstallReportCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly help = messages.getMessage('help');
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     requestid: flags.id({

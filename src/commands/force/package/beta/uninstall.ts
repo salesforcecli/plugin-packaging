@@ -15,7 +15,7 @@ export class PackageUninstallCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly help = messages.getMessage('help');
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly orgType = SfdxPropertyKeys.DEFAULT_USERNAME;
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -23,13 +23,11 @@ export class PackageUninstallCommand extends SfdxCommand {
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('waitLong'),
-      required: false,
     }),
     package: flags.string({
       char: 'p',
       description: messages.getMessage('package'),
       longDescription: messages.getMessage('packageLong'),
-      required: false,
     }),
   };
 

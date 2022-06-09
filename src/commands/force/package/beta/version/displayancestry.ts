@@ -6,8 +6,7 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { SfdxPropertyKeys } from '@salesforce/core';
-import { Messages } from '@salesforce/core';
+import { Messages, SfdxPropertyKeys } from '@salesforce/core';
 
 // Import i18n messages
 Messages.importMessagesDirectory(__dirname);

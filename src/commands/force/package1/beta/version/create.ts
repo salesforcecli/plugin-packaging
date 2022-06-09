@@ -34,43 +34,36 @@ export class Package1VersionCreateCommand extends SfdxCommand {
       char: 'd',
       description: messages.getMessage('description'),
       longDescription: messages.getMessage('descriptionLong'),
-      required: false,
     }),
     version: flags.string({
       char: 'v',
       description: messages.getMessage('version'),
       longDescription: messages.getMessage('versionLong'),
-      required: false,
     }),
     managedreleased: flags.boolean({
       char: 'm',
       description: messages.getMessage('managedReleased'),
       longDescription: messages.getMessage('managedReleasedLong'),
-      required: false,
     }),
     releasenotesurl: flags.url({
       char: 'r',
       description: messages.getMessage('releaseNotes'),
       longDescription: messages.getMessage('releaseNotesLong'),
-      required: false,
     }),
     postinstallurl: flags.url({
       char: 'p',
       description: messages.getMessage('postInstall'),
       longDescription: messages.getMessage('postInstallLong'),
-      required: false,
     }),
     installationkey: flags.string({
       char: 'k',
       description: messages.getMessage('installationKey'),
       longDescription: messages.getMessage('installationKeyLong'),
-      required: false,
     }),
     wait: flags.number({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('waitLong'),
-      required: false,
     }),
   };
 

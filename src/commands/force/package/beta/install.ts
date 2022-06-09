@@ -15,44 +15,39 @@ export class PackageInstallCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly help = messages.getMessage('help');
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     wait: flags.minutes({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('waitLong'),
-      required: false,
     }),
     installationkey: flags.string({
       char: 'k',
       description: messages.getMessage('installationKey'),
       longDescription: messages.getMessage('installationKeyLong'),
-      required: false,
     }),
     publishwait: flags.minutes({
       char: 'b',
       description: messages.getMessage('publishWait'),
       longDescription: messages.getMessage('publishWaitLong'),
-      required: false,
     }),
     noprompt: flags.boolean({
       char: 'r',
       description: messages.getMessage('noPrompt'),
       longDescription: messages.getMessage('noPromptLong'),
-      required: false,
     }),
     package: flags.string({
       char: 'p',
       description: messages.getMessage('package'),
       longDescription: messages.getMessage('packageLong'),
-      required: false,
     }),
     apexcompile: flags.enum({
       char: 'a',
       description: messages.getMessage('apexCompile'),
       longDescription: messages.getMessage('apexCompileLong'),
-      required: false,
+
       default: 'all',
       options: ['all', 'package'],
     }),
@@ -60,7 +55,7 @@ export class PackageInstallCommand extends SfdxCommand {
       char: 's',
       description: messages.getMessage('securityType'),
       longDescription: messages.getMessage('securityTypeLong'),
-      required: false,
+
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
@@ -68,7 +63,7 @@ export class PackageInstallCommand extends SfdxCommand {
       char: 't',
       description: messages.getMessage('upgradeType'),
       longDescription: messages.getMessage('upgradeTypeLong'),
-      required: false,
+
       default: 'Mixed',
       options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),

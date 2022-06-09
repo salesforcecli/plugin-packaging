@@ -29,31 +29,26 @@ export class PackageVersionUpdateCommand extends SfdxCommand {
       char: 'a',
       description: messages.getMessage('name'),
       longDescription: messages.getMessage('nameLong'),
-      required: false,
     }),
     versiondescription: flags.string({
       char: 'e',
       description: messages.getMessage('description'),
       longDescription: messages.getMessage('descriptionLong'),
-      required: false,
     }),
     branch: flags.string({
       char: 'b',
       description: messages.getMessage('branch'),
       longDescription: messages.getMessage('branchLong'),
-      required: false,
     }),
     tag: flags.string({
       char: 't',
       description: messages.getMessage('tag'),
       longDescription: messages.getMessage('tagLong'),
-      required: false,
     }),
     installationkey: flags.string({
       char: 'k',
       description: messages.getMessage('key'),
       longDescription: messages.getMessage('longKey'),
-      required: false,
     }),
   };
 

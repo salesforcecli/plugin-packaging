@@ -16,7 +16,7 @@ export class PackageVersionListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly help = messages.getMessage('help');
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly orgType = SfdxPropertyKeys.DEFAULT_DEV_HUB_USERNAME;
   public static readonly requiresDevhubUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -24,7 +24,6 @@ export class PackageVersionListCommand extends SfdxCommand {
       char: 'c',
       description: packaging.getMessage('createdLastDaysDescription'),
       longDescription: packaging.getMessage('createdLastDaysLongDescription'),
-      required: false,
     }),
     concise: flags.builtin({
       description: messages.getMessage('conciseDescription'),
@@ -34,31 +33,28 @@ export class PackageVersionListCommand extends SfdxCommand {
       char: 'm',
       description: packaging.getMessage('modifiedLastDaysDescription'),
       longDescription: packaging.getMessage('modifiedLastDaysLongDescription'),
-      required: false,
     }),
     packages: flags.array({
       char: 'p',
       description: messages.getMessage('packagesDescription'),
       longDescription: messages.getMessage('packagesLongDescription'),
-      required: false,
     }),
     released: flags.boolean({
       char: 'r',
       description: messages.getMessage('releasedDescription'),
       longDescription: messages.getMessage('releasedLongDescription'),
-      required: false,
     }),
     orderby: flags.array({
       char: 'o',
       description: messages.getMessage('orderByDescription'),
       longDescription: messages.getMessage('orderByLongDescription'),
-      required: false,
     }),
     verbose: flags.builtin({
       description: messages.getMessage('verboseDescription'),
       longDescription: messages.getMessage('verboseLongDescription'),
     }),
   };
+
   public async run(): Promise<unknown> {
     process.exitCode = 1;
     return Promise.resolve('Not yet implemented');

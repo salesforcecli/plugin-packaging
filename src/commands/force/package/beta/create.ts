@@ -37,13 +37,11 @@ export class PackageCreateCommand extends SfdxCommand {
       char: 'd',
       description: messages.getMessage('description'),
       longDescription: messages.getMessage('descriptionLong'),
-      required: false,
     }),
     nonamespace: flags.boolean({
       char: 'e',
       description: messages.getMessage('noNamespace'),
       longDescription: messages.getMessage('noNamespaceLong'),
-      required: false,
     }),
     path: flags.directory({
       char: 'r',
@@ -54,13 +52,11 @@ export class PackageCreateCommand extends SfdxCommand {
     orgdependent: flags.boolean({
       description: messages.getMessage('orgDependent'),
       longDescription: messages.getMessage('orgDependentLong'),
-      required: false,
     }),
     errornotificationusername: flags.string({
       char: 'o',
       description: messages.getMessage('errorNotificationUsername'),
       longDescription: messages.getMessage('errorNotificationUsernameLong'),
-      required: false,
     }),
   };
 

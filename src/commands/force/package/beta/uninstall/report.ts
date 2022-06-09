@@ -15,7 +15,7 @@ export class PackageUninstallReportCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly help = messages.getMessage('help');
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     requestid: flags.id({

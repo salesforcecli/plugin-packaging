@@ -18,7 +18,7 @@ export class PackageConvert extends SfdxCommand {
   public static readonly help = messages.getMessage('help');
   public static readonly orgType = SfdxPropertyKeys.DEFAULT_DEV_HUB_USERNAME;
   public static readonly requiresDevhubUsername = true;
-  public static readonly requiresProject = false;
+  public static readonly;
   public static readonly hidden = true;
   public static readonly flagsConfig: FlagsConfig = {
     package: flags.string({
@@ -31,26 +31,24 @@ export class PackageConvert extends SfdxCommand {
       char: 'k',
       description: messages.getMessage('key'),
       longDescription: messages.getMessage('longKey'),
-      required: false,
     }),
     installationkeybypass: flags.boolean({
       char: 'x',
       description: messages.getMessage('keyBypass'),
       longDescription: messages.getMessage('longKeyBypass'),
-      required: false,
     }),
     wait: flags.minutes({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('longWait'),
-      required: false,
+
       default: Duration.minutes(0),
     }),
     buildinstance: flags.string({
       char: 's',
       description: messages.getMessage('instance'),
       longDescription: messages.getMessage('longInstance'),
-      required: false,
+
       hidden: true,
     }),
   };

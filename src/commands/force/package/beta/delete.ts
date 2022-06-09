@@ -23,7 +23,6 @@ export class PackageDeleteCommand extends SfdxCommand {
       char: 'n',
       description: messages.getMessage('noPrompt'),
       longDescription: messages.getMessage('noPrompt'),
-      required: false,
     }),
     package: flags.string({
       char: 'p',
@@ -34,7 +33,7 @@ export class PackageDeleteCommand extends SfdxCommand {
     undelete: flags.boolean({
       description: messages.getMessage('undelete'),
       longDescription: messages.getMessage('undeleteLong'),
-      required: false,
+
       hidden: true,
     }),
   };
