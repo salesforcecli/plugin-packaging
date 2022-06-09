@@ -56,6 +56,7 @@ export class PackageConvert extends SfdxCommand {
   };
 
   public async run(): Promise<unknown> {
-    return Promise.reject('Not yet implemented');
+    process.exitCode = 1;
+    return Promise.resolve('Not yet implemented');
   }
 }

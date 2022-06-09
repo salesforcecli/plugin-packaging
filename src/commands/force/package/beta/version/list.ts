@@ -1,13 +1,9 @@
 /*
- * Copyright (c) 2020, salesforce.com, inc.
+ * Copyright (c) 2022, salesforce.com, inc.
  * All rights reserved.
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-
-// This is the legacy converted command file. Ignoring code-coverage since this is generated.
-// THIS SHOULD BE REMOVED WHEN CONVERTED TO EXTEND SfdxCommand
-/* istanbul ignore file */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxPropertyKeys } from '@salesforce/core';
@@ -64,6 +60,7 @@ export class PackageVersionListCommand extends SfdxCommand {
     }),
   };
   public async run(): Promise<unknown> {
-    return Promise.reject('Not yet implemented');
+    process.exitCode = 1;
+    return Promise.resolve('Not yet implemented');
   }
 }

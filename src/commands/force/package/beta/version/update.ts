@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020, salesforce.com, inc.
+ * Copyright (c) 2022, salesforce.com, inc.
  * All rights reserved.
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
@@ -58,6 +58,7 @@ export class PackageVersionUpdateCommand extends SfdxCommand {
   };
 
   public async run(): Promise<unknown> {
-    return Promise.reject('Not yet implemented');
+    process.exitCode = 1;
+    return Promise.resolve('Not yet implemented');
   }
 }
