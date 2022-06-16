@@ -26,12 +26,6 @@ export class Package1VersionCreateGetCommand extends SfdxCommand {
     }),
   };
 
-  /**
-   * context hook
-   *
-   * @param context - the cli context
-   * @returns {Promise}
-   */
   public async run(): Promise<unknown> {
     process.exitCode = 1;
     return Promise.resolve('Not yet implemented');
