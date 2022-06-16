@@ -247,7 +247,7 @@
   {
     "command": "version",
     "plugin": "@oclif/plugin-version",
-    "flags": [],
+    "flags": ["verbose"],
     "alias": []
   }
 ]
