@@ -49,6 +49,8 @@ workflows:
                 - latest
           requires:
             - release-management/test-package
+          context:
+            - na40-auth-url
   test-ts-update:
     when:
       equal: [test-ts-update, << pipeline.parameters.workflow >>]
