@@ -7,6 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxPropertyKeys } from '@salesforce/core';
+import { applyErrorAction, deletePackage, massageErrorMessage, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
@@ -38,8 +39,40 @@ export class PackageDeleteCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    // user must acknowledge the warning prompt or use noprompt flag
+    const accepted = await this.prompt(
+      this.flags.noprompt,
+      messages.getMessage(this.flags.undelete ? 'promptUndelete' : 'promptDelete')
+    );
+    if (!accepted) {
+      throw messages.createError('promptDeleteDeny');
+    }
+
+    const result = await deletePackage(
+      this.flags.package,
+      this.project,
+      this.hubOrg.getConnection(),
+      !!this.flags.undelete
+    ).catch((err) => {
+      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      err = massageErrorMessage(err);
+      throw applyErrorAction(err);
+    });
+    this.display(result);
+    return result;
+  }
+
+  private async prompt(noninteractive, message): Promise<boolean> {
+    const answer = noninteractive ? 'YES' : await this.ux.prompt(message);
+    // print a line of white space after the prompt is entered for separation
+    this.ux.log('');
+    return answer.toUpperCase() === 'YES' || answer.toUpperCase() === 'Y';
+  }
+
+  private display(result: PackageSaveResult): void {
+    const message = messages.getMessage(this.flags.undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
+    this.ux.log();
+    this.ux.log(message);
   }
 }

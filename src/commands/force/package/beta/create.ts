@@ -7,6 +7,13 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxPropertyKeys } from '@salesforce/core';
+import {
+  applyErrorAction,
+  createPackage,
+  massageErrorMessage,
+  PackageCreateOptions,
+  PackageType,
+} from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
@@ -60,8 +67,34 @@ export class PackageCreateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<{ Id: string }> {
+    const options: PackageCreateOptions = {
+      description: (this.flags.description || '') as string,
+      errorNotificationUsername: this.flags.errornotificationusername as string,
+      name: this.flags.name as string,
+      noNamespace: this.flags.nonamespace as boolean,
+      orgDependent: this.flags.orgdependent as boolean,
+      packageType: this.flags.packagetype as PackageType,
+      path: this.flags.path as string,
+    };
+    const result: { Id: string } = await createPackage(
+      this.hubOrg,
+      this.hubOrg.getConnection(),
+      this.project,
+      options
+    ).catch((err) => {
+      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      err = massageErrorMessage(err);
+      throw applyErrorAction(err);
+    });
+    if (!this.flags.json) {
+      this.display(result);
+    }
+    return result;
+  }
+
+  private display(result: { Id: string }): void {
+    this.ux.styledHeader('Ids');
+    this.ux.table([{ name: 'Package Id', value: result.Id }], { name: { header: 'NAME' }, value: { header: 'VALUE' } });
   }
 }

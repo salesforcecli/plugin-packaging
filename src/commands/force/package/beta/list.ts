@@ -7,7 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxPropertyKeys } from '@salesforce/core';
-import { listPackages, getPackageAliasesFromId, PackagingSObjects } from '@salesforce/packaging';
+import { listPackages, getPackageAliasesFromId, PackagingSObjects, applyErrorAction } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { CliUx } from '@oclif/core';
 import { QueryResult } from 'jsforce';
@@ -51,7 +51,10 @@ export class PackageListCommand extends SfdxCommand {
 
   public async run(): Promise<Package2Result[]> {
     this.logger = this.logger.child('package:list');
-    const queryResult = await listPackages(this.hubOrg.getConnection());
+    const queryResult = await listPackages(this.hubOrg.getConnection()).catch((err) => {
+      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      throw applyErrorAction(err);
+    });
     this.mapRecordsToResults(queryResult);
     if (!this.flags.json) {
       this.displayResults();
