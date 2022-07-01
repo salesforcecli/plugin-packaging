@@ -890,9 +890,9 @@
     lodash "^4.17.21"
 
 "@oclif/plugin-version@^1.0.4":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-version/-/plugin-version-1.1.0.tgz#c88c32aa1b112b946e2f33ebd783a8e91a43763c"
-  integrity sha512-yyxRWPrd9WWVwv4Ljype5pYAGXR/+RIlfJP3J37uy9bBnMd+TaWbVEWG1wqb1pk1nVGLM18Ux/YvxxfaTPsUUw==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-version/-/plugin-version-1.1.1.tgz#d3de077f604b7d89ac40079bad467eabd9f76666"
+  integrity sha512-KdlnRI25zGA0ahjfTV2pY5tNcnwBStyxd9O3psyrG3ZlmH1Dhp/fjzlAj9BTHB6sSTCVwyhPVzCATN2QaoaIqQ==
   dependencies:
     "@oclif/core" "^1.1.1"
 
