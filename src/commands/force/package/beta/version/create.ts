@@ -59,28 +59,24 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       char: 'r',
       description: messages.getMessage('preserve'),
       longDescription: messages.getMessage('longPreserve'),
-
       hidden: true,
     }),
     validateschema: flags.boolean({
       char: 'j',
       description: messages.getMessage('validateschema'),
       longDescription: messages.getMessage('longValidateschema'),
-
       hidden: true,
     }),
     wait: flags.minutes({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('longWait'),
-
       default: Duration.minutes(0),
     }),
     buildinstance: flags.string({
       char: 's',
       description: messages.getMessage('instance'),
       longDescription: messages.getMessage('longInstance'),
-
       hidden: true,
     }),
     versionname: flags.string({
@@ -102,7 +98,6 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       char: 'c',
       description: messages.getMessage('codeCoverage'),
       longDescription: messages.getMessage('longCodeCoverage'),
-
       default: false,
     }),
     releasenotesurl: flags.url({
@@ -124,13 +119,11 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     skipvalidation: flags.boolean({
       description: messages.getMessage('skipValidation'),
       longDescription: messages.getMessage('skipValidationLong'),
-
       default: false,
     }),
     skipancestorcheck: flags.boolean({
       description: messages.getMessage('skipAncestorCheck'),
       longDescription: messages.getMessage('skipAncestorCheckLong'),
-
       default: false,
     }),
   };

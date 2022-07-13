@@ -42,13 +42,13 @@ Don’t prompt before deleting the package.
 
 Deleted packages can’t be recovered.
 
-Do you want to continue? (y\nn)
+Do you want to continue? (y\n)
 
 # promptUndelete
 
 This will undelete the package, which may result in unintended consequences for customers. Proceed with caution.
 
-Do you want to continue? (y\nn)
+Do you want to continue? (y\n)
 
 # promptDeleteDeny
 
