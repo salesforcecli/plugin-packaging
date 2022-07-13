@@ -77,16 +77,13 @@ export class PackageCreateCommand extends SfdxCommand {
       packageType: this.flags.packagetype as PackageType,
       path: this.flags.path as string,
     };
-    const result: { Id: string } = await createPackage(
-      this.hubOrg,
-      this.hubOrg.getConnection(),
-      this.project,
-      options
-    ).catch((err) => {
-      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
-      err = massageErrorMessage(err);
-      throw applyErrorAction(err);
-    });
+    const result: { Id: string } = await createPackage(this.hubOrg.getConnection(), this.project, options).catch(
+      (err) => {
+        // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+        err = massageErrorMessage(err);
+        throw applyErrorAction(err);
+      }
+    );
     if (!this.flags.json) {
       this.display(result);
     }
