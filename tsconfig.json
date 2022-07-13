@@ -2,12 +2,7 @@
   "extends": "@salesforce/dev-config/tsconfig",
   "compilerOptions": {
     "outDir": "lib",
-    "rootDir": "src",
-    "baseUrl": ".",
-    "paths": {
-      "jsforce": ["node_modules/jsforce"],
-      "@salesforce/core": ["node_modules/@salesforce/core"]
-    }
+    "rootDir": "src"
   },
   "include": ["./src/**/*.ts"]
 }
