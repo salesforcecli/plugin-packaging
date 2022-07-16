@@ -24,7 +24,7 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
       longDescription: messages.getMessage('packageIdLong'),
       required: true,
       validate: (id) => {
-        if (id.startsWith('04t') && id.length === 18) {
+        if (id.startsWith('04t') && [18, 15].includes(id.length)) {
           return true;
         } else {
           throw new SfError(messages.getMessage('packageIdInvalid'));
