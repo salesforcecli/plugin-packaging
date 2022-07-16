@@ -50,8 +50,8 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
           BuildNumber: { header: 'BuildNumber' },
         });
       }
-    } else {
-      return results;
     }
+
+    return results;
   }
 }
