@@ -95,7 +95,7 @@ describe('force:package1:version:create:get', () => {
       assert.fail('the above should throw an erorr, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.equal(
-        'Package upload failed. \nPackage version creation failed with unknown error'
+        'Package upload failed.\nPackage version creation failed with unknown error'
       );
     }
   });
@@ -105,7 +105,7 @@ describe('force:package1:version:create:get', () => {
       await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'ERROR', { errors: [new Error('message1')] });
       assert.fail('the above should throw an erorr, from the ERROR status');
     } catch (e) {
-      expect((e as Error).message).to.equal('Package upload failed. \nmessage1');
+      expect((e as Error).message).to.equal('Package upload failed.\nmessage1');
     }
   });
 
@@ -116,7 +116,7 @@ describe('force:package1:version:create:get', () => {
       });
       assert.fail('the above should throw an erorr, from the ERROR status');
     } catch (e) {
-      expect((e as Error).message).to.equal('Package upload failed. \nmessage1\nmessage2');
+      expect((e as Error).message).to.equal('Package upload failed.\nmessage1\nmessage2');
     }
   });
 });
