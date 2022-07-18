@@ -73,9 +73,8 @@ describe('force:package1:version:create:get', () => {
     const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'IN_PROGRESS');
     expect(result.Status).to.equal('IN_PROGRESS');
     expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.equal(
-      'PackageUploadRequest is still InProgress. You can query the status using\n' +
-        'sfdx force:package1:version:create:get -i undefined -u test@user.com'
+    expect(uxStub.firstCall.args[0]).to.match(
+      /PackageUploadRequest is still InProgress\. You can query the status using\s+sfdx force:package1:version:create:get -i undefined -u test@user\.com/
     );
   });
 
@@ -83,9 +82,8 @@ describe('force:package1:version:create:get', () => {
     const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'QUEUED');
     expect(result.Status).to.equal('QUEUED');
     expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.equal(
-      'PackageUploadRequest has been enqueued. You can query the status using\n' +
-        'sfdx force:package1:version:create:get -i undefined -u test@user.com'
+    expect(uxStub.firstCall.args[0]).to.match(
+      /PackageUploadRequest has been enqueued\. You can query the status using\s+sfdx force:package1:version:create:get -i undefined -u test@user\.com/
     );
   });
 
