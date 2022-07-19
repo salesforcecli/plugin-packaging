@@ -11,7 +11,7 @@
     "@salesforce/command": "^5.1.3",
     "@salesforce/core": "^3.21.1",
     "@salesforce/kit": "^1.5.42",
-    "@salesforce/packaging": "^0.0.3",
+    "@salesforce/packaging": "^0.0.9",
     "tslib": "^2"
   },
   "devDependencies": {
