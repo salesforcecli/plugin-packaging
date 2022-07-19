@@ -9,7 +9,7 @@ import * as path from 'path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { OrgConfigProperties } from '@salesforce/core';
 import { expect } from 'chai';
-import { Package1Display } from '../../../../../packaging';
+import { Package1Display } from '@salesforce/packaging';
 
 describe('package1:version:display', () => {
   let session: TestSession;
