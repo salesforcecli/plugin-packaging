@@ -2,15 +2,11 @@
 
 retrieve the status of a package version creation request
 
-# cliDescriptionLong
-
-Retrieves the status of a package version creation request.
-
-# help
+# examples
 
 Examples:
-$ sfdx force:package:version:create:report -i 08c...
-$ sfdx force:package:version:create:report -i 08c... -v devhub@example.com
+$ sfdx force:package1:version:create:get -i 0HD...
+$ sfdx force:package1:version:create:get -i 0HD... -u devhub@example.com
 
 # requestId
 
