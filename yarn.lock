@@ -725,9 +725,9 @@
     tslib "^2.3.1"
 
 "@oclif/core@^1.0.8", "@oclif/core@^1.1.1", "@oclif/core@^1.10.0", "@oclif/core@^1.2.1", "@oclif/core@^1.3.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.7.0", "@oclif/core@^1.9.9":
-  version "1.10.0"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.10.0.tgz#8da2b19ef0762f86a111d182532c5330e6d52caa"
-  integrity sha512-F1x5ckKWuPwB3dZY07jK7CUmsJTYLAbhVjBrMkOekbJR9lnVgOQG0fQthNsQlj+6wU2JXbbyWWjfgUjRdYl4EA==
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.11.0.tgz#ab437c9a40cea46f5f74c6248f0eea9030b3ac89"
+  integrity sha512-snTdQBd0e3YcG1bVgZiuEajBpsbJ2kP/7FBoMLjTBge7Dbk7jlv31ql/igDdoISoUVmbSy+hEzTaLLIGiLWieQ==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     "@oclif/screen" "^3.0.2"
@@ -1145,10 +1145,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.8.tgz#7d7dd07b294bbea6d010486ef170343964e4eb63"
-  integrity sha512-MDLhw4p3UymvU8XkU/DDAyPMzlzlXEK90gtREZFb82wsxMfFdXr+lC7whZFEQJm3wztibuibeaG7tCHsCAeJ3A==
+"@salesforce/packaging@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.9.tgz#92b0776ec9e42cebea2208d26fd497d72c0884da"
+  integrity sha512-T3a6z5W+PEBEHywueYxAJEdljk03CaxBq1teSTipoP7NO1xF8wepzcFMRRf3/yQJj/NwrwLE4b0i3HTL+yr1Qw==
   dependencies:
     "@salesforce/core" "^3.23.7"
     "@salesforce/kit" "^1.5.42"
@@ -1158,8 +1158,10 @@
     debug "^4.3.4"
     globby "^11"
     js2xmlparser "^4.0.2"
-    jsforce "2.0.0-beta.14"
+    jsforce beta
     jszip "^3.10.0"
+    mkdirp "1.0.4"
+    ts-retry-promise "^0.6.1"
     xml2js "^0.4.23"
     xmldom-sfdx-encoding "^0.1.30"
 
@@ -1202,9 +1204,9 @@
   integrity sha512-76oYf/9Rsn6Yl+awrTQvLaQuRDNX7F3X9ksRiw53OCJdydIF05buX6XLzN0WDWpkCg/asw+lZMuAzbDVS0tBmg==
 
 "@salesforce/source-deploy-retrieve@^6.2.0":
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-6.2.3.tgz#b667b012cc59417c9cb0769961481159d3217d8a"
-  integrity sha512-yVVnHsEGiERMkIA2D4QmbHuU+6dE+xAqlEMGpZy16xX4+iLC6jyqx2uEHr/EjJc9V0wRIJx0f2W0lnNP91JFnA==
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-6.2.4.tgz#6dfd0635a4b7bbba924f195bddbac07728a2dd7a"
+  integrity sha512-6tUbqKv37sEZgEkokKdYTIngzlDlm70sm16nO9jESNS2YkXWzGvqSSR5KDloqc9Tz/vYkRrMeXPpIhLTxCiZWQ==
   dependencies:
     "@salesforce/core" "^3.21.1"
     "@salesforce/kit" "^1.5.41"
@@ -2682,9 +2684,9 @@ concat-map@0.0.1:
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
 concurrently@^7.0.0:
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-7.2.2.tgz#4ad4a4dfd3945f668d727379de2a29502e6a531c"
-  integrity sha512-DcQkI0ruil5BA/g7Xy3EWySGrFJovF5RYAYxwGvv9Jf9q9B1v3jPFP2tl6axExNf1qgF30kjoNYrangZ0ey4Aw==
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/concurrently/-/concurrently-7.3.0.tgz#eb45cdbc8df43da195f619aba218a980cae49184"
+  integrity sha512-IiDwm+8DOcFEInca494A8V402tNTQlJaYq78RF2rijOrKEk/AOHTxhN4U1cp7GYKYX5Q6Ymh1dLTBlzIMN0ikA==
   dependencies:
     chalk "^4.1.0"
     date-fns "^2.16.1"
@@ -3161,9 +3163,9 @@ ejs@^3.1.6:
     jake "^10.8.5"
 
 electron-to-chromium@^1.4.188:
-  version "1.4.192"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.192.tgz#fac050058b3e0713b401a1088cc579e14c2ab165"
-  integrity sha512-8nCXyIQY9An88NXAp+PuPy5h3/w5ZY7Iu2lag65Q0XREprcat5F8gKhoHsBUnQcFuCRnmevpR8yEBYRU3d2HDw==
+  version "1.4.194"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.194.tgz#2f83fcec5067907044a3d502ac7c3efb1fe6430b"
+  integrity sha512-ola5UH0xAP1oYY0FFUsPvwtucEzCQHucXnT7PQ1zjHJMccZhCDktEugI++JUR3YuIs7Ff7afz+OVEhVAIMhLAQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -5055,32 +5057,6 @@ jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
-
-jsforce@2.0.0-beta.14:
-  version "2.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.14.tgz#237753bdabb7e80447b5b266eaefc4abf8b6c951"
-  integrity sha512-j66PaKroshB4VZbfKBAx9+lJy8etFfGG1hGFsI7ufwxvacXxLTAxZwOEZPkYPMigiHrPlEMtIwh5NqwBsIn9HA==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    "@babel/runtime-corejs3" "^7.12.5"
-    "@types/node" "^12.19.9"
-    abort-controller "^3.0.0"
-    base64url "^3.0.1"
-    commander "^4.0.1"
-    core-js "^3.6.4"
-    csv-parse "^4.8.2"
-    csv-stringify "^5.3.4"
-    faye "^1.4.0"
-    form-data "^4.0.0"
-    fs-extra "^8.1.0"
-    https-proxy-agent "^5.0.0"
-    inquirer "^7.0.0"
-    multistream "^3.1.0"
-    node-fetch "^2.6.1"
-    open "^7.0.0"
-    regenerator-runtime "^0.13.3"
-    strip-ansi "^6.0.0"
-    xml2js "^0.4.22"
 
 jsforce@^1.11.0:
   version "1.11.0"
@@ -8087,7 +8063,7 @@ ts-node@^10.0.0, ts-node@^10.8.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-ts-retry-promise@^0.6.0:
+ts-retry-promise@^0.6.0, ts-retry-promise@^0.6.1:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/ts-retry-promise/-/ts-retry-promise-0.6.2.tgz#6925149cd5da40c536f704269232ab3966271d06"
   integrity sha512-QFnm3RuFivgkQGKm8XX7F7sAMQEI7pzVkfSlcWMYH+MoIRy7BI3sE8135YPapP8Fra5KgAuOq2QFT969N14cAw==

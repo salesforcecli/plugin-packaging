@@ -1,12 +1,8 @@
-# longDescription
-
-Displays detailed information about an individual first-generation package version.
-
-# cliDescription
+# description
 
 display details about a first-generation package version
 
-# cliHelp
+# help
 
 Display detailed information about an individual package version, including metadata package ID, name, the release state, and build number.
 
@@ -18,10 +14,6 @@ metadata package version ID (starts with 04t)
 
 ID (starts with 04t) of the metadata package version whose details you want to display.
 
-# humanSuccess
+# packageIdInvalid
 
-Successfully displayed the package version.
-
-# action
-
-Verify that you entered a valid package version ID and try again.
+Verify that you entered a valid package version ID (starts with 04t) and try again.

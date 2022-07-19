@@ -11,7 +11,7 @@
     "@salesforce/command": "^5.2.1",
     "@salesforce/core": "^3.24.0",
     "@salesforce/kit": "^1.5.44",
-    "@salesforce/packaging": "^0.0.8",
+    "@salesforce/packaging": "^0.0.9",
     "tslib": "^2"
   },
   "devDependencies": {
@@ -181,6 +181,7 @@
     "test:command-reference": "./bin/run commandreference:generate --erroronwarnings",
     "test:deprecation-policy": "./bin/run snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
+    "test:nuts:package1": "nyc mocha \"**/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "version": "oclif readme"
   },
   "publishConfig": {
