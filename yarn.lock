@@ -1145,10 +1145,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.8.tgz#7d7dd07b294bbea6d010486ef170343964e4eb63"
-  integrity sha512-MDLhw4p3UymvU8XkU/DDAyPMzlzlXEK90gtREZFb82wsxMfFdXr+lC7whZFEQJm3wztibuibeaG7tCHsCAeJ3A==
+"@salesforce/packaging@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.9.tgz#92b0776ec9e42cebea2208d26fd497d72c0884da"
+  integrity sha512-T3a6z5W+PEBEHywueYxAJEdljk03CaxBq1teSTipoP7NO1xF8wepzcFMRRf3/yQJj/NwrwLE4b0i3HTL+yr1Qw==
   dependencies:
     "@salesforce/core" "^3.23.7"
     "@salesforce/kit" "^1.5.42"
@@ -1158,8 +1158,10 @@
     debug "^4.3.4"
     globby "^11"
     js2xmlparser "^4.0.2"
-    jsforce "2.0.0-beta.14"
+    jsforce beta
     jszip "^3.10.0"
+    mkdirp "1.0.4"
+    ts-retry-promise "^0.6.1"
     xml2js "^0.4.23"
     xmldom-sfdx-encoding "^0.1.30"
 
@@ -5056,32 +5058,6 @@ jsesc@^2.5.1:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
-jsforce@2.0.0-beta.14:
-  version "2.0.0-beta.14"
-  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.14.tgz#237753bdabb7e80447b5b266eaefc4abf8b6c951"
-  integrity sha512-j66PaKroshB4VZbfKBAx9+lJy8etFfGG1hGFsI7ufwxvacXxLTAxZwOEZPkYPMigiHrPlEMtIwh5NqwBsIn9HA==
-  dependencies:
-    "@babel/runtime" "^7.12.5"
-    "@babel/runtime-corejs3" "^7.12.5"
-    "@types/node" "^12.19.9"
-    abort-controller "^3.0.0"
-    base64url "^3.0.1"
-    commander "^4.0.1"
-    core-js "^3.6.4"
-    csv-parse "^4.8.2"
-    csv-stringify "^5.3.4"
-    faye "^1.4.0"
-    form-data "^4.0.0"
-    fs-extra "^8.1.0"
-    https-proxy-agent "^5.0.0"
-    inquirer "^7.0.0"
-    multistream "^3.1.0"
-    node-fetch "^2.6.1"
-    open "^7.0.0"
-    regenerator-runtime "^0.13.3"
-    strip-ansi "^6.0.0"
-    xml2js "^0.4.22"
-
 jsforce@^1.11.0:
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-1.11.0.tgz#7e853b82c534f1fe8e18f432a344bae81881a133"
@@ -8087,7 +8063,7 @@ ts-node@^10.0.0, ts-node@^10.8.1:
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
 
-ts-retry-promise@^0.6.0:
+ts-retry-promise@^0.6.0, ts-retry-promise@^0.6.1:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/ts-retry-promise/-/ts-retry-promise-0.6.2.tgz#6925149cd5da40c536f704269232ab3966271d06"
   integrity sha512-QFnm3RuFivgkQGKm8XX7F7sAMQEI7pzVkfSlcWMYH+MoIRy7BI3sE8135YPapP8Fra5KgAuOq2QFT969N14cAw==
