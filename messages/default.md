@@ -897,11 +897,8 @@ Stopped waiting for package upload to finish. Wait time exceeded. waitTimeInMinu
 
 # package1VersionCreateCommandUploadFailure
 
-Package upload failed. ${os.EOL}%s
-
-# package1VersionCreateCommandUploadFailureDefault
-
-Package version creation failed with unknown error
+Package upload failed.
+%s
 
 # package1VersionCreateHumanSuccess
 
