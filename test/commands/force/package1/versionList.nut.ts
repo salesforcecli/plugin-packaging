@@ -33,7 +33,7 @@ after(async () => {
 });
 
 describe('package1:version:list', () => {
-  it('should list all 1gp packages in dev hub - human readable results', function () {
+  it('should list all 1gp packages in dev hub - human readable results', () => {
     const command = `force:package1:beta:version:list  -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
@@ -42,7 +42,7 @@ describe('package1:version:list', () => {
     );
   });
 
-  it('should list 1gp packages in dev hub - json', function () {
+  it('should list 1gp packages in dev hub - json', () => {
     const command = `force:package1:beta:version:list -u ${usernameOrAlias} --json`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd<Package1Display[]>(command, { ensureExitCode: 0 }).jsonOutput.result[0];
@@ -67,7 +67,7 @@ describe('package1:version:list', () => {
     packageId = execCmd<Package1Display[]>(command, { ensureExitCode: 0 }).jsonOutput.result[0].MetadataPackageId;
   });
 
-  it('should list all 1gp related to the package id - human readable results', function () {
+  it('should list all 1gp related to the package id - human readable results', () => {
     const command = `force:package1:beta:version:list -i ${packageId}  -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
@@ -76,7 +76,7 @@ describe('package1:version:list', () => {
     );
   });
 
-  it('should list 1gp packages in dev hub related to the package id - human readable results - no results', function () {
+  it('should list 1gp packages in dev hub related to the package id - human readable results - no results', () => {
     // fake package ID
     const command = `force:package1:beta:version:list -i 03346000000MrC0AXX -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -84,7 +84,7 @@ describe('package1:version:list', () => {
     expect(output.trim()).to.contain('No Results Found');
   });
 
-  it("should validate packageversionid flag (doesn't start with 033)", function () {
+  it("should validate packageversionid flag (doesn't start with 033)", () => {
     // fake package ID - not an 033 package
     const command = `force:package1:beta:version:list -i 03446000001ZfaAAAS -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -92,7 +92,7 @@ describe('package1:version:list', () => {
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 033) and try again.');
   });
 
-  it('should validate packageversionid flag (too short)', function () {
+  it('should validate packageversionid flag (too short)', () => {
     // fake package ID - not an 033 package
     const command = `force:package1:beta:version:list -i 03346000001Zfa -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -100,7 +100,7 @@ describe('package1:version:list', () => {
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 033) and try again.');
   });
 
-  it('should list 1gp packages in dev hub related to the package id - json', function () {
+  it('should list 1gp packages in dev hub related to the package id - json', () => {
     const command = `force:package1:beta:version:list -i ${packageId} -u ${usernameOrAlias} --json`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd<Package1Display[]>(command, { ensureExitCode: 0 }).jsonOutput.result[0];
