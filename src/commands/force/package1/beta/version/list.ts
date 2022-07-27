@@ -7,7 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfError } from '@salesforce/core';
-import { package1VersionList, Package1Display } from '@salesforce/packaging';
+import { Package1Display, package1VersionList } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_list');
@@ -33,10 +33,8 @@ export class Package1VersionListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    // TODO: remove eslint-disable lines once the `packaging` PR is merged
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
     const result = await package1VersionList(this.org.getConnection(), this.flags.packageid);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,no-unused-expressions
+
     if (result.length) {
       this.ux.table(result, {
         MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
@@ -49,8 +47,6 @@ export class Package1VersionListCommand extends SfdxCommand {
     } else {
       this.ux.log('No Results Found');
     }
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
   }
 }
