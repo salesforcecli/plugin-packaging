@@ -113,3 +113,12 @@ Package version creation failed with unknown error
 # package1VersionCreateHumanSuccess
 
 Successfully created package version: %s for package %s.
+
+# SUCCESS
+
+Successfully uploaded package [%s]
+
+# QUEUED
+
+PackageUploadRequest has been enqueued. You can query the status using
+sfdx force:package1:beta:version:create:get -i %s -u %s

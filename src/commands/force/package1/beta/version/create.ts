@@ -6,7 +6,9 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import { Lifecycle, Messages, SfError } from '@salesforce/core';
+import { Duration } from '@salesforce/kit';
+import { package1VersionCreate, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
@@ -60,15 +62,75 @@ export class Package1VersionCreateCommand extends SfdxCommand {
       description: messages.getMessage('installationKey'),
       longDescription: messages.getMessage('installationKeyLong'),
     }),
-    wait: flags.number({
+    wait: flags.minutes({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('waitLong'),
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<
+    Pick<PackagingSObjects.PackageUploadRequest, 'Status' & 'Id' & 'MetadataPackageId' & 'MetadataPackageVersionId'>
+  > {
+    const version = this.parseVersion(this.flags.version);
+    if (this.flags.wait) {
+      // if we're waiting for the request, set up the listener
+      Lifecycle.getInstance().on(
+        'package1VersionCreate:progress',
+        // the 'on' method requires an async method, but we don't have any async calls
+        // eslint-disable-next-line @typescript-eslint/require-await
+        async (data: { timeout: number; pollingResult: PackagingSObjects.PackageUploadRequest }) => {
+          this.ux.log(
+            `Package upload is ${data.pollingResult.Status === 'QUEUED' ? 'enqueued' : 'in progress'}. Waiting ${
+              data.timeout
+            } more seconds`
+          );
+        }
+      );
+    }
+    // TODO: remove ts-lint disable lines once packaging PR is published and types resolve
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
+    const result: PackagingSObjects.PackageUploadRequest = await package1VersionCreate(
+      this.org.getConnection(),
+      {
+        MetadataPackageId: this.flags.packageid as string,
+        VersionName: this.flags.name as string,
+        Description: this.flags.description as string,
+        MajorVersion: version.major,
+        MinorVersion: version.minor,
+        IsReleaseVersion: this.flags.managedreleased as boolean,
+        ReleaseNotesUrl: this.flags.releasenotesurl as string,
+        PostInstallUrl: this.flags.postinstallurl as string,
+        Password: this.flags.installationkey as string,
+      },
+      { frequency: Duration.seconds(5), timeout: this.flags.wait as Duration }
+    );
+
+    const arg = result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, this.org.getUsername()];
+    this.ux.log(messages.getMessage(result.Status, arg));
+
+    return {
+      Status: result.Status,
+      Id: result.Id,
+      MetadataPackageVersionId: result.MetadataPackageVersionId,
+      MetadataPackageId: result.MetadataPackageId,
+    };
+  }
+
+  private parseVersion(versionString: string): { major: number; minor: number } {
+    const versions = versionString?.split('.');
+    if (!versions) {
+      // return nulls so when no version flag is provided, the server can infer the correct version
+      return { major: null, minor: null };
+    }
+
+    if (versions.length === 2) {
+      return {
+        major: Number(versions[0]),
+        minor: Number(versions[1]),
+      };
+    } else {
+      throw new SfError(messages.getMessage('package1VersionCreateCommandInvalidVersion', [versionString]));
+    }
   }
 }
