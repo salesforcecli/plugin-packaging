@@ -70,7 +70,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
   };
 
   public async run(): Promise<
-    Pick<PackagingSObjects.PackageUploadRequest, 'Status' & 'Id' & 'MetadataPackageId' & 'MetadataPackageVersionId'>
+    Pick<PackagingSObjects.PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
   > {
     const version = this.parseVersion(this.flags.version);
     if (this.flags.wait) {

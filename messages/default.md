@@ -887,10 +887,6 @@ Minutes to wait for the package version to be created. The default is 2 minutes.
 
 Field %s must contain only a numeric value: %s.
 
-# package1VersionCreateCommandInvalidVersion
-
-Version supplied, %s, is not formatted correctly. Enter in major.minor format, for example, 3.2.
-
 # package1VersionCreateCommandTimeout
 
 Stopped waiting for package upload to finish. Wait time exceeded. waitTimeInMinutes = %s.

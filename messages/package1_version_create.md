@@ -114,6 +114,10 @@ Package version creation failed with unknown error
 
 Successfully created package version: %s for package %s.
 
+# package1VersionCreateCommandInvalidVersion
+
+Version supplied, %s, is not formatted correctly. Enter in major.minor format, for example, 3.2.
+
 # SUCCESS
 
 Successfully uploaded package [%s]
