@@ -7,8 +7,10 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfProject } from '@salesforce/core';
+import { Duration } from '@salesforce/kit';
 import { Package, PackagingSObjects, PackageInstallOptions } from '@salesforce/packaging';
-import PackageInstallRequest = PackagingSObjects.PackageInstallRequest; 
+import { ensure } from '@salesforce/ts-types';
+import PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 import PackageInstallCreateRequest = PackagingSObjects.PackageInstallCreateRequest;
 
 Messages.importMessagesDirectory(__dirname);
@@ -75,11 +77,11 @@ export class PackageInstallCommand extends SfdxCommand {
     const pkg = new Package({ connection });
 
     const request: PackageInstallCreateRequest = {
-      SubscriberPackageVersionKey: await this.resolveSubscriberPackageVersionKey(this.flags.package)
+      SubscriberPackageVersionKey: this.resolveSubscriberPackageVersionKey(this.flags.package),
     };
 
     const installOptions: PackageInstallOptions = {
-      pollingTimeout: this.flags.wait,
+      pollingTimeout: ensure<Duration>(this.flags.wait),
     };
 
     return pkg.install(request, installOptions);
@@ -87,11 +89,11 @@ export class PackageInstallCommand extends SfdxCommand {
 
   // Given a package version ID (04t) or an alias for the package,
   // return the package version ID (aka SubscriberPackageVersionKey).
-  private async resolveSubscriberPackageVersionKey(idOrAlias: string): Promise<string> {
+  private resolveSubscriberPackageVersionKey(idOrAlias: string): string {
     if (idOrAlias.startsWith('04t')) {
       return idOrAlias;
     } else {
-      let packageAliases: { [k: string ]: string };
+      let packageAliases: { [k: string]: string };
       try {
         const projectJson = SfProject.getInstance().getSfProjectJson();
         packageAliases = projectJson.getContents().packageAliases ?? {};
@@ -105,7 +107,7 @@ export class PackageInstallCommand extends SfdxCommand {
       if (!id.startsWith('04t')) {
         // throw InvalidSubscriberPackageVersion - doesn't start with 04t
       }
-      if ([15,18].includes(id.length)) {
+      if ([15, 18].includes(id.length)) {
         // throw InvalidSubscriberPackageVersion - incorrect length
       }
       return id;
