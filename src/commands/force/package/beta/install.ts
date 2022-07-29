@@ -6,7 +6,10 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import { Messages, SfProject } from '@salesforce/core';
+import { Package, PackagingSObjects, PackageInstallOptions } from '@salesforce/packaging';
+import PackageInstallRequest = PackagingSObjects.PackageInstallRequest; 
+import PackageInstallCreateRequest = PackagingSObjects.PackageInstallCreateRequest;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
@@ -42,12 +45,12 @@ export class PackageInstallCommand extends SfdxCommand {
       char: 'p',
       description: messages.getMessage('package'),
       longDescription: messages.getMessage('packageLong'),
+      required: true,
     }),
     apexcompile: flags.enum({
       char: 'a',
       description: messages.getMessage('apexCompile'),
       longDescription: messages.getMessage('apexCompileLong'),
-
       default: 'all',
       options: ['all', 'package'],
     }),
@@ -55,7 +58,6 @@ export class PackageInstallCommand extends SfdxCommand {
       char: 's',
       description: messages.getMessage('securityType'),
       longDescription: messages.getMessage('securityTypeLong'),
-
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
@@ -63,14 +65,50 @@ export class PackageInstallCommand extends SfdxCommand {
       char: 't',
       description: messages.getMessage('upgradeType'),
       longDescription: messages.getMessage('upgradeTypeLong'),
-
       default: 'Mixed',
       options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageInstallRequest> {
+    const connection = this.org.getConnection();
+    const pkg = new Package({ connection });
+
+    const request: PackageInstallCreateRequest = {
+      SubscriberPackageVersionKey: await this.resolveSubscriberPackageVersionKey(this.flags.package)
+    };
+
+    const installOptions: PackageInstallOptions = {
+      pollingTimeout: this.flags.wait,
+    };
+
+    return pkg.install(request, installOptions);
+  }
+
+  // Given a package version ID (04t) or an alias for the package,
+  // return the package version ID (aka SubscriberPackageVersionKey).
+  private async resolveSubscriberPackageVersionKey(idOrAlias: string): Promise<string> {
+    if (idOrAlias.startsWith('04t')) {
+      return idOrAlias;
+    } else {
+      let packageAliases: { [k: string ]: string };
+      try {
+        const projectJson = SfProject.getInstance().getSfProjectJson();
+        packageAliases = projectJson.getContents().packageAliases ?? {};
+      } catch (e) {
+        // If not within a package, provide that error
+      }
+      const id = packageAliases[idOrAlias];
+      if (!id) {
+        // throw NotFound error
+      }
+      if (!id.startsWith('04t')) {
+        // throw InvalidSubscriberPackageVersion - doesn't start with 04t
+      }
+      if ([15,18].includes(id.length)) {
+        // throw InvalidSubscriberPackageVersion - incorrect length
+      }
+      return id;
+    }
   }
 }
