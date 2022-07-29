@@ -183,7 +183,7 @@
     "test:command-reference": "./bin/run commandreference:generate --erroronwarnings",
     "test:deprecation-policy": "./bin/run snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
-    "test:nuts:package1": "nyc mocha \"**/package1/*.nut.ts\" --slow 4500 --timeout 600000",
+    "test:nuts:package1": "nyc mocha \"**/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "version": "oclif readme"
   },
   "publishConfig": {

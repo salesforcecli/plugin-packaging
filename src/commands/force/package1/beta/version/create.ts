@@ -6,7 +6,7 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Lifecycle, Messages, SfError } from '@salesforce/core';
+import { Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import { package1VersionCreate, PackagingSObjects } from '@salesforce/packaging';
 
@@ -69,9 +69,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<
-    Pick<PackagingSObjects.PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
-  > {
+  public async run(): Promise<PackagingSObjects.PackageUploadRequest> {
     const version = this.parseVersion(this.flags.version);
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
@@ -103,18 +101,13 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         PostInstallUrl: this.flags.postinstallurl as string,
         Password: this.flags.installationkey as string,
       },
-      { frequency: Duration.seconds(5), timeout: this.flags.wait as Duration }
+      { frequency: Duration.seconds(5), timeout: (this.flags.wait as Duration) ?? Duration.seconds(0) }
     );
 
     const arg = result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, this.org.getUsername()];
     this.ux.log(messages.getMessage(result.Status, arg));
 
-    return {
-      Status: result.Status,
-      Id: result.Id,
-      MetadataPackageVersionId: result.MetadataPackageVersionId,
-      MetadataPackageId: result.MetadataPackageId,
-    };
+    return result;
   }
 
   private parseVersion(versionString: string): { major: number; minor: number } {
@@ -130,7 +123,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         minor: Number(versions[1]),
       };
     } else {
-      throw new SfError(messages.getMessage('package1VersionCreateCommandInvalidVersion', [versionString]));
+      throw messages.createError('package1VersionCreateCommandInvalidVersion', [versionString]);
     }
   }
 }

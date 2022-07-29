@@ -25,7 +25,7 @@ const pollUntilComplete = async (id: string): Promise<PackagingSObjects.PackageU
   }
 };
 
-describe.only('package1:version:create', () => {
+describe('package1:version:create', () => {
   let session: TestSession;
   let packageId: string;
   before(async () => {
