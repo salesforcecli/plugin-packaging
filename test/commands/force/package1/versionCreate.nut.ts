@@ -11,12 +11,12 @@ import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
 import { sleep } from '@salesforce/kit';
+type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
-const pollUntilComplete = async (id: string): Promise<PackagingSObjects.PackageUploadRequest> => {
-  const result = execCmd<PackagingSObjects.PackageUploadRequest>(
-    `force:package1:beta:version:create:get -i ${id} -u 1gp --json`,
-    { ensureExitCode: 0 }
-  ).jsonOutput.result;
+const pollUntilComplete = async (id: string): Promise<PackageUploadRequest> => {
+  const result = execCmd<PackageUploadRequest>(`force:package1:beta:version:create:get -i ${id} -u 1gp --json`, {
+    ensureExitCode: 0,
+  }).jsonOutput.result;
   if (result.Status === 'SUCCESS') {
     return result;
   } else {
@@ -61,7 +61,7 @@ describe('package1:version:create', () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -w 5 -u 1gp`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd<
-      Pick<PackagingSObjects.PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
+      Pick<PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
     >(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('SUCCESS');
     expect(output.Id).to.be.a('string');
@@ -87,7 +87,7 @@ describe('package1:version:create', () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -u 1gp`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd<
-      Pick<PackagingSObjects.PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
+      Pick<PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
     >(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('QUEUED');
     expect(output.Id).to.be.a('string');

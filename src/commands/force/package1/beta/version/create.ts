@@ -13,6 +13,8 @@ import { package1VersionCreate, PackagingSObjects } from '@salesforce/packaging'
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
 
+type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
+
 export class Package1VersionCreateCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
@@ -69,7 +71,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<PackagingSObjects.PackageUploadRequest> {
+  public async run(): Promise<PackageUploadRequest> {
     const version = this.parseVersion(this.flags.version);
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
@@ -77,7 +79,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         'package1VersionCreate:progress',
         // the 'on' method requires an async method, but we don't have any async calls
         // eslint-disable-next-line @typescript-eslint/require-await
-        async (data: { timeout: number; pollingResult: PackagingSObjects.PackageUploadRequest }) => {
+        async (data: { timeout: number; pollingResult: PackageUploadRequest }) => {
           this.ux.log(
             `Package upload is ${data.pollingResult.Status === 'QUEUED' ? 'enqueued' : 'in progress'}. Waiting ${
               data.timeout
@@ -88,7 +90,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     }
     // TODO: remove ts-lint disable lines once packaging PR is published and types resolve
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
-    const result: PackagingSObjects.PackageUploadRequest = await package1VersionCreate(
+    const result: PackageUploadRequest = await package1VersionCreate(
       this.org.getConnection(),
       {
         MetadataPackageId: this.flags.packageid as string,
