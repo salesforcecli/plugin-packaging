@@ -25,3 +25,7 @@ Successfully created the package version list.
 # action
 
 Verify that you entered a valid package ID and that you are authorized in the org. Then try again.
+
+# packageIdInvalid
+
+Verify that you entered a valid package version ID (starts with 033) and try again.
