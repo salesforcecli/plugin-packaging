@@ -88,8 +88,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         }
       );
     }
-    // TODO: remove ts-lint disable lines once packaging PR is published and types resolve
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
+
     const result: PackageUploadRequest = await package1VersionCreate(
       this.org.getConnection(),
       {

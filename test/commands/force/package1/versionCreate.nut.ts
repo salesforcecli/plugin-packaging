@@ -59,10 +59,7 @@ describe('package1:version:create', () => {
 
   it(`should create a new 1gp package version for package id ${packageId} and wait (json)`, function () {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -w 5 -u 1gp`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd<
-      Pick<PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
-    >(command, { ensureExitCode: 0 }).jsonOutput.result;
+    const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('SUCCESS');
     expect(output.Id).to.be.a('string');
     expect(output.MetadataPackageId).to.be.a('string');
@@ -85,10 +82,7 @@ describe('package1:version:create', () => {
 
   it(`should create a new 1gp package version for package id ${packageId} (json)`, async function () {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -u 1gp`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd<
-      Pick<PackageUploadRequest, 'Status' | 'Id' | 'MetadataPackageId' | 'MetadataPackageVersionId'>
-    >(command, { ensureExitCode: 0 }).jsonOutput.result;
+    const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('QUEUED');
     expect(output.Id).to.be.a('string');
     expect(output.MetadataPackageId).to.be.a('string');
