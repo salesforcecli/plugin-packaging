@@ -43,7 +43,7 @@ describe('package1:version:create', () => {
   });
 
   after(async () => {
-    await fs.promises.rm('authUrl.txt');
+    if (fs.existsSync('authUrl.txt')) await fs.promises.rm('authUrl.txt');
     await session?.clean();
   });
 
