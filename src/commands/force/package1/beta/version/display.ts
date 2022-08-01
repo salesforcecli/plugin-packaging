@@ -8,7 +8,6 @@
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfError } from '@salesforce/core';
 import { Package1Display, package1Display } from '@salesforce/packaging';
-import { CliUx } from '@oclif/core';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_display');
@@ -37,19 +36,17 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
     const conn = this.org.getConnection();
     const results = await package1Display(conn, this.flags.packageversionid);
 
-    if (!this.flags.json) {
-      if (results.length === 0) {
-        CliUx.ux.log('No results found');
-      } else {
-        CliUx.ux.table(results, {
-          MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
-          MetadataPackageId: { header: 'MetadataPackageId' },
-          Name: { header: 'Name' },
-          Version: { header: 'Version' },
-          ReleaseState: { header: 'ReleaseState' },
-          BuildNumber: { header: 'BuildNumber' },
-        });
-      }
+    if (results.length === 0) {
+      this.ux.log('No results found');
+    } else {
+      this.ux.table(results, {
+        MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
+        MetadataPackageId: { header: 'MetadataPackageId' },
+        Name: { header: 'Name' },
+        Version: { header: 'Version' },
+        ReleaseState: { header: 'ReleaseState' },
+        BuildNumber: { header: 'BuildNumber' },
+      });
     }
 
     return results;

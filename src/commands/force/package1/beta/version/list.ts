@@ -6,7 +6,8 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import { Messages, SfError } from '@salesforce/core';
+import { Package1Display, package1VersionList } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_list');
@@ -15,18 +16,37 @@ export class Package1VersionListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('longDescription');
   public static readonly help = messages.getMessage('cliHelp');
-  public static readonly supportsUsername = true;
-  public static readonly requiresProject = true;
+  public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     packageid: flags.id({
       char: 'i',
       description: messages.getMessage('packageId'),
       longDescription: messages.getMessage('packageIdLong'),
+      validate: (id) => {
+        if (id.startsWith('033') && [18, 15].includes(id.length)) {
+          return true;
+        } else {
+          throw new SfError(messages.getMessage('packageIdInvalid'));
+        }
+      },
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<Package1Display[]> {
+    const result = await package1VersionList(this.org.getConnection(), this.flags.packageid);
+
+    if (result.length) {
+      this.ux.table(result, {
+        MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
+        MetadataPackageId: { header: 'MetadataPackageId' },
+        Name: { header: 'Name' },
+        Version: { header: 'Version' },
+        ReleaseState: { header: 'ReleaseState' },
+        BuildNumber: { header: 'BuildNumber' },
+      });
+    } else {
+      this.ux.log('No Results Found');
+    }
+    return result;
   }
 }

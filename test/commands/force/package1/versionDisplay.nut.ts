@@ -33,7 +33,7 @@ describe('package1:version:display', () => {
     await session?.clean();
   });
 
-  it('should list 1gp packages in dev hub - human readable results', function () {
+  it('should list 1gp packages in dev hub - human readable results', () => {
     const command = `force:package1:beta:version:display -i ${packageVersionId} -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
@@ -42,7 +42,7 @@ describe('package1:version:display', () => {
     );
   });
 
-  it('should list 1gp packages in dev hub - human readable results - no results', function () {
+  it('should list 1gp packages in dev hub - human readable results - no results', () => {
     // fake package ID
     const command = `force:package1:beta:version:display -i 04t46000001ZfaXXXX -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -50,7 +50,7 @@ describe('package1:version:display', () => {
     expect(output).to.contain('No results found');
   });
 
-  it('should validate packageversionid flag (too short)', function () {
+  it('should validate packageversionid flag (too short)', () => {
     // fake package ID - too short
     const command = `force:package1:beta:version:display -i 04t46000001Zfa -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -58,7 +58,7 @@ describe('package1:version:display', () => {
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 04t) and try again.');
   });
 
-  it("should validate packageversionid flag (doesn't start with 04t)", function () {
+  it("should validate packageversionid flag (doesn't start with 04t)", () => {
     // fake package ID - not an 04t package
     const command = `force:package1:beta:version:display -i 05t46000001ZfaAAAS -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -66,7 +66,7 @@ describe('package1:version:display', () => {
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 04t) and try again.');
   });
 
-  it('should list 1gp packages in dev hub - json', function () {
+  it('should list 1gp packages in dev hub - json', () => {
     const command = `force:package1:beta:version:display -i ${packageVersionId} -u ${usernameOrAlias} --json`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd<Package1Display[]>(command, { ensureExitCode: 0 }).jsonOutput.result[0];
