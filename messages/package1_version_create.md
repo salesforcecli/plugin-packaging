@@ -113,3 +113,16 @@ Package version creation failed with unknown error
 # package1VersionCreateHumanSuccess
 
 Successfully created package version: %s for package %s.
+
+# package1VersionCreateCommandInvalidVersion
+
+Version supplied, %s, is not formatted correctly. Enter in major.minor format, for example, 3.2.
+
+# SUCCESS
+
+Successfully uploaded package [%s]
+
+# QUEUED
+
+PackageUploadRequest has been enqueued. You can query the status using
+sfdx force:package1:beta:version:create:get -i %s -u %s
