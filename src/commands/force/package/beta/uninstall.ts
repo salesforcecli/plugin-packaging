@@ -35,7 +35,7 @@ export class PackageUninstallCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
+  public async run(): Promise<UninstallResult> {
     // no awaits in async method
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on('packageUninstall', async (data: UninstallResult) => {
