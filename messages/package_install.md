@@ -56,13 +56,13 @@ This package might send or receive data from these third-party websites:
 
 %s
 
-Grant access (y\nn)?
+Grant access (y/n)?
 
 # promptUpgradeType
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
 
-Do you want to continue? (y\nn)
+Do you want to continue? (y/n)
 
 # promptUpgradeTypeDeny
 
@@ -76,13 +76,13 @@ number of minutes to wait for subscriber package version ID to become available 
 
 Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.
 
-# humanSuccess
+# packageInstallSuccess
 
-Successfully installed package ID %s.
+Successfully installed package [%s]
 
 # publishWaitProgress
 
-Waiting for the Subscriber Package Version ID to be published to the target org.
+Waiting for the Subscriber Package Version ID to be published to the target org.%s
 
 # errorApvIdNotPublished
 
@@ -103,7 +103,6 @@ security access type for the installed package (deprecation notice: The default 
 # securityTypeLong
 
 Security access type for the installed package.
-Deprecation notice: The --securitytype parameter's default value will change from AllUsers to AdminsOnly in an upcoming release (v47.0 or later).
 
 # upgradeType
 
@@ -123,14 +122,61 @@ Applies to unlocked packages only. Specifies whether to compile all Apex in the 
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
 This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apexcompile package is specified.
 
-# errorRequiredFlags
+# projectNotFound
 
-Include either a %s value or a %s value.
+Could not find the sfdx-project.json for subscriber package version: [%s]
 
-# invalidIdOrPackage
+# projectNotFound.actions
 
-Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.
+Are you running the command from within the project directory when using an alias?
 
-# deprecateSecurityTypeDefault
+# packageAliasNotFound
 
-[Deprecation notice: The --securitytype parameter's default value will change from AllUsers to AdminsOnly in an upcoming release (v47.0 or later).]
+The subscriber package version alias: [%s] isn't defined in the sfdx-project.json.
+
+# packageAliasNotFound.actions
+
+Add it to the packageDirectories section and add the alias to packageAliases with its 04t ID.
+
+# invalidPackageId
+
+The subscriber package version ID: [%s] is invalid. It must start with "04t".
+
+# invalidIdLength
+
+The subscriber package version ID: [%s] is invalid. It must be either 15 or 18 characters.
+
+# promptEnableRss
+
+This package might send or receive data from these third-party websites:
+
+[%s]
+
+Grant access (y/n)?
+
+# promptUpgradeType
+
+The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
+
+Do you want to continue? (y/n)
+
+# promptUpgradeTypeDeny
+
+We canceled this package installation per your request.
+
+# apiVersionTooLow
+
+This command is supported only on API versions 36.0 and higher
+
+# packageInstallPolling
+
+Waiting for the package install request to complete. Status = %s
+
+# packageInstallInProgress
+
+PackageInstallRequest is currently InProgress. You can continue to query the status using
+sfdx force:package:install:report -i %s -u %s
+
+# packageInstallError
+
+Encountered errors installing the package! %s

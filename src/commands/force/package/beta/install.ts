@@ -6,17 +6,27 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfProject } from '@salesforce/core';
+import { Lifecycle, Messages, SfProject, SfError, Connection } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
-import { Package, PackagingSObjects, PackageInstallOptions } from '@salesforce/packaging';
-import { ensure } from '@salesforce/ts-types';
-import PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
-import PackageInstallCreateRequest = PackagingSObjects.PackageInstallCreateRequest;
+import {
+  Package,
+  PackagingSObjects,
+  PackageInstallOptions,
+  getPackageTypeBy04t,
+  PackageInstallCreateRequest,
+} from '@salesforce/packaging';
+import { QueryResult } from 'jsforce';
+type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
+type SubscriberPackageVersion = PackagingSObjects.SubscriberPackageVersion;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
-export class PackageInstallCommand extends SfdxCommand {
+// maps of command flag values to PackageInstallRequest values
+const securityType = { AllUsers: 'full', AdminsOnly: 'none' };
+const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mixed: 'mixed-mode' };
+
+export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly help = messages.getMessage('help');
@@ -72,45 +82,171 @@ export class PackageInstallCommand extends SfdxCommand {
     }),
   };
 
+  private connection: Connection;
+  private pkg: Package;
+
   public async run(): Promise<PackageInstallRequest> {
-    const connection = this.org.getConnection();
-    const pkg = new Package({ connection });
+    const noPrompt = this.flags.noprompt as boolean;
+    const connection = (this.connection = this.org.getConnection());
+    const pkg = (this.pkg = new Package({ connection }));
+
+    const apiVersion = parseInt(connection.getApiVersion(), 10);
+    if (apiVersion < 36) {
+      throw messages.createError('apiVersionTooLow');
+    }
 
     const request: PackageInstallCreateRequest = {
       SubscriberPackageVersionKey: this.resolveSubscriberPackageVersionKey(this.flags.package),
+      Password: this.flags.installationkey as PackageInstallCreateRequest['Password'],
+      ApexCompileType: this.flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
+      SecurityType: securityType[this.flags.securitytype as string] as PackageInstallCreateRequest['SecurityType'],
+      UpgradeType: upgradeType[this.flags.upgradetype as string] as PackageInstallCreateRequest['UpgradeType'],
     };
 
-    const installOptions: PackageInstallOptions = {
-      pollingTimeout: ensure<Duration>(this.flags.wait),
-    };
+    // eslint-disable-next-line @typescript-eslint/require-await
+    Lifecycle.getInstance().on('PackageInstallRequest:warning', async (warningMsg: string) => {
+      this.display(warningMsg);
+    });
 
-    return pkg.install(request, installOptions);
+    // If the user has specified --upgradetype Delete, then prompt for confirmation
+    // unless the noprompt option has been included.
+    if (this.flags.upgradetype === 'Delete') {
+      await this.confirmUpgradeType(request, noPrompt);
+    }
+
+    // If the package has external sites, ask the user for permission to enable them
+    // unless the noprompt option has been included.
+    await this.confirmExternalSites(request, noPrompt);
+
+    if (this.flags.publishwait) {
+      await this.waitForPublish(request);
+    }
+
+    let installOptions: PackageInstallOptions;
+    if (this.flags.wait) {
+      installOptions = {
+        pollingTimeout: this.flags.wait as Duration,
+      };
+
+      if (!this.flags.json) {
+        // eslint-disable-next-line @typescript-eslint/require-await
+        Lifecycle.getInstance().on('PackageInstallRequest:status', async (piRequest: PackageInstallRequest) => {
+          this.ux.log(messages.getMessage('packageInstallPolling', [piRequest?.Status]));
+        });
+      }
+    }
+
+    const pkgInstallRequest = await pkg.install(request, installOptions);
+    const { Status } = pkgInstallRequest;
+    if (Status === 'SUCCESS') {
+      this.display(messages.getMessage('packageInstallSuccess', [this.flags.package]));
+    } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
+      this.display(messages.getMessage('packageInstallInProgress', [pkgInstallRequest.Id, this.org.getUsername()]));
+    } else {
+      throw messages.createError('packageInstallError', [this.parseInstallErrors(pkgInstallRequest)]);
+    }
+
+    return pkgInstallRequest;
   }
 
-  // Given a package version ID (04t) or an alias for the package,
+  private display(message: string): void {
+    if (!this.flags.json) {
+      this.ux.log(message);
+    }
+  }
+
+  private async confirmUpgradeType(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
+    const pkgType = await getPackageTypeBy04t(request.SubscriberPackageVersionKey, this.connection, request.Password);
+    if (pkgType === 'Unlocked' && !noPrompt) {
+      const promptMsg = messages.getMessage('promptUpgradeType');
+      if (!(await this.ux.confirm(promptMsg))) {
+        throw messages.createError('promptUpgradeTypeDeny');
+      }
+    }
+  }
+
+  private async confirmExternalSites(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
+    const extSites = await this.pkg.getExternalSites(request.SubscriberPackageVersionKey);
+    if (extSites) {
+      let enableRss = true;
+      if (!noPrompt) {
+        const promptMsg = messages.getMessage('promptEnableRss', [extSites.join('\n')]);
+        enableRss = await this.ux.confirm(promptMsg);
+      }
+      if (enableRss) {
+        request.EnableRss = enableRss;
+      }
+    }
+  }
+
+  private async waitForPublish(request: PackageInstallCreateRequest): Promise<void> {
+    if (!this.flags.json) {
+      // eslint-disable-next-line @typescript-eslint/require-await
+      Lifecycle.getInstance().on('SubscriberPackageVersion:status', async (status: string) => {
+        const tokens = status ? [` Status = ${status}`] : [];
+        this.ux.log(messages.getMessage('publishWaitProgress', tokens));
+      });
+    }
+
+    // wait for the Subscriber Package Version ID to become available in the target org
+    try {
+      await this.pkg.waitForPublish(request.SubscriberPackageVersionKey, this.flags.publishwait);
+    } catch (err) {
+      const error = err instanceof SfError ? err : SfError.wrap(err);
+      // If an uninstall is in progress, allow install to proceed which will result in an
+      // appropriate UninstallInProgressProblem error message being displayed.
+      const queryResult = error.data as QueryResult<SubscriberPackageVersion>;
+      if (queryResult) {
+        const pkgVersion = queryResult.records[0];
+        if (pkgVersion.InstallValidationStatus !== 'UNINSTALL_IN_PROGRESS') {
+          throw error;
+        }
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  private parseInstallErrors(request: PackageInstallRequest): string {
+    const errors = request?.Errors?.errors;
+    if (errors?.length) {
+      let errorMessage = 'Installation errors: ';
+      for (let i = 0; i < errors.length; i++) {
+        errorMessage += `\n${i + 1}) ${errors[i].message}`;
+      }
+      return errorMessage;
+    }
+    return '<empty>';
+  }
+
+  // Given a package version ID (04t) or an alias for the package, validate and
   // return the package version ID (aka SubscriberPackageVersionKey).
   private resolveSubscriberPackageVersionKey(idOrAlias: string): string {
+    let resolvedId: string;
+
     if (idOrAlias.startsWith('04t')) {
-      return idOrAlias;
+      resolvedId = idOrAlias;
     } else {
       let packageAliases: { [k: string]: string };
       try {
         const projectJson = SfProject.getInstance().getSfProjectJson();
         packageAliases = projectJson.getContents().packageAliases ?? {};
       } catch (e) {
-        // If not within a package, provide that error
+        throw messages.createError('projectNotFound', [idOrAlias]);
       }
-      const id = packageAliases[idOrAlias];
-      if (!id) {
-        // throw NotFound error
+      resolvedId = packageAliases[idOrAlias];
+      if (!resolvedId) {
+        throw messages.createError('packageAliasNotFound', [idOrAlias]);
       }
-      if (!id.startsWith('04t')) {
-        // throw InvalidSubscriberPackageVersion - doesn't start with 04t
+      if (!resolvedId.startsWith('04t')) {
+        throw messages.createError('invalidPackageId', [resolvedId]);
       }
-      if ([15, 18].includes(id.length)) {
-        // throw InvalidSubscriberPackageVersion - incorrect length
-      }
-      return id;
     }
+
+    if (![15, 18].includes(resolvedId.length)) {
+      throw messages.createError('invalidIdLength', [resolvedId]);
+    }
+
+    return resolvedId;
   }
 }
