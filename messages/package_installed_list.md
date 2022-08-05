@@ -15,31 +15,3 @@ $ sfdx force:package:installed:list -u me@example.com
 # username
 
 a username or alias for the target org
-
-# id
-
-ID
-
-# subscriberPackageId
-
-Package ID
-
-# subscriberPackageName
-
-Package Name
-
-# subscriberPackageNamespace
-
-Namespace
-
-# subscriberPackageVersionId
-
-Package Version ID
-
-# subscriberPackageVersionName
-
-Version Name
-
-# subscriberPackageVersionNumber
-
-Version
