@@ -138,14 +138,6 @@ The subscriber package version alias: [%s] isn't defined in the sfdx-project.jso
 
 Add it to the packageDirectories section and add the alias to packageAliases with its 04t ID.
 
-# invalidPackageId
-
-The subscriber package version ID: [%s] is invalid. It must start with "04t".
-
-# invalidIdLength
-
-The subscriber package version ID: [%s] is invalid. It must be either 15 or 18 characters.
-
 # promptEnableRss
 
 This package might send or receive data from these third-party websites:

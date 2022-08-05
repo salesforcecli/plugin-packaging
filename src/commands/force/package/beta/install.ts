@@ -87,10 +87,10 @@ export class Install extends SfdxCommand {
 
   public async run(): Promise<PackageInstallRequest> {
     const noPrompt = this.flags.noprompt as boolean;
-    const connection = (this.connection = this.org.getConnection());
-    const pkg = (this.pkg = new Package({ connection }));
+    this.connection = this.org.getConnection();
+    this.pkg = new Package({ connection: this.connection });
 
-    const apiVersion = parseInt(connection.getApiVersion(), 10);
+    const apiVersion = parseInt(this.connection.getApiVersion(), 10);
     if (apiVersion < 36) {
       throw messages.createError('apiVersionTooLow');
     }
@@ -105,7 +105,7 @@ export class Install extends SfdxCommand {
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on('PackageInstallRequest:warning', async (warningMsg: string) => {
-      this.display(warningMsg);
+      this.ux.log(warningMsg);
     });
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation
@@ -128,31 +128,23 @@ export class Install extends SfdxCommand {
         pollingTimeout: this.flags.wait as Duration,
       };
 
-      if (!this.flags.json) {
-        // eslint-disable-next-line @typescript-eslint/require-await
-        Lifecycle.getInstance().on('PackageInstallRequest:status', async (piRequest: PackageInstallRequest) => {
-          this.ux.log(messages.getMessage('packageInstallPolling', [piRequest?.Status]));
-        });
-      }
+      // eslint-disable-next-line @typescript-eslint/require-await
+      Lifecycle.getInstance().on('PackageInstallRequest:status', async (piRequest: PackageInstallRequest) => {
+        this.ux.log(messages.getMessage('packageInstallPolling', [piRequest?.Status]));
+      });
     }
 
-    const pkgInstallRequest = await pkg.install(request, installOptions);
+    const pkgInstallRequest = await this.pkg.install(request, installOptions);
     const { Status } = pkgInstallRequest;
     if (Status === 'SUCCESS') {
-      this.display(messages.getMessage('packageInstallSuccess', [this.flags.package]));
+      this.ux.log(messages.getMessage('packageInstallSuccess', [this.flags.package]));
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
-      this.display(messages.getMessage('packageInstallInProgress', [pkgInstallRequest.Id, this.org.getUsername()]));
+      this.ux.log(messages.getMessage('packageInstallInProgress', [pkgInstallRequest.Id, this.org.getUsername()]));
     } else {
       throw messages.createError('packageInstallError', [this.parseInstallErrors(pkgInstallRequest)]);
     }
 
     return pkgInstallRequest;
-  }
-
-  private display(message: string): void {
-    if (!this.flags.json) {
-      this.ux.log(message);
-    }
   }
 
   private async confirmUpgradeType(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
@@ -180,13 +172,11 @@ export class Install extends SfdxCommand {
   }
 
   private async waitForPublish(request: PackageInstallCreateRequest): Promise<void> {
-    if (!this.flags.json) {
-      // eslint-disable-next-line @typescript-eslint/require-await
-      Lifecycle.getInstance().on('SubscriberPackageVersion:status', async (status: string) => {
-        const tokens = status ? [` Status = ${status}`] : [];
-        this.ux.log(messages.getMessage('publishWaitProgress', tokens));
-      });
-    }
+    // eslint-disable-next-line @typescript-eslint/require-await
+    Lifecycle.getInstance().on('SubscriberPackageVersion:status', async (status: string) => {
+      const tokens = status ? [` Status = ${status}`] : [];
+      this.ux.log(messages.getMessage('publishWaitProgress', tokens));
+    });
 
     // wait for the Subscriber Package Version ID to become available in the target org
     try {
@@ -225,6 +215,7 @@ export class Install extends SfdxCommand {
     let resolvedId: string;
 
     if (idOrAlias.startsWith('04t')) {
+      Package.validateId(idOrAlias, 'SubscriberPackageVersionId');
       resolvedId = idOrAlias;
     } else {
       let packageAliases: { [k: string]: string };
@@ -238,13 +229,7 @@ export class Install extends SfdxCommand {
       if (!resolvedId) {
         throw messages.createError('packageAliasNotFound', [idOrAlias]);
       }
-      if (!resolvedId.startsWith('04t')) {
-        throw messages.createError('invalidPackageId', [resolvedId]);
-      }
-    }
-
-    if (![15, 18].includes(resolvedId.length)) {
-      throw messages.createError('invalidIdLength', [resolvedId]);
+      Package.validateId(resolvedId, 'SubscriberPackageVersionId');
     }
 
     return resolvedId;
