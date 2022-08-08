@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Org } from '@salesforce/core';
+import { Org, SfProject } from '@salesforce/core';
 import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
@@ -23,6 +23,9 @@ class TestCommand extends PackageUninstallCommand {
   }
   public setOrg(org: Org) {
     this.org = org;
+  }
+  public setProject(project: SfProject) {
+    this.project = project;
   }
 }
 
@@ -58,9 +61,9 @@ const runCmd = async (params: string[], status: string) => {
     );
     cmd.setOrg(orgStub);
   });
-  const res = cmd.runIt();
+  cmd.setProject(SfProject.getInstance());
 
-  return res;
+  return cmd.runIt();
 };
 
 describe('force:package:uninstall', () => {

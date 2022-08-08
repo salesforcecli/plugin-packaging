@@ -46,8 +46,7 @@ export class PackageUninstallCommand extends SfdxCommand {
     if (!packageId.startsWith('04t')) {
       throw messages.createError('invalidIdOrPackage', [packageId]);
     }
-    // TODO: fix type once packaging PR is published
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-assignment
+
     const result: UninstallResult = await uninstallPackage(packageId, this.org.getConnection(), this.flags.wait);
     const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
     this.ux.log(messages.getMessage(result.Status, arg));
