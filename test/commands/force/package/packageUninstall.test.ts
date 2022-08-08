@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import * as os from 'os';
 import { Org, SfProject } from '@salesforce/core';
 import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
@@ -83,8 +84,7 @@ describe('force:package:uninstall', () => {
     expect(result.Status).to.equal('InProgress');
     expect(uxStub.callCount).to.equal(1);
     expect(uxStub.firstCall.args[0]).to.equal(
-      `PackageUninstallRequest is currently InProgress.
-You can continue to query the status using sfdx force:package:beta:uninstall:report -i 06y23000000002MXXX -u test@user.com`
+      `PackageUninstallRequest is currently InProgress.${os.EOL}You can continue to query the status using sfdx force:package:beta:uninstall:report -i 06y23000000002MXXX -u test@user.com`
     );
   });
 
