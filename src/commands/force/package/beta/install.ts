@@ -15,6 +15,7 @@ import {
   getPackageTypeBy04t,
   PackageInstallCreateRequest,
 } from '@salesforce/packaging';
+import { Optional } from '@salesforce/ts-types';
 import { QueryResult } from 'jsforce';
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 type SubscriberPackageVersion = PackagingSObjects.SubscriberPackageVersion;
@@ -145,6 +146,14 @@ export class Install extends SfdxCommand {
     }
 
     return pkgInstallRequest;
+  }
+
+  protected async finally(err: Optional<Error>): Promise<void> {
+    // Remove all the event listeners or they will still handle events
+    Lifecycle.getInstance().removeAllListeners('PackageInstallRequest:warning');
+    Lifecycle.getInstance().removeAllListeners('PackageInstallRequest:status');
+    Lifecycle.getInstance().removeAllListeners('SubscriberPackageVersion:status');
+    await super.finally(err);
   }
 
   private async confirmUpgradeType(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {

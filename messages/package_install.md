@@ -13,10 +13,10 @@ Supply the ID of the package version to install. The package installs in your de
 For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgradetype value. To delete components that can be safely deleted and deprecate the others, specify --upgradetype Mixed (the default). To deprecate all removed components, specify --upgradetype DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgradetype Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
 
 Examples:
-$ sfdx force:package:install --package 04t... -u me@example.com
-$ sfdx force:package:install --package awesome_package_alias
-$ sfdx force:package:install --package "Awesome Package Alias"
-$ sfdx force:package:install --package 04t... -t DeprecateOnly
+$ sfdx force:package:beta:install --package 04t... -u me@example.com
+$ sfdx force:package:beta:install --package awesome_package_alias
+$ sfdx force:package:beta:install --package "Awesome Package Alias"
+$ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
 
 # id
 
@@ -167,7 +167,7 @@ Waiting for the package install request to complete. Status = %s
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
-sfdx force:package:install:report -i %s -u %s
+sfdx force:package:beta:install:report -i %s -u %s
 
 # packageInstallError
 

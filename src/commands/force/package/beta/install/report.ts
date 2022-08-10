@@ -45,7 +45,7 @@ export class Report extends SfdxCommand {
   private parseStatus(request: PackageInstallRequest): void {
     const { Status } = request;
     if (Status === 'SUCCESS') {
-      this.ux.log(installMsgs.getMessage('packageInstallSuccess', [request.Id]));
+      this.ux.log(installMsgs.getMessage('packageInstallSuccess', [request.SubscriberPackageVersionKey]));
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
       this.ux.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, this.org.getUsername()]));
     } else {
