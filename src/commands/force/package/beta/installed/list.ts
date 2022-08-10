@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as os from 'os';
 import { Messages } from '@salesforce/core';
 import { SfdxCommand } from '@salesforce/command';
 import { packageInstalledList } from '@salesforce/packaging';
@@ -26,7 +27,7 @@ export type PackageInstalledListResult = {
 export class PackageInstalledListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliLongDescription');
-  public static readonly help = messages.getMessage('help');
+  public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
 
   public async run(): Promise<PackageInstalledListResult[]> {
@@ -51,7 +52,7 @@ export class PackageInstalledListCommand extends SfdxCommand {
       SubscriberPackageVersionName: { header: 'Version Name' },
       SubscriberPackageVersionNumber: { header: 'Version' },
     };
-    this.ux.table(records, tableOptions);
+    this.ux.table(records, tableOptions, { 'no-truncate': true });
 
     return records;
   }

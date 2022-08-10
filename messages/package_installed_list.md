@@ -6,9 +6,8 @@ list the org’s installed packages
 
 Lists all packages installed in the target org.
 
-# help
+# examples
 
-Examples:
 $ sfdx force:package:installed:list
 $ sfdx force:package:installed:list -u me@example.com
 
