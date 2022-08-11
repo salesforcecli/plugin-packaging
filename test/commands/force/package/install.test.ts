@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import { EOL } from 'os';
 import { Lifecycle, Org, SfError, SfProject, SfProjectJson } from '@salesforce/core';
 import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
@@ -143,11 +144,7 @@ describe('force:package:install', () => {
     installStub.resolves(pkgInstallRequest);
     const result = await runCmd(['-p', '04t6A000002zgKSQAY']);
     expect(uxLogStub.calledOnce).to.be.true;
-    // eslint-disable-next-line no-console
-    console.log(uxLogStub.args[0][0]);
-    const msg =
-      'PackageInstallRequest is currently InProgress. You can continue to query the status using\n' +
-      'sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com';
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -290,9 +287,7 @@ describe('force:package:install', () => {
 
     expect(uxLogStub.calledTwice).to.be.true;
     expect(uxLogStub.args[0][0]).to.equal(warningMsg);
-    const msg =
-      'PackageInstallRequest is currently InProgress. You can continue to query the status using\n' +
-      'sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com';
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
     expect(uxLogStub.args[1][0]).to.equal(msg);
     expect(result).to.deep.equal(pkgInstallRequest);
   });

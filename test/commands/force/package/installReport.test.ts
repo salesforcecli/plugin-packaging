@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import { EOL } from 'os';
 import { Org } from '@salesforce/core';
 import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
@@ -113,9 +114,7 @@ describe('force:package:install:report', () => {
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
-    const msg =
-      'PackageInstallRequest is currently InProgress. You can continue to query the status using\n' +
-      'sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com';
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
     expect(validateIdSpy.calledOnce).to.be.true;
     expect(validateIdSpy.args[0][0]).to.equal(pkgInstallRequest.Id);
