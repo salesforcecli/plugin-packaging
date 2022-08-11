@@ -143,6 +143,7 @@ describe('force:package:install', () => {
     installStub.resolves(pkgInstallRequest);
     const result = await runCmd(['-p', '04t6A000002zgKSQAY']);
     expect(uxLogStub.calledOnce).to.be.true;
+    console.log(uxLogStub.args[0][0]);
     const msg =
       'PackageInstallRequest is currently InProgress. You can continue to query the status using\n' +
       'sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com';
