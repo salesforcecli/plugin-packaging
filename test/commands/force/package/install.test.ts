@@ -143,6 +143,7 @@ describe('force:package:install', () => {
     installStub.resolves(pkgInstallRequest);
     const result = await runCmd(['-p', '04t6A000002zgKSQAY']);
     expect(uxLogStub.calledOnce).to.be.true;
+    // eslint-disable-next-line no-console
     console.log(uxLogStub.args[0][0]);
     const msg =
       'PackageInstallRequest is currently InProgress. You can continue to query the status using\n' +
