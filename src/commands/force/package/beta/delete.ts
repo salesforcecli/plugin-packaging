@@ -34,7 +34,6 @@ export class PackageDeleteCommand extends SfdxCommand {
     undelete: flags.boolean({
       description: messages.getMessage('undelete'),
       longDescription: messages.getMessage('undeleteLong'),
-
       hidden: true,
     }),
   };
