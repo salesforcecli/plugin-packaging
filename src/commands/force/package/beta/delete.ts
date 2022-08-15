@@ -42,7 +42,7 @@ export class PackageDeleteCommand extends SfdxCommand {
   public async run(): Promise<PackageSaveResult> {
     // user must acknowledge the warning prompt or use noprompt flag
     const accepted = await this.prompt(
-      this.flags.noprompt,
+      this.flags.noprompt || this.flags.json,
       messages.getMessage(this.flags.undelete ? 'promptUndelete' : 'promptDelete')
     );
     if (!accepted) {
@@ -64,10 +64,10 @@ export class PackageDeleteCommand extends SfdxCommand {
   }
 
   private async prompt(noninteractive, message): Promise<boolean> {
-    const answer = noninteractive ? 'YES' : await this.ux.prompt(message);
+    const answer = noninteractive ? true : await this.ux.confirm(message);
     // print a line of white space after the prompt is entered for separation
     this.ux.log('');
-    return answer.toUpperCase() === 'YES' || answer.toUpperCase() === 'Y';
+    return answer;
   }
 
   private display(result: PackageSaveResult): void {

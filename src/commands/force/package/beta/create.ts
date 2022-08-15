@@ -84,9 +84,7 @@ export class PackageCreateCommand extends SfdxCommand {
         throw applyErrorAction(err);
       }
     );
-    if (!this.flags.json) {
-      this.display(result);
-    }
+    this.display(result);
     return result;
   }
 
