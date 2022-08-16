@@ -42,11 +42,9 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
     const packageVersion = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
     await this.confirmDelete();
     const results = this.flags.undelete
-      ? await packageVersion.delete(this.flags.package)
-      : await packageVersion.undelete(this.flags.package);
-    if (!this.flags.json) {
-      this.ux.log(this.getHumanSuccessMessage(results));
-    }
+      ? await packageVersion.undelete(this.flags.package)
+      : await packageVersion.delete(this.flags.package);
+    this.ux.log(this.getHumanSuccessMessage(results));
     return results;
   }
 
@@ -62,6 +60,6 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
   }
 
   private getHumanSuccessMessage(result: PackageSaveResult): string {
-    return messages.getMessage(this.flags.isUndelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
+    return messages.getMessage(this.flags.undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
   }
 }
