@@ -20,7 +20,8 @@ To promote a package version to released, you must use the --codecoverage parame
 
 We don’t calculate code coverage for org-dependent unlocked packages, or for package versions that specify --skipvalidation.
 
-Examples:
+# examples
+
 $ sfdx force:package:version:create -d common -k password123
 $ sfdx force:package:version:create -p "Your Package Alias" -k password123
 $ sfdx force:package:version:create -p 0Ho... -k password123
@@ -299,3 +300,7 @@ Package version creation failed with unknown error.
 # malformedUrl
 
 The %s value "%s" from the command line or sfdx-project.json is not in the correct format for a URL. It must be a valid URL in the format "http:\n\nsalesforce.com". More information: https:\n\nnodejs.org\napi\nurl.html#url_url_strings_and_url_objects
+
+# requestInProgress
+
+Request in progress. Sleeping %s seconds. Will wait a total of %s more seconds before timing out. Current Status=%s.
