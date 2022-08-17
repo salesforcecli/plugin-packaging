@@ -128,15 +128,24 @@ export class Install extends SfdxCommand {
       installOptions = {
         pollingTimeout: this.flags.wait as Duration,
       };
+      let remainingTime = this.flags.wait as Duration;
+      let timeThen = Date.now();
+      this.ux.startSpinner(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
 
       // eslint-disable-next-line @typescript-eslint/require-await
       Lifecycle.getInstance().on('PackageInstallRequest:status', async (piRequest: PackageInstallRequest) => {
-        this.ux.log(messages.getMessage('packageInstallPolling', [piRequest?.Status]));
+        const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
+        timeThen = Date.now();
+        remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
+        this.ux.setSpinnerStatus(
+          messages.getMessage('packageInstallWaitingStatus', [remainingTime.minutes, piRequest.Status])
+        );
       });
     }
 
     const pkgInstallRequest = await this.pkg.install(request, installOptions);
     const { Status } = pkgInstallRequest;
+    this.ux.stopSpinner();
     if (Status === 'SUCCESS') {
       this.ux.log(messages.getMessage('packageInstallSuccess', [this.flags.package]));
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {

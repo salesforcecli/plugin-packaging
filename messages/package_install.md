@@ -160,10 +160,6 @@ We canceled this package installation per your request.
 
 This command is supported only on API versions 36.0 and higher
 
-# packageInstallPolling
-
-Waiting for the package install request to complete. Status = %s
-
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
@@ -172,3 +168,11 @@ sfdx force:package:beta:install:report -i %s -u %s
 # packageInstallError
 
 Encountered errors installing the package! %s
+
+# packageInstallWaiting
+
+Waiting %s minutes for package install to complete.
+
+# packageInstallWaitingStatus
+
+%d minutes remaining until timeout. Install status: %s
