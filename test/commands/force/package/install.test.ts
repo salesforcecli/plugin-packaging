@@ -17,6 +17,7 @@ import { Install } from '../../../../src/commands/force/package/beta/install';
 const $$ = testSetup();
 const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
 let uxLogStub: sinon.SinonStub;
+let uxSetSpinnerStatusStub: sinon.SinonStub;
 let uxConfirmStub: sinon.SinonStub;
 let apiVersionStub: sinon.SinonStub;
 let queryStub: sinon.SinonStub;
@@ -63,6 +64,7 @@ class TestCommand extends Install {
     this.result = new Result(this.statics.result);
     await this.init();
     uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+    uxSetSpinnerStatusStub = stubMethod($$.SANDBOX, this.ux, 'setSpinnerStatus');
     uxConfirmStub = stubMethod($$.SANDBOX, this.ux, 'confirm');
     if (confirm) {
       uxConfirmStub.resolves(confirm);
@@ -302,9 +304,11 @@ describe('force:package:install', () => {
 
     const result = await runCmd(['-p', '04t6A000002zgKSQAY', '-w', '1']);
 
-    expect(uxLogStub.calledThrice).to.be.true;
-    expect(uxLogStub.args[0][0]).to.equal('Waiting for the package install request to complete. Status = IN_PROGRESS');
-    expect(uxLogStub.args[1][0]).to.equal('Waiting for the package install request to complete. Status = SUCCESS');
+    expect(uxLogStub.calledOnce).to.be.true;
+    expect(uxSetSpinnerStatusStub.args[0][0]).to.equal(
+      '1 minutes remaining until timeout. Install status: IN_PROGRESS'
+    );
+    expect(uxSetSpinnerStatusStub.args[1][0]).to.equal('1 minutes remaining until timeout. Install status: SUCCESS');
     expect(result).to.deep.equal(pkgInstallRequest);
   });
 
