@@ -37,3 +37,15 @@ Dependencies
 # codeCoveragePercentages
 
 Code Coverage Details
+
+# ancestorId
+
+Ancestor
+
+# ancestorVersion
+
+Ancestor Version
+
+# isReleased
+
+Released
