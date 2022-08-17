@@ -37,6 +37,7 @@ describe('package install', () => {
 
     const reportCommand = `force:package:beta:install:report -i ${installJson.Id} --json`;
     const reportJson = execCmd<PackageInstallRequest>(reportCommand, { ensureExitCode: 0 }).jsonOutput.result;
-    expect(reportJson).to.have.property('Status', 'IN_PROGRESS');
+    expect(reportJson).to.have.property('Status');
+    expect(['IN_PROGRESS', 'SUCCESS']).to.include(reportJson.Status);
   });
 });
