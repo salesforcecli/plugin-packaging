@@ -13,8 +13,7 @@ import {
   BY_LABEL,
   getHasMetadataRemoved,
   getPackageIdFromAlias,
-  getPackageVersionId,
-  Package,
+  PackageVersion,
   validateId,
 } from '@salesforce/packaging';
 
@@ -46,15 +45,10 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
 
   public async run(): Promise<PackageVersionPromoteResponse> {
     const conn = this.hubOrg.getConnection();
-    let packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
+    const packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
 
     // ID can be 04t or 05i at this point
     validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
-
-    // lookup the 05i ID, if needed
-    if (!packageId.startsWith('05i')) {
-      packageId = await getPackageVersionId(packageId, conn);
-    }
 
     if (!this.flags.noprompt) {
       // Warn when a Managed package has removed metadata
@@ -68,7 +62,7 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       }
     }
 
-    const pkg = new Package({ connection: conn });
+    const pkg = new PackageVersion({ connection: conn, project: this.project });
     let result: SaveResult;
 
     try {
