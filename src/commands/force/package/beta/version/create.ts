@@ -10,16 +10,15 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Duration } from '@salesforce/kit';
-import { Messages, PollingClient, StatusResult } from '@salesforce/core';
+import { Lifecycle, Messages } from '@salesforce/core';
 import {
   convertCamelCaseStringToSentence,
-  getCreatePackageVersionCreateRequestReport,
   getPackageIdFromAlias,
   INSTALL_URL_BASE,
+  PackageVersion,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import { PackageVersionCreate } from '@salesforce/packaging/lib/package/packageVersionCreate';
-import { Optional } from '@salesforce/ts-types';
+import { PackageVersionCreateRequestResult } from '../../../../../../../packaging/src/interfaces';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectory(__dirname);
@@ -157,59 +156,39 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     if (this.flags.skipvalidation) {
       this.ux.warn(messages.getMessage('skipValidationWarning'));
     }
-
-    // resolve the package name from the --package flag, first checking if it's an alias, then using the flag, and then looking for the package name from the --path flag
-    // const packageName =
-    //   getPackageAliasesFromId(this.flags.package, this.project)?.join() ??
-    //   this.project.getPackageFromPath(this.flags.path)?.package ??
-    //   (this.flags.package as string);
-
-    let packageName: Optional<string>;
-    if (this.flags.package) {
-      if ((this.flags.package as string).startsWith('0Ho')) {
-        packageName = this.flags.package as string;
-      } else {
-        packageName = getPackageIdFromAlias(this.flags.package, this.project);
+    const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
+    // no async methods
+    // eslint-disable-next-line @typescript-eslint/require-await
+    Lifecycle.getInstance().on('in-progress', async (data) => {
+      const status = data as unknown as PackageVersionCreateRequestResult & { remainingWaitTime: Duration };
+      if (status.Status !== Package2VersionStatus.success && status.Status !== Package2VersionStatus.error) {
+        this.ux.log(
+          messages.getMessage('requestInProgress', [frequency.seconds, status.remainingWaitTime.seconds, status.Status])
+        );
       }
-    } else if (this.flags.path) {
-      packageName = this.project.getPackageFromPath(this.flags.path)?.package;
+    });
+
+    // resolve the package id from the --package flag, first checking if it's an alias, then using the flag (an id), and then looking for the package name from the --path flag
+    let packageName: string;
+    if (this.flags.package) {
+      // we're unable to type this earlier, because casting `undefined as string` will result in "", which would screw up the logic below
+      const pkg = this.flags.package as string;
+      packageName = pkg.startsWith('0ho') ? pkg : getPackageIdFromAlias(pkg, this.project);
+    } else {
+      // due to flag validation, we'll either have a package or path flag
+      packageName = this.project.getPackageFromPath(this.flags.path).package;
     }
 
     const packageId = getPackageIdFromAlias(packageName, this.project);
 
-    const pvc = new PackageVersionCreate({
-      ...this.flags,
-      ...{ packageId, project: this.project, connection: this.hubOrg.getConnection() },
-    });
-
-    let result = await pvc.createPackageVersion();
-    const waitSeconds = (this.flags.wait as Duration)?.seconds;
-
-    if (waitSeconds) {
-      let remainingWaitSeconds = waitSeconds;
-      const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
-      const pc = new PollingClient({
-        frequency,
+    const pv = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
+    const result = await pv.create(
+      { ...this.flags, ...{ packageId } },
+      {
         timeout: this.flags.wait as Duration,
-        poll: async (): Promise<StatusResult> => {
-          const status = await getCreatePackageVersionCreateRequestReport({
-            createPackageVersionRequestId: result.Id,
-            connection: this.hubOrg.getConnection(),
-          });
-          if (status.Status !== Package2VersionStatus.success && status.Status !== Package2VersionStatus.error) {
-            this.ux.log(
-              messages.getMessage('requestInProgress', [frequency.seconds, remainingWaitSeconds, status.Status])
-            );
-            remainingWaitSeconds -= frequency.seconds;
-            return { completed: false, payload: status };
-          } else {
-            result = status;
-            return { completed: true, payload: status };
-          }
-        },
-      });
-      await pc.subscribe();
-    }
+        frequency,
+      }
+    );
 
     switch (result.Status) {
       case 'Error':
@@ -227,29 +206,6 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         break;
       default:
         this.ux.log(messages.getMessage('InProgress', [convertCamelCaseStringToSentence(result.Status), result.Id]));
-    }
-    // set packageAliases entry '<package>@<major>.<minor>.<patch>-<build>-<branch>: <result.subscriberPackageVersionId>'
-    if (!process.env.SFDX_PROJECT_AUTOUPDATE_DISABLE_FOR_PACKAGE_CREATE) {
-      // get the newly created package version from the server
-      const versionResult = (
-        await this.hubOrg.getConnection().tooling.query<{
-          Branch: string;
-          MajorVersion: string;
-          MinorVersion: string;
-          PatchVersion: string;
-          BuildNumber: string;
-        }>(`SELECT Branch, MajorVersion, MinorVersion, PatchVersion, BuildNumber FROM Package2Version WHERE SubscriberPackageVersionId='${result.SubscriberPackageVersionId}'`)
-      ).records[0];
-
-      const version = `${packageName}@${versionResult.MajorVersion ?? 0}.${versionResult.MinorVersion ?? 0}.${
-        versionResult.PatchVersion ?? 0
-      }`;
-      const build = versionResult.BuildNumber ? `-${versionResult.BuildNumber}` : '';
-      const branch = versionResult.Branch ? `-${versionResult.Branch}` : '';
-      this.project.getSfProjectJson().getContents().packageAliases[`${version}${build}${branch}`] =
-        result.SubscriberPackageVersionId;
-      await this.project.getSfProjectJson().write();
-      this.ux.log('sfdx-project.json has been updated.');
     }
     return result;
   }
