@@ -958,11 +958,11 @@ Verify that you entered a valid package version ID and try again.
 
 # package2VersionUpdateSetAsReleasedYesNo
 
-Are you sure you want to release package version %s? You can't undo this action. Release package (y\nn)?
+Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
 # packageVersionUpdateSetAsReleasedYesNo
 
-Are you sure you want to release package version %s? You can't undo this action. Release package (y\nn)?
+Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
 # attemptingToDeleteExpiredOrDeleted
 
