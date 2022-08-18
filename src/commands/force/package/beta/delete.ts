@@ -23,7 +23,7 @@ export class PackageDeleteCommand extends SfdxCommand {
     noprompt: flags.boolean({
       char: 'n',
       description: messages.getMessage('noPrompt'),
-      longDescription: messages.getMessage('noPrompt'),
+      longDescription: messages.getMessage('noPromptLong'),
     }),
     package: flags.string({
       char: 'p',
@@ -39,8 +39,9 @@ export class PackageDeleteCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageSaveResult> {
+    const promptMsg = this.flags.undelete ? 'promptUndelete' : 'promptDelete';
     const accepted =
-      this.flags.noprompt || this.flags.json ? true : await this.ux.confirm(messages.getMessage('prompt'));
+      this.flags.noprompt || this.flags.json ? true : await this.ux.confirm(messages.getMessage(promptMsg));
     if (!accepted) {
       throw messages.createError('promptDeleteDeny');
     }
