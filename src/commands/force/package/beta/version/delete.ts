@@ -6,7 +6,8 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxPropertyKeys } from '@salesforce/core';
+import { Messages, OrgConfigProperties } from '@salesforce/core';
+import { PackageVersion, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_delete');
@@ -15,7 +16,7 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly help = messages.getMessage('help', []);
-  public static readonly orgType = SfdxPropertyKeys.DEFAULT_DEV_HUB_USERNAME;
+  public static readonly orgType = OrgConfigProperties.TARGET_DEV_HUB;
   public static readonly requiresDevhubUsername = true;
   public static readonly requiresProject = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -33,13 +34,32 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
     undelete: flags.boolean({
       description: messages.getMessage('undelete'),
       longDescription: messages.getMessage('undeleteLong'),
-
       hidden: true,
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    const packageVersion = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
+    await this.confirmDelete();
+    const results = this.flags.undelete
+      ? await packageVersion.undelete(this.flags.package)
+      : await packageVersion.delete(this.flags.package);
+    this.ux.log(this.getHumanSuccessMessage(results));
+    return results;
+  }
+
+  private async confirmDelete(): Promise<boolean> {
+    if (this.flags.noprompt || this.flags.json) {
+      return true;
+    }
+    const message = this.flags.undelete ? messages.getMessage('promptUndelete') : messages.getMessage('promptDelete');
+    const accepted = await this.ux.confirm(message);
+    if (!accepted) {
+      throw new Error(messages.getMessage('promptDeleteDeny'));
+    }
+  }
+
+  private getHumanSuccessMessage(result: PackageSaveResult): string {
+    return messages.getMessage(this.flags.undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
   }
 }
