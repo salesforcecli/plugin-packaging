@@ -6,10 +6,9 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxPropertyKeys } from '@salesforce/core';
-import { listPackages, getPackageAliasesFromId, PackagingSObjects } from '@salesforce/packaging';
+import { Messages, OrgConfigProperties } from '@salesforce/core';
+import { listPackages, getPackageAliasesFromId, PackagingSObjects, applyErrorAction } from '@salesforce/packaging';
 import * as chalk from 'chalk';
-import { CliUx } from '@oclif/core';
 import { QueryResult } from 'jsforce';
 
 Messages.importMessagesDirectory(__dirname);
@@ -38,7 +37,7 @@ export class PackageListCommand extends SfdxCommand {
   public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly help = messages.getMessage('help');
   public static readonly requiresProject = true;
-  public static readonly orgType = SfdxPropertyKeys.DEFAULT_DEV_HUB_USERNAME;
+  public static readonly orgType = OrgConfigProperties.TARGET_DEV_HUB;
   public static readonly requiresDevhubUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     verbose: flags.builtin({
@@ -51,11 +50,12 @@ export class PackageListCommand extends SfdxCommand {
 
   public async run(): Promise<Package2Result[]> {
     this.logger = this.logger.child('package:list');
-    const queryResult = await listPackages(this.hubOrg.getConnection());
+    const queryResult = await listPackages(this.hubOrg.getConnection()).catch((err) => {
+      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      throw applyErrorAction(err);
+    });
     this.mapRecordsToResults(queryResult);
-    if (!this.flags.json) {
-      this.displayResults();
-    }
+    this.displayResults();
     return this.results;
   }
 
@@ -94,7 +94,7 @@ export class PackageListCommand extends SfdxCommand {
   }
 
   private displayResults(): void {
-    CliUx.ux.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
+    this.ux.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
     const columns = {
       NamespacePrefix: { header: messages.getMessage('namespace') },
       Name: { header: messages.getMessage('name') },
@@ -117,6 +117,6 @@ export class PackageListCommand extends SfdxCommand {
         },
       });
     }
-    CliUx.ux.table(this.results, columns);
+    this.ux.table(this.results, columns);
   }
 }
