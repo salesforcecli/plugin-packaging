@@ -10,7 +10,8 @@ Promotes a package version to released status.
 
 Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
-Examples:
+# examples
+
 $ sfdx force:package:version:promote -p 04t...
 $ sfdx force:package:version:promote -p awesome_package_alias
 $ sfdx force:package:version:promote -p "Awesome Package Alias"
@@ -23,7 +24,7 @@ ID (starts with 04t) or alias of the package version to promote
 
 The ID (starts with 04t) or alias of the package version to promote.
 
-# packageVersionPromoteSetAsReleasedYesNo
+# packageVersionPromoteConfirm
 
 Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
