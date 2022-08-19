@@ -730,10 +730,10 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.0.8", "@oclif/core@^1.1.1", "@oclif/core@^1.13.10", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.0", "@oclif/core@^1.9.9":
-  version "1.13.10"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.13.10.tgz#d2014cd75efcd8529d78f1eda5ddc2a4d07c860e"
-  integrity sha512-nwpjXwWscETdvO+/z94V1zd95vnzmCB6VRaobR4BdBllwWU6jHF/eCi1Ud2Tk9RSedChoLneZuDCkKnRCmxyng==
+"@oclif/core@^1.0.8", "@oclif/core@^1.1.1", "@oclif/core@^1.14.2", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.0", "@oclif/core@^1.9.9":
+  version "1.14.2"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.14.2.tgz#c6e4873f3ffde81a771d06e86c8e5bdfb189dbf2"
+  integrity sha512-Q16f/1FUPrtEYDyGYtuzNDZ3Q3RxYCHOnm9YJRg2VwSVqPOOo2Geoxh6Clo8cgin5NlFgs1wZEH+m+ABPr+RqA==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     "@oclif/screen" "^3.0.2"
@@ -1073,10 +1073,10 @@
     semver "^7.3.5"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.22.0", "@salesforce/core@^3.24.0", "@salesforce/core@^3.24.1", "@salesforce/core@^3.26.1":
-  version "3.26.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.26.1.tgz#8d65c6b12085494106a2c7d2545902fa1ff95522"
-  integrity sha512-B2mhsiiAu9hkLAwkDu+Y5ArAtRJIx2oeqP8ofupLlSH4tohzcUmfKgCDZEk9iLC1sc5kmD1S/4DlS1QZhnNs8A==
+"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.22.0", "@salesforce/core@^3.24.0", "@salesforce/core@^3.24.1", "@salesforce/core@^3.26.2":
+  version "3.26.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.26.2.tgz#94b361bd62967feb3eedc624fc6cf444e7347f84"
+  integrity sha512-GDrho8jbh1UDjcsYRRUzhNv4KUsMcBtux/yEqB2ycvHXhjVnrNkJcl99KESiU1eZMl2DGZEE1IO8yxnb2rSvgg==
   dependencies:
     "@salesforce/bunyan" "^2.0.0"
     "@salesforce/kit" "^1.5.41"
@@ -1150,10 +1150,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@0.0.18-t-02":
-  version "0.0.18-t-02"
-  resolved "http://localhost:4873/@salesforce%2fpackaging/-/packaging-0.0.18-t-02.tgz#fcac198ab25db3bfb834fb011b4bf8a7c177ea5c"
-  integrity sha512-zVyo/Y141KvLZgnK9bUxttzwY/tiZlAM4DWODXVkrDsH5lHThZklzY5K2zcrAbKImyTOQJB9KKHnjBzWvlvnsQ==
+"@salesforce/packaging@0.0.20":
+  version "0.0.20"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.20.tgz#412bb572b34d1612c3a0e6fdd856d4c028bb90bb"
+  integrity sha512-rYDWZOvS+j8+lUZYiIWoQRHWDio3erOT7esBK7ckMstzGOyV91ZN0/hEDh/EYI/Q2NzfcG7tl5GiVUy9vbUsbw==
   dependencies:
     "@salesforce/core" "^3.24.0"
     "@salesforce/kit" "^1.5.44"

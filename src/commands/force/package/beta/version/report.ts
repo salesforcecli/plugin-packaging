@@ -7,21 +7,20 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, OrgConfigProperties } from '@salesforce/core';
-import { CodeCoverage, PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
-import * as pkgUtils from '@salesforce/packaging';
+import { PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
 const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
-type PackageVersionReportResultModified = Omit<
+export type PackageVersionReportResultModified = Omit<
   PackageVersionReportResult,
-  'CodeCoverage' | 'HasPassedCodeCoverageCheck' | 'Package2' | 'HasMetadataRemoved'
+  'CodeCoverage' | 'HasPassedCodeCoverageCheck' | 'Package2' | 'HasMetadataRemoved' | 'PackageType'
 > & {
-  CodeCoverage: CodeCoverage | string;
+  CodeCoverage: string;
   HasPassedCodeCoverageCheck: boolean | string;
-  Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: boolean | string }>;
+  Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: string }>;
   HasMetadataRemoved: boolean | string;
 };
 export class PackageVersionReportCommand extends SfdxCommand {
@@ -48,7 +47,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
   public async run(): Promise<PackageVersionReportResultModified> {
     const packageVersion = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
     const results = await packageVersion.report(this.flags.package, this.flags.verbose);
-    const massagedResults = await this.massageResultsForDisplay(results);
+    const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults);
     return massagedResults;
   }
@@ -88,17 +87,17 @@ export class PackageVersionReportCommand extends SfdxCommand {
       },
       {
         key: pvlMessages.getMessage('description'),
-        value: record.Description === null ? 'null' : record.Description,
+        value: record.Description,
       },
       {
         key: pvlMessages.getMessage('packageBranch'),
-        value: record.Branch === null ? 'null' : record.Branch,
+        value: record.Branch,
       },
       {
         key: pvlMessages.getMessage('packageTag'),
-        value: record.Tag === null ? 'null' : record.Tag,
+        value: record.Tag,
       },
-      { key: messages.getMessage('isReleased'), value: record.IsReleased.toString() },
+      { key: messages.getMessage('isReleased'), value: `${record.IsReleased}` },
       {
         key: pvlMessages.getMessage('validationSkipped'),
         value: record.ValidationSkipped,
@@ -107,12 +106,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       { key: messages.getMessage('ancestorVersion'), value: record.AncestorVersion },
       {
         key: pvlMessages.getMessage('codeCoverage'),
-        value:
-          record.CodeCoverage === null
-            ? ' '
-            : record.CodeCoverage['apexCodeCoveragePercentage'] !== undefined
-            ? `${record.CodeCoverage['apexCodeCoveragePercentage'] as number}%`
-            : 'N/A', // N/A
+        value: record.CodeCoverage,
       },
       {
         key: pvlMessages.getMessage('hasPassedCodeCoverageCheck'),
@@ -120,7 +114,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       },
       {
         key: pvlMessages.getMessage('convertedFromVersionId'),
-        value: record.ConvertedFromVersionId === null ? ' ' : record.ConvertedFromVersionId,
+        value: record.ConvertedFromVersionId,
       },
       {
         key: plMessages.getMessage('isOrgDependent'),
@@ -132,7 +126,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       },
       {
         key: pvlMessages.getMessage('buildDurationInSeconds'),
-        value: record.BuildDurationInSeconds === null ? '' : record.BuildDurationInSeconds,
+        value: record.BuildDurationInSeconds === null ? '' : record.BuildDurationInSeconds.toFixed(1),
       },
       {
         key: pvlMessages.getMessage('hasMetadataRemoved'),
@@ -195,46 +189,42 @@ export class PackageVersionReportCommand extends SfdxCommand {
     }
   }
 
-  private async massageResultsForDisplay(
-    results: PackageVersionReportResult
-  ): Promise<PackageVersionReportResultModified> {
-    const record = results as PackageVersionReportResultModified;
+  private massageResultsForDisplay(results: PackageVersionReportResult): PackageVersionReportResultModified {
+    const record = JSON.parse(JSON.stringify(results)) as PackageVersionReportResultModified;
     record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');
 
-    let ancestorVersion: string = null;
-    const containerOptions = await pkgUtils.getContainerOptions([record.Package2Id], this.hubOrg.getConnection());
-    const packageType = containerOptions.get(record.Package2Id);
-    if (record.AncestorId) {
-      // lookup AncestorVersion value
-      const ancestorVersionMap = await pkgUtils.getPackageVersionStrings(
-        [record.AncestorId],
-        this.hubOrg.getConnection()
-      );
-      ancestorVersion = ancestorVersionMap.get(record.AncestorId);
-    } else {
-      // otherwise display 'N/A' if package is Unlocked Packages
-      if (packageType !== 'Managed') {
-        ancestorVersion = 'N/A';
-        record.AncestorId = 'N/A';
-      }
+    if (results.PackageType !== 'Managed') {
+      record.AncestorVersion = 'N/A';
+      record.AncestorId = 'N/A';
     }
 
-    record.CodeCoverage =
-      record.Package2.IsOrgDependent === true || record.ValidationSkipped === true ? 'N/A' : record.CodeCoverage;
+    if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
+      record.CodeCoverage = 'N/A';
+    } else {
+      record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage
+        ? `${results.CodeCoverage?.apexCodeCoveragePercentage}%`
+        : 'N/A';
+    }
 
     record.HasPassedCodeCoverageCheck =
-      record.Package2.IsOrgDependent === true || record.ValidationSkipped === true
+      results.Package2.IsOrgDependent === true || results.ValidationSkipped === true
         ? 'N/A'
-        : record.HasPassedCodeCoverageCheck;
+        : results.HasPassedCodeCoverageCheck;
 
     record.Package2.IsOrgDependent =
-      packageType === 'Managed' ? 'N/A' : record.Package2.IsOrgDependent === true ? 'Yes' : 'No';
+      results.PackageType === 'Managed' ? 'N/A' : results.Package2.IsOrgDependent === true ? 'Yes' : 'No';
 
     // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
-    record.HasMetadataRemoved = packageType !== 'Managed' ? 'N/A' : record.HasMetadataRemoved === true ? 'Yes' : 'No';
+    record.HasMetadataRemoved =
+      results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved === true ? 'Yes' : 'No';
 
-    // add AncestorVersion to the json record
-    record.AncestorVersion = ancestorVersion;
+    record.Description ??= ' ';
+    record.Branch ??= ' ';
+    record.Tag ??= ' ';
+    record.ConvertedFromVersionId ??= ' ';
+
+    // for backward compatibility, remove PackageType from the record
+    delete record['PackageType'];
 
     return record;
   }
