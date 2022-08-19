@@ -871,7 +871,7 @@
     fast-levenshtein "^3.0.0"
     lodash "^4.17.21"
 
-"@oclif/plugin-version@^1.1.1":
+"@oclif/plugin-version@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@oclif/plugin-version/-/plugin-version-1.1.2.tgz#04338edb932c9f6df1ee46328f191cc0cf900d2d"
   integrity sha512-0RnOI702nYRabYhBrXg4WQbhORgO2CPX47gnPWh/VUxbW7c11AasbiXF51RLS0Edwv0ieCTwTInraFJvcvHDUA==
