@@ -10,7 +10,6 @@ import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionReportResult } from '@salesforce/packaging';
-import { Result } from '@salesforce/command';
 import { beforeEach } from 'mocha';
 import {
   PackageVersionReportCommand,
@@ -115,14 +114,11 @@ const pkgVersionReportResult: PackageVersionReportResult = {
 
 class TestCommand extends PackageVersionReportCommand {
   public async runIt() {
-    this.result = new Result(this.statics.result);
     await this.init();
     uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
     uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
     uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
-    this.result.data = await this.run();
-    await this.finally(undefined);
-    return this.result.data;
+    return this.run();
   }
   public setHubOrg(org: Org) {
     this.hubOrg = org;
@@ -143,7 +139,7 @@ const runCmd = async (params: string[]) => {
   return cmd.runIt();
 };
 
-describe('force:package:install:report', () => {
+describe('force:package:version:report', () => {
   afterEach(() => {
     $$.SANDBOX.restore();
   });
