@@ -167,7 +167,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
     // Always append code coverage column label ar the end
     displayRecords.push({
       key: messages.getMessage('codeCoveragePercentages'),
-      value: this.haveCodeCoverageData ? '...' : codeCovStr,
+      value: this.haveCodeCoverageData === true ? '...' : codeCovStr,
     });
     if (!this.flags.verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
@@ -198,7 +198,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       record.AncestorId = 'N/A';
     }
 
-    if (results.Package2.IsOrgDependent || results.ValidationSkipped) {
+    if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
       record.CodeCoverage = 'N/A';
     } else {
       record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage

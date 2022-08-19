@@ -201,7 +201,7 @@ describe('massage results', () => {
     pvrrm.Package2.IsOrgDependent = 'N/A';
     pvrrm.CodeCoverage = '33%';
     pvrrm.HasMetadataRemoved = 'Yes';
-
+    pvrrm.HasPassedCodeCoverageCheck = 'N/A';
     delete pvrrm['PackageType'];
 
     const result = cmd['massageResultsForDisplay'](pvrr);
