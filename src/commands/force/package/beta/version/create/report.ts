@@ -6,7 +6,7 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, OrgConfigProperties } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as pkgUtils from '@salesforce/packaging';
 import * as chalk from 'chalk';
@@ -21,7 +21,6 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
   public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly help = messages.getMessage('help');
   public static readonly;
-  public static readonly orgType = OrgConfigProperties.TARGET_DEV_HUB;
   public static readonly requiresDevhubUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     packagecreaterequestid: flags.id({

@@ -7,6 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfdxPropertyKeys } from '@salesforce/core';
+import { applyErrorAction, deletePackage, massageErrorMessage, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
@@ -22,7 +23,7 @@ export class PackageDeleteCommand extends SfdxCommand {
     noprompt: flags.boolean({
       char: 'n',
       description: messages.getMessage('noPrompt'),
-      longDescription: messages.getMessage('noPrompt'),
+      longDescription: messages.getMessage('noPromptLong'),
     }),
     package: flags.string({
       char: 'p',
@@ -33,13 +34,35 @@ export class PackageDeleteCommand extends SfdxCommand {
     undelete: flags.boolean({
       description: messages.getMessage('undelete'),
       longDescription: messages.getMessage('undeleteLong'),
-
       hidden: true,
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    const promptMsg = this.flags.undelete ? 'promptUndelete' : 'promptDelete';
+    const accepted =
+      this.flags.noprompt || this.flags.json ? true : await this.ux.confirm(messages.getMessage(promptMsg));
+    if (!accepted) {
+      throw messages.createError('promptDeleteDeny');
+    }
+
+    const result = await deletePackage(
+      this.flags.package,
+      this.project,
+      this.hubOrg.getConnection(),
+      !!this.flags.undelete
+    ).catch((err) => {
+      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      err = massageErrorMessage(err);
+      throw applyErrorAction(err);
+    });
+    this.display(result);
+    return result;
+  }
+
+  private display(result: PackageSaveResult): void {
+    const message = messages.getMessage(this.flags.undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
+    this.ux.log();
+    this.ux.log(message);
   }
 }

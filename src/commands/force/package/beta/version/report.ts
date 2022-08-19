@@ -167,7 +167,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
     // Always append code coverage column label ar the end
     displayRecords.push({
       key: messages.getMessage('codeCoveragePercentages'),
-      value: this.haveCodeCoverageData === true ? '...' : codeCovStr,
+      value: this.haveCodeCoverageData ? '...' : codeCovStr,
     });
     if (!this.flags.verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
@@ -198,7 +198,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       record.AncestorId = 'N/A';
     }
 
-    if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
+    if (results.Package2.IsOrgDependent || results.ValidationSkipped) {
       record.CodeCoverage = 'N/A';
     } else {
       record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage
@@ -207,16 +207,13 @@ export class PackageVersionReportCommand extends SfdxCommand {
     }
 
     record.HasPassedCodeCoverageCheck =
-      results.Package2.IsOrgDependent === true || results.ValidationSkipped === true
-        ? 'N/A'
-        : results.HasPassedCodeCoverageCheck;
+      results.Package2.IsOrgDependent || results.ValidationSkipped ? 'N/A' : results.HasPassedCodeCoverageCheck;
 
     record.Package2.IsOrgDependent =
       results.PackageType === 'Managed' ? 'N/A' : results.Package2.IsOrgDependent === true ? 'Yes' : 'No';
 
     // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
-    record.HasMetadataRemoved =
-      results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved === true ? 'Yes' : 'No';
+    record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
 
     record.Description ??= ' ';
     record.Branch ??= ' ';
