@@ -84,7 +84,7 @@ export class PackageListCommand extends SfdxCommand {
             ContainerOptions,
             ConvertedFromPackageId,
             Alias: getPackageAliasesFromId(Id, this.project).join(),
-            IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent === true ? 'Yes' : 'No',
+            IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
             PackageErrorUsername,
             CreatedBy: CreatedById,
           } as Package2Result;

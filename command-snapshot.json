@@ -243,11 +243,5 @@
       "versionname"
     ],
     "alias": []
-  },
-  {
-    "command": "version",
-    "plugin": "@oclif/plugin-version",
-    "flags": ["json", "verbose"],
-    "alias": []
   }
 ]
