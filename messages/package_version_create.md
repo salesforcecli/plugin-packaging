@@ -299,7 +299,7 @@ Package version creation failed with unknown error.
 
 # malformedUrl
 
-The %s value "%s" from the command line or sfdx-project.json is not in the correct format for a URL. It must be a valid URL in the format "http:\n\nsalesforce.com". More information: https:\n\nnodejs.org\napi\nurl.html#url_url_strings_and_url_objects
+The %s value "%s" from the command line or sfdx-project.json is not in the correct format for a URL. It must be a valid URL in the format "http://salesforce.com". More information: https://nodejs.org/api/url.html#url_url_strings_and_url_objects
 
 # requestInProgress
 
