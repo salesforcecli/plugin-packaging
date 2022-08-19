@@ -1,12 +1,10 @@
 # plugin-packaging;
 
-> :warning: **This module is under heavy development, please do not use in production.**
+> :warning: **This plugin is currently in beta. We appreciate any feedback via https://github.com/forcedotcom/cli/issues**
 
 [![NPM](https://img.shields.io/npm/v/@salesforce/plugin-packaging.svg?label=@salesforce/plugin-packaging)](https://www.npmjs.com/package/@salesforce/plugin-packaging) [![CircleCI](https://circleci.com/gh/salesforcecli/plugin-packaging/tree/main.svg?style=shield)](https://circleci.com/gh/salesforcecli/plugin-packaging/tree/main) [![Downloads/week](https://img.shields.io/npm/dw/@salesforce/plugin-packaging.svg)](https://npmjs.org/package/@salesforce/plugin-packaging) [![License](https://img.shields.io/badge/License-BSD%203--Clause-brightgreen.svg)](https://raw.githubusercontent.com/salesforcecli/plugin-packaging/main/LICENSE.txt)
 
 ## This plugin provides the sfdx cli commands that support Salesforce Packaging Platform
-
-## Learn about the plugin-packaging
 
 ## Install
 
