@@ -7,8 +7,7 @@
 
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfError } from '@salesforce/core';
-import { SaveResult } from 'jsforce';
+import { Messages } from '@salesforce/core';
 import {
   BY_LABEL,
   getHasMetadataRemoved,
@@ -67,7 +66,8 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
     try {
       result = await pkg.promote(packageId);
     } catch (e) {
-      const err = SfError.wrap(e);
+      const err = 
+            .wrap(e);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
         err.message = messages.getMessage('previouslyReleasedMessage');
         err.actions = [messages.getMessage('previouslyReleasedAction')];

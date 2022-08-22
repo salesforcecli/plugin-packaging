@@ -5,8 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfdxPropertyKeys } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 
 // Import i18n messages
 Messages.importMessagesDirectory(__dirname);
@@ -15,11 +16,9 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly longDescription = messages.getMessage('cliDescriptionLong');
-  public static readonly help = messages.getMessage('help');
-
+  public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly showProgress = false;
   public static readonly varargs = false;
-  public static readonly orgType = SfdxPropertyKeys.DEFAULT_DEV_HUB_USERNAME;
   public static readonly requiresDevhubUsername = true;
 
   public static readonly flagsConfig: FlagsConfig = {

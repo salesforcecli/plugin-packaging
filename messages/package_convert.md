@@ -20,7 +20,8 @@ We recommend specifying the --installationkey to protect the contents of your pa
 
 To list package version creation requests in the org, run "sfdx force:package:version:create:list".
 
-Examples:
+# examples
+
 $ sfdx force:package:convert --package 033xx0000004Gmn -k password123
 
 # package

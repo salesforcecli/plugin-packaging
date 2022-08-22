@@ -54,7 +54,8 @@ Use --concise or --verbose to display limited or additional details, respectivel
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-Examples:
+# examples
+
 $ sfdx force:package:version:list --verbose --createdlastdays 3 --released --orderby PatchVersion
 $ sfdx force:package:version:list --packages 0Ho000000000000,0Ho000000000001 --released --modifiedlastdays 0
 $ sfdx force:package:version:list --released

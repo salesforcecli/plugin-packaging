@@ -10,7 +10,8 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 Specify the ID or alias of the package you want to delete.
 
-Examples:
+# examples
+
 $ sfdx force:package:delete -p "Your Package Alias"
 $ sfdx force:package:delete -p 0Ho...
 
