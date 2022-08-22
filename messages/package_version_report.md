@@ -6,9 +6,8 @@ retrieve details about a package version in the Dev Hub org
 
 Retrieves details about a package version in the Dev Hub org.
 
-# help
+# examples
 
-Examples:
 $ sfdx force:package:version:report -p 04t...
 $ sfdx force:package:version:report -p "Your Package Alias"
 

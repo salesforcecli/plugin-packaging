@@ -10,7 +10,8 @@ Delete unlocked and second-generation managed package versions.
 
 Specify the ID or alias of the package version you want to delete.
 
-Examples:
+# examples
+
 $ sfdx force:package:version:delete -p "Your Package Alias"
 $ sfdx force:package:version:delete -p 04t...
 

@@ -4,7 +4,6 @@ retrieve the status of a package version creation request
 
 # examples
 
-Examples:
 $ sfdx force:package1:version:create:get -i 0HD...
 $ sfdx force:package1:version:create:get -i 0HD... -u devhub@example.com
 
@@ -29,3 +28,8 @@ Successfully uploaded package [%s]
 
 PackageUploadRequest has been enqueued. You can query the status using
 sfdx force:package1:version:create:get -i %s -u %s
+
+# uploadFailure
+
+Package upload failed.
+%s

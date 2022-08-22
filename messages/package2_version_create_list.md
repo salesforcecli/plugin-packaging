@@ -22,7 +22,8 @@ All filter parameters are applied using the AND logical operator (not OR).
 
 To get information about a specific request, run "sfdx force:package2:version:create:get" and supply the request ID.
 
-Examples:
+# examples
+
 $ sfdx force:package2:version:create:list
 $ sfdx force:package2:version:create:list --createdlastdays 3
 $ sfdx force:package2:version:create:list --status Error
