@@ -1,16 +1,16 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SFDX plugin that support Salesforce Packaging Platform",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "main": "lib/index.js",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^1.14.2",
-    "@salesforce/command": "^5.2.4",
+    "@salesforce/command": "^5.2.5",
     "@salesforce/core": "^3.26.2",
     "@salesforce/kit": "^1.6.0",
-    "@salesforce/packaging": "^0.0.21",
+    "@salesforce/packaging": "^0.0.23",
     "tslib": "^2"
   },
   "devDependencies": {
