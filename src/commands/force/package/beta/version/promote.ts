@@ -13,14 +13,13 @@ import {
   BY_LABEL,
   getHasMetadataRemoved,
   getPackageIdFromAlias,
+  PackageSaveResult,
   PackageVersion,
   validateId,
 } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
-
-export type PackageVersionPromoteResponse = { id: string; success: boolean; errors: Error[] };
 
 export class PackageVersionPromoteCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -43,14 +42,14 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<PackageVersionPromoteResponse> {
+  public async run(): Promise<PackageSaveResult> {
     const conn = this.hubOrg.getConnection();
     const packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
 
     // ID can be 04t or 05i at this point
     validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
 
-    if (!this.flags.noprompt) {
+    if (!this.flags.json && !this.flags.noprompt) {
       // Warn when a Managed package has removed metadata
       if (await getHasMetadataRemoved(packageId, conn)) {
         this.ux.warn(messages.getMessage('hasMetadataRemovedWarning'));
@@ -67,9 +66,6 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
 
     try {
       result = await pkg.promote(packageId);
-      if (!result.success) {
-        throw SfError.wrap(result.errors.join(os.EOL));
-      }
     } catch (e) {
       const err = SfError.wrap(e);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {

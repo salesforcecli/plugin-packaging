@@ -7,9 +7,8 @@
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
-import { getPackageIdFromAlias } from '@salesforce/packaging';
+import { getPackageIdFromAlias, PackageSaveResult } from '@salesforce/packaging';
 import { SfProject } from '@salesforce/core';
-import { PackageVersionPromoteResponse } from '../../../../src/commands/force/package/beta/version/promote';
 // TODO: enable once `package:beta:version:create` is released
 describe.skip('package:version:promote', () => {
   let session: TestSession;
@@ -47,7 +46,7 @@ describe.skip('package:version:promote', () => {
   });
 
   it('should promote a package (--json)', () => {
-    const result = execCmd<PackageVersionPromoteResponse>(
+    const result = execCmd<PackageSaveResult>(
       `force:package:beta:version:promote --package ${pkgName} --noprompt --json`,
       {
         ensureExitCode: 0,
