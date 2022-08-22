@@ -6,9 +6,8 @@ display the ancestry tree for a 2GP managed package version
 
 Displays the ancestry tree for a 2GP managed package version.
 
-# help
+#examples
 
-Examples:
 $ sfdx force:package:version:displayancestry -p package_version_alias
 $ sfdx force:package:version:displayancestry -p package_version_alias --dotcode
 $ sfdx force:package:version:displayancestry -p OHo...

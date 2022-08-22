@@ -6,9 +6,8 @@
 
 Retrieves the status of a package installion request.
 
-# help
+#examples
 
-Examples:
 $ sfdx force:package:install:get -i 0Hf...
 $ sfdx force:package:install:get -i 0Hf... -u me@example.com
 

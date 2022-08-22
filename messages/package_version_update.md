@@ -10,7 +10,8 @@ Updates a second-generation package version in the Dev Hub org.
 
 Specify a new value for each option you want to update.
 
-Examples:
+# examples
+
 $ sfdx force:package:version:update -p "Your Package Alias" -k password123
 $ sfdx force:package:version:update -p 04t... -b main -t 'Release 1.0.7'
 $ sfdx force:package:version:update -p 04t... -e "New Package Version Description"

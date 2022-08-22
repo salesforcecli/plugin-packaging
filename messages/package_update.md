@@ -10,7 +10,8 @@ Updates details about a package. Does not create a package version.
 
 Specify a new value for each option you want to update.
 
-Examples:
+# examples
+
 $ sfdx force:package:update -p "Your Package Alias" -n "New Package Name"
 $ sfdx force:package:update -p 0Ho... -d "New Package Description"
 

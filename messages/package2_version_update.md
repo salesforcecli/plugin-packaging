@@ -10,7 +10,8 @@ Updates a second-generation package version in the Dev Hub org.
 
 Specify a new value for each option you want to update.
 
-Examples:
+# examples
+
 $ sfdx force:package2:version:update --package2versionid 05i... --setasreleased
 $ sfdx force:package2:version:update -i 05i... -b master -t 'Release 1.0.7'
 
