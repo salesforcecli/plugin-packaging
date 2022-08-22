@@ -34,6 +34,7 @@ export class PackageUninstallCommand extends SfdxCommand {
       char: 'p',
       description: messages.getMessage('package'),
       longDescription: messages.getMessage('packageLong'),
+      required: true,
     }),
   };
 
