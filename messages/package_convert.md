@@ -2,12 +2,6 @@
 
 creates a second-generation package version from a first-generation package
 
-# cliLongDescription
-
-Creates a second-generation package in the Dev Hub from a first-generation package in the Dev Hub org.
-
-# help
-
 The package convert creates a new package in the Dev Hub if one does not already exist for the specified first-generation package.
 
 It then creates a new package version in the Dev Hub with contents based on the specified first-generation package.

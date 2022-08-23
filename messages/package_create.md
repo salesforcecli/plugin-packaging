@@ -2,12 +2,6 @@
 
 create a package
 
-# cliLongDescription
-
-Creates a package.
-
-# help
-
 First, use this command to create a package. Then create a package version.
 
 If you don’t have a namespace defined in your sfdx-project.json file, use --nonamespace.

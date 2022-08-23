@@ -2,10 +2,6 @@
 
 retrieve the status of a package installation request
 
-# cliDescriptionLong
-
-Retrieves the status of a package installation request.
-
 # examples
 
 $ sfdx force:package:install:report -i 0Hf...

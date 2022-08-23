@@ -2,12 +2,6 @@
 
 uninstall a second-generation package from the target org
 
-# cliDescriptionLong
-
-Uninstalls a second-generation package from the target org. To uninstall a first-generation package, use the Salesforce user interface.
-
-# help
-
 Specify the package ID for a second-generation package.
 
 # examples

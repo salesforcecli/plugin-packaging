@@ -9,13 +9,6 @@ Use the package1 commands to create and view first-generation package versions i
 # cliDescription
 
 create a first-generation package version in the release org
-
-# cliDescriptionLong
-
-Creates a first-generation package version in the release org.
-
-# cliHelp
-
 The package version is based on the contents of the specified metadata package. Omit -m if you want to create an unmanaged package version.
 
 # id

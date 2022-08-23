@@ -2,13 +2,9 @@
 
 delete a package
 
-# cliLongDescription
+Specify the ID or alias of the package you want to delete.
 
 Delete unlocked and second-generation managed packages. Before you delete a package, first delete all associated package versions.
-
-# help
-
-Specify the ID or alias of the package you want to delete.
 
 # examples
 
