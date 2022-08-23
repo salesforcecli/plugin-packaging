@@ -176,7 +176,7 @@ export class Install extends SfdxCommand {
   }
 
   private async confirmExternalSites(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
-    const extSites = await this.pkg.getExternalSites(request.SubscriberPackageVersionKey);
+    const extSites = await this.pkg.getExternalSites(request.SubscriberPackageVersionKey, request.Password);
     if (extSites) {
       let enableRss = true;
       if (!noPrompt) {
