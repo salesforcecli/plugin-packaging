@@ -7,7 +7,15 @@
 
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import { Messages, SfError } from '@salesforce/core';
+import {
+  BY_LABEL,
+  getHasMetadataRemoved,
+  getPackageIdFromAlias,
+  PackageSaveResult,
+  PackageVersion,
+  validateId,
+} from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
@@ -33,8 +41,40 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    const conn = this.hubOrg.getConnection();
+    const packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
+
+    // ID can be 04t or 05i at this point
+    validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
+
+    if (!this.flags.json && !this.flags.noprompt) {
+      // Warn when a Managed package has removed metadata
+      if (await getHasMetadataRemoved(packageId, conn)) {
+        this.ux.warn(messages.getMessage('hasMetadataRemovedWarning'));
+      }
+
+      // Prompt for confirmation
+      if (!(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package])))) {
+        return;
+      }
+    }
+
+    const pkg = new PackageVersion({ connection: conn, project: this.project });
+    let result: PackageSaveResult;
+
+    try {
+      result = await pkg.promote(packageId);
+    } catch (e) {
+      const err = SfError.wrap(e);
+      if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
+        err.message = messages.getMessage('previouslyReleasedMessage');
+        err.actions = [messages.getMessage('previouslyReleasedAction')];
+      }
+      throw err;
+    }
+    result.id = packageId;
+    this.ux.log(messages.getMessage('humanSuccess', [result.id]));
+    return result;
   }
 }
