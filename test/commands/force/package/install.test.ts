@@ -395,6 +395,25 @@ describe('force:package:install', () => {
       expect(result).to.deep.equal(pkgInstallRequest);
     });
 
+    it('should NOT confirm external sites with --noprompt flag and installation key', async () => {
+      const installationkey = '1234abcd';
+      const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, {
+        EnableRss: true,
+        Password: installationkey,
+      });
+      getExternalSitesStub.resolves(extSites);
+      installStub.resolves(pkgInstallRequest);
+
+      const result = await runCmd(['-p', '04t6A000002zgKSQAY', '--noprompt', '-k', installationkey], true);
+
+      expect(getExternalSitesStub.calledOnce).to.be.true;
+      expect(getExternalSitesStub.args[0][0]).to.equal(pkgInstallCreateRequest.SubscriberPackageVersionKey);
+      expect(getExternalSitesStub.args[0][1]).to.equal(installationkey);
+      expect(uxConfirmStub.calledOnce).to.be.false;
+      expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
+      expect(result).to.deep.equal(pkgInstallRequest);
+    });
+
     it('should confirm external sites when NO --noprompt flag (yes answer)', async () => {
       const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { EnableRss: true });
       getExternalSitesStub.resolves(extSites);
