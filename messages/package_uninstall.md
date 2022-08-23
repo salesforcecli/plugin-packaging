@@ -60,10 +60,6 @@ The ID (starts with 04t) or alias of the package version to uninstall.
 
 Include either a %s value or a %s value.
 
-# invalidIdOrPackage
-
-Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid (must start with 04t).
-
 # InProgress
 
 PackageUninstallRequest is currently InProgress.

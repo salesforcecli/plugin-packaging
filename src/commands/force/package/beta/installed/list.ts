@@ -29,6 +29,7 @@ export class PackageInstalledListCommand extends SfdxCommand {
   public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
+  public static readonly requiresProject = true;
 
   public async run(): Promise<PackageInstalledListResult[]> {
     const result = await packageInstalledList(this.org.getConnection());
