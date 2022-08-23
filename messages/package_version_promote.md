@@ -24,7 +24,7 @@ ID (starts with 04t) or alias of the package version to promote
 
 The ID (starts with 04t) or alias of the package version to promote.
 
-# packageVersionPromoteSetAsReleasedYesNo
+# packageVersionPromoteConfirm
 
 Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
