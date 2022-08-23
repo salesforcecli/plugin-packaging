@@ -2,12 +2,6 @@
 
 install a package in the target org
 
-# cliDescriptionLong
-
-Installs a package in the target org.
-
-# help
-
 Supply the ID of the package version to install. The package installs in your default target org unless you supply the username for a different target org.
 
 For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgradetype value. To delete components that can be safely deleted and deprecate the others, specify --upgradetype Mixed (the default). To deprecate all removed components, specify --upgradetype DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgradetype Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.

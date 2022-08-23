@@ -2,10 +2,6 @@
 
 retrieve details about a package version in the Dev Hub org
 
-# cliLongDescription
-
-Retrieves details about a package version in the Dev Hub org.
-
 # examples
 
 $ sfdx force:package:version:report -p 04t...

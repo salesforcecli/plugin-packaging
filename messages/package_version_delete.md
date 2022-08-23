@@ -1,13 +1,6 @@
 # cliDescription
 
 delete a package version
-
-# cliLongDescription
-
-Delete unlocked and second-generation managed package versions.
-
-# help
-
 Specify the ID or alias of the package version you want to delete.
 
 # examples

@@ -26,7 +26,6 @@ export type PackageInstalledListResult = {
 
 export class PackageInstalledListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
   public static readonly requiresProject = true;

@@ -2,9 +2,11 @@
 
 list package version creation requests
 
-# cliLongDescription
+Shows the details of each request to create a package version in the Dev Hub org.
 
-Lists all requests to create second-generation package versions in the Dev Hub org.
+All filter parameters are applied using the AND logical operator (not OR).
+
+To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
 
 # statusDescription
 
@@ -13,14 +15,6 @@ filter the list by version creation request status
 # statusLongDescription
 
 Filters the list based on the status of version creation requests.
-
-# help
-
-Shows the details of each request to create a package version in the Dev Hub org.
-
-All filter parameters are applied using the AND logical operator (not OR).
-
-To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
 
 # examples
 

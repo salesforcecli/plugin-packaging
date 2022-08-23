@@ -14,8 +14,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 
 export class Package1VersionListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('longDescription');
-  public static readonly help = messages.getMessage('cliHelp');
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
     packageid: flags.id({
