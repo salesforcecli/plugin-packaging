@@ -10,7 +10,8 @@ Uninstalls a second-generation package from the target org. To uninstall a first
 
 Specify the package ID for a second-generation package.
 
-Examples:
+# examples
+
 $ sfdx force:package:beta:uninstall -p 04t... -u me@example.com
 $ sfdx force:package:beta:uninstall -p undesirable_package_alias
 $ sfdx force:package:beta:uninstall -p "Undesirable Package Alias"

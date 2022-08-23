@@ -10,7 +10,8 @@ Lists all packages in the Dev Hub org.
 
 You can view the namespace, IDs, and other details for each package.
 
-Examples:
+# examples
+
 $ sfdx force:package:list -v devhub@example.com
 $ sfdx force:package:list -v devhub@example.com --verbose
 

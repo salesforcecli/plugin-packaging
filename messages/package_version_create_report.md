@@ -10,7 +10,8 @@ Retrieves details about a package version creation request in the Dev Hub org.
 
 Specify the request ID for which you want to view details. If applicable, the command displays errors related to the request.
 
-Examples:
+# examples
+
 $ sfdx force:package:version:create:report -i 08c...
 $ sfdx force:package:version:create:report -i 08c... -v devhub@example.com
 

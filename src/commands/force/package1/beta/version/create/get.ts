@@ -8,11 +8,10 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { PackagingSObjects, package1VersionCreateGet } from '@salesforce/packaging';
+import { package1VersionCreateGet, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create_get');
-const defaultMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'default');
 
 export class Package1VersionCreateGetCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -34,9 +33,7 @@ export class Package1VersionCreateGetCommand extends SfdxCommand {
       // toolbelt was accessing request.Errors.errors, I'm unsure about this type, but was unable to reproduce an error
       // in the wild, and decided to trust how it was working
       const errors = (result.Errors as unknown as { errors: Error[] })?.errors?.map((e) => e.message).join('\n');
-      throw defaultMessages.createError('package1VersionCreateCommandUploadFailure', [
-        errors ?? 'Package version creation failed with unknown error',
-      ]);
+      throw messages.createError('uploadFailure', [errors ?? 'Package version creation failed with unknown error']);
     } else {
       const arg = result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, this.org.getUsername()];
       this.ux.log(messages.getMessage(result.Status, arg));

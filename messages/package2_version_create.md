@@ -14,7 +14,8 @@ To retrieve details about a package version create request, including status and
 
 To list package version creation requests in the org, run "sfdx force:package2:version:create:list".
 
-Examples:
+# examples
+
 $ sfdx force:package2:version:create -d common
 $ sfdx force:package2:version:create -i 0Ho... -d common
 

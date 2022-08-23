@@ -6,9 +6,8 @@ retrieve status of package uninstall request
 
 Retrieves the status of a package uninstall request.
 
-# help
+#examples
 
-Examples:
 $ sfdx force:package:uninstall:report -i 06y...
 $ sfdx force:package:uninstall:report -i 06y... -u me@example.com
 
