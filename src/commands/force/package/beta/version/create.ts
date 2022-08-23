@@ -16,7 +16,7 @@ import {
   getPackageIdFromAlias,
   INSTALL_URL_BASE,
   PackageVersion,
-  PackageVersionCreateEventData,
+  PackageVersionCreateReportProgress,
   PackagingSObjects,
 } from '@salesforce/packaging';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -159,17 +159,10 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
     // no async methods
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('in-progress', async (data: PackageVersionCreateEventData) => {
-      if (
-        data.packageVersionCreateRequestResult.Status !== Package2VersionStatus.success &&
-        data.packageVersionCreateRequestResult.Status !== Package2VersionStatus.error
-      ) {
+    Lifecycle.getInstance().on('in-progress', async (data: PackageVersionCreateReportProgress) => {
+      if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
         this.ux.log(
-          messages.getMessage('requestInProgress', [
-            frequency.seconds,
-            data.timeRemaining.seconds,
-            data.packageVersionCreateRequestResult.Status,
-          ])
+          messages.getMessage('requestInProgress', [frequency.seconds, data.remainingWaitTime.seconds, data.Status])
         );
       }
     });
