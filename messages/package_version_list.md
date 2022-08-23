@@ -134,3 +134,11 @@ Build Duration in Seconds
 # hasMetadataRemoved
 
 Managed Metadata Removed
+
+# isOrgDependent
+
+Org-Dependent Unlocked Package
+
+# createdBy
+
+Created By
