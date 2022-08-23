@@ -2,12 +2,6 @@
 
 promote a package version to released
 
-# cliDescriptionLong
-
-Promotes a package version to released status.
-
-# help
-
 Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
 # examples

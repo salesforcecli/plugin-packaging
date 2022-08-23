@@ -17,8 +17,6 @@ type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 export class Package1VersionCreateCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliDescriptionLong');
-  public static readonly help = messages.getMessage('cliHelp');
   public static readonly requiresUsername = true;
   public static readonly requiresProject = true;
   public static readonly flagsConfig: FlagsConfig = {

@@ -2,12 +2,6 @@
 
 list all packages in the Dev Hub org
 
-# cliLongDescription
-
-Lists all packages in the Dev Hub org.
-
-# help
-
 You can view the namespace, IDs, and other details for each package.
 
 # examples

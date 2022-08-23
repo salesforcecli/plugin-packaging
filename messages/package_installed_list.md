@@ -2,10 +2,6 @@
 
 list the org’s installed packages
 
-# cliLongDescription
-
-Lists all packages installed in the target org.
-
 # examples
 
 $ sfdx force:package:installed:list

@@ -2,12 +2,6 @@
 
 update package details
 
-# cliLongDescription
-
-Updates details about a package. Does not create a package version.
-
-# help
-
 Specify a new value for each option you want to update.
 
 # examples
