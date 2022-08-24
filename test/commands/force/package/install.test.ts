@@ -125,7 +125,7 @@ describe('force:package:install', () => {
     } catch (err) {
       const error = err as Error;
       expect(error.name).to.equal('Error');
-      expect(error.message).to.include('Missing required flag:\n -p, --package');
+      expect(error.message).to.include('Missing required flag package');
     }
   });
 
