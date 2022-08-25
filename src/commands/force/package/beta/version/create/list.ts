@@ -31,8 +31,8 @@ export class PackageVersionCreateListCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  // eslint-disable-next-line @typescript-eslint/require-await
+  public async run(): Promise<never> {
+    throw new Error('Beta command not yet implemented');
   }
 }
