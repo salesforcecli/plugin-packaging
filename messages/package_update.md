@@ -35,6 +35,6 @@ new package description
 
 New description of the package.
 
-# humanSuccess
+# success
 
-Successfully updated the package.
+Successfully updated the package. %s
