@@ -52,8 +52,8 @@ export class PackageConvert extends SfdxCommand {
     }),
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+    throw new Error('Beta command not yet implemented');
   }
 }
