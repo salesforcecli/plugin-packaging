@@ -4,15 +4,15 @@ uninstall a second-generation package from the target org
 
 Specify the package ID for a second-generation package.
 
+To list the org’s installed packages, run "sfdx force:package:beta:installed:list".
+
+To uninstall a first-generation package, from Setup, enter Installed Packages in the Quick Find box, then select Installed Packages.
+
 # examples
 
 $ sfdx force:package:beta:uninstall -p 04t... -u me@example.com
 $ sfdx force:package:beta:uninstall -p undesirable_package_alias
 $ sfdx force:package:beta:uninstall -p "Undesirable Package Alias"
-
-To list the org’s installed packages, run "sfdx force:package:beta:installed:list".
-
-To uninstall a first-generation package, from Setup, enter Installed Packages in the Quick Find box, then select Installed Packages.
 
 # id
 
