@@ -12,6 +12,7 @@ import { expect } from 'chai';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { PackageVersionDeleteCommand } from '../../../../src/commands/force/package/beta/version/delete';
+
 const $$ = testSetup();
 const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
 let uxLogStub: sinon.SinonStub;
@@ -85,7 +86,8 @@ describe('force:package:version:delete', () => {
     } catch (err) {
       const error = err as Error;
       expect(error.name).to.equal('Error');
-      expect(error.message).to.include('Missing required flag package');
+      expect(error.message).to.include('Missing required flag');
+      expect(error.message).to.include('-p, --package');
     }
   });
 
