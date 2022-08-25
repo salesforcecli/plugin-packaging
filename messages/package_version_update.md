@@ -4,13 +4,13 @@ update a package version
 
 Specify a new value for each option you want to update.
 
+To display details about a package version, run "sfdx force:package:version:report".
+
 # examples
 
 $ sfdx force:package:version:update -p "Your Package Alias" -k password123
 $ sfdx force:package:version:update -p 04t... -b main -t 'Release 1.0.7'
 $ sfdx force:package:version:update -p 04t... -e "New Package Version Description"
-
-To display details about a package version, run "sfdx force:package:version:report".
 
 # package
 
