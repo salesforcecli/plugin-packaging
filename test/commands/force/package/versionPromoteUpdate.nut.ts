@@ -7,10 +7,9 @@
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
-import { getPackageIdFromAlias, PackageSaveResult } from '@salesforce/packaging';
-import { SfProject } from '@salesforce/core';
-// TODO: enable once `package:beta:version:create` is released
-describe.skip('package:version:promote', () => {
+import { PackageSaveResult } from '@salesforce/packaging';
+
+describe('package:version:promote / package:version:update', () => {
   let session: TestSession;
   let packageId: string;
   const pkgName = genUniqueString('dancingbears-');
@@ -24,12 +23,10 @@ describe.skip('package:version:promote', () => {
       `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in."`,
       { ensureExitCode: 0 }
     );
-    // TODO: requires this command
-    execCmd(
-      `force:package:beta:version:create --package ${pkgName} --version 1.0.0 --codecoverage --description "Initial version"`,
+    packageId = execCmd<{ SubscriberPackageVersionId: string }>(
+      `force:package:beta:version:create --package ${pkgName} -w 10 -x --json --codecoverage --versiondescription "Initial version"`,
       { ensureExitCode: 0 }
-    );
-    packageId = getPackageIdFromAlias(pkgName, SfProject.getInstance());
+    ).jsonOutput.result.SubscriberPackageVersionId;
   });
 
   after(async () => {
@@ -38,8 +35,9 @@ describe.skip('package:version:promote', () => {
 
   it('should promote a package (human readable)', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const result = execCmd(`force:package:beta:version:promote --package ${pkgName} --noprompt`, { ensureExitCode: 0 })
-      .shellOutput.stdout as string;
+    const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
+      ensureExitCode: 0,
+    }).shellOutput.stdout as string;
     expect(result).to.contain(
       `Successfully promoted the package version, ID: ${packageId}, to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.`
     );
@@ -47,7 +45,7 @@ describe.skip('package:version:promote', () => {
 
   it('should promote a package (--json)', () => {
     const result = execCmd<PackageSaveResult>(
-      `force:package:beta:version:promote --package ${pkgName} --noprompt --json`,
+      `force:package:beta:version:promote --package ${packageId} --noprompt --json`,
       {
         ensureExitCode: 0,
       }
@@ -55,6 +53,27 @@ describe.skip('package:version:promote', () => {
     expect(result).to.have.all.keys('id', 'success', 'errors');
     expect(result.id).to.equal(packageId);
     expect(result.success).to.equal(true);
-    expect(result.errors).to.equal([]);
+    expect(result.errors).to.deep.equal([]);
+  });
+
+  it('should update a package (human readable)', () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const result = execCmd(`force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch`, {
+      ensureExitCode: 0,
+    }).shellOutput.stdout as string;
+    expect(result).to.contain(`Successfully updated the package version. ${packageId}`);
+  });
+
+  it('should update a package (--json)', () => {
+    const result = execCmd<PackageSaveResult>(
+      `force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch2 --json`,
+      {
+        ensureExitCode: 0,
+      }
+    ).jsonOutput.result;
+    expect(result).to.have.all.keys('id', 'success', 'errors');
+    expect(result.id).to.equal(packageId);
+    expect(result.success).to.equal(true);
+    expect(result.errors).to.deep.equal([]);
   });
 });
