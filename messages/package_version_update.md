@@ -2,12 +2,6 @@
 
 update a package version
 
-# cliLongDescription
-
-Updates a second-generation package version in the Dev Hub org.
-
-# help
-
 Specify a new value for each option you want to update.
 
 # examples

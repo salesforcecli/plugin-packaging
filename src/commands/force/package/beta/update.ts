@@ -15,8 +15,6 @@ const packageCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'pac
 
 export class PackageUpdateCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliLongDescription');
-  public static readonly help = messages.getMessage('help');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
   public static readonly requiresProject = true;
@@ -44,8 +42,8 @@ export class PackageUpdateCommand extends SfdxCommand {
     }),
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+    throw new Error('Beta command not yet implemented');
   }
 }

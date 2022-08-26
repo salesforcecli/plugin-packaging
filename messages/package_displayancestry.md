@@ -2,11 +2,7 @@
 
 display the ancestry tree for a 2GP managed package version
 
-# cliDescriptionLong
-
-Displays the ancestry tree for a 2GP managed package version.
-
-#examples
+# examples
 
 $ sfdx force:package:version:displayancestry -p package_version_alias
 $ sfdx force:package:version:displayancestry -p package_version_alias --dotcode

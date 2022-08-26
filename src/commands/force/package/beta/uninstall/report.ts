@@ -14,7 +14,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageUninstallReportCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -26,8 +25,8 @@ export class PackageUninstallReportCommand extends SfdxCommand {
     }),
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+    throw new Error('Beta command not yet implemented');
   }
 }

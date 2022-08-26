@@ -2,12 +2,6 @@
 
 retrieve details about a package version creation request
 
-# cliLongDescription
-
-Retrieves details about a package version creation request in the Dev Hub org.
-
-# help
-
 Specify the request ID for which you want to view details. If applicable, the command displays errors related to the request.
 
 # examples

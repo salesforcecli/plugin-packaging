@@ -19,8 +19,6 @@ const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'packag
 
 export class PackageVersionCreateReportCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliLongDescription');
-  public static readonly help = messages.getMessage('help');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
   public static readonly flagsConfig: FlagsConfig = {

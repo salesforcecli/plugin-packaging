@@ -15,8 +15,6 @@ const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packagi
 
 export class PackageVersionCreateListCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliLongDescription');
-  public static readonly help = messages.getMessage('help');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -29,13 +27,12 @@ export class PackageVersionCreateListCommand extends SfdxCommand {
       char: 's',
       description: messages.getMessage('statusDescription'),
       longDescription: messages.getMessage('statusLongDescription'),
-
       options: ['Queued', 'InProgress', 'Success', 'Error'],
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  // eslint-disable-next-line @typescript-eslint/require-await
+  public async run(): Promise<never> {
+    throw new Error('Beta command not yet implemented');
   }
 }

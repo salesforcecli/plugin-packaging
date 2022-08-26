@@ -2,12 +2,6 @@
 
 uninstall a second-generation package from the target org
 
-# cliDescriptionLong
-
-Uninstalls a second-generation package from the target org. To uninstall a first-generation package, use the Salesforce user interface.
-
-# help
-
 Specify the package ID for a second-generation package.
 
 # examples
@@ -59,10 +53,6 @@ The ID (starts with 04t) or alias of the package version to uninstall.
 # errorRequiredFlags
 
 Include either a %s value or a %s value.
-
-# invalidIdOrPackage
-
-Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid (must start with 04t).
 
 # InProgress
 

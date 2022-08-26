@@ -15,7 +15,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliDescriptionLong');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly showProgress = false;
   public static readonly varargs = false;
@@ -39,8 +38,8 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
     }),
   };
 
+  // eslint-disable-next-line @typescript-eslint/require-await
   public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+    throw new Error('Beta command not yet implemented');
   }
 }

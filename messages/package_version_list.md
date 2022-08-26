@@ -1,10 +1,12 @@
 # cliDescription
 
-list all package versions in the Dev Hub org
+list all package versions in the Dev Hub org.
 
-# cliLongDescription
+Displays details of each package version in the org.
 
-Lists all package versions in the Dev Hub org.
+Use --concise or --verbose to display limited or additional details, respectively.
+
+All filter parameters are applied using the AND logical operator (not OR).
 
 # conciseDescription
 
@@ -45,14 +47,6 @@ display extended package version details
 # verboseLongDescription
 
 Displays extended package version details.
-
-# help
-
-Displays details of each package version in the org.
-
-Use --concise or --verbose to display limited or additional details, respectively.
-
-All filter parameters are applied using the AND logical operator (not OR).
 
 # examples
 

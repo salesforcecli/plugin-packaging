@@ -31,8 +31,6 @@ const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mi
 
 export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliDescriptionLong');
-  public static readonly help = messages.getMessage('help');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {
@@ -178,7 +176,7 @@ export class Install extends SfdxCommand {
   }
 
   private async confirmExternalSites(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
-    const extSites = await this.pkg.getExternalSites(request.SubscriberPackageVersionKey);
+    const extSites = await this.pkg.getExternalSites(request.SubscriberPackageVersionKey, request.Password);
     if (extSites) {
       let enableRss = true;
       if (!noPrompt) {

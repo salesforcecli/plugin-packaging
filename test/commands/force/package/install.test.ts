@@ -125,7 +125,7 @@ describe('force:package:install', () => {
     } catch (err) {
       const error = err as Error;
       expect(error.name).to.equal('Error');
-      expect(error.message).to.include('Missing required flag:\n -p, --package');
+      expect(error.message).to.include('Missing required flag package');
     }
   });
 
@@ -390,6 +390,25 @@ describe('force:package:install', () => {
       const result = await runCmd(['-p', '04t6A000002zgKSQAY', '--noprompt'], true);
 
       expect(getExternalSitesStub.calledOnce).to.be.true;
+      expect(uxConfirmStub.calledOnce).to.be.false;
+      expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
+      expect(result).to.deep.equal(pkgInstallRequest);
+    });
+
+    it('should NOT confirm external sites with --noprompt flag and installation key', async () => {
+      const installationkey = '1234abcd';
+      const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, {
+        EnableRss: true,
+        Password: installationkey,
+      });
+      getExternalSitesStub.resolves(extSites);
+      installStub.resolves(pkgInstallRequest);
+
+      const result = await runCmd(['-p', '04t6A000002zgKSQAY', '--noprompt', '-k', installationkey], true);
+
+      expect(getExternalSitesStub.calledOnce).to.be.true;
+      expect(getExternalSitesStub.args[0][0]).to.equal(pkgInstallCreateRequest.SubscriberPackageVersionKey);
+      expect(getExternalSitesStub.args[0][1]).to.equal(installationkey);
       expect(uxConfirmStub.calledOnce).to.be.false;
       expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
       expect(result).to.deep.equal(pkgInstallRequest);

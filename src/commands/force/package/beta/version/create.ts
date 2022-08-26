@@ -16,7 +16,7 @@ import {
   getPackageIdFromAlias,
   INSTALL_URL_BASE,
   PackageVersion,
-  PackageVersionCreateEventData,
+  PackageVersionCreateReportProgress,
   PackagingSObjects,
 } from '@salesforce/packaging';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -26,8 +26,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageVersionCreateCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly longDescription = messages.getMessage('cliLongDescription');
-  public static readonly help = messages.getMessage('help');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
   public static readonly requiresProject = true;
@@ -159,20 +157,20 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
     // no async methods
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('in-progress', async (data: PackageVersionCreateEventData) => {
-      if (
-        data.packageVersionCreateRequestResult.Status !== Package2VersionStatus.success &&
-        data.packageVersionCreateRequestResult.Status !== Package2VersionStatus.error
-      ) {
-        this.ux.log(
-          messages.getMessage('requestInProgress', [
-            frequency.seconds,
-            data.timeRemaining.seconds,
-            data.packageVersionCreateRequestResult.Status,
-          ])
+    Lifecycle.getInstance().on('in-progress', async (data: PackageVersionCreateReportProgress) => {
+      if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
+        this.ux.setSpinnerStatus(
+          messages.getMessage('packageVersionCreateWaitingStatus', [data.remainingWaitTime.minutes, data.Status])
         );
       }
     });
+    Lifecycle.getInstance().on(
+      'packageVersionCreate:preserveFiles',
+      // eslint-disable-next-line @typescript-eslint/require-await
+      async (data: { location: string; message: string }) => {
+        this.ux.log(messages.getMessage('tempFileLocation', [data.location]));
+      }
+    );
 
     // resolve the package id from the --package flag, first checking if it's an alias, then using the flag (an id), and then looking for the package name from the --path flag
     let packageName: string;
@@ -188,6 +186,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     const packageId = getPackageIdFromAlias(packageName, this.project);
 
     const pv = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
+    this.ux.startSpinner(messages.getMessage('requestInProgress'));
     const result = await pv.create(
       { ...this.flags, ...{ packageId } },
       {
@@ -195,11 +194,10 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         frequency,
       }
     );
-
+    this.ux.stopSpinner(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
     switch (result.Status) {
       case 'Error':
-        this.ux.log(messages.getMessage('unknownError', [result.Error.join('\n')]));
-        break;
+        throw messages.createError('unknownError', [result.Error.join('\n')]);
       case 'Success':
         this.ux.log(
           messages.getMessage(result.Status, [
