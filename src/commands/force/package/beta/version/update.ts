@@ -56,11 +56,11 @@ export class PackageVersionUpdateCommand extends SfdxCommand {
     const pv = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
     const id = getPackageIdFromAlias(this.flags.package, this.project);
     const result = await pv.update(id, {
-      VersionDescription: this.flags.versiondescription,
-      Branch: this.flags.branch,
-      InstallKey: this.flags.installationkey,
-      VersionName: this.flags.versionname,
-      Tag: this.flags.tag,
+      VersionDescription: this.flags.versiondescription as string,
+      Branch: this.flags.branch as string,
+      InstallKey: this.flags.installationkey as string,
+      VersionName: this.flags.versionname as string,
+      Tag: this.flags.tag as string,
     });
 
     this.ux.log(messages.getMessage('success', [result.id]));
