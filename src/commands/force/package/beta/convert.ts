@@ -8,10 +8,20 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Duration } from '@salesforce/kit';
-import { Messages } from '@salesforce/core';
+import { Lifecycle, Messages, SfProject } from '@salesforce/core';
+import {
+  convertCamelCaseStringToSentence,
+  INSTALL_URL_BASE,
+  Package,
+  PackageVersionCreateEventData,
+  PackageVersionCreateRequestResult,
+  PackagingSObjects,
+} from '@salesforce/packaging';
+import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
+const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export class PackageConvert extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -52,8 +62,52 @@ export class PackageConvert extends SfdxCommand {
     }),
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async run(): Promise<unknown> {
-    throw new Error('Beta command not yet implemented');
+  public async run(): Promise<PackageVersionCreateRequestResult> {
+    // eslint-disable-next-line @typescript-eslint/require-await
+    Lifecycle.getInstance().on(Package2VersionStatus.inProgress, async (data: PackageVersionCreateEventData) => {
+      this.ux.log(
+        `Request in progress. Sleeping 30 seconds. Will wait a total of ${
+          data.timeRemaining.seconds
+        } more seconds before timing out. Current Status='${convertCamelCaseStringToSentence(
+          data.packageVersionCreateRequestResult.Status
+        )}'`
+      );
+    });
+
+    // eslint-disable-next-line @typescript-eslint/require-await
+    Lifecycle.getInstance().on(Package2VersionStatus.success, async () => {
+      this.ux.log('SUCCESS');
+    });
+
+    const pkg = new Package({ connection: this.hubOrg.getConnection() });
+    const result = await pkg.convert(
+      this.flags.package,
+      {
+        wait: this.flags.wait as Duration,
+        installationKey: this.flags.installationkey as string,
+        installationKeyBypass: this.flags.installationkeybypass as boolean,
+        buildInstance: this.flags.buildinstance as string,
+      },
+      SfProject.getInstance()
+    );
+
+    switch (result.Status) {
+      case 'Error':
+        throw result.Error.length > 0 ? result.Error.join('\n') : pvcMessages.getMessage('unknownError');
+      case 'Success':
+        this.ux.log(
+          pvcMessages.getMessage(result.Status, [
+            result.Id,
+            result.SubscriberPackageVersionId,
+            INSTALL_URL_BASE.toString(),
+            result.SubscriberPackageVersionId,
+          ])
+        );
+        break;
+      default:
+        this.ux.log(pvcMessages.getMessage('InProgress', [convertCamelCaseStringToSentence(result.Status), result.Id]));
+    }
+
+    return result;
   }
 }
