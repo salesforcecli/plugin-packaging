@@ -303,4 +303,12 @@ The %s value "%s" from the command line or sfdx-project.json is not in the corre
 
 # requestInProgress
 
-Request in progress. Sleeping %s seconds. Will wait a total of %s more seconds before timing out. Current Status=%s.
+Version create.
+
+# packageVersionCreateWaitingStatus
+
+%d minutes remaining until timeout. Create version status: %s
+
+# packageVersionCreateFinalStatus
+
+Create version status: %s
