@@ -1150,10 +1150,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^0.0.29":
-  version "0.0.29"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.29.tgz#3554ed5603aeabb77830013865223ab8d738a6fe"
-  integrity sha512-2P65Ds9G9E+M0+ypo4X+q0wW9rf8Qt6nr+wx0RA2PFnuMU5gxIM89KK8lRVi/JLyCh+DDr9nz6jD2FAKNbiheQ==
+"@salesforce/packaging@^0.0.30":
+  version "0.0.30"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.30.tgz#960896896614be8658d4dcea2f58915c1264b0b6"
+  integrity sha512-E7GqZUCU35b02BeV1BmboRMsN1nDocLCuhZmVxJI4/49a7+fOSC79ynfkiPwpVBzl/qk14gahVC13HZKdAqrPQ==
   dependencies:
     "@salesforce/core" "^3.26.2"
     "@salesforce/kit" "^1.6.0"
