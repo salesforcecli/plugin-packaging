@@ -60,7 +60,7 @@ new installation key for key-protected package (default: null)
 
 The new installation key for the key-protected package. The default is null.
 
-# humanSuccess
+# success
 
 Successfully updated the package version.
 
