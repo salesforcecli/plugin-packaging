@@ -12,6 +12,7 @@ import {
   BY_LABEL,
   getHasMetadataRemoved,
   getPackageIdFromAlias,
+  getPackageVersionId,
   PackageSaveResult,
   PackageVersion,
   validateId,
@@ -42,10 +43,15 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
 
   public async run(): Promise<PackageSaveResult> {
     const conn = this.hubOrg.getConnection();
-    const packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
+    let packageId = getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
 
     // ID can be 04t or 05i at this point
     validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
+
+    if (packageId.startsWith('04t')) {
+      // lookup the 05i ID for getHasMetadataRemoved below
+      packageId = await getPackageVersionId(packageId, conn);
+    }
 
     if (!this.flags.json && !this.flags.noprompt) {
       // Warn when a Managed package has removed metadata
