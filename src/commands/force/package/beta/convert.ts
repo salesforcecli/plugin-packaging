@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Duration } from '@salesforce/kit';
-import { Lifecycle, Messages, SfProject } from '@salesforce/core';
+import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import {
   convertCamelCaseStringToSentence,
   INSTALL_URL_BASE,
@@ -93,7 +93,7 @@ export class PackageConvert extends SfdxCommand {
 
     switch (result.Status) {
       case 'Error':
-        throw result.Error.length > 0 ? result.Error.join('\n') : pvcMessages.getMessage('unknownError');
+        throw new SfError(result.Error?.join('\n') ?? pvcMessages.getMessage('unknownError'));
       case 'Success':
         this.ux.log(
           pvcMessages.getMessage(result.Status, [
