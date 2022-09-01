@@ -4,12 +4,12 @@ update package details
 
 Specify a new value for each option you want to update.
 
+Run "sfdx force:package:list" to list all packages in the Dev Hub org.
+
 # examples
 
 $ sfdx force:package:update -p "Your Package Alias" -n "New Package Name"
 $ sfdx force:package:update -p 0Ho... -d "New Package Description"
-
-Run "sfdx force:package:list" to list all packages in the Dev Hub org.
 
 # package
 
@@ -35,6 +35,6 @@ new package description
 
 New description of the package.
 
-# humanSuccess
+# success
 
-Successfully updated the package.
+Successfully updated the package. %s
