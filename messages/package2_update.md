@@ -10,12 +10,12 @@ Updates a second-generation package.
 
 Specify a new value for each option you want to update.
 
+Run 'sfdx force:package2:list' to list all second-generation packages in the Dev Hub org.
+
 # examples
 
 $ sfdx force:package2:update --package2id 0Ho... --name 'AAnalytics'
 $ sfdx force:package2:update -i 0Ho... -d 'Advanced Analytics'
-
-Run 'sfdx force:package2:list' to list all second-generation packages in the Dev Hub org.
 
 # id
 
