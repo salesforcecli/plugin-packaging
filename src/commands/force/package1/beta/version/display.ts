@@ -22,11 +22,10 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
       longDescription: messages.getMessage('packageIdLong'),
       required: true,
       validate: (id) => {
-        if (id.startsWith('04t') && [18, 15].includes(id.length)) {
+        if (/^04t.{12,15}$/.test(id)) {
           return true;
-        } else {
-          throw messages.createError('packageIdInvalid');
         }
+        throw messages.createError('packageIdInvalid');
       },
     }),
   };
