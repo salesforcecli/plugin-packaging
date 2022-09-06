@@ -8,6 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
+import { PackageAncestry, PackageAncestryNodeData } from '@salesforce/packaging';
 
 // Import i18n messages
 Messages.importMessagesDirectory(__dirname);
@@ -19,6 +20,8 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
   public static readonly showProgress = false;
   public static readonly varargs = false;
   public static readonly requiresDevhubUsername = true;
+  public static readonly requiresProject = true;
+  public static readonly require = true;
 
   public static readonly flagsConfig: FlagsConfig = {
     // --json is configured automatically
@@ -38,8 +41,25 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
     }),
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async run(): Promise<unknown> {
-    throw new Error('Beta command not yet implemented');
+  public async run(): Promise<PackageAncestryNodeData> {
+    const packageAncestry = await PackageAncestry.create({
+      packageId: this.flags.package as string,
+      project: this.project,
+      connection: this.hubOrg.getConnection(),
+    });
+    const jsonProducer = await packageAncestry.getJsonProducer();
+    if (this.flags.dotcode) {
+      const dotProducer = await packageAncestry.getDotProducer();
+      this.ux.log(dotProducer.produce() as string);
+    } else {
+      if (packageAncestry.requestedPackageId.startsWith('04t')) {
+        const paths = await packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
+        this.ux.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
+        this.ux.log();
+      }
+      const treeProducer = await packageAncestry.getTreeProducer(!!this.flags.verbose);
+      treeProducer.produce();
+    }
+    return jsonProducer.produce() as PackageAncestryNodeData;
   }
 }
