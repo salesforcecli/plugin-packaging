@@ -21,7 +21,7 @@ export class Package1VersionListCommand extends SfdxCommand {
       description: messages.getMessage('packageId'),
       longDescription: messages.getMessage('packageIdLong'),
       validate: (id) => {
-        if (id.startsWith('033') && [18, 15].includes(id.length)) {
+        if (/^033.{12,15}$/.test(id)) {
           return true;
         } else {
           throw messages.createError('packageIdInvalid');
