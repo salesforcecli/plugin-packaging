@@ -48,7 +48,7 @@ describe('package install', () => {
     const uninstallRequest = execCmd<PackageUninstallRequest>(uninstallCommand, {
       ensureExitCode: 0,
     }).jsonOutput.result;
-    expect(uninstallRequest).to.have.property('Status', 'IN_PROGRESS');
+    expect(['InProgress', 'Success']).to.include(uninstallRequest.Status);
     expect(uninstallRequest.Id.startsWith('06y')).to.be.true;
 
     const uninstallReportCommand = `force:package:beta:uninstall:report -i ${uninstallRequest.Id} --json`;
@@ -62,7 +62,8 @@ describe('package install', () => {
       'LastModifiedById',
       'SystemModstamp',
       'SubscriberPackageVersionId',
-      'Status'
+      'Status',
+      'attributes'
     );
   });
 });
