@@ -9,30 +9,30 @@ import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-t
 import { expect } from 'chai';
 import { PackageSaveResult } from '@salesforce/packaging';
 
+let packageId: string;
+const pkgName = genUniqueString('dancingbears-');
+let session: TestSession;
+
+before(async () => {
+  session = await TestSession.create({
+    setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
+    project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
+  });
+  const id = execCmd<{ Id: string }>(
+    `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
+    { ensureExitCode: 0 }
+  ).jsonOutput.result.Id;
+  packageId = execCmd<{ SubscriberPackageVersionId: string }>(
+    `force:package:beta:version:create --package ${id} -w 20 -x --json --codecoverage --versiondescription "Initial version"`,
+    { ensureExitCode: 0 }
+  ).jsonOutput.result.SubscriberPackageVersionId;
+});
+
+after(async () => {
+  await session?.clean();
+});
+
 describe('package:version:promote / package:version:update', () => {
-  let session: TestSession;
-  let packageId: string;
-  const pkgName = genUniqueString('dancingbears-');
-
-  before(async () => {
-    session = await TestSession.create({
-      setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
-      project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
-    });
-    execCmd(
-      `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in."`,
-      { ensureExitCode: 0 }
-    );
-    packageId = execCmd<{ SubscriberPackageVersionId: string }>(
-      `force:package:beta:version:create --package ${pkgName} -w 10 -x --json --codecoverage --versiondescription "Initial version"`,
-      { ensureExitCode: 0 }
-    ).jsonOutput.result.SubscriberPackageVersionId;
-  });
-
-  after(async () => {
-    await session?.clean();
-  });
-
   it('should promote a package (human readable)', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
