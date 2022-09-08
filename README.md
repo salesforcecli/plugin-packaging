@@ -78,10 +78,10 @@ sfdx plugins
 - [`sfdx force:package:beta:install:report -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetainstallreport--i-id--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:installed:list [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetainstalledlist--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:list [-v <string>] [--apiversion <string>] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetalist--v-string---apiversion-string---verbose---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-- [`sfdx force:package:beta:uninstall [-w <minutes>] [-p <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetauninstall--w-minutes--p-string--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+- [`sfdx force:package:beta:uninstall -p <string> [-w <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetauninstall--p-string--w-minutes--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:uninstall:report -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetauninstallreport--i-id--u-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:update -p <string> [-n <string>] [-d <string>] [-o <string>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaupdate--p-string--n-string--d-string--o-string--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-- [`sfdx force:package:beta:version:create [-p <string>] [-d <directory>] [-f <filepath>] [-b <string>] [-t <string>] [-k <string>] [-x] [-w <minutes>] [-a <string>] [-n <string>] [-e <string>] [-c] [--releasenotesurl <url>] [--postinstallurl <url>] [--postinstallscript <string>] [--uninstallscript <string>] [--skipvalidation] [--skipancestorcheck] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversioncreate--p-string--d-directory--f-filepath--b-string--t-string--k-string--x--w-minutes--a-string--n-string--e-string--c---releasenotesurl-url---postinstallurl-url---postinstallscript-string---uninstallscript-string---skipvalidation---skipancestorcheck--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
+- [`sfdx force:package:beta:version:create [-b <string>] [-c | --skipvalidation] [-f <filepath>] [-k <string>] [-x] [-p <string>] [-d <directory>] [--postinstallscript <string>] [--postinstallurl <url>] [--releasenotesurl <url>] [--skipancestorcheck] [-t <string>] [--uninstallscript <string>] [-e <string>] [-a <string>] [-n <string>] [-w <minutes>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversioncreate--b-string--c----skipvalidation--f-filepath--k-string--x--p-string--d-directory---postinstallscript-string---postinstallurl-url---releasenotesurl-url---skipancestorcheck--t-string---uninstallscript-string--e-string--a-string--n-string--w-minutes--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:version:create:list [-c <number>] [-s Queued|InProgress|Success|Error] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversioncreatelist--c-number--s-queuedinprogresssuccesserror--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:version:create:report -i <id> [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversioncreatereport--i-id--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:version:delete -p <string> [-n] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversiondelete--p-string--n--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
@@ -90,7 +90,6 @@ sfdx plugins
 - [`sfdx force:package:beta:version:promote -p <string> [-n] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversionpromote--p-string--n--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:version:report -p <string> [-v <string>] [--apiversion <string>] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversionreport--p-string--v-string---apiversion-string---verbose---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
 - [`sfdx force:package:beta:version:update -p <string> [-a <string>] [-e <string>] [-b <string>] [-t <string>] [-k <string>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`](#sfdx-forcepackagebetaversionupdate--p-string--a-string--e-string--b-string--t-string--k-string--v-string---apiversion-string---json---loglevel-tracedebuginfowarnerrorfataltracedebuginfowarnerrorfatal)
-- [`sfdx version`](#sfdx-version)
 
 ## `sfdx force:package1:beta:version:create -i <id> -n <string> [-d <string>] [-v <string>] [-m] [-r <url>] [-p <url>] [-k <string>] [-w <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -128,9 +127,12 @@ FLAGS
 
 DESCRIPTION
   create a first-generation package version in the release org
+
+  The package version is based on the contents of the specified metadata package. Omit -m if you want to create an
+  unmanaged package version.
 ```
 
-_See code: [src/commands/force/package1/beta/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package1/beta/version/create.ts)_
+_See code: [src/commands/force/package1/beta/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package1/beta/version/create.ts)_
 
 ## `sfdx force:package1:beta:version:create:get -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -155,14 +157,12 @@ DESCRIPTION
   retrieve the status of a package version creation request
 
 EXAMPLES
-  Examples:
-
   $ sfdx force:package1:version:create:get -i 0HD...
 
   $ sfdx force:package1:version:create:get -i 0HD... -u devhub@example.com
 ```
 
-_See code: [src/commands/force/package1/beta/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package1/beta/version/create/get.ts)_
+_See code: [src/commands/force/package1/beta/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package1/beta/version/create/get.ts)_
 
 ## `sfdx force:package1:beta:version:display -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -188,7 +188,7 @@ DESCRIPTION
   display details about a first-generation package version
 ```
 
-_See code: [src/commands/force/package1/beta/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package1/beta/version/display.ts)_
+_See code: [src/commands/force/package1/beta/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package1/beta/version/display.ts)_
 
 ## `sfdx force:package1:beta:version:list [-i <id>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -214,7 +214,7 @@ DESCRIPTION
   list package versions for the specified first-generation package or for the org
 ```
 
-_See code: [src/commands/force/package1/beta/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package1/beta/version/list.ts)_
+_See code: [src/commands/force/package1/beta/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package1/beta/version/list.ts)_
 
 ## `sfdx force:package:beta:create -n <string> -t Managed|Unlocked -r <directory> [-d <string>] [-e] [--orgdependent] [-o <string>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -251,9 +251,22 @@ FLAGS
 
 DESCRIPTION
   create a package
+
+  First, use this command to create a package. Then create a package version.
+
+  If you don’t have a namespace defined in your sfdx-project.json file, use --nonamespace.
+
+  Your --name value must be unique within your namespace.
+
+  Run 'sfdx force:package:list' to list all packages in the Dev Hub org.
+
+EXAMPLES
+  $ sfdx force:package:create -n YourPackageName -t Unlocked -r force-app
+
+  $ sfdx force:package:create -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
 ```
 
-_See code: [src/commands/force/package/beta/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/create.ts)_
+_See code: [src/commands/force/package/beta/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/create.ts)_
 
 ## `sfdx force:package:beta:delete -p <string> [-n] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -279,9 +292,19 @@ FLAGS
 
 DESCRIPTION
   delete a package
+
+  Specify the ID or alias of the package you want to delete.
+
+  Delete unlocked and second-generation managed packages. Before you delete a package, first delete all associated
+  package versions.
+
+EXAMPLES
+  $ sfdx force:package:delete -p "Your Package Alias"
+
+  $ sfdx force:package:delete -p 0Ho...
 ```
 
-_See code: [src/commands/force/package/beta/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/delete.ts)_
+_See code: [src/commands/force/package/beta/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/delete.ts)_
 
 ## `sfdx force:package:beta:install -p <string> [-w <minutes>] [-k <string>] [-b <minutes>] [-r] [-a all|package] [-s AllUsers|AdminsOnly] [-t DeprecateOnly|Mixed|Delete] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -333,9 +356,28 @@ FLAGS
 
 DESCRIPTION
   install a package in the target org
+
+  Supply the ID of the package version to install. The package installs in your default target org unless you supply the
+  username for a different target org.
+
+  For package upgrades, to specify options for component deprecation or deletion of removed components, include an
+  --upgradetype value. To delete components that can be safely deleted and deprecate the others, specify --upgradetype
+  Mixed (the default). To deprecate all removed components, specify --upgradetype DeprecateOnly. To delete all removed
+  components, except for custom objects and custom fields, that don't have dependencies, specify --upgradetype Delete.
+  (Note: This option can result in the loss of data that is associated with the deleted components.) The default is
+  Mixed.
+
+EXAMPLES
+  $ sfdx force:package:beta:install --package 04t... -u me@example.com
+
+  $ sfdx force:package:beta:install --package awesome_package_alias
+
+  $ sfdx force:package:beta:install --package "Awesome Package Alias"
+
+  $ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
 ```
 
-_See code: [src/commands/force/package/beta/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/install.ts)_
+_See code: [src/commands/force/package/beta/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/install.ts)_
 
 ## `sfdx force:package:beta:install:report -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -359,9 +401,14 @@ FLAGS
 
 DESCRIPTION
   retrieve the status of a package installation request
+
+EXAMPLES
+  $ sfdx force:package:install:report -i 0Hf...
+
+  $ sfdx force:package:install:report -i 0Hf... -u me@example.com
 ```
 
-_See code: [src/commands/force/package/beta/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/install/report.ts)_
+_See code: [src/commands/force/package/beta/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/install/report.ts)_
 
 ## `sfdx force:package:beta:installed:list [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -390,7 +437,7 @@ EXAMPLES
   $ sfdx force:package:installed:list -u me@example.com
 ```
 
-_See code: [src/commands/force/package/beta/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/installed/list.ts)_
+_See code: [src/commands/force/package/beta/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/installed/list.ts)_
 
 ## `sfdx force:package:beta:list [-v <string>] [--apiversion <string>] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -413,22 +460,30 @@ FLAGS
 
 DESCRIPTION
   list all packages in the Dev Hub org
+
+  You can view the namespace, IDs, and other details for each package.
+
+EXAMPLES
+  $ sfdx force:package:list -v devhub@example.com
+
+  $ sfdx force:package:list -v devhub@example.com --verbose
 ```
 
-_See code: [src/commands/force/package/beta/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/list.ts)_
+_See code: [src/commands/force/package/beta/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/list.ts)_
 
-## `sfdx force:package:beta:uninstall [-w <minutes>] [-p <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx force:package:beta:uninstall -p <string> [-w <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 uninstall a second-generation package from the target org
 
 ```
 USAGE
-  $ sfdx force:package:beta:uninstall [-w <minutes>] [-p <string>] [-u <string>] [--apiversion <string>] [--json] [--loglevel
+  $ sfdx force:package:beta:uninstall -p <string> [-w <minutes>] [-u <string>] [--apiversion <string>] [--json] [--loglevel
     trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 FLAGS
-  -p, --package=<value>                                                             ID (starts with 04t) or alias of the
-                                                                                    package version to uninstall
+  -p, --package=<value>                                                             (required) ID (starts with 04t) or
+                                                                                    alias of the package version to
+                                                                                    uninstall
   -u, --targetusername=<value>                                                      username or alias for the target
                                                                                     org; overrides default target org
   -w, --wait=<value>                                                                [default: 0 minutes] number of
@@ -441,9 +496,23 @@ FLAGS
 
 DESCRIPTION
   uninstall a second-generation package from the target org
+
+  Specify the package ID for a second-generation package.
+
+  To list the org’s installed packages, run "sfdx force:package:beta:installed:list".
+
+  To uninstall a first-generation package, from Setup, enter Installed Packages in the Quick Find box, then select
+  Installed Packages.
+
+EXAMPLES
+  $ sfdx force:package:beta:uninstall -p 04t... -u me@example.com
+
+  $ sfdx force:package:beta:uninstall -p undesirable_package_alias
+
+  $ sfdx force:package:beta:uninstall -p "Undesirable Package Alias"
 ```
 
-_See code: [src/commands/force/package/beta/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/uninstall.ts)_
+_See code: [src/commands/force/package/beta/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/uninstall.ts)_
 
 ## `sfdx force:package:beta:uninstall:report -i <id> [-u <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -467,9 +536,14 @@ FLAGS
 
 DESCRIPTION
   retrieve status of package uninstall request
+
+EXAMPLES
+  $ sfdx force:package:beta:uninstall:report -i 06y...
+
+  $ sfdx force:package:beta:uninstall:report -i 06y... -u me@example.com
 ```
 
-_See code: [src/commands/force/package/beta/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/uninstall/report.ts)_
+_See code: [src/commands/force/package/beta/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/uninstall/report.ts)_
 
 ## `sfdx force:package:beta:update -p <string> [-n <string>] [-d <string>] [-o <string>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -498,21 +572,29 @@ FLAGS
 
 DESCRIPTION
   update package details
+
+  Specify a new value for each option you want to update.
+
+  Run "sfdx force:package:list" to list all packages in the Dev Hub org.
+
+EXAMPLES
+  $ sfdx force:package:update -p "Your Package Alias" -n "New Package Name"
+
+  $ sfdx force:package:update -p 0Ho... -d "New Package Description"
 ```
 
-_See code: [src/commands/force/package/beta/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/update.ts)_
+_See code: [src/commands/force/package/beta/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/update.ts)_
 
-## `sfdx force:package:beta:version:create [-p <string>] [-d <directory>] [-f <filepath>] [-b <string>] [-t <string>] [-k <string>] [-x] [-w <minutes>] [-a <string>] [-n <string>] [-e <string>] [-c] [--releasenotesurl <url>] [--postinstallurl <url>] [--postinstallscript <string>] [--uninstallscript <string>] [--skipvalidation] [--skipancestorcheck] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
+## `sfdx force:package:beta:version:create [-b <string>] [-c | --skipvalidation] [-f <filepath>] [-k <string>] [-x] [-p <string>] [-d <directory>] [--postinstallscript <string>] [--postinstallurl <url>] [--releasenotesurl <url>] [--skipancestorcheck] [-t <string>] [--uninstallscript <string>] [-e <string>] [-a <string>] [-n <string>] [-w <minutes>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
 create a package version
 
 ```
 USAGE
-  $ sfdx force:package:beta:version:create [-p <string>] [-d <directory>] [-f <filepath>] [-b <string>] [-t <string>] [-k <string>]
-    [-x] [-w <minutes>] [-a <string>] [-n <string>] [-e <string>] [-c] [--releasenotesurl <url>] [--postinstallurl
-    <url>] [--postinstallscript <string>] [--uninstallscript <string>] [--skipvalidation] [--skipancestorcheck] [-v
-    <string>] [--apiversion <string>] [--json] [--loglevel
-    trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
+  $ sfdx force:package:beta:version:create [-b <string>] [-c | --skipvalidation] [-f <filepath>] [-k <string>] [-x] [-p <string>] [-d
+    <directory>] [--postinstallscript <string>] [--postinstallurl <url>] [--releasenotesurl <url>] [--skipancestorcheck]
+    [-t <string>] [--uninstallscript <string>] [-e <string>] [-a <string>] [-n <string>] [-w <minutes>] [-v <string>]
+    [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]
 
 FLAGS
   -a, --versionname=<value>                                                         the name of the package version to
@@ -564,9 +646,18 @@ FLAGS
 
 DESCRIPTION
   create a package version
+
+EXAMPLES
+  $ sfdx force:package:version:create -d common -k password123
+
+  $ sfdx force:package:version:create -p "Your Package Alias" -k password123
+
+  $ sfdx force:package:version:create -p 0Ho... -k password123
+
+  $ sfdx force:package:version:create -d common -k password123 --skipvalidation
 ```
 
-_See code: [src/commands/force/package/beta/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/create.ts)_
+_See code: [src/commands/force/package/beta/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/create.ts)_
 
 ## `sfdx force:package:beta:version:create:list [-c <number>] [-s Queued|InProgress|Success|Error] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -593,9 +684,26 @@ FLAGS
 
 DESCRIPTION
   list package version creation requests
+
+  Shows the details of each request to create a package version in the Dev Hub org.
+
+  All filter parameters are applied using the AND logical operator (not OR).
+
+  To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
+
+EXAMPLES
+  $ sfdx force:package:version:create:list
+
+  $ sfdx force:package:version:create:list --createdlastdays 3
+
+  $ sfdx force:package:version:create:list --status Error
+
+  $ sfdx force:package:version:create:list -s InProgress
+
+  $ sfdx force:package:version:create:list -c 3 -s Success
 ```
 
-_See code: [src/commands/force/package/beta/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/create/list.ts)_
+_See code: [src/commands/force/package/beta/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/create/list.ts)_
 
 ## `sfdx force:package:beta:version:create:report -i <id> [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -619,9 +727,19 @@ FLAGS
 
 DESCRIPTION
   retrieve details about a package version creation request
+
+  Specify the request ID for which you want to view details. If applicable, the command displays errors related to the
+  request.
+
+  To show all requests in the org, run "sfdx force:package:version:create:list".
+
+EXAMPLES
+  $ sfdx force:package:version:create:report -i 08c...
+
+  $ sfdx force:package:version:create:report -i 08c... -v devhub@example.com
 ```
 
-_See code: [src/commands/force/package/beta/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/create/report.ts)_
+_See code: [src/commands/force/package/beta/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/create/report.ts)_
 
 ## `sfdx force:package:beta:version:delete -p <string> [-n] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -648,9 +766,16 @@ FLAGS
 
 DESCRIPTION
   delete a package version
+
+  Specify the ID or alias of the package version you want to delete.
+
+EXAMPLES
+  $ sfdx force:package:version:delete -p "Your Package Alias"
+
+  $ sfdx force:package:version:delete -p 04t...
 ```
 
-_See code: [src/commands/force/package/beta/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/delete.ts)_
+_See code: [src/commands/force/package/beta/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/delete.ts)_
 
 ## `sfdx force:package:beta:version:displayancestry -p <string> [--dotcode] [-v <string>] [--apiversion <string>] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -682,13 +807,22 @@ FLAGS
 
 DESCRIPTION
   display the ancestry tree for a 2GP managed package version
+
+EXAMPLES
+  $ sfdx force:package:version:displayancestry -p package_version_alias
+
+  $ sfdx force:package:version:displayancestry -p package_version_alias --dotcode
+
+  $ sfdx force:package:version:displayancestry -p OHo...
+
+  $ sfdx force:package:version:displayancestry -p 04t...
 ```
 
-_See code: [src/commands/force/package/beta/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/displayancestry.ts)_
+_See code: [src/commands/force/package/beta/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/displayancestry.ts)_
 
 ## `sfdx force:package:beta:version:list [-c <number>] [-m <number>] [-p <array>] [-r] [-o <array>] [-v <string>] [--apiversion <string>] [--concise] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
-list all package versions in the Dev Hub org
+list all package versions in the Dev Hub org.
 
 ```
 USAGE
@@ -723,10 +857,29 @@ FLAGS
                                                                                     details
 
 DESCRIPTION
-  list all package versions in the Dev Hub org
+  list all package versions in the Dev Hub org.
+
+  Displays details of each package version in the org.
+
+  Use --concise or --verbose to display limited or additional details, respectively.
+
+  All filter parameters are applied using the AND logical operator (not OR).
+
+EXAMPLES
+  $ sfdx force:package:version:list --verbose --createdlastdays 3 --released --orderby PatchVersion
+
+  $ sfdx force:package:version:list --packages 0Ho000000000000,0Ho000000000001 --released --modifiedlastdays 0
+
+  $ sfdx force:package:version:list --released
+
+  $ sfdx force:package:version:list --concise --modifiedlastdays 0
+
+  $ sfdx force:package:version:list --concise -c 3 -r
+
+  $ sfdx force:package:version:list --packages exp-mgr,exp-mgr-util --released --modifiedlastdays 0
 ```
 
-_See code: [src/commands/force/package/beta/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/list.ts)_
+_See code: [src/commands/force/package/beta/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/list.ts)_
 
 ## `sfdx force:package:beta:version:promote -p <string> [-n] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -753,9 +906,18 @@ FLAGS
 
 DESCRIPTION
   promote a package version to released
+
+  Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
+
+EXAMPLES
+  $ sfdx force:package:version:promote -p 04t...
+
+  $ sfdx force:package:version:promote -p awesome_package_alias
+
+  $ sfdx force:package:version:promote -p "Awesome Package Alias"
 ```
 
-_See code: [src/commands/force/package/beta/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/promote.ts)_
+_See code: [src/commands/force/package/beta/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/promote.ts)_
 
 ## `sfdx force:package:beta:version:report -p <string> [-v <string>] [--apiversion <string>] [--verbose] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -782,9 +944,16 @@ FLAGS
 
 DESCRIPTION
   retrieve details about a package version in the Dev Hub org
+
+  To update package version values, run "sfdx force:package:version:update".
+
+EXAMPLES
+  $ sfdx force:package:version:report -p 04t...
+
+  $ sfdx force:package:version:report -p "Your Package Alias"
 ```
 
-_See code: [src/commands/force/package/beta/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/report.ts)_
+_See code: [src/commands/force/package/beta/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/report.ts)_
 
 ## `sfdx force:package:beta:version:update -p <string> [-a <string>] [-e <string>] [-b <string>] [-t <string>] [-k <string>] [-v <string>] [--apiversion <string>] [--json] [--loglevel trace|debug|info|warn|error|fatal|TRACE|DEBUG|INFO|WARN|ERROR|FATAL]`
 
@@ -817,28 +986,19 @@ FLAGS
 
 DESCRIPTION
   update a package version
+
+  Specify a new value for each option you want to update.
+
+  To display details about a package version, run "sfdx force:package:version:report".
+
+EXAMPLES
+  $ sfdx force:package:version:update -p "Your Package Alias" -k password123
+
+  $ sfdx force:package:version:update -p 04t... -b main -t 'Release 1.0.7'
+
+  $ sfdx force:package:version:update -p 04t... -e "New Package Version Description"
 ```
 
-_See code: [src/commands/force/package/beta/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/v0.0.1/src/commands/force/package/beta/version/update.ts)_
-
-## `sfdx version`
-
-```
-USAGE
-  $ sfdx version [--json] [--verbose]
-
-FLAGS
-  --verbose  Show additional information about the CLI.
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-FLAG DESCRIPTIONS
-  --verbose  Show additional information about the CLI.
-
-    Additionally shows the architecture, node version, operating system, and versions of plugins that the CLI is using.
-```
-
-_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.1.2/src/commands/version.ts)_
+_See code: [src/commands/force/package/beta/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/v1.7.1/src/commands/force/package/beta/version/update.ts)_
 
 <!-- commandsstop -->
