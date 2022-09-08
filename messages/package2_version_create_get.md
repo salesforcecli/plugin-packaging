@@ -10,11 +10,11 @@ Retrieves a second-generation package version creation request in the Dev Hub or
 
 Specify the request ID for which you want to view details. If applicable, the command displays errors related to the request.
 
+To show all requests in the org, run "sfdx force:package2:version:create:list".
+
 # examples
 
 $ sfdx force:package2:version:create:get --package2createrequestid 08c...
-
-To show all requests in the org, run "sfdx force:package2:version:create:list".
 
 # requestId
 
