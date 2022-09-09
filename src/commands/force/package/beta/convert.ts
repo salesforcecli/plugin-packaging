@@ -17,11 +17,11 @@ import {
   PackageVersionCreateRequestResult,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
+const Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 export class PackageConvert extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
