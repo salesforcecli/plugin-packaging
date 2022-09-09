@@ -21,7 +21,6 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
   public static readonly varargs = false;
   public static readonly requiresDevhubUsername = true;
   public static readonly requiresProject = true;
-  public static readonly require = true;
 
   public static readonly flagsConfig: FlagsConfig = {
     // --json is configured automatically
@@ -58,7 +57,9 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
         this.ux.log();
       }
       const treeProducer = await packageAncestry.getTreeProducer(!!this.flags.verbose);
-      treeProducer.produce();
+      if (!this.flags.json) {
+        treeProducer.produce();
+      }
     }
     return jsonProducer.produce() as PackageAncestryNodeData;
   }
