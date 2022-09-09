@@ -38,8 +38,9 @@ describe('package:version:promote / package:version:update', () => {
     const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
       ensureExitCode: 0,
     }).shellOutput.stdout as string;
+    expect(result).to.contain('Successfully promoted the package version, ID: 04t');
     expect(result).to.contain(
-      `Successfully promoted the package version, ID: ${packageId}, to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.`
+      'to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.'
     );
   });
 
