@@ -8,6 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
+import { Package, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall_report');
@@ -22,11 +23,23 @@ export class PackageUninstallReportCommand extends SfdxCommand {
       description: messages.getMessage('requestId'),
       longDescription: messages.getMessage('requestIdLong'),
       required: true,
+      validate: (id) => {
+        if (/^06y.{12,15}$/.test(id)) {
+          return true;
+        }
+        throw messages.createError('packageIdInvalid');
+      },
     }),
   };
 
-  // eslint-disable-next-line @typescript-eslint/require-await
-  public async run(): Promise<unknown> {
-    throw new Error('Beta command not yet implemented');
+  public async run(): Promise<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
+    const requestId = this.flags.requestid as string;
+    const pkg = new Package({ connection: this.org.getConnection() });
+    const result = await pkg.uninstallReport(requestId);
+
+    const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
+    this.ux.log(messages.getMessage(result.Status, arg));
+
+    return result;
   }
 }

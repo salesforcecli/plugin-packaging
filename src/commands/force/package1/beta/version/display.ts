@@ -6,7 +6,7 @@
  */
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfError } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { Package1Display, package1Display } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
@@ -22,11 +22,10 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
       longDescription: messages.getMessage('packageIdLong'),
       required: true,
       validate: (id) => {
-        if (id.startsWith('04t') && [18, 15].includes(id.length)) {
+        if (/^04t.{12,15}$/.test(id)) {
           return true;
-        } else {
-          throw new SfError(messages.getMessage('packageIdInvalid'));
         }
+        throw messages.createError('packageIdInvalid');
       },
     }),
   };
