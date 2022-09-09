@@ -40,7 +40,7 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<PackageAncestryNodeData> {
+  public async run(): Promise<PackageAncestryNodeData | string> {
     const packageAncestry = await PackageAncestry.create({
       packageId: this.flags.package as string,
       project: this.project,
@@ -49,7 +49,12 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
     const jsonProducer = await packageAncestry.getJsonProducer();
     if (this.flags.dotcode) {
       const dotProducer = await packageAncestry.getDotProducer();
-      this.ux.log(dotProducer.produce() as string);
+      const dotCodeResult: string = dotProducer.produce() as string;
+      if (this.flags.json) {
+        return dotCodeResult;
+      } else {
+        this.ux.log(dotCodeResult);
+      }
     } else {
       if (packageAncestry.requestedPackageId.startsWith('04t')) {
         const paths = await packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
