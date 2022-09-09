@@ -731,7 +731,7 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.0.8", "@oclif/core@^1.14.1", "@oclif/core@^1.14.2", "@oclif/core@^1.16.0", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.0", "@oclif/core@^1.9.9":
+"@oclif/core@^1.0.8", "@oclif/core@^1.14.1", "@oclif/core@^1.14.2", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.0", "@oclif/core@^1.9.9":
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.16.0.tgz#4b53261eeb0c0244700bfc9eb41159d483436f21"
   integrity sha512-xtqhAbjQHBcz+xQpEHJ3eJEVfRQ4zl41Yw5gw/N+D1jgaIUrHTxCY/sfTvhw93LAQo7B++ozHzSb7DISFXsQFQ==
@@ -1151,10 +1151,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^0.0.31":
-  version "0.0.31"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.31.tgz#81cb30a0b56460257cacfc25146008dbe5828bee"
-  integrity sha512-A0huzJOBNGs8f7itQ3xcdraofezqtTB/KSwMWmSam2kj09AOB2l0s+TV46QYzt9cr6FQifM6RcCHu7vP4bUMMw==
+"@salesforce/packaging@^0.0.34":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.34.tgz#9ef3e889e582d820d3570e860cce50317db0a946"
+  integrity sha512-17DajYO4uqInyYS4kO+eJ/uNvjjM8N+gwkaWRgkDqG32Qv820FTE4sTc74IuKeLUTFWFW/9nDfmL0duclCu80A==
   dependencies:
     "@oclif/core" "^1.14.2"
     "@salesforce/core" "^3.26.2"
