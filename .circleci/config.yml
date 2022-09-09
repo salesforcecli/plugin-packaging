@@ -38,6 +38,7 @@ workflows:
             branches:
               only: main
       - release-management/test-nut:
+          no_output_timeout: 30m
           matrix:
             parameters:
               os:

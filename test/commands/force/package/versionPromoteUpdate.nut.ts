@@ -38,8 +38,10 @@ describe('package:version:promote / package:version:update', () => {
     const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
       ensureExitCode: 0,
     }).shellOutput.stdout as string;
+    expect(result).to.contain('Successfully promoted the package version');
+    expect(result).to.contain('04t');
     expect(result).to.contain(
-      `Successfully promoted the package version, ID: ${packageId}, to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.`
+      'to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.'
     );
   });
 
@@ -51,7 +53,7 @@ describe('package:version:promote / package:version:update', () => {
       }
     ).jsonOutput.result;
     expect(result).to.have.all.keys('id', 'success', 'errors');
-    expect(result.id).to.equal(packageId);
+    expect(result.id.startsWith('04t')).to.be.true;
     expect(result.success).to.equal(true);
     expect(result.errors).to.deep.equal([]);
   });
