@@ -17,6 +17,7 @@ import {
   INSTALL_URL_BASE,
   PackageVersion,
   PackageVersionCreateReportProgress,
+  PackageVersionEvents,
   PackagingSObjects,
 } from '@salesforce/packaging';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -156,7 +157,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     }
     const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
     Lifecycle.getInstance().on(
-      'PackageVersion/create-in-progress',
+      PackageVersionEvents.create.progress,
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
@@ -168,7 +169,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       }
     );
     Lifecycle.getInstance().on(
-      'PackageVersion/create-preserveFiles',
+      PackageVersionEvents.create['preserve-files'],
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: { location: string; message: string }) => {
         this.ux.log(messages.getMessage('tempFileLocation', [data.location]));

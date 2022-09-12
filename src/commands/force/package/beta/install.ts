@@ -12,6 +12,7 @@ import { Duration } from '@salesforce/kit';
 import {
   getPackageTypeBy04t,
   Package,
+  PackageEvents,
   PackageInstallCreateRequest,
   PackageInstallOptions,
   PackagingSObjects,
@@ -105,7 +106,7 @@ export class Install extends SfdxCommand {
     };
 
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('Package/install-warning', async (warningMsg: string) => {
+    Lifecycle.getInstance().on(PackageEvents.install.warning, async (warningMsg: string) => {
       this.ux.log(warningMsg);
     });
 
@@ -133,7 +134,7 @@ export class Install extends SfdxCommand {
       this.ux.startSpinner(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
 
       // eslint-disable-next-line @typescript-eslint/require-await
-      Lifecycle.getInstance().on('Package/install-status', async (piRequest: PackageInstallRequest) => {
+      Lifecycle.getInstance().on(PackageEvents.install.status, async (piRequest: PackageInstallRequest) => {
         const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
         timeThen = Date.now();
         remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
@@ -159,9 +160,9 @@ export class Install extends SfdxCommand {
 
   protected async finally(err: Optional<Error>): Promise<void> {
     // Remove all the event listeners or they will still handle events
-    Lifecycle.getInstance().removeAllListeners('Package/install-warning');
-    Lifecycle.getInstance().removeAllListeners('Package/install-status');
-    Lifecycle.getInstance().removeAllListeners('Package/install-subscriber-status');
+    Lifecycle.getInstance().removeAllListeners(PackageEvents.install.warning);
+    Lifecycle.getInstance().removeAllListeners(PackageEvents.install.status);
+    Lifecycle.getInstance().removeAllListeners(PackageEvents.install['subscriber-status']);
     await super.finally(err);
   }
 
@@ -191,7 +192,7 @@ export class Install extends SfdxCommand {
 
   private async waitForPublish(request: PackageInstallCreateRequest): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('Package/install-subscriber-status', async (status: string) => {
+    Lifecycle.getInstance().on(PackageEvents.install['subscriber-status'], async (status: string) => {
       const tokens = status ? [` Status = ${status}`] : [];
       this.ux.log(messages.getMessage('publishWaitProgress', tokens));
     });

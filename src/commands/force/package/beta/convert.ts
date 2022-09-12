@@ -13,6 +13,7 @@ import {
   convertCamelCaseStringToSentence,
   INSTALL_URL_BASE,
   Package,
+  PackageEvents,
   PackageVersionCreateEventData,
   PackageVersionCreateRequestResult,
 } from '@salesforce/packaging';
@@ -62,7 +63,7 @@ export class PackageConvert extends SfdxCommand {
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('Package/convert-in-progress', async (data: PackageVersionCreateEventData) => {
+    Lifecycle.getInstance().on(PackageEvents.convert.progress, async (data: PackageVersionCreateEventData) => {
       this.ux.log(
         `Request in progress. Sleeping 30 seconds. Will wait a total of ${
           data.timeRemaining.seconds
@@ -73,7 +74,7 @@ export class PackageConvert extends SfdxCommand {
     });
 
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('Package/convert-success', async () => {
+    Lifecycle.getInstance().on(PackageEvents.convert.success, async () => {
       this.ux.log('SUCCESS');
     });
 
