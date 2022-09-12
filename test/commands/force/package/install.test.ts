@@ -281,7 +281,7 @@ describe('force:package:install', () => {
   it('should listen for PackageInstallRequest:warning events and log warnings', async () => {
     const warningMsg = 'test warning message';
     installStub.callsFake(async () => {
-      await Lifecycle.getInstance().emit('PackageInstallRequest:warning', warningMsg);
+      await Lifecycle.getInstance().emit('Package/install-warning', warningMsg);
       return pkgInstallRequest;
     });
 
@@ -297,8 +297,8 @@ describe('force:package:install', () => {
   it('should listen for PackageInstallRequest:status polling events and log statuses', async () => {
     const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
     installStub.callsFake(async () => {
-      await Lifecycle.getInstance().emit('PackageInstallRequest:status', pkgInstallRequest);
-      await Lifecycle.getInstance().emit('PackageInstallRequest:status', successRequest);
+      await Lifecycle.getInstance().emit('Package/install-status', pkgInstallRequest);
+      await Lifecycle.getInstance().emit('Package/install-status', successRequest);
       return pkgInstallRequest;
     });
 
@@ -445,8 +445,8 @@ describe('force:package:install', () => {
   describe('wait for publish', () => {
     it('should listen for SubscriberPackageVersion:status polling events and log statuses', async () => {
       waitForPublishStub.callsFake(async () => {
-        await Lifecycle.getInstance().emit('SubscriberPackageVersion:status', 'PACKAGE_UNAVAILABLE');
-        await Lifecycle.getInstance().emit('SubscriberPackageVersion:status', 'NO_ERRORS_DETECTED');
+        await Lifecycle.getInstance().emit('Package/install-subscriber-status', 'PACKAGE_UNAVAILABLE');
+        await Lifecycle.getInstance().emit('Package/install-subscriber-status', 'NO_ERRORS_DETECTED');
       });
       installStub.resolves(pkgInstallRequest);
 

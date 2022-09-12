@@ -74,7 +74,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
       Lifecycle.getInstance().on(
-        'package1VersionCreate:progress',
+        'PackageVersion/create-progress',
         // the 'on' method requires an async method, but we don't have any async calls
         // eslint-disable-next-line @typescript-eslint/require-await
         async (data: { timeout: number; pollingResult: PackageUploadRequest }) => {

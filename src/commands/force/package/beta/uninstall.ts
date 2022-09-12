@@ -39,7 +39,7 @@ export class PackageUninstallCommand extends SfdxCommand {
   public async run(): Promise<UninstallResult> {
     // no awaits in async method
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('packageUninstall', async (data: UninstallResult) => {
+    Lifecycle.getInstance().on('Package/uninstall', async (data: UninstallResult) => {
       // Request still in progress.  Just print a console message and move on. Server will be polled again.
       this.ux.log(`Waiting for the package uninstall request to get processed. Status = ${data.Status}`);
     });
