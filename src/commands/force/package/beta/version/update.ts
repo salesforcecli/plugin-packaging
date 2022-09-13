@@ -8,6 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
+import { getPackageIdFromAlias, PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_update');
@@ -51,8 +52,19 @@ export class PackageVersionUpdateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    const pv = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
+    const id = getPackageIdFromAlias(this.flags.package, this.project);
+    const result = await pv.update(id, {
+      VersionDescription: this.flags.versiondescription as string,
+      Branch: this.flags.branch as string,
+      InstallKey: this.flags.installationkey as string,
+      VersionName: this.flags.versionname as string,
+      Tag: this.flags.tag as string,
+    });
+
+    this.ux.log(messages.getMessage('success', [result.id]));
+
+    return result;
   }
 }

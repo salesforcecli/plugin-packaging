@@ -8,12 +8,12 @@ If you don’t have a namespace defined in your sfdx-project.json file, use --no
 
 Your --name value must be unique within your namespace.
 
+Run 'sfdx force:package:list' to list all packages in the Dev Hub org.
+
 # examples
 
 $ sfdx force:package:create -n YourPackageName -t Unlocked -r force-app
 $ sfdx force:package:create -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
-
-Run 'sfdx force:package:list' to list all packages in the Dev Hub org.
 
 # name
 

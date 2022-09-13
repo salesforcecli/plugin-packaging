@@ -8,6 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
+import { BY_LABEL, getPackageIdFromAlias, Package, PackageSaveResult, validateId } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_update');
@@ -42,8 +43,20 @@ export class PackageUpdateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
-    process.exitCode = 1;
-    return Promise.resolve('Not yet implemented');
+  public async run(): Promise<PackageSaveResult> {
+    const pkg = new Package({ connection: this.hubOrg.getConnection() });
+    const id = getPackageIdFromAlias(this.flags.package, this.project);
+    validateId(BY_LABEL.PACKAGE_ID, id);
+
+    const result = await pkg.update({
+      Id: id,
+      Name: this.flags.name as string,
+      Description: this.flags.description as string,
+      PackageErrorUsername: this.flags.errornotificationusername as string,
+    });
+
+    this.ux.log(messages.getMessage('success', [id]));
+
+    return result;
   }
 }

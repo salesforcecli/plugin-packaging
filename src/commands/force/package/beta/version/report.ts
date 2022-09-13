@@ -214,9 +214,6 @@ export class PackageVersionReportCommand extends SfdxCommand {
     // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
     record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
 
-    record.Description ??= ' ';
-    record.Branch ??= ' ';
-    record.Tag ??= ' ';
     record.ConvertedFromVersionId ??= ' ';
 
     // for backward compatibility, remove PackageType from the record

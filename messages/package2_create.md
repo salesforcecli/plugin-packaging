@@ -12,11 +12,11 @@ First, use this command to create a second-generation package. Then create a pac
 
 Your --name value must be unique within your namespace.
 
+Run 'sfdx force:package2:list' to list all second-generation packages in the Dev Hub org.
+
 # examples
 
 $ sfdx force:package2:create -n PackageName -d 'My New Package' -o Unlocked
-
-Run 'sfdx force:package2:list' to list all second-generation packages in the Dev Hub org.
 
 # name
 

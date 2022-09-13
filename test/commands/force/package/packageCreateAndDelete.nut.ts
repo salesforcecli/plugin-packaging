@@ -10,7 +10,7 @@ import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { OrgConfigProperties } from '@salesforce/core';
 import { expect } from 'chai';
 
-describe('package create and delete', () => {
+describe('package create/update/delete', () => {
   let session: TestSession;
   let devHubUsernameOrAlias: string;
   let pkgName: string;
@@ -29,7 +29,7 @@ describe('package create and delete', () => {
   after(async () => {
     await session?.clean();
   });
-  describe('create/delete - human results', () => {
+  describe('create/update/delete - human results', () => {
     before(async () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
@@ -40,6 +40,12 @@ describe('package create and delete', () => {
       expect(output).to.contain('=== Ids');
       expect(output).to.match(/Package Id\s+?0Ho/);
     });
+    it('should update a package - human readable results', function () {
+      const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${devHubUsernameOrAlias}`;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      expect(output).to.match(/Successfully updated the package\.\s+0Ho/);
+    });
     it('should delete a package - human readable results', function () {
       const command = `force:package:beta:delete -p ${pkgName} -v ${devHubUsernameOrAlias} --noprompt`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -47,7 +53,7 @@ describe('package create and delete', () => {
       expect(output).to.contain('Successfully deleted the package. 0Ho');
     });
   });
-  describe('create/delete - json results', () => {
+  describe('create/update/delete - json results', () => {
     before(async () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
@@ -58,6 +64,14 @@ describe('package create and delete', () => {
       expect(output.status).to.equal(0);
       expect(output.result).to.have.property('Id');
       expect(output.result.Id).to.match(/0Ho.{12,15}/);
+    });
+    it('should update a package - json results', function () {
+      const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${devHubUsernameOrAlias} --json`;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const output = execCmd<{ id: string }>(command, { ensureExitCode: 0 }).jsonOutput;
+      expect(output.status).to.equal(0);
+      expect(output.result).to.have.property('id');
+      expect(output.result.id).to.match(/0Ho.{12,15}/);
     });
     it('should delete a package - json results', function () {
       const command = `force:package:beta:delete -p ${pkgName} -v ${devHubUsernameOrAlias} --json`;
