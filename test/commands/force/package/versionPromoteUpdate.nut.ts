@@ -37,7 +37,7 @@ describe('package:version:promote / package:version:update', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
       ensureExitCode: 0,
-    }).shellOutput.stdout as string;
+    }).shellOutput.stdout;
     expect(result).to.contain('Successfully promoted the package version');
     expect(result).to.contain('04t');
     expect(result).to.contain(
@@ -62,7 +62,7 @@ describe('package:version:promote / package:version:update', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const result = execCmd(`force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch`, {
       ensureExitCode: 0,
-    }).shellOutput.stdout as string;
+    }).shellOutput.stdout;
     expect(result).to.contain(`Successfully updated the package version. ${packageId}`);
   });
 

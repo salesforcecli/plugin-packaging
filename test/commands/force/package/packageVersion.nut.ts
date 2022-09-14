@@ -32,7 +32,7 @@ describe('package:version:create:*', () => {
     it('should list the package versions created (human)', async () => {
       const command = `force:package:beta:version:create:list -v ${usernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
         / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+/
@@ -78,7 +78,7 @@ describe('package:version:create:*', () => {
     it('should list package versions in dev hub - human readable results', () => {
       const command = `force:package:beta:version:list -v ${usernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -88,7 +88,7 @@ describe('package:version:create:*', () => {
     it('should list package versions in dev hub - concise output', () => {
       const command = `force:package:beta:version:list -v ${usernameOrAlias} --concise`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(/Package Id\s+Version\s+Subscriber Package Version Id\s+Released/);
     });
@@ -96,7 +96,7 @@ describe('package:version:create:*', () => {
     it('should list package versions modified in the last 5 days', () => {
       const command = `force:package:beta:version:list -v ${usernameOrAlias} --modifiedlastdays 5`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -105,7 +105,7 @@ describe('package:version:create:*', () => {
     it('should list package versions created in the last 5 days', () => {
       const command = `force:package:beta:version:list -v ${usernameOrAlias} --createdlastdays 5`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -114,7 +114,7 @@ describe('package:version:create:*', () => {
     it('should list installed packages in dev hub - verbose human readable results', () => {
       const command = `force:package:beta:version:list -v ${usernameOrAlias} --verbose`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
