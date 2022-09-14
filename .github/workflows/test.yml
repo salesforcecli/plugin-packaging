@@ -4,6 +4,9 @@ on:
     branches-ignore: [main]
   workflow_dispatch:
 
+env:
+  ONEGP_TESTKIT_AUTH_URL: ${{secrets.ONEGP_TESTKIT_AUTH_URL}}
+
 jobs:
   unit-tests:
     uses: salesforcecli/github-workflows/.github/workflows/unitTest.yml@main
