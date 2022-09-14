@@ -1074,7 +1074,7 @@
     semver "^7.3.5"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.24.1", "@salesforce/core@^3.26.1", "@salesforce/core@^3.26.2", "@salesforce/core@^3.3.0":
+"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.24.1", "@salesforce/core@^3.26.1", "@salesforce/core@^3.26.2", "@salesforce/core@^3.3.0", "@salesforce/core@^3.30.0":
   version "3.30.0"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.30.0.tgz#51c986aba5bb4b599fbff1d8c3f9e37508f9206f"
   integrity sha512-qU48fYMBcqZOVAUXaRYUleuelqfR8CERc1LUTJwmufRocieCHSx9PVXVRDgWl9KW09xcDyv8hu8RL5IaAVfWKA==
@@ -1151,13 +1151,13 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^0.0.35":
-  version "0.0.35"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.35.tgz#7337d2f2f8dd77bcaeece6b617657f4e112593dd"
-  integrity sha512-JWPRgkxXCwIBVHlOYPT7bmAvGUi4uCOZIk5qSOW69DKAjYUHBOdDsulFH42kuUvqn/4WOJTD1v0fCSS8uFinfA==
+"@salesforce/packaging@^0.0.36":
+  version "0.0.36"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-0.0.36.tgz#43145ad2ab61ae189babfdac9ae8ff449b0e94a0"
+  integrity sha512-P+/i954ZxeV8s56BIGYU/oczmkqVqYYfKR3vwXwvMcQLSqORcxfWy8o6Bfk/rxyVEKWQ41cCom31+lGwInCSlA==
   dependencies:
     "@oclif/core" "^1.14.2"
-    "@salesforce/core" "^3.26.2"
+    "@salesforce/core" "^3.30.0"
     "@salesforce/kit" "^1.6.0"
     "@salesforce/schemas" "^1.2.0"
     "@salesforce/source-deploy-retrieve" "^6.2.0"
