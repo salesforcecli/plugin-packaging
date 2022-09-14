@@ -21,20 +21,18 @@ describe('package:version:promote / package:version:update', () => {
       setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
-    const r1 = execCmd<{ Id: string }>(
-      `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`
-      // { ensureExitCode: 0 }
-    );
-    const id = r1.jsonOutput.result.Id;
-    const r2 = execCmd<{ SubscriberPackageVersionId: string }>(
-      `force:package:beta:version:create --package ${id} -w 20 -x --json --codecoverage --versiondescription "Initial version"`
-      // { ensureExitCode: 0 }
-    );
-    packageId = r2.jsonOutput.result.SubscriberPackageVersionId;
+    const id = execCmd<{ Id: string }>(
+      `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
+      { ensureExitCode: 0 }
+    ).jsonOutput.result.Id;
+    packageId = execCmd<{ SubscriberPackageVersionId: string }>(
+      `force:package:beta:version:create --package ${id} -w 20 -x --json --codecoverage --versiondescription "Initial version"`,
+      { ensureExitCode: 0 }
+    ).jsonOutput.result.SubscriberPackageVersionId;
   });
 
   after(async () => {
-    // await session?.clean();
+    await session?.clean();
   });
 
   it('should promote a package (human readable)', () => {
