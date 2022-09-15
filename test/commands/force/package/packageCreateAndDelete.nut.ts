@@ -36,20 +36,20 @@ describe('package create/update/delete', () => {
     it('should create a package - human readable results', function () {
       const command = `force:package:beta:create -n ${pkgName} -v ${devHubUsernameOrAlias} -t Unlocked -r ./force-app`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Ids');
       expect(output).to.match(/Package Id\s+?0Ho/);
     });
     it('should update a package - human readable results', function () {
       const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${devHubUsernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.match(/Successfully updated the package\.\s+0Ho/);
     });
     it('should delete a package - human readable results', function () {
       const command = `force:package:beta:delete -p ${pkgName} -v ${devHubUsernameOrAlias} --noprompt`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('Successfully deleted the package. 0Ho');
     });
   });

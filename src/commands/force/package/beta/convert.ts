@@ -13,15 +13,14 @@ import {
   convertCamelCaseStringToSentence,
   INSTALL_URL_BASE,
   Package,
+  PackageEvents,
   PackageVersionCreateEventData,
   PackageVersionCreateRequestResult,
-  PackagingSObjects,
 } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
-const Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 export class PackageConvert extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -64,7 +63,7 @@ export class PackageConvert extends SfdxCommand {
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on(Package2VersionStatus.inProgress, async (data: PackageVersionCreateEventData) => {
+    Lifecycle.getInstance().on(PackageEvents.convert.progress, async (data: PackageVersionCreateEventData) => {
       this.ux.log(
         `Request in progress. Sleeping 30 seconds. Will wait a total of ${
           data.timeRemaining.seconds
@@ -75,7 +74,7 @@ export class PackageConvert extends SfdxCommand {
     });
 
     // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on(Package2VersionStatus.success, async () => {
+    Lifecycle.getInstance().on(PackageEvents.convert.success, async () => {
       this.ux.log('SUCCESS');
     });
 

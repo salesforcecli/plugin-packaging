@@ -51,7 +51,7 @@ describe('package1:version:create', () => {
   it(`should create a new 1gp package version for package id ${packageId} and wait`, function () {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} -w 5 -u 1gp`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output.trim()).to.match(/Package upload is enqueued\. Waiting \d+ more seconds/);
     expect(output.trim()).to.match(/Package upload is in progress\. Waiting \d+ more seconds/);
     expect(output.trim()).to.match(/Successfully uploaded package \[04t.*]/);
@@ -71,7 +71,7 @@ describe('package1:version:create', () => {
   it(`should create a new 1gp package version for package id ${packageId} without waiting`, async function () {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} -u 1gp`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(/PackageUploadRequest has been enqueued\./);
     // sfdx force:package1:beta:version:create:get -i 0HD4p000000blVAGAY -u admin@integrationtestrelorgna40.org
     expect(output).to.match(/sfdx force:package1:beta:version:create:get -i 0HD.* -u/);

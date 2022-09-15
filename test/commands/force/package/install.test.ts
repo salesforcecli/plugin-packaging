@@ -10,7 +10,7 @@ import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-import { Package } from '@salesforce/packaging';
+import { Package, PackageEvents } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { Install } from '../../../../src/commands/force/package/beta/install';
 
@@ -281,7 +281,7 @@ describe('force:package:install', () => {
   it('should listen for PackageInstallRequest:warning events and log warnings', async () => {
     const warningMsg = 'test warning message';
     installStub.callsFake(async () => {
-      await Lifecycle.getInstance().emit('PackageInstallRequest:warning', warningMsg);
+      await Lifecycle.getInstance().emit(PackageEvents.install.warning, warningMsg);
       return pkgInstallRequest;
     });
 
@@ -294,11 +294,11 @@ describe('force:package:install', () => {
     expect(result).to.deep.equal(pkgInstallRequest);
   });
 
-  it('should listen for PackageInstallRequest:status polling events and log statuses', async () => {
+  it('should listen for Package/install-status polling events and log statuses', async () => {
     const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
     installStub.callsFake(async () => {
-      await Lifecycle.getInstance().emit('PackageInstallRequest:status', pkgInstallRequest);
-      await Lifecycle.getInstance().emit('PackageInstallRequest:status', successRequest);
+      await Lifecycle.getInstance().emit(PackageEvents.install.status, pkgInstallRequest);
+      await Lifecycle.getInstance().emit(PackageEvents.install.status, successRequest);
       return pkgInstallRequest;
     });
 
@@ -443,10 +443,10 @@ describe('force:package:install', () => {
   });
 
   describe('wait for publish', () => {
-    it('should listen for SubscriberPackageVersion:status polling events and log statuses', async () => {
+    it('should listen for Package/install-subscriber-status polling events and log statuses', async () => {
       waitForPublishStub.callsFake(async () => {
-        await Lifecycle.getInstance().emit('SubscriberPackageVersion:status', 'PACKAGE_UNAVAILABLE');
-        await Lifecycle.getInstance().emit('SubscriberPackageVersion:status', 'NO_ERRORS_DETECTED');
+        await Lifecycle.getInstance().emit(PackageEvents.install['subscriber-status'], 'PACKAGE_UNAVAILABLE');
+        await Lifecycle.getInstance().emit(PackageEvents.install['subscriber-status'], 'NO_ERRORS_DETECTED');
       });
       installStub.resolves(pkgInstallRequest);
 
