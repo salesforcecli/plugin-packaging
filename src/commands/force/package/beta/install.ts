@@ -6,7 +6,7 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import { flags, FlagsConfig, SfdxCommand, UX } from '@salesforce/command';
 import { Connection, Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
@@ -87,6 +87,32 @@ export class Install extends SfdxCommand {
   private connection: Connection;
   private pkg: Package;
 
+  public static parseStatus(
+    request: PackageInstallRequest,
+    ux: UX,
+    installMsgs: Messages<string>,
+    username: string,
+    alias?: string
+  ): void {
+    const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
+    const { Status } = request;
+    if (Status === 'SUCCESS') {
+      ux.log(installMsgs.getMessage('packageInstallSuccess', [pkgIdOrAlias]));
+    } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
+      ux.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, username]));
+    } else {
+      let errorMessage = '<empty>';
+      const errors = request?.Errors?.errors;
+      if (errors?.length) {
+        errorMessage = 'Installation errors: ';
+        for (let i = 0; i < errors.length; i++) {
+          errorMessage += `\n${i + 1}) ${errors[i].message}`;
+        }
+      }
+      throw installMsgs.createError('packageInstallError', [errorMessage]);
+    }
+  }
+
   public async run(): Promise<PackageInstallRequest> {
     const noPrompt = this.flags.noprompt as boolean;
     this.connection = this.org.getConnection();
@@ -145,15 +171,8 @@ export class Install extends SfdxCommand {
     }
 
     const pkgInstallRequest = await this.pkg.install(request, installOptions);
-    const { Status } = pkgInstallRequest;
     this.ux.stopSpinner();
-    if (Status === 'SUCCESS') {
-      this.ux.log(messages.getMessage('packageInstallSuccess', [this.flags.package]));
-    } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
-      this.ux.log(messages.getMessage('packageInstallInProgress', [pkgInstallRequest.Id, this.org.getUsername()]));
-    } else {
-      throw messages.createError('packageInstallError', [this.parseInstallErrors(pkgInstallRequest)]);
-    }
+    Install.parseStatus(pkgInstallRequest, this.ux, messages, this.org.getUsername(), this.flags.package);
 
     return pkgInstallRequest;
   }
@@ -214,18 +233,6 @@ export class Install extends SfdxCommand {
         throw error;
       }
     }
-  }
-
-  private parseInstallErrors(request: PackageInstallRequest): string {
-    const errors = request?.Errors?.errors;
-    if (errors?.length) {
-      let errorMessage = 'Installation errors: ';
-      for (let i = 0; i < errors.length; i++) {
-        errorMessage += `\n${i + 1}) ${errors[i].message}`;
-      }
-      return errorMessage;
-    }
-    return '<empty>';
   }
 
   // Given a package version ID (04t) or an alias for the package, validate and
