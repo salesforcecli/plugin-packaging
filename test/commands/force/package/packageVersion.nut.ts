@@ -9,20 +9,20 @@ import * as path from 'path';
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, OrgConfigProperties, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
-import { PackageAncestryNodeData, PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
+import {
+  PackageAncestryNodeData,
+  PackageSaveResult,
+  PackageVersionCreateRequestResult,
+  PackagingSObjects,
+  VersionNumber,
+} from '@salesforce/packaging';
 import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
-import { PackagingSObjects } from '../../../../../packaging/src/interfaces';
-import { VersionNumber } from '../../../../../packaging/src/utils';
 
 describe('package:version:*', () => {
   let session: TestSession;
   let devhubUsernameOrAlias: string;
   let packageVersionId: string;
-  let promotePackageJson: { id: string; patch: string };
-  let promotePackageHuman: { id: string; patch: string };
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore initialize as empty
-  const packageVersionIds: [{ id: string; patch: string }] = []; // [{id: '04t', patch: '1'}];
+  const packageVersionIds: string[] = []; // ['04t', '04t'];
   const pkgName = genUniqueString('dancingbears-');
 
   before(async () => {
@@ -181,7 +181,8 @@ describe('package:version:*', () => {
       expect(output.result[0]).to.have.keys(keys);
       const current = Date.now();
       const created = Date.parse(output.result[0].CreatedDate);
-      expect(current - created).to.be.lessThan(2 * 24 * 60 * 60 * 1000);
+      expect(current - created).to.be.greaterThan(2 * 24 * 60 * 60 * 1000);
+      expect(current - created).to.be.lessThan(3 * 24 * 60 * 60 * 1000);
     });
 
     it('should list the package versions created (json)', async () => {
@@ -337,80 +338,14 @@ describe('package:version:*', () => {
       output
         .filter((f) => f.CodeCoverage)
         .map((version) => {
-          packageVersionIds.push({ id: version.SubscriberPackageVersionId, patch: version.PatchVersion });
+          packageVersionIds.push(version.SubscriberPackageVersionId);
         });
-    });
-  });
-  describe('package:version:update', () => {
-    it('should update a package (--json)', () => {
-      promotePackageJson = packageVersionIds.pop();
-      const result = execCmd<PackageSaveResult>(
-        `force:package:beta:version:update --package ${
-          promotePackageJson.id
-        } --branch MySuperCoolBranch2 --versionname 1.2.3.${parseInt(promotePackageJson.patch, 10) + 1} --json`,
-        {
-          ensureExitCode: 0,
-        }
-      ).jsonOutput.result;
-      expect(result).to.have.all.keys('id', 'success', 'errors');
-      expect(result.id).to.equal(promotePackageJson.id);
-      expect(result.success).to.equal(true);
-      expect(result.errors).to.deep.equal([]);
-    });
-    it('should update a package (human)', () => {
-      promotePackageHuman = packageVersionIds.pop();
-      const result = execCmd(
-        `force:package:beta:version:update --package ${
-          promotePackageHuman.id
-        } --branch MySuperCoolBranch --versionname 1.2.3.${parseInt(promotePackageHuman.patch, 10) + 1}`,
-        {
-          ensureExitCode: 0,
-        }
-      ).shellOutput.stdout;
-      expect(result).to.match(/Successfully updated the package version\. 04t.{15}/);
-    });
-  });
-  describe('package:version:promote', () => {
-    it('should promote a package (human)', () => {
-      // update the version to a new one to avoid duplicates when promoting
-      execCmd(
-        `force:package:beta:version:update --package ${promotePackageHuman.id}  --versionname 1.2.3.${
-          parseInt(promotePackageHuman.patch, 10) + 1
-        }`
-      );
-      const result = execCmd(`force:package:beta:version:promote --package ${promotePackageHuman.id} --noprompt`, {
-        ensureExitCode: 0,
-      }).shellOutput.stdout;
-      expect(result).to.contain('Successfully promoted the package version');
-      expect(result).to.contain('04t');
-      expect(result).to.contain(
-        'to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.'
-      );
-    });
-
-    it('should promote a package (--json)', () => {
-      // update the version to a new one to avoid duplicates when promoting
-      execCmd(
-        `force:package:beta:version:update --package ${promotePackageJson.id}  --versionname 1.2.3.${
-          parseInt(promotePackageJson.patch, 10) + 1
-        }`
-      );
-      const result = execCmd<PackageSaveResult>(
-        `force:package:beta:version:promote --package ${promotePackageJson.id} --json`,
-        {
-          ensureExitCode: 0,
-        }
-      ).jsonOutput.result;
-      expect(result).to.have.all.keys('id', 'success', 'errors');
-      expect(result.id.startsWith('04t')).to.be.true;
-      expect(result.success).to.equal(true);
-      expect(result.errors).to.deep.equal([]);
     });
   });
 
   describe('package:version:delete', () => {
     it('will delete a package (json)', () => {
-      const id = packageVersionIds.pop().id;
+      const id = packageVersionIds.pop();
       const command = `force:package:beta:version:delete -p ${id} --json`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       expect(result).to.have.property('success', true);
@@ -419,7 +354,7 @@ describe('package:version:*', () => {
     });
 
     it('will delete a package (human)', () => {
-      const id = packageVersionIds.pop().id;
+      const id = packageVersionIds.pop();
       const command = `force:package:beta:version:delete -p ${id} --noprompt`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain(`Successfully deleted the package version. ${id}`);
