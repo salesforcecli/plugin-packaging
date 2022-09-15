@@ -17,6 +17,7 @@ import {
   INSTALL_URL_BASE,
   PackageVersion,
   PackageVersionCreateReportProgress,
+  PackageVersionCreateRequestResult,
   PackagingSObjects,
 } from '@salesforce/packaging';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -150,7 +151,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<unknown> {
+  public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {
     if (this.flags.skipvalidation) {
       this.ux.warn(messages.getMessage('skipValidationWarning'));
     }

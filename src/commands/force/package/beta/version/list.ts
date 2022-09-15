@@ -16,15 +16,15 @@ import {
   getPackageVersionStrings,
   INSTALL_URL_BASE,
   PackageVersion,
+  PackageVersionListResult,
 } from '@salesforce/packaging';
-import { PackageVersionListResult } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-type PackageVersionListCommandResult = Omit<
+export type PackageVersionListCommandResult = Omit<
   PackageVersionListResult,
   | 'HasMetadataRemoved'
   | 'IsReleased'
