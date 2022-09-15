@@ -8,7 +8,7 @@
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
-import { package1VersionCreate, PackagingSObjects } from '@salesforce/packaging';
+import { package1VersionCreate, PackageVersionEvents, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
@@ -74,7 +74,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
       Lifecycle.getInstance().on(
-        'package1VersionCreate:progress',
+        PackageVersionEvents.create.progress,
         // the 'on' method requires an async method, but we don't have any async calls
         // eslint-disable-next-line @typescript-eslint/require-await
         async (data: { timeout: number; pollingResult: PackageUploadRequest }) => {

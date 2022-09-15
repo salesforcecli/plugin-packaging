@@ -48,11 +48,10 @@ describe('package:version:*', () => {
 
   describe('package:version:create', () => {
     it('should create a new package version (human)', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const result = execCmd(
         `force:package:beta:version:create --package ${pkgName} -x --codecoverage --versiondescription "Initial version"`,
         { ensureExitCode: 0 }
-      ).shellOutput.stdout as string;
+      ).shellOutput.stdout;
       expect(result).to.include("Package version creation request status is '");
       expect(result).to.match(/Run "sfdx force:package:version:create:report -i 08c.{15}" to query for status\./);
     });
@@ -120,13 +119,12 @@ describe('package:version:*', () => {
     });
 
     it('reports on status (human)', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const resultHuman = execCmd<PackageVersionCreateRequestResult>(
         `force:package:beta:version:create:report -i ${packageVersionId}`,
         {
           ensureExitCode: 0,
         }
-      ).shellOutput.stdout as string;
+      ).shellOutput.stdout;
       expect(resultHuman).to.include('=== Package Version Create Request');
       expect(resultHuman).to.include('Name');
       expect(resultHuman).to.include('Value');
@@ -144,7 +142,7 @@ describe('package:version:*', () => {
     it('should list the package versions created (human)', async () => {
       const command = `force:package:beta:version:create:list -v ${devhubUsernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
         / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+/
@@ -216,7 +214,7 @@ describe('package:version:*', () => {
     it('should list package versions in dev hub - human readable results', () => {
       const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -226,7 +224,7 @@ describe('package:version:*', () => {
     it('should list package versions in dev hub - concise output', () => {
       const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --concise`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(/Package Id\s+Version\s+Subscriber Package Version Id\s+Released/);
     });
@@ -234,7 +232,7 @@ describe('package:version:*', () => {
     it('should list package versions modified in the last 5 days', () => {
       const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --modifiedlastdays 5`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -243,7 +241,7 @@ describe('package:version:*', () => {
     it('should list package versions created in the last 5 days', () => {
       const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --createdlastdays 5`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch/
@@ -252,7 +250,7 @@ describe('package:version:*', () => {
     it('should list installed packages in dev hub - verbose human readable results', () => {
       const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --verbose`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
@@ -361,7 +359,6 @@ describe('package:version:*', () => {
     });
     it('should update a package (human)', () => {
       promotePackageHuman = packageVersionIds.pop();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const result = execCmd(
         `force:package:beta:version:update --package ${
           promotePackageHuman.id
@@ -369,7 +366,7 @@ describe('package:version:*', () => {
         {
           ensureExitCode: 0,
         }
-      ).shellOutput.stdout as string;
+      ).shellOutput.stdout;
       expect(result).to.match(/Successfully updated the package version\. 04t.{15}/);
     });
   });
@@ -381,10 +378,9 @@ describe('package:version:*', () => {
           parseInt(promotePackageHuman.patch, 10) + 1
         }`
       );
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const result = execCmd(`force:package:beta:version:promote --package ${promotePackageHuman.id} --noprompt`, {
         ensureExitCode: 0,
-      }).shellOutput.stdout as string;
+      }).shellOutput.stdout;
       expect(result).to.contain('Successfully promoted the package version');
       expect(result).to.contain('04t');
       expect(result).to.contain(
@@ -425,8 +421,7 @@ describe('package:version:*', () => {
     it('will delete a package (human)', () => {
       const id = packageVersionIds.pop().id;
       const command = `force:package:beta:version:delete -p ${id} --noprompt`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain(`Successfully deleted the package version. ${id}`);
     });
   });
@@ -494,21 +489,18 @@ describe('package:version:*', () => {
     });
     it('will print the correct output (default)', () => {
       const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName}`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.match(new RegExp(`^└─ ${sortedVersions[0].toString()}`));
     });
     it('will print the correct output (verbose)', () => {
       const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --verbose`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.match(new RegExp(`^└─ ${sortedVersions[0].toString()}`));
       expect(result).to.match(/\d\.\d\.\d\.\d \(04t.{15}\)/);
     });
     it('will print the correct output (dotcode)', () => {
       const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --dotcode`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain('strict graph G {');
       expect(result).to.match(/node04t.{15} \[label="\d\.\d\.\d\.\d"]/);
       expect(result).to.match(/-- node04t.{15}/);

@@ -11,32 +11,32 @@ import { OrgConfigProperties } from '@salesforce/core';
 import { expect } from 'chai';
 import { Package1Display } from '@salesforce/packaging';
 
-let session: TestSession;
-let usernameOrAlias: string;
-let packageId: string;
-
-// TODO: na40 required as DevHub
-before(async () => {
-  const executablePath = path.join(process.cwd(), 'bin', 'dev');
-  session = await TestSession.create({
-    setupCommands: [`${executablePath} config:get ${OrgConfigProperties.TARGET_DEV_HUB} --json`],
-    project: { name: 'package1VersionList' },
-  });
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-  usernameOrAlias = (session.setup[0] as { result: [{ value: string }] }).result[0].value;
-
-  if (!usernameOrAlias) throw Error('no default username set');
-});
-
-after(async () => {
-  await session?.clean();
-});
-
 describe('package1:version:list', () => {
+  let session: TestSession;
+  let usernameOrAlias: string;
+  let packageId: string;
+
+  // TODO: na40 required as DevHub
+  before(async () => {
+    const executablePath = path.join(process.cwd(), 'bin', 'dev');
+    session = await TestSession.create({
+      setupCommands: [`${executablePath} config:get ${OrgConfigProperties.TARGET_DEV_HUB} --json`],
+      project: { name: 'package1VersionList' },
+    });
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    usernameOrAlias = (session.setup[0] as { result: [{ value: string }] }).result[0].value;
+
+    if (!usernameOrAlias) throw Error('no default username set');
+  });
+
+  after(async () => {
+    await session?.clean();
+  });
+
   it('should list all 1gp packages in dev hub - human readable results', () => {
     const command = `force:package1:beta:version:list  -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(
       /MetadataPackageVersionId\s+?MetadataPackageId\s+?Name\s+?Version\s+?ReleaseState\s+?BuildNumber/
     );
@@ -70,7 +70,7 @@ describe('package1:version:list', () => {
   it('should list all 1gp related to the package id - human readable results', () => {
     const command = `force:package1:beta:version:list -i ${packageId}  -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(
       /MetadataPackageVersionId\s+?MetadataPackageId\s+?Name\s+?Version\s+?ReleaseState\s+?BuildNumber/
     );
@@ -80,7 +80,7 @@ describe('package1:version:list', () => {
     // fake package ID
     const command = `force:package1:beta:version:list -i 03346000000MrC0AXX -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output.trim()).to.contain('No Results Found');
   });
 
@@ -88,7 +88,7 @@ describe('package1:version:list', () => {
     // fake package ID - not an 033 package
     const command = `force:package1:beta:version:list -i 03446000001ZfaAAAS -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr as string;
+    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 033) and try again.');
   });
 
@@ -96,7 +96,7 @@ describe('package1:version:list', () => {
     // fake package ID - not an 033 package
     const command = `force:package1:beta:version:list -i 03346000001Zfa -u ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr as string;
+    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
     expect(output).to.contain('Verify that you entered a valid package version ID (starts with 033) and try again.');
   });
 

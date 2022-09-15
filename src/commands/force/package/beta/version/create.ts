@@ -18,6 +18,7 @@ import {
   PackageVersion,
   PackageVersionCreateReportProgress,
   PackageVersionCreateRequestResult,
+  PackageVersionEvents,
   PackagingSObjects,
 } from '@salesforce/packaging';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -156,17 +157,20 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       this.ux.warn(messages.getMessage('skipValidationWarning'));
     }
     const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
-    // no async methods
-    // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on('in-progress', async (data: PackageVersionCreateReportProgress) => {
-      if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
-        this.ux.setSpinnerStatus(
-          messages.getMessage('packageVersionCreateWaitingStatus', [data.remainingWaitTime.minutes, data.Status])
-        );
-      }
-    });
     Lifecycle.getInstance().on(
-      'packageVersionCreate:preserveFiles',
+      PackageVersionEvents.create.progress,
+      // no async methods
+      // eslint-disable-next-line @typescript-eslint/require-await
+      async (data: PackageVersionCreateReportProgress) => {
+        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
+          this.ux.setSpinnerStatus(
+            messages.getMessage('packageVersionCreateWaitingStatus', [data.remainingWaitTime.minutes, data.Status])
+          );
+        }
+      }
+    );
+    Lifecycle.getInstance().on(
+      PackageVersionEvents.create['preserve-files'],
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: { location: string; message: string }) => {
         this.ux.log(messages.getMessage('tempFileLocation', [data.location]));

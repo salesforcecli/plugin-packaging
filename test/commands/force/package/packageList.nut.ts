@@ -31,14 +31,14 @@ describe('package list', () => {
   it('should list packages in dev hub - human readable results', function () {
     const command = `force:package:beta:list -v ${usernameOrAlias}`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
   });
   it('should list packages in dev hub - verbose human readable results', function () {
     const command = `force:package:beta:list -v ${usernameOrAlias} --verbose`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout as string;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(
       /Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type\s+?Subscriber Package Id\s+?Converted From Package Id\s+?Org-Dependent Unlocked Package\s+?Error Notification Username\s+?Created By/
