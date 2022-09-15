@@ -8,12 +8,11 @@
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackageSaveResult } from '@salesforce/packaging';
+import { Duration } from '@salesforce/kit';
 
 describe('package:version:promote / package:version:update', () => {
   let packageId: string;
   const pkgName = genUniqueString('dancingbears-');
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   let session: TestSession;
 
   before(async () => {
@@ -21,17 +20,20 @@ describe('package:version:promote / package:version:update', () => {
       setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
+
     const id = execCmd<{ Id: string }>(
-      `force:package:beta:create --name ${pkgName} --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
+      `force:package:beta:create --name ${pkgName} --loglevel debug --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
       { ensureExitCode: 0 }
     ).jsonOutput.result.Id;
+
     packageId = execCmd<{ SubscriberPackageVersionId: string }>(
-      `force:package:beta:version:create --package ${id} -w 20 -x --json --codecoverage --versiondescription "Initial version"`,
-      { ensureExitCode: 0 }
+      `force:package:beta:version:create --package ${id} --loglevel debug -w 20 -x --json --codecoverage --versiondescription "Initial version"`,
+      { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
     ).jsonOutput.result.SubscriberPackageVersionId;
   });
 
   after(async () => {
+    await session.zip('dreamhouse-lwc4', '/Users/peter.hale');
     await session?.clean();
   });
 
