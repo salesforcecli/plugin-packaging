@@ -52,8 +52,6 @@ describe('package1:version:create', () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} -w 5 -u 1gp`;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output.trim()).to.match(/Package upload is enqueued\. Waiting \d+ more seconds/);
-    expect(output.trim()).to.match(/Package upload is in progress\. Waiting \d+ more seconds/);
     expect(output.trim()).to.match(/Successfully uploaded package \[04t.*]/);
   });
 
