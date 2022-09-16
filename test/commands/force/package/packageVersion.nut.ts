@@ -16,6 +16,7 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
+import { Duration } from '@salesforce/kit';
 import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
 
 describe('package:version:*', () => {
@@ -36,10 +37,9 @@ describe('package:version:*', () => {
 
     if (!devhubUsernameOrAlias) throw Error('no default username set');
 
-    execCmd<{ Id: string }>(
-      `force:package:beta:create -n ${pkgName} -v ${devhubUsernameOrAlias} --json -t Unlocked -r ./force-app`,
-      { ensureExitCode: 0 }
-    ).jsonOutput.result.Id;
+    execCmd(`force:package:beta:create -n ${pkgName} -v ${devhubUsernameOrAlias} --json -t Unlocked -r ./force-app`, {
+      ensureExitCode: 0,
+    });
   });
 
   after(async () => {
@@ -54,6 +54,20 @@ describe('package:version:*', () => {
       ).shellOutput.stdout;
       expect(result).to.include("Package version creation request status is '");
       expect(result).to.match(/Run "sfdx force:package:version:create:report -i 08c.{15}" to query for status\./);
+    });
+
+    // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
+    it('should create a new package version and wait (human)', () => {
+      const result = execCmd(
+        `force:package:beta:version:create --package ${pkgName} --wait 20 -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
+        { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
+      ).shellOutput.stdout;
+      expect(result).to.match(/Successfully created the package version \[08c.{15}]/);
+      expect(result).to.match(/Subscriber Package Version Id: 04t.{15}/);
+      expect(result).to.match(
+        /Package Installation URL: https:\/\/login.salesforce.com\/packaging\/installPackage\.apexp\?p0=04t.{15}/
+      );
+      expect(result).to.match(/As an alternative, you can use the "sfdx force:package:install" command\./);
     });
 
     it('should create a new package version (json)', () => {
