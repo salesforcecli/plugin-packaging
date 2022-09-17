@@ -731,10 +731,10 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.0.8", "@oclif/core@^1.14.1", "@oclif/core@^1.14.2", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.0", "@oclif/core@^1.9.9":
-  version "1.16.0"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.16.0.tgz#4b53261eeb0c0244700bfc9eb41159d483436f21"
-  integrity sha512-xtqhAbjQHBcz+xQpEHJ3eJEVfRQ4zl41Yw5gw/N+D1jgaIUrHTxCY/sfTvhw93LAQo7B++ozHzSb7DISFXsQFQ==
+"@oclif/core@^1.0.8", "@oclif/core@^1.14.1", "@oclif/core@^1.14.2", "@oclif/core@^1.16.1", "@oclif/core@^1.2.1", "@oclif/core@^1.3.4", "@oclif/core@^1.3.6", "@oclif/core@^1.6.4", "@oclif/core@^1.7.0", "@oclif/core@^1.9.9":
+  version "1.16.3"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.16.3.tgz#03683f685b790a2d37868013f382f57a70ba4110"
+  integrity sha512-SWrU/eGgN5kLyuZ+TqtKz2z2HTSrgaNEwkawNj4B31VXDrPv7aULS3ntVCboAKRldX/6J+Af+70BV07Rr5c5oA==
   dependencies:
     "@oclif/linewrap" "^1.0.0"
     "@oclif/screen" "^3.0.2"
@@ -1051,7 +1051,7 @@
     "@salesforce/ts-types" "^1.5.20"
     chalk "^2.4.2"
 
-"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.24.1", "@salesforce/core@^3.26.1", "@salesforce/core@^3.26.2", "@salesforce/core@^3.3.0", "@salesforce/core@^3.30.0":
+"@salesforce/core@^3.15.5", "@salesforce/core@^3.19.5", "@salesforce/core@^3.20.1", "@salesforce/core@^3.26.1", "@salesforce/core@^3.26.2", "@salesforce/core@^3.3.0", "@salesforce/core@^3.30.0":
   version "3.30.0"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.30.0.tgz#51c986aba5bb4b599fbff1d8c3f9e37508f9206f"
   integrity sha512-qU48fYMBcqZOVAUXaRYUleuelqfR8CERc1LUTJwmufRocieCHSx9PVXVRDgWl9KW09xcDyv8hu8RL5IaAVfWKA==
@@ -1152,14 +1152,14 @@
     ts-retry-promise "^0.6.1"
     xml2js "^0.4.23"
 
-"@salesforce/plugin-auth@^2.2.3":
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.2.3.tgz#cf481f1cfe5ce1828fc9768ee36f815977e4a5e8"
-  integrity sha512-qXlQivbe0po/ML8evr2YNjPGHogdC21w2YnnfamXgsZWJKu7ezp1AZo3mZW8LCfZi7PtWjku+BPPV4nqlUn/nA==
+"@salesforce/plugin-auth@^2.2.5":
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.2.5.tgz#04a03b61a95c5c0d7cc6bc3629fb8217c0a50b1f"
+  integrity sha512-RDfH+y6IyoO2QYsNesVqCExnu5MQvNv02cuG8B58mw/Hu3JlGb9npRFvqNj/F+zPpqIVRyDWa21ze4biAoFbVQ==
   dependencies:
-    "@oclif/core" "^1.9.0"
+    "@oclif/core" "^1.16.1"
     "@salesforce/command" "^5.1.3"
-    "@salesforce/core" "^3.24.1"
+    "@salesforce/core" "^3.30.0"
     "@salesforce/kit" "^1.5.17"
     chalk "^4.1.2"
     fs-extra "^10.0.1"
