@@ -7,7 +7,7 @@
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
-import { PackageSaveResult } from '@salesforce/packaging';
+import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
 
 describe('package:version:promote / package:version:update', () => {
@@ -26,14 +26,35 @@ describe('package:version:promote / package:version:update', () => {
       { ensureExitCode: 0 }
     ).jsonOutput.result.Id;
 
-    packageId = execCmd<{ SubscriberPackageVersionId: string }>(
-      `force:package:beta:version:create --package ${id} --loglevel debug -w 20 -x --json --codecoverage --versiondescription "Initial version"`,
+    const result = execCmd<PackageVersionCreateRequestResult>(
+      `force:package:beta:version:create --package ${id} --json --wait 20 --tag tag --branch branch -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
       { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
-    ).jsonOutput.result.SubscriberPackageVersionId;
+    ).jsonOutput.result;
+    expect(result).to.have.all.keys(
+      'Id',
+      'Status',
+      'Package2Id',
+      'Package2VersionId',
+      'SubscriberPackageVersionId',
+      'Tag',
+      'Branch',
+      'Error',
+      'CreatedDate',
+      'HasMetadataRemoved',
+      'CreatedBy'
+    );
+    expect(result.Id).to.match(/08c.{15}/);
+    expect(result.Package2Id).to.match(/0Ho.{15}/);
+    expect(result.SubscriberPackageVersionId).to.match(/04t.{15}/);
+    expect(result.Package2VersionId).to.match(/05i.{15}/);
+    expect(result.Branch).to.equal('branch');
+    expect(result.Tag).to.equal('tag');
+    expect(result.Error).to.deep.equal([]);
+    expect(result.Status).to.equal('Success');
+    packageId = result.SubscriberPackageVersionId;
   });
 
   after(async () => {
-    await session.zip('dreamhouse-lwc4', '/Users/peter.hale');
     await session?.clean();
   });
 
