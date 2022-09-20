@@ -195,8 +195,9 @@ describe('package:version:*', () => {
       expect(output.result[0]).to.have.keys(keys);
       const current = Date.now();
       const created = Date.parse(output.result[0].CreatedDate);
-      expect(current - created).to.be.greaterThan(2 * 24 * 60 * 60 * 1000);
-      expect(current - created).to.be.lessThan(3 * 24 * 60 * 60 * 1000);
+      const some2DaysAgo = current - Duration.days(2).milliseconds;
+      // some2DaysAgo <= created && created <= current
+      expect(some2DaysAgo <= created && created <= current).to.be.true;
     });
 
     it('should list the package versions created (json)', async () => {
