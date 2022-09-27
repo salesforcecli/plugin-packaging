@@ -13,7 +13,6 @@ import {
   getHasMetadataRemoved,
   getPackageIdFromAlias,
   getPackageVersionId,
-  getSubscriberPackageVersionId,
   PackageSaveResult,
   PackageVersion,
   validateId,
@@ -78,11 +77,6 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
         err.actions = [messages.getMessage('previouslyReleasedAction')];
       }
       throw err;
-    }
-
-    if (packageId.startsWith('05i')) {
-      // we should print, and return the 04t id
-      result.id = await getSubscriberPackageVersionId(packageId, conn);
     }
 
     this.ux.log(messages.getMessage('humanSuccess', [result.id]));

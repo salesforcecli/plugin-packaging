@@ -329,7 +329,6 @@ describe('force:package:install', () => {
     });
 
     it('should confirm UpgradeType when NO --noprompt flag', async () => {
-      // stub the getPackageTypeBy04t() query to return an Unlocked package type
       queryStub.resolves({
         done: true,
         totalSize: 1,

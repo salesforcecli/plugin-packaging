@@ -171,3 +171,7 @@ Waiting %s minutes for package install to complete.
 # packageInstallWaitingStatus
 
 %d minutes remaining until timeout. Install status: %s
+
+# errorInvalidPackageId
+
+The provided package ID '%s' is invalid.
