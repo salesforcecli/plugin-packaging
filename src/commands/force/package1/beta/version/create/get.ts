@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { package1VersionCreateGet, PackagingSObjects } from '@salesforce/packaging';
+import { Package1Version, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create_get');
@@ -27,7 +27,8 @@ export class Package1VersionCreateGetCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackagingSObjects.PackageUploadRequest> {
-    const result = await package1VersionCreateGet(this.org.getConnection(), this.flags.requestid);
+    const pkg1 = new Package1Version(this.org.getConnection());
+    const result = await pkg1.createReport(this.flags.requestid);
 
     if (result.Status === 'ERROR') {
       // toolbelt was accessing request.Errors.errors, I'm unsure about this type, but was unable to reproduce an error

@@ -8,7 +8,7 @@
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
-import { package1VersionCreate, PackageVersionEvents, PackagingSObjects } from '@salesforce/packaging';
+import { Package1Version, PackageVersionEvents, PackagingSObjects } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
@@ -86,9 +86,8 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         }
       );
     }
-
-    const result: PackageUploadRequest = await package1VersionCreate(
-      this.org.getConnection(),
+    const pkg1 = new Package1Version(this.org.getConnection());
+    const result = await pkg1.create(
       {
         MetadataPackageId: this.flags.packageid as string,
         VersionName: this.flags.name as string,

@@ -7,7 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { Package1Display, package1Display } from '@salesforce/packaging';
+import { Package1Display, Package1Version } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_display');
@@ -31,8 +31,8 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const conn = this.org.getConnection();
-    const results = await package1Display(conn, this.flags.packageversionid);
+    const pkg1 = new Package1Version(this.org.getConnection());
+    const results = await pkg1.display(this.flags.packageversionid);
 
     if (results.length === 0) {
       this.ux.log('No results found');
