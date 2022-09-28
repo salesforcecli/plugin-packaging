@@ -64,7 +64,7 @@ describe('package:version:promote / package:version:update', () => {
       ensureExitCode: 0,
     }).shellOutput.stdout;
     expect(result).to.contain('Successfully promoted the package version');
-    expect(result).to.contain('04t');
+    expect(result).to.contain('04t', result);
     expect(result).to.contain(
       'to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.'
     );
@@ -78,7 +78,7 @@ describe('package:version:promote / package:version:update', () => {
       }
     ).jsonOutput.result;
     expect(result).to.have.all.keys('id', 'success', 'errors');
-    expect(result.id.startsWith('04t')).to.be.true;
+    expect(result.id.slice(0, 3)).to.be.equal('04t');
     expect(result.success).to.equal(true);
     expect(result.errors).to.deep.equal([]);
   });

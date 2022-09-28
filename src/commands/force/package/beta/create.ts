@@ -8,13 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import {
-  applyErrorAction,
-  createPackage,
-  massageErrorMessage,
-  PackageCreateOptions,
-  PackageType,
-} from '@salesforce/packaging';
+import { applyErrorAction, createPackage, PackageCreateOptions, PackageType } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
@@ -79,7 +73,6 @@ export class PackageCreateCommand extends SfdxCommand {
     const result: { Id: string } = await createPackage(this.hubOrg.getConnection(), this.project, options).catch(
       (err) => {
         // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
-        err = massageErrorMessage(err);
         throw applyErrorAction(err);
       }
     );

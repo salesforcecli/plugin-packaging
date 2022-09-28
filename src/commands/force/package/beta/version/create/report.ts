@@ -11,6 +11,7 @@ import { Messages } from '@salesforce/core';
 import * as pkgUtils from '@salesforce/packaging';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as chalk from 'chalk';
+import { camelCaseToTitleCase } from '@salesforce/kit';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_report');
@@ -48,7 +49,7 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
       },
       {
         key: pvclMessages.getMessage('status'),
-        value: pkgUtils.convertCamelCaseStringToSentence(record.Status),
+        value: camelCaseToTitleCase(record.Status),
       },
       {
         key: pvclMessages.getMessage('packageId'),

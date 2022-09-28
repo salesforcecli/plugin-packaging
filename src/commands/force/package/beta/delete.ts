@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { applyErrorAction, deletePackage, massageErrorMessage, PackageSaveResult } from '@salesforce/packaging';
+import { applyErrorAction, deletePackage, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
@@ -52,7 +52,6 @@ export class PackageDeleteCommand extends SfdxCommand {
       !!this.flags.undelete
     ).catch((err) => {
       // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
-      err = massageErrorMessage(err);
       throw applyErrorAction(err);
     });
     this.display(result);

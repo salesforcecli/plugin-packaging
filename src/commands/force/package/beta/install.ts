@@ -10,7 +10,6 @@ import { flags, FlagsConfig, SfdxCommand, UX } from '@salesforce/command';
 import { Connection, Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
-  getPackageTypeBy04t,
   Package,
   PackageEvents,
   PackageInstallCreateRequest,
@@ -29,6 +28,27 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 // maps of command flag values to PackageInstallRequest values
 const securityType = { AllUsers: 'full', AdminsOnly: 'none' };
 const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mixed: 'mixed-mode' };
+
+async function getPackageTypeBy04t(
+  packageVersionId: string,
+  connection: Connection,
+  installKey?: string
+): Promise<string> {
+  let query = `SELECT Package2ContainerOptions FROM SubscriberPackageVersion WHERE id ='${packageVersionId}'`;
+
+  if (installKey) {
+    const escapedInstallationKey = installKey.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    query += ` AND InstallationKey ='${escapedInstallationKey}'`;
+  }
+
+  const queryResult = await connection.tooling.query<
+    Pick<PackagingSObjects.SubscriberPackageVersion, 'Package2ContainerOptions'>
+  >(query);
+  if (!queryResult || queryResult.records === null || queryResult.records.length === 0) {
+    throw messages.createError('errorInvalidPackageId', [packageVersionId]);
+  }
+  return queryResult.records[0].Package2ContainerOptions;
+}
 
 export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');

@@ -10,13 +10,13 @@ import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Duration } from '@salesforce/kit';
 import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import {
-  convertCamelCaseStringToSentence,
   INSTALL_URL_BASE,
   Package,
   PackageEvents,
   PackageVersionCreateEventData,
   PackageVersionCreateRequestResult,
 } from '@salesforce/packaging';
+import { camelCaseToTitleCase } from '@salesforce/kit';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
@@ -67,7 +67,7 @@ export class PackageConvert extends SfdxCommand {
       this.ux.log(
         `Request in progress. Sleeping 30 seconds. Will wait a total of ${
           data.timeRemaining.seconds
-        } more seconds before timing out. Current Status='${convertCamelCaseStringToSentence(
+        } more seconds before timing out. Current Status='${camelCaseToTitleCase(
           data.packageVersionCreateRequestResult.Status
         )}'`
       );
@@ -104,7 +104,7 @@ export class PackageConvert extends SfdxCommand {
         );
         break;
       default:
-        this.ux.log(pvcMessages.getMessage('InProgress', [convertCamelCaseStringToSentence(result.Status), result.Id]));
+        this.ux.log(pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
     }
 
     return result;

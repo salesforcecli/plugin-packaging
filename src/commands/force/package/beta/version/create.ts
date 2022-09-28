@@ -9,10 +9,9 @@ import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Duration } from '@salesforce/kit';
+import { Duration, camelCaseToTitleCase } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
-  convertCamelCaseStringToSentence,
   getPackageIdFromAlias,
   INSTALL_URL_BASE,
   PackageVersion,
@@ -214,7 +213,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         );
         break;
       default:
-        this.ux.log(messages.getMessage('InProgress', [convertCamelCaseStringToSentence(result.Status), result.Id]));
+        this.ux.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
     }
     return result;
   }
