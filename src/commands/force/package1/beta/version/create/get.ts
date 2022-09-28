@@ -27,8 +27,7 @@ export class Package1VersionCreateGetCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackagingSObjects.PackageUploadRequest> {
-    const pkg1 = new Package1Version(this.org.getConnection());
-    const result = await pkg1.createReport(this.flags.requestid);
+    const result = await Package1Version.getCreateStatus(this.org.getConnection(), this.flags.requestid);
 
     if (result.Status === 'ERROR') {
       // toolbelt was accessing request.Errors.errors, I'm unsure about this type, but was unable to reproduce an error

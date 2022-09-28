@@ -31,8 +31,7 @@ export class Package1VersionListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const pkg1 = new Package1Version(this.org.getConnection());
-    const result = await pkg1.list(this.flags.packageid);
+    const result = await Package1Version.list(this.org.getConnection(), this.flags.packageid);
 
     if (result.length) {
       this.ux.table(result, {
