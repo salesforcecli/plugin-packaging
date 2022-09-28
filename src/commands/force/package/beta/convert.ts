@@ -41,6 +41,11 @@ export class PackageConvert extends SfdxCommand {
       longDescription: messages.getMessage('longKey'),
       exactlyOne: ['installationkey', 'installationkeybypass'],
     }),
+    definitionfile: flags.filepath({
+      char: 'f',
+      description: messages.getMessage('definitionfile'),
+      longDescription: messages.getMessage('longDefinitionfile'),
+    }),
     installationkeybypass: flags.boolean({
       char: 'x',
       description: messages.getMessage('keyBypass'),
@@ -84,6 +89,7 @@ export class PackageConvert extends SfdxCommand {
       {
         wait: this.flags.wait as Duration,
         installationKey: this.flags.installationkey as string,
+        definitionfile: this.flags.definitionfile as string,
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         buildInstance: this.flags.buildinstance as string,
       },
