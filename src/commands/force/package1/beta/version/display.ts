@@ -31,7 +31,15 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const results = await Package1Version.display(this.org.getConnection(), this.flags.packageversionid);
+    const pv1 = new Package1Version(this.org.getConnection());
+    const results = (await pv1.getPackageVersion(this.flags.packageversionid)).map((result) => ({
+      MetadataPackageVersionId: result.Id,
+      MetadataPackageId: result.MetadataPackageId,
+      Name: result.Name,
+      ReleaseState: result.ReleaseState,
+      Version: `${result.MajorVersion}.${result.MinorVersion}.${result.PatchVersion}`,
+      BuildNumber: result.BuildNumber,
+    }));
 
     if (results.length === 0) {
       this.ux.log('No results found');

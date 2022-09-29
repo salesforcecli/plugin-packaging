@@ -86,8 +86,8 @@ export class Package1VersionCreateCommand extends SfdxCommand {
         }
       );
     }
-    const pkg1 = new Package1Version(this.org.getConnection());
-    const result = await pkg1.create(
+    const result = await Package1Version.create(
+      this.org.getConnection(),
       {
         MetadataPackageId: this.flags.packageid as string,
         VersionName: this.flags.name as string,
