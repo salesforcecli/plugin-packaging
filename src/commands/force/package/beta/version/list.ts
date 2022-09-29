@@ -98,7 +98,7 @@ export class PackageVersionListCommand extends SfdxCommand {
       createdLastDays: this.flags.createdlastdays as number,
       concise: this.flags.concise as boolean,
       modifiedLastDays: this.flags.modifiedlastdays as number,
-      packages: this.flags.packages as string[],
+      packages: (this.flags.packages as string[]) ?? [],
       isReleased: this.flags.released as boolean,
       orderBy: this.flags.orderby as string,
       verbose: this.flags.verbose as boolean,
