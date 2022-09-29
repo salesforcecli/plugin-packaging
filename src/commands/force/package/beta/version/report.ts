@@ -44,8 +44,12 @@ export class PackageVersionReportCommand extends SfdxCommand {
   protected haveCodeCoverageData = false;
 
   public async run(): Promise<PackageVersionReportResultModified> {
-    const packageVersion = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
-    const results = await packageVersion.report(this.flags.package, this.flags.verbose);
+    const packageVersion = new PackageVersion({
+      connection: this.hubOrg.getConnection(),
+      project: this.project,
+      idOrAlias: this.flags.package as string,
+    });
+    const results = await packageVersion.report(this.flags.verbose);
     const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults);
     return massagedResults;

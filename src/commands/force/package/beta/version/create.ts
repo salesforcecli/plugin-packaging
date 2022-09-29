@@ -189,10 +189,14 @@ export class PackageVersionCreateCommand extends SfdxCommand {
 
     const packageId = getPackageIdFromAlias(packageName, this.project);
 
-    const pv = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
     this.ux.startSpinner(messages.getMessage('requestInProgress'));
-    const result = await pv.create(
-      { ...this.flags, ...{ packageId } },
+    const result = await PackageVersion.create(
+      {
+        connection: this.hubOrg.getConnection(),
+        project: this.project,
+        ...this.flags,
+        packageId,
+      },
       {
         timeout: this.flags.wait as Duration,
         frequency,
