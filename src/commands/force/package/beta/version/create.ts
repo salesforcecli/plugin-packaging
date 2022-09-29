@@ -195,7 +195,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         connection: this.hubOrg.getConnection(),
         project: this.project,
         ...this.flags,
-        ...{ packageId },
+        packageId,
       },
       {
         timeout: this.flags.wait as Duration,
