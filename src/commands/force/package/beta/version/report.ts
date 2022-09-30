@@ -153,12 +153,10 @@ export class PackageVersionReportCommand extends SfdxCommand {
         codeCovStr =
           'The code coverage details are too large to display. To request code coverage details for this package version, log a case in the Salesforce Partner Community.';
       } else {
-        displayCoverageRecords = coverageData.slice(0, maximumNumClasses).map((coverageDatum) => {
-          return {
+        displayCoverageRecords = coverageData.slice(0, maximumNumClasses).map((coverageDatum) => ({
             key: coverageDatum.className,
             value: `${coverageDatum.codeCoveragePercentage}%`,
-          };
-        });
+          }));
         this.haveCodeCoverageData = displayCoverageRecords.length > 0;
       }
     }
