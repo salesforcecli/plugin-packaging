@@ -73,6 +73,7 @@ export class PackageCreateCommand extends SfdxCommand {
     const result: { Id: string } = await createPackage(this.hubOrg.getConnection(), this.project, options).catch(
       (err) => {
         // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         throw applyErrorAction(err);
       }
     );

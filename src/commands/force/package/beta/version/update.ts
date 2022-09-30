@@ -54,7 +54,7 @@ export class PackageVersionUpdateCommand extends SfdxCommand {
 
   public async run(): Promise<PackageSaveResult> {
     const pv = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
-    const id = getPackageIdFromAlias(this.flags.package, this.project);
+    const id = getPackageIdFromAlias(this.flags.package as string, this.project);
     const result = await pv.update(id, {
       VersionDescription: this.flags.versiondescription as string,
       Branch: this.flags.branch as string,

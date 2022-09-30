@@ -80,7 +80,7 @@ export class PackageConvert extends SfdxCommand {
 
     const pkg = new Package({ connection: this.hubOrg.getConnection() });
     const result = await pkg.convert(
-      this.flags.package,
+      this.flags.package as string,
       {
         wait: this.flags.wait as Duration,
         installationKey: this.flags.installationkey as string,

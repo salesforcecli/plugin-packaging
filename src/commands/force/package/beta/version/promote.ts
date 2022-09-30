@@ -44,7 +44,7 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
   public async run(): Promise<PackageSaveResult> {
     const conn = this.hubOrg.getConnection();
     const packageIdFromAlias =
-      getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
+      getPackageIdFromAlias(this.flags.package as string, this.project) ?? (this.flags.package as string);
     let packageId = packageIdFromAlias;
     // ID can be 04t or 05i at this point
     validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
@@ -61,7 +61,9 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       }
 
       // Prompt for confirmation
-      if (!(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package])))) {
+      if (
+        !(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package as string])))
+      ) {
         return;
       }
     }
@@ -73,6 +75,9 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       result = await pkg.promote(packageId);
       result.id = packageIdFromAlias.startsWith('04t') ? packageIdFromAlias : result.id;
     } catch (e) {
+      if (!(e instanceof Error) && typeof e !== 'string') {
+        throw e;
+      }
       const err = SfError.wrap(e);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
         err.message = messages.getMessage('previouslyReleasedMessage');

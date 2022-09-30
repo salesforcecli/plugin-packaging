@@ -14,6 +14,7 @@ import { beforeEach } from 'mocha';
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
+  massageResultsForDisplay,
 } from '../../../../src/commands/force/package/beta/version/report';
 
 const $$ = testSetup();
@@ -180,7 +181,7 @@ describe('massage results', () => {
   });
 
   it('should massage results', () => {
-    const result = cmd['massageResultsForDisplay'](pkgVersionReportResult);
+    const result = massageResultsForDisplay(pkgVersionReportResult);
     expect(result).to.deep.equal(pkgVersionReportResultModified);
   });
   it('should massage results - general transform', () => {
@@ -200,7 +201,7 @@ describe('massage results', () => {
     pvrrm.HasPassedCodeCoverageCheck = 'N/A';
     delete pvrrm['PackageType'];
 
-    const result = cmd['massageResultsForDisplay'](pvrr);
+    const result = massageResultsForDisplay(pvrr);
     expect(result).to.deep.equal(pvrrm);
   });
   it('should massage results - isOrgDependent && skipped validation', () => {
@@ -222,7 +223,7 @@ describe('massage results', () => {
 
     delete pvrrm['PackageType'];
 
-    const result = cmd['massageResultsForDisplay'](pvrr);
+    const result = massageResultsForDisplay(pvrr);
     expect(result).to.deep.equal(pvrrm);
   });
 });

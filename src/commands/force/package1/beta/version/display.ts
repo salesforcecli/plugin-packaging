@@ -32,7 +32,7 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
 
   public async run(): Promise<Package1Display[]> {
     const conn = this.org.getConnection();
-    const results = await package1Display(conn, this.flags.packageversionid);
+    const results = await package1Display(conn, this.flags.packageversionid as string);
 
     if (results.length === 0) {
       this.ux.log('No results found');

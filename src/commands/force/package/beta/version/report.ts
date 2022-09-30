@@ -45,8 +45,8 @@ export class PackageVersionReportCommand extends SfdxCommand {
 
   public async run(): Promise<PackageVersionReportResultModified> {
     const packageVersion = new PackageVersion({ connection: this.hubOrg.getConnection(), project: this.project });
-    const results = await packageVersion.report(this.flags.package, this.flags.verbose);
-    const massagedResults = this.massageResultsForDisplay(results);
+    const results = await packageVersion.report(this.flags.package as string, this.flags.verbose as boolean);
+    const massagedResults = massageResultsForDisplay(results);
     this.display(massagedResults);
     return massagedResults;
   }
@@ -154,9 +154,9 @@ export class PackageVersionReportCommand extends SfdxCommand {
           'The code coverage details are too large to display. To request code coverage details for this package version, log a case in the Salesforce Partner Community.';
       } else {
         displayCoverageRecords = coverageData.slice(0, maximumNumClasses).map((coverageDatum) => ({
-            key: coverageDatum.className,
-            value: `${coverageDatum.codeCoveragePercentage}%`,
-          }));
+          key: coverageDatum.className,
+          value: `${coverageDatum.codeCoveragePercentage}%`,
+        }));
         this.haveCodeCoverageData = displayCoverageRecords.length > 0;
       }
     }
@@ -185,38 +185,38 @@ export class PackageVersionReportCommand extends SfdxCommand {
       this.ux.table(displayCoverageRecords, { key: { header: 'Class Name' }, value: { header: 'Code Coverage' } });
     }
   }
-
-  private massageResultsForDisplay(results: PackageVersionReportResult): PackageVersionReportResultModified {
-    const record = JSON.parse(JSON.stringify(results)) as PackageVersionReportResultModified;
-    record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');
-
-    if (results.PackageType !== 'Managed') {
-      record.AncestorVersion = 'N/A';
-      record.AncestorId = 'N/A';
-    }
-
-    if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
-      record.CodeCoverage = 'N/A';
-    } else {
-      record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage
-        ? `${results.CodeCoverage?.apexCodeCoveragePercentage}%`
-        : 'N/A';
-    }
-
-    record.HasPassedCodeCoverageCheck =
-      results.Package2.IsOrgDependent || results.ValidationSkipped ? 'N/A' : results.HasPassedCodeCoverageCheck;
-
-    record.Package2.IsOrgDependent =
-      results.PackageType === 'Managed' ? 'N/A' : results.Package2.IsOrgDependent === true ? 'Yes' : 'No';
-
-    // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
-    record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
-
-    record.ConvertedFromVersionId ??= ' ';
-
-    // for backward compatibility, remove PackageType from the record
-    delete record['PackageType'];
-
-    return record;
-  }
 }
+
+export const massageResultsForDisplay = (results: PackageVersionReportResult): PackageVersionReportResultModified => {
+  const record = JSON.parse(JSON.stringify(results)) as PackageVersionReportResultModified;
+  record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');
+
+  if (results.PackageType !== 'Managed') {
+    record.AncestorVersion = 'N/A';
+    record.AncestorId = 'N/A';
+  }
+
+  if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
+    record.CodeCoverage = 'N/A';
+  } else {
+    record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage
+      ? `${results.CodeCoverage?.apexCodeCoveragePercentage}%`
+      : 'N/A';
+  }
+
+  record.HasPassedCodeCoverageCheck =
+    results.Package2.IsOrgDependent || results.ValidationSkipped ? 'N/A' : results.HasPassedCodeCoverageCheck;
+
+  record.Package2.IsOrgDependent =
+    results.PackageType === 'Managed' ? 'N/A' : results.Package2.IsOrgDependent === true ? 'Yes' : 'No';
+
+  // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
+  record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
+
+  record.ConvertedFromVersionId ??= ' ';
+
+  // for backward compatibility, remove PackageType from the record
+  delete record['PackageType'];
+
+  return record;
+};

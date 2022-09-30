@@ -46,12 +46,13 @@ export class PackageDeleteCommand extends SfdxCommand {
     }
 
     const result = await deletePackage(
-      this.flags.package,
+      this.flags.package as string,
       this.project,
       this.hubOrg.getConnection(),
       !!this.flags.undelete
     ).catch((err) => {
       // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       throw applyErrorAction(err);
     });
     this.display(result);

@@ -41,8 +41,8 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
     const packageVersion = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
     await this.confirmDelete();
     const results = this.flags.undelete
-      ? await packageVersion.undelete(this.flags.package)
-      : await packageVersion.delete(this.flags.package);
+      ? await packageVersion.undelete(this.flags.package as string)
+      : await packageVersion.delete(this.flags.package as string);
     this.ux.log(this.getHumanSuccessMessage(results));
     return results;
   }

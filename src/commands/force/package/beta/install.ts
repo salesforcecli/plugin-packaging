@@ -7,7 +7,7 @@
 
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand, UX } from '@salesforce/command';
-import { Connection, Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
+import { Connection, Lifecycle, Messages, SfError } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
   Package,
@@ -18,7 +18,7 @@ import {
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
 import { QueryResult } from 'jsforce';
-
+import { resolveSubscriberPackageVersionKey } from '../../../../shared/resolutions';
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 type SubscriberPackageVersion = PackagingSObjects.SubscriberPackageVersion;
 
@@ -144,7 +144,7 @@ export class Install extends SfdxCommand {
     }
 
     const request: PackageInstallCreateRequest = {
-      SubscriberPackageVersionKey: this.resolveSubscriberPackageVersionKey(this.flags.package),
+      SubscriberPackageVersionKey: resolveSubscriberPackageVersionKey(this.flags.package as string),
       Password: this.flags.installationkey as PackageInstallCreateRequest['Password'],
       ApexCompileType: this.flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
       SecurityType: securityType[this.flags.securitytype as string] as PackageInstallCreateRequest['SecurityType'],
@@ -192,7 +192,7 @@ export class Install extends SfdxCommand {
 
     const pkgInstallRequest = await this.pkg.install(request, installOptions);
     this.ux.stopSpinner();
-    Install.parseStatus(pkgInstallRequest, this.ux, messages, this.org.getUsername(), this.flags.package);
+    Install.parseStatus(pkgInstallRequest, this.ux, messages, this.org.getUsername(), this.flags.package as string);
 
     return pkgInstallRequest;
   }
@@ -238,8 +238,11 @@ export class Install extends SfdxCommand {
 
     // wait for the Subscriber Package Version ID to become available in the target org
     try {
-      await this.pkg.waitForPublish(request.SubscriberPackageVersionKey, this.flags.publishwait);
+      await this.pkg.waitForPublish(request.SubscriberPackageVersionKey, this.flags.publishwait as Duration);
     } catch (err) {
+      if (!(err instanceof Error) && typeof err !== 'string') {
+        throw err;
+      }
       const error = err instanceof SfError ? err : SfError.wrap(err);
       // If an uninstall is in progress, allow install to proceed which will result in an
       // appropriate UninstallInProgressProblem error message being displayed.
@@ -253,31 +256,5 @@ export class Install extends SfdxCommand {
         throw error;
       }
     }
-  }
-
-  // Given a package version ID (04t) or an alias for the package, validate and
-  // return the package version ID (aka SubscriberPackageVersionKey).
-  private resolveSubscriberPackageVersionKey(idOrAlias: string): string {
-    let resolvedId: string;
-
-    if (idOrAlias.startsWith('04t')) {
-      Package.validateId(idOrAlias, 'SubscriberPackageVersionId');
-      resolvedId = idOrAlias;
-    } else {
-      let packageAliases: { [k: string]: string };
-      try {
-        const projectJson = SfProject.getInstance().getSfProjectJson();
-        packageAliases = projectJson.getContents().packageAliases ?? {};
-      } catch (e) {
-        throw messages.createError('projectNotFound', [idOrAlias]);
-      }
-      resolvedId = packageAliases[idOrAlias];
-      if (!resolvedId) {
-        throw messages.createError('packageAliasNotFound', [idOrAlias]);
-      }
-      Package.validateId(resolvedId, 'SubscriberPackageVersionId');
-    }
-
-    return resolvedId;
   }
 }

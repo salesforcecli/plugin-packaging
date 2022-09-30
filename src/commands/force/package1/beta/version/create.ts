@@ -70,7 +70,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageUploadRequest> {
-    const version = this.parseVersion(this.flags.version);
+    const version = parseVersion(this.flags.version as string);
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
       Lifecycle.getInstance().on(
@@ -108,21 +108,21 @@ export class Package1VersionCreateCommand extends SfdxCommand {
 
     return result;
   }
-
-  private parseVersion(versionString: string): { major: number; minor: number } {
-    const versions = versionString?.split('.');
-    if (!versions) {
-      // return nulls so when no version flag is provided, the server can infer the correct version
-      return { major: null, minor: null };
-    }
-
-    if (versions.length === 2) {
-      return {
-        major: Number(versions[0]),
-        minor: Number(versions[1]),
-      };
-    } else {
-      throw messages.createError('package1VersionCreateCommandInvalidVersion', [versionString]);
-    }
-  }
 }
+
+const parseVersion = (versionString: string): { major: number; minor: number } => {
+  const versions = versionString?.split('.');
+  if (!versions) {
+    // return nulls so when no version flag is provided, the server can infer the correct version
+    return { major: null, minor: null };
+  }
+
+  if (versions.length === 2) {
+    return {
+      major: Number(versions[0]),
+      minor: Number(versions[1]),
+    };
+  } else {
+    throw messages.createError('package1VersionCreateCommandInvalidVersion', [versionString]);
+  }
+};

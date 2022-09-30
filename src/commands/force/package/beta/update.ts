@@ -45,7 +45,7 @@ export class PackageUpdateCommand extends SfdxCommand {
 
   public async run(): Promise<PackageSaveResult> {
     const pkg = new Package({ connection: this.hubOrg.getConnection() });
-    const id = getPackageIdFromAlias(this.flags.package, this.project);
+    const id = getPackageIdFromAlias(this.flags.package as string, this.project);
     validateId(BY_LABEL.PACKAGE_ID, id);
 
     const result = await pkg.update({

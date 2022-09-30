@@ -51,6 +51,7 @@ export class PackageListCommand extends SfdxCommand {
     this.logger = this.logger.child('package:list');
     const queryResult = await listPackages(this.hubOrg.getConnection()).catch((err) => {
       // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       throw applyErrorAction(err);
     });
     this.mapRecordsToResults(queryResult);
@@ -73,7 +74,8 @@ export class PackageListCommand extends SfdxCommand {
           IsOrgDependent,
           PackageErrorUsername,
           CreatedById,
-        }) => ({
+        }) =>
+          ({
             Id,
             SubscriberPackageId,
             Name,

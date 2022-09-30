@@ -184,7 +184,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       packageName = pkg.startsWith('0ho') ? pkg : getPackageIdFromAlias(pkg, this.project);
     } else {
       // due to flag validation, we'll either have a package or path flag
-      packageName = this.project.getPackageFromPath(this.flags.path).package;
+      packageName = this.project.getPackageFromPath(this.flags.path as string).package;
     }
 
     const packageId = getPackageIdFromAlias(packageName, this.project);

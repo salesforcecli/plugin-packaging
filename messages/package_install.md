@@ -117,22 +117,6 @@ Applies to unlocked packages only. Specifies whether to compile all Apex in the 
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
 This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apexcompile package is specified.
 
-# projectNotFound
-
-Could not find the sfdx-project.json for subscriber package version: [%s]
-
-# projectNotFound.actions
-
-Are you running the command from within the project directory when using an alias?
-
-# packageAliasNotFound
-
-The subscriber package version alias: [%s] isn't defined in the sfdx-project.json.
-
-# packageAliasNotFound.actions
-
-Add it to the packageDirectories section and add the alias to packageAliases with its 04t ID.
-
 # promptEnableRss
 
 This package might send or receive data from these third-party websites:

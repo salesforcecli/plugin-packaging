@@ -33,7 +33,7 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
     const packageVersion = new PackageVersion({ connection: this.hubOrg.getConnection(), project: undefined });
-    const result = await packageVersion.getCreateVersionReport(this.flags.packagecreaterequestid);
+    const result = await packageVersion.getCreateVersionReport(this.flags.packagecreaterequestid as string);
     this.display(result);
     return result;
   }

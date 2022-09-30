@@ -7,15 +7,15 @@
 
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Lifecycle, Messages, SfProject } from '@salesforce/core';
-import { Package, PackageEvents, PackagingSObjects, uninstallPackage } from '@salesforce/packaging';
+import { Lifecycle, Messages } from '@salesforce/core';
+import { PackageEvents, PackagingSObjects, uninstallPackage } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
+import { resolveSubscriberPackageVersionKey } from '../../../../shared/resolutions';
 
 type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall');
-const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
 export class PackageUninstallCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -44,38 +44,16 @@ export class PackageUninstallCommand extends SfdxCommand {
       this.ux.log(`Waiting for the package uninstall request to get processed. Status = ${data.Status}`);
     });
 
-    const packageId = this.resolveSubscriberPackageVersionKey(this.flags.package);
+    const packageId = resolveSubscriberPackageVersionKey(this.flags.package as string);
 
-    const result: UninstallResult = await uninstallPackage(packageId, this.org.getConnection(), this.flags.wait);
+    const result: UninstallResult = await uninstallPackage(
+      packageId,
+      this.org.getConnection(),
+      this.flags.wait as Duration
+    );
     const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
     this.ux.log(messages.getMessage(result.Status, arg));
 
     return result;
-  }
-
-  // Given a package version ID (04t) or an alias for the package, validate and
-  // return the package version ID (aka SubscriberPackageVersionKey).
-  private resolveSubscriberPackageVersionKey(idOrAlias: string): string {
-    let resolvedId: string;
-
-    if (idOrAlias.startsWith('04t')) {
-      Package.validateId(idOrAlias, 'SubscriberPackageVersionId');
-      resolvedId = idOrAlias;
-    } else {
-      let packageAliases: { [k: string]: string };
-      try {
-        const projectJson = SfProject.getInstance().getSfProjectJson();
-        packageAliases = projectJson.getContents().packageAliases ?? {};
-      } catch (e) {
-        throw installMsgs.createError('projectNotFound', [idOrAlias]);
-      }
-      resolvedId = packageAliases[idOrAlias];
-      if (!resolvedId) {
-        throw installMsgs.createError('packageAliasNotFound', [idOrAlias]);
-      }
-      Package.validateId(resolvedId, 'SubscriberPackageVersionId');
-    }
-
-    return resolvedId;
   }
 }
