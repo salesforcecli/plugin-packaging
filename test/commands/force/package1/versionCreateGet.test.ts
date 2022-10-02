@@ -34,23 +34,17 @@ const runCmd = async (params: string[], result: string, errors?: { errors: Error
     const orgStub = fromStub(
       stubInterface<Org>($$.SANDBOX, {
         getUsername: () => 'test@user.com',
-        getConnection: () => {
-          return {
+        getConnection: () => ({
             tooling: {
-              sobject: () => {
-                return {
-                  retrieve: () => {
-                    return Promise.resolve({
+              sobject: () => ({
+                  retrieve: () => Promise.resolve({
                       Status: result,
                       MetadataPackageVersionId: '04t4p000002BavTXXX',
                       Errors: errors,
-                    });
-                  },
-                };
-              },
+                    }),
+                }),
             },
-          };
-        },
+          }),
       })
     );
     cmd.setOrg(orgStub);

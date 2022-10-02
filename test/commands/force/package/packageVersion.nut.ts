@@ -406,9 +406,7 @@ describe('package:version:*', () => {
         ancestryPkgName = pvRecords[0].Package2.Name;
       }
       pvRecords = pvRecords.filter((pv) => pv.Package2.Name === ancestryPkgName);
-      versions = pvRecords.map((pv) => {
-        return new VersionNumber(pv.MajorVersion, pv.MinorVersion, pv.PatchVersion, pv.BuildNumber);
-      });
+      versions = pvRecords.map((pv) => new VersionNumber(pv.MajorVersion, pv.MinorVersion, pv.PatchVersion, pv.BuildNumber));
       sortedVersions = [...versions].sort((a, b) => a.compareTo(b));
       project = await SfProject.resolve();
       const pjson = project.getSfProjectJson();

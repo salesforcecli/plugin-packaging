@@ -33,20 +33,20 @@ describe('package create/update/delete', () => {
     before(async () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
-    it('should create a package - human readable results', function () {
+    it('should create a package - human readable results', () => {
       const command = `force:package:beta:create -n ${pkgName} -v ${devHubUsernameOrAlias} -t Unlocked -r ./force-app`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Ids');
       expect(output).to.match(/Package Id\s+?0Ho/);
     });
-    it('should update a package - human readable results', function () {
+    it('should update a package - human readable results', () => {
       const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${devHubUsernameOrAlias}`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.match(/Successfully updated the package\.\s+0Ho/);
     });
-    it('should delete a package - human readable results', function () {
+    it('should delete a package - human readable results', () => {
       const command = `force:package:beta:delete -p ${pkgName} -v ${devHubUsernameOrAlias} --noprompt`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
@@ -57,7 +57,7 @@ describe('package create/update/delete', () => {
     before(async () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
-    it('should create a package - json results', function () {
+    it('should create a package - json results', () => {
       const command = `force:package:beta:create -n ${pkgName} -v ${devHubUsernameOrAlias} -t Unlocked -r ./force-app --json`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd<{ Id: string }>(command, { ensureExitCode: 0 }).jsonOutput;
@@ -65,7 +65,7 @@ describe('package create/update/delete', () => {
       expect(output.result).to.have.property('Id');
       expect(output.result.Id).to.match(/0Ho.{12,15}/);
     });
-    it('should update a package - json results', function () {
+    it('should update a package - json results', () => {
       const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${devHubUsernameOrAlias} --json`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd<{ id: string }>(command, { ensureExitCode: 0 }).jsonOutput;
@@ -73,7 +73,7 @@ describe('package create/update/delete', () => {
       expect(output.result).to.have.property('id');
       expect(output.result.id).to.match(/0Ho.{12,15}/);
     });
-    it('should delete a package - json results', function () {
+    it('should delete a package - json results', () => {
       const command = `force:package:beta:delete -p ${pkgName} -v ${devHubUsernameOrAlias} --json`;
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       const output = execCmd<{ id: string; success: boolean; errors: [] }>(command, { ensureExitCode: 0 }).jsonOutput;
