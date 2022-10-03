@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Duration } from '@salesforce/kit';
-import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
+import { Lifecycle, Messages, SfError } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
   Package,
@@ -26,6 +26,7 @@ export class PackageConvert extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
+  public static readonly requiresProject = true;
   public static readonly hidden = true;
   public static readonly flagsConfig: FlagsConfig = {
     package: flags.id({
@@ -78,16 +79,16 @@ export class PackageConvert extends SfdxCommand {
       this.ux.log('SUCCESS');
     });
 
-    const pkg = new Package({ connection: this.hubOrg.getConnection() });
-    const result = await pkg.convert(
+    const result = await Package.convert(
       this.flags.package,
+      this.hubOrg.getConnection(),
       {
         wait: this.flags.wait as Duration,
         installationKey: this.flags.installationkey as string,
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         buildInstance: this.flags.buildinstance as string,
       },
-      SfProject.getInstance()
+      this.project
     );
 
     switch (result.Status) {

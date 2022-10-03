@@ -101,7 +101,7 @@ describe('force:package:uninstall', () => {
       assert.fail('the above should throw an invalid version error');
     } catch (e) {
       expect((e as Error).message).to.include(
-        "The subscriber package version alias: [03t4p000002BaHYXXX] isn't defined in the sfdx-project.json."
+        'The provided alias or ID: [03t4p000002BaHYXXX] could not be resolved to a valid package version ID (05i) or subscriber package version ID (04t).'
       );
     }
   });
