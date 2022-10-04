@@ -312,3 +312,11 @@ Version create.
 # packageVersionCreateFinalStatus
 
 Create version status: %s
+
+# language
+
+(TBD) language used for the labels on components.
+
+# languageLong 
+
+(TBD) language used for the labels on components.
