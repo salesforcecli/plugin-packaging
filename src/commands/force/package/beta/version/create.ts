@@ -9,10 +9,9 @@ import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Duration } from '@salesforce/kit';
+import { Duration, camelCaseToTitleCase } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
-  convertCamelCaseStringToSentence,
   getPackageIdFromAlias,
   INSTALL_URL_BASE,
   PackageVersion,
@@ -194,10 +193,14 @@ export class PackageVersionCreateCommand extends SfdxCommand {
 
     const packageId = getPackageIdFromAlias(packageName, this.project);
 
-    const pv = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
     this.ux.startSpinner(messages.getMessage('requestInProgress'));
-    const result = await pv.create(
-      { ...this.flags, ...{ packageId } },
+    const result = await PackageVersion.create(
+      {
+        connection: this.hubOrg.getConnection(),
+        project: this.project,
+        ...this.flags,
+        packageId,
+      },
       {
         timeout: this.flags.wait as Duration,
         frequency,
@@ -218,7 +221,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         );
         break;
       default:
-        this.ux.log(messages.getMessage('InProgress', [convertCamelCaseStringToSentence(result.Status), result.Id]));
+        this.ux.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
     }
     return result;
   }
