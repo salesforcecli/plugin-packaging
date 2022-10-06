@@ -10,8 +10,9 @@ import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-import { Package, PackageEvents } from '@salesforce/packaging';
+import { PackageVersion, PackageEvents } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
+import * as packagingUtils from '@salesforce/packaging';
 import { Install } from '../../../../src/commands/force/package/beta/install';
 
 const $$ = testSetup();
@@ -21,10 +22,10 @@ let uxSetSpinnerStatusStub: sinon.SinonStub;
 let uxConfirmStub: sinon.SinonStub;
 let apiVersionStub: sinon.SinonStub;
 let queryStub: sinon.SinonStub;
-let packageStub: sinon.SinonStub;
+let packageVersionStub: sinon.SinonStub;
 let getExternalSitesStub: sinon.SinonStub;
 let installStub: sinon.SinonStub;
-let waitForPublishStub: sinon.SinonStub;
+let getInstallStatusStub: sinon.SinonStub;
 
 const pkgInstallRequest = {
   attributes: {
@@ -103,16 +104,17 @@ describe('force:package:install', () => {
     queryStub = $$.SANDBOX.stub();
     getExternalSitesStub = $$.SANDBOX.stub();
     installStub = $$.SANDBOX.stub();
-    waitForPublishStub = $$.SANDBOX.stub();
+    getInstallStatusStub = $$.SANDBOX.stub();
 
-    // The Package class is tested in the packaging library, so
+    // The PackageVersion class is tested in the packaging library, so
     // we just stub the public APIs used by the command.
-    packageStub = $$.SANDBOX.stub().callsFake(() => ({
+    packageVersionStub = $$.SANDBOX.stub().callsFake(() => ({
       getExternalSites: getExternalSitesStub,
       install: installStub,
-      waitForPublish: waitForPublishStub,
+      getInstallStatus: getInstallStatusStub,
     }));
-    Object.setPrototypeOf(Package, packageStub);
+    Object.setPrototypeOf(PackageVersion, packageVersionStub);
+    stubMethod($$.SANDBOX, packagingUtils, 'getPackageIdFromAlias').callsFake(() => '04t6A000002zgKSQAY');
   });
   afterEach(() => {
     $$.SANDBOX.restore();
@@ -443,7 +445,7 @@ describe('force:package:install', () => {
 
   describe('wait for publish', () => {
     it('should listen for Package/install-subscriber-status polling events and log statuses', async () => {
-      waitForPublishStub.callsFake(async () => {
+      getInstallStatusStub.callsFake(async () => {
         await Lifecycle.getInstance().emit(PackageEvents.install['subscriber-status'], 'PACKAGE_UNAVAILABLE');
         await Lifecycle.getInstance().emit(PackageEvents.install['subscriber-status'], 'NO_ERRORS_DETECTED');
       });
@@ -468,7 +470,7 @@ describe('force:package:install', () => {
         totalSize: 1,
         records: [{ InstallValidationStatus: 'UNINSTALL_IN_PROGRESS' }],
       };
-      waitForPublishStub.throws(publishError);
+      getInstallStatusStub.throws(publishError);
       installStub.resolves(pkgInstallRequest);
 
       const result = await runCmd(['-p', '04t6A000002zgKSQAY', '--publishwait', '1']);
@@ -484,7 +486,7 @@ describe('force:package:install', () => {
         totalSize: 1,
         records: [{ InstallValidationStatus: 'PACKAGE_UNAVAILABLE' }],
       };
-      waitForPublishStub.throws(publishError);
+      getInstallStatusStub.throws(publishError);
       installStub.resolves(pkgInstallRequest);
 
       try {
