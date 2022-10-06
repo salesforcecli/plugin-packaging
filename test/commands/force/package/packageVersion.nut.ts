@@ -6,7 +6,7 @@
  */
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
-import { ConfigAggregator, Org, OrgConfigProperties, SfProject } from '@salesforce/core';
+import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
 import {
   PackageAncestryNodeData,
