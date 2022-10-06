@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as path from 'path';
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, OrgConfigProperties, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
@@ -21,23 +20,17 @@ import { PackageVersionListCommandResult } from '../../../../src/commands/force/
 
 describe('package:version:*', () => {
   let session: TestSession;
-  let devhubUsernameOrAlias: string;
   let packageVersionId: string;
   const packageVersionIds: string[] = []; // ['04t', '04t'];
   const pkgName = genUniqueString('dancingbears-');
 
   before(async () => {
-    const executablePath = path.join(process.cwd(), 'bin', 'dev');
     session = await TestSession.create({
-      setupCommands: [`${executablePath} config:get ${OrgConfigProperties.TARGET_DEV_HUB} --json`],
+      devhubAuthStrategy: 'AUTO',
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    devhubUsernameOrAlias = (session.setup[0] as { result: [{ value: string }] }).result[0].value;
 
-    if (!devhubUsernameOrAlias) throw Error('no default username set');
-
-    execCmd(`force:package:beta:create -n ${pkgName} -v ${devhubUsernameOrAlias} --json -t Unlocked -r ./force-app`, {
+    execCmd(`force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`, {
       ensureExitCode: 0,
     });
   });
@@ -154,8 +147,7 @@ describe('package:version:*', () => {
 
   describe('package:version:create:list', () => {
     it('should list the package versions created (human)', async () => {
-      const command = `force:package:beta:version:create:list -v ${devhubUsernameOrAlias}`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:create:list -v ${session.hubOrg.username}`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
@@ -164,8 +156,7 @@ describe('package:version:*', () => {
     });
 
     it('should list all of the successful package versions created', async () => {
-      const command = `force:package:beta:version:create:list --status Success -v ${devhubUsernameOrAlias} --json`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:create:list --status Success -v ${session.hubOrg.username} --json`;
       const output = execCmd<[{ Status: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
       output.result.forEach((result) => {
         expect(result.Status).to.equal('Success');
@@ -173,8 +164,7 @@ describe('package:version:*', () => {
     });
 
     it('should list all of the package versions created within the last 2 days', () => {
-      const command = `force:package:beta:version:create:list --createdlastdays 2 -v ${devhubUsernameOrAlias} --json`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:create:list --createdlastdays 2 -v ${session.hubOrg.username} --json`;
       const output = execCmd<[{ CreatedDate: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
@@ -201,12 +191,8 @@ describe('package:version:*', () => {
     });
 
     it('should list the package versions created (json)', async () => {
-      const command = `force:package:beta:version:create:list -v ${devhubUsernameOrAlias} --json`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      const output = execCmd(command, { ensureExitCode: 0 }).jsonOutput as {
-        status: number;
-        result: { [key: string]: unknown };
-      };
+      const command = `force:package:beta:version:create:list -v ${session.hubOrg.username} --json`;
+      const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
         'Status',
@@ -228,8 +214,7 @@ describe('package:version:*', () => {
   });
   describe('package:version:list', () => {
     it('should list package versions in dev hub - human readable results', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias}`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username}`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -238,16 +223,14 @@ describe('package:version:*', () => {
     });
 
     it('should list package versions in dev hub - concise output', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --concise`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --concise`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(/Package Id\s+Version\s+Subscriber Package Version Id\s+Released/);
     });
 
     it('should list package versions modified in the last 5 days', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --modifiedlastdays 5`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --modifiedlastdays 5`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -255,8 +238,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list package versions created in the last 5 days', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --createdlastdays 5`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --createdlastdays 5`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -264,8 +246,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list installed packages in dev hub - verbose human readable results', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --verbose`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --verbose`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -273,8 +254,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list package versions in dev hub - json results', () => {
-      const command = `force:package:beta:version:list -v ${devhubUsernameOrAlias} --json`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --json`;
       const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       const keys = [
         'Package2Id',
@@ -311,8 +291,7 @@ describe('package:version:*', () => {
       expect(output[0]).to.have.keys(keys);
     });
     it('should list package versions in dev hub - verbose json results', () => {
-      const command = `force:package:beta:version:list --verbose -v ${devhubUsernameOrAlias} --json`;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      const command = `force:package:beta:version:list --verbose -v ${session.hubOrg.username} --json`;
       const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       const keys = [
         'Package2Id',
