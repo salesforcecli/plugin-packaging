@@ -37,11 +37,12 @@ describe('package1:version:create', () => {
     }
     const authPath = path.join(process.cwd(), 'authUrl.txt');
     await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
-    const executablePath = path.join(process.cwd(), 'bin', 'dev');
     session = await TestSession.create({
-      setupCommands: [`${executablePath} auth:sfdxurl:store -f ${authPath} -a 1gp`],
       project: { name: 'package1VersionDisplay' },
+      devhubAuthStrategy: 'AUTO',
     });
+    execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { cli: 'sfdx' });
+
     packageId = execCmd<[{ MetadataPackageId: string }]>('force:package1:beta:version:list --json -u 1gp', {
       ensureExitCode: 0,
     }).jsonOutput.result[0].MetadataPackageId;
