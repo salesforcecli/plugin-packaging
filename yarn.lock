@@ -1074,7 +1074,7 @@
     jsonwebtoken "8.5.1"
     ts-retry-promise "^0.6.0"
 
-"@salesforce/core@^3.30.9":
+"@salesforce/core@^3.30.10", "@salesforce/core@^3.30.9":
   version "3.30.10"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.30.10.tgz#146724f2bbc294afbcb3fa41eac281d5d880f2f7"
   integrity sha512-mVt/gLuF/zimBEs1oDThHm6GjKCRYkc6MuLjfwZrAo3m2H2QFH828HZEVU0nulkC4lF7F0kMXuLqk8n6sWwScw==
