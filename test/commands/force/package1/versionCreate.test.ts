@@ -33,11 +33,9 @@ const runCmd = async (params: string[], result: string, errors?: { errors: Error
     const orgStub = fromStub(
       stubInterface<Org>($$.SANDBOX, {
         getUsername: () => 'test@user.com',
-        getConnection: () => {
-          return {
+        getConnection: () => ({
             tooling: {
-              sobject: () => {
-                return {
+              sobject: () => ({
                   create: () => ({ id: '0HD4p000000blUvGXX' }),
                   retrieve: () => ({
                     Status: result,
@@ -46,11 +44,9 @@ const runCmd = async (params: string[], result: string, errors?: { errors: Error
                     Id: '0HD4p000000blUvGXX',
                     MetadataPackageId: '03346000000MrC0AXX',
                   }),
-                };
-              },
+                }),
             },
-          };
-        },
+          }),
       })
     );
     cmd.setOrg(orgStub);
