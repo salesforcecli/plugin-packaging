@@ -13,54 +13,53 @@ import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { PackageVersionDeleteCommand } from '../../../../src/commands/force/package/beta/version/delete';
 
-const $$ = testSetup();
-const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-let uxLogStub: sinon.SinonStub;
-let uxConfirmStub: sinon.SinonStub;
-let apiVersionStub: sinon.SinonStub;
-let queryStub: sinon.SinonStub;
-let packageVersionStub: sinon.SinonStub;
-let deleteStub: sinon.SinonStub;
-let undeleteStub: sinon.SinonStub;
-
-class TestCommand extends PackageVersionDeleteCommand {
-  public async runIt(confirm: boolean) {
-    this.result = new Result(this.statics.result);
-    await this.init();
-    uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-    uxConfirmStub = stubMethod($$.SANDBOX, this.ux, 'confirm');
-    if (confirm) {
-      uxConfirmStub.resolves(confirm);
-    }
-    this.result.data = await this.run();
-    await this.finally(undefined);
-    return this.result.data;
-  }
-  public setHubOrg(org: Org) {
-    this.hubOrg = org;
-  }
-}
-
-const runCmd = async (params: string[], confirm?: boolean) => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => ({
-          getApiVersion: apiVersionStub,
-          tooling: {
-            query: queryStub,
-          },
-        }),
-      })
-    );
-    cmd.setHubOrg(orgStub);
-  });
-  return cmd.runIt(confirm);
-};
-
 describe('force:package:version:delete', () => {
+  const $$ = testSetup();
+  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  let uxLogStub: sinon.SinonStub;
+  let uxConfirmStub: sinon.SinonStub;
+  let apiVersionStub: sinon.SinonStub;
+  let queryStub: sinon.SinonStub;
+  let packageVersionStub: sinon.SinonStub;
+  let deleteStub: sinon.SinonStub;
+  let undeleteStub: sinon.SinonStub;
+
+  class TestCommand extends PackageVersionDeleteCommand {
+    public async runIt(confirm: boolean) {
+      this.result = new Result(this.statics.result);
+      await this.init();
+      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      uxConfirmStub = stubMethod($$.SANDBOX, this.ux, 'confirm');
+      if (confirm) {
+        uxConfirmStub.resolves(confirm);
+      }
+      this.result.data = await this.run();
+      await this.finally(undefined);
+      return this.result.data;
+    }
+    public setHubOrg(org: Org) {
+      this.hubOrg = org;
+    }
+  }
+
+  const runCmd = async (params: string[], confirm?: boolean) => {
+    const cmd = new TestCommand(params, oclifConfigStub);
+    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => ({
+            getApiVersion: apiVersionStub,
+            tooling: {
+              query: queryStub,
+            },
+          }),
+        })
+      );
+      cmd.setHubOrg(orgStub);
+    });
+    return cmd.runIt(confirm);
+  };
   beforeEach(() => {
     apiVersionStub = $$.SANDBOX.stub().returns('55.0');
     queryStub = $$.SANDBOX.stub();

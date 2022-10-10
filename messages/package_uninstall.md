@@ -62,3 +62,7 @@ You can continue to query the status using sfdx force:package:beta:uninstall:rep
 # Success
 
 Successfully uninstalled package [%s]
+
+# errorInvalidPackageId
+
+Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.

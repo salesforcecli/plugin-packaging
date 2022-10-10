@@ -174,4 +174,4 @@ Waiting %s minutes for package install to complete.
 
 # errorInvalidPackageId
 
-The provided package ID '%s' is invalid.
+Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.

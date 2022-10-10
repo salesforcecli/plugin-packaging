@@ -10,7 +10,6 @@ import { Org } from '@salesforce/core';
 import { testSetup } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import { beforeEach } from 'mocha';
 import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 

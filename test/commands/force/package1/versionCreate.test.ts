@@ -12,55 +12,55 @@ import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { Package1VersionCreateCommand } from '../../../../src/commands/force/package1/beta/version/create';
 
-const $$ = testSetup();
-const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-let uxStub: sinon.SinonStub;
-
-class TestCommand extends Package1VersionCreateCommand {
-  public async runIt() {
-    await this.init();
-    uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
-    return this.run();
-  }
-  public setOrg(org: Org) {
-    this.org = org;
-  }
-}
-
-const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => {
-          return {
-            tooling: {
-              sobject: () => {
-                return {
-                  create: () => ({ id: '0HD4p000000blUvGXX' }),
-                  retrieve: () => ({
-                    Status: result,
-                    MetadataPackageVersionId: '04t4p000002BavTXXX',
-                    Errors: errors,
-                    Id: '0HD4p000000blUvGXX',
-                    MetadataPackageId: '03346000000MrC0AXX',
-                  }),
-                };
-              },
-            },
-          };
-        },
-      })
-    );
-    cmd.setOrg(orgStub);
-  });
-  const res = cmd.runIt();
-
-  return res;
-};
-
 describe('force:package1:version:create', () => {
+  const $$ = testSetup();
+  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  let uxStub: sinon.SinonStub;
+
+  class TestCommand extends Package1VersionCreateCommand {
+    public async runIt() {
+      await this.init();
+      uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      return this.run();
+    }
+    public setOrg(org: Org) {
+      this.org = org;
+    }
+  }
+
+  const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
+    const cmd = new TestCommand(params, oclifConfigStub);
+    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => {
+            return {
+              tooling: {
+                sobject: () => {
+                  return {
+                    create: () => ({ id: '0HD4p000000blUvGXX' }),
+                    retrieve: () => ({
+                      Status: result,
+                      MetadataPackageVersionId: '04t4p000002BavTXXX',
+                      Errors: errors,
+                      Id: '0HD4p000000blUvGXX',
+                      MetadataPackageId: '03346000000MrC0AXX',
+                    }),
+                  };
+                },
+              },
+            };
+          },
+        })
+      );
+      cmd.setOrg(orgStub);
+    });
+    const res = cmd.runIt();
+
+    return res;
+  };
+
   afterEach(() => {
     $$.SANDBOX.restore();
   });

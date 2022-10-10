@@ -13,10 +13,11 @@ import {
   PackageEvents,
   PackageInstallCreateRequest,
   PackageInstallOptions,
-  PackageVersion,
   PackagingSObjects,
+  SubscriberPackageVersion,
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
+import { resolveSubscriberPackageVersionId } from '../../../../util';
 
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
@@ -31,7 +32,7 @@ export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
-  public static readonly requiresProject: true;
+  public static readonly requiresProject: false;
   public static readonly flagsConfig: FlagsConfig = {
     wait: flags.minutes({
       char: 'w',
@@ -83,7 +84,7 @@ export class Install extends SfdxCommand {
   };
 
   private connection: Connection;
-  private packageVersion: PackageVersion;
+  private subscriberPackageVersion: SubscriberPackageVersion;
 
   public static parseStatus(
     request: PackageInstallRequest,
@@ -120,14 +121,16 @@ export class Install extends SfdxCommand {
       throw messages.createError('apiVersionTooLow');
     }
 
-    this.packageVersion = new PackageVersion({
+    const subscriberPackageVersionId = resolveSubscriberPackageVersionId(this.flags.package);
+
+    this.subscriberPackageVersion = new SubscriberPackageVersion({
       connection: this.connection,
-      idOrAlias: this.flags.package as string,
-      project: this.project,
+      id: subscriberPackageVersionId,
+      password: this.flags.installationkey as string,
     });
 
     const request: PackageInstallCreateRequest = {
-      SubscriberPackageVersionKey: await this.packageVersion.getSubscriberId(),
+      SubscriberPackageVersionKey: await this.subscriberPackageVersion.getId(),
       Password: this.flags.installationkey as PackageInstallCreateRequest['Password'],
       ApexCompileType: this.flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
       SecurityType: securityType[this.flags.securitytype as string] as PackageInstallCreateRequest['SecurityType'],
@@ -177,7 +180,7 @@ export class Install extends SfdxCommand {
       );
     }
 
-    const pkgInstallRequest = await this.packageVersion.install(request, installOptions);
+    const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
     this.ux.stopSpinner();
     Install.parseStatus(pkgInstallRequest, this.ux, messages, this.org.getUsername(), this.flags.package);
 
@@ -193,7 +196,7 @@ export class Install extends SfdxCommand {
   }
 
   private async confirmUpgradeType(noPrompt: boolean): Promise<void> {
-    if ((await this.packageVersion.getPackageType()) === 'Unlocked' && !noPrompt) {
+    if ((await this.subscriberPackageVersion.getPackageType()) === 'Unlocked' && !noPrompt) {
       const promptMsg = messages.getMessage('promptUpgradeType');
       if (!(await this.ux.confirm(promptMsg))) {
         throw messages.createError('promptUpgradeTypeDeny');
@@ -202,7 +205,7 @@ export class Install extends SfdxCommand {
   }
 
   private async confirmExternalSites(request: PackageInstallCreateRequest, noPrompt: boolean): Promise<void> {
-    const extSites = await this.packageVersion.getExternalSites(request.Password);
+    const extSites = await this.subscriberPackageVersion.getExternalSites();
     if (extSites) {
       let enableRss = true;
       if (!noPrompt) {

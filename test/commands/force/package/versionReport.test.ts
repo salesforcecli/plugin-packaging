@@ -10,7 +10,6 @@ import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionReportResult } from '@salesforce/packaging';
-import { beforeEach } from 'mocha';
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
@@ -111,63 +110,23 @@ const pkgVersionReportResult: PackageVersionReportResult = {
   ValidationSkipped: false,
   Version: '0.0.0.0',
 };
+describe('force:package:version:report - tests', () => {
+  class TestCommand extends PackageVersionReportCommand {
+    public async runIt() {
+      await this.init();
+      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
+      uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
+      return this.run();
+    }
 
-class TestCommand extends PackageVersionReportCommand {
-  public async runIt() {
-    await this.init();
-    uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-    uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
-    uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
-    return this.run();
+    public setHubOrg(org: Org) {
+      this.hubOrg = org;
+    }
   }
-  public setHubOrg(org: Org) {
-    this.hubOrg = org;
-  }
-}
 
-const runCmd = async (params: string[]) => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => ({}),
-      })
-    );
-    cmd.setHubOrg(orgStub);
-  });
-  return cmd.runIt();
-};
-
-describe('force:package:version:report', () => {
-  afterEach(() => {
-    $$.SANDBOX.restore();
-  });
-
-  it('should produce package version report', async () => {
-    const reportResult = Object.assign({}, pkgVersionReportResult);
-    $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
-    const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org']);
-    expect(result).to.deep.equal(pkgVersionReportResultModified);
-    expect(uxLogStub.calledOnce).to.be.false;
-    expect(uxTableStub.calledOnce).to.be.true;
-    expect(uxStyledHeaderStub.calledOnce).to.be.true;
-    expect(uxStyledHeaderStub.args[0][0]).to.include('Package Version');
-  });
-  it('should produce package version report - json result', async () => {
-    const reportResult = Object.assign({}, pkgVersionReportResult);
-    $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
-    const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org', '--json']);
-    expect(result).to.deep.equal(pkgVersionReportResultModified);
-    expect(uxLogStub.calledOnce).to.be.false;
-    expect(uxTableStub.calledOnce).to.be.false;
-    expect(uxStyledHeaderStub.calledOnce).to.be.false;
-  });
-});
-describe('massage results', () => {
-  let cmd: TestCommand;
-  beforeEach(() => {
-    cmd = new TestCommand(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org'], oclifConfigStub);
+  const runCmd = async (params: string[]) => {
+    const cmd = new TestCommand(params, oclifConfigStub);
     stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
       const orgStub = fromStub(
         stubInterface<Org>($$.SANDBOX, {
@@ -177,52 +136,94 @@ describe('massage results', () => {
       );
       cmd.setHubOrg(orgStub);
     });
+    return cmd.runIt();
+  };
+
+  describe('force:package:version:report', () => {
+    afterEach(() => {
+      $$.SANDBOX.restore();
+    });
+
+    it('should produce package version report', async () => {
+      const reportResult = Object.assign({}, pkgVersionReportResult);
+      $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
+      const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org']);
+      expect(result).to.deep.equal(pkgVersionReportResultModified);
+      expect(uxLogStub.calledOnce).to.be.false;
+      expect(uxTableStub.calledOnce).to.be.true;
+      expect(uxStyledHeaderStub.calledOnce).to.be.true;
+      expect(uxStyledHeaderStub.args[0][0]).to.include('Package Version');
+    });
+    it('should produce package version report - json result', async () => {
+      const reportResult = Object.assign({}, pkgVersionReportResult);
+      $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
+      const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org', '--json']);
+      expect(result).to.deep.equal(pkgVersionReportResultModified);
+      expect(uxLogStub.calledOnce).to.be.false;
+      expect(uxTableStub.calledOnce).to.be.false;
+      expect(uxStyledHeaderStub.calledOnce).to.be.false;
+    });
   });
+  describe('massage results', () => {
+    let cmd: TestCommand;
+    beforeEach(() => {
+      cmd = new TestCommand(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org'], oclifConfigStub);
+      stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+        const orgStub = fromStub(
+          stubInterface<Org>($$.SANDBOX, {
+            getUsername: () => 'test@user.com',
+            getConnection: () => ({}),
+          })
+        );
+        cmd.setHubOrg(orgStub);
+      });
+    });
 
-  it('should massage results', () => {
-    const result = cmd['massageResultsForDisplay'](pkgVersionReportResult);
-    expect(result).to.deep.equal(pkgVersionReportResultModified);
-  });
-  it('should massage results - general transform', () => {
-    const pvrr = Object.assign({}, pkgVersionReportResult);
-    pvrr.PatchVersion = 6;
-    pvrr.PackageType = 'Managed';
-    pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
-    pvrr.HasMetadataRemoved = true;
-    pvrr.Description = 'test description';
-    const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
-    pvrrm.Version = '0.0.6.0';
-    pvrrm.AncestorId = 'N/A';
-    pvrrm.AncestorId = 'N/A';
-    pvrrm.Package2.IsOrgDependent = 'N/A';
-    pvrrm.CodeCoverage = '33%';
-    pvrrm.HasMetadataRemoved = 'Yes';
-    pvrrm.HasPassedCodeCoverageCheck = 'N/A';
-    delete pvrrm['PackageType'];
+    it('should massage results', () => {
+      const result = cmd['massageResultsForDisplay'](pkgVersionReportResult);
+      expect(result).to.deep.equal(pkgVersionReportResultModified);
+    });
+    it('should massage results - general transform', () => {
+      const pvrr = Object.assign({}, pkgVersionReportResult);
+      pvrr.PatchVersion = 6;
+      pvrr.PackageType = 'Managed';
+      pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
+      pvrr.HasMetadataRemoved = true;
+      pvrr.Description = 'test description';
+      const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
+      pvrrm.Version = '0.0.6.0';
+      pvrrm.AncestorId = 'N/A';
+      pvrrm.AncestorId = 'N/A';
+      pvrrm.Package2.IsOrgDependent = 'N/A';
+      pvrrm.CodeCoverage = '33%';
+      pvrrm.HasMetadataRemoved = 'Yes';
+      pvrrm.HasPassedCodeCoverageCheck = 'N/A';
+      delete pvrrm['PackageType'];
 
-    const result = cmd['massageResultsForDisplay'](pvrr);
-    expect(result).to.deep.equal(pvrrm);
-  });
-  it('should massage results - isOrgDependent && skipped validation', () => {
-    const pvrr = Object.assign({}, pkgVersionReportResult);
-    pvrr.PatchVersion = 6;
-    pvrr.PackageType = 'Unlocked';
-    pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
-    pvrr.HasMetadataRemoved = true;
-    pvrr.Package2.IsOrgDependent = true;
-    pvrr.ValidationSkipped = true;
-    const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
-    pvrrm.Version = '0.0.6.0';
-    pvrrm.AncestorId = 'N/A';
-    pvrrm.AncestorId = 'N/A';
-    pvrrm.Package2.IsOrgDependent = 'No';
-    pvrrm.CodeCoverage = 'N/A';
-    pvrrm.HasMetadataRemoved = 'N/A';
-    pvrrm.HasPassedCodeCoverageCheck = 'N/A';
+      const result = cmd['massageResultsForDisplay'](pvrr);
+      expect(result).to.deep.equal(pvrrm);
+    });
+    it('should massage results - isOrgDependent && skipped validation', () => {
+      const pvrr = Object.assign({}, pkgVersionReportResult);
+      pvrr.PatchVersion = 6;
+      pvrr.PackageType = 'Unlocked';
+      pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
+      pvrr.HasMetadataRemoved = true;
+      pvrr.Package2.IsOrgDependent = true;
+      pvrr.ValidationSkipped = true;
+      const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
+      pvrrm.Version = '0.0.6.0';
+      pvrrm.AncestorId = 'N/A';
+      pvrrm.AncestorId = 'N/A';
+      pvrrm.Package2.IsOrgDependent = 'No';
+      pvrrm.CodeCoverage = 'N/A';
+      pvrrm.HasMetadataRemoved = 'N/A';
+      pvrrm.HasPassedCodeCoverageCheck = 'N/A';
 
-    delete pvrrm['PackageType'];
+      delete pvrrm['PackageType'];
 
-    const result = cmd['massageResultsForDisplay'](pvrr);
-    expect(result).to.deep.equal(pvrrm);
+      const result = cmd['massageResultsForDisplay'](pvrr);
+      expect(result).to.deep.equal(pvrrm);
+    });
   });
 });

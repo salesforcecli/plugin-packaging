@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { PackageVersion, PackagingSObjects } from '@salesforce/packaging';
+import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall_report');
@@ -34,7 +34,7 @@ export class PackageUninstallReportCommand extends SfdxCommand {
 
   public async run(): Promise<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
     const requestId = this.flags.requestid as string;
-    const result = await PackageVersion.uninstallReport(requestId, this.org.getConnection());
+    const result = await SubscriberPackageVersion.uninstallStatus(requestId, this.org.getConnection());
 
     const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
     this.ux.log(messages.getMessage(result.Status, arg));

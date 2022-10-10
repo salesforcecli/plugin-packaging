@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { PackageVersion, PackagingSObjects } from '@salesforce/packaging';
+import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Install as InstallCommand } from '../install';
 
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
@@ -32,7 +32,7 @@ export class Report extends SfdxCommand {
 
   public async run(): Promise<PackageInstallRequest> {
     const connection = this.org.getConnection();
-    const pkgInstallRequest = await PackageVersion.getInstallRequest(this.flags.requestid, connection);
+    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(this.flags.requestid, connection);
     InstallCommand.parseStatus(pkgInstallRequest, this.ux, installMsgs, this.org.getUsername());
 
     return pkgInstallRequest;

@@ -10,7 +10,7 @@ import { testSetup } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-import { PackageVersion, PackagingSObjects } from '@salesforce/packaging';
+import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { Report } from '../../../../src/commands/force/package/beta/install/report';
 
@@ -91,7 +91,7 @@ describe('force:package:install:report', () => {
 
   it('should report SUCCESS status', async () => {
     const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(PackageVersion, 'getInstallRequest').resolves(
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
       request as PackagingSObjects.PackageInstallRequest
     );
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
@@ -102,7 +102,7 @@ describe('force:package:install:report', () => {
 
   it('should report IN_PROGRESS status', async () => {
     getInstallRequestStub.restore();
-    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(PackageVersion, 'getInstallRequest').resolves(
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
       pkgInstallRequest as PackagingSObjects.PackageInstallRequest
     );
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
@@ -118,7 +118,7 @@ describe('force:package:install:report', () => {
       Errors: { errors: [new Error('message 1'), new Error('message 2')] },
     });
     getInstallRequestStub.restore();
-    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(PackageVersion, 'getInstallRequest').resolves(
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
       request as PackagingSObjects.PackageInstallRequest
     );
 
