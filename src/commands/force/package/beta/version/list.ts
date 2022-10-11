@@ -12,7 +12,6 @@ import { CliUx } from '@oclif/core';
 import {
   getContainerOptions,
   getPackageAliasesFromId,
-  getPackageIdFromAlias,
   getPackageVersionStrings,
   INSTALL_URL_BASE,
   PackageVersion,
@@ -92,16 +91,14 @@ export class PackageVersionListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageVersionListCommandResult[]> {
+    const connection = this.hubOrg.getConnection();
     const project = SfProject.getInstance();
-    const pv = new PackageVersion({ connection: this.hubOrg.getConnection(), project: undefined });
-    const packageIdOrAliases = (this.flags.packages as string[]) || [];
-    // resolve any passed in values from aliases or IDs
-    const packages = packageIdOrAliases.map((p) => getPackageIdFromAlias(p, project) ?? p);
-    const records = await pv.list({
+
+    const records = await PackageVersion.list(connection, project, {
       createdLastDays: this.flags.createdlastdays as number,
       concise: this.flags.concise as boolean,
       modifiedLastDays: this.flags.modifiedlastdays as number,
-      packages,
+      packages: (this.flags.packages as string[]) ?? [],
       isReleased: this.flags.released as boolean,
       orderBy: this.flags.orderby as string,
       verbose: this.flags.verbose as boolean,
@@ -114,12 +111,12 @@ export class PackageVersionListCommand extends SfdxCommand {
       // lookup ancestorVersions if ancestorIds are present
       const ancestorIds = records.filter((record) => record.AncestorId).map((record) => record.AncestorId);
       if (ancestorIds?.length > 0) {
-        ancestorVersionsMap = await getPackageVersionStrings(ancestorIds, this.hubOrg.getConnection());
+        ancestorVersionsMap = await getPackageVersionStrings(ancestorIds, connection);
       }
 
       // Get the container options for each package version. We need this for determining if the version is OrgDependent
       const recordIds = [...new Set(records.map((record) => record.Package2Id))];
-      const containerOptionsMap = await getContainerOptions(recordIds, this.hubOrg.getConnection());
+      const containerOptionsMap = await getContainerOptions(recordIds, connection);
 
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];

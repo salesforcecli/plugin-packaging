@@ -7,7 +7,7 @@
 
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { Package1Display, package1VersionList } from '@salesforce/packaging';
+import { Package1Display, Package1Version } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_list');
@@ -31,7 +31,14 @@ export class Package1VersionListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const result = await package1VersionList(this.org.getConnection(), this.flags.packageid);
+    const result = (await Package1Version.list(this.org.getConnection(), this.flags.packageid)).map((record) => ({
+      MetadataPackageVersionId: record.Id,
+      MetadataPackageId: record.MetadataPackageId,
+      Name: record.Name,
+      ReleaseState: record.ReleaseState,
+      Version: `${record.MajorVersion}.${record.MinorVersion}.${record.PatchVersion}`,
+      BuildNumber: record.BuildNumber,
+    }));
 
     if (result.length) {
       this.ux.table(result, {

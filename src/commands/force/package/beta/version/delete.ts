@@ -38,11 +38,13 @@ export class PackageVersionDeleteCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageSaveResult> {
-    const packageVersion = new PackageVersion({ project: this.project, connection: this.hubOrg.getConnection() });
+    const packageVersion = new PackageVersion({
+      connection: this.hubOrg.getConnection(),
+      project: this.project,
+      idOrAlias: this.flags.package as string,
+    });
     await this.confirmDelete();
-    const results = this.flags.undelete
-      ? await packageVersion.undelete(this.flags.package)
-      : await packageVersion.delete(this.flags.package);
+    const results = this.flags.undelete ? await packageVersion.undelete() : await packageVersion.delete();
     this.ux.log(this.getHumanSuccessMessage(results));
     return results;
   }

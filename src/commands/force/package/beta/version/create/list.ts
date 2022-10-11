@@ -34,8 +34,8 @@ export class PackageVersionCreateListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult[]> {
-    const pv = new PackageVersion({ connection: this.hubOrg.getConnection(), project: undefined });
-    const results = await pv.createdList({ ...this.flags });
+    const connection = this.hubOrg.getConnection();
+    const results = await PackageVersion.createdList(connection, { ...this.flags });
 
     if (results.length === 0) {
       this.ux.log('No results found');
