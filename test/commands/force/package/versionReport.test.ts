@@ -110,35 +110,35 @@ const pkgVersionReportResult: PackageVersionReportResult = {
   ValidationSkipped: false,
   Version: '0.0.0.0',
 };
-describe('force:package:version:report - tests', () => {
-  class TestCommand extends PackageVersionReportCommand {
-    public async runIt() {
-      await this.init();
-      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
-      uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
-      return this.run();
-    }
-
-    public setHubOrg(org: Org) {
-      this.hubOrg = org;
-    }
+class TestCommand extends PackageVersionReportCommand {
+  public async runIt() {
+    await this.init();
+    uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+    uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
+    uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
+    return this.run();
   }
 
-  const runCmd = async (params: string[]) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({}),
-        })
-      );
-      cmd.setHubOrg(orgStub);
-    });
-    return cmd.runIt();
-  };
+  public setHubOrg(org: Org) {
+    this.hubOrg = org;
+  }
+}
 
+const runCmd = async (params: string[]) => {
+  const cmd = new TestCommand(params, oclifConfigStub);
+  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+    const orgStub = fromStub(
+      stubInterface<Org>($$.SANDBOX, {
+        getUsername: () => 'test@user.com',
+        getConnection: () => ({}),
+      })
+    );
+    cmd.setHubOrg(orgStub);
+  });
+  return cmd.runIt();
+};
+
+describe('force:package:version:report - tests', () => {
   describe('force:package:version:report', () => {
     afterEach(() => {
       $$.SANDBOX.restore();

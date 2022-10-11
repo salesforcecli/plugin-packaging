@@ -13,40 +13,40 @@ import { Package, PackagingSObjects } from '@salesforce/packaging';
 import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-describe('force:package:convert', () => {
-  const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
-  const INSTALL_KEY = 'testinstallkey';
-  const $$ = testSetup();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-  let uxLogStub: sinon.SinonStub;
-  let convertStub: sinon.SinonStub;
+const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
+const INSTALL_KEY = 'testinstallkey';
+const $$ = testSetup();
+const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+let uxLogStub: sinon.SinonStub;
+let convertStub: sinon.SinonStub;
 
-  class TestCommand extends PackageConvert {
-    public async runIt() {
-      await this.init();
-      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      return this.run();
-    }
-    public setHubOrg(org: Org) {
-      this.hubOrg = org;
-    }
+class TestCommand extends PackageConvert {
+  public async runIt() {
+    await this.init();
+    uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+    return this.run();
   }
+  public setHubOrg(org: Org) {
+    this.hubOrg = org;
+  }
+}
 
-  const runCmd = async (params: string[]) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({}),
-        })
-      );
-      cmd.setHubOrg(orgStub);
-    });
+const runCmd = async (params: string[]) => {
+  const cmd = new TestCommand(params, oclifConfigStub);
+  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+    const orgStub = fromStub(
+      stubInterface<Org>($$.SANDBOX, {
+        getUsername: () => 'test@user.com',
+        getConnection: () => ({}),
+      })
+    );
+    cmd.setHubOrg(orgStub);
+  });
 
-    return cmd.runIt();
-  };
+  return cmd.runIt();
+};
 
+describe('force:package:convert', () => {
   beforeEach(() => {});
 
   afterEach(() => {

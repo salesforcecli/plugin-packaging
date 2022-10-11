@@ -141,11 +141,6 @@ export class Install extends SfdxCommand {
     Lifecycle.getInstance().on(PackageEvents.install.warning, async (warningMsg: string) => {
       this.ux.log(warningMsg);
     });
-    // eslint-disable-next-line @typescript-eslint/require-await
-    Lifecycle.getInstance().on(PackageEvents.install['subscriber-status'], async (status: string) => {
-      const tokens = status ? [` Status = ${status}`] : [];
-      this.ux.log(messages.getMessage('publishWaitProgress', tokens));
-    });
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation
     // unless the noprompt option has been included.
@@ -166,8 +161,24 @@ export class Install extends SfdxCommand {
       let timeThen = Date.now();
       this.ux.startSpinner(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
 
+      // waiting for publish to finish
       Lifecycle.getInstance().on(
         PackageEvents.install['subscriber-status'],
+        // eslint-disable-next-line @typescript-eslint/require-await
+        async (publishStatus: PackagingSObjects.InstallValidationStatus) => {
+          const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
+          timeThen = Date.now();
+          remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
+          const status =
+            publishStatus === 'NO_ERRORS_DETECTED'
+              ? messages.getMessage('availableForInstallation')
+              : messages.getMessage('unavailableForInstallation');
+          this.ux.setSpinnerStatus(messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]));
+        }
+      );
+      // waiting for package install to finish
+      Lifecycle.getInstance().on(
+        PackageEvents.install.status,
         // eslint-disable-next-line @typescript-eslint/require-await
         async (piRequest: PackageInstallRequest) => {
           const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
