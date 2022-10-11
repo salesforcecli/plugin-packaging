@@ -90,13 +90,13 @@ describe('force:package:version:delete', () => {
     }
   });
 
-  it('should error pkg version not found in project', async () => {
+  it('should error pkg version alias not found in project', async () => {
     try {
-      await runCmd(['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org'], true);
+      await runCmd(['-p', 'subscriberPV-alias', '-v', 'foor@bar.org'], true);
       expect(false, 'Expected invalid id error').to.be.true;
     } catch (err) {
       const error = err as Error;
-      expect(error.name).to.equal('ErrorInvalidIdNoMatchingVersionIdError');
+      expect(error.name).to.equal('ErrorInvalidPackageVersionIdError');
     }
   });
   it('should delete a package version', async () => {

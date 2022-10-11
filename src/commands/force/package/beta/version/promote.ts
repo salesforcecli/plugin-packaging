@@ -8,15 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages, SfError } from '@salesforce/core';
-import {
-  BY_LABEL,
-  getHasMetadataRemoved,
-  getPackageIdFromAlias,
-  getPackageVersionId,
-  PackageSaveResult,
-  PackageVersion,
-  validateId,
-} from '@salesforce/packaging';
+import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
@@ -42,21 +34,16 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageSaveResult> {
-    const conn = this.hubOrg.getConnection();
-    const packageIdFromAlias =
-      getPackageIdFromAlias(this.flags.package, this.project) ?? (this.flags.package as string);
-    let packageId = packageIdFromAlias;
-    // ID can be 04t or 05i at this point
-    validateId([BY_LABEL.SUBSCRIBER_PACKAGE_VERSION_ID, BY_LABEL.PACKAGE_VERSION_ID], packageId);
-
-    if (packageId.startsWith('04t')) {
-      // lookup the 05i ID for getHasMetadataRemoved below
-      packageId = await getPackageVersionId(packageId, conn);
-    }
+    const packageVersion = new PackageVersion({
+      connection: this.hubOrg.getConnection(),
+      project: this.project,
+      idOrAlias: this.flags.package as string,
+    });
+    const packageVersionData = await packageVersion.getPackageVersionData();
 
     if (!this.flags.json && !this.flags.noprompt) {
       // Warn when a Managed package has removed metadata
-      if (await getHasMetadataRemoved(packageId, conn)) {
+      if (packageVersionData.HasMetadataRemoved) {
         this.ux.warn(messages.getMessage('hasMetadataRemovedWarning'));
       }
 
@@ -66,12 +53,11 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       }
     }
 
-    const pkg = new PackageVersion({ connection: conn, project: this.project });
     let result: PackageSaveResult;
 
     try {
-      result = await pkg.promote(packageId);
-      result.id = packageIdFromAlias.startsWith('04t') ? packageIdFromAlias : result.id;
+      result = await packageVersion.promote();
+      result.id = packageVersionData.SubscriberPackageVersionId;
     } catch (e) {
       const err = SfError.wrap(e);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
