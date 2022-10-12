@@ -17,7 +17,6 @@ import {
   SubscriberPackageVersion,
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
-import { resolveSubscriberPackageVersionId } from '../../../../util';
 
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
@@ -32,12 +31,12 @@ export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
-  public static readonly requiresProject: false;
   public static readonly flagsConfig: FlagsConfig = {
     wait: flags.minutes({
       char: 'w',
       description: messages.getMessage('wait'),
       longDescription: messages.getMessage('waitLong'),
+      default: Duration.minutes(0),
     }),
     installationkey: flags.string({
       char: 'k',
@@ -48,6 +47,7 @@ export class Install extends SfdxCommand {
       char: 'b',
       description: messages.getMessage('publishWait'),
       longDescription: messages.getMessage('publishWaitLong'),
+      default: Duration.minutes(0),
     }),
     noprompt: flags.boolean({
       char: 'r',
@@ -121,11 +121,9 @@ export class Install extends SfdxCommand {
       throw messages.createError('apiVersionTooLow');
     }
 
-    const subscriberPackageVersionId = resolveSubscriberPackageVersionId(this.flags.package);
-
     this.subscriberPackageVersion = new SubscriberPackageVersion({
       connection: this.connection,
-      id: subscriberPackageVersionId,
+      aliasOrId: this.flags.package as string,
       password: this.flags.installationkey as string,
     });
 
@@ -155,6 +153,7 @@ export class Install extends SfdxCommand {
     let installOptions: PackageInstallOptions;
     if (this.flags.wait) {
       installOptions = {
+        publishTimeout: this.flags.publishwait as Duration,
         pollingTimeout: this.flags.wait as Duration,
       };
       let remainingTime = this.flags.wait as Duration;

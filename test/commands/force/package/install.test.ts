@@ -238,9 +238,9 @@ describe('force:package:install', () => {
       expect.fail('Expected InvalidAliasOrIdError to be thrown');
     } catch (err) {
       const error = err as Error;
-      expect(error.name).to.equal('InvalidAliasOrIdError');
+      expect(error.name).to.equal('ErrorInvalidAliasOrIdError');
       expect(error.message).to.equal(
-        'Invalid alias or ID: my_package_alias. Either your alias is invalid or undefined, or the ID provided is invalid.'
+        'Invalid alias or ID: my_package_alias. Either your alias is invalid or undefined, or the ID (04t) provided is invalid.'
       );
     }
   });

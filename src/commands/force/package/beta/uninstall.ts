@@ -10,7 +10,6 @@ import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Lifecycle, Messages } from '@salesforce/core';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
-import { resolveSubscriberPackageVersionId } from '../../../../util';
 
 type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
 
@@ -44,10 +43,8 @@ export class PackageUninstallCommand extends SfdxCommand {
       this.ux.log(`Waiting for the package uninstall request to get processed. Status = ${data.Status}`);
     });
 
-    const packageId = resolveSubscriberPackageVersionId(this.flags.package);
-
     const packageVersion = new SubscriberPackageVersion({
-      id: packageId,
+      aliasOrId: this.flags.package as string,
       connection: this.org.getConnection(),
       password: undefined,
     });
