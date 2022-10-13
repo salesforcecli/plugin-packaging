@@ -78,6 +78,7 @@ export class PackageConvert extends SfdxCommand {
       this.ux.log('SUCCESS');
     });
 
+    // initialize the project instance if in a project
     let project: SfProject;
     try {
       project = await SfProject.resolve();
