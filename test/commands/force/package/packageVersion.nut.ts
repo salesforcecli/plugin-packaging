@@ -30,6 +30,8 @@ describe('package:version:*', () => {
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
 
+    session.project.dir;
+
     execCmd(`force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`, {
       ensureExitCode: 0,
     });

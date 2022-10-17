@@ -6,99 +6,97 @@
  */
 import * as fs from 'fs';
 import * as path from 'path';
-import { testSetup } from '@salesforce/core/lib/testSetup';
+import { TestContext } from '@salesforce/core/lib/testSetup';
 import { Result } from '@salesforce/command';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Org, SfProject } from '@salesforce/core';
 import { Config } from '@oclif/core';
-import { afterEach } from 'mocha';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import { PackageVersionCreateCommand } from '../../../../src/commands/force/package/beta/version/create';
 
-const $$ = testSetup();
-const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-
-async function setupProject(setup: (project: SfProject) => void = () => {}) {
-  const project = await SfProject.resolve();
-  const packageDirectories = [
-    {
-      package: 'my_package_alias',
-      path: 'force-app',
-      default: true,
-    },
-    {
-      package: 'my_other_package_alias',
-      path: 'force-app/other',
-      default: false,
-    },
-  ];
-  const packageAliases = { ['my_package_alias']: '0Ho6A000002zgKSQAY' };
-
-  project.getSfProjectJson().set('packageDirectories', packageDirectories);
-  project.getSfProjectJson().set('packageAliases', packageAliases);
-  setup(project);
-  const projectDir = project.getPath();
-  project
-    .getSfProjectJson()
-    .getContents()
-    .packageDirectories?.forEach((dir) => {
-      if (dir.path) {
-        const packagePath = path.join(projectDir, dir.path);
-        fs.mkdirSync(packagePath, { recursive: true });
-      }
-    });
-
-  return project;
-}
-
-class TestCommand extends PackageVersionCreateCommand {
-  public async runIt() {
-    this.result = new Result(this.statics.result);
-    await this.init();
-    stubMethod($$.SANDBOX, this.ux, 'log');
-    this.result.data = await this.run();
-    await this.finally(undefined);
-    return this.result.data;
-  }
-  public setOrg(org: Org) {
-    this.org = org;
-  }
-  public setHub(org: Org) {
-    this.hubOrg = org;
-  }
-
-  public async setProject(project: SfProject): Promise<void> {
-    this.project = project || (await setupProject());
-  }
-}
-
-const prepCmd = async (params: string[], project?: SfProject): Promise<TestCommand> => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => ({}),
-      })
-    );
-    cmd.setOrg(orgStub);
-  });
-  stubMethod($$.SANDBOX, cmd, 'assignHubOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => ({}),
-      })
-    );
-    cmd.setHub(orgStub);
-  });
-  fs.mkdirSync(path.join(project.getPath(), 'force-app/other'), { recursive: true });
-  await cmd.setProject(project);
-  return cmd;
-};
-
 describe('resolvePackageIdFromFlags', () => {
+  const $$ = new TestContext();
+  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+
+  async function setupProject(setup: (project: SfProject) => void = () => {}) {
+    const project = await SfProject.resolve();
+    const packageDirectories = [
+      {
+        package: 'my_package_alias',
+        path: 'force-app',
+        default: true,
+      },
+      {
+        package: 'my_other_package_alias',
+        path: 'force-app/other',
+        default: false,
+      },
+    ];
+    const packageAliases = { ['my_package_alias']: '0Ho6A000002zgKSQAY' };
+
+    project.getSfProjectJson().set('packageDirectories', packageDirectories);
+    project.getSfProjectJson().set('packageAliases', packageAliases);
+    setup(project);
+    const projectDir = project.getPath();
+    project
+      .getSfProjectJson()
+      .getContents()
+      .packageDirectories?.forEach((dir) => {
+        if (dir.path) {
+          const packagePath = path.join(projectDir, dir.path);
+          fs.mkdirSync(packagePath, { recursive: true });
+        }
+      });
+
+    return project;
+  }
+
+  class TestCommand extends PackageVersionCreateCommand {
+    public async runIt() {
+      this.result = new Result(this.statics.result);
+      await this.init();
+      stubMethod($$.SANDBOX, this.ux, 'log');
+      this.result.data = await this.run();
+      await this.finally(undefined);
+      return this.result.data;
+    }
+    public setOrg(org: Org) {
+      this.org = org;
+    }
+    public setHub(org: Org) {
+      this.hubOrg = org;
+    }
+
+    public async setProject(project: SfProject): Promise<void> {
+      this.project = project || (await setupProject());
+    }
+  }
+
+  const prepCmd = async (params: string[], project?: SfProject): Promise<TestCommand> => {
+    const cmd = new TestCommand(params, oclifConfigStub);
+    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => ({}),
+        })
+      );
+      cmd.setOrg(orgStub);
+    });
+    stubMethod($$.SANDBOX, cmd, 'assignHubOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => ({}),
+        })
+      );
+      cmd.setHub(orgStub);
+    });
+    fs.mkdirSync(path.join(project.getPath(), 'force-app/other'), { recursive: true });
+    await cmd.setProject(project);
+    return cmd;
+  };
   let idResolutionSpy: sinon.SinonSpy;
   beforeEach(() => {
     $$.inProject(true);
@@ -106,9 +104,7 @@ describe('resolvePackageIdFromFlags', () => {
     // @ts-ignore
     idResolutionSpy = $$.SANDBOX.spy(PackageVersionCreateCommand.prototype, 'resolvePackageIdFromFlags');
   });
-  afterEach(() => {
-    $$.SANDBOX.restore();
-  });
+
   it('should return the package id from using package flag = alias', async () => {
     const project = await setupProject();
     const cmd = await prepCmd(
