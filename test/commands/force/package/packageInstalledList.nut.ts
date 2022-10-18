@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as fs from 'fs';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackageInstalledListResult } from '../../../../src/commands/force/package/beta/installed/list';
@@ -19,7 +18,6 @@ describe('package:installed:list', () => {
       devhubAuthStrategy: 'AUTO',
       project: { name: 'packageInstalledList' },
     });
-    await fs.promises.mkdir(session.dir, { recursive: true });
   });
 
   after(async () => {

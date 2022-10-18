@@ -5,8 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as path from 'path';
 import * as fs from 'fs';
+import * as path from 'path';
+
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
@@ -40,7 +41,6 @@ describe('package1:version:create', () => {
       devhubAuthStrategy: 'AUTO',
     });
 
-    await fs.promises.mkdir(session.dir, { recursive: true });
     const authPath = path.join(process.cwd(), 'authUrl.txt');
     await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
 

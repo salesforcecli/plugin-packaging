@@ -174,7 +174,6 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         this.ux.log(messages.getMessage('tempFileLocation', [data.location]));
       }
     );
-    const packageId = this.resolvePackageIdFromFlags();
 
     this.ux.startSpinner(messages.getMessage('requestInProgress'));
     const result = await PackageVersion.create(
@@ -182,7 +181,8 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         connection: this.hubOrg.getConnection(),
         project: this.project,
         ...this.flags,
-        packageId,
+        packageId: this.flags.package as string,
+        path: this.flags.path as string,
       },
       {
         timeout: this.flags.wait as Duration,
@@ -207,23 +207,5 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         this.ux.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
     }
     return result;
-  }
-
-  private resolvePackageIdFromFlags(): string {
-    let packageName: string;
-    if (this.flags.package) {
-      // we're unable to type this earlier, because casting `undefined as string` will result in "", which would screw up the logic below
-      const pkg = this.flags.package as string;
-      packageName = pkg.startsWith('0Ho')
-        ? this.project.getAliasesFromPackageId(pkg).find((alias) => alias)
-        : this.project.getPackageIdFromAlias(pkg);
-      if (!packageName) throw messages.createError('errorMissingPackage', [this.flags.package as string]);
-    } else {
-      // due to flag validation, we'll either have a package or path flag
-      packageName = this.project.getPackageFromPath(this.flags.path)?.package;
-      if (!packageName) throw messages.createError('errorCouldNotFindPackageUsingPath', [this.flags.path as string]);
-    }
-
-    return this.project.getPackageIdFromAlias(packageName) || packageName;
   }
 }

@@ -6,7 +6,7 @@
  */
 
 import * as path from 'path';
-import * as fs from 'fs';
+
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
@@ -30,7 +30,6 @@ describe('package:version:promote / package:version:update', () => {
       ],
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
-    await fs.promises.mkdir(session.dir, { recursive: true });
 
     const id = execCmd<{ Id: string }>(
       `force:package:beta:create --name ${pkgName} --loglevel debug --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
