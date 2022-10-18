@@ -19,7 +19,6 @@ import {
   PackageVersionEvents,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import { Optional } from 'typescript-optional';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectory(__dirname);
@@ -215,16 +214,14 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     if (this.flags.package) {
       // we're unable to type this earlier, because casting `undefined as string` will result in "", which would screw up the logic below
       const pkg = this.flags.package as string;
-      packageName = Optional.ofNullable(
-        pkg.startsWith('0Ho')
-          ? this.project.getAliasesFromPackageId(pkg).find((alias) => alias)
-          : this.project.getPackageIdFromAlias(pkg)
-      ).orElseThrow(() => messages.createError('errorMissingPackage', [this.flags.package as string]));
+      packageName = pkg.startsWith('0Ho')
+        ? this.project.getAliasesFromPackageId(pkg).find((alias) => alias)
+        : this.project.getPackageIdFromAlias(pkg);
+      if (!packageName) throw messages.createError('errorMissingPackage', [this.flags.package as string]);
     } else {
       // due to flag validation, we'll either have a package or path flag
-      packageName = Optional.ofNullable(this.project.getPackageFromPath(this.flags.path))
-        .map((dir) => dir.package)
-        .orElseThrow(() => messages.createError('errorCouldNotFindPackageUsingPath', [this.flags.path as string]));
+      packageName = this.project.getPackageFromPath(this.flags.path)?.package;
+      if (!packageName) throw messages.createError('errorCouldNotFindPackageUsingPath', [this.flags.path as string]);
     }
 
     return this.project.getPackageIdFromAlias(packageName) || packageName;
