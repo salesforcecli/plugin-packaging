@@ -35,12 +35,15 @@ describe('package1:version:create', () => {
     if (!process.env.ONEGP_TESTKIT_AUTH_URL) {
       throw new Error('"ONEGP_TESTKIT_AUTH_URL" env var required for 1gp NUTs');
     }
-    const authPath = path.join(process.cwd(), 'authUrl.txt');
-    await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
     session = await TestSession.create({
       project: { name: 'package1VersionDisplay' },
       devhubAuthStrategy: 'AUTO',
     });
+
+    await fs.promises.mkdir(session.dir, { recursive: true });
+    const authPath = path.join(process.cwd(), 'authUrl.txt');
+    await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
+
     execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { cli: 'sfdx' });
 
     packageId = execCmd<[{ MetadataPackageId: string }]>('force:package1:beta:version:list --json -u 1gp', {

@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as fs from 'fs';
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
@@ -30,7 +31,7 @@ describe('package:version:*', () => {
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
 
-    session.project.dir;
+    await fs.promises.mkdir(session.dir, { recursive: true });
 
     execCmd(`force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`, {
       ensureExitCode: 0,
