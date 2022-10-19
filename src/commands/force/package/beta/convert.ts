@@ -87,12 +87,13 @@ export class PackageConvert extends SfdxCommand {
     }
 
     const result = await Package.convert(
-      this.flags.package,
+      this.flags.package as string,
       this.hubOrg.getConnection(),
       {
         wait: this.flags.wait as Duration,
         installationKey: this.flags.installationkey as string,
         installationKeyBypass: this.flags.installationkeybypass as boolean,
+        definitionfile: undefined,
         buildInstance: this.flags.buildinstance as string,
       },
       project
