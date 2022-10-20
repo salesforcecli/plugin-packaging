@@ -45,6 +45,7 @@ export class PackageConvert extends SfdxCommand {
       char: 'f',
       description: messages.getMessage('definitionfile'),
       longDescription: messages.getMessage('longDefinitionfile'),
+      hidden: true,
     }),
     installationkeybypass: flags.boolean({
       char: 'x',
