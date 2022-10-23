@@ -36,11 +36,9 @@ const runCmd = async (params: string[], status: string) => {
     const orgStub = fromStub(
       stubInterface<Org>($$.SANDBOX, {
         getUsername: () => 'test@user.com',
-        getConnection: () => {
-          return {
+        getConnection: () => ({
             tooling: {
-              sobject: () => {
-                return {
+              sobject: () => ({
                   create: () => ({ id: '04t4p000002BaHYXXX' }),
                   retrieve: () => ({
                     Id: '06y23000000002MXXX',
@@ -53,11 +51,9 @@ const runCmd = async (params: string[], status: string) => {
                     SubscriberPackageVersionId: '04t4p000002BaHYXXX',
                     Status: status,
                   }),
-                };
-              },
+                }),
             },
-          };
-        },
+          }),
       })
     );
     cmd.setOrg(orgStub);
