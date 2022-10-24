@@ -15,7 +15,6 @@ import {
   PackageVersionReportResultModified,
 } from '../../../../src/commands/force/package/beta/version/report';
 
-
 describe('force:package:version:report - tests', () => {
   const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
@@ -196,7 +195,6 @@ describe('force:package:version:report - tests', () => {
       pvrrm.HasMetadataRemoved = 'Yes';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
       delete pvrrm['PackageType'];
-
 
       const result = cmd['massageResultsForDisplay'](pvrr);
       expect(result).to.deep.equal(pvrrm);
