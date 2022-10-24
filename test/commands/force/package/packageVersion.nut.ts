@@ -185,8 +185,12 @@ describe('package:version:*', () => {
       expect(output.result[0]).to.have.keys(keys);
       const current = Date.now();
       const created = Date.parse(output.result[0].CreatedDate);
-      const some2DaysAgo = current - Duration.days(2).milliseconds;
+      // eslint-disable-next-line no-console
+      console.log(`CreatedDate: ${output.result[0].CreatedDate} current: ${current}, created: ${created}`);
+      const some2DaysAgo = current - Duration.days(2.5).milliseconds;
       // some2DaysAgo <= created && created <= current
+      // eslint-disable-next-line no-console
+      console.log(`some2DaysAgo: ${some2DaysAgo}`);
       expect(some2DaysAgo <= created && created <= current).to.be.true;
     });
 

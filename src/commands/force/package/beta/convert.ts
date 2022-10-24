@@ -95,6 +95,7 @@ export class PackageConvert extends SfdxCommand {
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         definitionfile: undefined,
         buildInstance: this.flags.buildinstance as string,
+        definitionfile: undefined,
       },
       project
     );

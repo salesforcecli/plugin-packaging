@@ -22,6 +22,7 @@ describe('force:package:convert', () => {
   let uxLogStub: sinon.SinonStub;
   let convertStub: sinon.SinonStub;
 
+
   class TestCommand extends PackageConvert {
     public async runIt() {
       await this.init();
