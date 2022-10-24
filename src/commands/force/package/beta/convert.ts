@@ -86,6 +86,7 @@ export class PackageConvert extends SfdxCommand {
         installationKey: this.flags.installationkey as string,
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         buildInstance: this.flags.buildinstance as string,
+        definitionfile: undefined,
       },
       SfProject.getInstance()
     );
