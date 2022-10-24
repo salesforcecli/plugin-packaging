@@ -6,14 +6,14 @@
  */
 import * as os from 'os';
 import { Org } from '@salesforce/core';
-import { testSetup } from '@salesforce/core/lib/testSetup';
+import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { Package1VersionCreateCommand } from '../../../../src/commands/force/package1/beta/version/create';
 
 describe('force:package1:version:create', () => {
-  const $$ = testSetup();
+  const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxStub: sinon.SinonStub;
 
@@ -60,10 +60,6 @@ describe('force:package1:version:create', () => {
 
     return res;
   };
-
-  afterEach(() => {
-    $$.SANDBOX.restore();
-  });
 
   it('should print SUCCESS status correctly', async () => {
     const result = await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test'], 'SUCCESS');

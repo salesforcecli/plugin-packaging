@@ -5,13 +5,14 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Org } from '@salesforce/core';
-import { testSetup } from '@salesforce/core/lib/testSetup';
+import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { Package1VersionCreateGetCommand } from '../../../../src/commands/force/package1/beta/version/create/get';
+
 describe('force:package1:version:create:get', () => {
-  const $$ = testSetup();
+  const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxStub: sinon.SinonStub;
 
@@ -58,9 +59,6 @@ describe('force:package1:version:create:get', () => {
     return cmd.runIt();
   };
 
-  afterEach(() => {
-    $$.SANDBOX.restore();
-  });
   it('should print SUCCESS status correctly', async () => {
     const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'SUCCESS');
     expect(result.Status).to.equal('SUCCESS');
