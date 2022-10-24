@@ -5,63 +5,60 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Org } from '@salesforce/core';
-import { testSetup } from '@salesforce/core/lib/testSetup';
+import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { Package1VersionCreateGetCommand } from '../../../../src/commands/force/package1/beta/version/create/get';
 
-const $$ = testSetup();
-const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-let uxStub: sinon.SinonStub;
-
-class TestCommand extends Package1VersionCreateGetCommand {
-  public async runIt() {
-    await this.init();
-
-    uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
-    return this.run();
-  }
-  public setOrg(org: Org) {
-    this.org = org;
-  }
-}
-
-const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => {
-          return {
-            tooling: {
-              sobject: () => {
-                return {
-                  retrieve: () => {
-                    return Promise.resolve({
-                      Status: result,
-                      MetadataPackageVersionId: '04t4p000002BavTXXX',
-                      Errors: errors,
-                    });
-                  },
-                };
-              },
-            },
-          };
-        },
-      })
-    );
-    cmd.setOrg(orgStub);
-  });
-  return cmd.runIt();
-};
-
 describe('force:package1:version:create:get', () => {
-  afterEach(() => {
-    $$.SANDBOX.restore();
-  });
+  const $$ = new TestContext();
+  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  let uxStub: sinon.SinonStub;
+
+  class TestCommand extends Package1VersionCreateGetCommand {
+    public async runIt() {
+      await this.init();
+
+      uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      return this.run();
+    }
+    public setOrg(org: Org) {
+      this.org = org;
+    }
+  }
+
+  const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
+    const cmd = new TestCommand(params, oclifConfigStub);
+
+    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => {
+            return {
+              tooling: {
+                sobject: () => {
+                  return {
+                    retrieve: () => {
+                      return Promise.resolve({
+                        Status: result,
+                        MetadataPackageVersionId: '04t4p000002BavTXXX',
+                        Errors: errors,
+                      });
+                    },
+                  };
+                },
+              },
+            };
+          },
+        })
+      );
+      cmd.setOrg(orgStub);
+    });
+    return cmd.runIt();
+  };
+
   it('should print SUCCESS status correctly', async () => {
     const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'SUCCESS');
     expect(result.Status).to.equal('SUCCESS');

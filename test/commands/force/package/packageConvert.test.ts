@@ -7,48 +7,47 @@
 import { expect } from 'chai';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Org } from '@salesforce/core';
-import { testSetup } from '@salesforce/core/lib/testSetup';
+import { TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
 import { beforeEach } from 'mocha';
 import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-const $$ = testSetup();
-const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-let uxLogStub: sinon.SinonStub;
-let packageStub: sinon.SinonStub;
-let convertStub: sinon.SinonStub;
-
-class TestCommand extends PackageConvert {
-  public async runIt() {
-    await this.init();
-    uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-    return this.run();
-  }
-  public setHubOrg(org: Org) {
-    this.hubOrg = org;
-  }
-}
-
-const runCmd = async (params: string[]) => {
-  const cmd = new TestCommand(params, oclifConfigStub);
-  stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-    const orgStub = fromStub(
-      stubInterface<Org>($$.SANDBOX, {
-        getUsername: () => 'test@user.com',
-        getConnection: () => ({}),
-      })
-    );
-    cmd.setHubOrg(orgStub);
-  });
-
-  return cmd.runIt();
-};
-
 describe('force:package:convert', () => {
   const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
   const INSTALL_KEY = 'testinstallkey';
+  const $$ = new TestContext();
+  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  let uxLogStub: sinon.SinonStub;
+  let packageStub: sinon.SinonStub;
+  let convertStub: sinon.SinonStub;
+
+  class TestCommand extends PackageConvert {
+    public async runIt() {
+      await this.init();
+      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      return this.run();
+    }
+    public setHubOrg(org: Org) {
+      this.hubOrg = org;
+    }
+  }
+
+  const runCmd = async (params: string[]) => {
+    const cmd = new TestCommand(params, oclifConfigStub);
+    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+      const orgStub = fromStub(
+        stubInterface<Org>($$.SANDBOX, {
+          getUsername: () => 'test@user.com',
+          getConnection: () => ({}),
+        })
+      );
+      cmd.setHubOrg(orgStub);
+    });
+
+    return cmd.runIt();
+  };
 
   beforeEach(() => {
     convertStub = $$.SANDBOX.stub();
@@ -58,10 +57,6 @@ describe('force:package:convert', () => {
       convert: convertStub,
     }));
     Object.setPrototypeOf(Package, packageStub);
-  });
-
-  afterEach(() => {
-    $$.SANDBOX.restore();
   });
 
   it('returns error for missing installationkey or installationkeybypass flag', async () => {

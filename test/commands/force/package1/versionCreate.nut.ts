@@ -5,8 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as path from 'path';
 import * as fs from 'fs';
+import * as path from 'path';
+
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
@@ -35,12 +36,14 @@ describe('package1:version:create', () => {
     if (!process.env.ONEGP_TESTKIT_AUTH_URL) {
       throw new Error('"ONEGP_TESTKIT_AUTH_URL" env var required for 1gp NUTs');
     }
-    const authPath = path.join(process.cwd(), 'authUrl.txt');
-    await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
     session = await TestSession.create({
       project: { name: 'package1VersionDisplay' },
       devhubAuthStrategy: 'AUTO',
     });
+
+    const authPath = path.join(process.cwd(), 'authUrl.txt');
+    await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
+
     execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { cli: 'sfdx' });
 
     packageId = execCmd<[{ MetadataPackageId: string }]>('force:package1:beta:version:list --json -u 1gp', {
