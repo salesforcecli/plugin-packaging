@@ -39,7 +39,7 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       project: this.project,
       idOrAlias: this.flags.package as string,
     });
-    const packageVersionData = await packageVersion.getPackageVersionData();
+    const packageVersionData = await packageVersion.getData();
 
     if (!this.flags.json && !this.flags.noprompt) {
       // Warn when a Managed package has removed metadata

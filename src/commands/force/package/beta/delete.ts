@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { applyErrorAction, deletePackage, PackageSaveResult } from '@salesforce/packaging';
+import { Package, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
@@ -34,6 +34,7 @@ export class PackageDeleteCommand extends SfdxCommand {
       description: messages.getMessage('undelete'),
       longDescription: messages.getMessage('undeleteLong'),
       hidden: true,
+      default: false,
     }),
   };
 
@@ -45,15 +46,12 @@ export class PackageDeleteCommand extends SfdxCommand {
       throw messages.createError('promptDeleteDeny');
     }
 
-    const result = await deletePackage(
-      this.flags.package,
-      this.project,
-      this.hubOrg.getConnection(),
-      !!this.flags.undelete
-    ).catch((err) => {
-      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
-      throw applyErrorAction(err);
+    const pkg = new Package({
+      connection: this.hubOrg.getConnection(),
+      project: this.project,
+      packageAliasOrId: this.flags.package as string,
     });
+    const result = this.flags.undelete ? await pkg.undelete() : await pkg.delete();
     this.display(result);
     return result;
   }

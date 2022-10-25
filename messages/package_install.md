@@ -172,6 +172,18 @@ Waiting %s minutes for package install to complete.
 
 %d minutes remaining until timeout. Install status: %s
 
+# packagePublishWaitingStatus
+
+%d minutes remaining until timeout. Publish status: %s
+
 # errorInvalidPackageId
 
-The provided package ID '%s' is invalid.
+Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.
+
+# availableForInstallation
+
+Available for installation
+
+# unavailableForInstallation
+
+Unavailable for installation

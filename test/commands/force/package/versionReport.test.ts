@@ -10,13 +10,12 @@ import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionReportResult } from '@salesforce/packaging';
-import { beforeEach } from 'mocha';
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
 } from '../../../../src/commands/force/package/beta/version/report';
 
-describe('force:package:version:report', () => {
+describe('force:package:version:report - tests', () => {
   const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxLogStub: sinon.SinonStub;
@@ -112,7 +111,6 @@ describe('force:package:version:report', () => {
     ValidationSkipped: false,
     Version: '0.0.0.0',
   };
-
   class TestCommand extends PackageVersionReportCommand {
     public async runIt() {
       await this.init();
@@ -140,6 +138,7 @@ describe('force:package:version:report', () => {
     });
     return cmd.runIt();
   };
+
   describe('force:package:version:report', () => {
     it('should produce package version report', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);

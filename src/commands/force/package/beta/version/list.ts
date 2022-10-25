@@ -14,7 +14,7 @@ import {
   getPackageAliasesFromId,
   getPackageVersionStrings,
   INSTALL_URL_BASE,
-  PackageVersion,
+  Package,
   PackageVersionListResult,
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
@@ -94,7 +94,7 @@ export class PackageVersionListCommand extends SfdxCommand {
     const connection = this.hubOrg.getConnection();
     const project = SfProject.getInstance();
 
-    const records = await PackageVersion.list(connection, project, {
+    const records = await Package.listVersions(connection, project, {
       createdLastDays: this.flags.createdlastdays as number,
       concise: this.flags.concise as boolean,
       modifiedLastDays: this.flags.modifiedlastdays as number,
