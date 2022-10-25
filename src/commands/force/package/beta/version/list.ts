@@ -102,6 +102,7 @@ export class PackageVersionListCommand extends SfdxCommand {
       isReleased: this.flags.released as boolean,
       orderBy: this.flags.orderby as string,
       verbose: this.flags.verbose as boolean,
+      connection,
     });
 
     const results: PackageVersionListCommandResult[] = [];
