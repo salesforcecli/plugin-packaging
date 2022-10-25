@@ -84,9 +84,17 @@ export class PackageConvert extends SfdxCommand {
       this.ux.log('SUCCESS');
     });
 
-    const pkg = new Package({ connection: this.hubOrg.getConnection() });
-    const result = await pkg.convert(
-      this.flags.package,
+    // initialize the project instance if in a project
+    let project: SfProject;
+    try {
+      project = await SfProject.resolve();
+    } catch (err) {
+      // ignore project is optional
+    }
+
+    const result = await Package.convert(
+      this.flags.package as string,
+      this.hubOrg.getConnection(),
       {
         wait: this.flags.wait as Duration,
         installationKey: this.flags.installationkey as string,
@@ -94,7 +102,7 @@ export class PackageConvert extends SfdxCommand {
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         buildInstance: this.flags.buildinstance as string,
       },
-      SfProject.getInstance()
+      project
     );
 
     switch (result.Status) {

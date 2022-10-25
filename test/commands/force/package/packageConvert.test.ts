@@ -10,17 +10,16 @@ import { Org } from '@salesforce/core';
 import { TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import { beforeEach } from 'mocha';
 import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
+const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
+const INSTALL_KEY = 'testinstallkey';
+
 describe('force:package:convert', () => {
-  const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
-  const INSTALL_KEY = 'testinstallkey';
   const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxLogStub: sinon.SinonStub;
-  let packageStub: sinon.SinonStub;
   let convertStub: sinon.SinonStub;
 
   class TestCommand extends PackageConvert {
@@ -49,16 +48,6 @@ describe('force:package:convert', () => {
     return cmd.runIt();
   };
 
-  beforeEach(() => {
-    convertStub = $$.SANDBOX.stub();
-    // The Package class is tested in the packaging library, so
-    // we just stub the public APIs used by the command.
-    packageStub = $$.SANDBOX.stub().callsFake(() => ({
-      convert: convertStub,
-    }));
-    Object.setPrototypeOf(Package, packageStub);
-  });
-
   it('returns error for missing installationkey or installationkeybypass flag', async () => {
     const expectedErrorMsg =
       'Exactly one of the following must be provided: --installationkey, --installationkeybypass';
@@ -85,7 +74,7 @@ describe('force:package:convert', () => {
       Tag: '',
     };
 
-    convertStub.resolves(pvc);
+    convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const result = await runCmd([
       '-p',
       CONVERTED_FROM_PACKAGE_ID,
@@ -115,7 +104,8 @@ describe('force:package:convert', () => {
       Tag: '',
     };
 
-    convertStub.resolves(pvc);
+    convertStub.restore();
+    convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const result = await runCmd([
       '-p',
       CONVERTED_FROM_PACKAGE_ID,
@@ -151,7 +141,8 @@ describe('force:package:convert', () => {
       Tag: '',
     };
 
-    convertStub.resolves(pvc);
+    convertStub.restore();
+    convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     try {
       await runCmd(['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com']);
     } catch (e) {

@@ -10,7 +10,7 @@ import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-import { Package } from '@salesforce/packaging';
+import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { Report } from '../../../../src/commands/force/package/beta/install/report';
 
@@ -18,8 +18,7 @@ describe('force:package:install:report', () => {
   const $$ = new TestContext();
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxLogStub: sinon.SinonStub;
-  let packageStub: sinon.SinonStub;
-  let getInstallStatusStub: sinon.SinonStub;
+  let getInstallRequestStub: sinon.SinonStub;
 
   const pkgInstallRequest = {
     attributes: {
@@ -74,17 +73,6 @@ describe('force:package:install:report', () => {
     return cmd.runIt();
   };
 
-  beforeEach(() => {
-    getInstallStatusStub = $$.SANDBOX.stub();
-
-    // The Package class is tested in the packaging library, so
-    // we just stub the public APIs used by the command.
-    packageStub = $$.SANDBOX.stub().callsFake(() => ({
-      getInstallStatus: getInstallStatusStub,
-    }));
-    Object.setPrototypeOf(Package, packageStub);
-  });
-
   it('should error without required --requestid param', async () => {
     try {
       await runCmd([]);
@@ -98,7 +86,9 @@ describe('force:package:install:report', () => {
 
   it('should report SUCCESS status', async () => {
     const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-    getInstallStatusStub.resolves(request);
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
+      request as PackagingSObjects.PackageInstallRequest
+    );
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
     expect(result).to.deep.equal(request);
     expect(uxLogStub.calledOnce).to.be.true;
@@ -106,16 +96,15 @@ describe('force:package:install:report', () => {
   });
 
   it('should report IN_PROGRESS status', async () => {
-    const validateIdSpy = $$.SANDBOX.spy(Package, 'validateId');
-    getInstallStatusStub.resolves(pkgInstallRequest);
+    getInstallRequestStub.restore();
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
+      pkgInstallRequest as PackagingSObjects.PackageInstallRequest
+    );
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
     const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
-    expect(validateIdSpy.calledOnce).to.be.true;
-    expect(validateIdSpy.args[0][0]).to.equal(pkgInstallRequest.Id);
-    expect(validateIdSpy.args[0][1]).to.equal('PackageInstallRequestId');
   });
 
   it('should throw error on ERROR status', async () => {
@@ -123,7 +112,12 @@ describe('force:package:install:report', () => {
       Status: 'ERROR',
       Errors: { errors: [new Error('message 1'), new Error('message 2')] },
     });
-    getInstallStatusStub.resolves(request);
+    getInstallRequestStub.restore();
+    getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
+      request as PackagingSObjects.PackageInstallRequest
+    );
+
+    getInstallRequestStub.resolves(request);
     try {
       await runCmd(['-i', pkgInstallRequest.Id]);
       expect(false, 'Expected PackageInstallError').to.be.true;
