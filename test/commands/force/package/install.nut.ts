@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as path from 'path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
@@ -17,7 +18,15 @@ describe('package install', () => {
   let session: TestSession;
   before(async () => {
     session = await TestSession.create({
-      setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
+      devhubAuthStrategy: 'AUTO',
+      scratchOrgs: [
+        {
+          executable: 'sfdx',
+          duration: 1,
+          setDefault: true,
+          config: path.join('config', 'project-scratch-def.json'),
+        },
+      ],
       project: { name: 'packageInstall' },
     });
   });
@@ -28,7 +37,6 @@ describe('package install', () => {
 
   it('should install ElectronBranding package with polling', function () {
     const command = 'force:package:beta:install -p 04t6A000002zgKSQAY -w 20';
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const output = execCmd(command, { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }).shellOutput
       .stdout;
     expect(output).to.contain('Successfully installed package');

@@ -283,7 +283,11 @@ You can’t have both "package" and "id" (deprecated) defined in your sfdx-proje
 
 # errorMissingPackage
 
-The package %s isn’t defined in the sfdx-project.json file. Add it to the packageDirectories section and add the alias to packageAliases with its 0Ho ID.
+The package "%s" isn’t defined in the sfdx-project.json file. Add it to the packageDirectories section and add the alias to packageAliases with its 0Ho ID.
+
+# errorCouldNotFindPackageUsingPath
+
+Could not find a package in sfdx-project.json file using "path" %s. Add it to the packageDirectories section and add the alias to packageAliases with its 0Ho ID.
 
 # errorEmptyPackageDirs
 
@@ -292,6 +296,10 @@ sfdx-project.json must contain a packageDirectories entry for a package. You can
 # errorProfileUserLicensesInvalidValue
 
 Can’t create package version. Check your sfdx-project.json file and set includeProfileUserLicenses to either true or false. Then try package version creation again.
+
+# errorPathNotFound
+
+The directory [%s] doesn’t exist in the current directory.
 
 # unknownError
 

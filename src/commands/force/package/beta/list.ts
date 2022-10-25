@@ -8,9 +8,8 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { applyErrorAction, getPackageAliasesFromId, listPackages, PackagingSObjects } from '@salesforce/packaging';
+import { getPackageAliasesFromId, Package, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
-import { QueryResult } from 'jsforce';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
@@ -49,17 +48,13 @@ export class PackageListCommand extends SfdxCommand {
 
   public async run(): Promise<Package2Result[]> {
     this.logger = this.logger.child('package:list');
-    const queryResult = await listPackages(this.hubOrg.getConnection()).catch((err) => {
-      // TODO: until package2 is GA, wrap perm-based errors w/ 'contact sfdc' action (REMOVE once package2 is GA'd)
-      throw applyErrorAction(err);
-    });
+    const queryResult = await Package.list(this.hubOrg.getConnection());
     this.mapRecordsToResults(queryResult);
     this.displayResults();
     return this.results;
   }
 
-  private mapRecordsToResults(queryResult: QueryResult<PackagingSObjects.Package2>): void {
-    const { records } = queryResult;
+  private mapRecordsToResults(records: PackagingSObjects.Package2[]): void {
     if (records && records.length > 0) {
       this.results = records.map(
         ({

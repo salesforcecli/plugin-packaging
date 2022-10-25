@@ -5,6 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as path from 'path';
+
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
@@ -17,7 +19,15 @@ describe('package:version:promote / package:version:update', () => {
 
   before(async () => {
     session = await TestSession.create({
-      setupCommands: ['sfdx force:org:create -d 1 -s -f config/project-scratch-def.json'],
+      devhubAuthStrategy: 'AUTO',
+      scratchOrgs: [
+        {
+          executable: 'sfdx',
+          duration: 1,
+          setDefault: true,
+          config: path.join('config', 'project-scratch-def.json'),
+        },
+      ],
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
 
@@ -59,7 +69,6 @@ describe('package:version:promote / package:version:update', () => {
   });
 
   it('should promote a package (human readable)', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
       ensureExitCode: 0,
     }).shellOutput.stdout;
@@ -84,7 +93,6 @@ describe('package:version:promote / package:version:update', () => {
   });
 
   it('should update a package (human readable)', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const result = execCmd(`force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch`, {
       ensureExitCode: 0,
     }).shellOutput.stdout;

@@ -5,39 +5,29 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as path from 'path';
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import { OrgConfigProperties } from '@salesforce/core';
 import { expect } from 'chai';
 
 describe('package list', () => {
   let session: TestSession;
-  let usernameOrAlias: string;
   before(async () => {
-    const executablePath = path.join(process.cwd(), 'bin', 'dev');
     session = await TestSession.create({
-      setupCommands: [`${executablePath} config:get ${OrgConfigProperties.TARGET_DEV_HUB} --json`],
+      devhubAuthStrategy: 'AUTO',
       project: { name: 'packageList' },
     });
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    usernameOrAlias = (session.setup[0] as { result: [{ value: string }] }).result[0].value;
-
-    if (!usernameOrAlias) throw Error('no default username set');
   });
 
   after(async () => {
     await session?.clean();
   });
   it('should list packages in dev hub - human readable results', function () {
-    const command = `force:package:beta:list -v ${usernameOrAlias}`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const command = `force:package:beta:list -v ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
   });
   it('should list packages in dev hub - verbose human readable results', function () {
-    const command = `force:package:beta:list -v ${usernameOrAlias} --verbose`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const command = `force:package:beta:list -v ${session.hubOrg.username} --verbose`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(
@@ -45,12 +35,8 @@ describe('package list', () => {
     );
   });
   it('should list packages in dev hub - json results', function () {
-    const command = `force:package:beta:list -v ${usernameOrAlias} --json`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const output = execCmd(command, { ensureExitCode: 0 }).jsonOutput as {
-      status: number;
-      result: { [key: string]: unknown };
-    };
+    const command = `force:package:beta:list -v ${session.hubOrg.username} --json`;
+    const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
     const keys = [
       'Id',
       'SubscriberPackageId',
