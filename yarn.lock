@@ -1162,7 +1162,7 @@
     ts-retry-promise "^0.7.0"
     xml2js "^0.4.23"
 
-"@salesforce/plugin-auth@^2.2.3":
+"@salesforce/plugin-auth@^2.2.16":
   version "2.2.16"
   resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.2.16.tgz#4560484adefbbda76656a381507ee26e839a1a6a"
   integrity sha512-0XLjzUo1zE3HDax+sFYZrQAZPuUsZelRa7cmUoKpzxsuWREOZKkt33nV/+Kw6ObEdcIIZNl/E4YoGvW8Yj8Gag==
