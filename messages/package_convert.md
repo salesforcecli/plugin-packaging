@@ -44,11 +44,11 @@ Bypasses the installation key requirement. If you bypass this requirement, anyon
 
 # definitionfile
 
-path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on
+path to a definition file that contains features and org preferences that the metadata of the package version depends on.
 
 # longDefinitionfile
 
-The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
+The path to a definition file, similar to the scratch org definition file, that contains the list of features and org preferences that the metadata of the package version depends on.
 
 # wait
 
