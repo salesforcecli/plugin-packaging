@@ -10,7 +10,7 @@
     "@salesforce/command": "^5.2.13",
     "@salesforce/core": "^3.31.15",
     "@salesforce/kit": "^1.7.0",
-    "@salesforce/packaging": "0.1.12",
+    "@salesforce/packaging": "^0.1.13",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },
