@@ -34,11 +34,9 @@ describe('force:package1:version:create', () => {
       const orgStub = fromStub(
         stubInterface<Org>($$.SANDBOX, {
           getUsername: () => 'test@user.com',
-          getConnection: () => {
-            return {
+          getConnection: () => ({
               tooling: {
-                sobject: () => {
-                  return {
+                sobject: () => ({
                     create: () => ({ id: '0HD4p000000blUvGXX' }),
                     retrieve: () => ({
                       Status: result,
@@ -47,11 +45,9 @@ describe('force:package1:version:create', () => {
                       Id: '0HD4p000000blUvGXX',
                       MetadataPackageId: '03346000000MrC0AXX',
                     }),
-                  };
-                },
+                  }),
               },
-            };
-          },
+            }),
         })
       );
       cmd.setOrg(orgStub);
