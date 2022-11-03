@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import * as os from 'os';
 import { Org, SfProject } from '@salesforce/core';
 import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
@@ -101,7 +102,7 @@ describe('force:package:version:report - tests', () => {
       });
       expect(uxLogStub.callCount).to.equal(1);
       expect(uxLogStub.args[0]).to.deep.equal([
-        'Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA\nPackage Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA\nAs an alternative, you can use the "sfdx force:package:install" command.',
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sfdx force:package:install" command.`,
       ]);
     });
 
@@ -113,10 +114,7 @@ describe('force:package:version:report - tests', () => {
         assert.fail('the above should throw multiple errors');
       } catch (e) {
         expect((e as Error).message).to.equal(
-          'Package version creation failed with unknown error. \n' +
-            '(1) PropertyController: Invalid type: Schema.Property__c\n' +
-            '(2) SampleDataController: Invalid type: Schema.Property__c\n' +
-            '(3) SampleDataController: Invalid type: Schema.Broker__c'
+          `Package version creation failed with unknown error. ${os.EOL}(1) PropertyController: Invalid type: Schema.Property__c${os.EOL}(2) SampleDataController: Invalid type: Schema.Property__c${os.EOL}(3) SampleDataController: Invalid type: Schema.Broker__c`
         );
       }
     });
