@@ -10,10 +10,9 @@ import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-import { SubscriberPackageVersion, PackageEvents, PackagingSObjects } from '@salesforce/packaging';
+import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
 import { Install } from '../../../../src/commands/force/package/beta/install';
-
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
 const myPackageVersion04t = '04t6A000002zgKSQAY';

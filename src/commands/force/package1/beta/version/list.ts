@@ -31,14 +31,16 @@ export class Package1VersionListCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const result = (await Package1Version.list(this.org.getConnection(), this.flags.packageid)).map((record) => ({
-      MetadataPackageVersionId: record.Id,
-      MetadataPackageId: record.MetadataPackageId,
-      Name: record.Name,
-      ReleaseState: record.ReleaseState,
-      Version: `${record.MajorVersion}.${record.MinorVersion}.${record.PatchVersion}`,
-      BuildNumber: record.BuildNumber,
-    }));
+    const result = (await Package1Version.list(this.org.getConnection(), this.flags.packageid as string)).map(
+      (record) => ({
+        MetadataPackageVersionId: record.Id,
+        MetadataPackageId: record.MetadataPackageId,
+        Name: record.Name,
+        ReleaseState: record.ReleaseState,
+        Version: `${record.MajorVersion}.${record.MinorVersion}.${record.PatchVersion}`,
+        BuildNumber: record.BuildNumber,
+      })
+    );
 
     if (result.length) {
       this.ux.table(result, {

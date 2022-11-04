@@ -35,14 +35,14 @@ describe('package install', () => {
     await session?.clean();
   });
 
-  it('should install ElectronBranding package with polling', function () {
+  it('should install ElectronBranding package with polling', () => {
     const command = 'force:package:beta:install -p 04t6A000002zgKSQAY -w 20';
     const output = execCmd(command, { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }).shellOutput
       .stdout;
     expect(output).to.contain('Successfully installed package');
   });
 
-  it('should install DFXP Escape Room package (async) and report', function () {
+  it('should install DFXP Escape Room package (async) and report', () => {
     const installCommand = 'force:package:beta:install -p 04t6A000002zgKSQAY --json';
     const installJson = execCmd<PackageInstallRequest>(installCommand, { ensureExitCode: 0 }).jsonOutput.result;
     expect(installJson).to.have.property('Status', 'IN_PROGRESS');

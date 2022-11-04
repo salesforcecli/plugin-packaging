@@ -20,13 +20,13 @@ describe('package list', () => {
   after(async () => {
     await session?.clean();
   });
-  it('should list packages in dev hub - human readable results', function () {
+  it('should list packages in dev hub - human readable results', () => {
     const command = `force:package:beta:list -v ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
   });
-  it('should list packages in dev hub - verbose human readable results', function () {
+  it('should list packages in dev hub - verbose human readable results', () => {
     const command = `force:package:beta:list -v ${session.hubOrg.username} --verbose`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
@@ -34,7 +34,7 @@ describe('package list', () => {
       /Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type\s+?Subscriber Package Id\s+?Converted From Package Id\s+?Org-Dependent Unlocked Package\s+?Error Notification Username\s+?Created By/
     );
   });
-  it('should list packages in dev hub - json results', function () {
+  it('should list packages in dev hub - json results', () => {
     const command = `force:package:beta:list -v ${session.hubOrg.username} --json`;
     const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
     const keys = [

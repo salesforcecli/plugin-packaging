@@ -34,24 +34,20 @@ describe('force:package1:version:create', () => {
       const orgStub = fromStub(
         stubInterface<Org>($$.SANDBOX, {
           getUsername: () => 'test@user.com',
-          getConnection: () => {
-            return {
-              tooling: {
-                sobject: () => {
-                  return {
-                    create: () => ({ id: '0HD4p000000blUvGXX' }),
-                    retrieve: () => ({
-                      Status: result,
-                      MetadataPackageVersionId: '04t4p000002BavTXXX',
-                      Errors: errors,
-                      Id: '0HD4p000000blUvGXX',
-                      MetadataPackageId: '03346000000MrC0AXX',
-                    }),
-                  };
-                },
-              },
-            };
-          },
+          getConnection: () => ({
+            tooling: {
+              sobject: () => ({
+                create: () => ({ id: '0HD4p000000blUvGXX' }),
+                retrieve: () => ({
+                  Status: result,
+                  MetadataPackageVersionId: '04t4p000002BavTXXX',
+                  Errors: errors,
+                  Id: '0HD4p000000blUvGXX',
+                  MetadataPackageId: '03346000000MrC0AXX',
+                }),
+              }),
+            },
+          }),
         })
       );
       cmd.setOrg(orgStub);

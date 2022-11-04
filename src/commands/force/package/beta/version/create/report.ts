@@ -32,7 +32,10 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
-    const result = await PackageVersion.getCreateStatus(this.flags.packagecreaterequestid, this.hubOrg.getConnection());
+    const result = await PackageVersion.getCreateStatus(
+      this.flags.packagecreaterequestid as string,
+      this.hubOrg.getConnection()
+    );
     this.display(result);
     return result;
   }

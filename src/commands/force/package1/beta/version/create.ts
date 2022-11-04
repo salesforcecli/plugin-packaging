@@ -70,7 +70,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageUploadRequest> {
-    const version = this.parseVersion(this.flags.version);
+    const version = this.parseVersion(this.flags.version as string);
     if (this.flags.wait) {
       // if we're waiting for the request, set up the listener
       Lifecycle.getInstance().on(
@@ -108,6 +108,7 @@ export class Package1VersionCreateCommand extends SfdxCommand {
     return result;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private parseVersion(versionString: string): { major: number; minor: number } {
     const versions = versionString?.split('.');
     if (!versions) {
