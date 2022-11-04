@@ -6,8 +6,6 @@ create a package version
 
 Creates a package version in the Dev Hub org.
 
-# help
-
 The package version is based on the package contents in the specified directory.
 
 To retrieve details about a package version create request, including status and package version ID (04t), run "sfdx force:package:version:create:report -i 08c...".
@@ -50,14 +48,6 @@ path to a definition file similar to scratch org definition file that contains t
 # longDefinitionfile
 
 The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
-
-# dir
-
-path to directory that contains the contents of the package version
-
-# longDir
-
-The path to the directory that contains the contents of the package version.
 
 # branch
 
@@ -127,14 +117,6 @@ the instance where the package version will be created——for example, NA50
 
 The instance where the package version will be created——for example, NA50.
 
-# sourceorg
-
-the source org ID used to copy the org shape for the build org
-
-# longSourceorg
-
-The source org ID used to copy the org shape for the build org.
-
 # versionname
 
 the name of the package version to be created
@@ -195,10 +177,6 @@ Overrides ancestry requirements.
 
 Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
 
-# hasMetadataRemovedWarning
-
-The package version you've created doesn't contain metadata components that were in the package version's ancestor.
-
 # postInstallUrl
 
 post-install URL
@@ -223,18 +201,6 @@ uninstall script name; managed packages only
 
 Applies to managed packages only. The uninstall script name. The uninstall script is an Apex class within this package that is run in the installing org after uninstallations of this package.
 
-# defaultVersionName
-
-versionName is blank in sfdx-project.json, so it will be set to this default value based on the versionNumber: %s
-
-# buildNumberResolvedForLatest
-
-Dependency on package %s was resolved to version number %s, branch %s, %s.
-
-# buildNumberResolvedForReleased
-
-Dependency on package %s was resolved to the released version number %s, %s.
-
 # InProgress
 
 Package version creation request status is '%s'. Run "sfdx force:package:version:create:report -i %s" to query for status.
@@ -245,58 +211,6 @@ Successfully created the package version [%s]. Subscriber Package Version Id: %s
 Package Installation URL: %s%s
 As an alternative, you can use the "sfdx force:package:install" command.
 
-# errorMissingFlags
-
-Include either a %s value or a %s value. The value must match one of the packageDirectories specified in sfdx-project.json.
-
-# errorCannotSupplyCodeCoverageAndSkipValidation
-
-We couldn’t create this package version because both %s and %s parameters were specified. Code coverage can’t be calculated when validation is skipped. Specify either %s or %s and try again.
-
-# errorMissingFlagsInstallationKey
-
-A required parameter is missing. Include either an %s value or %s.
-
-# errorNoMatchingPackageDirectory
-
-The %s value [%s], doesn’t match the %s value in any packageDirectories specified in sfdx-project.json.
-
-# errorDirectoryIdMismatch
-
-The %s value, [%s], and %s value, [%s], were both found in sfdx-project.json but don’t match. If you supply both values, they must match the path and package values in one of the packageDirectories.
-
-# errorDependencyPair
-
-Dependency must specify either a subscriberPackageVersionId or both packageId and versionNumber: %s.
-
-# errorNoIdInHub
-
-No package ID was found in Dev Hub for package ID: %s.
-
-# errorPackageAndPackageIdCollision
-
-You can’t have both "package" and "packageId" (deprecated) defined as dependencies in sfdx-project.json.
-
-# errorPackageAndIdCollision
-
-You can’t have both "package" and "id" (deprecated) defined in your sfdx-project.json file.
-
-# errorMissingPackage
-
-The package "%s" isn’t defined in the sfdx-project.json file. Add it to the packageDirectories section and add the alias to packageAliases with its 0Ho ID.
-
-# errorCouldNotFindPackageUsingPath
-
-Could not find a package in sfdx-project.json file using "path" %s. Add it to the packageDirectories section and add the alias to packageAliases with its 0Ho ID.
-
-# errorEmptyPackageDirs
-
-sfdx-project.json must contain a packageDirectories entry for a package. You can run the force:package:create command to auto-populate such an entry.
-
-# errorProfileUserLicensesInvalidValue
-
-Can’t create package version. Check your sfdx-project.json file and set includeProfileUserLicenses to either true or false. Then try package version creation again.
-
 # errorPathNotFound
 
 The directory [%s] doesn’t exist in the current directory.
@@ -304,10 +218,6 @@ The directory [%s] doesn’t exist in the current directory.
 # multipleErrors
 
 Multiple errors occurred:
-
-# malformedUrl
-
-The %s value "%s" from the command line or sfdx-project.json is not in the correct format for a URL. It must be a valid URL in the format "http://salesforce.com". More information: https://nodejs.org/api/url.html#url_url_strings_and_url_objects
 
 # requestInProgress
 

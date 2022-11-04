@@ -63,7 +63,3 @@ The new installation key for the key-protected package. The default is null.
 # success
 
 Successfully updated the package version.
-
-# previousReleased
-
-To release the new package version, run "sfdx force:package:version:update -s <new package version ID>".

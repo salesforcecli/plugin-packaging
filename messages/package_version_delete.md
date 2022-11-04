@@ -28,10 +28,6 @@ Undelete a deleted package version.
 
 don’t prompt before deleting the package version
 
-# noPromptLong
-
-Don’t prompt before deleting the package version.
-
 # promptDelete
 
 Deleted package versions can’t be recovered.

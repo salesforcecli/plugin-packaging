@@ -74,12 +74,3 @@ path to directory that contains the contents of the package
 # longPath
 
 The path to the directory that contains the contents of the package.
-
-# errorPathNotSpecified
-
-Add a valid path to packageDirectories in the sfdx-project.json file. When the --path parameter is specified, the path is automatically added to the sfdx-project.json file.
-%s
-
-# humanSuccess
-
-Successfully created a package.

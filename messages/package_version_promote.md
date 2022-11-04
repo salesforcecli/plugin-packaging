@@ -43,3 +43,7 @@ You already promoted a package version with this major.minor.patch version numbe
 Create a new package version with a different --versionumber, then promote the package version.
 sfdx force:package:version:create -p <name> -n <versionnum> -k <key>
 sfdx force:package:version:promote -p 05ixxx
+
+# hasMetadataRemovedWarning
+
+The package version you've created doesn't contain metadata components that were in the package version's ancestor.
