@@ -37,28 +37,24 @@ describe('force:package:uninstall', () => {
       const orgStub = fromStub(
         stubInterface<Org>($$.SANDBOX, {
           getUsername: () => 'test@user.com',
-          getConnection: () => {
-            return {
-              tooling: {
-                sobject: () => {
-                  return {
-                    create: () => ({ id: '04t4p000002BaHYXXX' }),
-                    retrieve: () => ({
-                      Id: '06y23000000002MXXX',
-                      IsDeleted: false,
-                      CreatedDate: '2022-08-02T17:13:00.000+0000',
-                      CreatedById: '00523000003Ehj9XXX',
-                      LastModifiedDate: '2022-08-02T17:13:00.000+0000',
-                      LastModifiedById: '00523000003Ehj9XXX',
-                      SystemModstamp: '2022-08-02T17:13:00.000+0000',
-                      SubscriberPackageVersionId: '04t4p000002BaHYXXX',
-                      Status: status,
-                    }),
-                  };
-                },
-              },
-            };
-          },
+          getConnection: () => ({
+            tooling: {
+              sobject: () => ({
+                create: () => ({ id: '04t4p000002BaHYXXX' }),
+                retrieve: () => ({
+                  Id: '06y23000000002MXXX',
+                  IsDeleted: false,
+                  CreatedDate: '2022-08-02T17:13:00.000+0000',
+                  CreatedById: '00523000003Ehj9XXX',
+                  LastModifiedDate: '2022-08-02T17:13:00.000+0000',
+                  LastModifiedById: '00523000003Ehj9XXX',
+                  SystemModstamp: '2022-08-02T17:13:00.000+0000',
+                  SubscriberPackageVersionId: '04t4p000002BaHYXXX',
+                  Status: status,
+                }),
+              }),
+            },
+          }),
         })
       );
       cmd.setOrg(orgStub);

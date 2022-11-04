@@ -192,7 +192,13 @@ export class Install extends SfdxCommand {
 
     const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
     this.ux.stopSpinner();
-    Install.parseStatus(pkgInstallRequest, this.ux, messages, this.org.getUsername(), this.flags.package);
+    Install.parseStatus(
+      pkgInstallRequest,
+      this.ux,
+      messages,
+      this.org.getUsername(),
+      this.flags.package as Optional<string>
+    );
 
     return pkgInstallRequest;
   }

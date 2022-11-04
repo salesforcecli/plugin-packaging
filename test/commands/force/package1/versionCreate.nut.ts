@@ -56,13 +56,13 @@ describe('package1:version:create', () => {
     await session?.clean();
   });
   // we need to the run the synchronous command first, to avoid duplicate package version create API requests in the NUTs
-  it(`should create a new 1gp package version for package id ${packageId} and wait`, function () {
+  it(`should create a new 1gp package version for package id ${packageId} and wait`, () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} -w 5 -u 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output.trim()).to.match(/Successfully uploaded package \[04t.{15}]/);
   });
 
-  it(`should create a new 1gp package version for package id ${packageId} and wait (json)`, function () {
+  it(`should create a new 1gp package version for package id ${packageId} and wait (json)`, () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -w 5 -u 1gp`;
     const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('SUCCESS');
@@ -73,7 +73,7 @@ describe('package1:version:create', () => {
     expect(output.MetadataPackageId.startsWith('033')).to.be.true;
   });
 
-  it(`should create a new 1gp package version for package id ${packageId} without waiting`, async function () {
+  it(`should create a new 1gp package version for package id ${packageId} without waiting`, async () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} -u 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(/PackageUploadRequest has been enqueued\./);
@@ -84,7 +84,7 @@ describe('package1:version:create', () => {
     await pollUntilComplete(uploadRequestId);
   });
 
-  it(`should create a new 1gp package version for package id ${packageId} (json)`, async function () {
+  it(`should create a new 1gp package version for package id ${packageId} (json)`, async () => {
     const command = `force:package1:beta:version:create -n 1gpPackageNUT -i ${packageId} --json -u 1gp`;
     const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput.result;
     expect(output.Status).to.equal('QUEUED');

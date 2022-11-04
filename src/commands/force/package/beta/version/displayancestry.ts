@@ -46,9 +46,9 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
       project: this.project,
       connection: this.hubOrg.getConnection(),
     });
-    const jsonProducer = await packageAncestry.getJsonProducer();
+    const jsonProducer = packageAncestry.getJsonProducer();
     if (this.flags.dotcode) {
-      const dotProducer = await packageAncestry.getDotProducer();
+      const dotProducer = packageAncestry.getDotProducer();
       const dotCodeResult: string = dotProducer.produce() as string;
       if (this.flags.json) {
         return dotCodeResult;
@@ -57,11 +57,11 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
       }
     } else {
       if (packageAncestry.requestedPackageId.startsWith('04t')) {
-        const paths = await packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
+        const paths = packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
         this.ux.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
         this.ux.log();
       }
-      const treeProducer = await packageAncestry.getTreeProducer(!!this.flags.verbose);
+      const treeProducer = packageAncestry.getTreeProducer(!!this.flags.verbose);
       if (!this.flags.json) {
         treeProducer.produce();
       }

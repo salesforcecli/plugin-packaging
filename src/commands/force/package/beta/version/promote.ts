@@ -48,7 +48,9 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       }
 
       // Prompt for confirmation
-      if (!(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package])))) {
+      if (
+        !(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package as string])))
+      ) {
         return;
       }
     }
@@ -59,7 +61,7 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       result = await packageVersion.promote();
       result.id = packageVersionData.SubscriberPackageVersionId;
     } catch (e) {
-      const err = SfError.wrap(e);
+      const err = SfError.wrap(e as Error);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
         err.message = messages.getMessage('previouslyReleasedMessage');
         err.actions = [messages.getMessage('previouslyReleasedAction')];

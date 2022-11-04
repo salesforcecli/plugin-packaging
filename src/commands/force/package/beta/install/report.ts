@@ -32,7 +32,10 @@ export class Report extends SfdxCommand {
 
   public async run(): Promise<PackageInstallRequest> {
     const connection = this.org.getConnection();
-    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(this.flags.requestid, connection);
+    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(
+      this.flags.requestid as string,
+      connection
+    );
     InstallCommand.parseStatus(pkgInstallRequest, this.ux, installMsgs, this.org.getUsername());
 
     return pkgInstallRequest;

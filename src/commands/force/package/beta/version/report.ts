@@ -49,7 +49,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       project: this.project,
       idOrAlias: this.flags.package as string,
     });
-    const results = await packageVersion.report(this.flags.verbose);
+    const results = await packageVersion.report(this.flags.verbose as boolean);
     const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults);
     return massagedResults;
@@ -157,12 +157,10 @@ export class PackageVersionReportCommand extends SfdxCommand {
         codeCovStr =
           'The code coverage details are too large to display. To request code coverage details for this package version, log a case in the Salesforce Partner Community.';
       } else {
-        displayCoverageRecords = coverageData.slice(0, maximumNumClasses).map((coverageDatum) => {
-          return {
-            key: coverageDatum.className,
-            value: `${coverageDatum.codeCoveragePercentage}%`,
-          };
-        });
+        displayCoverageRecords = coverageData.slice(0, maximumNumClasses).map((coverageDatum) => ({
+          key: coverageDatum.className,
+          value: `${coverageDatum.codeCoveragePercentage}%`,
+        }));
         this.haveCodeCoverageData = displayCoverageRecords.length > 0;
       }
     }
@@ -192,6 +190,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
     }
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private massageResultsForDisplay(results: PackageVersionReportResult): PackageVersionReportResultModified {
     const record = JSON.parse(JSON.stringify(results)) as PackageVersionReportResultModified;
     record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');

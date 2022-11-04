@@ -68,8 +68,8 @@ export class PackageListCommand extends SfdxCommand {
           IsOrgDependent,
           PackageErrorUsername,
           CreatedById,
-        }) => {
-          return {
+        }) =>
+          ({
             Id,
             SubscriberPackageId,
             Name,
@@ -81,8 +81,7 @@ export class PackageListCommand extends SfdxCommand {
             IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
             PackageErrorUsername,
             CreatedBy: CreatedById,
-          } as Package2Result;
-        }
+          } as Package2Result)
       );
     }
   }
