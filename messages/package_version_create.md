@@ -301,9 +301,9 @@ Can’t create package version. Check your sfdx-project.json file and set includ
 
 The directory [%s] doesn’t exist in the current directory.
 
-# unknownError
+# multipleErrors
 
-Package version creation failed with unknown error.
+Multiple errors occurred:
 
 # malformedUrl
 
