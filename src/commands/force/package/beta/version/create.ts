@@ -192,7 +192,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     this.ux.stopSpinner(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
     switch (result.Status) {
       case 'Error':
-        throw messages.createError('unknownError', [
+        throw messages.createError('multipleErrors', [
           result.Error.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
         ]);
       case 'Success':

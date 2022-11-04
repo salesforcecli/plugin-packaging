@@ -114,7 +114,7 @@ describe('force:package:version:report - tests', () => {
         assert.fail('the above should throw multiple errors');
       } catch (e) {
         expect((e as Error).message).to.equal(
-          `Package version creation failed with unknown error. ${os.EOL}(1) PropertyController: Invalid type: Schema.Property__c${os.EOL}(2) SampleDataController: Invalid type: Schema.Property__c${os.EOL}(3) SampleDataController: Invalid type: Schema.Broker__c`
+          `Multiple errors occurred: ${os.EOL}(1) PropertyController: Invalid type: Schema.Property__c${os.EOL}(2) SampleDataController: Invalid type: Schema.Property__c${os.EOL}(3) SampleDataController: Invalid type: Schema.Broker__c`
         );
       }
     });
