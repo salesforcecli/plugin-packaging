@@ -6,18 +6,17 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages, SfProject } from '@salesforce/core';
-import { CliUx } from '@oclif/core';
+import {flags, FlagsConfig, SfdxCommand} from '@salesforce/command';
+import {Messages, SfProject} from '@salesforce/core';
+import {CliUx} from '@oclif/core';
 import {
   getContainerOptions,
-  getPackageAliasesFromId,
   getPackageVersionStrings,
   INSTALL_URL_BASE,
   Package,
   PackageVersionListResult,
 } from '@salesforce/packaging';
-import { Optional } from '@salesforce/ts-types';
+import {Optional} from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
@@ -122,7 +121,7 @@ export class PackageVersionListCommand extends SfdxCommand {
         const ids = [record.Id, record.SubscriberPackageVersionId];
         const aliases = [];
         ids.forEach((id) => {
-          const matches = getPackageAliasesFromId(id, project);
+          const matches = project.getAliasesFromPackageId(id);
           if (matches.length > 0) {
             aliases.push(matches);
           }

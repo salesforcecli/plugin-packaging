@@ -6,9 +6,9 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
-import { getPackageAliasesFromId, Package, PackagingSObjects } from '@salesforce/packaging';
+import {flags, FlagsConfig, SfdxCommand} from '@salesforce/command';
+import {Messages} from '@salesforce/core';
+import {Package, PackagingSObjects} from '@salesforce/packaging';
 import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
@@ -77,7 +77,7 @@ export class PackageListCommand extends SfdxCommand {
             NamespacePrefix,
             ContainerOptions,
             ConvertedFromPackageId,
-            Alias: getPackageAliasesFromId(Id, this.project).join(),
+            Alias: this.project.getAliasesFromPackageId(Id).join(),
             IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
             PackageErrorUsername,
             CreatedBy: CreatedById,
