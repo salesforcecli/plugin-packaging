@@ -8,7 +8,7 @@
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
-import { PackageAncestryNodeData, PackageVersion } from '@salesforce/packaging';
+import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 
 // Import i18n messages
 Messages.importMessagesDirectory(__dirname);
@@ -41,7 +41,7 @@ export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
   };
 
   public async run(): Promise<PackageAncestryNodeData | string> {
-    const packageAncestry = await PackageVersion.getAncestry(
+    const packageAncestry = await Package.getAncestry(
       this.flags.package as string,
       this.project,
       this.hubOrg.getConnection()
