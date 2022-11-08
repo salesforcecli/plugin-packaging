@@ -6,9 +6,9 @@
  */
 
 import * as os from 'os';
-import {flags, FlagsConfig, SfdxCommand} from '@salesforce/command';
-import {Messages, SfProject} from '@salesforce/core';
-import {CliUx} from '@oclif/core';
+import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import { Messages, SfProject } from '@salesforce/core';
+import { CliUx } from '@oclif/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -16,7 +16,7 @@ import {
   Package,
   PackageVersionListResult,
 } from '@salesforce/packaging';
-import {Optional} from '@salesforce/ts-types';
+import { Optional } from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
@@ -179,10 +179,8 @@ export class PackageVersionListCommand extends SfdxCommand {
           // Table output needs string false to display 'false'
           IsPasswordProtected: this.flags.json ? record.IsPasswordProtected : record.IsPasswordProtected.toString(),
           IsReleased: this.flags.json ? record.IsReleased : record.IsReleased.toString(),
-          CreatedDate: record.CreatedDate, // (record.CreatedDate).format('YYYY-MM-DD HH:mm'),
-          LastModifiedDate: record.LastModifiedDate, // moment(record.LastModifiedDate).format('YYYY-MM-DD HH:mm'),
-          // CreatedDate: moment(record.CreatedDate).format('YYYY-MM-DD HH:mm'),
-          // LastModifiedDate: moment(record.LastModifiedDate).format('YYYY-MM-DD HH:mm'),
+          CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
+          LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
           InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
           CodeCoverage: codeCoverage,
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck,
