@@ -5,18 +5,18 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {execCmd, genUniqueString, TestSession} from '@salesforce/cli-plugins-testkit';
-import {ConfigAggregator, Org, SfProject} from '@salesforce/core';
-import {expect} from 'chai';
-import {Duration} from '@salesforce/kit';
+import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
+import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
+import { expect } from 'chai';
+import { Duration } from '@salesforce/kit';
 import {
   PackageAncestryNodeData,
   PackageSaveResult,
   PackageVersionCreateRequestResult,
   PackagingSObjects,
-  VersionNumber
+  VersionNumber,
 } from '@salesforce/packaging';
-import {PackageVersionListCommandResult} from '../../../../src/commands/force/package/beta/version/list';
+import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
 
 describe('package:version:*', () => {
   let session: TestSession;

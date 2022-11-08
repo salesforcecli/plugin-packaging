@@ -6,9 +6,9 @@
  */
 
 import * as os from 'os';
-import {flags, FlagsConfig, SfdxCommand} from '@salesforce/command';
-import {Messages} from '@salesforce/core';
-import {Package, PackagingSObjects} from '@salesforce/packaging';
+import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import { Messages } from '@salesforce/core';
+import { Package, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 
 Messages.importMessagesDirectory(__dirname);
