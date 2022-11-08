@@ -8,8 +8,8 @@
 import * as os from 'os';
 import { Messages } from '@salesforce/core';
 import { SfdxCommand } from '@salesforce/command';
-import { packageInstalledList } from '@salesforce/packaging';
 import { CliUx } from '@oclif/core';
+import { SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_installed_list');
@@ -31,7 +31,7 @@ export class PackageInstalledListCommand extends SfdxCommand {
   public static readonly requiresProject = true;
 
   public async run(): Promise<PackageInstalledListResult[]> {
-    const result = await packageInstalledList(this.org.getConnection());
+    const result = await SubscriberPackageVersion.installedList(this.org.getConnection());
 
     const records = result.map((record) => ({
       Id: record.Id,

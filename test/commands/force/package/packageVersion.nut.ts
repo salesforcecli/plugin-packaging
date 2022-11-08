@@ -8,6 +8,7 @@
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
+import { Duration } from '@salesforce/kit';
 import {
   PackageAncestryNodeData,
   PackageSaveResult,
@@ -15,7 +16,6 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import { Duration } from '@salesforce/kit';
 import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
 
 describe('package:version:*', () => {
