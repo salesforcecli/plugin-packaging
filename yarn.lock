@@ -1143,10 +1143,10 @@
     shx "^0.3.3"
     tslib "^2.2.0"
 
-"@salesforce/packaging@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-1.0.1.tgz#14b73d9078064ac2ff07b9f319fac034c3f8fdfd"
-  integrity sha512-KJWGapdEddiUq73/15RQaefzjxi6njYWRcFxM7Dr1ANGdK5nigRkaB3SJzaT1xhOscmZhuob4Gq7y267EIINrg==
+"@salesforce/packaging@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-1.0.2.tgz#5fe5e2df9ff2f7a2b07f08882330cf74682dc1b4"
+  integrity sha512-XZBhDd2ugT92eFRug+LiDEAS6qh5wyhxOmvvXqdZjpfrNooYl+D8t02h42lAowDwyDmgtiU0DXongOkLPGHvbQ==
   dependencies:
     "@oclif/core" "^1.19.1"
     "@salesforce/core" "^3.31.16"
