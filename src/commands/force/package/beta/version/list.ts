@@ -11,7 +11,6 @@ import { Messages, SfProject } from '@salesforce/core';
 import { CliUx } from '@oclif/core';
 import {
   getContainerOptions,
-  getPackageAliasesFromId,
   getPackageVersionStrings,
   INSTALL_URL_BASE,
   Package,
@@ -122,7 +121,7 @@ export class PackageVersionListCommand extends SfdxCommand {
         const ids = [record.Id, record.SubscriberPackageVersionId];
         const aliases = [];
         ids.forEach((id) => {
-          const matches = getPackageAliasesFromId(id, project);
+          const matches = project.getAliasesFromPackageId(id);
           if (matches.length > 0) {
             aliases.push(matches);
           }
@@ -180,10 +179,8 @@ export class PackageVersionListCommand extends SfdxCommand {
           // Table output needs string false to display 'false'
           IsPasswordProtected: this.flags.json ? record.IsPasswordProtected : record.IsPasswordProtected.toString(),
           IsReleased: this.flags.json ? record.IsReleased : record.IsReleased.toString(),
-          CreatedDate: record.CreatedDate, // (record.CreatedDate).format('YYYY-MM-DD HH:mm'),
-          LastModifiedDate: record.LastModifiedDate, // moment(record.LastModifiedDate).format('YYYY-MM-DD HH:mm'),
-          // CreatedDate: moment(record.CreatedDate).format('YYYY-MM-DD HH:mm'),
-          // LastModifiedDate: moment(record.LastModifiedDate).format('YYYY-MM-DD HH:mm'),
+          CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
+          LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
           InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
           CodeCoverage: codeCoverage,
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck,

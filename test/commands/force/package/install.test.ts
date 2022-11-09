@@ -245,6 +245,9 @@ describe('force:package:install', () => {
       }
     });
 
+    // TODO: It seems that while linking @salesforce/packaging into the plugin
+    // we cannot stub the library calls of `SfProject.getInstance` e.g. "SfProject, 'getInstance'"
+    // once the library has been published, the stubs resume to work and this test will pass
     it('should print SUCCESS status correctly for package alias', async () => {
       // Stubs SfProject.getInstance, SfProject.getSfProjectJson, and SfProjectJson.getContents
       // in a way that makes TS happy... all to test package aliases.
