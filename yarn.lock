@@ -1181,10 +1181,10 @@
     open "^8.2.1"
     tslib "^2"
 
-"@salesforce/plugin-command-reference@^1.3.20":
-  version "1.4.7"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-1.4.7.tgz#727f2c0e250aa7db188f6a00d99d93b3a910abab"
-  integrity sha512-LekKhtgrlbN/1kjJXHX9iYBjTr3wbHRK3EjDiQjydBp75FzpG54eYdwHpmnRpT+Z1xMhl2iCft0Rgb4oxcb0UQ==
+"@salesforce/plugin-command-reference@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-1.5.1.tgz#980f9472493ed9b5787d0e89ec7975d3bb30299e"
+  integrity sha512-ym3DNQ7RQHNIXu/0MYn4Yn8jy6QtlJTDMSob8YUkf33LUvIl7xZn8CfHyu3zVMLW4nnLWK7zcltV3q7IvOtiPw==
   dependencies:
     "@salesforce/command" "^5.2.15"
     "@salesforce/core" "^3.31.10"
