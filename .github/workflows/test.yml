@@ -4,6 +4,9 @@ on:
     branches-ignore: [main]
   workflow_dispatch:
 
+env:
+  ONEGP_TESTKIT_AUTH_URL: ${{secrets.ONEGP_TESTKIT_AUTH_URL}}
+
 jobs:
   yarn-lockfile-check:
     uses: salesforcecli/github-workflows/.github/workflows/lockFileCheck.yml@main
