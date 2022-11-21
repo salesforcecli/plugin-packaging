@@ -140,7 +140,7 @@ export class PackageVersionListCommand extends SfdxCommand {
 
         const codeCoverage =
           record.CodeCoverage != null
-            ? `${record.CodeCoverage.ApexCodeCoveragePercentage}%`
+            ? `${record.CodeCoverage.apexCodeCoveragePercentage}%`
             : record.Package2.IsOrgDependent || record.ValidationSkipped
             ? 'N/A'
             : '';
