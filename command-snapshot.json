@@ -43,8 +43,8 @@
     "flags": [
       "apiversion",
       "buildinstance",
-      "installationkey",
       "definitionfile",
+      "installationkey",
       "installationkeybypass",
       "json",
       "loglevel",
