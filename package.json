@@ -17,7 +17,7 @@
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^3.2.11",
     "@oclif/plugin-version": "^1.1.2",
-    "@salesforce/cli-plugins-testkit": "^3.2.2",
+    "@salesforce/cli-plugins-testkit": "^3.2.9",
     "@salesforce/dev-config": "^3.1.0",
     "@salesforce/dev-scripts": "^3.1.0",
     "@salesforce/plugin-auth": "^2.2.21",
