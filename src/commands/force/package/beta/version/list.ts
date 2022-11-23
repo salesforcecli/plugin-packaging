@@ -37,7 +37,7 @@ export type PackageVersionListCommandResult = Omit<
   IsPasswordProtected: string | boolean;
   IsReleased: string | boolean;
   HasPassedCodeCoverageCheck: string | boolean;
-  BuildDurationInSeconds: string;
+  BuildDurationInSeconds: string | number;
   CodeCoverage: string;
   NamespacePrefix: string;
   Package2Name: string;
@@ -139,8 +139,8 @@ export class PackageVersionListCommand extends SfdxCommand {
         }
 
         const codeCoverage =
-          record.CodeCoverage != null
-            ? `${record.CodeCoverage.apexCodeCoveragePercentage}%`
+          record.CodeCoverage?.apexCodeCoveragePercentage != null
+            ? `${record.CodeCoverage.apexCodeCoveragePercentage as string}%`
             : record.Package2.IsOrgDependent || record.ValidationSkipped
             ? 'N/A'
             : '';
@@ -190,7 +190,7 @@ export class PackageVersionListCommand extends SfdxCommand {
           Alias: AliasStr,
           IsOrgDependent: isOrgDependent,
           ReleaseVersion: record.ReleaseVersion == null ? '' : Number.parseFloat(record.ReleaseVersion).toFixed(1),
-          BuildDurationInSeconds: record.BuildDurationInSeconds == null ? '' : record.BuildDurationInSeconds.toString(),
+          BuildDurationInSeconds: record.BuildDurationInSeconds == null ? '' : record.BuildDurationInSeconds,
           HasMetadataRemoved: hasMetadataRemoved,
           CreatedBy: record.CreatedById,
         });
