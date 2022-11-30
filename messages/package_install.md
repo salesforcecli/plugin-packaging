@@ -13,14 +13,6 @@ $ sfdx force:package:beta:install --package awesome_package_alias
 $ sfdx force:package:beta:install --package "Awesome Package Alias"
 $ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
 
-# id
-
-ID of the package version to install (starts with 04t)
-
-# idLong
-
-The ID of the package version to install (starts with 04t).
-
 # wait
 
 number of minutes to wait for installation status
@@ -45,14 +37,6 @@ do not prompt for confirmation
 
 Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.
 
-# promptRss
-
-This package might send or receive data from these third-party websites:
-
-%s
-
-Grant access (y/n)?
-
 # promptUpgradeType
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
@@ -74,14 +58,6 @@ Maximum number of minutes to wait for the Subscriber Package Version ID to becom
 # packageInstallSuccess
 
 Successfully installed package [%s]
-
-# publishWaitProgress
-
-Waiting for the Subscriber Package Version ID to be published to the target org.%s
-
-# errorApvIdNotPublished
-
-The package version is not fully available. If this is a recently created package version, try again in a few minutes or contact the package publisher.
 
 # package
 
@@ -116,22 +92,6 @@ compile all Apex in the org and package, or only Apex in the package; unlocked p
 Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
 This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apexcompile package is specified.
-
-# projectNotFound
-
-Could not find the sfdx-project.json for subscriber package version: [%s]
-
-# projectNotFound.actions
-
-Are you running the command from within the project directory when using an alias?
-
-# packageAliasNotFound
-
-The subscriber package version alias: [%s] isn't defined in the sfdx-project.json.
-
-# packageAliasNotFound.actions
-
-Add it to the packageDirectories section and add the alias to packageAliases with its 04t ID.
 
 # promptEnableRss
 
@@ -175,10 +135,6 @@ Waiting %s minutes for package install to complete.
 # packagePublishWaitingStatus
 
 %d minutes remaining until timeout. Publish status: %s
-
-# errorInvalidPackageId
-
-Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.
 
 # availableForInstallation
 

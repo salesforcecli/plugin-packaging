@@ -8,6 +8,7 @@
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
 import { expect } from 'chai';
+import { Duration } from '@salesforce/kit';
 import {
   PackageAncestryNodeData,
   PackageSaveResult,
@@ -15,7 +16,6 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import { Duration } from '@salesforce/kit';
 import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
 
 describe('package:version:*', () => {
@@ -389,9 +389,9 @@ describe('package:version:*', () => {
         ancestryPkgName = pvRecords[0].Package2.Name;
       }
       pvRecords = pvRecords.filter((pv) => pv.Package2.Name === ancestryPkgName);
-      versions = pvRecords.map((pv) => {
-        return new VersionNumber(pv.MajorVersion, pv.MinorVersion, pv.PatchVersion, pv.BuildNumber);
-      });
+      versions = pvRecords.map(
+        (pv) => new VersionNumber(pv.MajorVersion, pv.MinorVersion, pv.PatchVersion, pv.BuildNumber)
+      );
       sortedVersions = [...versions].sort((a, b) => a.compareTo(b));
       project = await SfProject.resolve();
       const pjson = project.getSfProjectJson();

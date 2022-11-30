@@ -49,7 +49,7 @@ export class PackageUninstallCommand extends SfdxCommand {
       password: undefined,
     });
 
-    const result = await packageVersion.uninstall(this.flags.wait);
+    const result = await packageVersion.uninstall(Duration.seconds(30), this.flags.wait as Duration);
 
     const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
     this.ux.log(messages.getMessage(result.Status, arg));

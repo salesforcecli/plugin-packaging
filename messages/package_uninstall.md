@@ -14,14 +14,6 @@ $ sfdx force:package:beta:uninstall -p 04t... -u me@example.com
 $ sfdx force:package:beta:uninstall -p undesirable_package_alias
 $ sfdx force:package:beta:uninstall -p "Undesirable Package Alias"
 
-# id
-
-ID of the package to uninstall (starts with 04t)
-
-# idLong
-
-The ID of the second-generation package to uninstall (starts with 04t).
-
 # wait
 
 number of minutes to wait for uninstall status
@@ -29,18 +21,6 @@ number of minutes to wait for uninstall status
 # waitLong
 
 Maximum number of minutes to wait for uninstall status. The default is 0.
-
-# defaultErrorMessage
-
-Can't uninstall the package %s during uninstall request %s.
-
-# humanSuccess
-
-Successfully uninstalled package ID %s.
-
-# action
-
-Verify installed package ID and resolve errors, then try again.
 
 # package
 
@@ -50,10 +30,6 @@ ID (starts with 04t) or alias of the package version to uninstall
 
 The ID (starts with 04t) or alias of the package version to uninstall.
 
-# errorRequiredFlags
-
-Include either a %s value or a %s value.
-
 # InProgress
 
 PackageUninstallRequest is currently InProgress.
@@ -62,7 +38,3 @@ You can continue to query the status using sfdx force:package:beta:uninstall:rep
 # Success
 
 Successfully uninstalled package [%s]
-
-# errorInvalidPackageId
-
-Invalid alias or ID: %s. Either your alias is invalid or undefined, or the ID provided is invalid.

@@ -42,6 +42,14 @@ bypass the installation key requirement (either --installationkey or --installat
 
 Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.
 
+# definitionfile
+
+path to a definition file that contains features and org preferences that the metadata of the package version depends on.
+
+# longDefinitionfile
+
+The path to a definition file, similar to the scratch org definition file, that contains the list of features and org preferences that the metadata of the package version depends on.
+
 # wait
 
 minutes to wait for the package version to be created
@@ -57,11 +65,3 @@ the instance where the conversion package version will be created——for examp
 # longInstance
 
 The instance where the conversion package version will be created——for example, NA50.
-
-# errorMoreThanOnePackage2WithSeed
-
-Only one package in in a Dev Hub is allowed per converted from first-generation package, but the following were found:
-
-# errorNoSubscriberPackageRecord
-
-No subscriber package was found for seed id:

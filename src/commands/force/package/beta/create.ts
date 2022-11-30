@@ -12,7 +12,6 @@ import { Package, PackageCreateOptions, PackageType } from '@salesforce/packagin
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
-const packageVersionCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export class PackageCreateCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -45,8 +44,8 @@ export class PackageCreateCommand extends SfdxCommand {
     }),
     path: flags.directory({
       char: 'r',
-      description: packageVersionCreate.getMessage('path'),
-      longDescription: packageVersionCreate.getMessage('longPath'),
+      description: messages.getMessage('path'),
+      longDescription: messages.getMessage('longPath'),
       required: true,
     }),
     orgdependent: flags.boolean({

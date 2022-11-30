@@ -1,11 +1,3 @@
-# package1CliDescription
-
-develop first-generation managed and unmanaged packages
-
-# package1CliDescriptionLong
-
-Use the package1 commands to create and view first-generation package versions in your Dev Hub org.
-
 # cliDescription
 
 create a first-generation package version in the release org
@@ -83,29 +75,9 @@ minutes to wait for the package version to be created (default: 2 minutes)
 
 Minutes to wait for the package version to be created. The default is 2 minutes.
 
-# notANumber
-
-Field %s must contain only a numeric value: %s.
-
-# invalidVersion
-
-Version supplied, %s, is not formatted correctly. Enter in major.minor format, for example, 3.2.
-
-# timeout
-
-Stopped waiting for package upload to finish. Wait time exceeded. waitTimeInMinutes = %s.
-
 # uploadFailure
 
 Package upload failed. ${os.EOL}%s
-
-# uploadFailureDefault
-
-Package version creation failed with unknown error
-
-# package1VersionCreateHumanSuccess
-
-Successfully created package version: %s for package %s.
 
 # package1VersionCreateCommandInvalidVersion
 

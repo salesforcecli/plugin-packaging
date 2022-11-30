@@ -26,14 +26,14 @@ describe('force:package:version:report - tests', () => {
     AncestorId: 'N/A',
     AncestorVersion: 'N/A',
     Branch: '',
-    BuildDurationInSeconds: 0,
+    BuildDurationInSeconds: 10,
     BuildNumber: 0,
     CodeCoverage: 'N/A',
     CodeCoveragePercentages: {
       codeCovPercentages: [
         {
           className: '',
-          codeCoveragePercentage: 0,
+          codeCoveragePercentage: 42,
         },
       ],
     },
@@ -71,14 +71,14 @@ describe('force:package:version:report - tests', () => {
     AncestorId: 'N/A',
     AncestorVersion: 'N/A',
     Branch: '',
-    BuildDurationInSeconds: 0,
+    BuildDurationInSeconds: 10,
     BuildNumber: 0,
     CodeCoverage: null,
     CodeCoveragePercentages: {
       codeCovPercentages: [
         {
           className: '',
-          codeCoveragePercentage: 0,
+          codeCoveragePercentage: 42,
         },
       ],
     },

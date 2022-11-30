@@ -2,10 +2,6 @@
 
 display details about a first-generation package version
 
-# help
-
-Display detailed information about an individual package version, including metadata package ID, name, the release state, and build number.
-
 # packageId
 
 metadata package version ID (starts with 04t)

@@ -31,7 +31,7 @@ export class Package1VersionDisplayCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Package1Display[]> {
-    const pv1 = new Package1Version(this.org.getConnection(), this.flags.packageversionid);
+    const pv1 = new Package1Version(this.org.getConnection(), this.flags.packageversionid as string);
     const results = (await pv1.getPackageVersion()).map((result) => ({
       MetadataPackageVersionId: result.Id,
       MetadataPackageId: result.MetadataPackageId,

@@ -9,7 +9,7 @@ import * as os from 'os';
 import * as path from 'path';
 import * as fs from 'fs';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Duration, camelCaseToTitleCase } from '@salesforce/kit';
+import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
@@ -25,7 +25,8 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export class PackageVersionCreateCommand extends SfdxCommand {
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('cliDescription');
+  public static readonly description = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;
   public static readonly requiresProject = true;
@@ -196,7 +197,9 @@ export class PackageVersionCreateCommand extends SfdxCommand {
     this.ux.stopSpinner(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
     switch (result.Status) {
       case 'Error':
-        throw messages.createError('unknownError', [result.Error.join('\n')]);
+        throw messages.createError('multipleErrors', [
+          result.Error.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
+        ]);
       case 'Success':
         this.ux.log(
           messages.getMessage(result.Status, [
