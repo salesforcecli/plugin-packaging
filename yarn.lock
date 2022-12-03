@@ -737,7 +737,7 @@
     is-wsl "^2.1.1"
     tslib "^2.3.1"
 
-"@oclif/core@^1.14.1", "@oclif/core@^1.19.1", "@oclif/core@^1.20.0", "@oclif/core@^1.20.2", "@oclif/core@^1.20.3", "@oclif/core@^1.20.4":
+"@oclif/core@^1.14.1", "@oclif/core@^1.19.1", "@oclif/core@^1.20.0", "@oclif/core@^1.20.3", "@oclif/core@^1.20.4":
   version "1.20.4"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.20.4.tgz#7378b52e1f1b502e383ffb07f95dffc9fd8588ff"
   integrity sha512-giug32M4YhSYNYKQwE1L57/+k5gp1+Bq3/0vKNQmzAY1tizFGhvBJc6GIRZasHjU+xtZLutQvrVrJo7chX3hxg==
@@ -919,13 +919,13 @@
   resolved "https://registry.yarnpkg.com/@oclif/screen/-/screen-3.0.3.tgz#e679ad10535e31d333f809f7a71335cc9aef1e55"
   integrity sha512-KX8gMYA9ujBPOd1HFsV9e0iEx7Uoj8AG/3YsW4TtWQTg4lJvr82qNm7o/cFQfYRIt+jw7Ew/4oL4A22zOT+IRA==
 
-"@oclif/test@^2.2.4":
-  version "2.2.6"
-  resolved "https://registry.yarnpkg.com/@oclif/test/-/test-2.2.6.tgz#2c98bb1ecab3ddf6b01b51f8a3489c9105353d67"
-  integrity sha512-rf67rTBkEeulpomdeBYm0D+Q0e1uMqTPUNPhY2/G6guAJhmu3M+78HvSKpLdG7WqpbfQJ68D5Dh5HnauO+MY2g==
+"@oclif/test@^2.2.12":
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/@oclif/test/-/test-2.2.12.tgz#bb97a8c678b349e0e323013be67d68f619e6aaf2"
+  integrity sha512-6s1XwvBTXHdVjVZY/qDgMl74NVvoy8MQoknqT/YfR9K3P/6fPW4xeZqemtvrvU4heM5kzSShta5sk0I28MXHMg==
   dependencies:
-    "@oclif/core" "^1.19.1"
-    fancy-test "^2.0.5"
+    "@oclif/core" "^1.20.4"
+    fancy-test "^2.0.7"
 
 "@octokit/auth-token@^2.4.4":
   version "2.5.0"
@@ -1055,19 +1055,19 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.7.0"
 
-"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.15", "@salesforce/command@^5.2.17", "@salesforce/command@^5.2.18":
-  version "5.2.20"
-  resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.20.tgz#27b5f7837af3f8e4e263fb2d2ddd68cdee7ed9ee"
-  integrity sha512-AXusWyYc1IZeQtmOHO2Can7/Up+GxLmDrp13VMq+mQDDm+phZ1CkNMoBCFW9Y81vFb3nyu3xz+LekFIhJ/75AA==
+"@salesforce/command@^5.1.0", "@salesforce/command@^5.2.15", "@salesforce/command@^5.2.17", "@salesforce/command@^5.2.27":
+  version "5.2.27"
+  resolved "https://registry.yarnpkg.com/@salesforce/command/-/command-5.2.27.tgz#6440102fb5213a456a3722b8f8ad6bc4ce890efa"
+  integrity sha512-Mjp+8YfKRcQEf2DpBa1AXuyNkW9eUwiwd37eNdxR/tyksc71EiJ1Ex3hWcN4rHHLecjoAIyjhm4juCn/vXw+Bg==
   dependencies:
-    "@oclif/core" "^1.20.2"
-    "@oclif/test" "^2.2.4"
-    "@salesforce/core" "^3.31.17"
-    "@salesforce/kit" "^1.7.1"
-    "@salesforce/ts-types" "^1.5.21"
+    "@oclif/core" "^1.20.4"
+    "@oclif/test" "^2.2.12"
+    "@salesforce/core" "^3.32.1"
+    "@salesforce/kit" "^1.8.0"
+    "@salesforce/ts-types" "^1.7.1"
     chalk "^2.4.2"
 
-"@salesforce/core@^3.15.5", "@salesforce/core@^3.31.10", "@salesforce/core@^3.31.17", "@salesforce/core@^3.31.19", "@salesforce/core@^3.31.9", "@salesforce/core@^3.32.1":
+"@salesforce/core@^3.15.5", "@salesforce/core@^3.31.10", "@salesforce/core@^3.31.19", "@salesforce/core@^3.31.9", "@salesforce/core@^3.32.1":
   version "3.32.1"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.32.1.tgz#1a338a1985c58c1be819f99c6b33b24b32817cbe"
   integrity sha512-hVcweKGy1CS3t0duS+0jxGVou5ZoQMXRZPQmcz1FyW31Oef5U07rhs3wTrwJqhCPHL817R/gm5V9wSRNcYdDtA==
@@ -1134,7 +1134,7 @@
     typedoc-plugin-missing-exports "0.23.0"
     typescript "^4.1.3"
 
-"@salesforce/kit@^1.7.0", "@salesforce/kit@^1.7.1", "@salesforce/kit@^1.8.0":
+"@salesforce/kit@^1.7.0", "@salesforce/kit@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.8.0.tgz#d5b8d83d5b0b866cb76840dc7a18e115589d86a0"
   integrity sha512-Pr9CWAIzVYKZRWvM76lyhEtF3CPmVdIfgbqRD7KT/YZdbLstX3KHYBxCyx3TyWZr5qROv96n+jRIBiIFI9LGGw==
@@ -1167,14 +1167,14 @@
     ts-retry-promise "^0.7.0"
     xml2js "^0.4.23"
 
-"@salesforce/plugin-auth@^2.2.21":
-  version "2.2.21"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.2.21.tgz#5eba37d3b135900cbc7e834e5a5398272da43c90"
-  integrity sha512-di4KAlEE8bNunRtAAGbQQRU4WM6FSap0n70IquGdO6W6XIfaTlZoQRuBbDeU/2xuPUizMXDXqsVgh2N07Lh8Bw==
+"@salesforce/plugin-auth@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.3.0.tgz#7fae12178fc448755963f9161b5371dbdb235a5b"
+  integrity sha512-Rg3ooRDE4woRsLkHWe5snRnuG8a1ZPNpLRt6VeavklEf6/ul63OiwZ+fsVF7ziAEdCMOLNxrzKKmasIVSyJcqg==
   dependencies:
-    "@oclif/core" "^1.20.2"
-    "@salesforce/command" "^5.2.18"
-    "@salesforce/core" "^3.31.10"
+    "@oclif/core" "^1.20.4"
+    "@salesforce/command" "^5.2.27"
+    "@salesforce/core" "^3.32.1"
     "@salesforce/kit" "^1.7.0"
     chalk "^4.1.2"
     fs-extra "^10.0.1"
@@ -3610,10 +3610,10 @@ extract-stack@^2.0.0:
   resolved "https://registry.yarnpkg.com/extract-stack/-/extract-stack-2.0.0.tgz#11367bc865bfcd9bc0db3123e5edb57786f11f9b"
   integrity sha512-AEo4zm+TenK7zQorGK1f9mJ8L14hnTDi2ZQPR+Mub1NX8zimka1mXpV5LpH8x9HoUmFSHZCfLHqWvp0Y4FxxzQ==
 
-fancy-test@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/fancy-test/-/fancy-test-2.0.5.tgz#eb39e10b77e476147aa4ed5a81e14e809b46aaae"
-  integrity sha512-ASPLNVkHSSIdRI/uLlK+XGhf1ul/MpRN9VE84ehXL+FOprQjXrDXX3wW1wqKvtcTTC+AW0E0RxdpJ5IEopjhQA==
+fancy-test@^2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/fancy-test/-/fancy-test-2.0.7.tgz#a5e8e23113384c5550914da4f429d10822622521"
+  integrity sha512-E9qiHMi/Wf3y0PLwoRbgr8SRTcvQY+6gx9d/qaVNT6N5AQ79iZr08ftY2Ki5KRC5LS02GoVD/CYT4t/KwwC/Pw==
   dependencies:
     "@types/chai" "*"
     "@types/lodash" "*"
