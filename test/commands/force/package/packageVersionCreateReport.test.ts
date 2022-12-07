@@ -4,6 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import * as os from 'os';
 import { Org, SfProject } from '@salesforce/core';
 import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
@@ -165,7 +166,7 @@ describe('force:package:version:create:report - tests', () => {
         '(11) SampleDataController: Invalid type: Schema.Property__c\n(12) SampleDataController: Invalid type: Schema.Broker__c'
       );
       expect(logStub.thirdCall.args[0]).to.deep.equal(
-        '...\n\nTo see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id=\'08c3i000000fyoVAAQ\'" -u test@hub.org'
+        `...${os.EOL}${os.EOL}To see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -u test@hub.org`
       );
     });
   });
