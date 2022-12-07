@@ -31,13 +31,13 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
     }),
   };
 
-  public async run(): Promise<PackageVersionCreateRequestResult> {
+  public async run(): Promise<PackageVersionCreateRequestResult[]> {
     const result = await PackageVersion.getCreateStatus(
       this.flags.packagecreaterequestid as string,
       this.hubOrg.getConnection()
     );
     this.display(result);
-    return result;
+    return [result];
   }
 
   private display(record: PackageVersionCreateRequestResult): void {
@@ -89,5 +89,15 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
       key: { header: 'Name' },
       value: { header: 'Value' },
     });
+
+    if (record.Error?.length > 0) {
+      this.ux.log('');
+      const errors = [];
+      record.Error.forEach((error: string) => {
+        errors.push(`(${errors.length + 1}) ${error}`);
+      });
+      this.ux.styledHeader(chalk.red('Errors'));
+      this.ux.log(errors.join('\n'));
+    }
   }
 }
