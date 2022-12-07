@@ -34,6 +34,17 @@ describe('force:package:version:create:report - tests', () => {
       'PropertyController: Invalid type: Schema.Property__c',
       'SampleDataController: Invalid type: Schema.Property__c',
       'SampleDataController: Invalid type: Schema.Broker__c',
+      'PropertyController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Broker__c',
+      'PropertyController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Broker__c',
+      'PropertyController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Property__c',
+      'SampleDataController: Invalid type: Schema.Broker__c',
+      'SampleDataController: Invalid type: Schema.Broker__c',
+      'SampleDataController: Invalid type: Schema.Broker__c',
     ],
     CreatedDate: '2022-11-03 09:21',
     HasMetadataRemoved: null,
@@ -117,14 +128,26 @@ describe('force:package:version:create:report - tests', () => {
 
       const result = await runCmd(['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org']);
 
-      expect(logStub.callCount).to.equal(2);
+      expect(logStub.callCount).to.equal(3);
       expect(result[0]).to.deep.equal({
         Branch: null,
         CreatedBy: '0053i000001ZIyXXXX',
         CreatedDate: '2022-11-03 09:21',
+        // requires 12+ errors for error truncation message
         Error: [
           'PropertyController: Invalid type: Schema.Property__c',
           'SampleDataController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Broker__c',
+          'PropertyController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Broker__c',
+          'PropertyController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Broker__c',
+          'PropertyController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Property__c',
+          'SampleDataController: Invalid type: Schema.Broker__c',
+          'SampleDataController: Invalid type: Schema.Broker__c',
           'SampleDataController: Invalid type: Schema.Broker__c',
         ],
         HasMetadataRemoved: null,
@@ -135,8 +158,14 @@ describe('force:package:version:create:report - tests', () => {
         SubscriberPackageVersionId: null,
         Tag: null,
       });
-      expect(logStub.secondCall.args[0]).to.equal(
+      expect(logStub.secondCall.args[0]).to.include(
         '(1) PropertyController: Invalid type: Schema.Property__c\n(2) SampleDataController: Invalid type: Schema.Property__c\n(3) SampleDataController: Invalid type: Schema.Broker__c'
+      );
+      expect(logStub.secondCall.args[0]).to.include(
+        '(11) SampleDataController: Invalid type: Schema.Property__c\n(12) SampleDataController: Invalid type: Schema.Broker__c'
+      );
+      expect(logStub.thirdCall.args[0]).to.deep.equal(
+        '...\n\nTo see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id=\'08c3i000000fyoVAAQ\'" -u test@hub.org'
       );
     });
   });

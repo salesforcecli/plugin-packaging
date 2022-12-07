@@ -18,6 +18,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const pvclMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
 
+const ERROR_LIMIT = 12;
 export class PackageVersionCreateReportCommand extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -93,11 +94,22 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
     if (record.Error?.length > 0) {
       this.ux.log('');
       const errors = [];
-      record.Error.forEach((error: string) => {
+      record.Error.slice(0, ERROR_LIMIT).forEach((error: string) => {
         errors.push(`(${errors.length + 1}) ${error}`);
       });
       this.ux.styledHeader(chalk.red('Errors'));
       this.ux.log(errors.join('\n'));
+
+      // Check if errors were truncated.  If so, inform the user with
+      // instructions on how to retrieve the remaining errors.
+      if (record.Error.length > ERROR_LIMIT) {
+        this.ux.log(
+          messages.getMessage('truncatedErrors', [
+            this.flags.packagecreaterequestid as string,
+            this.hubOrg.getUsername(),
+          ])
+        );
+      }
     }
   }
 }
