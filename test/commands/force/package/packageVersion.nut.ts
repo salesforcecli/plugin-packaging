@@ -102,12 +102,12 @@ describe('package:version:*', () => {
 
   describe('package:version:create:report', () => {
     it('reports on status (json)', () => {
-      const result = execCmd<PackageVersionCreateRequestResult>(
+      const result = execCmd<PackageVersionCreateRequestResult[]>(
         `force:package:beta:version:create:report -i ${packageVersionId} --json`,
         {
           ensureExitCode: 0,
         }
-      ).jsonOutput.result;
+      ).jsonOutput.result[0];
       expect(result.Id).to.match(/08c.{15}/);
       expect(result.Package2Id).to.match(/0Ho.{15}/);
       expect(result.Branch).to.equal('branch');
@@ -126,7 +126,7 @@ describe('package:version:*', () => {
     });
 
     it('reports on status (human)', () => {
-      const resultHuman = execCmd<PackageVersionCreateRequestResult>(
+      const resultHuman = execCmd<PackageVersionCreateRequestResult[]>(
         `force:package:beta:version:create:report -i ${packageVersionId}`,
         {
           ensureExitCode: 0,

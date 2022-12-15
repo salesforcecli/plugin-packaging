@@ -14,7 +14,7 @@ import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } 
 import { PackageVersionCreateCommand } from '../../../../src/commands/force/package/beta/version/create';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-describe('force:package:version:report - tests', () => {
+describe('force:package:version:create - tests', () => {
   const $$ = new TestContext();
   let createStub = $$.SANDBOX.stub(PackageVersion, 'create');
   let uxLogStub: sinon.SinonStub;

@@ -18,3 +18,9 @@ package version creation request ID (starts with 08c)
 # requestIdLong
 
 The ID (starts with 08c) of the package version creation request you want to display.
+
+# truncatedErrors
+
+...
+
+To see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='%s'" -u %s
