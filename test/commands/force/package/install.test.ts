@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { EOL } from 'os';
-import { Connection, Lifecycle, Org, SfProject, SfProjectJson } from '@salesforce/core';
+import { Connection, Lifecycle, Org, SfError, SfProject, SfProjectJson } from '@salesforce/core';
 import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
@@ -23,6 +23,7 @@ describe('force:package:install', () => {
   const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
   let uxLogStub: sinon.SinonStub;
   let uxSetSpinnerStatusStub: sinon.SinonStub;
+  let uxStopSpinnerStub: sinon.SinonStub;
   let uxConfirmStub: sinon.SinonStub;
   let apiVersionStub: sinon.SinonStub;
   let queryStub: sinon.SinonStub;
@@ -100,7 +101,10 @@ describe('force:package:install', () => {
       this.result = new Result(this.statics.result);
       await this.init();
       uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
+      stubMethod($$.SANDBOX, this.ux, 'logJson');
       uxSetSpinnerStatusStub = stubMethod($$.SANDBOX, this.ux, 'setSpinnerStatus');
+      stubMethod($$.SANDBOX, this.ux, 'startSpinner');
+      uxStopSpinnerStub = stubMethod($$.SANDBOX, this.ux, 'stopSpinner');
       uxConfirmStub = stubMethod($$.SANDBOX, this.ux, 'confirm');
       if (confirm) {
         uxConfirmStub.resolves(confirm);
@@ -183,6 +187,30 @@ describe('force:package:install', () => {
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
+      expect(result).to.deep.equal(pkgInstallRequest);
+      expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
+    });
+
+    it('should print IN_PROGRESS status when timed out', async () => {
+      const error = new SfError('polling timed out', 'PackageInstallTimeout');
+      error.setData(pkgInstallRequest);
+      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
+      queryStub = stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      const result = await runCmd(['-p', myPackageVersion04t]);
+      expect(uxLogStub.calledOnce).to.be.true;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
+      expect(uxLogStub.args[0][0]).to.equal(msg);
+      expect(result).to.deep.equal(pkgInstallRequest);
+      expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
+      expect(uxStopSpinnerStub.args[0][0]).to.equal('Polling timeout exceeded');
+    });
+
+    it('should return PackageInstallRequest when polling timed out with --json', async () => {
+      const error = new SfError('polling timed out', 'PackageInstallTimeout');
+      error.setData(pkgInstallRequest);
+      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
+      queryStub = stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      const result = await runCmd(['-p', myPackageVersion04t, '--json']);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
     });
