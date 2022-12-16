@@ -20,6 +20,7 @@ import { PackageVersionListCommandResult } from '../../../../src/commands/force/
 
 describe('package:version:*', () => {
   let session: TestSession;
+  let packageId: string;
   let packageVersionId: string;
   const packageVersionIds: string[] = []; // ['04t', '04t'];
   const pkgName = genUniqueString('dancingbears-');
@@ -30,9 +31,12 @@ describe('package:version:*', () => {
       project: { gitClone: 'https://github.com/trailheadapps/dreamhouse-lwc' },
     });
 
-    execCmd(`force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`, {
-      ensureExitCode: 0,
-    });
+    packageId = execCmd<{ Id: string }>(
+      `force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`,
+      {
+        ensureExitCode: 0,
+      }
+    ).jsonOutput.result.Id;
   });
 
   after(async () => {
@@ -342,8 +346,25 @@ describe('package:version:*', () => {
   });
 
   describe('package:version:delete', () => {
+    const deletableVersionIds: string[] = [];
+
+    before(() => {
+      // query for deletable package versions (released package versions can't be deleted)
+      const command = `force:package:beta:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
+      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      output.forEach((pkgVersion) => {
+        if (!pkgVersion.IsReleased) {
+          deletableVersionIds.push(pkgVersion.SubscriberPackageVersionId);
+        }
+      });
+      expect(
+        deletableVersionIds.length,
+        'Not enough deletable package versions to run the delete tests'
+      ).to.be.greaterThanOrEqual(2);
+    });
+
     it('will delete a package (json)', () => {
-      const id = packageVersionIds.pop();
+      const id = deletableVersionIds.pop();
       const command = `force:package:beta:version:delete -p ${id} --json`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       expect(result).to.have.property('success', true);
@@ -352,7 +373,7 @@ describe('package:version:*', () => {
     });
 
     it('will delete a package (human)', () => {
-      const id = packageVersionIds.pop();
+      const id = deletableVersionIds.pop();
       const command = `force:package:beta:version:delete -p ${id} --noprompt`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain(`Successfully deleted the package version. ${id}`);
