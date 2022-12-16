@@ -216,7 +216,7 @@ export class Install extends SfdxCommand {
     return pkgInstallRequest;
   }
 
-  protected async finally(err: Optional<SfError>): Promise<void> {
+  protected async finally(err: Optional<Error>): Promise<void> {
     // Remove all the event listeners or they will still handle events
     Lifecycle.getInstance().removeAllListeners(PackageEvents.install.warning);
     Lifecycle.getInstance().removeAllListeners(PackageEvents.install.status);
