@@ -149,6 +149,10 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       longDescription: messages.getMessage('longWait'),
       default: Duration.minutes(0),
     }),
+    language: flags.string({
+      description: messages.getMessage('language'),
+      longDescription: messages.getMessage('languageLong'),
+    }),
   };
 
   public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {

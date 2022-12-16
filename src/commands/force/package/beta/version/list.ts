@@ -193,6 +193,7 @@ export class PackageVersionListCommand extends SfdxCommand {
           BuildDurationInSeconds: record.BuildDurationInSeconds == null ? '' : record.BuildDurationInSeconds,
           HasMetadataRemoved: hasMetadataRemoved,
           CreatedBy: record.CreatedById,
+          Language: record.Language,
         });
       });
       this.ux.styledHeader(`Package Versions [${results.length}]`);
@@ -261,6 +262,7 @@ export class PackageVersionListCommand extends SfdxCommand {
           header: messages.getMessage('hasMetadataRemoved'),
         },
         CreatedBy: { header: messages.getMessage('createdBy') },
+        Language: { header: messages.getMessage('language') },
       };
     }
   }
