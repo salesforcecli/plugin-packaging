@@ -7,7 +7,7 @@
 
 import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand, UX } from '@salesforce/command';
-import { Connection, Lifecycle, Messages } from '@salesforce/core';
+import { Connection, Lifecycle, Messages, SfError } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
   PackageEvents,
@@ -190,15 +190,28 @@ export class Install extends SfdxCommand {
       );
     }
 
-    const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
-    this.ux.stopSpinner();
-    Install.parseStatus(
-      pkgInstallRequest,
-      this.ux,
-      messages,
-      this.org.getUsername(),
-      this.flags.package as Optional<string>
-    );
+    let pkgInstallRequest: PackageInstallRequest;
+    try {
+      pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
+      this.ux.stopSpinner();
+    } catch (error: unknown) {
+      if (error instanceof SfError && error.data) {
+        pkgInstallRequest = error.data as PackageInstallRequest;
+        this.ux.stopSpinner(messages.getMessage('packageInstallPollingTimeout'));
+      } else {
+        throw error;
+      }
+    } finally {
+      if (pkgInstallRequest) {
+        Install.parseStatus(
+          pkgInstallRequest,
+          this.ux,
+          messages,
+          this.org.getUsername(),
+          this.flags.package as Optional<string>
+        );
+      }
+    }
 
     return pkgInstallRequest;
   }
