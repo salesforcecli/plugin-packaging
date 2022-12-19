@@ -3,10 +3,8 @@
   "compilerOptions": {
     "outDir": "lib",
     "rootDir": "src",
-    "skipLibCheck": true
-  },
-  "paths": {
-    "@salesforce/core": ["node_modules/@salesforce/core"]
+    "skipLibCheck": true,
+    "baseUrl": "."
   },
   "include": ["./src/**/*.ts"]
 }
