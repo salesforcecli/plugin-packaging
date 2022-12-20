@@ -230,3 +230,13 @@ Version create.
 # packageVersionCreateFinalStatus
 
 Create version status: %s
+
+# language
+
+The language for the package.
+
+# languageLong
+
+The language for the package. Specify the language using a language code listed under "Supported Languages" in Salesforce Help.
+
+If no language is specified, the language defaults to the language of the Dev Hub user who created the package.

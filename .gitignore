@@ -39,5 +39,6 @@ node_modules
 # os specific files
 .DS_Store
 .idea
+.iml 
 
 oclif.manifest.json
