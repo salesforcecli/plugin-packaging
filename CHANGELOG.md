@@ -1,3 +1,14 @@
+# [1.11.0](https://github.com/salesforcecli/plugin-packaging/compare/1.10.11...1.11.0) (2022-12-20)
+
+
+### Features
+
+* add Language ([8fce020](https://github.com/salesforcecli/plugin-packaging/commit/8fce02083e4207d38e8e2358db704ad749c0f7ad))
+* add Language ([6475492](https://github.com/salesforcecli/plugin-packaging/commit/64754928e3d685c48572eda020c4c5e018a23cc6))
+* add Language, updated snapshot ([cb53233](https://github.com/salesforcecli/plugin-packaging/commit/cb532337684a71a6dc8882fcd0b2a142a0dbeb2d))
+
+
+
 ## [1.10.11](https://github.com/salesforcecli/plugin-packaging/compare/1.10.10...1.10.11) (2022-12-19)
 
 
