@@ -1,3 +1,12 @@
+## [1.11.1](https://github.com/salesforcecli/plugin-packaging/compare/1.11.0...1.11.1) (2022-12-20)
+
+
+### Bug Fixes
+
+* bump deps ([acea3f7](https://github.com/salesforcecli/plugin-packaging/commit/acea3f7fae0fe14e02d985aab55dcd5f8e4a88f9))
+
+
+
 # [1.11.0](https://github.com/salesforcecli/plugin-packaging/compare/1.10.11...1.11.0) (2022-12-20)
 
 
