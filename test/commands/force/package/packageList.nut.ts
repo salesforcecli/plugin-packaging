@@ -7,6 +7,8 @@
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
+import { Org } from '@salesforce/core';
+import { Package } from '@salesforce/packaging';
 
 describe('package list', () => {
   let session: TestSession;
@@ -34,7 +36,9 @@ describe('package list', () => {
       /Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type\s+?Subscriber Package Id\s+?Converted From Package Id\s+?Org-Dependent Unlocked Package\s+?Error Notification Username\s+?Created By/
     );
   });
-  it('should list packages in dev hub - json results', () => {
+  it('should list packages in dev hub - json results', async () => {
+    const hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
+    const packages = await Package.list(hubOrg.getConnection());
     const command = `force:package:beta:list -v ${session.hubOrg.username} --json`;
     const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
     const keys = [
@@ -50,9 +54,11 @@ describe('package list', () => {
       'CreatedBy',
       'IsOrgDependent',
     ];
+    const deprecatedPackages = packages.filter((pkg) => pkg.IsDeprecated);
+    const notDeprecatedCount = packages.length - deprecatedPackages.length;
     expect(output).to.be.ok;
     expect(output.status).to.equal(0);
-    expect(output.result).to.have.length.greaterThan(0);
+    expect(output.result).to.have.lengthOf(notDeprecatedCount);
     expect(output.result[0]).to.have.keys(keys);
   });
 });
