@@ -6,7 +6,13 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+  Ux,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Install as InstallCommand } from '../install';
@@ -17,26 +23,32 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install_report');
 const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
-export class Report extends SfdxCommand {
+export class Report extends SfCommand<PackageInstallRequest> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    requestid: flags.id({
+
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    requestid: Flags.salesforceId({
       char: 'i',
-      description: messages.getMessage('requestId'),
-      longDescription: messages.getMessage('requestIdLong'),
+      summary: messages.getMessage('requestId'),
+      description: messages.getMessage('requestIdLong'),
       required: true,
     }),
   };
 
   public async run(): Promise<PackageInstallRequest> {
-    const connection = this.org.getConnection();
-    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(
-      this.flags.requestid as string,
-      connection
+    const { flags } = await this.parse(Report);
+    const connection = flags['target-org'].getConnection(flags['api-version']);
+    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags.requestid, connection);
+    InstallCommand.parseStatus(
+      pkgInstallRequest,
+      new Ux({ jsonEnabled: this.jsonEnabled() }),
+      installMsgs,
+      flags['target-org'].getUsername() as string
     );
-    InstallCommand.parseStatus(pkgInstallRequest, this.ux, installMsgs, this.org.getUsername());
 
     return pkgInstallRequest;
   }

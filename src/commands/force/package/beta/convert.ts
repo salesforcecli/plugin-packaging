@@ -6,8 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Duration } from '@salesforce/kit';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
@@ -16,63 +20,69 @@ import {
   PackageVersionCreateEventData,
   PackageVersionCreateRequestResult,
 } from '@salesforce/packaging';
-import { camelCaseToTitleCase } from '@salesforce/kit';
+import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
+import { Optional } from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
-export class PackageConvert extends SfdxCommand {
+export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly hidden = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    package: flags.id({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.salesforceId({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('longPackage'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('longPackage'),
       required: true,
-      validate: /^033/,
+      startsWith: '033',
     }),
-    installationkey: flags.string({
+    installationkey: Flags.string({
       char: 'k',
-      description: messages.getMessage('key'),
-      longDescription: messages.getMessage('longKey'),
+      summary: messages.getMessage('key'),
+      description: messages.getMessage('longKey'),
       exactlyOne: ['installationkey', 'installationkeybypass'],
     }),
-    definitionfile: flags.filepath({
+    definitionfile: Flags.file({
       char: 'f',
-      description: messages.getMessage('definitionfile'),
-      longDescription: messages.getMessage('longDefinitionfile'),
+      summary: messages.getMessage('definitionfile'),
+      description: messages.getMessage('longDefinitionfile'),
       hidden: true,
     }),
-    installationkeybypass: flags.boolean({
+    installationkeybypass: Flags.boolean({
       char: 'x',
-      description: messages.getMessage('keyBypass'),
-      longDescription: messages.getMessage('longKeyBypass'),
+      summary: messages.getMessage('keyBypass'),
+      description: messages.getMessage('longKeyBypass'),
       exactlyOne: ['installationkey', 'installationkeybypass'],
     }),
-    wait: flags.minutes({
+    wait: Flags.duration({
+      unit: 'minutes',
       char: 'w',
-      description: messages.getMessage('wait'),
-      longDescription: messages.getMessage('longWait'),
-      default: Duration.minutes(0),
+      summary: messages.getMessage('wait'),
+      description: messages.getMessage('longWait'),
+      defaultValue: 0,
     }),
-    buildinstance: flags.string({
+    buildinstance: Flags.string({
       char: 's',
-      description: messages.getMessage('instance'),
-      longDescription: messages.getMessage('longInstance'),
+      summary: messages.getMessage('instance'),
+      description: messages.getMessage('longInstance'),
       hidden: true,
     }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
+    const { flags } = await this.parse(PackageConvert);
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.progress, async (data: PackageVersionCreateEventData) => {
-      this.ux.log(
+      this.log(
         `Request in progress. Sleeping 30 seconds. Will wait a total of ${
-          data.timeRemaining.seconds
+          data.timeRemaining?.seconds
         } more seconds before timing out. Current Status='${camelCaseToTitleCase(
           data.packageVersionCreateRequestResult.Status
         )}'`
@@ -81,11 +91,11 @@ export class PackageConvert extends SfdxCommand {
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.success, async () => {
-      this.ux.log('SUCCESS');
+      this.log('SUCCESS');
     });
 
     // initialize the project instance if in a project
-    let project: SfProject;
+    let project: Optional<SfProject>;
     try {
       project = await SfProject.resolve();
     } catch (err) {
@@ -93,14 +103,14 @@ export class PackageConvert extends SfdxCommand {
     }
 
     const result = await Package.convert(
-      this.flags.package as string,
-      this.hubOrg.getConnection(),
+      flags.package,
+      flags['target-hub-org'].getConnection(flags['api-version']),
       {
-        wait: this.flags.wait as Duration,
-        installationKey: this.flags.installationkey as string,
-        definitionfile: this.flags.definitionfile as string,
-        installationKeyBypass: this.flags.installationkeybypass as boolean,
-        buildInstance: this.flags.buildinstance as string,
+        wait: flags.wait as Duration,
+        installationKey: flags.installationkey as string,
+        definitionfile: flags.definitionfile as string,
+        installationKeyBypass: flags.installationkeybypass,
+        buildInstance: flags.buildinstance as string,
       },
       project
     );
@@ -109,7 +119,7 @@ export class PackageConvert extends SfdxCommand {
       case 'Error':
         throw new SfError(result.Error?.join('\n') ?? pvcMessages.getMessage('unknownError'));
       case 'Success':
-        this.ux.log(
+        this.log(
           pvcMessages.getMessage(result.Status, [
             result.Id,
             result.SubscriberPackageVersionId,
@@ -119,7 +129,7 @@ export class PackageConvert extends SfdxCommand {
         );
         break;
       default:
-        this.ux.log(pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
+        this.log(pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
     }
 
     return result;

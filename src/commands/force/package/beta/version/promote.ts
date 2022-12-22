@@ -6,51 +6,60 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
 
-export class PackageVersionPromoteCommand extends SfdxCommand {
+export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
 
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    package: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    noprompt: flags.boolean({
+    noprompt: Flags.boolean({
       char: 'n',
-      description: messages.getMessage('setasreleasedForce'),
-      longDescription: messages.getMessage('setasreleasedForceLong'),
+      summary: messages.getMessage('setasreleasedForce'),
+      description: messages.getMessage('setasreleasedForceLong'),
     }),
   };
 
   public async run(): Promise<PackageSaveResult> {
+    const { flags } = await this.parse(PackageVersionPromoteCommand);
     const packageVersion = new PackageVersion({
-      connection: this.hubOrg.getConnection(),
+      connection: flags['target-hub-org'].getConnection(flags['api-version']),
       project: this.project,
-      idOrAlias: this.flags.package as string,
+      idOrAlias: flags.package,
     });
     const packageVersionData = await packageVersion.getData();
 
-    if (!this.flags.json && !this.flags.noprompt) {
+    if (!flags.json && !flags.noprompt) {
       // Warn when a Managed package has removed metadata
       if (packageVersionData.HasMetadataRemoved) {
-        this.ux.warn(messages.getMessage('hasMetadataRemovedWarning'));
+        this.warn(messages.getMessage('hasMetadataRemovedWarning'));
       }
 
       // Prompt for confirmation
-      if (
-        !(await this.ux.confirm(messages.getMessage('packageVersionPromoteConfirm', [this.flags.package as string])))
-      ) {
+      if (!(await this.confirm(messages.getMessage('packageVersionPromoteConfirm', [flags.package])))) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         return;
       }
     }
@@ -69,7 +78,7 @@ export class PackageVersionPromoteCommand extends SfdxCommand {
       throw err;
     }
 
-    this.ux.log(messages.getMessage('humanSuccess', [result.id]));
+    this.log(messages.getMessage('humanSuccess', [result.id]));
     return result;
   }
 }

@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
@@ -32,25 +37,28 @@ export type Package2Result = Partial<
   }
 >;
 
-export class PackageListCommand extends SfdxCommand {
+export class PackageListCommand extends SfCommand<Package2Result[]> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresProject = true;
-  public static readonly requiresDevhubUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    verbose: flags.builtin({
-      description: messages.getMessage('verboseDescription'),
-      longDescription: messages.getMessage('verboseLongDescription'),
+
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    verbose: Flags.boolean({
+      summary: messages.getMessage('verboseDescription'),
+      description: messages.getMessage('verboseLongDescription'),
     }),
   };
 
   private results: Package2Result[] = [];
 
   public async run(): Promise<Package2Result[]> {
-    this.logger = this.logger.child('package:list');
-    const queryResult = await Package.list(this.hubOrg.getConnection());
+    const { flags } = await this.parse(PackageListCommand);
+    const queryResult = await Package.list(flags['target-hub-org'].getConnection(flags['api-version']));
     this.mapRecordsToResults(queryResult);
-    this.displayResults();
+    this.displayResults(flags.verbose);
     return this.results;
   }
 
@@ -86,8 +94,8 @@ export class PackageListCommand extends SfdxCommand {
     }
   }
 
-  private displayResults(): void {
-    this.ux.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
+  private displayResults(verbose = false): void {
+    this.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
     const columns = {
       NamespacePrefix: { header: messages.getMessage('namespace') },
       Name: { header: messages.getMessage('name') },
@@ -99,7 +107,7 @@ export class PackageListCommand extends SfdxCommand {
       },
     };
 
-    if (this.flags.verbose) {
+    if (verbose) {
       Object.assign(columns, {
         SubscriberPackageId: { header: messages.getMessage('packageId') },
         ConvertedFromPackageId: { header: messages.getMessage('convertedFromPackageId') },
@@ -110,6 +118,6 @@ export class PackageListCommand extends SfdxCommand {
         },
       });
     }
-    this.ux.table(this.results, columns);
+    this.table(this.results, columns);
   }
 }

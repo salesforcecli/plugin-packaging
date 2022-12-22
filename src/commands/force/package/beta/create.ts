@@ -6,76 +6,89 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageCreateOptions, PackageType } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 
-export class PackageCreateCommand extends SfdxCommand {
+export class PackageCreateCommand extends SfCommand<{ Id: string }> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    name: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    name: Flags.string({
       char: 'n',
-      description: messages.getMessage('name'),
-      longDescription: messages.getMessage('nameLong'),
+      summary: messages.getMessage('name'),
+      description: messages.getMessage('nameLong'),
       required: true,
     }),
-    packagetype: flags.enum({
+    packagetype: Flags.enum({
       char: 't',
-      description: messages.getMessage('packageType'),
-      longDescription: messages.getMessage('packageTypeLong'),
+      summary: messages.getMessage('packageType'),
+      description: messages.getMessage('packageTypeLong'),
       required: true,
       options: ['Managed', 'Unlocked'],
     }),
-    description: flags.string({
+    description: Flags.string({
       char: 'd',
-      description: messages.getMessage('description'),
-      longDescription: messages.getMessage('descriptionLong'),
+      summary: messages.getMessage('description'),
+      description: messages.getMessage('descriptionLong'),
     }),
-    nonamespace: flags.boolean({
+    nonamespace: Flags.boolean({
       char: 'e',
-      description: messages.getMessage('noNamespace'),
-      longDescription: messages.getMessage('noNamespaceLong'),
+      summary: messages.getMessage('noNamespace'),
+      description: messages.getMessage('noNamespaceLong'),
     }),
-    path: flags.directory({
+    path: Flags.directory({
       char: 'r',
-      description: messages.getMessage('path'),
-      longDescription: messages.getMessage('longPath'),
+      summary: messages.getMessage('path'),
+      description: messages.getMessage('longPath'),
       required: true,
     }),
-    orgdependent: flags.boolean({
-      description: messages.getMessage('orgDependent'),
-      longDescription: messages.getMessage('orgDependentLong'),
+    orgdependent: Flags.boolean({
+      summary: messages.getMessage('orgDependent'),
+      description: messages.getMessage('orgDependentLong'),
     }),
-    errornotificationusername: flags.string({
+    errornotificationusername: Flags.string({
       char: 'o',
-      description: messages.getMessage('errorNotificationUsername'),
-      longDescription: messages.getMessage('errorNotificationUsernameLong'),
+      summary: messages.getMessage('errorNotificationUsername'),
+      description: messages.getMessage('errorNotificationUsernameLong'),
     }),
   };
 
   public async run(): Promise<{ Id: string }> {
+    const { flags } = await this.parse(PackageCreateCommand);
     const options: PackageCreateOptions = {
-      description: (this.flags.description || '') as string,
-      errorNotificationUsername: this.flags.errornotificationusername as string,
-      name: this.flags.name as string,
-      noNamespace: this.flags.nonamespace as boolean,
-      orgDependent: this.flags.orgdependent as boolean,
-      packageType: this.flags.packagetype as PackageType,
-      path: this.flags.path as string,
+      description: flags.description ?? '',
+      errorNotificationUsername: flags.errornotificationusername as string,
+      name: flags.name,
+      noNamespace: flags.nonamespace,
+      orgDependent: flags.orgdependent,
+      packageType: flags.packagetype as PackageType,
+      path: flags.path,
     };
-    const result: { Id: string } = await Package.create(this.hubOrg.getConnection(), this.project, options);
+    const result: { Id: string } = await Package.create(
+      flags['target-hub-org'].getConnection(flags['api-version']),
+      this.project,
+      options
+    );
     this.display(result);
     return result;
   }
 
   private display(result: { Id: string }): void {
-    this.ux.styledHeader('Ids');
-    this.ux.table([{ name: 'Package Id', value: result.Id }], { name: { header: 'NAME' }, value: { header: 'VALUE' } });
+    this.styledHeader('Ids');
+    this.table([{ name: 'Package Id', value: result.Id }], { name: { header: 'NAME' }, value: { header: 'VALUE' } });
   }
 }

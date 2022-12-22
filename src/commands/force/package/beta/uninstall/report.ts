@@ -6,38 +6,48 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall_report');
 
-export class PackageUninstallReportCommand extends SfdxCommand {
+export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    requestid: flags.id({
+
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    requestid: Flags.salesforceId({
       char: 'i',
-      description: messages.getMessage('requestId'),
-      longDescription: messages.getMessage('requestIdLong'),
+      summary: messages.getMessage('requestId'),
+      description: messages.getMessage('requestIdLong'),
       required: true,
-      validate: (id) => {
-        if (/^06y.{12,15}$/.test(id)) {
-          return true;
-        }
-        throw messages.createError('packageIdInvalid');
-      },
+      startsWith: '06y',
     }),
   };
 
   public async run(): Promise<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
-    const requestId = this.flags.requestid as string;
-    const result = await SubscriberPackageVersion.uninstallStatus(requestId, this.org.getConnection());
+    const { flags } = await this.parse(PackageUninstallReportCommand);
+    const requestId = flags.requestid;
+    const result = await SubscriberPackageVersion.uninstallStatus(
+      requestId,
+      flags['target-org'].getConnection(flags['api-version'])
+    );
 
-    const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
-    this.ux.log(messages.getMessage(result.Status, arg));
+    const arg =
+      result.Status === 'Success'
+        ? [result.SubscriberPackageVersionId]
+        : [result.Id, flags['target-org'].getUsername()];
+    this.log(messages.getMessage(result.Status, arg));
 
     return result;
   }

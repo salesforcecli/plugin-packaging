@@ -6,59 +6,67 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
 
-export class PackageDeleteCommand extends SfdxCommand {
+export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    noprompt: flags.boolean({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    noprompt: Flags.boolean({
       char: 'n',
-      description: messages.getMessage('noPrompt'),
-      longDescription: messages.getMessage('noPromptLong'),
+      summary: messages.getMessage('noPrompt'),
+      description: messages.getMessage('noPromptLong'),
     }),
-    package: flags.string({
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    undelete: flags.boolean({
-      description: messages.getMessage('undelete'),
-      longDescription: messages.getMessage('undeleteLong'),
+    undelete: Flags.boolean({
+      summary: messages.getMessage('undelete'),
+      description: messages.getMessage('undeleteLong'),
       hidden: true,
       default: false,
     }),
   };
 
   public async run(): Promise<PackageSaveResult> {
-    const promptMsg = this.flags.undelete ? 'promptUndelete' : 'promptDelete';
-    const accepted =
-      this.flags.noprompt || this.flags.json ? true : await this.ux.confirm(messages.getMessage(promptMsg));
+    const { flags } = await this.parse(PackageDeleteCommand);
+    const promptMsg = flags.undelete ? 'promptUndelete' : 'promptDelete';
+    const accepted = flags.noprompt || flags.json ? true : await this.confirm(messages.getMessage(promptMsg));
     if (!accepted) {
       throw messages.createError('promptDeleteDeny');
     }
 
     const pkg = new Package({
-      connection: this.hubOrg.getConnection(),
+      connection: flags['target-hub-org'].getConnection(flags['api-version']),
       project: this.project,
-      packageAliasOrId: this.flags.package as string,
+      packageAliasOrId: flags.package,
     });
-    const result = this.flags.undelete ? await pkg.undelete() : await pkg.delete();
-    this.display(result);
+    const result = flags.undelete ? await pkg.undelete() : await pkg.delete();
+    this.display(result, flags.undelete);
     return result;
   }
 
-  private display(result: PackageSaveResult): void {
-    const message = messages.getMessage(this.flags.undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
-    this.ux.log();
-    this.ux.log(message);
+  private display(result: PackageSaveResult, undelete: boolean): void {
+    const message = messages.getMessage(undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
+    this.log();
+    this.log(message);
   }
 }

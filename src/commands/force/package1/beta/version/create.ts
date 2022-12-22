@@ -5,7 +5,12 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import { Package1Version, PackageVersionEvents, PackagingSObjects } from '@salesforce/packaging';
@@ -15,70 +20,75 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 
 type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
-export class Package1VersionCreateCommand extends SfdxCommand {
+export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
-  public static readonly requiresUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    packageid: flags.id({
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    packageid: Flags.salesforceId({
       char: 'i',
-      description: messages.getMessage('id'),
-      longDescription: messages.getMessage('idLong'),
+      summary: messages.getMessage('id'),
+      description: messages.getMessage('idLong'),
       required: true,
     }),
-    name: flags.string({
+    name: Flags.string({
       char: 'n',
-      description: messages.getMessage('name'),
-      longDescription: messages.getMessage('nameLong'),
+      summary: messages.getMessage('name'),
+      description: messages.getMessage('nameLong'),
       required: true,
     }),
-    description: flags.string({
+    description: Flags.string({
       char: 'd',
-      description: messages.getMessage('description'),
-      longDescription: messages.getMessage('descriptionLong'),
+      summary: messages.getMessage('description'),
+      description: messages.getMessage('descriptionLong'),
     }),
-    version: flags.string({
+    version: Flags.string({
       char: 'v',
-      description: messages.getMessage('version'),
-      longDescription: messages.getMessage('versionLong'),
+      summary: messages.getMessage('version'),
+      description: messages.getMessage('versionLong'),
     }),
-    managedreleased: flags.boolean({
+    managedreleased: Flags.boolean({
       char: 'm',
-      description: messages.getMessage('managedReleased'),
-      longDescription: messages.getMessage('managedReleasedLong'),
+      summary: messages.getMessage('managedReleased'),
+      description: messages.getMessage('managedReleasedLong'),
     }),
-    releasenotesurl: flags.url({
+    releasenotesurl: Flags.url({
       char: 'r',
-      description: messages.getMessage('releaseNotes'),
-      longDescription: messages.getMessage('releaseNotesLong'),
+      summary: messages.getMessage('releaseNotes'),
+      description: messages.getMessage('releaseNotesLong'),
     }),
-    postinstallurl: flags.url({
+    postinstallurl: Flags.url({
       char: 'p',
-      description: messages.getMessage('postInstall'),
-      longDescription: messages.getMessage('postInstallLong'),
+      summary: messages.getMessage('postInstall'),
+      description: messages.getMessage('postInstallLong'),
     }),
-    installationkey: flags.string({
+    installationkey: Flags.string({
       char: 'k',
-      description: messages.getMessage('installationKey'),
-      longDescription: messages.getMessage('installationKeyLong'),
+      summary: messages.getMessage('installationKey'),
+      description: messages.getMessage('installationKeyLong'),
     }),
-    wait: flags.minutes({
+    wait: Flags.duration({
+      unit: 'minutes',
       char: 'w',
-      description: messages.getMessage('wait'),
-      longDescription: messages.getMessage('waitLong'),
+      summary: messages.getMessage('wait'),
+      description: messages.getMessage('waitLong'),
     }),
   };
 
   public async run(): Promise<PackageUploadRequest> {
-    const version = this.parseVersion(this.flags.version as string);
-    if (this.flags.wait) {
+    const { flags } = await this.parse(Package1VersionCreateCommand);
+    const version = this.parseVersion(flags.version as string);
+    if (flags.wait) {
       // if we're waiting for the request, set up the listener
       Lifecycle.getInstance().on(
         PackageVersionEvents.create.progress,
         // the 'on' method requires an async method, but we don't have any async calls
         // eslint-disable-next-line @typescript-eslint/require-await
         async (data: { timeout: number; pollingResult: PackageUploadRequest }) => {
-          this.ux.log(
+          this.log(
             `Package upload is ${data.pollingResult.Status === 'QUEUED' ? 'enqueued' : 'in progress'}. Waiting ${
               data.timeout
             } more seconds`
@@ -87,33 +97,34 @@ export class Package1VersionCreateCommand extends SfdxCommand {
       );
     }
     const result = await Package1Version.create(
-      this.org.getConnection(),
+      flags['target-org'].getConnection(flags['api-version']),
       {
-        MetadataPackageId: this.flags.packageid as string,
-        VersionName: this.flags.name as string,
-        Description: this.flags.description as string,
+        MetadataPackageId: flags.packageid,
+        VersionName: flags.name,
+        Description: flags.description,
         MajorVersion: version.major,
         MinorVersion: version.minor,
-        IsReleaseVersion: this.flags.managedreleased as boolean,
-        ReleaseNotesUrl: this.flags.releasenotesurl as string,
-        PostInstallUrl: this.flags.postinstallurl as string,
-        Password: this.flags.installationkey as string,
+        IsReleaseVersion: flags.managedreleased,
+        ReleaseNotesUrl: flags.releasenotesurl as unknown as string,
+        PostInstallUrl: flags.postinstallurl as unknown as string,
+        Password: flags.installationkey,
       },
-      { frequency: Duration.seconds(5), timeout: (this.flags.wait as Duration) ?? Duration.seconds(0) }
+      { frequency: Duration.seconds(5), timeout: flags.wait ?? Duration.seconds(0) }
     );
 
-    const arg = result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, this.org.getUsername()];
-    this.ux.log(messages.getMessage(result.Status, arg));
+    const arg =
+      result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, flags['target-org'].getUsername()];
+    this.log(messages.getMessage(result.Status, arg));
 
     return result;
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private parseVersion(versionString: string): { major: number; minor: number } {
+  private parseVersion(versionString: string): { major: number | undefined; minor: number | undefined } {
     const versions = versionString?.split('.');
     if (!versions) {
       // return nulls so when no version flag is provided, the server can infer the correct version
-      return { major: null, minor: null };
+      return { major: undefined, minor: undefined };
     }
 
     if (versions.length === 2) {

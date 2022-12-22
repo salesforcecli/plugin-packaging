@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
 
@@ -14,50 +19,54 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_update');
 const packageCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 
-export class PackageUpdateCommand extends SfdxCommand {
+export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    package: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    name: flags.string({
+    name: Flags.string({
       char: 'n',
-      description: messages.getMessage('name'),
-      longDescription: messages.getMessage('nameLong'),
+      summary: messages.getMessage('name'),
+      description: messages.getMessage('nameLong'),
     }),
-    description: flags.string({
+    description: Flags.string({
       char: 'd',
-      description: messages.getMessage('description'),
-      longDescription: messages.getMessage('descriptionLong'),
+      summary: messages.getMessage('description'),
+      description: messages.getMessage('descriptionLong'),
     }),
-    errornotificationusername: flags.string({
+    errornotificationusername: Flags.string({
       char: 'o',
-      description: packageCreate.getMessage('errorNotificationUsername'),
-      longDescription: packageCreate.getMessage('errorNotificationUsernameLong'),
+      summary: packageCreate.getMessage('errorNotificationUsername'),
+      description: packageCreate.getMessage('errorNotificationUsernameLong'),
     }),
   };
 
   public async run(): Promise<PackageSaveResult> {
+    const { flags } = await this.parse(PackageUpdateCommand);
     const pkg = new Package({
-      packageAliasOrId: this.flags.package as string,
-      connection: this.hubOrg.getConnection(),
+      packageAliasOrId: flags.package,
+      connection: flags['target-hub-org'].getConnection(flags['api-version']),
       project: this.project,
     });
 
     const result = await pkg.update({
       Id: pkg.getId(),
-      Name: this.flags.name as string,
-      Description: this.flags.description as string,
-      PackageErrorUsername: this.flags.errornotificationusername as string,
+      Name: flags.name,
+      Description: flags.description,
+      PackageErrorUsername: flags.errornotificationusername,
     });
 
-    this.ux.log(messages.getMessage('success', [pkg.getId()]));
+    this.log(messages.getMessage('success', [pkg.getId()]));
 
     return result;
   }

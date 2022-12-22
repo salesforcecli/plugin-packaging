@@ -6,67 +6,76 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_update');
 
-export class PackageVersionUpdateCommand extends SfdxCommand {
+export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    package: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    versionname: flags.string({
+    versionname: Flags.string({
       char: 'a',
-      description: messages.getMessage('name'),
-      longDescription: messages.getMessage('nameLong'),
+      summary: messages.getMessage('name'),
+      description: messages.getMessage('nameLong'),
     }),
-    versiondescription: flags.string({
+    versiondescription: Flags.string({
       char: 'e',
-      description: messages.getMessage('description'),
-      longDescription: messages.getMessage('descriptionLong'),
+      summary: messages.getMessage('description'),
+      description: messages.getMessage('descriptionLong'),
     }),
-    branch: flags.string({
+    branch: Flags.string({
       char: 'b',
-      description: messages.getMessage('branch'),
-      longDescription: messages.getMessage('branchLong'),
+      summary: messages.getMessage('branch'),
+      description: messages.getMessage('branchLong'),
     }),
-    tag: flags.string({
+    tag: Flags.string({
       char: 't',
-      description: messages.getMessage('tag'),
-      longDescription: messages.getMessage('tagLong'),
+      summary: messages.getMessage('tag'),
+      description: messages.getMessage('tagLong'),
     }),
-    installationkey: flags.string({
+    installationkey: Flags.string({
       char: 'k',
-      description: messages.getMessage('key'),
-      longDescription: messages.getMessage('longKey'),
+      summary: messages.getMessage('key'),
+      description: messages.getMessage('longKey'),
     }),
   };
 
   public async run(): Promise<PackageSaveResult> {
+    const { flags } = await this.parse(PackageVersionUpdateCommand);
     const pv = new PackageVersion({
-      connection: this.hubOrg.getConnection(),
+      connection: flags['target-hub-org'].getConnection(flags['api-version']),
       project: this.project,
-      idOrAlias: this.flags.package as string,
+      idOrAlias: flags.package,
     });
     const result = await pv.update({
-      VersionDescription: this.flags.versiondescription as string,
-      Branch: this.flags.branch as string,
-      InstallKey: this.flags.installationkey as string,
-      VersionName: this.flags.versionname as string,
-      Tag: this.flags.tag as string,
+      VersionDescription: flags.versiondescription,
+      Branch: flags.branch,
+      InstallKey: flags.installationkey,
+      VersionName: flags.versionname,
+      Tag: flags.tag,
     });
 
-    this.ux.log(messages.getMessage('success', [result.id]));
+    this.log(messages.getMessage('success', [result.id]));
 
     return result;
   }

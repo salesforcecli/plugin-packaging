@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 
@@ -14,55 +19,57 @@ import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
-export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
+export class PackageVersionDisplayAncestryCommand extends SfCommand<PackageAncestryNodeData | string> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly showProgress = false;
-  public static readonly varargs = false;
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
 
-  public static readonly flagsConfig: FlagsConfig = {
-    // --json is configured automatically
-    package: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    dotcode: flags.boolean({
-      description: messages.getMessage('dotcode'),
-      longDescription: messages.getMessage('dotcodeLong'),
+    dotcode: Flags.boolean({
+      summary: messages.getMessage('dotcode'),
+      description: messages.getMessage('dotcodeLong'),
     }),
-    verbose: flags.builtin({
-      description: messages.getMessage('verbose'),
-      longDescription: messages.getMessage('verboseLong'),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('verbose'),
+      description: messages.getMessage('verboseLong'),
     }),
   };
 
   public async run(): Promise<PackageAncestryNodeData | string> {
+    const { flags } = await this.parse(PackageVersionDisplayAncestryCommand);
     const packageAncestry = await Package.getAncestry(
-      this.flags.package as string,
+      flags.package,
       this.project,
-      this.hubOrg.getConnection()
+      flags['target-hub-org'].getConnection(flags['api-version'])
     );
     const jsonProducer = packageAncestry.getJsonProducer();
-    if (this.flags.dotcode) {
+    if (flags.dotcode) {
       const dotProducer = packageAncestry.getDotProducer();
       const dotCodeResult: string = dotProducer.produce() as string;
-      if (this.flags.json) {
+      if (flags.json) {
         return dotCodeResult;
       } else {
-        this.ux.log(dotCodeResult);
+        this.log(dotCodeResult);
       }
     } else {
       if (packageAncestry.requestedPackageId.startsWith('04t')) {
         const paths = packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
-        this.ux.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
-        this.ux.log();
+        this.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
+        this.log();
       }
-      const treeProducer = packageAncestry.getTreeProducer(!!this.flags.verbose);
-      if (!this.flags.json) {
+      const treeProducer = packageAncestry.getTreeProducer(!!flags.verbose);
+      if (!flags.json) {
         treeProducer.produce();
       }
     }

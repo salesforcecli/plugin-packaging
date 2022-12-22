@@ -6,9 +6,12 @@
  */
 
 import * as os from 'os';
-import * as path from 'path';
-import * as fs from 'fs';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
@@ -24,147 +27,146 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
-export class PackageVersionCreateCommand extends SfdxCommand {
+export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersionCreateRequestResult>> {
   public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    branch: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    branch: Flags.string({
       char: 'b',
-      description: messages.getMessage('branch'),
-      longDescription: messages.getMessage('longBranch'),
+      summary: messages.getMessage('branch'),
+      description: messages.getMessage('longBranch'),
     }),
-    buildinstance: flags.string({
+    buildinstance: Flags.string({
       char: 's',
-      description: messages.getMessage('instance'),
-      longDescription: messages.getMessage('longInstance'),
+      summary: messages.getMessage('instance'),
+      description: messages.getMessage('longInstance'),
       hidden: true,
     }),
-    codecoverage: flags.boolean({
+    codecoverage: Flags.boolean({
       char: 'c',
-      description: messages.getMessage('codeCoverage'),
-      longDescription: messages.getMessage('longCodeCoverage'),
+      summary: messages.getMessage('codeCoverage'),
+      description: messages.getMessage('longCodeCoverage'),
       default: false,
       exclusive: ['skipvalidation'],
     }),
-    definitionfile: flags.filepath({
+    definitionfile: Flags.file({
       char: 'f',
-      description: messages.getMessage('definitionfile'),
-      longDescription: messages.getMessage('longDefinitionfile'),
+      summary: messages.getMessage('definitionfile'),
+      description: messages.getMessage('longDefinitionfile'),
     }),
-    installationkey: flags.string({
+    installationkey: Flags.string({
       char: 'k',
-      description: messages.getMessage('key'),
-      longDescription: messages.getMessage('longKey'),
+      summary: messages.getMessage('key'),
+      description: messages.getMessage('longKey'),
       exactlyOne: ['installationkey', 'installationkeybypass'],
     }),
-    installationkeybypass: flags.boolean({
+    installationkeybypass: Flags.boolean({
       char: 'x',
-      description: messages.getMessage('keyBypass'),
-      longDescription: messages.getMessage('longKeyBypass'),
+      summary: messages.getMessage('keyBypass'),
+      description: messages.getMessage('longKeyBypass'),
       exactlyOne: ['installationkey', 'installationkeybypass'],
     }),
-    package: flags.string({
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('longPackage', []),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('longPackage', []),
       exactlyOne: ['path', 'package'],
     }),
-    path: flags.directory({
+    path: Flags.directory({
       char: 'd',
-      description: messages.getMessage('path'),
-      longDescription: messages.getMessage('longPath'),
+      summary: messages.getMessage('path'),
+      description: messages.getMessage('longPath'),
       exactlyOne: ['path', 'package'],
-      validate: (dir) => {
-        if (!fs.existsSync(path.join(process.cwd(), dir))) {
-          throw messages.createError('errorPathNotFound', [dir]);
-        }
-        return true;
-      },
     }),
-    postinstallscript: flags.string({
-      description: messages.getMessage('postInstallScript'),
-      longDescription: messages.getMessage('postInstallScriptLong'),
+    postinstallscript: Flags.string({
+      summary: messages.getMessage('postInstallScript'),
+      description: messages.getMessage('postInstallScriptLong'),
     }),
-    postinstallurl: flags.url({
-      description: messages.getMessage('postInstallUrl'),
-      longDescription: messages.getMessage('postInstallUrlLong'),
+    postinstallurl: Flags.url({
+      summary: messages.getMessage('postInstallUrl'),
+      description: messages.getMessage('postInstallUrlLong'),
     }),
-    preserve: flags.boolean({
+    preserve: Flags.boolean({
       char: 'r',
-      description: messages.getMessage('preserve'),
-      longDescription: messages.getMessage('longPreserve'),
+      summary: messages.getMessage('preserve'),
+      description: messages.getMessage('longPreserve'),
       hidden: true,
     }),
-    releasenotesurl: flags.url({
-      description: messages.getMessage('releaseNotesUrl'),
-      longDescription: messages.getMessage('releaseNotesUrlLong'),
+    releasenotesurl: Flags.url({
+      summary: messages.getMessage('releaseNotesUrl'),
+      description: messages.getMessage('releaseNotesUrlLong'),
     }),
-    skipancestorcheck: flags.boolean({
-      description: messages.getMessage('skipAncestorCheck'),
-      longDescription: messages.getMessage('skipAncestorCheckLong'),
+    skipancestorcheck: Flags.boolean({
+      summary: messages.getMessage('skipAncestorCheck'),
+      description: messages.getMessage('skipAncestorCheckLong'),
       default: false,
     }),
-    skipvalidation: flags.boolean({
-      description: messages.getMessage('skipValidation'),
-      longDescription: messages.getMessage('skipValidationLong'),
+    skipvalidation: Flags.boolean({
+      summary: messages.getMessage('skipValidation'),
+      description: messages.getMessage('skipValidationLong'),
       default: false,
       exclusive: ['codecoverage'],
     }),
-    tag: flags.string({
+    tag: Flags.string({
       char: 't',
-      description: messages.getMessage('tag'),
-      longDescription: messages.getMessage('longTag'),
+      summary: messages.getMessage('tag'),
+      description: messages.getMessage('longTag'),
     }),
-    uninstallscript: flags.string({
-      description: messages.getMessage('uninstallScript'),
-      longDescription: messages.getMessage('uninstallScriptLong'),
+    uninstallscript: Flags.string({
+      summary: messages.getMessage('uninstallScript'),
+      description: messages.getMessage('uninstallScriptLong'),
     }),
-    validateschema: flags.boolean({
+    validateschema: Flags.boolean({
       char: 'j',
-      description: messages.getMessage('validateschema'),
-      longDescription: messages.getMessage('longValidateschema'),
+      summary: messages.getMessage('validateschema'),
+      description: messages.getMessage('longValidateschema'),
       hidden: true,
     }),
-    versiondescription: flags.string({
+    versiondescription: Flags.string({
       char: 'e',
-      description: messages.getMessage('versiondescription'),
-      longDescription: messages.getMessage('longVersiondescription'),
+      summary: messages.getMessage('versiondescription'),
+      description: messages.getMessage('longVersiondescription'),
     }),
-    versionname: flags.string({
+    versionname: Flags.string({
       char: 'a',
-      description: messages.getMessage('versionname'),
-      longDescription: messages.getMessage('longVersionname'),
+      summary: messages.getMessage('versionname'),
+      description: messages.getMessage('longVersionname'),
     }),
-    versionnumber: flags.string({
+    versionnumber: Flags.string({
       char: 'n',
-      description: messages.getMessage('versionnumber'),
-      longDescription: messages.getMessage('longVersionnumber'),
+      summary: messages.getMessage('versionnumber'),
+      description: messages.getMessage('longVersionnumber'),
     }),
-    wait: flags.minutes({
+    wait: Flags.duration({
+      unit: 'minutes',
       char: 'w',
-      description: messages.getMessage('wait'),
-      longDescription: messages.getMessage('longWait'),
-      default: Duration.minutes(0),
+      summary: messages.getMessage('wait'),
+      description: messages.getMessage('longWait'),
+      defaultValue: 0,
     }),
   };
 
   public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {
-    if (this.flags.skipvalidation) {
-      this.ux.warn(messages.getMessage('skipValidationWarning'));
+    const { flags } = await this.parse(PackageVersionCreateCommand);
+    if (flags.skipvalidation) {
+      this.warn(messages.getMessage('skipValidationWarning'));
     }
-    const frequency = this.flags.wait && this.flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
+    const frequency = flags.wait && flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
     Lifecycle.getInstance().on(
       PackageVersionEvents.create.progress,
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
         if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
-          this.ux.setSpinnerStatus(
-            messages.getMessage('packageVersionCreateWaitingStatus', [data.remainingWaitTime.minutes, data.Status])
-          );
+          this.spinner.status = messages.getMessage('packageVersionCreateWaitingStatus', [
+            data.remainingWaitTime.minutes,
+            data.Status,
+          ]);
         }
       }
     );
@@ -172,32 +174,34 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       PackageVersionEvents.create['preserve-files'],
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: { location: string; message: string }) => {
-        this.ux.log(messages.getMessage('tempFileLocation', [data.location]));
+        this.log(messages.getMessage('tempFileLocation', [data.location]));
       }
     );
 
-    this.ux.startSpinner(messages.getMessage('requestInProgress'));
+    this.spinner.start(messages.getMessage('requestInProgress'));
+
     const result = await PackageVersion.create(
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       {
-        connection: this.hubOrg.getConnection(),
+        connection: flags['target-hub-org'].getConnection(flags['api-version']),
         project: this.project,
-        ...this.flags,
-        packageId: this.flags.package as string,
-        path: this.flags.path as string,
+        packageId: flags.package,
+        ...flags,
       },
       {
-        timeout: this.flags.wait as Duration,
+        timeout: flags.wait,
         frequency,
       }
     );
-    this.ux.stopSpinner(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
+    this.spinner.stop(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
     switch (result.Status) {
       case 'Error':
         throw messages.createError('multipleErrors', [
-          result.Error.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
+          result.Error?.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
         ]);
       case 'Success':
-        this.ux.log(
+        this.log(
           messages.getMessage(result.Status, [
             result.Id,
             result.SubscriberPackageVersionId,
@@ -207,7 +211,7 @@ export class PackageVersionCreateCommand extends SfdxCommand {
         );
         break;
       default:
-        this.ux.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
+        this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status as string), result.Id]));
     }
     return result;
   }

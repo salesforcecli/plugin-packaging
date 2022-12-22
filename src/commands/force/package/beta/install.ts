@@ -6,7 +6,13 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand, UX } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+  Ux,
+} from '@salesforce/sf-plugins-core';
 import { Connection, Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
@@ -27,57 +33,62 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const securityType = { AllUsers: 'full', AdminsOnly: 'none' };
 const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mixed: 'mixed-mode' };
 
-export class Install extends SfdxCommand {
+export class Install extends SfCommand<PackageInstallRequest> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    wait: flags.minutes({
+
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    wait: Flags.duration({
+      unit: 'minutes',
       char: 'w',
-      description: messages.getMessage('wait'),
-      longDescription: messages.getMessage('waitLong'),
-      default: Duration.minutes(0),
+      summary: messages.getMessage('wait'),
+      description: messages.getMessage('waitLong'),
+      defaultValue: 0,
     }),
-    installationkey: flags.string({
+    installationkey: Flags.string({
       char: 'k',
-      description: messages.getMessage('installationKey'),
-      longDescription: messages.getMessage('installationKeyLong'),
+      summary: messages.getMessage('installationKey'),
+      description: messages.getMessage('installationKeyLong'),
     }),
-    publishwait: flags.minutes({
+    publishwait: Flags.duration({
+      unit: 'minutes',
       char: 'b',
-      description: messages.getMessage('publishWait'),
-      longDescription: messages.getMessage('publishWaitLong'),
-      default: Duration.minutes(0),
+      summary: messages.getMessage('publishWait'),
+      description: messages.getMessage('publishWaitLong'),
+      defaultValue: 0,
     }),
-    noprompt: flags.boolean({
+    noprompt: Flags.boolean({
       char: 'r',
-      description: messages.getMessage('noPrompt'),
-      longDescription: messages.getMessage('noPromptLong'),
+      summary: messages.getMessage('noPrompt'),
+      description: messages.getMessage('noPromptLong'),
     }),
-    package: flags.string({
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    apexcompile: flags.enum({
+    apexcompile: Flags.enum({
       char: 'a',
-      description: messages.getMessage('apexCompile'),
-      longDescription: messages.getMessage('apexCompileLong'),
+      summary: messages.getMessage('apexCompile'),
+      description: messages.getMessage('apexCompileLong'),
       default: 'all',
       options: ['all', 'package'],
     }),
-    securitytype: flags.enum({
+    securitytype: Flags.enum({
       char: 's',
-      description: messages.getMessage('securityType'),
-      longDescription: messages.getMessage('securityTypeLong'),
+      summary: messages.getMessage('securityType'),
+      description: messages.getMessage('securityTypeLong'),
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
-    upgradetype: flags.enum({
+    upgradetype: Flags.enum({
       char: 't',
-      description: messages.getMessage('upgradeType'),
-      longDescription: messages.getMessage('upgradeTypeLong'),
+      summary: messages.getMessage('upgradeType'),
+      description: messages.getMessage('upgradeTypeLong'),
       default: 'Mixed',
       options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),
@@ -88,7 +99,7 @@ export class Install extends SfdxCommand {
 
   public static parseStatus(
     request: PackageInstallRequest,
-    ux: UX,
+    ux: Ux,
     installMsgs: Messages<string>,
     username: string,
     alias?: string
@@ -113,8 +124,9 @@ export class Install extends SfdxCommand {
   }
 
   public async run(): Promise<PackageInstallRequest> {
-    const noPrompt = this.flags.noprompt as boolean;
-    this.connection = this.org.getConnection();
+    const { flags } = await this.parse(Install);
+    const noPrompt = flags.noprompt;
+    this.connection = flags['target-org'].getConnection(flags['api-version']);
 
     const apiVersion = parseInt(this.connection.getApiVersion(), 10);
     if (apiVersion < 36) {
@@ -123,26 +135,26 @@ export class Install extends SfdxCommand {
 
     this.subscriberPackageVersion = new SubscriberPackageVersion({
       connection: this.connection,
-      aliasOrId: this.flags.package as string,
-      password: this.flags.installationkey as string,
+      aliasOrId: flags.package,
+      password: flags.installationkey,
     });
 
     const request: PackageInstallCreateRequest = {
       SubscriberPackageVersionKey: await this.subscriberPackageVersion.getId(),
-      Password: this.flags.installationkey as PackageInstallCreateRequest['Password'],
-      ApexCompileType: this.flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
-      SecurityType: securityType[this.flags.securitytype as string] as PackageInstallCreateRequest['SecurityType'],
-      UpgradeType: upgradeType[this.flags.upgradetype as string] as PackageInstallCreateRequest['UpgradeType'],
+      Password: flags.installationkey,
+      ApexCompileType: flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
+      SecurityType: securityType[flags.securitytype] as PackageInstallCreateRequest['SecurityType'],
+      UpgradeType: upgradeType[flags.upgradetype] as PackageInstallCreateRequest['UpgradeType'],
     };
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.install.warning, async (warningMsg: string) => {
-      this.ux.log(warningMsg);
+      this.log(warningMsg);
     });
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation
     // unless the noprompt option has been included.
-    if (this.flags.upgradetype === 'Delete') {
+    if (flags.upgradetype === 'Delete') {
       await this.confirmUpgradeType(noPrompt);
     }
 
@@ -150,15 +162,15 @@ export class Install extends SfdxCommand {
     // unless the noprompt option has been included.
     await this.confirmExternalSites(request, noPrompt);
 
-    let installOptions: PackageInstallOptions;
-    if (this.flags.wait) {
+    let installOptions: Optional<PackageInstallOptions>;
+    if (flags.wait) {
       installOptions = {
-        publishTimeout: this.flags.publishwait as Duration,
-        pollingTimeout: this.flags.wait as Duration,
+        publishTimeout: flags.publishwait,
+        pollingTimeout: flags.wait,
       };
-      let remainingTime = this.flags.wait as Duration;
+      let remainingTime = flags.wait;
       let timeThen = Date.now();
-      this.ux.startSpinner(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
+      this.spinner.start(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
 
       // waiting for publish to finish
       Lifecycle.getInstance().on(
@@ -172,7 +184,7 @@ export class Install extends SfdxCommand {
             publishStatus === 'NO_ERRORS_DETECTED'
               ? messages.getMessage('availableForInstallation')
               : messages.getMessage('unavailableForInstallation');
-          this.ux.setSpinnerStatus(messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]));
+          this.spinner.status = messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]);
         }
       );
       // waiting for package install to finish
@@ -183,21 +195,22 @@ export class Install extends SfdxCommand {
           const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
           timeThen = Date.now();
           remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
-          this.ux.setSpinnerStatus(
-            messages.getMessage('packageInstallWaitingStatus', [remainingTime.minutes, piRequest.Status])
-          );
+          this.spinner.status = messages.getMessage('packageInstallWaitingStatus', [
+            remainingTime.minutes,
+            piRequest.Status,
+          ]);
         }
       );
     }
 
     const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
-    this.ux.stopSpinner();
+    this.spinner.stop();
     Install.parseStatus(
       pkgInstallRequest,
-      this.ux,
+      new Ux({ jsonEnabled: this.jsonEnabled() }),
       messages,
-      this.org.getUsername(),
-      this.flags.package as Optional<string>
+      flags['target-org'].getUsername() as string,
+      flags.package
     );
 
     return pkgInstallRequest;
@@ -214,7 +227,7 @@ export class Install extends SfdxCommand {
   private async confirmUpgradeType(noPrompt: boolean): Promise<void> {
     if ((await this.subscriberPackageVersion.getPackageType()) === 'Unlocked' && !noPrompt) {
       const promptMsg = messages.getMessage('promptUpgradeType');
-      if (!(await this.ux.confirm(promptMsg))) {
+      if (!(await this.confirm(promptMsg))) {
         throw messages.createError('promptUpgradeTypeDeny');
       }
     }
@@ -226,7 +239,7 @@ export class Install extends SfdxCommand {
       let enableRss = true;
       if (!noPrompt) {
         const promptMsg = messages.getMessage('promptEnableRss', [extSites.join('\n')]);
-        enableRss = await this.ux.confirm(promptMsg);
+        enableRss = await this.confirm(promptMsg);
       }
       if (enableRss) {
         request.EnableRss = enableRss;

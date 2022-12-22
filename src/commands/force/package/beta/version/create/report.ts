@@ -6,8 +6,13 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
-import { Messages } from '@salesforce/core';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
+import { Messages, Org } from '@salesforce/core';
 import * as pkgUtils from '@salesforce/packaging';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as chalk from 'chalk';
@@ -19,29 +24,33 @@ const pvclMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'pack
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
 
 const ERROR_LIMIT = 12;
-export class PackageVersionCreateReportCommand extends SfdxCommand {
+export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    packagecreaterequestid: flags.id({
+
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    packagecreaterequestid: Flags.salesforceId({
       char: 'i',
-      description: messages.getMessage('requestId'),
-      longDescription: messages.getMessage('requestIdLong'),
+      summary: messages.getMessage('requestId'),
+      description: messages.getMessage('requestIdLong'),
       required: true,
     }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult[]> {
+    const { flags } = await this.parse(PackageVersionCreateReportCommand);
     const result = await PackageVersion.getCreateStatus(
-      this.flags.packagecreaterequestid as string,
-      this.hubOrg.getConnection()
+      flags.packagecreaterequestid,
+      flags['target-hub-org'].getConnection(flags['api-version'])
     );
-    this.display(result);
+    this.display(result, flags.packagecreaterequestid, flags['target-hub-org']);
     return [result];
   }
 
-  private display(record: PackageVersionCreateRequestResult): void {
+  private display(record: PackageVersionCreateRequestResult, requestId: string, devOrg: Org): void {
     const installUrlValue =
       record.Status === 'Success' ? `${pkgUtils.INSTALL_URL_BASE.toString()}${record.SubscriberPackageVersionId}` : '';
 
@@ -85,30 +94,25 @@ export class PackageVersionCreateReportCommand extends SfdxCommand {
       },
     ];
 
-    this.ux.styledHeader(chalk.blue('Package Version Create Request'));
-    this.ux.table(data, {
+    this.styledHeader(chalk.blue('Package Version Create Request'));
+    this.table(data, {
       key: { header: 'Name' },
       value: { header: 'Value' },
     });
 
     if (record.Error?.length > 0) {
-      this.ux.log('');
-      const errors = [];
+      this.log('');
+      const errors: string[] = [];
       record.Error.slice(0, ERROR_LIMIT).forEach((error: string) => {
         errors.push(`(${errors.length + 1}) ${error}`);
       });
-      this.ux.styledHeader(chalk.red('Errors'));
-      this.ux.log(errors.join('\n'));
+      this.styledHeader(chalk.red('Errors'));
+      this.log(errors.join('\n'));
 
       // Check if errors were truncated.  If so, inform the user with
       // instructions on how to retrieve the remaining errors.
       if (record.Error.length > ERROR_LIMIT) {
-        this.ux.log(
-          messages.getMessage('truncatedErrors', [
-            this.flags.packagecreaterequestid as string,
-            this.hubOrg.getUsername(),
-          ])
-        );
+        this.log(messages.getMessage('truncatedErrors', [requestId, devOrg.getUsername() as string]));
       }
     }
   }

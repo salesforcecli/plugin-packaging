@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as chalk from 'chalk';
@@ -15,32 +20,40 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-export class PackageVersionCreateListCommand extends SfdxCommand {
+export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    createdlastdays: flags.number({
+
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    createdlastdays: Flags.integer({
       char: 'c',
-      description: packaging.getMessage('createdLastDaysDescription'),
-      longDescription: packaging.getMessage('createdLastDaysLongDescription'),
+      summary: packaging.getMessage('createdLastDaysDescription'),
+      description: packaging.getMessage('createdLastDaysLongDescription'),
     }),
-    status: flags.enum({
+    status: Flags.enum({
       char: 's',
-      description: messages.getMessage('statusDescription'),
-      longDescription: messages.getMessage('statusLongDescription'),
+      summary: messages.getMessage('statusDescription'),
+      description: messages.getMessage('statusLongDescription'),
       options: ['Queued', 'InProgress', 'Success', 'Error'],
     }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult[]> {
-    const connection = this.hubOrg.getConnection();
-    const results = await PackageVersion.getPackageVersionCreateRequests(connection, { ...this.flags });
+    const { flags } = await this.parse(PackageVersionCreateListCommand);
+    const connection = flags['target-hub-org'].getConnection(flags['api-version']);
+    const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
+      createdlastdays: flags.createdlastdays,
+      status: flags.status as 'Queued' | 'InProgress' | 'Success' | 'Error',
+      connection,
+    });
 
     if (results.length === 0) {
-      this.ux.log('No results found');
+      this.log('No results found');
     } else {
-      this.ux.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
+      this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
       const columnData = {
         Id: {},
         Status: {
@@ -66,7 +79,7 @@ export class PackageVersionCreateListCommand extends SfdxCommand {
           header: messages.getMessage('createdBy'),
         },
       };
-      this.ux.table(results, columnData, { 'no-truncate': true });
+      this.table(results, columnData, { 'no-truncate': true });
     }
 
     return results;

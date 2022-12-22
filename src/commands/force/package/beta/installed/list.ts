@@ -7,7 +7,11 @@
 
 import * as os from 'os';
 import { Messages } from '@salesforce/core';
-import { SfdxCommand } from '@salesforce/command';
+import {
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { CliUx } from '@oclif/core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
 
@@ -24,23 +28,32 @@ export type PackageInstalledListResult = {
   SubscriberPackageVersionNumber: string;
 };
 
-export class PackageInstalledListCommand extends SfdxCommand {
+export class PackageInstalledListCommand extends SfCommand<PackageInstalledListResult[]> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresUsername = true;
+
   public static readonly requiresProject = true;
 
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+  };
+
   public async run(): Promise<PackageInstalledListResult[]> {
-    const result = await SubscriberPackageVersion.installedList(this.org.getConnection());
+    const { flags } = await this.parse(PackageInstalledListCommand);
+    const result = await SubscriberPackageVersion.installedList(
+      flags['target-org'].getConnection(flags['api-version'])
+    );
 
     const records = result.map((record) => ({
       Id: record.Id,
       SubscriberPackageId: record.SubscriberPackageId,
-      SubscriberPackageName: record.SubscriberPackage.Name,
-      SubscriberPackageNamespace: record.SubscriberPackage.NamespacePrefix,
-      SubscriberPackageVersionId: record.SubscriberPackageVersion.Id,
-      SubscriberPackageVersionName: record.SubscriberPackageVersion.Name,
-      SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion.MajorVersion}.${record.SubscriberPackageVersion.MinorVersion}.${record.SubscriberPackageVersion.PatchVersion}.${record.SubscriberPackageVersion.BuildNumber}`,
+      SubscriberPackageName: record.SubscriberPackage?.Name,
+      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix,
+      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id,
+      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name,
+      SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
     }));
 
     const tableOptions: CliUx.Table.table.Options = {
@@ -52,8 +65,10 @@ export class PackageInstalledListCommand extends SfdxCommand {
       SubscriberPackageVersionName: { header: 'Version Name' },
       SubscriberPackageVersionNumber: { header: 'Version' },
     };
-    this.ux.table(records, tableOptions, { 'no-truncate': true });
+    this.table(records, tableOptions, { 'no-truncate': true });
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return records;
   }
 }

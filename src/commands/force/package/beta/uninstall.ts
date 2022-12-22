@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Lifecycle, Messages } from '@salesforce/core';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
@@ -16,43 +21,51 @@ type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallReques
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall');
 
-export class PackageUninstallCommand extends SfdxCommand {
+export class PackageUninstallCommand extends SfCommand<UninstallResult> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    wait: flags.minutes({
+
+  public static readonly flags = {
+    'target-org': requiredOrgFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    wait: Flags.duration({
+      unit: 'minutes',
       char: 'w',
-      description: messages.getMessage('wait'),
-      longDescription: messages.getMessage('waitLong'),
-      default: Duration.minutes(0),
+      summary: messages.getMessage('wait'),
+      description: messages.getMessage('waitLong'),
+      defaultValue: 0,
     }),
-    package: flags.string({
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
   };
 
   public async run(): Promise<UninstallResult> {
+    const { flags } = await this.parse(PackageUninstallCommand);
     // no awaits in async method
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.uninstall, async (data: UninstallResult) => {
       // Request still in progress.  Just print a console message and move on. Server will be polled again.
-      this.ux.log(`Waiting for the package uninstall request to get processed. Status = ${data.Status}`);
+      this.log(`Waiting for the package uninstall request to get processed. Status = ${data.Status}`);
     });
 
     const packageVersion = new SubscriberPackageVersion({
-      aliasOrId: this.flags.package as string,
-      connection: this.org.getConnection(),
+      aliasOrId: flags.package,
+      connection: flags['target-org'].getConnection(flags['api-version']),
       password: undefined,
     });
 
-    const result = await packageVersion.uninstall(Duration.seconds(30), this.flags.wait as Duration);
+    const result = await packageVersion.uninstall(Duration.seconds(30), flags.wait);
 
-    const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
-    this.ux.log(messages.getMessage(result.Status, arg));
+    const arg =
+      result.Status === 'Success'
+        ? [result.SubscriberPackageVersionId]
+        : [result.Id, flags['target-org'].getUsername()];
+    this.log(messages.getMessage(result.Status, arg));
 
     return result;
   }

@@ -6,10 +6,16 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
+import { Optional } from '@salesforce/ts-types';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
@@ -20,50 +26,54 @@ export type PackageVersionReportResultModified = Omit<
   'CodeCoverage' | 'HasPassedCodeCoverageCheck' | 'Package2' | 'HasMetadataRemoved' | 'PackageType'
 > & {
   CodeCoverage: string;
-  HasPassedCodeCoverageCheck: boolean | string;
+  HasPassedCodeCoverageCheck: boolean | undefined | string;
   Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: string }>;
   HasMetadataRemoved: boolean | string;
 };
-export class PackageVersionReportCommand extends SfdxCommand {
+export class PackageVersionReportCommand extends SfCommand<PackageVersionReportResultModified> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
+
   public static readonly requiresProject = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    package: flags.string({
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    package: Flags.string({
       char: 'p',
-      description: messages.getMessage('package'),
-      longDescription: messages.getMessage('packageLong'),
+      summary: messages.getMessage('package'),
+      description: messages.getMessage('packageLong'),
       required: true,
     }),
-    verbose: flags.builtin({
-      description: messages.getMessage('verboseDescription'),
-      longDescription: messages.getMessage('verboseLongDescription'),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('verboseDescription'),
+      description: messages.getMessage('verboseLongDescription'),
     }),
   };
   protected haveCodeCoverageData = false;
 
   public async run(): Promise<PackageVersionReportResultModified> {
+    const { flags } = await this.parse(PackageVersionReportCommand);
     const packageVersion = new PackageVersion({
-      connection: this.hubOrg.getConnection(),
+      connection: flags['target-hub-org'].getConnection(flags['api-version']),
       project: this.project,
-      idOrAlias: this.flags.package as string,
+      idOrAlias: flags.package,
     });
-    const results = await packageVersion.report(this.flags.verbose as boolean);
+    const results = await packageVersion.report(flags.verbose);
     const massagedResults = this.massageResultsForDisplay(results);
-    this.display(massagedResults);
+    this.display(massagedResults, flags.verbose);
     return massagedResults;
   }
 
-  private display(record: PackageVersionReportResultModified): void {
-    if (this.flags.json) {
+  private display(record: PackageVersionReportResultModified, verbose: boolean): void {
+    if (this.jsonEnabled()) {
       return;
     }
 
-    let dependencies: string = null;
+    let dependencies: Optional<string>;
 
     // collect the Dependency 04ts into a comma-separated list for non-json output
-    if (this.flags.verbose && record.SubscriberPackageVersion.Dependencies != null) {
+    if (verbose && record.SubscriberPackageVersion?.Dependencies != null) {
       dependencies = record.SubscriberPackageVersion.Dependencies.ids
         .map((d) => d.subscriberPackageVersionId)
         .join(', ');
@@ -125,11 +135,11 @@ export class PackageVersionReportCommand extends SfdxCommand {
       },
       {
         key: pvlMessages.getMessage('releaseVersion'),
-        value: record.ReleaseVersion === null ? '' : record.ReleaseVersion.toFixed(1),
+        value: record.ReleaseVersion === null ? '' : record.ReleaseVersion?.toFixed(1),
       },
       {
         key: pvlMessages.getMessage('buildDurationInSeconds'),
-        value: record.BuildDurationInSeconds === null ? '' : record.BuildDurationInSeconds.toFixed(1),
+        value: record.BuildDurationInSeconds === null ? '' : record.BuildDurationInSeconds?.toFixed(1),
       },
       {
         key: pvlMessages.getMessage('hasMetadataRemoved'),
@@ -137,7 +147,7 @@ export class PackageVersionReportCommand extends SfdxCommand {
       },
       {
         key: messages.getMessage('dependencies'),
-        value: this.flags.verbose && dependencies != null ? dependencies : ' ',
+        value: verbose && dependencies != null ? dependencies : ' ',
       },
       {
         key: plMessages.getMessage('createdBy'),
@@ -146,9 +156,9 @@ export class PackageVersionReportCommand extends SfdxCommand {
     ];
     const maximumNumClasses = 15; // Number of least code covered classes displayed on the cli output for better UX.
     let codeCovStr = ''; // String to display when code coverage data is empty or null
-    let displayCoverageRecords = [];
+    let displayCoverageRecords: Array<{ value: string; key: string }> = [];
     // collect the code coverage data into an array of key value records for non-json output
-    if (this.flags.verbose) {
+    if (verbose) {
       const coverageData = record.CodeCoveragePercentages?.codeCovPercentages;
       if (!coverageData) {
         codeCovStr = 'N/A'; // Code coverage isn't calculated as part of version create command
@@ -168,9 +178,9 @@ export class PackageVersionReportCommand extends SfdxCommand {
     // Always append code coverage column label ar the end
     displayRecords.push({
       key: messages.getMessage('codeCoveragePercentages'),
-      value: this.haveCodeCoverageData === true ? '...' : codeCovStr,
+      value: this.haveCodeCoverageData ? '...' : codeCovStr,
     });
-    if (!this.flags.verbose) {
+    if (!verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
       displayRecords.splice(
         displayRecords.map((e) => e.key).indexOf(pvlMessages.getMessage('convertedFromVersionId')),
@@ -183,10 +193,10 @@ export class PackageVersionReportCommand extends SfdxCommand {
       );
       displayCoverageRecords.splice(0, displayCoverageRecords.length);
     }
-    this.ux.styledHeader(chalk.blue('Package Version'));
-    this.ux.table(displayRecords, { key: { header: 'Name' }, value: { header: 'Value' } });
+    this.styledHeader(chalk.blue('Package Version'));
+    this.table(displayRecords, { key: { header: 'Name' }, value: { header: 'Value' } });
     if (displayCoverageRecords.length > 0) {
-      this.ux.table(displayCoverageRecords, { key: { header: 'Class Name' }, value: { header: 'Code Coverage' } });
+      this.table(displayCoverageRecords, { key: { header: 'Class Name' }, value: { header: 'Code Coverage' } });
     }
   }
 

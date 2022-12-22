@@ -6,7 +6,12 @@
  */
 
 import * as os from 'os';
-import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
+import {
+  Flags,
+  orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Messages, SfProject } from '@salesforce/core';
 import { CliUx } from '@oclif/core';
 import {
@@ -49,58 +54,62 @@ export type PackageVersionListCommandResult = Omit<
   CreatedBy: string;
 };
 
-export class PackageVersionListCommand extends SfdxCommand {
+export class PackageVersionListCommand extends SfCommand<PackageVersionListCommandResult[]> {
+  public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-  public static readonly requiresDevhubUsername = true;
-  public static readonly flagsConfig: FlagsConfig = {
-    createdlastdays: flags.number({
+
+  public static readonly flags = {
+    'target-hub-org': requiredHubFlagWithDeprecations,
+    'api-version': orgApiVersionFlagWithDeprecations,
+    createdlastdays: Flags.integer({
       char: 'c',
-      description: packaging.getMessage('createdLastDaysDescription'),
-      longDescription: packaging.getMessage('createdLastDaysLongDescription'),
+      summary: packaging.getMessage('createdLastDaysDescription'),
+      description: packaging.getMessage('createdLastDaysLongDescription'),
     }),
-    concise: flags.builtin({
-      description: messages.getMessage('conciseDescription'),
-      longDescription: messages.getMessage('conciseLongDescription'),
+    concise: Flags.boolean({
+      summary: messages.getMessage('conciseDescription'),
+      description: messages.getMessage('conciseLongDescription'),
     }),
-    modifiedlastdays: flags.number({
+    modifiedlastdays: Flags.integer({
       char: 'm',
-      description: packaging.getMessage('modifiedLastDaysDescription'),
-      longDescription: packaging.getMessage('modifiedLastDaysLongDescription'),
+      summary: packaging.getMessage('modifiedLastDaysDescription'),
+      description: packaging.getMessage('modifiedLastDaysLongDescription'),
     }),
-    packages: flags.array({
+    packages: Flags.string({
       char: 'p',
-      description: messages.getMessage('packagesDescription'),
-      longDescription: messages.getMessage('packagesLongDescription'),
+      summary: messages.getMessage('packagesDescription'),
+      description: messages.getMessage('packagesLongDescription'),
     }),
-    released: flags.boolean({
+    released: Flags.boolean({
       char: 'r',
-      description: messages.getMessage('releasedDescription'),
-      longDescription: messages.getMessage('releasedLongDescription'),
+      summary: messages.getMessage('releasedDescription'),
+      description: messages.getMessage('releasedLongDescription'),
     }),
-    orderby: flags.array({
+    orderby: Flags.string({
       char: 'o',
-      description: messages.getMessage('orderByDescription'),
-      longDescription: messages.getMessage('orderByLongDescription'),
+      summary: messages.getMessage('orderByDescription'),
+      description: messages.getMessage('orderByLongDescription'),
     }),
-    verbose: flags.builtin({
-      description: messages.getMessage('verboseDescription'),
-      longDescription: messages.getMessage('verboseLongDescription'),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('verboseDescription'),
+      description: messages.getMessage('verboseLongDescription'),
     }),
   };
 
   public async run(): Promise<PackageVersionListCommandResult[]> {
-    const connection = this.hubOrg.getConnection();
+    const { flags } = await this.parse(PackageVersionListCommand);
+    const connection = flags['target-hub-org'].getConnection(flags['api-version']);
     const project = SfProject.getInstance();
 
     const records = await Package.listVersions(connection, project, {
-      createdLastDays: this.flags.createdlastdays as number,
-      concise: this.flags.concise as boolean,
-      modifiedLastDays: this.flags.modifiedlastdays as number,
-      packages: (this.flags.packages as string[]) ?? [],
-      isReleased: this.flags.released as boolean,
-      orderBy: this.flags.orderby as string,
-      verbose: this.flags.verbose as boolean,
+      createdLastDays: flags.createdlastdays as number,
+      concise: flags.concise,
+      modifiedLastDays: flags.modifiedlastdays as number,
+      packages: flags.packages?.split(' ') ?? [],
+      isReleased: flags.released,
+      orderBy: flags.orderby as string,
+      verbose: flags.verbose,
     });
 
     const results: PackageVersionListCommandResult[] = [];
@@ -119,19 +128,19 @@ export class PackageVersionListCommand extends SfdxCommand {
 
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];
-        const aliases = [];
+        const aliases: string[] = [];
         ids.forEach((id) => {
           const matches = project.getAliasesFromPackageId(id);
           if (matches.length > 0) {
-            aliases.push(matches);
+            aliases.concat(matches);
           }
         });
         const AliasStr = aliases.length > 0 ? aliases.join() : '';
 
         // set Ancestor display values
-        let ancestorVersion: Optional<string> = null;
+        let ancestorVersion: Optional<string>;
         if (record.AncestorId) {
-          ancestorVersion = ancestorVersionsMap.get(record.AncestorId);
+          ancestorVersion = ancestorVersionsMap?.get(record.AncestorId);
         } else if (containerOptionsMap.get(record.Package2Id) !== 'Managed') {
           // display N/A if package is unlocked
           ancestorVersion = 'N/A';
@@ -146,7 +155,7 @@ export class PackageVersionListCommand extends SfdxCommand {
             : '';
 
         const hasPassedCodeCoverageCheck =
-          record.Package2.IsOrgDependent === true || record.ValidationSkipped === true
+          record.Package2.IsOrgDependent === true || record.ValidationSkipped
             ? 'N/A'
             : record.HasPassedCodeCoverageCheck;
 
@@ -177,16 +186,16 @@ export class PackageVersionListCommand extends SfdxCommand {
           Description: record.Description,
           Version: [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.'),
           // Table output needs string false to display 'false'
-          IsPasswordProtected: this.flags.json ? record.IsPasswordProtected : record.IsPasswordProtected.toString(),
-          IsReleased: this.flags.json ? record.IsReleased : record.IsReleased.toString(),
+          IsPasswordProtected: flags.json ? record.IsPasswordProtected : record.IsPasswordProtected.toString(),
+          IsReleased: flags.json ? record.IsReleased : record.IsReleased.toString(),
           CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
           LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
           InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
           CodeCoverage: codeCoverage,
-          HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck,
+          HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
           AncestorId: record.AncestorId,
-          AncestorVersion: ancestorVersion,
+          AncestorVersion: ancestorVersion as string,
           Alias: AliasStr,
           IsOrgDependent: isOrgDependent,
           ReleaseVersion: record.ReleaseVersion == null ? '' : Number.parseFloat(record.ReleaseVersion).toFixed(1),
@@ -195,17 +204,18 @@ export class PackageVersionListCommand extends SfdxCommand {
           CreatedBy: record.CreatedById,
         });
       });
-      this.ux.styledHeader(`Package Versions [${results.length}]`);
-      this.ux.table(results, this.getColumnData(), { 'no-truncate': true });
+      this.styledHeader(`Package Versions [${results.length}]`);
+      this.table(results, this.getColumnData(flags.concise, flags.verbose), { 'no-truncate': true });
     } else {
-      this.ux.log('No results found');
+      this.log('No results found');
     }
 
     return results;
   }
 
-  private getColumnData(): CliUx.Table.table.Columns<Record<string, unknown>> {
-    if (this.flags.concise) {
+  // eslint-disable-next-line class-methods-use-this
+  private getColumnData(concise: boolean, verbose: boolean): CliUx.Table.table.Columns<Record<string, unknown>> {
+    if (concise) {
       return {
         Package2Id: { header: messages.getMessage('packageId') },
         Version: { header: messages.getMessage('version') },
@@ -232,7 +242,7 @@ export class PackageVersionListCommand extends SfdxCommand {
       Branch: { header: messages.getMessage('packageBranch') },
     };
 
-    if (!this.flags.verbose) {
+    if (!verbose) {
       return defaultCols;
     } else {
       // add additional columns for verbose output
