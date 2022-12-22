@@ -56,19 +56,9 @@ export class PackageListCommand extends SfdxCommand {
 
   private mapRecordsToResults(records: PackagingSObjects.Package2[]): void {
     if (records && records.length > 0) {
-      this.results = records.map(
-        ({
-          Id,
-          SubscriberPackageId,
-          Name,
-          Description,
-          NamespacePrefix,
-          ContainerOptions,
-          ConvertedFromPackageId,
-          IsOrgDependent,
-          PackageErrorUsername,
-          CreatedById,
-        }) =>
+      this.results = records
+        .filter((record) => record.IsDeprecated === false)
+        .map(
           ({
             Id,
             SubscriberPackageId,
@@ -77,12 +67,24 @@ export class PackageListCommand extends SfdxCommand {
             NamespacePrefix,
             ContainerOptions,
             ConvertedFromPackageId,
-            Alias: this.project.getAliasesFromPackageId(Id).join(),
-            IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
+            IsOrgDependent,
             PackageErrorUsername,
-            CreatedBy: CreatedById,
-          } as Package2Result)
-      );
+            CreatedById,
+          }) =>
+            ({
+              Id,
+              SubscriberPackageId,
+              Name,
+              Description,
+              NamespacePrefix,
+              ContainerOptions,
+              ConvertedFromPackageId,
+              Alias: this.project.getAliasesFromPackageId(Id).join(),
+              IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
+              PackageErrorUsername,
+              CreatedBy: CreatedById,
+            } as Package2Result)
+        );
     }
   }
 
