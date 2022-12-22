@@ -1,3 +1,12 @@
+## [1.11.2](https://github.com/salesforcecli/plugin-packaging/compare/1.11.1...1.11.2) (2022-12-22)
+
+
+### Bug Fixes
+
+* do not show deprecated packages ([30981b5](https://github.com/salesforcecli/plugin-packaging/commit/30981b588dc57e0e27eaea17f711a0a05ae17771))
+
+
+
 ## [1.11.1](https://github.com/salesforcecli/plugin-packaging/compare/1.11.0...1.11.1) (2022-12-20)
 
 
