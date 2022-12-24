@@ -1,3 +1,12 @@
+## [1.11.3](https://github.com/salesforcecli/plugin-packaging/compare/1.11.2...1.11.3) (2022-12-24)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/packaging from 1.1.2 to 1.1.3 ([5b6e41c](https://github.com/salesforcecli/plugin-packaging/commit/5b6e41c48cc7346d8de9d3e1ae18c9c7f7939e3f))
+
+
+
 ## [1.11.2](https://github.com/salesforcecli/plugin-packaging/compare/1.11.1...1.11.2) (2022-12-22)
 
 
