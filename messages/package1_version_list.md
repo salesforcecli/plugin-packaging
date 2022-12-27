@@ -13,3 +13,8 @@ Metadata package ID (starts with 033) whose package versions you want to list. I
 # packageIdInvalid
 
 Verify that you entered a valid package version ID (starts with 033) and try again.
+
+# examples
+
+$ sfdx force:package1:version:list
+$ sfdx force:package1:version:list --package 03346000000MrC0XXX

@@ -3,6 +3,11 @@
 create a first-generation package version in the release org
 The package version is based on the contents of the specified metadata package. Omit -m if you want to create an unmanaged package version.
 
+# examples
+
+$ sfdx force:package1:version:create --packageid 03346000000MrC0XXX --name example
+$ sfdx force:package1:version:create --packageid 03346000000MrC0XXX --name example --description "example description" --wait 30
+
 # id
 
 ID of the metadata package (starts with 033) of which you’re creating a new version

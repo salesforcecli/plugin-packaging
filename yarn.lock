@@ -1047,12 +1047,12 @@
     mv "~2"
     safe-json-stringify "~1"
 
-"@salesforce/cli-plugins-testkit@^3.2.12":
-  version "3.2.14"
-  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-3.2.14.tgz#caf0f71baa68f2d96f62a75d955c2efc9765b747"
-  integrity sha512-qMU7dSzWszPiE9Fh3DopAsEaXNA+S4Do92oP6AUAwwm+TgZP0ryIYTET62YAsHoYdsi/FkNMHu7E5dGs2iSbNg==
+"@salesforce/cli-plugins-testkit@^3.2.14":
+  version "3.2.15"
+  resolved "https://registry.yarnpkg.com/@salesforce/cli-plugins-testkit/-/cli-plugins-testkit-3.2.15.tgz#77483ab8a9235f76d270bdc133f5a47e72a570ee"
+  integrity sha512-/XYHPshMIyPk+KkSa4AG9BNMs5pO4pVmWhWV+unY+b8HfMJbHDTSUlnAhLdDUBaIASRoWyEil7kb8YZExeDVGw==
   dependencies:
-    "@salesforce/core" "^3.32.11"
+    "@salesforce/core" "^3.32.12"
     "@salesforce/kit" "^1.8.0"
     "@salesforce/ts-types" "^1.5.21"
     "@types/shelljs" "^0.8.11"
@@ -1095,6 +1095,29 @@
     js2xmlparser "^4.0.1"
     jsforce "^2.0.0-beta.19"
     jsonwebtoken "8.5.1"
+    ts-retry-promise "^0.7.0"
+
+"@salesforce/core@^3.32.12":
+  version "3.32.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.32.12.tgz#853cc5b6a5f95d4896b2d34a40a6042ef9aa6d2c"
+  integrity sha512-27rqSiQWul7b/OkJs19FYDv2M/S4oI4efiGv+6sR7UWv7D7CG1P+0XpgLS3d9xRYF30h98n6VQr4W2a+BWFRvA==
+  dependencies:
+    "@salesforce/bunyan" "^2.0.0"
+    "@salesforce/kit" "^1.8.0"
+    "@salesforce/schemas" "^1.4.0"
+    "@salesforce/ts-types" "^1.5.21"
+    "@types/graceful-fs" "^4.1.5"
+    "@types/semver" "^7.3.13"
+    ajv "^8.11.2"
+    archiver "^5.3.0"
+    change-case "^4.1.2"
+    debug "^3.2.7"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    graceful-fs "^4.2.9"
+    js2xmlparser "^4.0.1"
+    jsforce "^2.0.0-beta.19"
+    jsonwebtoken "9.0.0"
     ts-retry-promise "^0.7.0"
 
 "@salesforce/dev-config@^3.0.0", "@salesforce/dev-config@^3.1.0":
@@ -3373,8 +3396,10 @@ eslint-plugin-prefer-arrow@^1.2.1:
   resolved "https://registry.yarnpkg.com/eslint-plugin-prefer-arrow/-/eslint-plugin-prefer-arrow-1.2.3.tgz#e7fbb3fa4cd84ff1015b9c51ad86550e55041041"
   integrity sha512-J9I5PKCOJretVuiZRGvPQxCbllxGAV/viI20JO3LYblAodofBxyMnZAJ+WGeClHgANnSJberTNoFWWjrWKBuXQ==
 
-"eslint-plugin-sf-plugin@file:../eslint-plugin-sf-plugin":
-  version "1.2.3"
+eslint-plugin-sf-plugin@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.3.1.tgz#c122b74719cdc46bdd27c7d5dd157357c00a110e"
+  integrity sha512-KqH/XpbkbMR4tPdcjDNBoCpgBZK6YiDSdc03XEM/zr0LrzdZUtos0K1Y76n+A3ZMROHr9xzRu127e1/oLEK0bg==
   dependencies:
     "@typescript-eslint/utils" "^5.47.0"
 
@@ -5132,6 +5157,16 @@ jsonwebtoken@8.5.1:
     lodash.once "^4.0.0"
     ms "^2.1.1"
     semver "^5.6.0"
+
+jsonwebtoken@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-9.0.0.tgz#d0faf9ba1cc3a56255fe49c0961a67e520c1926d"
+  integrity sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==
+  dependencies:
+    jws "^3.2.2"
+    lodash "^4.17.21"
+    ms "^2.1.1"
+    semver "^7.3.8"
 
 jszip@^3.10.1:
   version "3.10.1"

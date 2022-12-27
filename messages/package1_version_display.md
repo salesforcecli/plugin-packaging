@@ -13,3 +13,7 @@ ID (starts with 04t) of the metadata package version whose details you want to d
 # packageIdInvalid
 
 Verify that you entered a valid package version ID (starts with 04t) and try again.
+
+# examples
+
+$ sfdx force:package1:version:display --packageversionid 04t46000001UOvXXXX

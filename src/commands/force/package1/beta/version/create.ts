@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as os from 'os';
 import {
   Flags,
   orgApiVersionFlagWithDeprecations,
@@ -23,7 +24,7 @@ type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest> {
   public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
-
+  public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresProject = true;
   public static readonly flags = {
     'target-org': requiredOrgFlagWithDeprecations,

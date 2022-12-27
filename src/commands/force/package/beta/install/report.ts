@@ -13,7 +13,7 @@ import {
   SfCommand,
   Ux,
 } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
+import { Messages, Org } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Install as InstallCommand } from '../install';
 
@@ -27,6 +27,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static org: Org;
 
   public static readonly flags = {
     'target-org': requiredOrgFlagWithDeprecations,

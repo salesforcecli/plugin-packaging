@@ -5,6 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
+import * as os from 'os';
 import {
   Flags,
   orgApiVersionFlagWithDeprecations,
@@ -20,6 +21,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 export class Package1VersionDisplayCommand extends SfCommand<Package1Display[]> {
   public static readonly summary = messages.getMessage('description');
   public static readonly description = messages.getMessage('description');
+  public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
     'target-org': requiredOrgFlagWithDeprecations,
