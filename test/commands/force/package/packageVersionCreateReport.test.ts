@@ -5,104 +5,96 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import * as os from 'os';
-import { Org, SfProject } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { resolve } from 'path';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
+import * as sinon from 'sinon';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { PackageVersionCreateReportCommand } from '../../../../src/commands/force/package/beta/version/create/report';
 
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
+const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
+  Id: '08c3i000000fylXXXX',
+  Status: Package2VersionStatus.error,
+  Package2Id: '0Ho3i000000TNHXXXX',
+  // @ts-ignore
+  Package2VersionId: null,
+  SubscriberPackageVersionId: null,
+  // @ts-ignore
+  Tag: null,
+  // @ts-ignore
+  Branch: null,
+  Error: [
+    'PropertyController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+    'PropertyController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+    'PropertyController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+    'PropertyController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Property__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+    'SampleDataController: Invalid type: Schema.Broker__c',
+  ],
+  CreatedDate: '2022-11-03 09:21',
+  HasMetadataRemoved: null,
+  CreatedBy: '0053i000001ZIyXXXX',
+};
+
+const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
+  Id: '08c3i000000fylgAAA',
+  Status: Package2VersionStatus.success,
+  Package2Id: '0Ho3i000000TNHYCA4',
+  Package2VersionId: '05i3i000000fxw1AAA',
+  SubscriberPackageVersionId: '04t3i000002eya2AAA',
+  // @ts-ignore
+  Tag: null,
+  // @ts-ignore
+  Branch: null,
+  Error: [],
+  CreatedDate: '2022-11-03 09:46',
+  HasMetadataRemoved: false,
+  CreatedBy: '0053i000001ZIyGAAW',
+};
+
 describe('force:package:version:create:report - tests', () => {
   const $$ = new TestContext();
+  const testOrg = new MockTestOrgData();
   let createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
   let tableStub: sinon.SinonStub;
   let styledHeaderStub: sinon.SinonStub;
   let logStub: sinon.SinonStub;
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
-  const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
-    Id: '08c3i000000fylXXXX',
-    Status: Package2VersionStatus.error,
-    Package2Id: '0Ho3i000000TNHXXXX',
-    Package2VersionId: null,
-    SubscriberPackageVersionId: null,
-    Tag: null,
-    Branch: null,
-    Error: [
-      'PropertyController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-      'PropertyController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-      'PropertyController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-      'PropertyController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Property__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-      'SampleDataController: Invalid type: Schema.Broker__c',
-    ],
-    CreatedDate: '2022-11-03 09:21',
-    HasMetadataRemoved: null,
-    CreatedBy: '0053i000001ZIyXXXX',
-  };
-  const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
-    Id: '08c3i000000fylgAAA',
-    Status: Package2VersionStatus.success,
-    Package2Id: '0Ho3i000000TNHYCA4',
-    Package2VersionId: '05i3i000000fxw1AAA',
-    SubscriberPackageVersionId: '04t3i000002eya2AAA',
-    Tag: null,
-    Branch: null,
-    Error: [],
-    CreatedDate: '2022-11-03 09:46',
-    HasMetadataRemoved: false,
-    CreatedBy: '0053i000001ZIyGAAW',
-  };
+  const sandbox = sinon.createSandbox();
+  beforeEach(async () => {
+    await config.load();
+    logStub = sandbox.stub(SfCommand.prototype, 'log');
+    styledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
+    tableStub = sandbox.stub(SfCommand.prototype, 'table');
 
-  class TestCommand extends PackageVersionCreateReportCommand {
-    public async runIt() {
-      await this.init();
-      styledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
-      tableStub = stubMethod($$.SANDBOX, this.ux, 'table');
-      logStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      return this.run();
-    }
+    await $$.stubAuths(testOrg);
+  });
 
-    public setProject(project: SfProject) {
-      this.project = project;
-    }
-
-    public setHubOrg(org: Org) {
-      this.hubOrg = org;
-    }
-  }
-
-  const runCmd = async (params: string[]) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({}),
-        })
-      );
-      cmd.setHubOrg(orgStub);
-    });
-    cmd.setProject(SfProject.getInstance());
-
-    return cmd.runIt();
-  };
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
 
   describe('force:package:version:create:report', () => {
     it('should report on a new package version', async () => {
       createStatusStub.resolves(pkgVersionCreateSuccessResult);
-      const res = await runCmd(['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org']);
+      const res = await new PackageVersionCreateReportCommand(
+        ['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org'],
+        config
+      ).run();
 
       expect(res).to.deep.equal([
         {
@@ -127,7 +119,10 @@ describe('force:package:version:create:report - tests', () => {
       createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
       createStatusStub.resolves(pkgVersionCreateErrorResult);
 
-      const result = await runCmd(['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org']);
+      const result = await new PackageVersionCreateReportCommand(
+        ['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org'],
+        config
+      ).run();
 
       expect(logStub.callCount).to.equal(3);
       expect(result[0]).to.deep.equal({

@@ -4,85 +4,110 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
+import { resolve } from 'path';
 import * as os from 'os';
-import { Org } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
+import { SfCommand } from '@salesforce/sf-plugins-core';
+import * as sinon from 'sinon';
+import { Package1Version } from '@salesforce/packaging';
 import { Package1VersionCreateCommand } from '../../../../src/commands/force/package1/beta/version/create';
 
 describe('force:package1:version:create', () => {
   const $$ = new TestContext();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
-  let uxStub: sinon.SinonStub;
+  const testOrg = new MockTestOrgData();
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
-  class TestCommand extends Package1VersionCreateCommand {
-    public async runIt() {
-      await this.init();
-      uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      return this.run();
-    }
-    public setOrg(org: Org) {
-      this.org = org;
-    }
-  }
+  const sandbox = sinon.createSandbox();
 
-  const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({
-            tooling: {
-              sobject: () => ({
-                create: () => ({ id: '0HD4p000000blUvGXX' }),
-                retrieve: () => ({
-                  Status: result,
-                  MetadataPackageVersionId: '04t4p000002BavTXXX',
-                  Errors: errors,
-                  Id: '0HD4p000000blUvGXX',
-                  MetadataPackageId: '03346000000MrC0AXX',
-                }),
-              }),
-            },
-          }),
-        })
-      );
-      cmd.setOrg(orgStub);
+  // stubs
+  let uxLogStub: sinon.SinonStub;
+
+  beforeEach(async () => {
+    await config.load();
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    await $$.stubAuths(testOrg);
+  });
+
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
+
+  const libraryStubResult = (status: string): void => {
+    sandbox.stub(Package1Version, 'create').resolves({
+      CreatedById: '',
+      CreatedDate: 0,
+      Description: '',
+      Errors: [],
+      IsDeleted: false,
+      IsReleaseVersion: false,
+      LastModifiedById: '',
+      LastModifiedDate: 0,
+      MajorVersion: 0,
+      MetadataPackageId: '',
+      MetadataPackageVersionId: '04t4p000002BavTXXX',
+      MinorVersion: 0,
+      Password: '',
+      PostInstallUrl: '',
+      ReleaseNotesUrl: '',
+      SystemModstamp: 0,
+      VersionName: '',
+      Status: status,
+      Id: '0HD4p000000blUvGXX',
     });
-    const res = cmd.runIt();
-
-    return res;
   };
 
   it('should print SUCCESS status correctly', async () => {
-    const result = await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test'], 'SUCCESS');
+    libraryStubResult('SUCCESS');
+    const command = new Package1VersionCreateCommand(
+      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
+      config
+    );
+    const result = await command.run();
+
     expect(result.Status).to.equal('SUCCESS');
-    expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.equal('Successfully uploaded package [04t4p000002BavTXXX]');
+    expect(uxLogStub.callCount).to.equal(1);
+    expect(uxLogStub.firstCall.args[0]).to.equal('Successfully uploaded package [04t4p000002BavTXXX]');
   });
 
   it('should print QUEUED status correctly', async () => {
-    const result = await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test'], 'QUEUED');
+    libraryStubResult('QUEUED');
+    const command = new Package1VersionCreateCommand(
+      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
+      config
+    );
+    const result = await command.run();
+
     expect(result.Status).to.equal('QUEUED');
-    expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.include(
-      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx force:package1:beta:version:create:get -i 0HD4p000000blUvGXX -u test@user.com`
+    expect(uxLogStub.callCount).to.equal(1);
+    expect(uxLogStub.firstCall.args[0]).to.equal(
+      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx force:package1:beta:version:create:get -i 0HD4p000000blUvGXX -u ${testOrg.username}`
     );
   });
 
   it('should validate --version', async () => {
-    const result = await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3'], 'SUCCESS');
+    libraryStubResult('SUCCESS');
+    const command = new Package1VersionCreateCommand(
+      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3', '--target-org', testOrg.username],
+      config
+    );
+    const result = await command.run();
+
     expect(result.Status).to.equal('SUCCESS');
-    expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.include('Successfully uploaded package [04t4p000002BavTXXX]');
+    expect(uxLogStub.callCount).to.equal(1);
+    expect(uxLogStub.firstCall.args[0]).to.include('Successfully uploaded package [04t4p000002BavTXXX]');
   });
 
   it('should validate --version (incorrect format SemVer)', async () => {
     try {
-      await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3.3'], 'SUCCESS');
+      libraryStubResult('SUCCESS');
+      const command = new Package1VersionCreateCommand(
+        ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3.3', '--target-org', testOrg.username],
+        config
+      );
+      await command.run();
       assert.fail('the above should throw an invalid version error');
     } catch (e) {
       expect((e as Error).message).to.include(
@@ -93,7 +118,13 @@ describe('force:package1:version:create', () => {
 
   it('should validate --version (incorrect format major only)', async () => {
     try {
-      await runCmd(['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2'], 'SUCCESS');
+      libraryStubResult('SUCCESS');
+      const command = new Package1VersionCreateCommand(
+        ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2', '--target-org', testOrg.username],
+        config
+      );
+      await command.run();
+
       assert.fail('the above should throw an invalid version error');
     } catch (e) {
       expect((e as Error).message).to.include(

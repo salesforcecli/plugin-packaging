@@ -4,146 +4,144 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Org } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { resolve } from 'path';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageVersion, PackageVersionReportResult } from '@salesforce/packaging';
+import * as sinon from 'sinon';
+import { SfCommand } from '@salesforce/sf-plugins-core';
+import { SfProject } from '@salesforce/core';
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
 } from '../../../../src/commands/force/package/beta/version/report';
 
+const pkgVersionReportResultModified: PackageVersionReportResultModified = {
+  AncestorId: 'N/A',
+  AncestorVersion: 'N/A',
+  Branch: '',
+  BuildDurationInSeconds: 10,
+  BuildNumber: 0,
+  CodeCoverage: 'N/A',
+  CodeCoveragePercentages: {
+    codeCovPercentages: [
+      {
+        className: '',
+        codeCoveragePercentage: 42,
+      },
+    ],
+  },
+  ConvertedFromVersionId: '',
+  CreatedById: '',
+  CreatedDate: 0,
+  Description: '',
+  HasMetadataRemoved: 'N/A',
+  HasPassedCodeCoverageCheck: false,
+  Id: '05i3i000000Gmj6XXX',
+  InstallKey: '',
+  IsDeleted: false,
+  IsDeprecated: false,
+  IsPasswordProtected: false,
+  IsReleased: false,
+  LastModifiedById: '',
+  LastModifiedDate: 0,
+  MajorVersion: 0,
+  MinorVersion: 0,
+  Name: '',
+  Package2: {
+    IsOrgDependent: 'No',
+  },
+  Package2Id: '',
+  PatchVersion: 0,
+  ReleaseVersion: 0,
+  SubscriberPackageVersionId: '',
+  SystemModstamp: 0,
+  Tag: '',
+  ValidationSkipped: false,
+  Version: '0.0.0.0',
+};
+
+const pkgVersionReportResult: PackageVersionReportResult = {
+  PackageType: 'Unlocked',
+  AncestorId: 'N/A',
+  AncestorVersion: 'N/A',
+  Branch: '',
+  BuildDurationInSeconds: 10,
+  BuildNumber: 0,
+  CodeCoverage: null,
+  CodeCoveragePercentages: {
+    codeCovPercentages: [
+      {
+        className: '',
+        codeCoveragePercentage: 42,
+      },
+    ],
+  },
+  ConvertedFromVersionId: '',
+  CreatedById: '',
+  CreatedDate: 0,
+  Description: '',
+  HasMetadataRemoved: false,
+  HasPassedCodeCoverageCheck: false,
+  Id: '05i3i000000Gmj6XXX',
+  InstallKey: '',
+  IsDeleted: false,
+  IsDeprecated: false,
+  IsPasswordProtected: false,
+  IsReleased: false,
+  LastModifiedById: '',
+  LastModifiedDate: 0,
+  MajorVersion: 0,
+  MinorVersion: 0,
+  Name: '',
+  Package2: {
+    IsOrgDependent: false,
+  },
+  Package2Id: '',
+  PatchVersion: 0,
+  ReleaseVersion: 0,
+  SubscriberPackageVersionId: '',
+  SystemModstamp: 0,
+  Tag: '',
+  ValidationSkipped: false,
+  Version: '0.0.0.0',
+};
+
 describe('force:package:version:report - tests', () => {
   const $$ = new TestContext();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  const testOrg = new MockTestOrgData();
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+
+  const sandbox = sinon.createSandbox();
+
+  // stubs
   let uxLogStub: sinon.SinonStub;
   let uxTableStub: sinon.SinonStub;
   let uxStyledHeaderStub: sinon.SinonStub;
 
-  const pkgVersionReportResultModified: PackageVersionReportResultModified = {
-    AncestorId: 'N/A',
-    AncestorVersion: 'N/A',
-    Branch: '',
-    BuildDurationInSeconds: 10,
-    BuildNumber: 0,
-    CodeCoverage: 'N/A',
-    CodeCoveragePercentages: {
-      codeCovPercentages: [
-        {
-          className: '',
-          codeCoveragePercentage: 42,
-        },
-      ],
-    },
-    ConvertedFromVersionId: '',
-    CreatedById: '',
-    CreatedDate: 0,
-    Description: '',
-    HasMetadataRemoved: 'N/A',
-    HasPassedCodeCoverageCheck: false,
-    Id: '05i3i000000Gmj6XXX',
-    InstallKey: '',
-    IsDeleted: false,
-    IsDeprecated: false,
-    IsPasswordProtected: false,
-    IsReleased: false,
-    LastModifiedById: '',
-    LastModifiedDate: 0,
-    MajorVersion: 0,
-    MinorVersion: 0,
-    Name: '',
-    Package2: {
-      IsOrgDependent: 'No',
-    },
-    Package2Id: '',
-    PatchVersion: 0,
-    ReleaseVersion: 0,
-    SubscriberPackageVersionId: '',
-    SystemModstamp: 0,
-    Tag: '',
-    ValidationSkipped: false,
-    Version: '0.0.0.0',
-  };
-  const pkgVersionReportResult: PackageVersionReportResult = {
-    PackageType: 'Unlocked',
-    AncestorId: 'N/A',
-    AncestorVersion: 'N/A',
-    Branch: '',
-    BuildDurationInSeconds: 10,
-    BuildNumber: 0,
-    CodeCoverage: null,
-    CodeCoveragePercentages: {
-      codeCovPercentages: [
-        {
-          className: '',
-          codeCoveragePercentage: 42,
-        },
-      ],
-    },
-    ConvertedFromVersionId: '',
-    CreatedById: '',
-    CreatedDate: 0,
-    Description: '',
-    HasMetadataRemoved: false,
-    HasPassedCodeCoverageCheck: false,
-    Id: '05i3i000000Gmj6XXX',
-    InstallKey: '',
-    IsDeleted: false,
-    IsDeprecated: false,
-    IsPasswordProtected: false,
-    IsReleased: false,
-    LastModifiedById: '',
-    LastModifiedDate: 0,
-    MajorVersion: 0,
-    MinorVersion: 0,
-    Name: '',
-    Package2: {
-      IsOrgDependent: false,
-    },
-    Package2Id: '',
-    PatchVersion: 0,
-    ReleaseVersion: 0,
-    SubscriberPackageVersionId: '',
-    SystemModstamp: 0,
-    Tag: '',
-    ValidationSkipped: false,
-    Version: '0.0.0.0',
-  };
-  class TestCommand extends PackageVersionReportCommand {
-    public async runIt() {
-      await this.init();
-      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      uxTableStub = stubMethod($$.SANDBOX, this.ux, 'table');
-      uxStyledHeaderStub = stubMethod($$.SANDBOX, this.ux, 'styledHeader');
-      return this.run();
-    }
+  beforeEach(async () => {
+    await config.load();
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxTableStub = sandbox.stub(SfCommand.prototype, 'table');
+    uxStyledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
 
-    public setHubOrg(org: Org) {
-      this.hubOrg = org;
-    }
-  }
+    await $$.stubAuths(testOrg);
+  });
 
-  const runCmd = async (params: string[]) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({}),
-        })
-      );
-      cmd.setHubOrg(orgStub);
-    });
-    return cmd.runIt();
-  };
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
 
   describe('force:package:version:report', () => {
     it('should produce package version report', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);
       $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
-      const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org']);
+      const command = new PackageVersionReportCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org'], config);
+      command.project = SfProject.getInstance();
+
+      const result = await command.run();
       expect(result).to.deep.equal(pkgVersionReportResultModified);
       expect(uxLogStub.calledOnce).to.be.false;
       expect(uxTableStub.calledOnce).to.be.true;
@@ -153,7 +151,12 @@ describe('force:package:version:report - tests', () => {
     it('should produce package version report - json result', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);
       $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
-      const result = await runCmd(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org', '--json']);
+      const command = new PackageVersionReportCommand(
+        ['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '--json'],
+        config
+      );
+      command.project = SfProject.getInstance();
+      const result = await command.run();
       expect(result).to.deep.equal(pkgVersionReportResultModified);
       expect(uxLogStub.calledOnce).to.be.false;
       expect(uxTableStub.calledOnce).to.be.false;
@@ -161,18 +164,9 @@ describe('force:package:version:report - tests', () => {
     });
   });
   describe('massage results', () => {
-    let cmd: TestCommand;
+    let cmd: PackageVersionReportCommand;
     beforeEach(() => {
-      cmd = new TestCommand(['-p', pkgVersionReportResult.Id, '-v', 'test@hub.org'], oclifConfigStub);
-      stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-        const orgStub = fromStub(
-          stubInterface<Org>($$.SANDBOX, {
-            getUsername: () => 'test@user.com',
-            getConnection: () => ({}),
-          })
-        );
-        cmd.setHubOrg(orgStub);
-      });
+      cmd = new PackageVersionReportCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org'], config);
     });
 
     it('should massage results', () => {

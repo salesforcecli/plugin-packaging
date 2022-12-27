@@ -5,77 +5,66 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { EOL } from 'os';
-import { Org } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { resolve } from 'path';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
-import { Result } from '@salesforce/command';
+import * as sinon from 'sinon';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Report } from '../../../../src/commands/force/package/beta/install/report';
+
+const pkgInstallRequest = {
+  attributes: {
+    type: 'PackageInstallRequest',
+    url: '/services/data/v55.0/tooling/sobjects/PackageInstallRequest/0Hf1h0000006sh2CAA',
+  },
+  Id: '0Hf1h0000006sh2CAA',
+  IsDeleted: false,
+  CreatedDate: '2022-08-09T05:13:14.000+0000',
+  CreatedById: '0051h000009NugzAAC',
+  LastModifiedDate: '2022-08-09T05:13:14.000+0000',
+  LastModifiedById: '0051h000009NugzAAC',
+  SystemModstamp: '2022-08-09T05:13:14.000+0000',
+  SubscriberPackageVersionKey: '04t6A000002zgKSQAY',
+  NameConflictResolution: 'Block',
+  SecurityType: 'None',
+  PackageInstallSource: 'U',
+  ProfileMappings: null,
+  Password: null,
+  EnableRss: false,
+  UpgradeType: 'mixed-mode',
+  ApexCompileType: 'all',
+  Status: 'IN_PROGRESS',
+  Errors: null,
+};
 
 describe('force:package:install:report', () => {
   const $$ = new TestContext();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  const testOrg = new MockTestOrgData();
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+
+  const sandbox = sinon.createSandbox();
+
+  // stubs
   let uxLogStub: sinon.SinonStub;
   let getInstallRequestStub: sinon.SinonStub;
 
-  const pkgInstallRequest = {
-    attributes: {
-      type: 'PackageInstallRequest',
-      url: '/services/data/v55.0/tooling/sobjects/PackageInstallRequest/0Hf1h0000006sh2CAA',
-    },
-    Id: '0Hf1h0000006sh2CAA',
-    IsDeleted: false,
-    CreatedDate: '2022-08-09T05:13:14.000+0000',
-    CreatedById: '0051h000009NugzAAC',
-    LastModifiedDate: '2022-08-09T05:13:14.000+0000',
-    LastModifiedById: '0051h000009NugzAAC',
-    SystemModstamp: '2022-08-09T05:13:14.000+0000',
-    SubscriberPackageVersionKey: '04t6A000002zgKSQAY',
-    NameConflictResolution: 'Block',
-    SecurityType: 'None',
-    PackageInstallSource: 'U',
-    ProfileMappings: null,
-    Password: null,
-    EnableRss: false,
-    UpgradeType: 'mixed-mode',
-    ApexCompileType: 'all',
-    Status: 'IN_PROGRESS',
-    Errors: null,
-  };
+  beforeEach(async () => {
+    await config.load();
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
 
-  class TestCommand extends Report {
-    public async runIt() {
-      this.result = new Result(this.statics.result);
-      await this.init();
-      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      this.result.data = await this.run();
-      await this.finally(undefined);
-      return this.result.data;
-    }
-    public setOrg(org: Org) {
-      this.org = org;
-    }
-  }
+    await $$.stubAuths(testOrg);
+  });
 
-  const runCmd = async (params: string[]) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({}),
-        })
-      );
-      cmd.setOrg(orgStub);
-    });
-    return cmd.runIt();
-  };
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
 
   it('should error without required --requestid param', async () => {
     try {
-      await runCmd([]);
+      await new Report(['--target-org', testOrg.username], config).run();
       expect(false, 'Expected required flag error').to.be.true;
     } catch (err) {
       const error = err as Error;
@@ -89,7 +78,7 @@ describe('force:package:install:report', () => {
     getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
       request as PackagingSObjects.PackageInstallRequest
     );
-    const result = await runCmd(['-i', pkgInstallRequest.Id]);
+    const result = await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
     expect(result).to.deep.equal(request);
     expect(uxLogStub.calledOnce).to.be.true;
     expect(uxLogStub.args[0][0]).to.equal('Successfully installed package [04t6A000002zgKSQAY]');
@@ -100,7 +89,7 @@ describe('force:package:install:report', () => {
     getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
       pkgInstallRequest as PackagingSObjects.PackageInstallRequest
     );
-    const result = await runCmd(['-i', pkgInstallRequest.Id]);
+    const result = await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
     const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
@@ -119,7 +108,7 @@ describe('force:package:install:report', () => {
 
     getInstallRequestStub.resolves(request);
     try {
-      await runCmd(['-i', pkgInstallRequest.Id]);
+      await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
       expect(false, 'Expected PackageInstallError').to.be.true;
     } catch (err) {
       const error = err as Error;

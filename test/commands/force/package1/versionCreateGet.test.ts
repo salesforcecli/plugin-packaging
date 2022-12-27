@@ -4,85 +4,114 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Org } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { resolve } from 'path';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
+import * as sinon from 'sinon';
+import { SfCommand } from '@salesforce/sf-plugins-core';
+import { Package1Version } from '@salesforce/packaging';
 import { Package1VersionCreateGetCommand } from '../../../../src/commands/force/package1/beta/version/create/get';
 
 describe('force:package1:version:create:get', () => {
   const $$ = new TestContext();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  const testOrg = new MockTestOrgData();
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+
+  const sandbox = sinon.createSandbox();
+
+  // stubs
   let uxStub: sinon.SinonStub;
 
-  class TestCommand extends Package1VersionCreateGetCommand {
-    public async runIt() {
-      await this.init();
+  beforeEach(async () => {
+    await config.load();
+    uxStub = sandbox.stub(SfCommand.prototype, 'log');
 
-      uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      return this.run();
-    }
-    public setOrg(org: Org) {
-      this.org = org;
-    }
-  }
+    await $$.stubAuths(testOrg);
+  });
 
-  const runCmd = async (params: string[], result: string, errors?: { errors: Error[] }) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
 
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({
-            tooling: {
-              sobject: () => ({
-                retrieve: () =>
-                  Promise.resolve({
-                    Status: result,
-                    MetadataPackageVersionId: '04t4p000002BavTXXX',
-                    Errors: errors,
-                  }),
-              }),
-            },
-          }),
-        })
-      );
-      cmd.setOrg(orgStub);
+  const libraryStubResult = (status: string, errors?: { errors: Error[] }): void => {
+    sandbox.stub(Package1Version, 'getCreateStatus').resolves({
+      CreatedById: '',
+      CreatedDate: 0,
+      Description: '',
+      // @ts-ignore
+      Errors: errors,
+      IsDeleted: false,
+      IsReleaseVersion: false,
+      LastModifiedById: '',
+      LastModifiedDate: 0,
+      MajorVersion: 0,
+      MetadataPackageId: '',
+      MetadataPackageVersionId: '04t4p000002BavTXXX',
+      MinorVersion: 0,
+      Password: '',
+      PostInstallUrl: '',
+      ReleaseNotesUrl: '',
+      SystemModstamp: 0,
+      VersionName: '',
+      Status: status,
+      Id: '0HD4p000000blUvGXX',
     });
-    return cmd.runIt();
   };
 
   it('should print SUCCESS status correctly', async () => {
-    const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'SUCCESS');
+    libraryStubResult('SUCCESS');
+    const result = await new Package1VersionCreateGetCommand(
+      ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+      config
+    ).run();
     expect(result.Status).to.equal('SUCCESS');
     expect(uxStub.callCount).to.equal(1);
     expect(uxStub.firstCall.args[0]).to.equal('Successfully uploaded package [04t4p000002BavTXXX]');
   });
 
   it('should print IN_PROGRESS status correctly', async () => {
-    const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'IN_PROGRESS');
+    libraryStubResult('IN_PROGRESS');
+    const result = await new Package1VersionCreateGetCommand(
+      ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+      config
+    ).run();
+
     expect(result.Status).to.equal('IN_PROGRESS');
     expect(uxStub.callCount).to.equal(1);
+    // PackageUploadRequest is still InProgress. You can query the status using
+    // sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_9aabdcd7250f980c5a96bf96fb9a9711@gb.org
     expect(uxStub.firstCall.args[0]).to.match(
-      /PackageUploadRequest is still InProgress\. You can query the status using\s+sfdx force:package1:version:create:get -i undefined -u test@user\.com/
+      /PackageUploadRequest is still InProgress\. You can query the status using\s+sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
     );
   });
 
   it('should print QUEUED status correctly', async () => {
-    const result = await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'QUEUED');
+    libraryStubResult('QUEUED');
+    const result = await new Package1VersionCreateGetCommand(
+      ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+      config
+    ).run();
+
     expect(result.Status).to.equal('QUEUED');
     expect(uxStub.callCount).to.equal(1);
+    // "PackageUploadRequest has been enqueued. You can query the status using
+    // sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_59d2d480323a011b8887b00138d2e9bb@gb.org"
     expect(uxStub.firstCall.args[0]).to.match(
-      /PackageUploadRequest has been enqueued\. You can query the status using\s+sfdx force:package1:version:create:get -i undefined -u test@user\.com/
+      /PackageUploadRequest has been enqueued\. You can query the status using\s+sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
     );
   });
 
   it('should print ERROR status correctly, undefined errors', async () => {
     try {
-      await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'ERROR');
-      assert.fail('the above should throw an erorr, from the ERROR status');
+      libraryStubResult('ERROR', undefined);
+      await new Package1VersionCreateGetCommand(
+        ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+        config
+      ).run();
+
+      assert.fail('the above should throw an error, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.match(
         /Package upload failed\.\s+Package version creation failed with unknown error/
@@ -92,7 +121,12 @@ describe('force:package1:version:create:get', () => {
 
   it('should print ERROR status correctly, multiple errors', async () => {
     try {
-      await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'ERROR', { errors: [new Error('message1')] });
+      libraryStubResult('ERROR', { errors: [new Error('message1')] });
+      await new Package1VersionCreateGetCommand(
+        ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+        config
+      ).run();
+
       assert.fail('the above should throw an erorr, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.match(/Package upload failed\.\s+message1/);
@@ -101,9 +135,12 @@ describe('force:package1:version:create:get', () => {
 
   it('should print ERROR status correctly, multiple errors (2+)', async () => {
     try {
-      await runCmd(['--requestid', '0HD4p000000blSkXXX'], 'ERROR', {
-        errors: [new Error('message1'), new Error('message2')],
-      });
+      libraryStubResult('ERROR', { errors: [new Error('message1'), new Error('message2')] });
+      await new Package1VersionCreateGetCommand(
+        ['--requestid', '0HD4p000000blSkXXX', '--target-org', testOrg.username],
+        config
+      ).run();
+
       assert.fail('the above should throw an erorr, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.match(/Package upload failed\.\s+message1\s+message2/);

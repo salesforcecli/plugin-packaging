@@ -4,66 +4,38 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { Org } from '@salesforce/core';
-import { TestContext } from '@salesforce/core/lib/testSetup';
-import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
+import { resolve } from 'path';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
+import { stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
-import { Result } from '@salesforce/command';
+import * as sinon from 'sinon';
+import { SfCommand } from '@salesforce/sf-plugins-core';
+import { SfProject } from '@salesforce/core';
 import { PackageVersionDeleteCommand } from '../../../../src/commands/force/package/beta/version/delete';
 
 describe('force:package:version:delete', () => {
   const $$ = new TestContext();
-  const oclifConfigStub = fromStub(stubInterface<Config>($$.SANDBOX));
+  const testOrg = new MockTestOrgData();
+  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+
+  const sandbox = sinon.createSandbox();
+
+  // stubs
   let uxLogStub: sinon.SinonStub;
   let uxConfirmStub: sinon.SinonStub;
-  let apiVersionStub: sinon.SinonStub;
-  let queryStub: sinon.SinonStub;
+
   let packageVersionStub: sinon.SinonStub;
   let deleteStub: sinon.SinonStub;
   let undeleteStub: sinon.SinonStub;
 
-  class TestCommand extends PackageVersionDeleteCommand {
-    public async runIt(confirm: boolean) {
-      this.result = new Result(this.statics.result);
-      await this.init();
-      uxLogStub = stubMethod($$.SANDBOX, this.ux, 'log');
-      uxConfirmStub = stubMethod($$.SANDBOX, this.ux, 'confirm');
-      if (confirm) {
-        uxConfirmStub.resolves(confirm);
-      }
-      this.result.data = await this.run();
-      await this.finally(undefined);
-      return this.result.data;
-    }
-    public setHubOrg(org: Org) {
-      this.hubOrg = org;
-    }
-  }
+  beforeEach(async () => {
+    await config.load();
+    await $$.stubAuths(testOrg);
 
-  const runCmd = async (params: string[], confirm?: boolean) => {
-    const cmd = new TestCommand(params, oclifConfigStub);
-    stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-      const orgStub = fromStub(
-        stubInterface<Org>($$.SANDBOX, {
-          getUsername: () => 'test@user.com',
-          getConnection: () => ({
-            getApiVersion: apiVersionStub,
-            tooling: {
-              query: queryStub,
-            },
-          }),
-        })
-      );
-      cmd.setHubOrg(orgStub);
-    });
-    return cmd.runIt(confirm);
-  };
-
-  beforeEach(() => {
-    apiVersionStub = $$.SANDBOX.stub().returns('55.0');
-    queryStub = $$.SANDBOX.stub();
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxConfirmStub = stubMethod($$.SANDBOX, SfCommand.prototype, 'confirm');
     deleteStub = $$.SANDBOX.stub();
     undeleteStub = $$.SANDBOX.stub();
 
@@ -76,9 +48,52 @@ describe('force:package:version:delete', () => {
     Object.setPrototypeOf(PackageVersion, packageVersionStub);
   });
 
+  afterEach(() => {
+    $$.restore();
+    sandbox.restore();
+  });
+
+  // class TestCommand extends PackageVersionDeleteCommand {
+  //   public async runIt(confirm: boolean) {
+  //     this.result = new Result(this.statics.result);
+  //     await this.init();
+  //
+  //     if (confirm) {
+  //       uxConfirmStub.resolves(confirm);
+  //     }
+  //     this.result.data = await this.run();
+  //     await this.finally(undefined);
+  //     return this.result.data;
+  //   }
+  //   public setHubOrg(org: Org) {
+  //     this.hubOrg = org;
+  //   }
+  // }
+
+  // const runCmd = async (params: string[], confirm?: boolean) => {
+  //   const cmd = new TestCommand(params, oclifConfigStub);
+  //   stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
+  //     const orgStub = fromStub(
+  //       stubInterface<Org>($$.SANDBOX, {
+  //         getUsername: () => 'test@user.com',
+  //         getConnection: () => ({
+  //           getApiVersion: apiVersionStub,
+  //           tooling: {
+  //             query: queryStub,
+  //           },
+  //         }),
+  //       })
+  //     );
+  //     cmd.setHubOrg(orgStub);
+  //   });
+  //   return cmd.runIt(confirm);
+  // };
+
+  beforeEach(() => {});
+
   it('should error without required --package param', async () => {
     try {
-      await runCmd([]);
+      await new PackageVersionDeleteCommand(['-v', testOrg.username], config).run();
       expect(false, 'Expected required flag error').to.be.true;
     } catch (err) {
       const error = err as Error;
@@ -89,7 +104,11 @@ describe('force:package:version:delete', () => {
 
   it('should error pkg version alias not found in project', async () => {
     try {
-      await runCmd(['-p', 'subscriberPV-alias', '-v', 'foor@bar.org'], true);
+      const command = new PackageVersionDeleteCommand(['-p', 'subscriberPV-alias', '-v', 'foor@bar.org'], config);
+      command.project = SfProject.getInstance();
+      uxConfirmStub.resolves(true);
+      await command.run();
+
       expect(false, 'Expected invalid id error').to.be.true;
     } catch (err) {
       const error = err as Error;
@@ -103,10 +122,11 @@ describe('force:package:version:delete', () => {
       id: 'testId',
       success: true,
     } as PackageSaveResult);
-    const results: PackageSaveResult = (await runCmd(
-      ['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org'],
-      true
-    )) as PackageSaveResult;
+    uxConfirmStub.resolves(true);
+
+    const command = new PackageVersionDeleteCommand(['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org'], config);
+    command.project = SfProject.getInstance();
+    const results: PackageSaveResult = await command.run();
     expect(results.id).to.equal('testId');
     expect(uxLogStub.calledOnce).to.be.true;
     const msg = 'Successfully deleted the package version. testId';
@@ -120,10 +140,13 @@ describe('force:package:version:delete', () => {
       id: 'testId',
       success: true,
     } as PackageSaveResult);
-    const results: PackageSaveResult = (await runCmd(
+    uxConfirmStub.resolves(true);
+    const command = new PackageVersionDeleteCommand(
       ['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org', '--undelete'],
-      true
-    )) as PackageSaveResult;
+      config
+    );
+    command.project = SfProject.getInstance();
+    const results: PackageSaveResult = await command.run();
     expect(uxLogStub.calledOnce).to.be.true;
     const msg = 'Successfully undeleted the package version. testId';
     expect(uxLogStub.args[0][0]).to.equal(msg);
