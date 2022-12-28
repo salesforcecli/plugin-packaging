@@ -11,7 +11,6 @@ import {
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
-  Ux,
 } from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
@@ -44,12 +43,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
     const { flags } = await this.parse(Report);
     const connection = flags['target-org'].getConnection(flags['api-version']);
     const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags.requestid, connection);
-    InstallCommand.parseStatus(
-      pkgInstallRequest,
-      new Ux({ jsonEnabled: this.jsonEnabled() }),
-      installMsgs,
-      flags['target-org'].getUsername() as string
-    );
+    InstallCommand.parseStatus(pkgInstallRequest, this, installMsgs, flags['target-org'].getUsername() as string);
 
     return pkgInstallRequest;
   }

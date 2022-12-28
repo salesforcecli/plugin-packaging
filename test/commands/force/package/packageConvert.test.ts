@@ -28,10 +28,13 @@ describe('force:package:convert', () => {
   let uxLogStub: sinon.SinonStub;
   let convertStub: sinon.SinonStub;
 
-  beforeEach(async () => {
-    await config.load();
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
+  beforeEach(async () => {
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {

@@ -23,11 +23,13 @@ describe('force:package1:version:create:get', () => {
   // stubs
   let uxStub: sinon.SinonStub;
 
-  beforeEach(async () => {
-    await config.load();
-    uxStub = sandbox.stub(SfCommand.prototype, 'log');
-
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
+  beforeEach(async () => {
+    uxStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {

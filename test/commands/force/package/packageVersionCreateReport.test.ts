@@ -75,12 +75,14 @@ describe('force:package:version:create:report - tests', () => {
 
   const sandbox = sinon.createSandbox();
   beforeEach(async () => {
-    await config.load();
     logStub = sandbox.stub(SfCommand.prototype, 'log');
     styledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
     tableStub = sandbox.stub(SfCommand.prototype, 'table');
+  });
 
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
   });
 
   afterEach(() => {

@@ -58,11 +58,13 @@ describe('force:package:version:create - tests', () => {
   // stubs
   let logStub: sinon.SinonStub;
 
-  beforeEach(async () => {
-    await config.load();
-    logStub = sandbox.stub(SfCommand.prototype, 'log');
-
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
+  beforeEach(async () => {
+    logStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {

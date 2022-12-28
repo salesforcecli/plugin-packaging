@@ -50,11 +50,13 @@ describe('force:package:install:report', () => {
   let uxLogStub: sinon.SinonStub;
   let getInstallRequestStub: sinon.SinonStub;
 
-  beforeEach(async () => {
-    await config.load();
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
-
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
+  beforeEach(async () => {
+    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {

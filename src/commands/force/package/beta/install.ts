@@ -11,7 +11,6 @@ import {
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
-  Ux,
 } from '@salesforce/sf-plugins-core';
 import { Connection, Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
@@ -23,6 +22,7 @@ import {
   SubscriberPackageVersion,
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
+import { Report } from './install/report';
 
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
@@ -99,7 +99,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
   public static parseStatus(
     request: PackageInstallRequest,
-    ux: Ux,
+    command: Install | Report,
     installMsgs: Messages<string>,
     username: string,
     alias?: string
@@ -107,9 +107,9 @@ export class Install extends SfCommand<PackageInstallRequest> {
     const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
     const { Status } = request;
     if (Status === 'SUCCESS') {
-      ux.log(installMsgs.getMessage('packageInstallSuccess', [pkgIdOrAlias]));
+      command.log(installMsgs.getMessage('packageInstallSuccess', [pkgIdOrAlias]));
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
-      ux.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, username]));
+      command.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, username]));
     } else {
       let errorMessage = '<empty>';
       const errors = request?.Errors?.errors;
@@ -205,13 +205,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
     const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
     this.spinner.stop();
-    Install.parseStatus(
-      pkgInstallRequest,
-      new Ux({ jsonEnabled: this.jsonEnabled() }),
-      messages,
-      flags['target-org'].getUsername() as string,
-      flags.package
-    );
+    Install.parseStatus(pkgInstallRequest, this, messages, flags['target-org'].getUsername() as string, flags.package);
 
     return pkgInstallRequest;
   }

@@ -24,64 +24,19 @@ describe('force:package:uninstall', () => {
   // stubs
   let logStub: sinon.SinonStub;
 
-  beforeEach(async () => {
-    await config.load();
-    logStub = sandbox.stub(SfCommand.prototype, 'log');
-
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
+  beforeEach(async () => {
+    logStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
     $$.restore();
     sandbox.restore();
   });
-
-  // class TestCommand extends PackageUninstallCommand {
-  //   public async runIt() {
-  //     await this.init();
-  //     uxStub = stubMethod($$.SANDBOX, this.ux, 'log');
-  //     return this.run();
-  //   }
-  //   public setOrg(org: Org) {
-  //     this.org = org;
-  //   }
-  //   public setProject(project: SfProject) {
-  //     this.project = project;
-  //   }
-  // }
-
-  // const runCmd = async (params: string[], status: string) => {
-  //   const cmd = new TestCommand(params, oclifConfigStub);
-  //   stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-  //     const orgStub = fromStub(
-  //       stubInterface<Org>($$.SANDBOX, {
-  //         getUsername: () => 'test@user.com',
-  //         getConnection: () => ({
-  //           tooling: {
-  //             sobject: () => ({
-  //               create: () => ({ id: '04t4p000002BaHYXXX' }),
-  //               retrieve: () => ({
-  //                 Id: '06y23000000002MXXX',
-  //                 IsDeleted: false,
-  //                 CreatedDate: '2022-08-02T17:13:00.000+0000',
-  //                 CreatedById: '00523000003Ehj9XXX',
-  //                 LastModifiedDate: '2022-08-02T17:13:00.000+0000',
-  //                 LastModifiedById: '00523000003Ehj9XXX',
-  //                 SystemModstamp: '2022-08-02T17:13:00.000+0000',
-  //                 SubscriberPackageVersionId: '04t4p000002BaHYXXX',
-  //                 Status: status,
-  //               }),
-  //             }),
-  //           },
-  //         }),
-  //       })
-  //     );
-  //     cmd.setOrg(orgStub);
-  //   });
-  //   cmd.setProject(SfProject.getInstance());
-  //
-  //   return cmd.runIt();
-  // };
 
   const libraryStubResult = (status: 'Error' | 'InProgress' | 'Queued' | 'Success'): void => {
     sandbox.stub(SubscriberPackageVersion.prototype, 'uninstall').resolves({

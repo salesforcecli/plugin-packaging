@@ -31,9 +31,6 @@ describe('force:package:version:delete', () => {
   let undeleteStub: sinon.SinonStub;
 
   beforeEach(async () => {
-    await config.load();
-    await $$.stubAuths(testOrg);
-
     uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
     uxConfirmStub = stubMethod($$.SANDBOX, SfCommand.prototype, 'confirm');
     deleteStub = $$.SANDBOX.stub();
@@ -48,46 +45,15 @@ describe('force:package:version:delete', () => {
     Object.setPrototypeOf(PackageVersion, packageVersionStub);
   });
 
+  before(async () => {
+    await $$.stubAuths(testOrg);
+    await config.load();
+  });
+
   afterEach(() => {
     $$.restore();
     sandbox.restore();
   });
-
-  // class TestCommand extends PackageVersionDeleteCommand {
-  //   public async runIt(confirm: boolean) {
-  //     this.result = new Result(this.statics.result);
-  //     await this.init();
-  //
-  //     if (confirm) {
-  //       uxConfirmStub.resolves(confirm);
-  //     }
-  //     this.result.data = await this.run();
-  //     await this.finally(undefined);
-  //     return this.result.data;
-  //   }
-  //   public setHubOrg(org: Org) {
-  //     this.hubOrg = org;
-  //   }
-  // }
-
-  // const runCmd = async (params: string[], confirm?: boolean) => {
-  //   const cmd = new TestCommand(params, oclifConfigStub);
-  //   stubMethod($$.SANDBOX, cmd, 'assignOrg').callsFake(() => {
-  //     const orgStub = fromStub(
-  //       stubInterface<Org>($$.SANDBOX, {
-  //         getUsername: () => 'test@user.com',
-  //         getConnection: () => ({
-  //           getApiVersion: apiVersionStub,
-  //           tooling: {
-  //             query: queryStub,
-  //           },
-  //         }),
-  //       })
-  //     );
-  //     cmd.setHubOrg(orgStub);
-  //   });
-  //   return cmd.runIt(confirm);
-  // };
 
   beforeEach(() => {});
 

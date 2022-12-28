@@ -121,12 +121,14 @@ describe('force:package:version:report - tests', () => {
   let uxStyledHeaderStub: sinon.SinonStub;
 
   beforeEach(async () => {
-    await config.load();
     uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
     uxTableStub = sandbox.stub(SfCommand.prototype, 'table');
     uxStyledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
+  });
 
+  before(async () => {
     await $$.stubAuths(testOrg);
+    await config.load();
   });
 
   afterEach(() => {
