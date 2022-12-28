@@ -46,8 +46,9 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       summary: messages.getMessage('description'),
       description: messages.getMessage('descriptionLong'),
     }),
-    errornotificationusername: Flags.string({
+    'error-notification-username': Flags.string({
       char: 'o',
+      aliases: ['errornotificationusername'],
       summary: packageCreate.getMessage('errorNotificationUsername'),
       description: packageCreate.getMessage('errorNotificationUsernameLong'),
     }),
@@ -65,7 +66,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       Id: pkg.getId(),
       Name: flags.name,
       Description: flags.description,
-      PackageErrorUsername: flags.errornotificationusername,
+      PackageErrorUsername: flags['error-notification-username'],
     });
 
     this.log(messages.getMessage('success', [pkg.getId()]));

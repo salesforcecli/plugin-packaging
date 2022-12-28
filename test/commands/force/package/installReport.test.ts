@@ -71,7 +71,7 @@ describe('force:package:install:report', () => {
     } catch (err) {
       const error = err as Error;
       expect(error.name).to.equal('Error');
-      expect(error.message).to.include('Missing required flag requestid');
+      expect(error.message).to.include('Missing required flag request-id');
     }
   });
 

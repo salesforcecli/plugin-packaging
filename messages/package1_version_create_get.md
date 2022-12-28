@@ -11,7 +11,7 @@ $ sfdx force:package1:version:create:get -i 0HD... -u devhub@example.com
 
 PackageUploadRequest ID
 
-# requestIdLong
+# request-id-long
 
 The ID of the PackageUploadRequest.
 

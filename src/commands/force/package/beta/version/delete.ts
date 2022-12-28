@@ -29,20 +29,21 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    noprompt: Flags.boolean({
+    'no-prompt': Flags.boolean({
       char: 'n',
-      summary: messages.getMessage('noPrompt'),
-      description: messages.getMessage('noPrompt'),
+      aliases: ['noprompt'],
+      summary: messages.getMessage('no-prompt'),
+      description: messages.getMessage('no-prompt'),
     }),
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     undelete: Flags.boolean({
       summary: messages.getMessage('undelete'),
-      description: messages.getMessage('undeleteLong'),
+      description: messages.getMessage('undelete-long'),
       hidden: true,
     }),
   };
@@ -54,7 +55,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
       project: this.project,
       idOrAlias: flags.package,
     });
-    await this.confirmDelete(flags.noprompt, flags.undelete);
+    await this.confirmDelete(flags['no-prompt'], flags.undelete);
     const results = flags.undelete ? await packageVersion.undelete() : await packageVersion.delete();
     this.log(this.getHumanSuccessMessage(results, flags.undelete));
     return results;

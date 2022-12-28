@@ -50,22 +50,25 @@ export class Install extends SfCommand<PackageInstallRequest> {
       description: messages.getMessage('waitLong'),
       default: Duration.minutes(0),
     }),
-    installationkey: Flags.string({
+    'installation-key': Flags.string({
       char: 'k',
+      aliases: ['installationkey'],
       summary: messages.getMessage('installationKey'),
       description: messages.getMessage('installationKeyLong'),
     }),
-    publishwait: Flags.duration({
+    'publish-wait': Flags.duration({
       unit: 'minutes',
       char: 'b',
+      aliases: ['publishwait'],
       summary: messages.getMessage('publishWait'),
       description: messages.getMessage('publishWaitLong'),
-      defaultValue: 0,
+      default: Duration.minutes(0),
     }),
-    noprompt: Flags.boolean({
+    'no-prompt': Flags.boolean({
       char: 'r',
-      summary: messages.getMessage('noPrompt'),
-      description: messages.getMessage('noPromptLong'),
+      aliases: ['noprompt'],
+      summary: messages.getMessage('no-prompt'),
+      description: messages.getMessage('no-prompt-long'),
     }),
     package: Flags.string({
       char: 'p',
@@ -73,22 +76,25 @@ export class Install extends SfCommand<PackageInstallRequest> {
       description: messages.getMessage('packageLong'),
       required: true,
     }),
-    apexcompile: Flags.enum({
+    'apex-compile': Flags.enum({
       char: 'a',
+      aliases: ['apexcompile'],
       summary: messages.getMessage('apexCompile'),
       description: messages.getMessage('apexCompileLong'),
       default: 'all',
       options: ['all', 'package'],
     }),
-    securitytype: Flags.enum({
+    'security-type': Flags.enum({
       char: 's',
+      aliases: ['securitytype'],
       summary: messages.getMessage('securityType'),
       description: messages.getMessage('securityTypeLong'),
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
-    upgradetype: Flags.enum({
+    'upgrade-type': Flags.enum({
       char: 't',
+      aliases: ['upgradetype'],
       summary: messages.getMessage('upgradeType'),
       description: messages.getMessage('upgradeTypeLong'),
       default: 'Mixed',
@@ -127,7 +133,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
   public async run(): Promise<PackageInstallRequest> {
     const { flags } = await this.parse(Install);
-    const noPrompt = flags.noprompt;
+    const noPrompt = flags['no-prompt'];
     this.connection = flags['target-org'].getConnection(flags['api-version']);
 
     const apiVersion = parseInt(this.connection.getApiVersion(), 10);
@@ -138,15 +144,15 @@ export class Install extends SfCommand<PackageInstallRequest> {
     this.subscriberPackageVersion = new SubscriberPackageVersion({
       connection: this.connection,
       aliasOrId: flags.package,
-      password: flags.installationkey,
+      password: flags['installation-key'],
     });
 
     const request: PackageInstallCreateRequest = {
       SubscriberPackageVersionKey: await this.subscriberPackageVersion.getId(),
-      Password: flags.installationkey,
-      ApexCompileType: flags.apexcompile as PackageInstallCreateRequest['ApexCompileType'],
-      SecurityType: securityType[flags.securitytype] as PackageInstallCreateRequest['SecurityType'],
-      UpgradeType: upgradeType[flags.upgradetype] as PackageInstallCreateRequest['UpgradeType'],
+      Password: flags['installation-key'],
+      ApexCompileType: flags['apex-compile'] as PackageInstallCreateRequest['ApexCompileType'],
+      SecurityType: securityType[flags['security-type']] as PackageInstallCreateRequest['SecurityType'],
+      UpgradeType: upgradeType[flags['upgrade-type']] as PackageInstallCreateRequest['UpgradeType'],
     };
 
     // eslint-disable-next-line @typescript-eslint/require-await
@@ -156,7 +162,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation
     // unless the noprompt option has been included.
-    if (flags.upgradetype === 'Delete') {
+    if (flags['upgrade-type'] === 'Delete') {
       await this.confirmUpgradeType(noPrompt);
     }
 
@@ -167,7 +173,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     let installOptions: Optional<PackageInstallOptions>;
     if (flags.wait) {
       installOptions = {
-        publishTimeout: flags.publishwait,
+        publishTimeout: flags['publish-wait'],
         pollingTimeout: flags.wait,
       };
       let remainingTime = flags.wait;

@@ -45,23 +45,26 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       required: true,
       startsWith: '033',
     }),
-    installationkey: Flags.string({
+    'installation-key': Flags.string({
       char: 'k',
+      aliases: ['installationkey'],
       summary: messages.getMessage('key'),
       description: messages.getMessage('longKey'),
-      exactlyOne: ['installationkey', 'installationkeybypass'],
+      exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
-    definitionfile: Flags.file({
+    'definition-file': Flags.file({
       char: 'f',
+      aliases: ['definitionfile'],
       summary: messages.getMessage('definitionfile'),
       description: messages.getMessage('longDefinitionfile'),
       hidden: true,
     }),
-    installationkeybypass: Flags.boolean({
+    'installation-key-bypass': Flags.boolean({
       char: 'x',
+      aliases: ['installationkeybypass'],
       summary: messages.getMessage('keyBypass'),
       description: messages.getMessage('longKeyBypass'),
-      exactlyOne: ['installationkey', 'installationkeybypass'],
+      exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     wait: Flags.duration({
       unit: 'minutes',
@@ -70,8 +73,9 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       description: messages.getMessage('longWait'),
       default: Duration.minutes(0),
     }),
-    buildinstance: Flags.string({
+    'build-instance': Flags.string({
       char: 's',
+      aliases: ['buildinstance'],
       summary: messages.getMessage('instance'),
       description: messages.getMessage('longInstance'),
       hidden: true,
@@ -109,10 +113,10 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       flags['target-hub-org'].getConnection(flags['api-version']),
       {
         wait: flags.wait,
-        installationKey: flags.installationkey as string,
-        definitionfile: flags.definitionfile as string,
-        installationKeyBypass: flags.installationkeybypass,
-        buildInstance: flags.buildinstance as string,
+        installationKey: flags['installation-key'] as string,
+        definitionfile: flags['definition-file'] as string,
+        installationKeyBypass: flags['installation-key-bypass'],
+        buildInstance: flags['build-instance'] as string,
       },
       project
     );

@@ -64,19 +64,21 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    createdlastdays: Flags.integer({
+    'created-last-days': Flags.integer({
       char: 'c',
-      summary: packaging.getMessage('createdLastDaysDescription'),
-      description: packaging.getMessage('createdLastDaysLongDescription'),
+      aliases: ['createdlastdays'],
+      summary: packaging.getMessage('created-last-days-description'),
+      description: packaging.getMessage('created-last-days-description-long'),
     }),
     concise: Flags.boolean({
       summary: messages.getMessage('conciseDescription'),
       description: messages.getMessage('conciseLongDescription'),
     }),
-    modifiedlastdays: Flags.integer({
+    'modified-last-days': Flags.integer({
       char: 'm',
-      summary: packaging.getMessage('modifiedLastDaysDescription'),
-      description: packaging.getMessage('modifiedLastDaysLongDescription'),
+      aliases: ['modifiedlastdays'],
+      summary: packaging.getMessage('modified-last-days-description'),
+      description: packaging.getMessage('modified-last-days-description-long'),
     }),
     packages: Flags.string({
       char: 'p',
@@ -88,8 +90,9 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       summary: messages.getMessage('releasedDescription'),
       description: messages.getMessage('releasedLongDescription'),
     }),
-    orderby: Flags.string({
+    'order-by': Flags.string({
       char: 'o',
+      aliases: ['orderby'],
       summary: messages.getMessage('orderByDescription'),
       description: messages.getMessage('orderByLongDescription'),
     }),
@@ -105,12 +108,12 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     const project = SfProject.getInstance();
 
     const records = await Package.listVersions(connection, project, {
-      createdLastDays: flags.createdlastdays as number,
+      createdLastDays: flags['created-last-days'] as number,
       concise: flags.concise,
-      modifiedLastDays: flags.modifiedlastdays as number,
+      modifiedLastDays: flags['modified-last-days'] as number,
       packages: flags.packages?.split(' ') ?? [],
       isReleased: flags.released,
-      orderBy: flags.orderby as string,
+      orderBy: flags['order-by'] as string,
       verbose: flags.verbose,
     });
 

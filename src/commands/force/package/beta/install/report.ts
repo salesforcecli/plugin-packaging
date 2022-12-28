@@ -33,10 +33,11 @@ export class Report extends SfCommand<PackageInstallRequest> {
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     loglevel,
-    requestid: Flags.salesforceId({
+    'request-id': Flags.salesforceId({
       char: 'i',
-      summary: messages.getMessage('requestId'),
-      description: messages.getMessage('requestIdLong'),
+      aliases: ['requestid'],
+      summary: messages.getMessage('request-id'),
+      description: messages.getMessage('request-id-long'),
       required: true,
     }),
   };
@@ -44,7 +45,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
   public async run(): Promise<PackageInstallRequest> {
     const { flags } = await this.parse(Report);
     const connection = flags['target-org'].getConnection(flags['api-version']);
-    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags.requestid, connection);
+    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags['request-id'], connection);
     InstallCommand.parseStatus(pkgInstallRequest, this, installMsgs, flags['target-org'].getUsername() as string);
 
     return pkgInstallRequest;

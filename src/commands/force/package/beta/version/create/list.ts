@@ -30,15 +30,16 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCre
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    createdlastdays: Flags.integer({
+    'created-last-days': Flags.integer({
       char: 'c',
-      summary: packaging.getMessage('createdLastDaysDescription'),
-      description: packaging.getMessage('createdLastDaysLongDescription'),
+      aliases: ['createdlastdays'],
+      summary: packaging.getMessage('created-last-days-description'),
+      description: packaging.getMessage('created-last-days-description-long'),
     }),
     status: Flags.enum({
       char: 's',
-      summary: messages.getMessage('statusDescription'),
-      description: messages.getMessage('statusLongDescription'),
+      summary: messages.getMessage('status-description'),
+      description: messages.getMessage('status-description-long'),
       options: ['Queued', 'InProgress', 'Success', 'Error'],
     }),
   };
@@ -47,7 +48,7 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCre
     const { flags } = await this.parse(PackageVersionCreateListCommand);
     const connection = flags['target-hub-org'].getConnection(flags['api-version']);
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
-      createdlastdays: flags.createdlastdays,
+      createdlastdays: flags['created-last-days'],
       status: flags.status as 'Queued' | 'InProgress' | 'Success' | 'Error',
       connection,
     });

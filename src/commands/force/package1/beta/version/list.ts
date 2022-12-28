@@ -28,8 +28,9 @@ export class Package1VersionListCommand extends SfCommand<Package1Display[]> {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    packageid: Flags.salesforceId({
+    'package-id': Flags.salesforceId({
       length: 18,
+      aliases: ['packageid'],
       char: 'i',
       summary: messages.getMessage('packageId'),
       description: messages.getMessage('packageIdLong'),
@@ -40,7 +41,7 @@ export class Package1VersionListCommand extends SfCommand<Package1Display[]> {
   public async run(): Promise<Package1Display[]> {
     const { flags } = await this.parse(Package1VersionListCommand);
     const result = (
-      await Package1Version.list(flags['target-org'].getConnection(flags['api-version']), flags.packageid as string)
+      await Package1Version.list(flags['target-org'].getConnection(flags['api-version']), flags['package-id'] as string)
     ).map((record) => ({
       MetadataPackageVersionId: record.Id,
       MetadataPackageId: record.MetadataPackageId,

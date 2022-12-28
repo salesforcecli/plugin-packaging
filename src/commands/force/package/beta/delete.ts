@@ -29,20 +29,21 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    noprompt: Flags.boolean({
+    'no-prompt': Flags.boolean({
       char: 'n',
-      summary: messages.getMessage('noPrompt'),
-      description: messages.getMessage('noPromptLong'),
+      aliases: ['noprompt'],
+      summary: messages.getMessage('no-prompt'),
+      description: messages.getMessage('no-prompt-long'),
     }),
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     undelete: Flags.boolean({
       summary: messages.getMessage('undelete'),
-      description: messages.getMessage('undeleteLong'),
+      description: messages.getMessage('undelete-long'),
       hidden: true,
       default: false,
     }),
@@ -51,7 +52,7 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
   public async run(): Promise<PackageSaveResult> {
     const { flags } = await this.parse(PackageDeleteCommand);
     const promptMsg = flags.undelete ? 'promptUndelete' : 'promptDelete';
-    const accepted = flags.noprompt || flags.json ? true : await this.confirm(messages.getMessage(promptMsg));
+    const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm(messages.getMessage(promptMsg));
     if (!accepted) {
       throw messages.createError('promptDeleteDeny');
     }

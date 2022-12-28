@@ -8,11 +8,11 @@ All filter parameters are applied using the AND logical operator (not OR).
 
 To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
 
-# statusDescription
+# status-description
 
 filter the list by version creation request status
 
-# statusLongDescription
+# status-description-long
 
 Filters the list based on the status of version creation requests.
 

@@ -29,11 +29,11 @@ installation key for key-protected package (default: null)
 
 Installation key for installing a key-protected package. The default is null.
 
-# noPrompt
+# no-prompt
 
 do not prompt for confirmation
 
-# noPromptLong
+# no-prompt-long
 
 Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.
 

@@ -35,8 +35,9 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
       description: messages.getMessage('nameLong'),
       required: true,
     }),
-    packagetype: Flags.enum({
+    'package-type': Flags.enum({
       char: 't',
+      aliases: ['packagetype'],
       summary: messages.getMessage('packageType'),
       description: messages.getMessage('packageTypeLong'),
       required: true,
@@ -47,8 +48,9 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
       summary: messages.getMessage('description'),
       description: messages.getMessage('descriptionLong'),
     }),
-    nonamespace: Flags.boolean({
+    'no-namespace': Flags.boolean({
       char: 'e',
+      aliases: ['nonamespace'],
       summary: messages.getMessage('noNamespace'),
       description: messages.getMessage('noNamespaceLong'),
     }),
@@ -58,12 +60,14 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
       description: messages.getMessage('longPath'),
       required: true,
     }),
-    orgdependent: Flags.boolean({
+    'org-dependent': Flags.boolean({
+      aliases: ['orgdependent'],
       summary: messages.getMessage('orgDependent'),
       description: messages.getMessage('orgDependentLong'),
     }),
-    errornotificationusername: Flags.string({
+    'error-notification-username': Flags.string({
       char: 'o',
+      aliases: ['errornotificationusername'],
       summary: messages.getMessage('errorNotificationUsername'),
       description: messages.getMessage('errorNotificationUsernameLong'),
     }),
@@ -73,11 +77,11 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
     const { flags } = await this.parse(PackageCreateCommand);
     const options: PackageCreateOptions = {
       description: flags.description ?? '',
-      errorNotificationUsername: flags.errornotificationusername as string,
+      errorNotificationUsername: flags['error-notification-username'] as string,
       name: flags.name,
-      noNamespace: flags.nonamespace,
-      orgDependent: flags.orgdependent,
-      packageType: flags.packagetype as PackageType,
+      noNamespace: flags['no-namespace'],
+      orgDependent: flags['org-dependent'],
+      packageType: flags['package-type'] as PackageType,
       path: flags.path,
     };
     const result: { Id: string } = await Package.create(

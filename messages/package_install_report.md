@@ -7,10 +7,10 @@ retrieve the status of a package installation request
 $ sfdx force:package:install:report -i 0Hf...
 $ sfdx force:package:install:report -i 0Hf... -u me@example.com
 
-# requestId
+# request-id
 
 ID of the package install request you want to check
 
-# requestIdLong
+# request-id-long
 
 The ID of the package install request you want to check.

@@ -29,7 +29,7 @@ $ sfdx force:package:version:create -d common -k password123 --skipvalidation
 
 ID (starts with 0Ho) or alias of the package to create a version of
 
-# longPackage
+# package-long
 
 The ID (starts with 0Ho) or alias of the package to create a version of.
 
@@ -37,15 +37,15 @@ The ID (starts with 0Ho) or alias of the package to create a version of.
 
 path to directory that contains the contents of the package
 
-# longPath
+# path-long
 
 The path to the directory that contains the contents of the package.
 
-# definitionfile
+# definition-file
 
 path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on
 
-# longDefinitionfile
+# definition-file-long
 
 The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
 
@@ -53,7 +53,7 @@ The path to a definition file similar to scratch org definition file that contai
 
 the package version’s branch
 
-# longBranch
+# branch-long
 
 Name of the branch in your source control system that the package version is based on.
 
@@ -61,23 +61,23 @@ Name of the branch in your source control system that the package version is bas
 
 the package version’s tag
 
-# longTag
+# tag-long
 
 The package version’s tag.
 
-# key
+# installation-key
 
 installation key for key-protected package (either --installationkey or --installationkeybypass is required)
 
-# longKey
+# installation-key-long
 
 Installation key for creating the key-protected package. Either an --installationkey value or the --installationkeybypass flag is required.
 
-# keyBypass
+# installation-key-bypass
 
 bypass the installation key requirement (either --installationkey or --installationkeybypass is required)
 
-# longKeyBypass
+# installation-key-bypass-long
 
 Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.
 
@@ -85,15 +85,15 @@ Bypasses the installation key requirement. If you bypass this requirement, anyon
 
 temp files are preserved that would otherwise be deleted
 
-# longPreserve
+# preserve-long
 
 Specifies that the temp files are preserved that would otherwise be deleted
 
-# validateschema
+# validate-schema
 
 sfdx-project.json is validated against JSON schema
 
-# longValidateschema
+# validate-schema-long
 
 Specifies that the sfdx-project.json file should be validated against JSON schema.
 
@@ -105,7 +105,7 @@ The temp files are located at: %s.
 
 minutes to wait for the package version to be created
 
-# longWait
+# wait-long
 
 The number of minutes to wait for the package version to be created.
 
@@ -113,93 +113,103 @@ The number of minutes to wait for the package version to be created.
 
 the instance where the package version will be created——for example, NA50
 
-# longInstance
+# instance-long
 
 The instance where the package version will be created——for example, NA50.
 
-# versionname
+# version-name
 
 the name of the package version to be created
 
-# longVersionname
+# version-name-long
 
 The name of the package version to be created. Overrides the sfdx-project.json value.
 
-# versionnumber
+# version-number
 
 the version number of the package version to be created
 
-# longVersionnumber
+# version-number-long
 
 The version number of the package version to be created. Overrides the sfdx-project.json value.
 
-# versiondescription
+# version-description
 
 the description of the package version to be created
 
-# longVersiondescription
+# version-description-long
 
 The description of the package version to be created. Overrides the sfdx-project.json value.
 
-# codeCoverage
+# code-coverage
 
 calculate the code coverage by running the packaged Apex tests
 
-# longCodeCoverage
+# code-coverage-long
 
 Calculate and store the code coverage percentage by running the Apex tests included in this package version. Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skipvalidation.
 
-# releaseNotesUrl
+# release-notes-url
 
 release notes URL
 
-# releaseNotesUrlLong
+# release-notes-url-long
 
 The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
 
-# skipValidation
+# skip-validation
 
 skip validation during package version creation; you can’t promote unvalidated package versions
 
-# skipValidationLong
+# skip-validation-long
 
 Skips validation of dependencies, package ancestors, and metadata during package version creation. Skipping validation reduces the time it takes to create a new package version, but you can promote only validated package versions. Skipping validation can suppress important errors that can surface at a later stage. You can specify skip validation or code coverage, but not both. Code coverage is calculated during validation.
 
-# skipValidationWarning
+# skip-validation-warning
 
 Skipping validation suppresses errors that usually surface during package version creation. Instead, these errors surface at a later stage, such as installation or post-installation. If you encounter errors that are difficult to debug, retry package version creation without the skipvalidation parameter.
 
-# skipAncestorCheck
+# skip-ancestor-check
 
 Overrides ancestry requirements.
 
-# skipAncestorCheckLong
+# skip-ancestor-check-long
 
 Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
 
-# postInstallUrl
+# post-install-url
 
 post-install URL
 
-# postInstallUrlLong
+# post-install-url-long
 
 The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
 
-# postInstallScript
+# post-install-script
 
 post-install script name; managed packages only
 
-# postInstallScriptLong
+# post-install-script-long
 
 Applies to managed packages only. The post-install script name. The post-install script is an Apex class within this package that is run in the installing org after installations or upgrades of this package version.
 
-# uninstallScript
+# uninstall-script
 
 uninstall script name; managed packages only
 
-# uninstallScriptLong
+# uninstall-script-long
 
 Applies to managed packages only. The uninstall script name. The uninstall script is an Apex class within this package that is run in the installing org after uninstallations of this package.
+
+# language
+
+The language for the package.
+
+# language-long
+
+The language for the package. Specify the language using a language code listed under "Supported Languages" in Salesforce Help.
+
+If no language is specified, the language defaults to the language of the Dev Hub user who created the package.
 
 # InProgress
 
@@ -230,13 +240,3 @@ Version create.
 # packageVersionCreateFinalStatus
 
 Create version status: %s
-
-# language
-
-The language for the package.
-
-# languageLong
-
-The language for the package. Specify the language using a language code listed under "Supported Languages" in Salesforce Help.
-
-If no language is specified, the language defaults to the language of the Dev Hub user who created the package.

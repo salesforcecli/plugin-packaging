@@ -32,7 +32,6 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
   public static readonly summary = messages.getMessage('cliDescription');
   public static readonly description = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
-
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
@@ -41,119 +40,134 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
     branch: Flags.string({
       char: 'b',
       summary: messages.getMessage('branch'),
-      description: messages.getMessage('longBranch'),
+      description: messages.getMessage('branch-long'),
     }),
-    buildinstance: Flags.string({
+    'build-instance': Flags.string({
+      aliases: ['buildinstance'],
       char: 's',
       summary: messages.getMessage('instance'),
-      description: messages.getMessage('longInstance'),
+      description: messages.getMessage('instance-long'),
       hidden: true,
     }),
-    codecoverage: Flags.boolean({
+    'code-coverage': Flags.boolean({
+      aliases: ['codecoverage'],
       char: 'c',
-      summary: messages.getMessage('codeCoverage'),
-      description: messages.getMessage('longCodeCoverage'),
+      summary: messages.getMessage('code-coverage'),
+      description: messages.getMessage('code-coverage-long'),
       default: false,
-      exclusive: ['skipvalidation'],
+      exclusive: ['skip-validation'],
     }),
-    definitionfile: Flags.file({
+    'definition-file': Flags.file({
+      aliases: ['definitionfile'],
       char: 'f',
-      summary: messages.getMessage('definitionfile'),
-      description: messages.getMessage('longDefinitionfile'),
+      summary: messages.getMessage('definition-file'),
+      description: messages.getMessage('definition-file-long'),
     }),
-    installationkey: Flags.string({
+    'installation-key': Flags.string({
+      aliases: ['installationkey'],
       char: 'k',
-      summary: messages.getMessage('key'),
-      description: messages.getMessage('longKey'),
-      exactlyOne: ['installationkey', 'installationkeybypass'],
+      summary: messages.getMessage('installation-key'),
+      description: messages.getMessage('installation-key-long'),
+      exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
-    installationkeybypass: Flags.boolean({
+    'installation-key-bypass': Flags.boolean({
       char: 'x',
-      summary: messages.getMessage('keyBypass'),
-      description: messages.getMessage('longKeyBypass'),
-      exactlyOne: ['installationkey', 'installationkeybypass'],
+      aliases: ['installationkeybypass'],
+      summary: messages.getMessage('installation-key-bypass'),
+      description: messages.getMessage('installation-key-bypass-long'),
+      exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('longPackage', []),
+      description: messages.getMessage('package-long'),
       exactlyOne: ['path', 'package'],
     }),
     path: Flags.directory({
       char: 'd',
       summary: messages.getMessage('path'),
-      description: messages.getMessage('longPath'),
+      description: messages.getMessage('path-long'),
       exactlyOne: ['path', 'package'],
     }),
-    postinstallscript: Flags.string({
-      summary: messages.getMessage('postInstallScript'),
-      description: messages.getMessage('postInstallScriptLong'),
+    'post-install-script': Flags.string({
+      aliases: ['postinstallscript'],
+      summary: messages.getMessage('post-install-script'),
+      description: messages.getMessage('post-install-script-long'),
     }),
-    postinstallurl: Flags.url({
-      summary: messages.getMessage('postInstallUrl'),
-      description: messages.getMessage('postInstallUrlLong'),
+    'post-install-url': Flags.string({
+      aliases: ['postinstallurl'],
+      summary: messages.getMessage('post-install-url'),
+      description: messages.getMessage('post-install-url-long'),
     }),
     preserve: Flags.boolean({
       char: 'r',
       summary: messages.getMessage('preserve'),
-      description: messages.getMessage('longPreserve'),
+      description: messages.getMessage('preserve-long'),
       hidden: true,
     }),
-    releasenotesurl: Flags.url({
-      summary: messages.getMessage('releaseNotesUrl'),
-      description: messages.getMessage('releaseNotesUrlLong'),
+    'releasenotes-url': Flags.string({
+      aliases: ['releasenotesurl'],
+      summary: messages.getMessage('release-notes-url'),
+      description: messages.getMessage('release-notes-url-long'),
     }),
-    skipancestorcheck: Flags.boolean({
-      summary: messages.getMessage('skipAncestorCheck'),
-      description: messages.getMessage('skipAncestorCheckLong'),
+    'skip-ancestor-check': Flags.boolean({
+      aliases: ['skipancestorcheck'],
+      summary: messages.getMessage('skip-ancestor-check'),
+      description: messages.getMessage('skip-ancestor-check-long'),
       default: false,
     }),
-    skipvalidation: Flags.boolean({
-      summary: messages.getMessage('skipValidation'),
-      description: messages.getMessage('skipValidationLong'),
+    'skip-validation': Flags.boolean({
+      aliases: ['skipvalidation'],
+      summary: messages.getMessage('skip-validation'),
+      description: messages.getMessage('skip-validation-long'),
       default: false,
-      exclusive: ['codecoverage'],
+      exclusive: ['code-coverage'],
     }),
     tag: Flags.string({
       char: 't',
       summary: messages.getMessage('tag'),
-      description: messages.getMessage('longTag'),
+      description: messages.getMessage('tag-long'),
     }),
-    uninstallscript: Flags.string({
-      summary: messages.getMessage('uninstallScript'),
-      description: messages.getMessage('uninstallScriptLong'),
+    'uninstall-script': Flags.string({
+      aliases: ['uninstallscript'],
+      summary: messages.getMessage('uninstall-script'),
+      description: messages.getMessage('uninstall-script-long'),
     }),
-    validateschema: Flags.boolean({
+    'validate-schema': Flags.boolean({
+      aliases: ['validateschema'],
       char: 'j',
-      summary: messages.getMessage('validateschema'),
-      description: messages.getMessage('longValidateschema'),
+      summary: messages.getMessage('validate-schema'),
+      description: messages.getMessage('validate-schema-long'),
       hidden: true,
     }),
-    versiondescription: Flags.string({
+    'version-description': Flags.string({
+      aliases: ['versiondescription'],
       char: 'e',
-      summary: messages.getMessage('versiondescription'),
-      description: messages.getMessage('longVersiondescription'),
+      summary: messages.getMessage('version-description'),
+      description: messages.getMessage('version-description-long'),
     }),
-    versionname: Flags.string({
+    'version-name': Flags.string({
+      aliases: ['versionname'],
       char: 'a',
-      summary: messages.getMessage('versionname'),
-      description: messages.getMessage('longVersionname'),
+      summary: messages.getMessage('version-name'),
+      description: messages.getMessage('version-name-long'),
     }),
-    versionnumber: Flags.string({
+    'version-number': Flags.string({
+      aliases: ['versionnumber'],
       char: 'n',
-      summary: messages.getMessage('versionnumber'),
-      description: messages.getMessage('longVersionnumber'),
+      summary: messages.getMessage('version-number'),
+      description: messages.getMessage('version-number-long'),
     }),
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
       summary: messages.getMessage('wait'),
-      description: messages.getMessage('longWait'),
+      description: messages.getMessage('wait-long'),
       default: Duration.minutes(0),
     }),
     language: Flags.string({
       summary: messages.getMessage('language'),
-      description: messages.getMessage('languageLong'),
+      description: messages.getMessage('language-long'),
     }),
   };
 
@@ -187,13 +201,30 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
     this.spinner.start(messages.getMessage('requestInProgress'));
 
     const result = await PackageVersion.create(
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       {
         connection: flags['target-hub-org'].getConnection(flags['api-version']),
         project: this.project,
+        installationkey: flags['installation-key'],
+        branch: flags.branch,
+        buildinstance: flags['build-instance'],
+        codecoverage: flags['code-coverage'],
+        definitionfile: flags['definition-file'],
+        installationkeybypass: flags['installation-key-bypass'],
+        language: flags.language,
         packageId: flags.package,
-        ...flags,
+        path: flags.path,
+        postinstallscript: flags['post-install-script'],
+        postinstallurl: flags['post-install-url'],
+        preserve: flags.preserve,
+        releasenotesurl: flags['releasenotes-url'],
+        skipancestorcheck: flags['skip-ancestor-check'],
+        skipvalidation: flags['skip-validation'],
+        tag: flags.tag,
+        uninstallscript: flags['uninstall-script'],
+        validateschema: flags['validate-schema'],
+        versiondescription: flags['version-description'],
+        versionname: flags['version-name'],
+        versionnumber: flags['version-number'],
       },
       {
         timeout: flags.wait,

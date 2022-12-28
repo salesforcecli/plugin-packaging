@@ -7,11 +7,11 @@ retrieve status of package uninstall request
 $ sfdx force:package:beta:uninstall:report -i 06y...
 $ sfdx force:package:beta:uninstall:report -i 06y... -u me@example.com
 
-# requestId
+# request-id
 
 ID of the package uninstall request you want to check
 
-# requestIdLong
+# request-id-long
 
 The ID of the package uninstall request you want to check.
 

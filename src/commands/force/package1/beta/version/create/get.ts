@@ -28,10 +28,11 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    requestid: Flags.salesforceId({
+    'request-id': Flags.salesforceId({
+      aliases: ['requestid'],
       char: 'i',
       summary: messages.getMessage('requestId'),
-      description: messages.getMessage('requestIdLong'),
+      description: messages.getMessage('request-id-long'),
       required: true,
     }),
   };
@@ -40,7 +41,7 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
     const { flags } = await this.parse(Package1VersionCreateGetCommand);
     const result = await Package1Version.getCreateStatus(
       flags['target-org'].getConnection(flags['api-version']),
-      flags.requestid
+      flags['request-id']
     );
 
     if (result.Status === 'ERROR') {

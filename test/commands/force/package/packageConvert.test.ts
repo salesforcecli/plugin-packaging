@@ -44,7 +44,7 @@ describe('force:package:convert', () => {
 
   it('returns error for missing installationkey or installationkeybypass flag', async () => {
     const expectedErrorMsg =
-      'Exactly one of the following must be provided: --installationkey, --installationkeybypass';
+      'Exactly one of the following must be provided: --installation-key, --installation-key-bypass';
 
     try {
       await new PackageConvert(['-p', CONVERTED_FROM_PACKAGE_ID, '-v', 'test@user.com'], config).run();

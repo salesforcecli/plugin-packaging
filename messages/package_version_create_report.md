@@ -11,11 +11,11 @@ To show all requests in the org, run "sfdx force:package:version:create:list".
 $ sfdx force:package:version:create:report -i 08c...
 $ sfdx force:package:version:create:report -i 08c... -v devhub@example.com
 
-# requestId
+# request-id
 
 package version creation request ID (starts with 08c)
 
-# requestIdLong
+# request-id-long
 
 The ID (starts with 08c) of the package version creation request you want to display.
 

@@ -31,7 +31,8 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    packageid: Flags.salesforceId({
+    'package-id': Flags.salesforceId({
+      aliases: ['packageid'],
       char: 'i',
       summary: messages.getMessage('id'),
       description: messages.getMessage('idLong'),
@@ -53,23 +54,27 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
       summary: messages.getMessage('version'),
       description: messages.getMessage('versionLong'),
     }),
-    managedreleased: Flags.boolean({
+    'managed-released': Flags.boolean({
       char: 'm',
+      aliases: ['managedrelease'],
       summary: messages.getMessage('managedReleased'),
       description: messages.getMessage('managedReleasedLong'),
     }),
-    releasenotesurl: Flags.url({
+    'release-notes-url': Flags.string({
       char: 'r',
+      aliases: ['releasenotesurl'],
       summary: messages.getMessage('releaseNotes'),
       description: messages.getMessage('releaseNotesLong'),
     }),
-    postinstallurl: Flags.url({
+    'post-install-url': Flags.string({
       char: 'p',
+      aliases: ['postinstallurl'],
       summary: messages.getMessage('postInstall'),
       description: messages.getMessage('postInstallLong'),
     }),
-    installationkey: Flags.string({
+    'installation-key': Flags.string({
       char: 'k',
+      aliases: ['installationkey'],
       summary: messages.getMessage('installationKey'),
       description: messages.getMessage('installationKeyLong'),
     }),
@@ -102,15 +107,15 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
     const result = await Package1Version.create(
       flags['target-org'].getConnection(flags['api-version']),
       {
-        MetadataPackageId: flags.packageid,
+        MetadataPackageId: flags['package-id'],
         VersionName: flags.name,
         Description: flags.description,
         MajorVersion: version.major,
         MinorVersion: version.minor,
-        IsReleaseVersion: flags.managedreleased,
-        ReleaseNotesUrl: flags.releasenotesurl as unknown as string,
-        PostInstallUrl: flags.postinstallurl as unknown as string,
-        Password: flags.installationkey,
+        IsReleaseVersion: flags['managed-released'],
+        ReleaseNotesUrl: flags['release-notes-url'],
+        PostInstallUrl: flags['post-install-url'],
+        Password: flags['installation-key'],
       },
       { frequency: Duration.seconds(5), timeout: flags.wait ?? Duration.seconds(0) }
     );

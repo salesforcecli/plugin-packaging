@@ -20,19 +20,19 @@ ID (starts with 04t) or alias of the package to update a version of
 
 The ID (starts with 04t) or alias of the package to update a version of.
 
-# name
+# version-name
 
 new package version name
 
-# nameLong
+# version-name-long
 
 The new package version name.
 
-# description
+# version-description
 
 new package version description
 
-# descriptionLong
+# version-description-long
 
 The new package version description.
 
@@ -52,11 +52,11 @@ new package version tag
 
 The new package version tag.
 
-# key
+# installation-key
 
 new installation key for key-protected package (default: null)
 
-# longKey
+# installation-key-long
 
 The new installation key for the key-protected package. The default is null.
 

@@ -15,7 +15,7 @@ $ sfdx force:package:delete -p 0Ho...
 
 ID (starts with 0Ho) or alias of the package to delete
 
-# packageLong
+# package-long
 
 The ID (starts with 0Ho) or alias of the package to delete.
 
@@ -23,15 +23,15 @@ The ID (starts with 0Ho) or alias of the package to delete.
 
 undelete a deleted package
 
-# undeleteLong
+# undelete-long
 
 Undelete a deleted package.
 
-# noPrompt
+# no-prompt
 
 don’t prompt before deleting the package
 
-# noPromptLong
+# no-prompt-long
 
 Don’t prompt before deleting the package.
 

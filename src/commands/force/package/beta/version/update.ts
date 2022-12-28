@@ -35,15 +35,15 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       description: messages.getMessage('packageLong'),
       required: true,
     }),
-    versionname: Flags.string({
+    'version-name': Flags.string({
       char: 'a',
-      summary: messages.getMessage('name'),
-      description: messages.getMessage('nameLong'),
+      summary: messages.getMessage('version-name'),
+      description: messages.getMessage('version-name-long'),
     }),
-    versiondescription: Flags.string({
+    'version-description': Flags.string({
       char: 'e',
-      summary: messages.getMessage('description'),
-      description: messages.getMessage('descriptionLong'),
+      summary: messages.getMessage('version-description'),
+      description: messages.getMessage('version-description-long'),
     }),
     branch: Flags.string({
       char: 'b',
@@ -55,10 +55,10 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       summary: messages.getMessage('tag'),
       description: messages.getMessage('tagLong'),
     }),
-    installationkey: Flags.string({
+    'installation-key': Flags.string({
       char: 'k',
-      summary: messages.getMessage('key'),
-      description: messages.getMessage('longKey'),
+      summary: messages.getMessage('installation-key'),
+      description: messages.getMessage('installation-key-long'),
     }),
   };
 
@@ -70,10 +70,10 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       idOrAlias: flags.package,
     });
     const result = await pv.update({
-      VersionDescription: flags.versiondescription,
+      VersionDescription: flags['version-description'],
       Branch: flags.branch,
-      InstallKey: flags.installationkey,
-      VersionName: flags.versionname,
+      InstallKey: flags['installation-key'],
+      VersionName: flags['version-name'],
       Tag: flags.tag,
     });
 

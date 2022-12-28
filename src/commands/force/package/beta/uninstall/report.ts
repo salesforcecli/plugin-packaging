@@ -28,10 +28,11 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    requestid: Flags.salesforceId({
+    'request-id': Flags.salesforceId({
+      aliases: ['requestid'],
       char: 'i',
-      summary: messages.getMessage('requestId'),
-      description: messages.getMessage('requestIdLong'),
+      summary: messages.getMessage('request-id'),
+      description: messages.getMessage('request-id-long'),
       required: true,
       startsWith: '06y',
     }),
@@ -39,9 +40,8 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
 
   public async run(): Promise<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
     const { flags } = await this.parse(PackageUninstallReportCommand);
-    const requestId = flags.requestid;
     const result = await SubscriberPackageVersion.uninstallStatus(
-      requestId,
+      flags['request-id'],
       flags['target-org'].getConnection(flags['api-version'])
     );
 

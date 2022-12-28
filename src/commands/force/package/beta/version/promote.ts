@@ -36,8 +36,9 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       description: messages.getMessage('packageLong'),
       required: true,
     }),
-    noprompt: Flags.boolean({
+    'no-prompt': Flags.boolean({
       char: 'n',
+      aliases: ['noprompt'],
       summary: messages.getMessage('setasreleasedForce'),
       description: messages.getMessage('setasreleasedForceLong'),
     }),
@@ -52,7 +53,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
     });
     const packageVersionData = await packageVersion.getData();
 
-    if (!flags.json && !flags.noprompt) {
+    if (!flags.json && !flags['no-prompt']) {
       // Warn when a Managed package has removed metadata
       if (packageVersionData.HasMetadataRemoved) {
         this.warn(messages.getMessage('hasMetadataRemovedWarning'));

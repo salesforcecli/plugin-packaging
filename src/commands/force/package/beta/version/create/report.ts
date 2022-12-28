@@ -34,10 +34,11 @@ export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionC
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    packagecreaterequestid: Flags.salesforceId({
+    'package-create-request-id': Flags.salesforceId({
+      aliases: ['packagecreaterequestid'],
       char: 'i',
-      summary: messages.getMessage('requestId'),
-      description: messages.getMessage('requestIdLong'),
+      summary: messages.getMessage('request-id'),
+      description: messages.getMessage('request-id-long'),
       required: true,
     }),
   };
@@ -45,10 +46,10 @@ export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionC
   public async run(): Promise<PackageVersionCreateRequestResult[]> {
     const { flags } = await this.parse(PackageVersionCreateReportCommand);
     const result = await PackageVersion.getCreateStatus(
-      flags.packagecreaterequestid,
+      flags['package-create-request-id'],
       flags['target-hub-org'].getConnection(flags['api-version'])
     );
-    this.display(result, flags.packagecreaterequestid, flags['target-hub-org']);
+    this.display(result, flags['package-create-request-id'], flags['target-hub-org']);
     return [result];
   }
 

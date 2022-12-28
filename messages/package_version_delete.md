@@ -12,7 +12,7 @@ $ sfdx force:package:version:delete -p 04t...
 
 ID (starts with 04t) or alias of the package to update a version of
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package version to delete.
 
@@ -20,11 +20,11 @@ The ID (starts with 04t) or alias of the package version to delete.
 
 undelete a deleted package version
 
-# undeleteLong
+# undelete-long
 
 Undelete a deleted package version.
 
-# noPrompt
+# no-prompt
 
 don’t prompt before deleting the package version
 
