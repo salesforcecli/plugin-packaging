@@ -149,6 +149,10 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
       description: messages.getMessage('longWait'),
       defaultValue: 0,
     }),
+    language: Flags.string({
+      summary: messages.getMessage('language'),
+      description: messages.getMessage('languageLong'),
+    }),
   };
 
   public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {

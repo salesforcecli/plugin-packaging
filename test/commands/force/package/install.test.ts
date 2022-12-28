@@ -6,7 +6,7 @@
  */
 import { EOL } from 'os';
 import { resolve } from 'path';
-import { Connection, Lifecycle, SfProject, SfProjectJson } from '@salesforce/core';
+import { Connection, Lifecycle, SfProject, SfError, SfProjectJson } from '@salesforce/core';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
@@ -165,6 +165,31 @@ describe('force:package:install', () => {
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
     });
 
+    it('should print IN_PROGRESS status when timed out', async () => {
+      const error = new SfError('polling timed out', 'PackageInstallTimeout');
+      error.setData(pkgInstallRequest);
+      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
+      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
+      expect(uxLogStub.callCount).to.equal(2);
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      expect(uxLogStub.args[1][0]).to.equal(msg);
+      expect(uxLogStub.args[0][0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
+      expect(result).to.deep.equal(pkgInstallRequest);
+      expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
+      // expect(uxStopSpinnerStub.args[0][0]).to.equal('Polling timeout exceeded');
+    });
+
+    it('should return PackageInstallRequest when polling timed out with --json', async () => {
+      const error = new SfError('polling timed out', 'PackageInstallTimeout');
+      error.setData(pkgInstallRequest);
+      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
+      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      const result = await new Install(['-p', myPackageVersion04t, '--json', '-u', testOrg.username], config).run();
+      expect(result).to.deep.equal(pkgInstallRequest);
+      expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
+    });
+
     it('should print SUCCESS status correctly', async () => {
       const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
@@ -310,10 +335,10 @@ describe('force:package:install', () => {
 
       const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
 
-      expect(uxLogStub.callCount).to.equal(9);
+      expect(uxLogStub.callCount).to.equal(11);
       expect(uxLogStub.args[0][0]).to.equal(warningMsg);
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
-      expect(uxLogStub.args[8][0]).to.equal(msg);
+      expect(uxLogStub.args[10][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });
 

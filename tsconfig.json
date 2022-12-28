@@ -6,8 +6,5 @@
     "skipLibCheck": true,
     "strictNullChecks": true
   },
-  "paths": {
-    "@salesforce/core": ["node_modules/@salesforce/core"]
-  },
   "include": ["./src/**/*.ts"]
 }

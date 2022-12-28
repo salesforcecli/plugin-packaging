@@ -12,7 +12,7 @@ import {
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { Connection, Lifecycle, Messages } from '@salesforce/core';
+import { Connection, Lifecycle, Messages, SfError } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
   PackageEvents,
@@ -203,9 +203,30 @@ export class Install extends SfCommand<PackageInstallRequest> {
       );
     }
 
-    const pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
-    this.spinner.stop();
-    Install.parseStatus(pkgInstallRequest, this, messages, flags['target-org'].getUsername() as string, flags.package);
+    let pkgInstallRequest: PackageInstallRequest;
+    try {
+      pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
+      this.spinner.stop();
+    } catch (error: unknown) {
+      if (error instanceof SfError && error.data) {
+        pkgInstallRequest = error.data as PackageInstallRequest;
+        this.spinner.stop(messages.getMessage('packageInstallPollingTimeout'));
+      } else {
+        throw error;
+      }
+    } finally {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (pkgInstallRequest) {
+        Install.parseStatus(
+          pkgInstallRequest,
+          this,
+          messages,
+          flags['target-org'].getUsername() as string,
+          flags.package as Optional<string>
+        );
+      }
+    }
 
     return pkgInstallRequest;
   }

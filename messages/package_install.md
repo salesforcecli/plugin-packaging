@@ -136,6 +136,10 @@ Waiting %s minutes for package install to complete.
 
 %d minutes remaining until timeout. Publish status: %s
 
+# packageInstallPollingTimeout
+
+Polling timeout exceeded
+
 # availableForInstallation
 
 Available for installation

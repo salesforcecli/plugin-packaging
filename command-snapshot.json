@@ -154,6 +154,7 @@
       "installationkey",
       "installationkeybypass",
       "json",
+      "language",
       "loglevel",
       "package",
       "path",
