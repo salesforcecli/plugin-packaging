@@ -8,6 +8,7 @@
 import * as os from 'os';
 import { Messages } from '@salesforce/core';
 import {
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
@@ -36,6 +37,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledListR
   public static readonly requiresProject = true;
 
   public static readonly flags = {
+    loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
   };

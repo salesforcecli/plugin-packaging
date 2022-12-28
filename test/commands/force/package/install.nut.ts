@@ -44,25 +44,25 @@ describe('package install', () => {
 
   it('should install DFXP Escape Room package (async) and report', () => {
     const installCommand = 'force:package:beta:install -p 04t6A000002zgKSQAY --json';
-    const installJson = execCmd<PackageInstallRequest>(installCommand, { ensureExitCode: 0 }).jsonOutput.result;
+    const installJson = execCmd<PackageInstallRequest>(installCommand, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(installJson).to.have.property('Status', 'IN_PROGRESS');
 
-    const reportCommand = `force:package:beta:install:report -i ${installJson.Id} --json`;
-    const reportJson = execCmd<PackageInstallRequest>(reportCommand, { ensureExitCode: 0 }).jsonOutput.result;
+    const reportCommand = `force:package:beta:install:report -i ${installJson?.Id} --json`;
+    const reportJson = execCmd<PackageInstallRequest>(reportCommand, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(reportJson).to.have.property('Status');
-    expect(['IN_PROGRESS', 'SUCCESS']).to.include(reportJson.Status);
+    expect(['IN_PROGRESS', 'SUCCESS']).to.include(reportJson?.Status);
   });
 
   it('should start an uninstall request, and report on it', () => {
     const uninstallCommand = 'force:package:beta:uninstall -p 04t6A000002zgKSQAY --json -w 0';
     const uninstallRequest = execCmd<PackageUninstallRequest>(uninstallCommand, {
       ensureExitCode: 0,
-    }).jsonOutput.result;
-    expect(['InProgress', 'Success']).to.include(uninstallRequest.Status);
-    expect(uninstallRequest.Id.startsWith('06y')).to.be.true;
+    }).jsonOutput?.result;
+    expect(['InProgress', 'Success']).to.include(uninstallRequest?.Status);
+    expect(uninstallRequest?.Id.startsWith('06y')).to.be.true;
 
-    const uninstallReportCommand = `force:package:beta:uninstall:report -i ${uninstallRequest.Id} --json`;
-    const uninstallReportResult = execCmd(uninstallReportCommand, { ensureExitCode: 0 }).jsonOutput.result;
+    const uninstallReportCommand = `force:package:beta:uninstall:report -i ${uninstallRequest?.Id} --json`;
+    const uninstallReportResult = execCmd(uninstallReportCommand, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(uninstallReportResult).to.have.all.keys(
       'Id',
       'IsDeleted',

@@ -13,7 +13,7 @@ import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforc
 import { Duration } from '@salesforce/kit';
 
 describe('package:version:promote / package:version:update', () => {
-  let packageId: string;
+  let packageId: string | undefined | null;
   const pkgName = genUniqueString('dancingbears-');
   let session: TestSession;
 
@@ -34,12 +34,12 @@ describe('package:version:promote / package:version:update', () => {
     const id = execCmd<{ Id: string }>(
       `force:package:beta:create --name ${pkgName} --loglevel debug --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
       { ensureExitCode: 0 }
-    ).jsonOutput.result.Id;
+    ).jsonOutput?.result?.Id;
 
     const result = execCmd<PackageVersionCreateRequestResult>(
       `force:package:beta:version:create --package ${id} --json --wait 20 --tag tag --branch branch -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
       { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
-    ).jsonOutput.result;
+    ).jsonOutput?.result;
     expect(result).to.have.all.keys(
       'Id',
       'Status',
@@ -53,15 +53,15 @@ describe('package:version:promote / package:version:update', () => {
       'HasMetadataRemoved',
       'CreatedBy'
     );
-    expect(result.Id).to.match(/08c.{15}/);
-    expect(result.Package2Id).to.match(/0Ho.{15}/);
-    expect(result.SubscriberPackageVersionId).to.match(/04t.{15}/);
-    expect(result.Package2VersionId).to.match(/05i.{15}/);
-    expect(result.Branch).to.equal('branch');
-    expect(result.Tag).to.equal('tag');
-    expect(result.Error).to.deep.equal([]);
-    expect(result.Status).to.equal('Success');
-    packageId = result.SubscriberPackageVersionId;
+    expect(result?.Id).to.match(/08c.{15}/);
+    expect(result?.Package2Id).to.match(/0Ho.{15}/);
+    expect(result?.SubscriberPackageVersionId).to.match(/04t.{15}/);
+    expect(result?.Package2VersionId).to.match(/05i.{15}/);
+    expect(result?.Branch).to.equal('branch');
+    expect(result?.Tag).to.equal('tag');
+    expect(result?.Error).to.deep.equal([]);
+    expect(result?.Status).to.equal('Success');
+    packageId = result?.SubscriberPackageVersionId;
   });
 
   after(async () => {
@@ -85,11 +85,11 @@ describe('package:version:promote / package:version:update', () => {
       {
         ensureExitCode: 0,
       }
-    ).jsonOutput.result;
+    ).jsonOutput?.result;
     expect(result).to.have.all.keys('id', 'success', 'errors');
-    expect(result.id.slice(0, 3)).to.be.equal('04t');
-    expect(result.success).to.equal(true);
-    expect(result.errors).to.deep.equal([]);
+    expect(result?.id?.slice(0, 3)).to.be.equal('04t');
+    expect(result?.success).to.equal(true);
+    expect(result?.errors).to.deep.equal([]);
   });
 
   it('should update a package (human readable)', () => {
@@ -105,10 +105,10 @@ describe('package:version:promote / package:version:update', () => {
       {
         ensureExitCode: 0,
       }
-    ).jsonOutput.result;
+    ).jsonOutput?.result;
     expect(result).to.have.all.keys('id', 'success', 'errors');
-    expect(result.id).to.equal(packageId);
-    expect(result.success).to.equal(true);
-    expect(result.errors).to.deep.equal([]);
+    expect(result?.id).to.equal(packageId);
+    expect(result?.success).to.equal(true);
+    expect(result?.errors).to.deep.equal([]);
   });
 });

@@ -20,8 +20,8 @@ import { PackageVersionListCommandResult } from '../../../../src/commands/force/
 
 describe('package:version:*', () => {
   let session: TestSession;
-  let packageId: string;
-  let packageVersionId: string;
+  let packageId: string | undefined;
+  let packageVersionId: string | undefined;
   const packageVersionIds: string[] = []; // ['04t', '04t'];
   const pkgName = genUniqueString('dancingbears-');
 
@@ -36,7 +36,7 @@ describe('package:version:*', () => {
       {
         ensureExitCode: 0,
       }
-    ).jsonOutput.result.Id;
+    ).jsonOutput?.result?.Id;
   });
 
   after(async () => {
@@ -71,7 +71,7 @@ describe('package:version:*', () => {
       const result = execCmd<PackageVersionCreateRequestResult>(
         `force:package:beta:version:create --package ${pkgName} --json --tag tag --branch branch -x --codecoverage --versiondescription "Initial version"`,
         { ensureExitCode: 0 }
-      ).jsonOutput.result;
+      ).jsonOutput?.result;
       expect(result).to.have.all.keys(
         'Id',
         'Status',
@@ -85,12 +85,12 @@ describe('package:version:*', () => {
         'HasMetadataRemoved',
         'CreatedBy'
       );
-      packageVersionId = result.Id;
-      expect(result.Id).to.match(/08c.{15}/);
-      expect(result.Package2Id).to.match(/0Ho.{15}/);
-      expect(result.Branch).to.equal('branch');
-      expect(result.Tag).to.equal('tag');
-      expect(result.Error).to.deep.equal([]);
+      packageVersionId = result?.Id;
+      expect(result?.Id).to.match(/08c.{15}/);
+      expect(result?.Package2Id).to.match(/0Ho.{15}/);
+      expect(result?.Branch).to.equal('branch');
+      expect(result?.Tag).to.equal('tag');
+      expect(result?.Error).to.deep.equal([]);
       expect([
         'Succeeded',
         'Initializing',
@@ -100,7 +100,7 @@ describe('package:version:*', () => {
         'VerifyingFeaturesAndSettings',
         'VerifyingDependencies',
         'FinalizingPackageVersion',
-      ]).to.include(result.Status);
+      ]).to.include(result?.Status);
     });
   });
 
@@ -111,12 +111,12 @@ describe('package:version:*', () => {
         {
           ensureExitCode: 0,
         }
-      ).jsonOutput.result[0];
-      expect(result.Id).to.match(/08c.{15}/);
-      expect(result.Package2Id).to.match(/0Ho.{15}/);
-      expect(result.Branch).to.equal('branch');
-      expect(result.Tag).to.equal('tag');
-      expect(result.Error).to.deep.equal([]);
+      ).jsonOutput?.result[0];
+      expect(result?.Id).to.match(/08c.{15}/);
+      expect(result?.Package2Id).to.match(/0Ho.{15}/);
+      expect(result?.Branch).to.equal('branch');
+      expect(result?.Tag).to.equal('tag');
+      expect(result?.Error).to.deep.equal([]);
       expect([
         'Success',
         'Initializing',
@@ -126,7 +126,7 @@ describe('package:version:*', () => {
         'VerifyingFeaturesAndSettings',
         'VerifyingDependencies',
         'FinalizingPackageVersion',
-      ]).to.include(result.Status);
+      ]).to.include(result?.Status);
     });
 
     it('reports on status (human)', () => {
@@ -162,8 +162,8 @@ describe('package:version:*', () => {
     it('should list all of the successful package versions created', async () => {
       const command = `force:package:beta:version:create:list --status Success -v ${session.hubOrg.username} --json`;
       const output = execCmd<[{ Status: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
-      output.result.forEach((result) => {
-        expect(result.Status).to.equal('Success');
+      output?.result?.forEach((result) => {
+        expect(result?.Status).to.equal('Success');
       });
     });
 
@@ -184,13 +184,14 @@ describe('package:version:*', () => {
         'CreatedBy',
       ];
       expect(output).to.be.ok;
-      expect(output.status).to.equal(0);
-      expect(output.result).to.have.length.greaterThan(0);
-      expect(output.result[0]).to.have.keys(keys);
+      expect(output?.status).to.equal(0);
+      expect(output?.result).to.have.length.greaterThan(0);
+      expect(output?.result[0]).to.have.keys(keys);
       const current = Date.now();
-      const created = Date.parse(output.result[0].CreatedDate);
+      // @ts-ignore
+      const created = Date.parse(output?.result?.at(0).CreatedDate);
       // eslint-disable-next-line no-console
-      console.log(`CreatedDate: ${output.result[0].CreatedDate} current: ${current}, created: ${created}`);
+      console.log(`CreatedDate: ${output?.result[0].CreatedDate} current: ${current}, created: ${created}`);
       const some2DaysAgo = current - Duration.days(2.5).milliseconds;
       // some2DaysAgo <= created && created <= current
       // eslint-disable-next-line no-console
@@ -215,9 +216,9 @@ describe('package:version:*', () => {
         'CreatedBy',
       ];
       expect(output).to.be.ok;
-      expect(output.status).to.equal(0);
-      expect(output.result).to.have.length.greaterThan(0);
-      expect(output.result[0]).to.have.keys(keys);
+      expect(output?.status).to.equal(0);
+      expect(output?.result).to.have.length.greaterThan(0);
+      expect(output?.result[0]).to.have.keys(keys);
     });
   });
   describe('package:version:list', () => {
@@ -263,7 +264,7 @@ describe('package:version:*', () => {
     });
     it('should list package versions in dev hub - json results', () => {
       const command = `force:package:beta:version:list -v ${session.hubOrg.username} --json`;
-      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       const keys = [
         'Package2Id',
         'Branch',
@@ -296,11 +297,11 @@ describe('package:version:*', () => {
         'CreatedBy',
       ];
       expect(output).to.have.length.greaterThan(0);
-      expect(output[0]).to.have.keys(keys);
+      expect(output?.at(0)).to.have.keys(keys);
     });
     it('should list package versions in dev hub - verbose json results', () => {
       const command = `force:package:beta:version:list --verbose -v ${session.hubOrg.username} --json`;
-      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       const keys = [
         'Package2Id',
         'Branch',
@@ -336,9 +337,9 @@ describe('package:version:*', () => {
       ];
 
       expect(output).to.have.length.greaterThan(0);
-      expect(output[0]).to.have.keys(keys);
+      expect(output?.at(0)).to.have.keys(keys);
       output
-        .filter((f) => f.CodeCoverage)
+        ?.filter((f) => f.CodeCoverage)
         .map((version) => {
           packageVersionIds.push(version.SubscriberPackageVersionId);
         });
@@ -351,8 +352,8 @@ describe('package:version:*', () => {
     before(() => {
       // query for deletable package versions (released package versions can't be deleted)
       const command = `force:package:beta:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
-      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
-      output.forEach((pkgVersion) => {
+      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
+      output?.forEach((pkgVersion) => {
         if (!pkgVersion.IsReleased) {
           deletableVersionIds.push(pkgVersion.SubscriberPackageVersionId);
         }
@@ -366,7 +367,7 @@ describe('package:version:*', () => {
     it('will delete a package (json)', () => {
       const id = deletableVersionIds.pop();
       const command = `force:package:beta:version:delete -p ${id} --json`;
-      const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       expect(result).to.have.property('success', true);
       expect(result).to.have.property('id', id);
       expect(result).to.have.property('errors');
@@ -461,9 +462,9 @@ describe('package:version:*', () => {
     });
     it('will print the correct output (json)', () => {
       const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --json`;
-      const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       expect(result).to.have.all.keys('data', 'children');
-      expect(result.data).to.have.all.keys(
+      expect(result?.data).to.have.all.keys(
         'SubscriberPackageVersionId',
         'MajorVersion',
         'MinorVersion',
@@ -471,14 +472,14 @@ describe('package:version:*', () => {
         'BuildNumber',
         'depthCounter'
       );
-      expect(result.data.SubscriberPackageVersionId).to.match(/04t.{15}/);
-      expect(result.children).to.be.an('array');
-      expect(result.children[0]).to.have.all.keys('data', 'children');
+      expect(result?.data.SubscriberPackageVersionId).to.match(/04t.{15}/);
+      expect(result?.children).to.be.an('array');
+      expect(result?.children[0]).to.have.all.keys('data', 'children');
     });
 
     it('will print the correct output (json & dotcode)', () => {
       const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --dotcode --json`;
-      const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput.result;
+      const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       expect(result).to.contain('strict graph G {');
       expect(result).to.match(/node04t.{15} \[label="\d\.\d\.\d\.\d"]/);
       expect(result).to.match(/-- node04t.{15}/);

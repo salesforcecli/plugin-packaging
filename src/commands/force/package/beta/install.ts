@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
@@ -39,6 +40,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
+    loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     wait: Flags.duration({
@@ -46,7 +48,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       char: 'w',
       summary: messages.getMessage('wait'),
       description: messages.getMessage('waitLong'),
-      defaultValue: 0,
+      default: Duration.minutes(0),
     }),
     installationkey: Flags.string({
       char: 'k',

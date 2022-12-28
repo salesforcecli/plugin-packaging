@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredHubFlagWithDeprecations,
   SfCommand,
@@ -25,6 +26,7 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
 
   public static readonly requiresProject = true;
   public static readonly flags = {
+    loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     name: Flags.string({

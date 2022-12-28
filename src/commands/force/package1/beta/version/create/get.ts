@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
@@ -24,6 +25,7 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
+    loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     requestid: Flags.salesforceId({

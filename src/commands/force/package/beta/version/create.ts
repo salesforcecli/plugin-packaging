@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredHubFlagWithDeprecations,
   SfCommand,
@@ -34,6 +35,7 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
 
   public static readonly requiresProject = true;
   public static readonly flags = {
+    loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     branch: Flags.string({
@@ -147,7 +149,7 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
       char: 'w',
       summary: messages.getMessage('wait'),
       description: messages.getMessage('longWait'),
-      defaultValue: 0,
+      default: Duration.minutes(0),
     }),
     language: Flags.string({
       summary: messages.getMessage('language'),

@@ -57,8 +57,8 @@ describe('package list', () => {
     const deprecatedPackages = packages.filter((pkg) => pkg.IsDeprecated);
     const notDeprecatedCount = packages.length - deprecatedPackages.length;
     expect(output).to.be.ok;
-    expect(output.status).to.equal(0);
-    expect(output.result).to.have.lengthOf(notDeprecatedCount);
-    expect(output.result[0]).to.have.keys(keys);
+    expect(output?.status).to.equal(0);
+    expect(output?.result).to.have.lengthOf(notDeprecatedCount);
+    expect(output?.result[0]).to.have.keys(keys);
   });
 });

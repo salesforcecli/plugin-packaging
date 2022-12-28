@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
@@ -31,6 +32,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
   public static readonly flags = {
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
+    loglevel,
     requestid: Flags.salesforceId({
       char: 'i',
       summary: messages.getMessage('requestId'),

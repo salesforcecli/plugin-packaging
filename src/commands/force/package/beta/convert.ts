@@ -8,6 +8,7 @@
 import * as os from 'os';
 import {
   Flags,
+  loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredHubFlagWithDeprecations,
   SfCommand,
@@ -34,6 +35,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
 
   public static readonly hidden = true;
   public static readonly flags = {
+    loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.salesforceId({
@@ -66,7 +68,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       char: 'w',
       summary: messages.getMessage('wait'),
       description: messages.getMessage('longWait'),
-      defaultValue: 0,
+      default: Duration.minutes(0),
     }),
     buildinstance: Flags.string({
       char: 's',
@@ -106,7 +108,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       flags.package,
       flags['target-hub-org'].getConnection(flags['api-version']),
       {
-        wait: flags.wait as Duration,
+        wait: flags.wait,
         installationKey: flags.installationkey as string,
         definitionfile: flags.definitionfile as string,
         installationKeyBypass: flags.installationkeybypass,

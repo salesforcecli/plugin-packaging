@@ -33,7 +33,7 @@ describe('package:installed:list', () => {
 
   it('should list all installed packages in dev hub - json', () => {
     const command = `force:package:beta:installed:list  -u ${session.hubOrg.username} --json`;
-    const output = execCmd<PackageInstalledListResult[]>(command, { ensureExitCode: 0 }).jsonOutput.result[0];
+    const output = execCmd<PackageInstalledListResult[]>(command, { ensureExitCode: 0 }).jsonOutput?.result[0];
     expect(output).to.have.keys(
       'Id',
       'SubscriberPackageId',
@@ -43,12 +43,12 @@ describe('package:installed:list', () => {
       'SubscriberPackageVersionName',
       'SubscriberPackageVersionNumber'
     );
-    expect(output.Id).to.be.a('string');
-    expect(output.SubscriberPackageId).to.be.a('string');
-    expect(output.SubscriberPackageName).to.be.a('string');
-    expect(output.SubscriberPackageNamespace).to.be.a('string');
-    expect(output.SubscriberPackageVersionId).to.be.a('string');
-    expect(output.SubscriberPackageVersionName).to.be.a('string');
-    expect(output.SubscriberPackageVersionNumber).to.be.a('string');
+    expect(output?.Id).to.be.a('string');
+    expect(output?.SubscriberPackageId).to.be.a('string');
+    expect(output?.SubscriberPackageName).to.be.a('string');
+    expect(output?.SubscriberPackageNamespace).to.be.a('string');
+    expect(output?.SubscriberPackageVersionId).to.be.a('string');
+    expect(output?.SubscriberPackageVersionName).to.be.a('string');
+    expect(output?.SubscriberPackageVersionNumber).to.be.a('string');
   });
 });
