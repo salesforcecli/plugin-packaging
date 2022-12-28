@@ -5,13 +5,14 @@
     "flags": [
       "api-version",
       "description",
-      "installationkey",
+      "installation-key",
       "json",
-      "managedreleased",
+      "loglevel",
+      "managed-released",
       "name",
-      "packageid",
-      "postinstallurl",
-      "releasenotesurl",
+      "package-id",
+      "post-install-url",
+      "release-notes-url",
       "target-org",
       "version",
       "wait"
@@ -21,19 +22,19 @@
   {
     "command": "force:package1:beta:version:create:get",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "requestid", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "request-id", "target-org"],
     "alias": []
   },
   {
     "command": "force:package1:beta:version:display",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "packageversionid", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "package-version-id", "target-org"],
     "alias": []
   },
   {
     "command": "force:package1:beta:version:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "packageid", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "package-id", "target-org"],
     "alias": []
   },
   {
@@ -41,11 +42,12 @@
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "api-version",
-      "buildinstance",
-      "definitionfile",
-      "installationkey",
-      "installationkeybypass",
+      "build-instance",
+      "definition-file",
+      "installation-key",
+      "installation-key-bypass",
       "json",
+      "loglevel",
       "package",
       "target-hub-org",
       "wait"
@@ -58,12 +60,13 @@
     "flags": [
       "api-version",
       "description",
-      "errornotificationusername",
+      "error-notification-username",
       "json",
+      "loglevel",
       "name",
-      "nonamespace",
-      "orgdependent",
-      "packagetype",
+      "no-namespace",
+      "org-dependent",
+      "package-type",
       "path",
       "target-hub-org"
     ],
@@ -72,23 +75,24 @@
   {
     "command": "force:package:beta:delete",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "noprompt", "package", "target-hub-org", "undelete"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org", "undelete"],
     "alias": []
   },
   {
     "command": "force:package:beta:install",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
-      "apexcompile",
+      "apex-compile",
       "api-version",
-      "installationkey",
+      "installation-key",
       "json",
-      "noprompt",
+      "loglevel",
+      "no-prompt",
       "package",
-      "publishwait",
-      "securitytype",
+      "publish-wait",
+      "security-type",
       "target-org",
-      "upgradetype",
+      "upgrade-type",
       "wait"
     ],
     "alias": []
@@ -96,37 +100,46 @@
   {
     "command": "force:package:beta:install:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "requestid", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "request-id", "target-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:installed:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "target-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "target-hub-org", "verbose"],
+    "flags": ["api-version", "json", "loglevel", "target-hub-org", "verbose"],
     "alias": []
   },
   {
     "command": "force:package:beta:uninstall",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "package", "target-org", "wait"],
+    "flags": ["api-version", "json", "loglevel", "package", "target-org", "wait"],
     "alias": []
   },
   {
     "command": "force:package:beta:uninstall:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "requestid", "target-org"],
+    "flags": ["api-version", "json", "loglevel", "request-id", "target-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:update",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "description", "errornotificationusername", "json", "name", "package", "target-hub-org"],
+    "flags": [
+      "api-version",
+      "description",
+      "error-notification-username",
+      "json",
+      "loglevel",
+      "name",
+      "package",
+      "target-hub-org"
+    ],
     "alias": []
   },
   {
@@ -135,28 +148,29 @@
     "flags": [
       "api-version",
       "branch",
-      "buildinstance",
-      "codecoverage",
-      "definitionfile",
-      "installationkey",
-      "installationkeybypass",
+      "build-instance",
+      "code-coverage",
+      "definition-file",
+      "installation-key",
+      "installation-key-bypass",
       "json",
       "language",
+      "loglevel",
       "package",
       "path",
-      "postinstallscript",
-      "postinstallurl",
+      "post-install-script",
+      "post-install-url",
       "preserve",
-      "releasenotesurl",
-      "skipancestorcheck",
-      "skipvalidation",
+      "releasenotes-url",
+      "skip-ancestor-check",
+      "skip-validation",
       "tag",
       "target-hub-org",
-      "uninstallscript",
-      "validateschema",
-      "versiondescription",
-      "versionname",
-      "versionnumber",
+      "uninstall-script",
+      "validate-schema",
+      "version-description",
+      "version-name",
+      "version-number",
       "wait"
     ],
     "alias": []
@@ -164,25 +178,25 @@
   {
     "command": "force:package:beta:version:create:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "createdlastdays", "json", "status", "target-hub-org"],
+    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-hub-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:version:create:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "packagecreaterequestid", "target-hub-org"],
+    "flags": ["api-version", "json", "loglevel", "package-create-request-id", "target-hub-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:version:delete",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "noprompt", "package", "target-hub-org", "undelete"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org", "undelete"],
     "alias": []
   },
   {
     "command": "force:package:beta:version:displayancestry",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "dotcode", "json", "package", "target-hub-org", "verbose"],
+    "flags": ["api-version", "dotcode", "json", "loglevel", "package", "target-hub-org", "verbose"],
     "alias": []
   },
   {
@@ -191,10 +205,11 @@
     "flags": [
       "api-version",
       "concise",
-      "createdlastdays",
+      "created-last-days",
       "json",
-      "modifiedlastdays",
-      "orderby",
+      "loglevel",
+      "modified-last-days",
+      "order-by",
       "packages",
       "released",
       "target-hub-org",
@@ -205,13 +220,13 @@
   {
     "command": "force:package:beta:version:promote",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "noprompt", "package", "target-hub-org"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org"],
     "alias": []
   },
   {
     "command": "force:package:beta:version:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "package", "target-hub-org", "verbose"],
+    "flags": ["api-version", "json", "loglevel", "package", "target-hub-org", "verbose"],
     "alias": []
   },
   {
@@ -220,13 +235,14 @@
     "flags": [
       "api-version",
       "branch",
-      "installationkey",
+      "installation-key",
       "json",
+      "loglevel",
       "package",
       "tag",
       "target-hub-org",
-      "versiondescription",
-      "versionname"
+      "version-description",
+      "version-name"
     ],
     "alias": []
   }
