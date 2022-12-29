@@ -17,7 +17,7 @@ import { Lifecycle, Messages } from '@salesforce/core';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
 
-type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
+export type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall');

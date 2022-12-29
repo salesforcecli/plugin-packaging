@@ -28,7 +28,9 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
-export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersionCreateRequestResult>> {
+export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;
+
+export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -172,7 +174,7 @@ export class PackageVersionCreateCommand extends SfCommand<Partial<PackageVersio
     }),
   };
 
-  public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {
+  public async run(): Promise<PackageVersionCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateCommand);
     if (flags.skipvalidation) {
       this.warn(messages.getMessage('skipValidationWarning'));

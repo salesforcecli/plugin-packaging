@@ -25,7 +25,7 @@ import {
 import { Optional } from '@salesforce/ts-types';
 import { Report } from './install/report';
 
-type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
+export type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');

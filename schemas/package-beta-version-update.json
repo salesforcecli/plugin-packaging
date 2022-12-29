@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageSaveResult",
+  "definitions": {
+    "PackageSaveResult": {
+      "$ref": "#/definitions/SaveResult"
+    },
+    "SaveResult": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "const": true
+            },
+            "id": {
+              "type": "string"
+            },
+            "errors": {
+              "type": "array",
+              "items": {
+                "not": {}
+              }
+            }
+          },
+          "required": ["success", "id", "errors"],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "const": false
+            },
+            "id": {
+              "not": {}
+            },
+            "errors": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/SaveError"
+              }
+            }
+          },
+          "required": ["success", "errors"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "SaveError": {
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["errorCode", "message"],
+      "additionalProperties": false
+    }
+  }
+}

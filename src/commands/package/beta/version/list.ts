@@ -28,7 +28,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-export type PackageVersionListCommandResult = Omit<
+export type PackageVersionListDetails = Omit<
   PackageVersionListResult,
   | 'HasMetadataRemoved'
   | 'IsReleased'
@@ -55,7 +55,9 @@ export type PackageVersionListCommandResult = Omit<
   CreatedBy: string;
 };
 
-export class PackageVersionListCommand extends SfCommand<PackageVersionListCommandResult[]> {
+export type PackageVersionListCommandResult = PackageVersionListDetails[];
+
+export class PackageVersionListCommand extends SfCommand<PackageVersionListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -102,7 +104,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     }),
   };
 
-  public async run(): Promise<PackageVersionListCommandResult[]> {
+  public async run(): Promise<PackageVersionListCommandResult> {
     const { flags } = await this.parse(PackageVersionListCommand);
     const connection = flags['target-hub-org'].getConnection(flags['api-version']);
     const project = SfProject.getInstance();
@@ -117,7 +119,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       verbose: flags.verbose,
     });
 
-    const results: PackageVersionListCommandResult[] = [];
+    const results: PackageVersionListCommandResult = [];
 
     if (records?.length > 0) {
       let ancestorVersionsMap: Optional<Map<string, string>>;

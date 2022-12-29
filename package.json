@@ -9,7 +9,7 @@
     "@oclif/core": "^1.22.0",
     "@salesforce/core": "^3.32.11",
     "@salesforce/kit": "^1.8.0",
-    "@salesforce/packaging": "^1.1.3",
+    "@salesforce/packaging": "^1.1.4",
     "@salesforce/sf-plugins-core": "^1.21.1",
     "chalk": "^4.1.2",
     "tslib": "^2"
@@ -86,68 +86,66 @@
     ],
     "plugins": [],
     "topics": {
-      "subtopics": {
-        "package1": {
-          "description": "develop first-generation managed and unmanaged packages",
-          "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
-          "trailblazerCommunityLink": {
-            "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
-            "name": "Unlocked Packages and Managed 2GPs"
-          },
-          "subtopics": {
-            "beta": {
-              "description": "The commands in this topic are in beta release.",
-              "subtopics": {
-                "version": {
-                  "description": "first-generation manage package versions",
-                  "longDescription": "Use the package version commands to first-generation manage package versions.",
-                  "subtopics": {
-                    "create": {
-                      "description": "create package versions",
-                      "longDescription": "Use the package version list command to list package versions."
-                    },
-                    "display": {
-                      "description": "display package versions",
-                      "longDescription": "Use the package version list command to list package versions."
-                    },
-                    "list": {
-                      "description": "list package versions"
-                    }
+      "package1": {
+        "description": "develop first-generation managed and unmanaged packages",
+        "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
+        "trailblazerCommunityLink": {
+          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+          "name": "Unlocked Packages and Managed 2GPs"
+        },
+        "subtopics": {
+          "beta": {
+            "description": "The commands in this topic are in beta release.",
+            "subtopics": {
+              "version": {
+                "description": "first-generation manage package versions",
+                "longDescription": "Use the package version commands to first-generation manage package versions.",
+                "subtopics": {
+                  "create": {
+                    "description": "create package versions",
+                    "longDescription": "Use the package version list command to list package versions."
+                  },
+                  "display": {
+                    "description": "display package versions",
+                    "longDescription": "Use the package version list command to list package versions."
+                  },
+                  "list": {
+                    "description": "list package versions"
                   }
                 }
               }
             }
           }
+        }
+      },
+      "package": {
+        "description": "develop and install packages",
+        "longDescription": "Use the package commands to develop and install packages.",
+        "trailblazerCommunityLink": {
+          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+          "name": "Unlocked Packages and Managed 2GPs"
         },
-        "package": {
-          "description": "develop and install packages",
-          "longDescription": "Use the package commands to develop and install packages.",
-          "trailblazerCommunityLink": {
-            "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
-            "name": "Unlocked Packages and Managed 2GPs"
-          },
-          "subtopics": {
-            "beta": {
-              "description": "The commands in this topic are in beta release.",
-              "subtopics": {
-                "version": {
-                  "description": "manage package versions",
-                  "longDescription": "Use the package version commands to manage package versions.",
-                  "subtopics": {
-                    "create": {
-                      "description": "create package versions",
-                      "longDescription": "Use the package version list command to list package versions."
-                    }
+        "subtopics": {
+          "beta": {
+            "description": "The commands in this topic are in beta release.",
+            "subtopics": {
+              "version": {
+                "description": "manage package versions",
+                "longDescription": "Use the package version commands to manage package versions.",
+                "subtopics": {
+                  "create": {
+                    "description": "create package versions",
+                    "longDescription": "Use the package version list command to list package versions."
                   }
-                },
-                "uninstall": {
-                  "description": "uninstall packages",
-                  "longDescription": "Use the package uninstall commands to uninstall packages."
-                },
-                "install": {
-                  "description": "install packages",
-                  "longDescription": "Use the package install commands to install packages."
                 }
+              },
+              "uninstall": {
+                "description": "uninstall packages",
+                "longDescription": "Use the package uninstall commands to uninstall packages."
+              },
+              "install": {
+                "description": "install packages",
+                "longDescription": "Use the package install commands to install packages."
               }
             }
           }
@@ -174,6 +172,7 @@
     "test:deprecation-policy": "./bin/dev snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 1800000 --parallel",
     "test:nuts:package1": "nyc mocha \"**/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
+    "test:json-schema": "./bin/dev schema:compare",
     "version": "oclif readme"
   },
   "publishConfig": {

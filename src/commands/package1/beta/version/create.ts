@@ -20,7 +20,7 @@ import { Package1Version, PackageVersionEvents, PackagingSObjects } from '@sales
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
 
-type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
+export type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest> {
   public static readonly summary = messages.getMessage('summary');

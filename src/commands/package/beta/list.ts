@@ -38,7 +38,9 @@ export type Package2Result = Partial<
   }
 >;
 
-export class PackageListCommand extends SfCommand<Package2Result[]> {
+export type PackageListCommandResult = Package2Result[];
+
+export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -56,7 +58,7 @@ export class PackageListCommand extends SfCommand<Package2Result[]> {
 
   private results: Package2Result[] = [];
 
-  public async run(): Promise<Package2Result[]> {
+  public async run(): Promise<PackageListCommandResult> {
     const { flags } = await this.parse(PackageListCommand);
     const queryResult = await Package.list(flags['target-hub-org'].getConnection(flags['api-version']));
     this.mapRecordsToResults(queryResult);

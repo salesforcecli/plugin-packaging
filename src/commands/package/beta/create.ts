@@ -19,7 +19,8 @@ import { Package, PackageCreateOptions, PackageType } from '@salesforce/packagin
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 
-export class PackageCreateCommand extends SfCommand<{ Id: string }> {
+export type PackageCreate = { Id: string };
+export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -73,7 +74,7 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
     }),
   };
 
-  public async run(): Promise<{ Id: string }> {
+  public async run(): Promise<PackageCreate> {
     const { flags } = await this.parse(PackageCreateCommand);
     const options: PackageCreateOptions = {
       description: flags.description ?? '',
@@ -84,7 +85,7 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
       packageType: flags['package-type'] as PackageType,
       path: flags.path,
     };
-    const result: { Id: string } = await Package.create(
+    const result: PackageCreate = await Package.create(
       flags['target-hub-org'].getConnection(flags['api-version']),
       this.project,
       options
@@ -93,7 +94,7 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
     return result;
   }
 
-  private display(result: { Id: string }): void {
+  private display(result: PackageCreate): void {
     this.styledHeader('Ids');
     this.table([{ name: 'Package Id', value: result.Id }], { name: { header: 'NAME' }, value: { header: 'VALUE' } });
   }

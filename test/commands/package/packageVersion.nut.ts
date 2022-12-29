@@ -16,7 +16,10 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import { PackageVersionListCommandResult } from '../../../src/commands/package/beta/version/list';
+import {
+  PackageVersionListCommandResult,
+  PackageVersionListDetails,
+} from '../../../src/commands/package/beta/version/list';
 
 describe('package:version:*', () => {
   let session: TestSession;
@@ -301,7 +304,8 @@ describe('package:version:*', () => {
     });
     it('should list package versions in dev hub - verbose json results', () => {
       const command = `force:package:beta:version:list --verbose -v ${session.hubOrg.username} --json`;
-      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
+      const output = execCmd<PackageVersionListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput
+        ?.result as PackageVersionListCommandResult;
       const keys = [
         'Package2Id',
         'Branch',
@@ -337,12 +341,10 @@ describe('package:version:*', () => {
       ];
 
       expect(output).to.have.length.greaterThan(0);
-      expect(output?.at(0)).to.have.keys(keys);
-      output
-        ?.filter((f) => f.CodeCoverage)
-        .map((version) => {
-          packageVersionIds.push(version.SubscriberPackageVersionId);
-        });
+      expect(output[0]).to.have.keys(keys);
+      (output as PackageVersionListDetails[])
+        .filter((f: { CodeCoverage: string | boolean }) => f.CodeCoverage)
+        .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
     });
   });
 
@@ -352,12 +354,14 @@ describe('package:version:*', () => {
     before(() => {
       // query for deletable package versions (released package versions can't be deleted)
       const command = `force:package:beta:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
-      const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
-      output?.forEach((pkgVersion) => {
-        if (!pkgVersion.IsReleased) {
-          deletableVersionIds.push(pkgVersion.SubscriberPackageVersionId);
+      const output = execCmd<PackageVersionListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput?.result;
+      (output as PackageVersionListDetails[])?.forEach(
+        (pkgVersion: { SubscriberPackageVersionId: string; IsReleased: string | boolean }) => {
+          if (!pkgVersion.IsReleased) {
+            deletableVersionIds.push(pkgVersion.SubscriberPackageVersionId);
+          }
         }
-      });
+      );
       expect(
         deletableVersionIds.length,
         'Not enough deletable package versions to run the delete tests'

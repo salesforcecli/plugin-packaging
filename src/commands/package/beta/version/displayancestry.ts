@@ -20,7 +20,9 @@ import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
-export class PackageVersionDisplayAncestryCommand extends SfCommand<PackageAncestryNodeData | string> {
+export type DisplayAncestryCommandResult = PackageAncestryNodeData | string;
+
+export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAncestryCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -47,7 +49,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<PackageAnces
     }),
   };
 
-  public async run(): Promise<PackageAncestryNodeData | string> {
+  public async run(): Promise<DisplayAncestryCommandResult> {
     const { flags } = await this.parse(PackageVersionDisplayAncestryCommand);
     const packageAncestry = await Package.getAncestry(
       flags.package,

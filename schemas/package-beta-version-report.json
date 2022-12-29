@@ -1,0 +1,232 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageVersionReportResultModified",
+  "definitions": {
+    "PackageVersionReportResultModified": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "CodeCoverage": {
+          "type": "string"
+        },
+        "HasPassedCodeCoverageCheck": {
+          "type": ["boolean", "string"]
+        },
+        "Package2": {
+          "type": "object",
+          "properties": {
+            "Id": {
+              "type": "string"
+            },
+            "IsDeleted": {
+              "type": "boolean"
+            },
+            "CreatedDate": {
+              "type": "number"
+            },
+            "CreatedById": {
+              "type": "string"
+            },
+            "LastModifiedDate": {
+              "type": "number"
+            },
+            "LastModifiedById": {
+              "type": "string"
+            },
+            "SystemModstamp": {
+              "type": "number"
+            },
+            "SubscriberPackageId": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "Description": {
+              "type": "string"
+            },
+            "NamespacePrefix": {
+              "type": "string"
+            },
+            "ContainerOptions": {
+              "$ref": "#/definitions/PackageType"
+            },
+            "IsDeprecated": {
+              "type": "boolean"
+            },
+            "ConvertedFromPackageId": {
+              "type": "string"
+            },
+            "PackageErrorUsername": {
+              "type": "string"
+            },
+            "IsOrgDependent": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "HasMetadataRemoved": {
+          "type": ["boolean", "string"]
+        },
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "number"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "number"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "number"
+        },
+        "Package2Id": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionId": {
+          "type": "string"
+        },
+        "Tag": {
+          "type": "string"
+        },
+        "Branch": {
+          "type": "string"
+        },
+        "AncestorId": {
+          "type": "string"
+        },
+        "ValidationSkipped": {
+          "type": "boolean"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "number"
+        },
+        "MinorVersion": {
+          "type": "number"
+        },
+        "PatchVersion": {
+          "type": "number"
+        },
+        "BuildNumber": {
+          "type": "number"
+        },
+        "IsDeprecated": {
+          "type": "boolean"
+        },
+        "IsPasswordProtected": {
+          "type": "boolean"
+        },
+        "CodeCoveragePercentages": {
+          "$ref": "#/definitions/CodeCoveragePercentages"
+        },
+        "InstallKey": {
+          "type": "string"
+        },
+        "IsReleased": {
+          "type": "boolean"
+        },
+        "ConvertedFromVersionId": {
+          "type": "string"
+        },
+        "ReleaseVersion": {
+          "type": "number"
+        },
+        "BuildDurationInSeconds": {
+          "type": "number"
+        },
+        "Language": {
+          "type": "string"
+        },
+        "SubscriberPackageVersion": {
+          "type": "object",
+          "properties": {
+            "Dependencies": {
+              "$ref": "#/definitions/PackagingSObjects.SubscriberPackageDependencies"
+            }
+          },
+          "required": ["Dependencies"],
+          "additionalProperties": false
+        },
+        "Version": {
+          "type": "string"
+        },
+        "AncestorVersion": {
+          "type": "string"
+        }
+      },
+      "required": ["CodeCoverage", "HasMetadataRemoved", "Package2", "Version"]
+    },
+    "PackageType": {
+      "type": "string",
+      "enum": ["Managed", "Unlocked"]
+    },
+    "CodeCoveragePercentages": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "codeCovPercentages": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "className": {
+                    "type": "string"
+                  },
+                  "codeCoveragePercentage": {
+                    "type": "number"
+                  }
+                },
+                "required": ["className", "codeCoveragePercentage"],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 1
+            }
+          },
+          "required": ["codeCovPercentages"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "PackagingSObjects.SubscriberPackageDependencies": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subscriberPackageVersionId": {
+                "type": "string"
+              }
+            },
+            "required": ["subscriberPackageVersionId"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["ids"],
+      "additionalProperties": false
+    }
+  }
+}

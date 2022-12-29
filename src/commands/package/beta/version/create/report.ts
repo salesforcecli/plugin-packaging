@@ -23,9 +23,11 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_report');
 const pvclMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
-
 const ERROR_LIMIT = 12;
-export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
+
+export type ReportCommandResult = PackageVersionCreateRequestResult[];
+
+export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -43,7 +45,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionC
     }),
   };
 
-  public async run(): Promise<PackageVersionCreateRequestResult[]> {
+  public async run(): Promise<ReportCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateReportCommand);
     const result = await PackageVersion.getCreateStatus(
       flags['package-create-request-id'],

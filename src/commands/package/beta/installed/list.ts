@@ -29,7 +29,9 @@ export type PackageInstalledListResult = {
   SubscriberPackageVersionNumber: string;
 };
 
-export class PackageInstalledListCommand extends SfCommand<PackageInstalledListResult[]> {
+export type PackageInstalledCommandResult = PackageInstalledListResult[];
+
+export class PackageInstalledListCommand extends SfCommand<PackageInstalledCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -42,7 +44,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledListR
     'api-version': orgApiVersionFlagWithDeprecations,
   };
 
-  public async run(): Promise<PackageInstalledListResult[]> {
+  public async run(): Promise<PackageInstalledCommandResult> {
     const { flags } = await this.parse(PackageInstalledListCommand);
     const result = await SubscriberPackageVersion.installedList(
       flags['target-org'].getConnection(flags['api-version'])

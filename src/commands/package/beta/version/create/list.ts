@@ -21,7 +21,9 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
+export type CreateListCommandResult = PackageVersionCreateRequestResult[];
+
+export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -44,7 +46,7 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCre
     }),
   };
 
-  public async run(): Promise<PackageVersionCreateRequestResult[]> {
+  public async run(): Promise<CreateListCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateListCommand);
     const connection = flags['target-hub-org'].getConnection(flags['api-version']);
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {

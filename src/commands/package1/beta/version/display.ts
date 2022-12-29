@@ -19,7 +19,8 @@ import { Package1Display, Package1Version } from '@salesforce/packaging';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_display');
 
-export class Package1VersionDisplayCommand extends SfCommand<Package1Display[]> {
+export type Package1DisplayCommandResult = Package1Display[];
+export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayCommandResult> {
   public static readonly summary = messages.getMessage('description');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
@@ -39,7 +40,7 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1Display[]> 
     }),
   };
 
-  public async run(): Promise<Package1Display[]> {
+  public async run(): Promise<Package1DisplayCommandResult> {
     const { flags } = await this.parse(Package1VersionDisplayCommand);
     const pv1 = new Package1Version(
       flags['target-org'].getConnection(flags['api-version']),
