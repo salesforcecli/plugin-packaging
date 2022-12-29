@@ -9,8 +9,8 @@ import { expect } from 'chai';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import { SfCommand } from '@salesforce/sf-plugins-core';
 import * as sinon from 'sinon';
+import { stubMethod } from '@salesforce/ts-sinon';
 import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
@@ -25,16 +25,12 @@ describe('force:package:convert', () => {
   const sandbox = sinon.createSandbox();
 
   // stubs
-  let uxLogStub: sinon.SinonStub;
+  let spinnerStartStub: sinon.SinonStub;
   let convertStub: sinon.SinonStub;
 
   before(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-  });
-
-  beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
@@ -69,14 +65,14 @@ describe('force:package:convert', () => {
     };
 
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
-    const result = await new PackageConvert(
+    const command = new PackageConvert(
       ['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com'],
       config
-    ).run();
-    expect(uxLogStub.calledOnce).to.be.true;
-    expect(uxLogStub.firstCall.args[0]).to.include(
-      'Package version creation request status is \'In Progress\'. Run "sfdx force:package:version:create:report -i 08c3i000000bmf6AAA" to query for status.'
     );
+    spinnerStartStub = stubMethod(sandbox, command.spinner, 'start');
+    const result = await command.run();
+
+    expect(spinnerStartStub.called).to.be.true;
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (success)', async () => {
@@ -100,16 +96,6 @@ describe('force:package:convert', () => {
       ['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com'],
       config
     ).run();
-    expect(uxLogStub.calledOnce).to.be.true;
-    expect(uxLogStub.firstCall.args[0]).to.include(
-      'Successfully created the package version [08c3i000000bmf6AAA]. Subscriber Package Version Id: 04t3i000002OUEkAAO'
-    );
-    expect(uxLogStub.firstCall.args[0]).to.include(
-      'Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002OUEkAAO'
-    );
-    expect(uxLogStub.firstCall.args[0]).to.include(
-      'As an alternative, you can use the "sfdx force:package:install" command.'
-    );
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (error)', async () => {

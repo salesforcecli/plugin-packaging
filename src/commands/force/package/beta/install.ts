@@ -105,32 +105,6 @@ export class Install extends SfCommand<PackageInstallRequest> {
   private connection: Connection;
   private subscriberPackageVersion: SubscriberPackageVersion;
 
-  public static parseStatus(
-    request: PackageInstallRequest,
-    command: Install | Report,
-    installMsgs: Messages<string>,
-    username: string,
-    alias?: string
-  ): void {
-    const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
-    const { Status } = request;
-    if (Status === 'SUCCESS') {
-      command.log(installMsgs.getMessage('package-install-success', [pkgIdOrAlias]));
-    } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
-      command.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, username]));
-    } else {
-      let errorMessage = '<empty>';
-      const errors = request?.Errors?.errors;
-      if (errors?.length) {
-        errorMessage = 'Installation errors: ';
-        for (let i = 0; i < errors.length; i++) {
-          errorMessage += `\n${i + 1}) ${errors[i].message}`;
-        }
-      }
-      throw installMsgs.createError('packageInstallError', [errorMessage]);
-    }
-  }
-
   public async run(): Promise<PackageInstallRequest> {
     const { flags } = await this.parse(Install);
     const noPrompt = flags['no-prompt'];
@@ -211,7 +185,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       );
     }
 
-    let pkgInstallRequest: PackageInstallRequest;
+    let pkgInstallRequest: Optional<PackageInstallRequest>;
     try {
       pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
       this.spinner.stop();
@@ -223,15 +197,13 @@ export class Install extends SfCommand<PackageInstallRequest> {
         throw error;
       }
     } finally {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (pkgInstallRequest) {
-        Install.parseStatus(
-          pkgInstallRequest,
-          this,
-          messages,
-          flags['target-org'].getUsername() as string,
-          flags.package as Optional<string>
+        this.log(
+          Report.parseStatus(
+            pkgInstallRequest,
+            flags['target-org'].getUsername() as string,
+            flags.package as Optional<string>
+          )
         );
       }
     }

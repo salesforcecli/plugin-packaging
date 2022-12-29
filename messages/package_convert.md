@@ -65,3 +65,7 @@ the instance where the conversion package version will be created——for examp
 # instance-long
 
 The instance where the conversion package version will be created——for example, NA50.
+
+# in-progress
+
+Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'

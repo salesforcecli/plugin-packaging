@@ -61,9 +61,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
 
       // Prompt for confirmation
       if (!(await this.confirm(messages.getMessage('packageVersionPromoteConfirm', [flags.package])))) {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        return;
+        throw messages.createError('promote-deny');
       }
     }
 

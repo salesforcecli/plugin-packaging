@@ -86,20 +86,18 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     const { flags } = await this.parse(PackageConvert);
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.progress, async (data: PackageVersionCreateEventData) => {
-      this.log(
-        `Request in progress. Sleeping 30 seconds. Will wait a total of ${
-          data.timeRemaining?.seconds
-        } more seconds before timing out. Current Status='${camelCaseToTitleCase(
-          data.packageVersionCreateRequestResult.Status
-        )}'`
-      );
+      this.spinner.status = messages.getMessage('in-progress', [
+        data.timeRemaining?.seconds,
+        camelCaseToTitleCase(data.packageVersionCreateRequestResult.Status),
+      ]);
     });
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.success, async () => {
-      this.log('SUCCESS');
+      this.spinner.status = 'SUCCESS';
     });
 
+    this.spinner.start('Converting Package', 'Initializing');
     // initialize the project instance if in a project
     let project: Optional<SfProject>;
     try {
@@ -107,7 +105,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     } catch (err) {
       // ignore project is optional
     }
-
+    this.spinner.status = 'Converting Package';
     const result = await Package.convert(
       flags.package,
       flags['target-hub-org'].getConnection(flags['api-version']),
@@ -123,9 +121,10 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
 
     switch (result.Status) {
       case 'Error':
+        this.spinner.stop();
         throw new SfError(result.Error?.join('\n') ?? pvcMessages.getMessage('unknownError'));
       case 'Success':
-        this.log(
+        this.spinner.stop(
           pvcMessages.getMessage(result.Status, [
             result.Id,
             result.SubscriberPackageVersionId,
@@ -135,9 +134,10 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         );
         break;
       default:
-        this.log(pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]));
+        this.spinner.status = pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]);
     }
 
+    this.spinner.stop();
     return result;
   }
 }

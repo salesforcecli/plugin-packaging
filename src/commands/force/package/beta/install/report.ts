@@ -15,7 +15,6 @@ import {
 } from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
-import { Install as InstallCommand } from '../install';
 
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
@@ -42,11 +41,31 @@ export class Report extends SfCommand<PackageInstallRequest> {
     }),
   };
 
+  public static parseStatus(request: PackageInstallRequest, username: string, alias?: string): string {
+    const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
+    const { Status } = request;
+    if (Status === 'SUCCESS') {
+      return installMsgs.getMessage('package-install-success', [pkgIdOrAlias]);
+    } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
+      return installMsgs.getMessage('packageInstallInProgress', [request.Id, username]);
+    } else {
+      let errorMessage = '<empty>';
+      const errors = request?.Errors?.errors;
+      if (errors?.length) {
+        errorMessage = 'Installation errors: ';
+        for (let i = 0; i < errors.length; i++) {
+          errorMessage += `\n${i + 1}) ${errors[i].message}`;
+        }
+      }
+      throw installMsgs.createError('packageInstallError', [errorMessage]);
+    }
+  }
+
   public async run(): Promise<PackageInstallRequest> {
     const { flags } = await this.parse(Report);
     const connection = flags['target-org'].getConnection(flags['api-version']);
     const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags['request-id'], connection);
-    InstallCommand.parseStatus(pkgInstallRequest, this, installMsgs, flags['target-org'].getUsername() as string);
+    this.log(Report.parseStatus(pkgInstallRequest, flags['target-org'].getUsername() as string));
 
     return pkgInstallRequest;
   }

@@ -51,10 +51,10 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledListR
     const records = result.map((record) => ({
       Id: record.Id,
       SubscriberPackageId: record.SubscriberPackageId,
-      SubscriberPackageName: record.SubscriberPackage?.Name,
-      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix,
-      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id,
-      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name,
+      SubscriberPackageName: record.SubscriberPackage?.Name as string,
+      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix as string,
+      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id as string,
+      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name as string,
       SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
     }));
 
@@ -69,8 +69,6 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledListR
     };
     this.table(records, tableOptions, { 'no-truncate': true });
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     return records;
   }
 }

@@ -22,6 +22,10 @@ The ID (starts with 04t) or alias of the package version to promote.
 
 Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
+# promote-deny
+
+Promote operation denied
+
 # no-prompt
 
 no prompt to confirm setting the package version as released
