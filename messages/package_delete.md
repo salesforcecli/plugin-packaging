@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 delete a package
 
@@ -35,19 +35,19 @@ don’t prompt before deleting the package
 
 Don’t prompt before deleting the package.
 
-# promptDelete
+# prompt-delete
 
 Deleted packages can’t be recovered.
 
 Do you want to continue? (y/n)
 
-# promptUndelete
+# prompt-undelete
 
 This will undelete the package, which may result in unintended consequences for customers. Proceed with caution.
 
 Do you want to continue? (y/n)
 
-# promptDeleteDeny
+# prompt-delete-deny
 
 The request to delete this package was canceled
 

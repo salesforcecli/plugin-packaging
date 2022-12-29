@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 create a first-generation package version in the release org
 The package version is based on the contents of the specified metadata package. Omit -m if you want to create an unmanaged package version.
@@ -12,7 +12,7 @@ $ sfdx force:package1:version:create --packageid 03346000000MrC0XXX --name examp
 
 ID of the metadata package (starts with 033) of which you’re creating a new version
 
-# idLong
+# id-long
 
 ID of the metadata package (starts with 033) of which you’re creating a new version.
 
@@ -20,7 +20,7 @@ ID of the metadata package (starts with 033) of which you’re creating a new ve
 
 package version name
 
-# nameLong
+# name-long
 
 Package version name.
 
@@ -28,7 +28,7 @@ Package version name.
 
 package version description
 
-# descriptionLong
+# description-long
 
 Package version description.
 
@@ -36,39 +36,39 @@ Package version description.
 
 package version in major.minor format, for example, 3.2
 
-# versionLong
+# version-long
 
 Package version in major.minor format, for example, 3.2.
 
-# releaseNotes
+# release-notes
 
 release notes URL
 
-# releaseNotesLong
+# release-notes-long
 
 The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
 
-# postInstall
+# post-install
 
 post install URL
 
-# postInstallLong
+# post-install-long
 
 The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
 
-# managedReleased
+# managed-release
 
 create a managed package version
 
-# managedReleasedLong
+# managed-release-long
 
 Creates a managed package version. To create a beta version, don’t include this parameter.
 
-# installationKey
+# installation-key
 
 installation key for key-protected package (default: null)
 
-# installationKeyLong
+# installation-key-long
 
 Installation key for creating the key-protected package. The default is null.
 
@@ -76,7 +76,7 @@ Installation key for creating the key-protected package. The default is null.
 
 minutes to wait for the package version to be created (default: 2 minutes)
 
-# waitLong
+# wait-long
 
 Minutes to wait for the package version to be created. The default is 2 minutes.
 

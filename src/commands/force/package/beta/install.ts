@@ -35,8 +35,8 @@ const securityType = { AllUsers: 'full', AdminsOnly: 'none' };
 const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mixed: 'mixed-mode' };
 
 export class Install extends SfCommand<PackageInstallRequest> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
@@ -47,21 +47,21 @@ export class Install extends SfCommand<PackageInstallRequest> {
       unit: 'minutes',
       char: 'w',
       summary: messages.getMessage('wait'),
-      description: messages.getMessage('waitLong'),
+      description: messages.getMessage('wait-long'),
       default: Duration.minutes(0),
     }),
     'installation-key': Flags.string({
       char: 'k',
       aliases: ['installationkey'],
-      summary: messages.getMessage('installationKey'),
-      description: messages.getMessage('installationKeyLong'),
+      summary: messages.getMessage('installation-key'),
+      description: messages.getMessage('installation-key-long'),
     }),
     'publish-wait': Flags.duration({
       unit: 'minutes',
       char: 'b',
       aliases: ['publishwait'],
-      summary: messages.getMessage('publishWait'),
-      description: messages.getMessage('publishWaitLong'),
+      summary: messages.getMessage('publish-wait'),
+      description: messages.getMessage('publish-wait-long'),
       default: Duration.minutes(0),
     }),
     'no-prompt': Flags.boolean({
@@ -73,7 +73,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     'apex-compile': Flags.enum({
@@ -87,8 +87,8 @@ export class Install extends SfCommand<PackageInstallRequest> {
     'security-type': Flags.enum({
       char: 's',
       aliases: ['securitytype'],
-      summary: messages.getMessage('securityType'),
-      description: messages.getMessage('securityTypeLong'),
+      summary: messages.getMessage('security-type'),
+      description: messages.getMessage('security-type-long'),
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
@@ -115,7 +115,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
     const { Status } = request;
     if (Status === 'SUCCESS') {
-      command.log(installMsgs.getMessage('packageInstallSuccess', [pkgIdOrAlias]));
+      command.log(installMsgs.getMessage('package-install-success', [pkgIdOrAlias]));
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
       command.log(installMsgs.getMessage('packageInstallInProgress', [request.Id, username]));
     } else {
@@ -249,7 +249,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
   private async confirmUpgradeType(noPrompt: boolean): Promise<void> {
     if ((await this.subscriberPackageVersion.getPackageType()) === 'Unlocked' && !noPrompt) {
-      const promptMsg = messages.getMessage('promptUpgradeType');
+      const promptMsg = messages.getMessage('prompt-upgrade-type');
       if (!(await this.confirm(promptMsg))) {
         throw messages.createError('promptUpgradeTypeDeny');
       }

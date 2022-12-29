@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 list package version creation requests
 
@@ -32,7 +32,7 @@ ID
 
 Status
 
-# packageId
+# package-id
 
 Package Id
 

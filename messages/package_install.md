@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 install a package in the target org
 
@@ -17,15 +17,15 @@ $ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
 
 number of minutes to wait for installation status
 
-# waitLong
+# wait-long
 
 Maximum number of minutes to wait for installation status. The default is 0.
 
-# installationKey
+# installation-key
 
 installation key for key-protected package (default: null)
 
-# installationKeyLong
+# installation-key-long
 
 Installation key for installing a key-protected package. The default is null.
 
@@ -37,25 +37,21 @@ do not prompt for confirmation
 
 Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.
 
-# promptUpgradeType
+# prompt-upgrade-type
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
 
 Do you want to continue? (y/n)
 
-# promptUpgradeTypeDeny
-
-We canceled this package installation per your request.
-
-# publishWait
+# publish-wait
 
 number of minutes to wait for subscriber package version ID to become available in the target org
 
-# publishWaitLong
+# publish-wait-long
 
 Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.
 
-# packageInstallSuccess
+# package-install-success
 
 Successfully installed package [%s]
 
@@ -63,15 +59,15 @@ Successfully installed package [%s]
 
 ID (starts with 04t) or alias of the package version to install
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package version to install.
 
-# securityType
+# security-type
 
 security access type for the installed package (deprecation notice: The default --securitytype value will change from AllUsers to AdminsOnly in v47.0 or later.)
 
-# securityTypeLong
+# security-type-long
 
 Security access type for the installed package.
 
@@ -101,7 +97,7 @@ This package might send or receive data from these third-party websites:
 
 Grant access (y/n)?
 
-# promptUpgradeType
+# prompt-upgrade-type
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
 

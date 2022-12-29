@@ -56,8 +56,8 @@ export type PackageVersionListCommandResult = Omit<
 };
 
 export class PackageVersionListCommand extends SfCommand<PackageVersionListCommandResult[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
@@ -93,12 +93,12 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     'order-by': Flags.string({
       char: 'o',
       aliases: ['orderby'],
-      summary: messages.getMessage('orderByDescription'),
-      description: messages.getMessage('orderByLongDescription'),
+      summary: messages.getMessage('order-by-description'),
+      description: messages.getMessage('order-by-description-long'),
     }),
     verbose: Flags.boolean({
-      summary: messages.getMessage('verboseDescription'),
-      description: messages.getMessage('verboseLongDescription'),
+      summary: messages.getMessage('verbose-description'),
+      description: messages.getMessage('verbose-description-long'),
     }),
   };
 
@@ -223,7 +223,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   private getColumnData(concise: boolean, verbose: boolean): CliUx.Table.table.Columns<Record<string, unknown>> {
     if (concise) {
       return {
-        Package2Id: { header: messages.getMessage('packageId') },
+        Package2Id: { header: messages.getMessage('package-id') },
         Version: { header: messages.getMessage('version') },
         SubscriberPackageVersionId: {
           header: messages.getMessage('subscriberPackageVersionId'),
@@ -254,7 +254,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       // add additional columns for verbose output
       return {
         ...defaultCols,
-        Package2Id: { header: messages.getMessage('packageId') },
+        Package2Id: { header: messages.getMessage('package-id') },
         InstallUrl: { header: messages.getMessage('installUrl') },
         Id: { header: messages.getMessage('id') },
         CreatedDate: { header: 'Created Date' },

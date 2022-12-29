@@ -31,8 +31,8 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1Display[]> 
     'package-version-id': Flags.salesforceId({
       char: 'i',
       aliases: ['packageversionid'],
-      summary: messages.getMessage('packageId'),
-      description: messages.getMessage('packageIdLong'),
+      summary: messages.getMessage('package-id'),
+      description: messages.getMessage('package-id-long'),
       required: true,
       startsWith: '04t',
     }),

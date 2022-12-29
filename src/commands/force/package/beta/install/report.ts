@@ -24,8 +24,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
 export class Report extends SfCommand<PackageInstallRequest> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static org: Org;
 

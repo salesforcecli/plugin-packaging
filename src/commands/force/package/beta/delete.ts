@@ -20,8 +20,8 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
 
 export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly requiresProject = true;
@@ -51,10 +51,10 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
 
   public async run(): Promise<PackageSaveResult> {
     const { flags } = await this.parse(PackageDeleteCommand);
-    const promptMsg = flags.undelete ? 'promptUndelete' : 'promptDelete';
+    const promptMsg = flags.undelete ? 'prompt-undelete' : 'prompt-delete';
     const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm(messages.getMessage(promptMsg));
     if (!accepted) {
-      throw messages.createError('promptDeleteDeny');
+      throw messages.createError('prompt-delete-deny');
     }
 
     const pkg = new Package({

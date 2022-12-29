@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 uninstall a second-generation package from the target org
 
@@ -18,7 +18,7 @@ $ sfdx force:package:beta:uninstall -p "Undesirable Package Alias"
 
 number of minutes to wait for uninstall status
 
-# waitLong
+# wait-long
 
 Maximum number of minutes to wait for uninstall status. The default is 0.
 
@@ -26,7 +26,7 @@ Maximum number of minutes to wait for uninstall status. The default is 0.
 
 ID (starts with 04t) or alias of the package version to uninstall
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package version to uninstall.
 

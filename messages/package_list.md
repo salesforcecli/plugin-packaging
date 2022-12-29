@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 list all packages in the Dev Hub org
 
@@ -21,7 +21,7 @@ Name
 
 Id
 
-# packageId
+# package-id
 
 Subscriber Package Id
 
@@ -33,15 +33,15 @@ Alias
 
 Description
 
-# packageType
+# package-type
 
 Type
 
-# verboseDescription
+# verbose-description
 
 display extended package detail
 
-# verboseLongDescription
+# verbose-description-long
 
 Displays extended package details.
 
@@ -53,7 +53,7 @@ Converted From Package Id
 
 Org-Dependent Unlocked Package
 
-# errorNotificationUsername
+# error-notification-username
 
 Error Notification Username
 

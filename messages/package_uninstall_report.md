@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 retrieve status of package uninstall request
 
@@ -28,6 +28,6 @@ TODO: fix me
 
 Successfully uninstalled package [%s]
 
-# packageIdInvalid
+# package-id-invalid
 
 Verify that you entered a valid package uninstall request ID (starts with 06y) and try again.

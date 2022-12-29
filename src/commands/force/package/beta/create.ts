@@ -20,8 +20,8 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 
 export class PackageCreateCommand extends SfCommand<{ Id: string }> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly requiresProject = true;
@@ -32,44 +32,44 @@ export class PackageCreateCommand extends SfCommand<{ Id: string }> {
     name: Flags.string({
       char: 'n',
       summary: messages.getMessage('name'),
-      description: messages.getMessage('nameLong'),
+      description: messages.getMessage('name-long'),
       required: true,
     }),
     'package-type': Flags.enum({
       char: 't',
       aliases: ['packagetype'],
-      summary: messages.getMessage('packageType'),
-      description: messages.getMessage('packageTypeLong'),
+      summary: messages.getMessage('package-type'),
+      description: messages.getMessage('package-type-long'),
       required: true,
       options: ['Managed', 'Unlocked'],
     }),
     description: Flags.string({
       char: 'd',
       summary: messages.getMessage('description'),
-      description: messages.getMessage('descriptionLong'),
+      description: messages.getMessage('description-long'),
     }),
     'no-namespace': Flags.boolean({
       char: 'e',
       aliases: ['nonamespace'],
-      summary: messages.getMessage('noNamespace'),
-      description: messages.getMessage('noNamespaceLong'),
+      summary: messages.getMessage('no-namespace'),
+      description: messages.getMessage('no-namespace-long'),
     }),
     path: Flags.directory({
       char: 'r',
       summary: messages.getMessage('path'),
-      description: messages.getMessage('longPath'),
+      description: messages.getMessage('path-long'),
       required: true,
     }),
     'org-dependent': Flags.boolean({
       aliases: ['orgdependent'],
-      summary: messages.getMessage('orgDependent'),
-      description: messages.getMessage('orgDependentLong'),
+      summary: messages.getMessage('org-dependent'),
+      description: messages.getMessage('org-dependent-long'),
     }),
     'error-notification-username': Flags.string({
       char: 'o',
       aliases: ['errornotificationusername'],
-      summary: messages.getMessage('errorNotificationUsername'),
-      description: messages.getMessage('errorNotificationUsernameLong'),
+      summary: messages.getMessage('error-notification-username'),
+      description: messages.getMessage('error-notification-username-long'),
     }),
   };
 

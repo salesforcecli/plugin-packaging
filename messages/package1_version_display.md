@@ -2,15 +2,15 @@
 
 display details about a first-generation package version
 
-# packageId
+# package-id
 
 metadata package version ID (starts with 04t)
 
-# packageIdLong
+# package-id-long
 
 ID (starts with 04t) of the metadata package version whose details you want to display.
 
-# packageIdInvalid
+# package-id-invalid
 
 Verify that you entered a valid package version ID (starts with 04t) and try again.
 

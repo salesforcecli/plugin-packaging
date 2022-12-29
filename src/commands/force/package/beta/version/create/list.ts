@@ -22,8 +22,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
 export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
@@ -63,7 +63,7 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageVersionCre
           header: messages.getMessage('status'),
         },
         Package2Id: {
-          header: messages.getMessage('packageId'),
+          header: messages.getMessage('package-id'),
         },
         Package2VersionId: {
           header: messages.getMessage('packageVersionId'),

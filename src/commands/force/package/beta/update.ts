@@ -21,8 +21,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const packageCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 
 export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly requiresProject = true;
@@ -33,24 +33,24 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     name: Flags.string({
       char: 'n',
       summary: messages.getMessage('name'),
-      description: messages.getMessage('nameLong'),
+      description: messages.getMessage('name-long'),
     }),
     description: Flags.string({
       char: 'd',
       summary: messages.getMessage('description'),
-      description: messages.getMessage('descriptionLong'),
+      description: messages.getMessage('description-long'),
     }),
     'error-notification-username': Flags.string({
       char: 'o',
       aliases: ['errornotificationusername'],
-      summary: packageCreate.getMessage('errorNotificationUsername'),
-      description: packageCreate.getMessage('errorNotificationUsernameLong'),
+      summary: packageCreate.getMessage('error-notification-username'),
+      description: packageCreate.getMessage('error-notification-username-long'),
     }),
   };
 

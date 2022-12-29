@@ -21,8 +21,8 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
 export class PackageVersionDisplayAncestryCommand extends SfCommand<PackageAncestryNodeData | string> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly showProgress = false;
 
@@ -35,16 +35,16 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<PackageAnces
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     dotcode: Flags.boolean({
       summary: messages.getMessage('dotcode'),
-      description: messages.getMessage('dotcodeLong'),
+      description: messages.getMessage('dotcode-long'),
     }),
     verbose: Flags.boolean({
       summary: messages.getMessage('verbose'),
-      description: messages.getMessage('verboseLong'),
+      description: messages.getMessage('verbose-long'),
     }),
   };
 

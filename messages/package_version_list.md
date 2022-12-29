@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 list all package versions in the Dev Hub org.
 
@@ -32,19 +32,19 @@ display released versions only
 
 Displays released versions only (IsReleased=true).
 
-# orderByDescription
+# order-by-description
 
 order by the specified package version fields
 
-# orderByLongDescription
+# order-by-description-long
 
 Orders the list by the specified package version fields.
 
-# verboseDescription
+# verbose-description
 
 display extended package version details
 
-# verboseLongDescription
+# verbose-description-long
 
 Displays extended package version details.
 
@@ -85,7 +85,7 @@ Subscriber Package Version Id
 
 Converted From Version Id
 
-# packageId
+# package-id
 
 Package Id
 

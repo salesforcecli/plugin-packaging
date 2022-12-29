@@ -30,8 +30,8 @@ export type PackageInstalledListResult = {
 };
 
 export class PackageInstalledListCommand extends SfCommand<PackageInstalledListResult[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly requiresProject = true;

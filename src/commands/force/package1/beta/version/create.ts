@@ -23,8 +23,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresProject = true;
   public static readonly flags = {
@@ -35,54 +35,54 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
       aliases: ['packageid'],
       char: 'i',
       summary: messages.getMessage('id'),
-      description: messages.getMessage('idLong'),
+      description: messages.getMessage('id-long'),
       required: true,
     }),
     name: Flags.string({
       char: 'n',
       summary: messages.getMessage('name'),
-      description: messages.getMessage('nameLong'),
+      description: messages.getMessage('name-long'),
       required: true,
     }),
     description: Flags.string({
       char: 'd',
       summary: messages.getMessage('description'),
-      description: messages.getMessage('descriptionLong'),
+      description: messages.getMessage('description-long'),
     }),
     version: Flags.string({
       char: 'v',
       summary: messages.getMessage('version'),
-      description: messages.getMessage('versionLong'),
+      description: messages.getMessage('version-long'),
     }),
     'managed-released': Flags.boolean({
       char: 'm',
       aliases: ['managedrelease'],
-      summary: messages.getMessage('managedReleased'),
-      description: messages.getMessage('managedReleasedLong'),
+      summary: messages.getMessage('managed-release'),
+      description: messages.getMessage('managed-release-long'),
     }),
     'release-notes-url': Flags.string({
       char: 'r',
       aliases: ['releasenotesurl'],
-      summary: messages.getMessage('releaseNotes'),
-      description: messages.getMessage('releaseNotesLong'),
+      summary: messages.getMessage('release-notes'),
+      description: messages.getMessage('release-notes-long'),
     }),
     'post-install-url': Flags.string({
       char: 'p',
       aliases: ['postinstallurl'],
-      summary: messages.getMessage('postInstall'),
-      description: messages.getMessage('postInstallLong'),
+      summary: messages.getMessage('post-install'),
+      description: messages.getMessage('post-install-long'),
     }),
     'installation-key': Flags.string({
       char: 'k',
       aliases: ['installationkey'],
-      summary: messages.getMessage('installationKey'),
-      description: messages.getMessage('installationKeyLong'),
+      summary: messages.getMessage('installation-key'),
+      description: messages.getMessage('installation-key-long'),
     }),
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
       summary: messages.getMessage('wait'),
-      description: messages.getMessage('waitLong'),
+      description: messages.getMessage('wait-long'),
     }),
   };
 

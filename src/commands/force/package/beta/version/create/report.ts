@@ -26,8 +26,8 @@ const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'packag
 
 const ERROR_LIMIT = 12;
 export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionCreateRequestResult[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
@@ -67,7 +67,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<PackageVersionC
         value: camelCaseToTitleCase(record.Status),
       },
       {
-        key: pvclMessages.getMessage('packageId'),
+        key: pvclMessages.getMessage('package-id'),
         value: record.Package2Id,
       },
       {

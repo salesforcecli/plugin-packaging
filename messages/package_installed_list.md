@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 list the org’s installed packages
 

@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 update package details
 
@@ -15,7 +15,7 @@ $ sfdx force:package:update -p 0Ho... -d "New Package Description"
 
 ID (starts with 0Ho) or alias of the package to update
 
-# packageLong
+# package-long
 
 The ID (starts with 0Ho) or alias of the package to update.
 
@@ -23,7 +23,7 @@ The ID (starts with 0Ho) or alias of the package to update.
 
 new package name
 
-# nameLong
+# name-long
 
 New name of the package.
 
@@ -31,7 +31,7 @@ New name of the package.
 
 new package description
 
-# descriptionLong
+# description-long
 
 New description of the package.
 

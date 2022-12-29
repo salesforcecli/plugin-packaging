@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 update a package version
 
@@ -16,7 +16,7 @@ $ sfdx force:package:version:update -p 04t... -e "New Package Version Descriptio
 
 ID (starts with 04t) or alias of the package to update a version of
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package to update a version of.
 

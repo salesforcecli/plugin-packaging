@@ -20,8 +20,8 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_list');
 
 export class Package1VersionListCommand extends SfCommand<Package1Display[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly flags = {
@@ -32,8 +32,8 @@ export class Package1VersionListCommand extends SfCommand<Package1Display[]> {
       length: 18,
       aliases: ['packageid'],
       char: 'i',
-      summary: messages.getMessage('packageId'),
-      description: messages.getMessage('packageIdLong'),
+      summary: messages.getMessage('package-id'),
+      description: messages.getMessage('package-id-long'),
       startsWith: '033',
     }),
   };

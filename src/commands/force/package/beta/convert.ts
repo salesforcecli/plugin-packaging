@@ -29,8 +29,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly hidden = true;
@@ -41,7 +41,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     package: Flags.salesforceId({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('longPackage'),
+      description: messages.getMessage('package-long'),
       required: true,
       startsWith: '033',
     }),
@@ -49,35 +49,35 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       char: 'k',
       aliases: ['installationkey'],
       summary: messages.getMessage('key'),
-      description: messages.getMessage('longKey'),
+      description: messages.getMessage('key-long'),
       exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     'definition-file': Flags.file({
       char: 'f',
       aliases: ['definitionfile'],
-      summary: messages.getMessage('definitionfile'),
-      description: messages.getMessage('longDefinitionfile'),
+      summary: messages.getMessage('definition-file'),
+      description: messages.getMessage('definition-file-long'),
       hidden: true,
     }),
     'installation-key-bypass': Flags.boolean({
       char: 'x',
       aliases: ['installationkeybypass'],
-      summary: messages.getMessage('keyBypass'),
-      description: messages.getMessage('longKeyBypass'),
+      summary: messages.getMessage('key-bypass'),
+      description: messages.getMessage('key-bypass-long'),
       exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
       summary: messages.getMessage('wait'),
-      description: messages.getMessage('longWait'),
+      description: messages.getMessage('wait-long'),
       default: Duration.minutes(0),
     }),
     'build-instance': Flags.string({
       char: 's',
       aliases: ['buildinstance'],
       summary: messages.getMessage('instance'),
-      description: messages.getMessage('longInstance'),
+      description: messages.getMessage('instance-long'),
       hidden: true,
     }),
   };

@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 retrieve details about a package version in the Dev Hub org
 
@@ -13,15 +13,15 @@ $ sfdx force:package:version:report -p "Your Package Alias"
 
 ID (starts with 04t) or alias of the package to retrieve details for
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package to retrieve details for.
 
-# verboseDescription
+# verbose-description
 
 displays extended package version details
 
-# verboseLongDescription
+# verbose-description-long
 
 Displays extended package version details.
 

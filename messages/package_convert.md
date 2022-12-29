@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 creates a second-generation package version from a first-generation package
 
@@ -22,7 +22,7 @@ $ sfdx force:package:convert --package 033xx0000004Gmn -k password123
 
 ID (starts with 033) of the first-generation package to convert
 
-# longPackage
+# package-long
 
 The ID (starts with 033) or alias of the package to convert.
 
@@ -30,23 +30,23 @@ The ID (starts with 033) or alias of the package to convert.
 
 installation key for key-protected package (either --installationkey or --installationkeybypass is required)
 
-# longKey
+# key-long
 
 Installation key for creating the key-protected package. Either an --installationkey value or the --installationkeybypass flag is required.
 
-# keyBypass
+# key-bypass
 
 bypass the installation key requirement (either --installationkey or --installationkeybypass is required)
 
-# longKeyBypass
+# key-bypass-long
 
 Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.
 
-# definitionfile
+# definition-file
 
 path to a definition file that contains features and org preferences that the metadata of the package version depends on.
 
-# longDefinitionfile
+# definition-file-long
 
 The path to a definition file, similar to the scratch org definition file, that contains the list of features and org preferences that the metadata of the package version depends on.
 
@@ -54,7 +54,7 @@ The path to a definition file, similar to the scratch org definition file, that 
 
 minutes to wait for the package version to be created
 
-# longWait
+# wait-long
 
 The number of minutes to wait for the package version to be created.
 
@@ -62,6 +62,6 @@ The number of minutes to wait for the package version to be created.
 
 the instance where the conversion package version will be created——for example, NA50
 
-# longInstance
+# instance-long
 
 The instance where the conversion package version will be created——for example, NA50.

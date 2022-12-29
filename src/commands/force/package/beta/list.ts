@@ -39,8 +39,8 @@ export type Package2Result = Partial<
 >;
 
 export class PackageListCommand extends SfCommand<Package2Result[]> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresProject = true;
 
@@ -49,8 +49,8 @@ export class PackageListCommand extends SfCommand<Package2Result[]> {
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     verbose: Flags.boolean({
-      summary: messages.getMessage('verboseDescription'),
-      description: messages.getMessage('verboseLongDescription'),
+      summary: messages.getMessage('verbose-description'),
+      description: messages.getMessage('verbose-description-long'),
     }),
   };
 
@@ -107,16 +107,16 @@ export class PackageListCommand extends SfCommand<Package2Result[]> {
       Alias: { header: messages.getMessage('alias') },
       Description: { header: messages.getMessage('description') },
       ContainerOptions: {
-        header: messages.getMessage('packageType'),
+        header: messages.getMessage('package-type'),
       },
     };
 
     if (verbose) {
       Object.assign(columns, {
-        SubscriberPackageId: { header: messages.getMessage('packageId') },
+        SubscriberPackageId: { header: messages.getMessage('package-id') },
         ConvertedFromPackageId: { header: messages.getMessage('convertedFromPackageId') },
         IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
-        PackageErrorUsername: { header: messages.getMessage('errorNotificationUsername') },
+        PackageErrorUsername: { header: messages.getMessage('error-notification-username') },
         CreatedBy: {
           header: messages.getMessage('createdBy'),
         },

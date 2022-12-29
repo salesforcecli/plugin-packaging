@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 delete a package version
 Specify the ID or alias of the package version you want to delete.
@@ -28,19 +28,19 @@ Undelete a deleted package version.
 
 don’t prompt before deleting the package version
 
-# promptDelete
+# prompt-delete
 
 Deleted package versions can’t be recovered.
 
 Do you want to continue? (y/n)
 
-# promptUndelete
+# prompt-undelete
 
 This will undelete the package version, which may result in unintended consequences for customers. Proceed with caution.
 
 Do you want to continue? (y/n)
 
-# promptDeleteDeny
+# prompt-delete-deny
 
 The request to delete this package version has been canceled.
 

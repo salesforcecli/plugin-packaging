@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 promote a package version to released
 
@@ -14,7 +14,7 @@ $ sfdx force:package:version:promote -p "Awesome Package Alias"
 
 ID (starts with 04t) or alias of the package version to promote
 
-# packageLong
+# package-long
 
 The ID (starts with 04t) or alias of the package version to promote.
 
@@ -22,11 +22,11 @@ The ID (starts with 04t) or alias of the package version to promote.
 
 Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
-# setasreleasedForce
+# no-prompt
 
 no prompt to confirm setting the package version as released
 
-# setasreleasedForceLong
+# no-prompt-long
 
 Do not prompt to confirm setting the package version as released.
 

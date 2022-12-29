@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 create a package
 
@@ -19,25 +19,25 @@ $ sfdx force:package:create -n YourPackageName -d "Your Package Descripton" -t U
 
 package name
 
-# nameLong
+# name-long
 
 Name of the package to create.
 
-# orgDependent
+# org-dependent
 
 depends on unpackaged metadata in the installation org. Applies to unlocked packages only.
 
-# orgDependentLong
+# org-dependent-long
 
 Package depends on unpackaged metadata in the installation org. Applies to unlocked packages only.
 Use Source Tracking in Sandboxes to develop your org-dependent unlocked package.
 For more information, see "Create Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
 
-# errorNotificationUsername
+# error-notification-username
 
 active Dev Hub user designated to receive email notifications for package errors
 
-# errorNotificationUsernameLong
+# error-notification-username-long
 
 An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.
 
@@ -45,23 +45,23 @@ An active Dev Hub org user designated to receive email notifications for unhandl
 
 package description
 
-# descriptionLong
+# description-long
 
 Description of the package.
 
-# noNamespace
+# no-namespace
 
 creates the package with no namespace; available only for unlocked packages.
 
-# noNamespaceLong
+# no-namespace-long
 
 Creates the package with no namespace. Available only for unlocked packages. Useful when you’re migrating an existing org to packages. But, use a namespaced package for new metadata.
 
-# packageType
+# package-type
 
 package type
 
-# packageTypeLong
+# package-type-long
 
 Package type for the package.
 The options for package type are Managed and Unlocked (Managed=DeveloperManagedSubscriberManaged, Unlocked=DeveloperControlledSubscriberEditable).
@@ -71,6 +71,6 @@ These options determine upgrade and editability rules.
 
 path to directory that contains the contents of the package
 
-# longPath
+# path-long
 
 The path to the directory that contains the contents of the package.

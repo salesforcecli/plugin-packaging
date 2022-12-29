@@ -32,8 +32,8 @@ export type PackageVersionReportResultModified = Omit<
   HasMetadataRemoved: boolean | string;
 };
 export class PackageVersionReportCommand extends SfCommand<PackageVersionReportResultModified> {
-  public static readonly summary = messages.getMessage('cliDescription');
-  public static readonly description = messages.getMessage('cliDescription');
+  public static readonly summary = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
 
   public static readonly requiresProject = true;
@@ -44,12 +44,12 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('package'),
-      description: messages.getMessage('packageLong'),
+      description: messages.getMessage('package-long'),
       required: true,
     }),
     verbose: Flags.boolean({
-      summary: messages.getMessage('verboseDescription'),
-      description: messages.getMessage('verboseLongDescription'),
+      summary: messages.getMessage('verbose-description'),
+      description: messages.getMessage('verbose-description-long'),
     }),
   };
   protected haveCodeCoverageData = false;
@@ -93,7 +93,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       },
       { key: 'Id', value: record.Id },
       {
-        key: pvlMessages.getMessage('packageId'),
+        key: pvlMessages.getMessage('package-id'),
         value: record.Package2Id,
       },
       {

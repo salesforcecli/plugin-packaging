@@ -1,4 +1,4 @@
-# cliDescription
+# summary
 
 retrieve the status of a package installation request
 
