@@ -43,7 +43,7 @@ All changes must have associated tests. This library uses a combination of unit 
 
 ### Unit tests
 
-Unit tests are run with `yarn test` and use the mocha test framework. Tests are located in the test directory and are named with the pattern, `<test-file>.test.ts`. E.g., [install.test.ts](test/commands/force/package/install.test.ts). Reference the existing unit tests when writing and testing code changes.
+Unit tests are run with `yarn test` and use the mocha test framework. Tests are located in the test directory and are named with the pattern, `<test-file>.test.ts`. E.g., [install.test.ts](test/commands/package/install.test.ts). Reference the existing unit tests when writing and testing code changes.
 
 ### NUTs (non-unit tests)
 

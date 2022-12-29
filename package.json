@@ -86,71 +86,67 @@
     ],
     "plugins": [],
     "topics": {
-      "force": {
-        "description": "tools for the Salesforce developer",
-        "longDescription": "Commands to develop on the Salesforce Platform.",
-        "trailblazerCommunityLink": {
-          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000HTp1",
-          "name": "Salesforce DX"
-        },
-        "subtopics": {
-          "package1": {
-            "description": "develop first-generation managed and unmanaged packages",
-            "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
-            "subtopics": {
-              "beta": {
-                "description": "The commands in this topic are in beta release.",
-                "subtopics": {
-                  "version": {
-                    "description": "first-generation manage package versions",
-                    "longDescription": "Use the package version commands to first-generation manage package versions.",
-                    "subtopics": {
-                      "create": {
-                        "description": "create package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      },
-                      "display": {
-                        "description": "display package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      },
-                      "list": {
-                        "description": "list package versions"
-                      }
+      "subtopics": {
+        "package1": {
+          "description": "develop first-generation managed and unmanaged packages",
+          "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
+          "trailblazerCommunityLink": {
+            "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+            "name": "Unlocked Packages and Managed 2GPs"
+          },
+          "subtopics": {
+            "beta": {
+              "description": "The commands in this topic are in beta release.",
+              "subtopics": {
+                "version": {
+                  "description": "first-generation manage package versions",
+                  "longDescription": "Use the package version commands to first-generation manage package versions.",
+                  "subtopics": {
+                    "create": {
+                      "description": "create package versions",
+                      "longDescription": "Use the package version list command to list package versions."
+                    },
+                    "display": {
+                      "description": "display package versions",
+                      "longDescription": "Use the package version list command to list package versions."
+                    },
+                    "list": {
+                      "description": "list package versions"
                     }
                   }
                 }
               }
             }
+          }
+        },
+        "package": {
+          "description": "develop and install packages",
+          "longDescription": "Use the package commands to develop and install packages.",
+          "trailblazerCommunityLink": {
+            "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+            "name": "Unlocked Packages and Managed 2GPs"
           },
-          "package": {
-            "description": "develop and install packages",
-            "longDescription": "Use the package commands to develop and install packages.",
-            "trailblazerCommunityLink": {
-              "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
-              "name": "Unlocked Packages and Managed 2GPs"
-            },
-            "subtopics": {
-              "beta": {
-                "description": "The commands in this topic are in beta release.",
-                "subtopics": {
-                  "version": {
-                    "description": "manage package versions",
-                    "longDescription": "Use the package version commands to manage package versions.",
-                    "subtopics": {
-                      "create": {
-                        "description": "create package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      }
+          "subtopics": {
+            "beta": {
+              "description": "The commands in this topic are in beta release.",
+              "subtopics": {
+                "version": {
+                  "description": "manage package versions",
+                  "longDescription": "Use the package version commands to manage package versions.",
+                  "subtopics": {
+                    "create": {
+                      "description": "create package versions",
+                      "longDescription": "Use the package version list command to list package versions."
                     }
-                  },
-                  "uninstall": {
-                    "description": "uninstall packages",
-                    "longDescription": "Use the package uninstall commands to uninstall packages."
-                  },
-                  "install": {
-                    "description": "install packages",
-                    "longDescription": "Use the package install commands to install packages."
                   }
+                },
+                "uninstall": {
+                  "description": "uninstall packages",
+                  "longDescription": "Use the package uninstall commands to uninstall packages."
+                },
+                "install": {
+                  "description": "install packages",
+                  "longDescription": "Use the package install commands to install packages."
                 }
               }
             }
