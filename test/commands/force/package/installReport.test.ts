@@ -103,7 +103,7 @@ describe('force:package:install:report', () => {
     const result = await runCmd(['-i', pkgInstallRequest.Id]);
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
-    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
   });
 
