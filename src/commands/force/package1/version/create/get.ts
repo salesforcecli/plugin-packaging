@@ -14,6 +14,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create_get');
 
 export class Package1VersionCreateGetCommand extends SfdxCommand {
+  public static aliases = ['force:package1:beta:version:create:get'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;

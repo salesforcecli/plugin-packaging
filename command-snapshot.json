@@ -1,6 +1,6 @@
 [
   {
-    "command": "force:package1:beta:version:create",
+    "command": "force:package1:version:create",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -17,28 +17,28 @@
       "version",
       "wait"
     ],
-    "alias": []
+    "alias": ["force:package1:beta:version:create"]
   },
   {
-    "command": "force:package1:beta:version:create:get",
+    "command": "force:package1:version:create:get",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "requestid", "targetusername"],
-    "alias": []
+    "alias": ["force:package1:beta:version:create:get"]
   },
   {
-    "command": "force:package1:beta:version:display",
+    "command": "force:package1:version:display",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "packageversionid", "targetusername"],
-    "alias": []
+    "alias": ["force:package1:beta:version:display"]
   },
   {
-    "command": "force:package1:beta:version:list",
+    "command": "force:package1:version:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "packageid", "targetusername"],
-    "alias": []
+    "alias": ["force:package1:beta:version:list"]
   },
   {
-    "command": "force:package:beta:convert",
+    "command": "force:package:convert",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -52,10 +52,10 @@
       "targetdevhubusername",
       "wait"
     ],
-    "alias": []
+    "alias": ["force:package:beta:convert"]
   },
   {
-    "command": "force:package:beta:create",
+    "command": "force:package:create",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -70,16 +70,16 @@
       "path",
       "targetdevhubusername"
     ],
-    "alias": []
+    "alias": ["force:package:beta:create"]
   },
   {
-    "command": "force:package:beta:delete",
+    "command": "force:package:delete",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "noprompt", "package", "targetdevhubusername", "undelete"],
-    "alias": []
+    "alias": ["force:package:beta:delete"]
   },
   {
-    "command": "force:package:beta:install",
+    "command": "force:package:install",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apexcompile",
@@ -95,40 +95,40 @@
       "upgradetype",
       "wait"
     ],
-    "alias": []
+    "alias": ["force:package:beta:install"]
   },
   {
-    "command": "force:package:beta:install:report",
+    "command": "force:package:install:report",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "requestid", "targetusername"],
-    "alias": []
+    "alias": ["force:package:beta:install:report"]
   },
   {
-    "command": "force:package:beta:installed:list",
+    "command": "force:package:installed:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "targetusername"],
-    "alias": []
+    "alias": ["force:package:beta:installed:list"]
   },
   {
-    "command": "force:package:beta:list",
+    "command": "force:package:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "targetdevhubusername", "verbose"],
-    "alias": []
+    "alias": ["force:package:beta:list"]
   },
   {
-    "command": "force:package:beta:uninstall",
+    "command": "force:package:uninstall",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "package", "targetusername", "wait"],
-    "alias": []
+    "alias": ["force:package:beta:uninstall"]
   },
   {
-    "command": "force:package:beta:uninstall:report",
+    "command": "force:package:uninstall:report",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "requestid", "targetusername"],
-    "alias": []
+    "alias": ["force:package:beta:uninstall:report"]
   },
   {
-    "command": "force:package:beta:update",
+    "command": "force:package:update",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -140,10 +140,10 @@
       "package",
       "targetdevhubusername"
     ],
-    "alias": []
+    "alias": ["force:package:beta:update"]
   },
   {
-    "command": "force:package:beta:version:create",
+    "command": "force:package:version:create",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -173,34 +173,34 @@
       "versionnumber",
       "wait"
     ],
-    "alias": []
+    "alias": ["force:package:beta:version:create"]
   },
   {
-    "command": "force:package:beta:version:create:list",
+    "command": "force:package:version:create:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "createdlastdays", "json", "loglevel", "status", "targetdevhubusername"],
-    "alias": []
+    "alias": ["force:package:beta:version:create:list"]
   },
   {
-    "command": "force:package:beta:version:create:report",
+    "command": "force:package:version:create:report",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "packagecreaterequestid", "targetdevhubusername"],
-    "alias": []
+    "alias": ["force:package:beta:version:create:report"]
   },
   {
-    "command": "force:package:beta:version:delete",
+    "command": "force:package:version:delete",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "noprompt", "package", "targetdevhubusername", "undelete"],
-    "alias": []
+    "alias": ["force:package:beta:version:delete"]
   },
   {
-    "command": "force:package:beta:version:displayancestry",
+    "command": "force:package:version:displayancestry",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "dotcode", "json", "loglevel", "package", "targetdevhubusername", "verbose"],
-    "alias": []
+    "alias": ["force:package:beta:version:displayancestry"]
   },
   {
-    "command": "force:package:beta:version:list",
+    "command": "force:package:version:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -215,22 +215,22 @@
       "targetdevhubusername",
       "verbose"
     ],
-    "alias": []
+    "alias": ["force:package:beta:version:list"]
   },
   {
-    "command": "force:package:beta:version:promote",
+    "command": "force:package:version:promote",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "noprompt", "package", "targetdevhubusername"],
-    "alias": []
+    "alias": ["force:package:beta:version:promote"]
   },
   {
-    "command": "force:package:beta:version:report",
+    "command": "force:package:version:report",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["apiversion", "json", "loglevel", "package", "targetdevhubusername", "verbose"],
-    "alias": []
+    "alias": ["force:package:beta:version:report"]
   },
   {
-    "command": "force:package:beta:version:update",
+    "command": "force:package:version:update",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
       "apiversion",
@@ -244,6 +244,6 @@
       "versiondescription",
       "versionname"
     ],
-    "alias": []
+    "alias": ["force:package:beta:version:update"]
   }
 ]

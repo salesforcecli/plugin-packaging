@@ -12,7 +12,7 @@ import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
-import { Report } from '../../../../src/commands/force/package/beta/install/report';
+import { Report } from '../../../../src/commands/force/package/install/report';
 
 describe('force:package:install:report', () => {
   const $$ = new TestContext();

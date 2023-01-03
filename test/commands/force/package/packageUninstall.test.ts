@@ -10,7 +10,7 @@ import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
-import { PackageUninstallCommand } from '../../../../src/commands/force/package/beta/uninstall';
+import { PackageUninstallCommand } from '../../../../src/commands/force/package/uninstall';
 
 describe('force:package:uninstall', () => {
   const $$ = new TestContext();

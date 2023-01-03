@@ -11,7 +11,7 @@ import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
-import { PackageVersionDeleteCommand } from '../../../../src/commands/force/package/beta/version/delete';
+import { PackageVersionDeleteCommand } from '../../../../src/commands/force/package/version/delete';
 
 describe('force:package:version:delete', () => {
   const $$ = new TestContext();

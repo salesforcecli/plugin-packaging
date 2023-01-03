@@ -20,6 +20,7 @@ const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'packag
 
 const ERROR_LIMIT = 12;
 export class PackageVersionCreateReportCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:create:report'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

@@ -14,6 +14,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_delete');
 
 export class PackageVersionDeleteCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:delete'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

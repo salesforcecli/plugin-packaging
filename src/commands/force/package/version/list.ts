@@ -50,6 +50,7 @@ export type PackageVersionListCommandResult = Omit<
 };
 
 export class PackageVersionListCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:list'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

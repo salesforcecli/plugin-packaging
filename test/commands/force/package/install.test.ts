@@ -12,7 +12,7 @@ import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
-import { Install } from '../../../../src/commands/force/package/beta/install';
+import { Install } from '../../../../src/commands/force/package/install';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
 const myPackageVersion04t = '04t6A000002zgKSQAY';

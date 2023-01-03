@@ -16,6 +16,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 export class Package1VersionCreateCommand extends SfdxCommand {
+  public static aliases = ['force:package1:beta:version:create'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly requiresUsername = true;
   public static readonly requiresProject = true;

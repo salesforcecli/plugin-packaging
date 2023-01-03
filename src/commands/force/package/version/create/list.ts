@@ -16,6 +16,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
 export class PackageVersionCreateListCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:create:list'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

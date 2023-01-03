@@ -13,7 +13,7 @@ import { PackageVersion, PackageVersionReportResult } from '@salesforce/packagin
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
-} from '../../../../src/commands/force/package/beta/version/report';
+} from '../../../../src/commands/force/package/version/report';
 
 describe('force:package:version:report - tests', () => {
   const $$ = new TestContext();

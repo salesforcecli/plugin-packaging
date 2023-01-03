@@ -10,7 +10,7 @@ import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
-import { Package1VersionCreateCommand } from '../../../../src/commands/force/package1/beta/version/create';
+import { Package1VersionCreateCommand } from '../../../../src/commands/force/package1/version/create';
 
 describe('force:package1:version:create', () => {
   const $$ = new TestContext();

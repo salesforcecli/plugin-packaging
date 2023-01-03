@@ -14,6 +14,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
 
 export class PackageVersionPromoteCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:promote'];
   public static readonly description = messages.getMessage('cliDescription');
 
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
