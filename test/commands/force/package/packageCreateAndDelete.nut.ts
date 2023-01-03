@@ -27,18 +27,18 @@ describe('package create/update/delete', () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
     it('should create a package - human readable results', () => {
-      const command = `force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} -t Unlocked -r ./force-app`;
+      const command = `force:package:create -n ${pkgName} -v ${session.hubOrg.username} -t Unlocked -r ./force-app`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Ids');
       expect(output).to.match(/Package Id\s+?0Ho/);
     });
     it('should update a package - human readable results', () => {
-      const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${session.hubOrg.username}`;
+      const command = `force:package:update --package ${pkgName} --description "My new description" -v ${session.hubOrg.username}`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.match(/Successfully updated the package\.\s+0Ho/);
     });
     it('should delete a package - human readable results', () => {
-      const command = `force:package:beta:delete -p ${pkgName} -v ${session.hubOrg.username} --noprompt`;
+      const command = `force:package:delete -p ${pkgName} -v ${session.hubOrg.username} --noprompt`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('Successfully deleted the package. 0Ho');
     });
@@ -51,7 +51,7 @@ describe('package create/update/delete', () => {
     });
 
     it('should create a package - json results', () => {
-      const command = `force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} -t Unlocked -r ./force-app --json`;
+      const command = `force:package:create -n ${pkgName} -v ${session.hubOrg.username} -t Unlocked -r ./force-app --json`;
       const output = execCmd<{ Id: string }>(command, { ensureExitCode: 0 }).jsonOutput;
       pkgId = output.result.Id;
       expect(output.status).to.equal(0);
@@ -60,7 +60,7 @@ describe('package create/update/delete', () => {
     });
 
     it('should update a package - json results', () => {
-      const command = `force:package:beta:update --package ${pkgName} --description "My new description" -v ${session.hubOrg.username} --json`;
+      const command = `force:package:update --package ${pkgName} --description "My new description" -v ${session.hubOrg.username} --json`;
       const output = execCmd<{ id: string }>(command, { ensureExitCode: 0 }).jsonOutput;
       expect(output.status).to.equal(0);
       expect(output.result).to.have.property('id');
@@ -68,7 +68,7 @@ describe('package create/update/delete', () => {
     });
 
     it('should delete a package - json results', () => {
-      const command = `force:package:beta:delete -p ${pkgId} -v ${session.hubOrg.username} --json`;
+      const command = `force:package:delete -p ${pkgId} -v ${session.hubOrg.username} --json`;
       const output = execCmd<{ id: string; success: boolean; errors: [] }>(command, { ensureExitCode: 0 }).jsonOutput;
       expect(output.result.id).to.match(/0Ho.{12,15}/);
       expect(output.result.success).to.be.true;

@@ -32,12 +32,12 @@ describe('package:version:promote / package:version:update', () => {
     });
 
     const id = execCmd<{ Id: string }>(
-      `force:package:beta:create --name ${pkgName} --loglevel debug --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
+      `force:package:create --name ${pkgName} --loglevel debug --packagetype Unlocked --path force-app --description "Don't ease, don't ease, don't ease me in." --json`,
       { ensureExitCode: 0 }
     ).jsonOutput.result.Id;
 
     const result = execCmd<PackageVersionCreateRequestResult>(
-      `force:package:beta:version:create --package ${id} --json --wait 20 --tag tag --branch branch -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
+      `force:package:version:create --package ${id} --json --wait 20 --tag tag --branch branch -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
       { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
     ).jsonOutput.result;
     expect(result).to.have.all.keys(
@@ -69,7 +69,7 @@ describe('package:version:promote / package:version:update', () => {
   });
 
   it('should promote a package (human readable)', () => {
-    const result = execCmd(`force:package:beta:version:promote --package ${packageId} --noprompt`, {
+    const result = execCmd(`force:package:version:promote --package ${packageId} --noprompt`, {
       ensureExitCode: 0,
     }).shellOutput.stdout;
     expect(result).to.contain('Successfully promoted the package version');
@@ -81,7 +81,7 @@ describe('package:version:promote / package:version:update', () => {
 
   it('should promote a package (--json)', () => {
     const result = execCmd<PackageSaveResult>(
-      `force:package:beta:version:promote --package ${packageId} --noprompt --json`,
+      `force:package:version:promote --package ${packageId} --noprompt --json`,
       {
         ensureExitCode: 0,
       }
@@ -93,7 +93,7 @@ describe('package:version:promote / package:version:update', () => {
   });
 
   it('should update a package (human readable)', () => {
-    const result = execCmd(`force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch`, {
+    const result = execCmd(`force:package:version:update --package ${packageId} --branch MySuperCoolBranch`, {
       ensureExitCode: 0,
     }).shellOutput.stdout;
     expect(result).to.contain(`Successfully updated the package version. ${packageId}`);
@@ -101,7 +101,7 @@ describe('package:version:promote / package:version:update', () => {
 
   it('should update a package (--json)', () => {
     const result = execCmd<PackageSaveResult>(
-      `force:package:beta:version:update --package ${packageId} --branch MySuperCoolBranch2 --json`,
+      `force:package:version:update --package ${packageId} --branch MySuperCoolBranch2 --json`,
       {
         ensureExitCode: 0,
       }
