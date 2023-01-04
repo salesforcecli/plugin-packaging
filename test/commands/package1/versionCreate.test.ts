@@ -86,7 +86,7 @@ describe('force:package1:version:create', () => {
     expect(result.Status).to.equal('QUEUED');
     expect(uxLogStub.callCount).to.equal(1);
     expect(uxLogStub.firstCall.args[0]).to.equal(
-      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx force:package1:beta:version:create:get -i 0HD4p000000blUvGXX -u ${testOrg.username}`
+      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u ${testOrg.username}`
     );
   });
 

@@ -34,7 +34,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:version:report'];
+  public static readonly aliases = ['force:package:beta:version:report', 'force:package:version:report'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

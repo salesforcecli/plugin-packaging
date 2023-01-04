@@ -37,7 +37,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:install'];
+  public static readonly aliases = ['force:package:beta:install', 'force:package:install'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,

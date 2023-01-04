@@ -95,4 +95,4 @@ Successfully uploaded package [%s]
 # QUEUED
 
 PackageUploadRequest has been enqueued. You can query the status using
-sfdx force:package1:beta:version:create:get -i %s -u %s
+sfdx force:package1:version:create:get -i %s -u %s

@@ -22,7 +22,7 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package1:beta:version:create:get'];
+  public static readonly aliases = ['force:package1:beta:version:create:get', 'force:package1:version:create:get'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,

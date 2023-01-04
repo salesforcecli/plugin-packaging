@@ -26,7 +26,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:version:create:list'];
+  public static readonly aliases = ['force:package:beta:version:create:list', 'force:package:version:create:list'];
   public static readonly flags = {
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,

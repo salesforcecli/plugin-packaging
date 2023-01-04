@@ -22,7 +22,7 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:uninstall:report'];
+  public static readonly aliases = ['force:package:beta:uninstall:report', 'force:package:uninstall:report'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,

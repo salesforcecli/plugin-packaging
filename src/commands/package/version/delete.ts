@@ -22,7 +22,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:version:delete'];
+  public static readonly aliases = ['force:package:beta:version:delete', 'force:package:version:delete'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

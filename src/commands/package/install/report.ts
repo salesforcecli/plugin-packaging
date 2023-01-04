@@ -25,7 +25,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:install:report'];
+  public static readonly aliases = ['force:package:beta:install:report', 'force:package:install:report'];
   public static org: Org;
 
   public static readonly flags = {

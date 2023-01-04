@@ -25,7 +25,7 @@ export class PackageUninstallCommand extends SfCommand<UninstallResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:uninstall'];
+  public static readonly aliases = ['force:package:beta:uninstall', 'force:package:uninstall'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,

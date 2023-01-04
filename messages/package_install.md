@@ -8,10 +8,10 @@ For package upgrades, to specify options for component deprecation or deletion o
 
 # examples
 
-$ sfdx force:package:beta:install --package 04t... -u me@example.com
-$ sfdx force:package:beta:install --package awesome_package_alias
-$ sfdx force:package:beta:install --package "Awesome Package Alias"
-$ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
+$ sfdx force:package:install --package 04t... -u me@example.com
+$ sfdx force:package:install --package awesome_package_alias
+$ sfdx force:package:install --package "Awesome Package Alias"
+$ sfdx force:package:install --package 04t... -t DeprecateOnly
 
 # wait
 
@@ -114,7 +114,7 @@ This command is supported only on API versions 36.0 and higher
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
-sfdx force:package:beta:install:report -i %s -u %s
+sfdx force:package:install:report -i %s -u %s
 
 # packageInstallError
 

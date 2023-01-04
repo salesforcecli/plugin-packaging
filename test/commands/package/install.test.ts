@@ -159,7 +159,7 @@ describe('force:package:install', () => {
       const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.deep.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -172,7 +172,7 @@ describe('force:package:install', () => {
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
       expect(uxLogStub.callCount).to.equal(2);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[1][0]).to.equal(msg);
       expect(uxLogStub.args[0][0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
       expect(result).to.deep.equal(pkgInstallRequest);
@@ -337,7 +337,7 @@ describe('force:package:install', () => {
 
       expect(uxLogStub.callCount).to.equal(11);
       expect(uxLogStub.args[0][0]).to.equal(warningMsg);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[10][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });

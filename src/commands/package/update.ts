@@ -23,7 +23,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:beta:update'];
+  public static readonly aliases = ['force:package:beta:update', 'force:package:update'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
