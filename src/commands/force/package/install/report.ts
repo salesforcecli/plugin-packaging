@@ -9,11 +9,16 @@ import * as os from 'os';
 import { flags, FlagsConfig, SfdxCommand } from '@salesforce/command';
 import { Messages } from '@salesforce/core';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
+import { Install as InstallCommand } from '../install';
+
+type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
 Messages.importMessagesDirectory(__dirname);
-const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall_report');
+const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install_report');
+const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
-export class PackageUninstallReportCommand extends SfdxCommand {
+export class Report extends SfdxCommand {
+  public static aliases = ['force:package:beta:install:report'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;
@@ -23,22 +28,17 @@ export class PackageUninstallReportCommand extends SfdxCommand {
       description: messages.getMessage('requestId'),
       longDescription: messages.getMessage('requestIdLong'),
       required: true,
-      validate: (id) => {
-        if (/^06y.{12,15}$/.test(id)) {
-          return true;
-        }
-        throw messages.createError('packageIdInvalid');
-      },
     }),
   };
 
-  public async run(): Promise<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
-    const requestId = this.flags.requestid as string;
-    const result = await SubscriberPackageVersion.uninstallStatus(requestId, this.org.getConnection());
+  public async run(): Promise<PackageInstallRequest> {
+    const connection = this.org.getConnection();
+    const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(
+      this.flags.requestid as string,
+      connection
+    );
+    InstallCommand.parseStatus(pkgInstallRequest, this.ux, installMsgs, this.org.getUsername());
 
-    const arg = result.Status === 'Success' ? [result.SubscriberPackageVersionId] : [result.Id, this.org.getUsername()];
-    this.ux.log(messages.getMessage(result.Status, arg));
-
-    return result;
+    return pkgInstallRequest;
   }
 }

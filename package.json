@@ -10,7 +10,7 @@
     "@salesforce/command": "^5.2.33",
     "@salesforce/core": "^3.32.11",
     "@salesforce/kit": "^1.8.0",
-    "@salesforce/packaging": "^1.1.3",
+    "@salesforce/packaging": "^1.1.6",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },
@@ -97,25 +97,20 @@
             "description": "develop first-generation managed and unmanaged packages",
             "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
             "subtopics": {
-              "beta": {
-                "description": "The commands in this topic are in beta release.",
+              "version": {
+                "description": "first-generation manage package versions",
+                "longDescription": "Use the package version commands to first-generation manage package versions.",
                 "subtopics": {
-                  "version": {
-                    "description": "first-generation manage package versions",
-                    "longDescription": "Use the package version commands to first-generation manage package versions.",
-                    "subtopics": {
-                      "create": {
-                        "description": "create package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      },
-                      "display": {
-                        "description": "display package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      },
-                      "list": {
-                        "description": "list package versions"
-                      }
-                    }
+                  "create": {
+                    "description": "create package versions",
+                    "longDescription": "Use the package version list command to list package versions."
+                  },
+                  "display": {
+                    "description": "display package versions",
+                    "longDescription": "Use the package version list command to list package versions."
+                  },
+                  "list": {
+                    "description": "list package versions"
                   }
                 }
               }
@@ -129,28 +124,23 @@
               "name": "Unlocked Packages and Managed 2GPs"
             },
             "subtopics": {
-              "beta": {
-                "description": "The commands in this topic are in beta release.",
+              "version": {
+                "description": "manage package versions",
+                "longDescription": "Use the package version commands to manage package versions.",
                 "subtopics": {
-                  "version": {
-                    "description": "manage package versions",
-                    "longDescription": "Use the package version commands to manage package versions.",
-                    "subtopics": {
-                      "create": {
-                        "description": "create package versions",
-                        "longDescription": "Use the package version list command to list package versions."
-                      }
-                    }
-                  },
-                  "uninstall": {
-                    "description": "uninstall packages",
-                    "longDescription": "Use the package uninstall commands to uninstall packages."
-                  },
-                  "install": {
-                    "description": "install packages",
-                    "longDescription": "Use the package install commands to install packages."
+                  "create": {
+                    "description": "create package versions",
+                    "longDescription": "Use the package version list command to list package versions."
                   }
                 }
+              },
+              "uninstall": {
+                "description": "uninstall packages",
+                "longDescription": "Use the package uninstall commands to uninstall packages."
+              },
+              "install": {
+                "description": "install packages",
+                "longDescription": "Use the package install commands to install packages."
               }
             }
           }

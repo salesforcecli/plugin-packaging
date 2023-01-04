@@ -11,7 +11,7 @@ import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
-import { PackageVersionCreateCommand } from '../../../../src/commands/force/package/beta/version/create';
+import { PackageVersionCreateCommand } from '../../../../src/commands/force/package/version/create';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 describe('force:package:version:create - tests', () => {

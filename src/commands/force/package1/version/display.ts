@@ -13,6 +13,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_display');
 
 export class Package1VersionDisplayCommand extends SfdxCommand {
+  public static aliases = ['force:package1:beta:version:display'];
   public static readonly description = messages.getMessage('description');
   public static readonly requiresUsername = true;
   public static readonly flagsConfig: FlagsConfig = {

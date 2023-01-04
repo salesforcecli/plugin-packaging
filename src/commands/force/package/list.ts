@@ -33,6 +33,7 @@ export type Package2Result = Partial<
 >;
 
 export class PackageListCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:list'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresProject = true;

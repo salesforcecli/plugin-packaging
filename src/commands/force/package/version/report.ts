@@ -25,6 +25,7 @@ export type PackageVersionReportResultModified = Omit<
   HasMetadataRemoved: boolean | string;
 };
 export class PackageVersionReportCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:report'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

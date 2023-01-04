@@ -12,7 +12,7 @@ import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import { Result } from '@salesforce/command';
-import { Install } from '../../../../src/commands/force/package/beta/install';
+import { Install } from '../../../../src/commands/force/package/install';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
 const myPackageVersion04t = '04t6A000002zgKSQAY';
@@ -185,7 +185,7 @@ describe('force:package:install', () => {
       queryStub = stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await runCmd(['-p', myPackageVersion04t]);
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -198,7 +198,7 @@ describe('force:package:install', () => {
       queryStub = stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await runCmd(['-p', myPackageVersion04t]);
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -353,7 +353,7 @@ describe('force:package:install', () => {
 
       expect(uxLogStub.calledTwice).to.be.true;
       expect(uxLogStub.args[0][0]).to.equal(warningMsg);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:beta:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u test@user.com`;
       expect(uxLogStub.args[1][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });

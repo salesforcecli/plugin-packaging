@@ -15,6 +15,7 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
 export class PackageVersionDisplayAncestryCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:version:displayancestry'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly showProgress = false;

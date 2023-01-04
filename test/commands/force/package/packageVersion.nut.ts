@@ -16,7 +16,7 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/beta/version/list';
+import { PackageVersionListCommandResult } from '../../../../src/commands/force/package/version/list';
 
 describe('package:version:*', () => {
   let session: TestSession;
@@ -32,7 +32,7 @@ describe('package:version:*', () => {
     });
 
     packageId = execCmd<{ Id: string }>(
-      `force:package:beta:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`,
+      `force:package:create -n ${pkgName} -v ${session.hubOrg.username} --json -t Unlocked -r ./force-app`,
       {
         ensureExitCode: 0,
       }
@@ -46,7 +46,7 @@ describe('package:version:*', () => {
   describe('package:version:create', () => {
     it('should create a new package version (human)', () => {
       const result = execCmd(
-        `force:package:beta:version:create --package ${pkgName} -x --codecoverage --versiondescription "Initial version"`,
+        `force:package:version:create --package ${pkgName} -x --codecoverage --versiondescription "Initial version"`,
         { ensureExitCode: 0 }
       ).shellOutput.stdout;
       expect(result).to.include("Package version creation request status is '");
@@ -56,7 +56,7 @@ describe('package:version:*', () => {
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
     it('should create a new package version and wait (human)', () => {
       const result = execCmd(
-        `force:package:beta:version:create --package ${pkgName} --wait 20 -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
+        `force:package:version:create --package ${pkgName} --wait 20 -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
         { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
       ).shellOutput.stdout;
       expect(result).to.match(/Successfully created the package version \[08c.{15}]/);
@@ -69,7 +69,7 @@ describe('package:version:*', () => {
 
     it('should create a new package version (json)', () => {
       const result = execCmd<PackageVersionCreateRequestResult>(
-        `force:package:beta:version:create --package ${pkgName} --json --tag tag --branch branch -x --codecoverage --versiondescription "Initial version"`,
+        `force:package:version:create --package ${pkgName} --json --tag tag --branch branch -x --codecoverage --versiondescription "Initial version"`,
         { ensureExitCode: 0 }
       ).jsonOutput.result;
       expect(result).to.have.all.keys(
@@ -107,7 +107,7 @@ describe('package:version:*', () => {
   describe('package:version:create:report', () => {
     it('reports on status (json)', () => {
       const result = execCmd<PackageVersionCreateRequestResult[]>(
-        `force:package:beta:version:create:report -i ${packageVersionId} --json`,
+        `force:package:version:create:report -i ${packageVersionId} --json`,
         {
           ensureExitCode: 0,
         }
@@ -131,7 +131,7 @@ describe('package:version:*', () => {
 
     it('reports on status (human)', () => {
       const resultHuman = execCmd<PackageVersionCreateRequestResult[]>(
-        `force:package:beta:version:create:report -i ${packageVersionId}`,
+        `force:package:version:create:report -i ${packageVersionId}`,
         {
           ensureExitCode: 0,
         }
@@ -151,7 +151,7 @@ describe('package:version:*', () => {
 
   describe('package:version:create:list', () => {
     it('should list the package versions created (human)', async () => {
-      const command = `force:package:beta:version:create:list -v ${session.hubOrg.username}`;
+      const command = `force:package:version:create:list -v ${session.hubOrg.username}`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
@@ -160,7 +160,7 @@ describe('package:version:*', () => {
     });
 
     it('should list all of the successful package versions created', async () => {
-      const command = `force:package:beta:version:create:list --status Success -v ${session.hubOrg.username} --json`;
+      const command = `force:package:version:create:list --status Success -v ${session.hubOrg.username} --json`;
       const output = execCmd<[{ Status: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
       output.result.forEach((result) => {
         expect(result.Status).to.equal('Success');
@@ -168,7 +168,7 @@ describe('package:version:*', () => {
     });
 
     it('should list all of the package versions created within the last 2 days', () => {
-      const command = `force:package:beta:version:create:list --createdlastdays 2 -v ${session.hubOrg.username} --json`;
+      const command = `force:package:version:create:list --createdlastdays 2 -v ${session.hubOrg.username} --json`;
       const output = execCmd<[{ CreatedDate: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
@@ -199,7 +199,7 @@ describe('package:version:*', () => {
     });
 
     it('should list the package versions created (json)', async () => {
-      const command = `force:package:beta:version:create:list -v ${session.hubOrg.username} --json`;
+      const command = `force:package:version:create:list -v ${session.hubOrg.username} --json`;
       const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
@@ -222,7 +222,7 @@ describe('package:version:*', () => {
   });
   describe('package:version:list', () => {
     it('should list package versions in dev hub - human readable results', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username}`;
+      const command = `force:package:version:list -v ${session.hubOrg.username}`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -231,14 +231,14 @@ describe('package:version:*', () => {
     });
 
     it('should list package versions in dev hub - concise output', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --concise`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} --concise`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(/Package Id\s+Version\s+Subscriber Package Version Id\s+Released/);
     });
 
     it('should list package versions modified in the last 5 days', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --modifiedlastdays 5`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} --modifiedlastdays 5`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -246,7 +246,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list package versions created in the last 5 days', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --createdlastdays 5`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} --createdlastdays 5`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -254,7 +254,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list installed packages in dev hub - verbose human readable results', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --verbose`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} --verbose`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
@@ -262,7 +262,7 @@ describe('package:version:*', () => {
       );
     });
     it('should list package versions in dev hub - json results', () => {
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} --json`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} --json`;
       const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       const keys = [
         'Package2Id',
@@ -299,7 +299,7 @@ describe('package:version:*', () => {
       expect(output[0]).to.have.keys(keys);
     });
     it('should list package versions in dev hub - verbose json results', () => {
-      const command = `force:package:beta:version:list --verbose -v ${session.hubOrg.username} --json`;
+      const command = `force:package:version:list --verbose -v ${session.hubOrg.username} --json`;
       const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       const keys = [
         'Package2Id',
@@ -350,7 +350,7 @@ describe('package:version:*', () => {
 
     before(() => {
       // query for deletable package versions (released package versions can't be deleted)
-      const command = `force:package:beta:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
+      const command = `force:package:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
       const output = execCmd<[PackageVersionListCommandResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       output.forEach((pkgVersion) => {
         if (!pkgVersion.IsReleased) {
@@ -365,7 +365,7 @@ describe('package:version:*', () => {
 
     it('will delete a package (json)', () => {
       const id = deletableVersionIds.pop();
-      const command = `force:package:beta:version:delete -p ${id} --json`;
+      const command = `force:package:version:delete -p ${id} --json`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput.result;
       expect(result).to.have.property('success', true);
       expect(result).to.have.property('id', id);
@@ -374,7 +374,7 @@ describe('package:version:*', () => {
 
     it('will delete a package (human)', () => {
       const id = deletableVersionIds.pop();
-      const command = `force:package:beta:version:delete -p ${id} --noprompt`;
+      const command = `force:package:version:delete -p ${id} --noprompt`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain(`Successfully deleted the package version. ${id}`);
     });
@@ -442,25 +442,25 @@ describe('package:version:*', () => {
       expect(project.getSfProjectJson().get('packageAliases')).to.have.property(ancestryPkgName);
     });
     it('will print the correct output (default)', () => {
-      const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName}`;
+      const command = `force:package:version:displayancestry -p ${ancestryPkgName}`;
       const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.match(new RegExp(`^└─ ${sortedVersions[0].toString()}`));
     });
     it('will print the correct output (verbose)', () => {
-      const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --verbose`;
+      const command = `force:package:version:displayancestry -p ${ancestryPkgName} --verbose`;
       const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.match(new RegExp(`^└─ ${sortedVersions[0].toString()}`));
       expect(result).to.match(/\d\.\d\.\d\.\d \(04t.{15}\)/);
     });
     it('will print the correct output (dotcode)', () => {
-      const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --dotcode`;
+      const command = `force:package:version:displayancestry -p ${ancestryPkgName} --dotcode`;
       const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain('strict graph G {');
       expect(result).to.match(/node04t.{15} \[label="\d\.\d\.\d\.\d"]/);
       expect(result).to.match(/-- node04t.{15}/);
     });
     it('will print the correct output (json)', () => {
-      const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --json`;
+      const command = `force:package:version:displayancestry -p ${ancestryPkgName} --json`;
       const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput.result;
       expect(result).to.have.all.keys('data', 'children');
       expect(result.data).to.have.all.keys(
@@ -477,7 +477,7 @@ describe('package:version:*', () => {
     });
 
     it('will print the correct output (json & dotcode)', () => {
-      const command = `force:package:beta:version:displayancestry -p ${ancestryPkgName} --dotcode --json`;
+      const command = `force:package:version:displayancestry -p ${ancestryPkgName} --dotcode --json`;
       const result = execCmd<PackageAncestryNodeData>(command, { ensureExitCode: 0 }).jsonOutput.result;
       expect(result).to.contain('strict graph G {');
       expect(result).to.match(/node04t.{15} \[label="\d\.\d\.\d\.\d"]/);

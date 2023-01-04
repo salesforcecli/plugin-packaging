@@ -25,6 +25,7 @@ export type PackageInstalledListResult = {
 };
 
 export class PackageInstalledListCommand extends SfdxCommand {
+  public static aliases = ['force:package:beta:installed:list'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresUsername = true;

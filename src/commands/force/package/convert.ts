@@ -23,6 +23,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export class PackageConvert extends SfdxCommand {
+  public static aliases = ['force:package:beta:convert'];
   public static readonly description = messages.getMessage('cliDescription');
   public static readonly examples = messages.getMessage('examples').split(os.EOL);
   public static readonly requiresDevhubUsername = true;

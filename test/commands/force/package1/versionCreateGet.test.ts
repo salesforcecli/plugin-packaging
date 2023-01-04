@@ -9,7 +9,7 @@ import { TestContext } from '@salesforce/core/lib/testSetup';
 import { fromStub, stubInterface, stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
-import { Package1VersionCreateGetCommand } from '../../../../src/commands/force/package1/beta/version/create/get';
+import { Package1VersionCreateGetCommand } from '../../../../src/commands/force/package1/version/create/get';
 
 describe('force:package1:version:create:get', () => {
   const $$ = new TestContext();

@@ -10,7 +10,7 @@ import { Org } from '@salesforce/core';
 import { TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import { PackageConvert } from '../../../../src/commands/force/package/beta/convert';
+import { PackageConvert } from '../../../../src/commands/force/package/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
