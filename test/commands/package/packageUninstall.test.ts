@@ -12,7 +12,7 @@ import { assert, expect } from 'chai';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
-import { PackageUninstallCommand } from '../../../src/commands/package/beta/uninstall';
+import { PackageUninstallCommand } from '../../../src/commands/package/uninstall';
 
 describe('force:package:uninstall', () => {
   const $$ = new TestContext();

@@ -15,7 +15,7 @@ import { SfProject } from '@salesforce/core';
 import {
   PackageVersionReportCommand,
   PackageVersionReportResultModified,
-} from '../../../src/commands/package/beta/version/report';
+} from '../../../src/commands/package/version/report';
 
 const pkgVersionReportResultModified: PackageVersionReportResultModified = {
   AncestorId: 'N/A',

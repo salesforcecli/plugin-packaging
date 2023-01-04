@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import {
   Flags,
   loglevel,
@@ -37,7 +36,7 @@ const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mi
 export class Install extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package:beta:install'];
   public static readonly flags = {
     loglevel,

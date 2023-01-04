@@ -16,10 +16,7 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import {
-  PackageVersionListCommandResult,
-  PackageVersionListDetails,
-} from '../../../src/commands/package/beta/version/list';
+import { PackageVersionListCommandResult, PackageVersionListDetails } from '../../../src/commands/package/version/list';
 
 describe('package:version:*', () => {
   let session: TestSession;

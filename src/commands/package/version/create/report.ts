@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import {
   Flags,
   loglevel,
@@ -30,7 +29,7 @@ export type ReportCommandResult = PackageVersionCreateRequestResult[];
 export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package:beta:version:create:report'];
   public static readonly flags = {
     loglevel,

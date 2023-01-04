@@ -11,7 +11,7 @@ import { assert, expect } from 'chai';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Package1Version } from '@salesforce/packaging';
-import { Package1VersionCreateGetCommand } from '../../../src/commands/package1/beta/version/create/get';
+import { Package1VersionCreateGetCommand } from '../../../src/commands/package1/version/create/get';
 
 describe('force:package1:version:create:get', () => {
   const $$ = new TestContext();

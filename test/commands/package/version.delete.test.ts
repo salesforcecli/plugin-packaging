@@ -13,7 +13,7 @@ import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { SfProject } from '@salesforce/core';
-import { PackageVersionDeleteCommand } from '../../../src/commands/package/beta/version/delete';
+import { PackageVersionDeleteCommand } from '../../../src/commands/package/version/delete';
 
 describe('force:package:version:delete', () => {
   const $$ = new TestContext();

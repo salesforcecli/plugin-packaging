@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import {
   Flags,
   loglevel,
@@ -23,7 +22,7 @@ export type PackageCreate = { Id: string };
 export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package:beta:create'];
   public static readonly requiresProject = true;
   public static readonly flags = {

@@ -12,7 +12,7 @@ import { assert, expect } from 'chai';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import * as sinon from 'sinon';
 import { Package1Version } from '@salesforce/packaging';
-import { Package1VersionCreateCommand } from '../../../src/commands/package1/beta/version/create';
+import { Package1VersionCreateCommand } from '../../../src/commands/package1/version/create';
 
 describe('force:package1:version:create', () => {
   const $$ = new TestContext();

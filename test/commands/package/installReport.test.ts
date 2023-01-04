@@ -12,7 +12,7 @@ import { expect } from 'chai';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Report } from '../../../src/commands/package/beta/install/report';
+import { Report } from '../../../src/commands/package/install/report';
 
 const pkgInstallRequest = {
   attributes: {

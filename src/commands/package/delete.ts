@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import {
   Flags,
   loglevel,
@@ -22,7 +21,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package:beta:delete'];
   public static readonly requiresProject = true;
   public static readonly flags = {

@@ -12,7 +12,7 @@ import { assert, expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { PackageVersionCreateCommand } from '../../../src/commands/package/beta/version/create';
+import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 const pkgVersionCreateErrorResult: Partial<PackageVersionCreateRequestResult> = {

@@ -33,7 +33,7 @@ export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestRes
 export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('cliLongDescription');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
   public static readonly aliases = ['force:package:beta:version:create'];
   public static readonly flags = {

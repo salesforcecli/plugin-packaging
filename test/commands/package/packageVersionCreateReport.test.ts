@@ -12,7 +12,7 @@ import { expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { PackageVersionCreateReportCommand } from '../../../src/commands/package/beta/version/create/report';
+import { PackageVersionCreateReportCommand } from '../../../src/commands/package/version/create/report';
 
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 

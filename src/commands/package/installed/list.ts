@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'os';
 import { Messages } from '@salesforce/core';
 import {
   loglevel,
@@ -34,7 +33,7 @@ export type PackageInstalledCommandResult = PackageInstalledListResult[];
 export class PackageInstalledListCommand extends SfCommand<PackageInstalledCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
-  public static readonly examples = messages.getMessage('examples').split(os.EOL);
+  public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package:beta:installed:list'];
   public static readonly requiresProject = true;
 

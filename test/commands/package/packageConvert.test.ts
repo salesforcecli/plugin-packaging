@@ -11,7 +11,7 @@ import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { stubMethod } from '@salesforce/ts-sinon';
-import { PackageConvert } from '../../../src/commands/package/beta/convert';
+import { PackageConvert } from '../../../src/commands/package/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';

@@ -14,7 +14,7 @@ import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Install } from '../../../src/commands/package/beta/install';
+import { Install } from '../../../src/commands/package/install';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
 const myPackageVersion04t = '04t6A000002zgKSQAY';
