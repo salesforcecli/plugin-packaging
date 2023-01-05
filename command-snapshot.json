@@ -35,7 +35,7 @@
     "command": "package1:version:list",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["api-version", "json", "loglevel", "package-id", "target-org"],
-    "alias": ["force:package1:beta:version:list", "force:package1:version:display"]
+    "alias": ["force:package1:beta:version:list", "force:package1:version:list"]
   },
   {
     "command": "package:convert",
