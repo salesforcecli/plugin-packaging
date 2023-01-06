@@ -29,6 +29,7 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
+    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-version-id': Flags.salesforceId({
       char: 'i',
       aliases: ['packageversionid'],

@@ -37,6 +37,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
+    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     package: Flags.salesforceId({
       char: 'p',
       summary: messages.getMessage('package'),

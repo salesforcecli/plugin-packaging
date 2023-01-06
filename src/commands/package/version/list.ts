@@ -92,6 +92,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       description: messages.getMessage('releasedLongDescription'),
     }),
     'order-by': Flags.string({
+      // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       aliases: ['orderby'],
       summary: messages.getMessage('order-by-description'),

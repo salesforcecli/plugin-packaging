@@ -66,6 +66,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       description: messages.getMessage('org-dependent-long'),
     }),
     'error-notification-username': Flags.string({
+      // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       aliases: ['errornotificationusername'],
       summary: messages.getMessage('error-notification-username'),

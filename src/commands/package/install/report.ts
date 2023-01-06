@@ -32,6 +32,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     loglevel,
+    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'request-id': Flags.salesforceId({
       char: 'i',
       aliases: ['requestid'],
