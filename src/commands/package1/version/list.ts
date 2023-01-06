@@ -23,7 +23,6 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly aliases = ['force:package1:beta:version:list', 'force:package1:version:list'];
-
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
@@ -61,7 +60,7 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
         BuildNumber: { header: 'BuildNumber' },
       });
     } else {
-      this.log('No Results Found');
+      this.warn('No Results Found');
     }
     return result;
   }

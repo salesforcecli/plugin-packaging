@@ -68,7 +68,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       PackageErrorUsername: flags['error-notification-username'],
     });
 
-    this.log(messages.getMessage('success', [pkg.getId()]));
+    this.logSuccess(messages.getMessage('success', [pkg.getId()]));
 
     return result;
   }

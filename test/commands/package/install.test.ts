@@ -93,6 +93,7 @@ describe('force:package:install', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
   let uxLogStub: sinon.SinonStub;
+  let uxWarnStub: sinon.SinonStub;
   let uxConfirmStub: sinon.SinonStub;
   let packageVersionStub: sinon.SinonStub;
   let getExternalSitesStub: sinon.SinonStub;
@@ -107,6 +108,7 @@ describe('force:package:install', () => {
 
   beforeEach(async () => {
     uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxWarnStub = sandbox.stub(SfCommand.prototype, 'warn');
   });
 
   afterEach(() => {
@@ -171,10 +173,10 @@ describe('force:package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
-      expect(uxLogStub.callCount).to.equal(2);
+      expect(uxLogStub.callCount).to.equal(1);
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
-      expect(uxLogStub.args[1][0]).to.equal(msg);
-      expect(uxLogStub.args[0][0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
+      expect(uxLogStub.args[0][0]).to.equal(msg);
+      expect(uxWarnStub.firstCall.args[0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
       // expect(uxStopSpinnerStub.args[0][0]).to.equal('Polling timeout exceeded');
@@ -335,10 +337,10 @@ describe('force:package:install', () => {
 
       const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
 
-      expect(uxLogStub.callCount).to.equal(11);
-      expect(uxLogStub.args[0][0]).to.equal(warningMsg);
+      expect(uxLogStub.callCount).to.equal(1);
+      expect(uxWarnStub.args[0][0]).to.equal(warningMsg);
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
-      expect(uxLogStub.args[10][0]).to.equal(msg);
+      expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });
 

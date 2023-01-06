@@ -23,7 +23,7 @@ describe('force:package:version:delete', () => {
   const sandbox = sinon.createSandbox();
 
   // stubs
-  let uxLogStub: sinon.SinonStub;
+  let uxSuccessStub: sinon.SinonStub;
   let uxConfirmStub: sinon.SinonStub;
 
   let packageVersionStub: sinon.SinonStub;
@@ -31,7 +31,7 @@ describe('force:package:version:delete', () => {
   let undeleteStub: sinon.SinonStub;
 
   beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxSuccessStub = sandbox.stub(SfCommand.prototype, 'logSuccess');
     uxConfirmStub = stubMethod($$.SANDBOX, SfCommand.prototype, 'confirm');
     deleteStub = $$.SANDBOX.stub();
     undeleteStub = $$.SANDBOX.stub();
@@ -94,9 +94,8 @@ describe('force:package:version:delete', () => {
     command.project = SfProject.getInstance();
     const results: PackageSaveResult = await command.run();
     expect(results.id).to.equal('testId');
-    expect(uxLogStub.calledOnce).to.be.true;
-    const msg = 'Successfully deleted the package version. testId';
-    expect(uxLogStub.args[0][0]).to.equal(msg);
+    expect(uxSuccessStub.calledOnce).to.be.true;
+    expect(uxSuccessStub.args[0][0]).to.equal('Successfully deleted the package version. testId');
     expect(results.id).to.equal('testId');
   });
   it('should undelete a package version', async () => {
@@ -113,9 +112,8 @@ describe('force:package:version:delete', () => {
     );
     command.project = SfProject.getInstance();
     const results: PackageSaveResult = await command.run();
-    expect(uxLogStub.calledOnce).to.be.true;
-    const msg = 'Successfully undeleted the package version. testId';
-    expect(uxLogStub.args[0][0]).to.equal(msg);
+    expect(uxSuccessStub.calledOnce).to.be.true;
+    expect(uxSuccessStub.args[0][0]).to.equal('Successfully undeleted the package version. testId');
     expect(results.id).to.equal('testId');
   });
 });

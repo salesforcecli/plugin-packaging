@@ -55,7 +55,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     });
 
     if (results.length === 0) {
-      this.log('No results found');
+      this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
       const columnData = {

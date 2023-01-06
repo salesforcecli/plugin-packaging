@@ -67,8 +67,7 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
   }
 
   private display(result: PackageSaveResult, undelete: boolean): void {
-    const message = messages.getMessage(undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]);
     this.log();
-    this.log(message);
+    this.logSuccess(messages.getMessage(undelete ? 'humanSuccessUndelete' : 'humanSuccess', [result.id]));
   }
 }

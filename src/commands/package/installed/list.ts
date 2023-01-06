@@ -20,12 +20,12 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export type PackageInstalledListResult = {
   Id: string;
-  SubscriberPackageId: string;
-  SubscriberPackageName: string;
-  SubscriberPackageNamespace: string;
-  SubscriberPackageVersionId: string;
-  SubscriberPackageVersionName: string;
-  SubscriberPackageVersionNumber: string;
+  SubscriberPackageId: string | undefined;
+  SubscriberPackageName: string | undefined;
+  SubscriberPackageNamespace: string | undefined;
+  SubscriberPackageVersionId: string | undefined;
+  SubscriberPackageVersionName: string | undefined;
+  SubscriberPackageVersionNumber: string | undefined;
 };
 
 export type PackageInstalledCommandResult = PackageInstalledListResult[];
@@ -52,10 +52,10 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
     const records = result.map((record) => ({
       Id: record.Id,
       SubscriberPackageId: record.SubscriberPackageId,
-      SubscriberPackageName: record.SubscriberPackage?.Name as string,
-      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix as string,
-      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id as string,
-      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name as string,
+      SubscriberPackageName: record.SubscriberPackage?.Name,
+      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix,
+      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id,
+      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name,
       SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
     }));
 

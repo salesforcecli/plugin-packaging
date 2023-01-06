@@ -56,7 +56,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
     });
     await this.confirmDelete(flags['no-prompt'], flags.undelete);
     const results = flags.undelete ? await packageVersion.undelete() : await packageVersion.delete();
-    this.log(this.getHumanSuccessMessage(results, flags.undelete));
+    this.logSuccess(this.getHumanSuccessMessage(results, flags.undelete));
     return results;
   }
 

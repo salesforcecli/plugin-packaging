@@ -134,13 +134,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];
-        const aliases: string[] = [];
-        ids.forEach((id) => {
-          const matches = project.getAliasesFromPackageId(id);
-          if (matches.length > 0) {
-            aliases.concat(matches);
-          }
-        });
+        const aliases: string[] = ids.map((id) => project.getAliasesFromPackageId(id)).flat();
         const AliasStr = aliases.length > 0 ? aliases.join() : '';
 
         // set Ancestor display values
@@ -214,7 +208,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       this.styledHeader(`Package Versions [${results.length}]`);
       this.table(results, this.getColumnData(flags.concise, flags.verbose), { 'no-truncate': true });
     } else {
-      this.log('No results found');
+      this.warn('No results found');
     }
 
     return results;

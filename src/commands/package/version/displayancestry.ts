@@ -19,7 +19,7 @@ import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
-export type DisplayAncestryCommandResult = PackageAncestryNodeData | string;
+export type DisplayAncestryCommandResult = PackageAncestryNodeData | string | void;
 
 export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAncestryCommandResult> {
   public static readonly summary = messages.getMessage('summary');
@@ -61,11 +61,11 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
     const jsonProducer = packageAncestry.getJsonProducer();
     if (flags.dotcode) {
       const dotProducer = packageAncestry.getDotProducer();
-      const dotCodeResult: string = dotProducer.produce() as string;
+      const dotCodeResult = dotProducer.produce<string | void>();
       if (flags.json) {
         return dotCodeResult;
       } else {
-        this.log(dotCodeResult);
+        this.log(dotCodeResult as string);
       }
     } else {
       if (packageAncestry.requestedPackageId.startsWith('04t')) {
@@ -73,11 +73,11 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
         this.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
         this.log();
       }
-      const treeProducer = packageAncestry.getTreeProducer(!!flags.verbose);
+      const treeProducer = packageAncestry.getTreeProducer(flags.verbose);
       if (!flags.json) {
         treeProducer.produce();
       }
     }
-    return jsonProducer.produce() as PackageAncestryNodeData;
+    return jsonProducer.produce();
   }
 }

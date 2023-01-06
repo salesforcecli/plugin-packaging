@@ -63,11 +63,11 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       }
     }
 
-    let result: PackageSaveResult;
-
     try {
-      result = await packageVersion.promote();
+      const result = await packageVersion.promote();
       result.id = packageVersionData.SubscriberPackageVersionId;
+      this.log(messages.getMessage('humanSuccess', [result.id]));
+      return result;
     } catch (e) {
       const err = SfError.wrap(e as Error);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
@@ -76,8 +76,5 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       }
       throw err;
     }
-
-    this.log(messages.getMessage('humanSuccess', [result.id]));
-    return result;
   }
 }

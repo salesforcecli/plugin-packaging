@@ -33,15 +33,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "Id",
-        "SubscriberPackageId",
-        "SubscriberPackageName",
-        "SubscriberPackageNamespace",
-        "SubscriberPackageVersionId",
-        "SubscriberPackageVersionName",
-        "SubscriberPackageVersionNumber"
-      ],
+      "required": ["Id"],
       "additionalProperties": false
     }
   }

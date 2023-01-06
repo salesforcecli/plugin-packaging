@@ -70,12 +70,12 @@ describe('force:package:version:create:report - tests', () => {
   let createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
   let tableStub: sinon.SinonStub;
   let styledHeaderStub: sinon.SinonStub;
-  let logStub: sinon.SinonStub;
+  let warnStub: sinon.SinonStub;
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
   const sandbox = sinon.createSandbox();
   beforeEach(async () => {
-    logStub = sandbox.stub(SfCommand.prototype, 'log');
+    warnStub = sandbox.stub(SfCommand.prototype, 'warn');
     styledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
     tableStub = sandbox.stub(SfCommand.prototype, 'table');
   });
@@ -126,7 +126,7 @@ describe('force:package:version:create:report - tests', () => {
         config
       ).run();
 
-      expect(logStub.callCount).to.equal(3);
+      expect(warnStub.callCount).to.equal(2);
       expect(result[0]).to.deep.equal({
         Branch: null,
         CreatedBy: '0053i000001ZIyXXXX',
@@ -156,13 +156,11 @@ describe('force:package:version:create:report - tests', () => {
         SubscriberPackageVersionId: null,
         Tag: null,
       });
-      expect(logStub.secondCall.args[0]).to.include(
-        '(1) PropertyController: Invalid type: Schema.Property__c\n(2) SampleDataController: Invalid type: Schema.Property__c\n(3) SampleDataController: Invalid type: Schema.Broker__c'
-      );
-      expect(logStub.secondCall.args[0]).to.include(
+
+      expect(warnStub.firstCall.args[0]).to.include(
         '(11) SampleDataController: Invalid type: Schema.Property__c\n(12) SampleDataController: Invalid type: Schema.Broker__c'
       );
-      expect(logStub.thirdCall.args[0]).to.deep.equal(
+      expect(warnStub.secondCall.args[0]).to.deep.equal(
         `...${os.EOL}${os.EOL}To see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -u test@hub.org`
       );
     });

@@ -111,12 +111,12 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
         errors.push(`(${errors.length + 1}) ${error}`);
       });
       this.styledHeader(chalk.red('Errors'));
-      this.log(errors.join('\n'));
+      this.warn(errors.join('\n'));
 
       // Check if errors were truncated.  If so, inform the user with
       // instructions on how to retrieve the remaining errors.
       if (record.Error.length > ERROR_LIMIT) {
-        this.log(messages.getMessage('truncatedErrors', [requestId, devOrg.getUsername() as string]));
+        this.warn(messages.getMessage('truncatedErrors', [requestId, devOrg.getUsername() as string]));
       }
     }
   }

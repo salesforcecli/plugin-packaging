@@ -130,7 +130,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.install.warning, async (warningMsg: string) => {
-      this.log(warningMsg);
+      this.warn(warningMsg);
     });
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation

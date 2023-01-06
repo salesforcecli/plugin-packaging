@@ -55,7 +55,7 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
     }));
 
     if (results.length === 0) {
-      this.log('No results found');
+      this.warn('No results found');
     } else {
       this.table(results, {
         MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
