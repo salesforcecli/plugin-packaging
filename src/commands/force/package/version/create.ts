@@ -71,13 +71,11 @@ export class PackageVersionCreateCommand extends SfdxCommand {
       char: 'p',
       description: messages.getMessage('package'),
       longDescription: messages.getMessage('longPackage', []),
-      exactlyOne: ['path', 'package'],
     }),
     path: flags.directory({
       char: 'd',
       description: messages.getMessage('path'),
       longDescription: messages.getMessage('longPath'),
-      exactlyOne: ['path', 'package'],
       validate: (dir) => {
         if (!fs.existsSync(path.join(process.cwd(), dir))) {
           throw messages.createError('errorPathNotFound', [dir]);
@@ -157,6 +155,13 @@ export class PackageVersionCreateCommand extends SfdxCommand {
   };
 
   public async run(): Promise<Partial<PackageVersionCreateRequestResult>> {
+    if (this.flags.path && this.flags.package) {
+      this.ux.warn(
+        'Starting in v59.0 or later, specifying both the --package and --path flag will no longer be supported. Only one is required.'
+      );
+      void Lifecycle.getInstance().emitTelemetry({ Name: 'PathAndPackageFlag' });
+    }
+
     if (this.flags.skipvalidation) {
       this.ux.warn(messages.getMessage('skipValidationWarning'));
     }
