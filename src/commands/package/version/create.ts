@@ -84,13 +84,11 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       char: 'p',
       summary: messages.getMessage('package'),
       description: messages.getMessage('package-long'),
-      exactlyOne: ['path', 'package'],
     }),
     path: Flags.directory({
       char: 'd',
       summary: messages.getMessage('path'),
       description: messages.getMessage('path-long'),
-      exactlyOne: ['path', 'package'],
     }),
     'post-install-script': Flags.string({
       aliases: ['postinstallscript'],
@@ -176,6 +174,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
 
   public async run(): Promise<PackageVersionCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateCommand);
+    if (flags.path && flags.package) {
+      this.warn(
+        'Starting in v59.0 or later, specifying both the --package and --path flag will no longer be supported. Only one is required.'
+      );
+      void Lifecycle.getInstance().emitTelemetry({ Name: 'PathAndPackageFlag' });
+    }
+
     if (flags.skipvalidation) {
       this.warn(messages.getMessage('skipValidationWarning'));
     }

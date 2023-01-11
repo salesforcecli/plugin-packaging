@@ -9,7 +9,7 @@
     "@oclif/core": "^1.22.0",
     "@salesforce/core": "^3.32.11",
     "@salesforce/kit": "^1.8.0",
-    "@salesforce/packaging": "^1.1.7",
+    "@salesforce/packaging": "^1.1.9",
     "@salesforce/sf-plugins-core": "^1.21.1",
     "chalk": "^4.1.2",
     "tslib": "^2"
