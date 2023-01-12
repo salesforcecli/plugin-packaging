@@ -22,6 +22,7 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:update', 'force:package:version:update'];
   public static readonly requiresProject = true;
   public static readonly flags = {
@@ -35,11 +36,15 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       required: true,
     }),
     'version-name': Flags.string({
+      aliases: ['versionname'],
+      deprecateAliases: true,
       char: 'a',
       summary: messages.getMessage('version-name'),
       description: messages.getMessage('version-name-long'),
     }),
     'version-description': Flags.string({
+      aliases: ['versiondescription'],
+      deprecateAliases: true,
       char: 'e',
       summary: messages.getMessage('version-description'),
       description: messages.getMessage('version-description-long'),
@@ -55,6 +60,8 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       description: messages.getMessage('tagLong'),
     }),
     'installation-key': Flags.string({
+      aliases: ['installationkey'],
+      deprecateAliases: true,
       char: 'k',
       summary: messages.getMessage('installation-key'),
       description: messages.getMessage('installation-key-long'),

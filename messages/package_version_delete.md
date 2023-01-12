@@ -5,8 +5,8 @@ Specify the ID or alias of the package version you want to delete.
 
 # examples
 
-$ sfdx force:package:version:delete -p "Your Package Alias"
-$ sfdx force:package:version:delete -p 04t...
+$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
+$ <%= config.bin %> <%= command.id %> -p 04t...
 
 # package
 

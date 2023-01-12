@@ -23,6 +23,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:create', 'force:package:create'];
   public static readonly requiresProject = true;
   public static readonly flags = {
@@ -37,6 +38,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
     }),
     'package-type': Flags.enum({
       char: 't',
+      deprecateAliases: true,
       aliases: ['packagetype'],
       summary: messages.getMessage('package-type'),
       description: messages.getMessage('package-type-long'),
@@ -50,6 +52,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
     }),
     'no-namespace': Flags.boolean({
       char: 'e',
+      deprecateAliases: true,
       aliases: ['nonamespace'],
       summary: messages.getMessage('no-namespace'),
       description: messages.getMessage('no-namespace-long'),
@@ -61,6 +64,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       required: true,
     }),
     'org-dependent': Flags.boolean({
+      deprecateAliases: true,
       aliases: ['orgdependent'],
       summary: messages.getMessage('org-dependent'),
       description: messages.getMessage('org-dependent-long'),
@@ -68,6 +72,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
     'error-notification-username': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
+      deprecateAliases: true,
       aliases: ['errornotificationusername'],
       summary: messages.getMessage('error-notification-username'),
       description: messages.getMessage('error-notification-username-long'),

@@ -88,7 +88,7 @@ const subscriberPackageVersion: PackagingSObjects.SubscriberPackageVersion = {
   SubscriberPackageId: '',
 };
 
-describe('force:package:install', () => {
+describe('package:install', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -116,7 +116,7 @@ describe('force:package:install', () => {
     sandbox.restore();
   });
 
-  describe('force:package:install', () => {
+  describe('package:install', () => {
     beforeEach(() => {
       getExternalSitesStub = $$.SANDBOX.stub();
       installStub = $$.SANDBOX.stub();
@@ -145,7 +145,7 @@ describe('force:package:install', () => {
 
     it('should error with org API Version < 36.0', async () => {
       try {
-        await new Install(['-p', myPackageVersion04t, '-o', testOrg.username, '--apiversion', '33.0'], config).run();
+        await new Install(['-p', myPackageVersion04t, '-o', testOrg.username, '--api-version', '33.0'], config).run();
         expect(false, 'Expected API version too low error').to.be.true;
       } catch (err) {
         const error = err as Error;
@@ -161,7 +161,7 @@ describe('force:package:install', () => {
       const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.deep.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -174,7 +174,7 @@ describe('force:package:install', () => {
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
       expect(uxLogStub.callCount).to.equal(1);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(uxWarnStub.firstCall.args[0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
       expect(result).to.deep.equal(pkgInstallRequest);
@@ -339,7 +339,7 @@ describe('force:package:install', () => {
 
       expect(uxLogStub.callCount).to.equal(1);
       expect(uxWarnStub.args[0][0]).to.equal(warningMsg);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });
@@ -399,7 +399,7 @@ describe('force:package:install', () => {
     });
 
     describe('confirm upgrade type', () => {
-      it('should NOT confirm UpgradeType with --noprompt flag', async () => {
+      it('should NOT confirm UpgradeType with --no-prompt flag', async () => {
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
         stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
@@ -407,7 +407,7 @@ describe('force:package:install', () => {
         });
 
         const result = await new Install(
-          ['-p', myPackageVersion04t, '-t', 'Delete', '--noprompt', '-o', testOrg.username],
+          ['-p', myPackageVersion04t, '-t', 'Delete', '--no-prompt', '-o', testOrg.username],
           config
         ).run();
 
@@ -415,7 +415,7 @@ describe('force:package:install', () => {
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
-      it('should confirm UpgradeType when NO --noprompt flag', async () => {
+      it('should confirm UpgradeType when NO --no-prompt flag', async () => {
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
         stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
@@ -458,7 +458,7 @@ describe('force:package:install', () => {
         });
 
         const result = await new Install(
-          ['-p', myPackageVersion04t, '-t', 'Delete', '--noprompt', '-o', testOrg.username],
+          ['-p', myPackageVersion04t, '-t', 'Delete', '--no-prompt', '-o', testOrg.username],
           config
         ).run();
 
@@ -470,7 +470,7 @@ describe('force:package:install', () => {
     describe('confirm external sites', () => {
       const extSites = ['url/for/site1', 'url/for/site2'];
 
-      it('should NOT confirm external sites with --noprompt flag', async () => {
+      it('should NOT confirm external sites with --no-prompt flag', async () => {
         const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { EnableRss: true });
         getExternalSitesStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'getExternalSites').resolves(
           extSites
@@ -478,7 +478,7 @@ describe('force:package:install', () => {
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
 
         const result = await new Install(
-          ['-p', myPackageVersion04t, '--noprompt', '-o', testOrg.username],
+          ['-p', myPackageVersion04t, '--no-prompt', '-o', testOrg.username],
           config
         ).run();
 
@@ -488,7 +488,7 @@ describe('force:package:install', () => {
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
-      it('should NOT confirm external sites with --noprompt flag and installation key', async () => {
+      it('should NOT confirm external sites with --no-prompt flag and installation key', async () => {
         const installationkey = '1234abcd';
         const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, {
           EnableRss: true,
@@ -502,7 +502,7 @@ describe('force:package:install', () => {
         });
 
         const result = await new Install(
-          ['-p', myPackageVersion04t, '--noprompt', '-k', installationkey, '-u', testOrg.username],
+          ['-p', myPackageVersion04t, '--no-prompt', '-k', installationkey, '-u', testOrg.username],
           config
         ).run();
 
@@ -511,7 +511,7 @@ describe('force:package:install', () => {
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
-      it('should confirm external sites when NO --noprompt flag (yes answer)', async () => {
+      it('should confirm external sites when NO --no-prompt flag (yes answer)', async () => {
         const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { EnableRss: true });
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
         stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
@@ -529,7 +529,7 @@ describe('force:package:install', () => {
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
-      it('should confirm external sites when NO --noprompt flag (no answer)', async () => {
+      it('should confirm external sites when NO --no-prompt flag (no answer)', async () => {
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
         stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,

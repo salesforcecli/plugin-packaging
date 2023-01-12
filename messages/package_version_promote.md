@@ -6,9 +6,9 @@ Supply the ID or alias of the package version you want to promote. Promotes the 
 
 # examples
 
-$ sfdx force:package:version:promote -p 04t...
-$ sfdx force:package:version:promote -p awesome_package_alias
-$ sfdx force:package:version:promote -p "Awesome Package Alias"
+$ <%= config.bin %> <%= command.id %> -p 04t...
+$ <%= config.bin %> <%= command.id %> -p awesome_package_alias
+$ <%= config.bin %> <%= command.id %> -p "Awesome Package Alias"
 
 # package
 
@@ -44,9 +44,9 @@ You already promoted a package version with this major.minor.patch version numbe
 
 # previouslyReleasedAction
 
-Create a new package version with a different --versionumber, then promote the package version.
-sfdx force:package:version:create -p <name> -n <versionnum> -k <key>
-sfdx force:package:version:promote -p 05ixxx
+Create a new package version with a different --version-umber, then promote the package version.
+%s package:version:create -p <name> -n <versionnum> -k <key>
+%s package:version:promote -p 05ixxx
 
 # hasMetadataRemovedWarning
 

@@ -64,7 +64,7 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   CreatedBy: '0053i000001ZIyGAAW',
 };
 
-describe('force:package:version:create:report - tests', () => {
+describe('package:version:create:report - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
@@ -90,7 +90,7 @@ describe('force:package:version:create:report - tests', () => {
     sandbox.restore();
   });
 
-  describe('force:package:version:create:report', () => {
+  describe('package:version:create:report', () => {
     it('should report on a new package version', async () => {
       createStatusStub.resolves(pkgVersionCreateSuccessResult);
       const res = await new PackageVersionCreateReportCommand(
@@ -161,7 +161,7 @@ describe('force:package:version:create:report - tests', () => {
         '(11) SampleDataController: Invalid type: Schema.Property__c\n(12) SampleDataController: Invalid type: Schema.Broker__c'
       );
       expect(warnStub.secondCall.args[0]).to.deep.equal(
-        `...${os.EOL}${os.EOL}To see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -u test@hub.org`
+        `...${os.EOL}${os.EOL}To see all errors, run: sfdx data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -u test@hub.org`
       );
     });
   });

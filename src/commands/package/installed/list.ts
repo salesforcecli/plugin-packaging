@@ -34,6 +34,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:installed:list', 'force:package:installed:list'];
   public static readonly requiresProject = true;
 

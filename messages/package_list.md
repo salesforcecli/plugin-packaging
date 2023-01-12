@@ -6,8 +6,8 @@ You can view the namespace, IDs, and other details for each package.
 
 # examples
 
-$ sfdx force:package:list -v devhub@example.com
-$ sfdx force:package:list -v devhub@example.com --verbose
+$ <%= config.bin %> <%= command.id %> -v devhub@example.com
+$ <%= config.bin %> <%= command.id %> -v devhub@example.com --verbose
 
 # namespace
 

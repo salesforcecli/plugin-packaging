@@ -8,15 +8,15 @@ It then creates a new package version in the Dev Hub with contents based on the 
 
 The latest released non-patch package version from the specified first-generation package will be converted.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "sfdx force:package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
 
-We recommend specifying the --installationkey to protect the contents of your package and to prevent unauthorized installation of your package.
+We recommend specifying the --installation-key to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "sfdx force:package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
 
 # examples
 
-$ sfdx force:package:convert --package 033xx0000004Gmn -k password123
+$ <%= config.bin %> <%= command.id %> --package 033xx0000004Gmn -k password123
 
 # package
 
@@ -28,19 +28,19 @@ The ID (starts with 033) or alias of the package to convert.
 
 # key
 
-installation key for key-protected package (either --installationkey or --installationkeybypass is required)
+installation key for key-protected package (either --installation-key or --installation-key-bypass is required)
 
 # key-long
 
-Installation key for creating the key-protected package. Either an --installationkey value or the --installationkeybypass flag is required.
+Installation key for creating the key-protected package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
 # key-bypass
 
-bypass the installation key requirement (either --installationkey or --installationkeybypass is required)
+bypass the installation key requirement (either --installation-key or --installation-key-bypass is required)
 
 # key-bypass-long
 
-Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.
+Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
 # definition-file
 

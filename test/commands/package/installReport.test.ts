@@ -39,7 +39,7 @@ const pkgInstallRequest = {
   Errors: null,
 };
 
-describe('force:package:install:report', () => {
+describe('package:install:report', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -64,7 +64,7 @@ describe('force:package:install:report', () => {
     sandbox.restore();
   });
 
-  it('should error without required --requestid param', async () => {
+  it('should error without required --request-id param', async () => {
     try {
       await new Report(['--target-org', testOrg.username], config).run();
       expect(false, 'Expected required flag error').to.be.true;
@@ -94,7 +94,7 @@ describe('force:package:install:report', () => {
     const result = await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
-    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx force:package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
   });
 

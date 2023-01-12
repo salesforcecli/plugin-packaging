@@ -22,6 +22,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:delete', 'force:package:version:delete'];
   public static readonly requiresProject = true;
   public static readonly flags = {
@@ -30,6 +31,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
     'api-version': orgApiVersionFlagWithDeprecations,
     'no-prompt': Flags.boolean({
       char: 'n',
+      deprecateAliases: true,
       aliases: ['noprompt'],
       summary: messages.getMessage('no-prompt'),
       description: messages.getMessage('no-prompt'),

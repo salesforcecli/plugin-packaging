@@ -23,6 +23,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:update', 'force:package:update'];
   public static readonly requiresProject = true;
   public static readonly flags = {
@@ -48,6 +49,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     'error-notification-username': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
+      deprecateAliases: true,
       aliases: ['errornotificationusername'],
       summary: packageCreate.getMessage('error-notification-username'),
       description: packageCreate.getMessage('error-notification-username-long'),

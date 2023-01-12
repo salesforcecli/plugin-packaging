@@ -31,14 +31,15 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:convert', 'force:package:convert'];
   public static readonly hidden = true;
   public static readonly flags = {
     loglevel,
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     package: Flags.salesforceId({
+      length: 'both',
       char: 'p',
       summary: messages.getMessage('package'),
       description: messages.getMessage('package-long'),
@@ -47,6 +48,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     }),
     'installation-key': Flags.string({
       char: 'k',
+      deprecateAliases: true,
       aliases: ['installationkey'],
       summary: messages.getMessage('key'),
       description: messages.getMessage('key-long'),
@@ -54,6 +56,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     }),
     'definition-file': Flags.file({
       char: 'f',
+      deprecateAliases: true,
       aliases: ['definitionfile'],
       summary: messages.getMessage('definition-file'),
       description: messages.getMessage('definition-file-long'),
@@ -61,6 +64,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     }),
     'installation-key-bypass': Flags.boolean({
       char: 'x',
+      deprecateAliases: true,
       aliases: ['installationkeybypass'],
       summary: messages.getMessage('key-bypass'),
       description: messages.getMessage('key-bypass-long'),
@@ -75,6 +79,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     }),
     'build-instance': Flags.string({
       char: 's',
+      deprecateAliases: true,
       aliases: ['buildinstance'],
       summary: messages.getMessage('instance'),
       description: messages.getMessage('instance-long'),

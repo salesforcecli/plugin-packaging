@@ -60,6 +60,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:list', 'force:package:version:list'];
   public static readonly flags = {
     loglevel,
@@ -67,6 +68,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
+      deprecateAliases: true,
       aliases: ['createdlastdays'],
       summary: packaging.getMessage('created-last-days-description'),
       description: packaging.getMessage('created-last-days-description-long'),
@@ -77,6 +79,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     }),
     'modified-last-days': Flags.integer({
       char: 'm',
+      deprecateAliases: true,
       aliases: ['modifiedlastdays'],
       summary: packaging.getMessage('modified-last-days-description'),
       description: packaging.getMessage('modified-last-days-description-long'),
@@ -94,6 +97,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     'order-by': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
+      deprecateAliases: true,
       aliases: ['orderby'],
       summary: messages.getMessage('order-by-description'),
       description: messages.getMessage('order-by-description-long'),

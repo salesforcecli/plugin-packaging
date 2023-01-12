@@ -26,19 +26,22 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:create', 'force:package1:version:create'];
 
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-id': Flags.salesforceId({
+      length: 'both',
+      deprecateAliases: true,
       aliases: ['packageid'],
       char: 'i',
       summary: messages.getMessage('id'),
       description: messages.getMessage('id-long'),
       required: true,
+      startsWith: '033',
     }),
     name: Flags.string({
       char: 'n',
@@ -58,24 +61,28 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
     }),
     'managed-released': Flags.boolean({
       char: 'm',
+      deprecateAliases: true,
       aliases: ['managedrelease'],
       summary: messages.getMessage('managed-release'),
       description: messages.getMessage('managed-release-long'),
     }),
     'release-notes-url': Flags.string({
       char: 'r',
+      deprecateAliases: true,
       aliases: ['releasenotesurl'],
       summary: messages.getMessage('release-notes'),
       description: messages.getMessage('release-notes-long'),
     }),
     'post-install-url': Flags.string({
       char: 'p',
+      deprecateAliases: true,
       aliases: ['postinstallurl'],
       summary: messages.getMessage('post-install'),
       description: messages.getMessage('post-install-long'),
     }),
     'installation-key': Flags.string({
       char: 'k',
+      deprecateAliases: true,
       aliases: ['installationkey'],
       summary: messages.getMessage('installation-key'),
       description: messages.getMessage('installation-key-long'),
@@ -123,7 +130,9 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
     );
 
     const arg =
-      result.Status === 'SUCCESS' ? [result.MetadataPackageVersionId] : [result.Id, flags['target-org'].getUsername()];
+      result.Status === 'SUCCESS'
+        ? [result.MetadataPackageVersionId]
+        : [this.config.bin, result.Id, flags['target-org'].getUsername()];
     this.log(messages.getMessage(result.Status, arg));
 
     return result;

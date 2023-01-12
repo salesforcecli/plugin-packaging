@@ -6,7 +6,7 @@ Shows the details of each request to create a package version in the Dev Hub org
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
+To get information about a specific request, run "<%= config.bin %> package:version:create:report" and supply the request ID.
 
 # status-description
 
@@ -18,11 +18,11 @@ Filters the list based on the status of version creation requests.
 
 # examples
 
-$ sfdx force:package:version:create:list
-$ sfdx force:package:version:create:list --createdlastdays 3
-$ sfdx force:package:version:create:list --status Error
-$ sfdx force:package:version:create:list -s InProgress
-$ sfdx force:package:version:create:list -c 3 -s Success
+$ <%= config.bin %> <%= command.id %>
+$ <%= config.bin %> <%= command.id %> --created-last-days 3
+$ <%= config.bin %> <%= command.id %> --status Error
+$ <%= config.bin %> <%= command.id %> -s InProgress
+$ <%= config.bin %> <%= command.id %> -c 3 -s Success
 
 # id
 

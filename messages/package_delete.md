@@ -8,8 +8,8 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 # examples
 
-$ sfdx force:package:delete -p "Your Package Alias"
-$ sfdx force:package:delete -p 0Ho...
+$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
+$ <%= config.bin %> <%= command.id %> -p 0Ho...
 
 # package
 

@@ -23,13 +23,13 @@ describe('package list', () => {
     await session?.clean();
   });
   it('should list packages in dev hub - human readable results', () => {
-    const command = `force:package:list -v ${session.hubOrg.username}`;
+    const command = `package:list -v ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
   });
   it('should list packages in dev hub - verbose human readable results', () => {
-    const command = `force:package:list -v ${session.hubOrg.username} --verbose`;
+    const command = `package:list -v ${session.hubOrg.username} --verbose`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     expect(output).to.match(
@@ -39,7 +39,7 @@ describe('package list', () => {
   it('should list packages in dev hub - json results', async () => {
     const hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
     const packages = await Package.list(hubOrg.getConnection());
-    const command = `force:package:list -v ${session.hubOrg.username} --json`;
+    const command = `package:list -v ${session.hubOrg.username} --json`;
     const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
     const keys = [
       'Id',

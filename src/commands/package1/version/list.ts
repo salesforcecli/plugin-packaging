@@ -22,6 +22,7 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:list', 'force:package1:version:list'];
   public static readonly flags = {
     loglevel,
@@ -29,6 +30,7 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
     'api-version': orgApiVersionFlagWithDeprecations,
     'package-id': Flags.salesforceId({
       length: 18,
+      deprecateAliases: true,
       aliases: ['packageid'],
       char: 'i',
       summary: messages.getMessage('package-id'),

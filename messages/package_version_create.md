@@ -8,22 +8,21 @@ Creates a package version in the Dev Hub org.
 
 The package version is based on the package contents in the specified directory.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "sfdx force:package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
 
-We recommend that you specify the --installationkey parameter to protect the contents of your package and to prevent unauthorized installation of your package.
+We recommend that you specify the --installation-key parameter to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "sfdx force:package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
+To promote a package version to released, you must use the --code-coverage parameter. The package must also meet the code coverage requirements. This requirement applies to both managed and unlocked packages.
 
-To promote a package version to released, you must use the --codecoverage parameter. The package must also meet the code coverage requirements. This requirement applies to both managed and unlocked packages.
-
-We don’t calculate code coverage for org-dependent unlocked packages, or for package versions that specify --skipvalidation.
+We don’t calculate code coverage for org-dependent unlocked packages, or for package versions that specify --skip-validation.
 
 # examples
 
-$ sfdx force:package:version:create -d common -k password123
-$ sfdx force:package:version:create -p "Your Package Alias" -k password123
-$ sfdx force:package:version:create -p 0Ho... -k password123
-$ sfdx force:package:version:create -d common -k password123 --skipvalidation
+$ <%= config.bin %> <%= command.id %> -d common -k password123
+$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -k password123
+$ <%= config.bin %> <%= command.id %> -p 0Ho... -k password123
+$ <%= config.bin %> <%= command.id %> -d common -k password123 --skip-validation
 
 # package
 
@@ -67,19 +66,19 @@ The package version’s tag.
 
 # installation-key
 
-installation key for key-protected package (either --installationkey or --installationkeybypass is required)
+installation key for key-protected package (either --installation-key or --installation-key-bypass is required)
 
 # installation-key-long
 
-Installation key for creating the key-protected package. Either an --installationkey value or the --installationkeybypass flag is required.
+Installation key for creating the key-protected package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
 # installation-key-bypass
 
-bypass the installation key requirement (either --installationkey or --installationkeybypass is required)
+bypass the installation key requirement (either --installation-key or --installation-key-bypass is required)
 
 # installation-key-bypass-long
 
-Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installationkey value or the --installationkeybypass flag is required.
+Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
 # preserve
 
@@ -147,7 +146,7 @@ calculate the code coverage by running the packaged Apex tests
 
 # code-coverage-long
 
-Calculate and store the code coverage percentage by running the Apex tests included in this package version. Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skipvalidation.
+Calculate and store the code coverage percentage by running the Apex tests included in this package version. Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skip-validation.
 
 # release-notes-url
 
@@ -167,7 +166,7 @@ Skips validation of dependencies, package ancestors, and metadata during package
 
 # skip-validation-warning
 
-Skipping validation suppresses errors that usually surface during package version creation. Instead, these errors surface at a later stage, such as installation or post-installation. If you encounter errors that are difficult to debug, retry package version creation without the skipvalidation parameter.
+Skipping validation suppresses errors that usually surface during package version creation. Instead, these errors surface at a later stage, such as installation or post-installation. If you encounter errors that are difficult to debug, retry package version creation without the --skip-validation parameter.
 
 # skip-ancestor-check
 
@@ -213,13 +212,13 @@ If no language is specified, the language defaults to the language of the Dev Hu
 
 # InProgress
 
-Package version creation request status is '%s'. Run "sfdx force:package:version:create:report -i %s" to query for status.
+Package version creation request status is '%s'. Run "%s force:package:version:create:report -i %s" to query for status.
 
 # Success
 
 Successfully created the package version [%s]. Subscriber Package Version Id: %s
 Package Installation URL: %s%s
-As an alternative, you can use the "sfdx force:package:install" command.
+As an alternative, you can use the "%s package:install" command.
 
 # errorPathNotFound
 
@@ -240,3 +239,7 @@ Version create.
 # packageVersionCreateFinalStatus
 
 Create version status: %s
+
+# unknownError
+
+An unknown error occurred.

@@ -5,8 +5,8 @@ The package version is based on the contents of the specified metadata package. 
 
 # examples
 
-$ sfdx force:package1:version:create --packageid 03346000000MrC0XXX --name example
-$ sfdx force:package1:version:create --packageid 03346000000MrC0XXX --name example --description "example description" --wait 30
+$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example
+$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example --description "example description" --wait 30
 
 # id
 
@@ -95,4 +95,4 @@ Successfully uploaded package [%s]
 # QUEUED
 
 PackageUploadRequest has been enqueued. You can query the status using
-sfdx force:package1:version:create:get -i %s -u %s
+%s package1:version:create:get -i %s -u %s

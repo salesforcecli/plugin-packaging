@@ -26,6 +26,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:create:list', 'force:package:version:create:list'];
   public static readonly flags = {
     loglevel,
@@ -33,6 +34,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
+      deprecateAliases: true,
       aliases: ['createdlastdays'],
       summary: packaging.getMessage('created-last-days-description'),
       description: packaging.getMessage('created-last-days-description-long'),

@@ -35,6 +35,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
   public static readonly description = messages.getMessage('cliLongDescription');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:create', 'force:package:version:create'];
   public static readonly flags = {
     loglevel,
@@ -46,6 +47,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       description: messages.getMessage('branch-long'),
     }),
     'build-instance': Flags.string({
+      deprecateAliases: true,
       aliases: ['buildinstance'],
       char: 's',
       summary: messages.getMessage('instance'),
@@ -53,6 +55,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       hidden: true,
     }),
     'code-coverage': Flags.boolean({
+      deprecateAliases: true,
       aliases: ['codecoverage'],
       char: 'c',
       summary: messages.getMessage('code-coverage'),
@@ -61,12 +64,14 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       exclusive: ['skip-validation'],
     }),
     'definition-file': Flags.file({
+      deprecateAliases: true,
       aliases: ['definitionfile'],
       char: 'f',
       summary: messages.getMessage('definition-file'),
       description: messages.getMessage('definition-file-long'),
     }),
     'installation-key': Flags.string({
+      deprecateAliases: true,
       aliases: ['installationkey'],
       char: 'k',
       summary: messages.getMessage('installation-key'),
@@ -75,6 +80,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     }),
     'installation-key-bypass': Flags.boolean({
       char: 'x',
+      deprecateAliases: true,
       aliases: ['installationkeybypass'],
       summary: messages.getMessage('installation-key-bypass'),
       description: messages.getMessage('installation-key-bypass-long'),
@@ -91,11 +97,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       description: messages.getMessage('path-long'),
     }),
     'post-install-script': Flags.string({
+      deprecateAliases: true,
       aliases: ['postinstallscript'],
       summary: messages.getMessage('post-install-script'),
       description: messages.getMessage('post-install-script-long'),
     }),
     'post-install-url': Flags.string({
+      deprecateAliases: true,
       aliases: ['postinstallurl'],
       summary: messages.getMessage('post-install-url'),
       description: messages.getMessage('post-install-url-long'),
@@ -107,17 +115,20 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       hidden: true,
     }),
     'releasenotes-url': Flags.string({
+      deprecateAliases: true,
       aliases: ['releasenotesurl'],
       summary: messages.getMessage('release-notes-url'),
       description: messages.getMessage('release-notes-url-long'),
     }),
     'skip-ancestor-check': Flags.boolean({
+      deprecateAliases: true,
       aliases: ['skipancestorcheck'],
       summary: messages.getMessage('skip-ancestor-check'),
       description: messages.getMessage('skip-ancestor-check-long'),
       default: false,
     }),
     'skip-validation': Flags.boolean({
+      deprecateAliases: true,
       aliases: ['skipvalidation'],
       summary: messages.getMessage('skip-validation'),
       description: messages.getMessage('skip-validation-long'),
@@ -130,11 +141,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       description: messages.getMessage('tag-long'),
     }),
     'uninstall-script': Flags.string({
+      deprecateAliases: true,
       aliases: ['uninstallscript'],
       summary: messages.getMessage('uninstall-script'),
       description: messages.getMessage('uninstall-script-long'),
     }),
     'validate-schema': Flags.boolean({
+      deprecateAliases: true,
       aliases: ['validateschema'],
       char: 'j',
       summary: messages.getMessage('validate-schema'),
@@ -142,18 +155,21 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       hidden: true,
     }),
     'version-description': Flags.string({
+      deprecateAliases: true,
       aliases: ['versiondescription'],
       char: 'e',
       summary: messages.getMessage('version-description'),
       description: messages.getMessage('version-description-long'),
     }),
     'version-name': Flags.string({
+      deprecateAliases: true,
       aliases: ['versionname'],
       char: 'a',
       summary: messages.getMessage('version-name'),
       description: messages.getMessage('version-name-long'),
     }),
     'version-number': Flags.string({
+      deprecateAliases: true,
       aliases: ['versionnumber'],
       char: 'n',
       summary: messages.getMessage('version-number'),
@@ -182,7 +198,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     }
 
     if (flags.skipvalidation) {
-      this.warn(messages.getMessage('skipValidationWarning'));
+      this.warn(messages.getMessage('skip-validation-warning'));
     }
     const frequency = flags.wait && flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
     Lifecycle.getInstance().on(
@@ -234,11 +250,14 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
             result.SubscriberPackageVersionId,
             INSTALL_URL_BASE.toString(),
             result.SubscriberPackageVersionId,
+            this.config.bin,
           ])
         );
         break;
       default:
-        this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status as string), result.Id]));
+        this.log(
+          messages.getMessage('InProgress', [this.config.bin, camelCaseToTitleCase(result.Status as string), result.Id])
+        );
     }
     return result;
   }

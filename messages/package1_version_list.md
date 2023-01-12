@@ -10,11 +10,7 @@ metadata package ID (starts with 033)
 
 Metadata package ID (starts with 033) whose package versions you want to list. If not specified, shows all versions for all packages (managed and unmanaged) in the org.
 
-# package-id-invalid
-
-Verify that you entered a valid package version ID (starts with 033) and try again.
-
 # examples
 
-$ sfdx force:package1:version:list
-$ sfdx force:package1:version:list --package 03346000000MrC0XXX
+$ <%= config.bin %> <%= command.id %>
+$ <%= config.bin %> <%= command.id %> --package 03346000000MrC0XXX
