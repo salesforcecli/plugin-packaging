@@ -49,6 +49,8 @@ describe('package:version:*', () => {
         `package:version:create --package ${pkgName} -x --code-coverage --version-description "Initial version"`,
         { ensureExitCode: 0 }
       ).shellOutput.stdout;
+      // eslint-disable-next-line no-console
+      console.log(result);
       expect(result).to.include("Package version creation request status is '");
       expect(result).to.match(/Run "sfdx package:version:create:report -i 08c.{15}" to query for status\./);
     });

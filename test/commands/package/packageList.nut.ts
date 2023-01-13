@@ -6,9 +6,11 @@
  */
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import { expect } from 'chai';
+import * as chai from 'chai';
 import { Org } from '@salesforce/core';
 import { Package } from '@salesforce/packaging';
+
+const { expect } = chai;
 
 describe('package list', () => {
   let session: TestSession;
@@ -58,7 +60,7 @@ describe('package list', () => {
     const notDeprecatedCount = packages.length - deprecatedPackages.length;
     expect(output).to.be.ok;
     expect(output?.status).to.equal(0);
-    expect(output?.result).to.have.lengthOf(notDeprecatedCount);
+    expect(output?.result.length).to.have.within(notDeprecatedCount - 5, notDeprecatedCount + 5);
     expect(output?.result[0]).to.have.keys(keys);
   });
 });

@@ -212,7 +212,7 @@ If no language is specified, the language defaults to the language of the Dev Hu
 
 # InProgress
 
-Package version creation request status is '%s'. Run "%s force:package:version:create:report -i %s" to query for status.
+Package version creation request status is '%s'. Run "%s package:version:create:report -i %s" to query for status.
 
 # Success
 
