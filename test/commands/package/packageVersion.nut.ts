@@ -102,7 +102,7 @@ describe('package:version:*', () => {
         'VerifyingFeaturesAndSettings',
         'VerifyingDependencies',
         'FinalizingPackageVersion',
-      ]).to.include(result.Status);
+      ]).to.include(result?.Status);
     });
 
     it('should create a new package version with a packageID in packageDirectories package property', async () => {
@@ -111,7 +111,11 @@ describe('package:version:*', () => {
       const projectJson = project.getSfProjectJson();
       const contents = projectJson.getContents();
       const packageDir = contents.packageDirectories.find((pkgDir) => pkgDir.package === pkgName);
-      packageDir.package = packageId;
+      if (packageDir) {
+        packageDir.package = packageId;
+      } else {
+        expect.fail('packageDirectory not found');
+      }
       projectJson.setContents(contents);
       projectJson.writeSync(contents);
       execCmd(`package:version:create --package ${packageId} -x --json`, { ensureExitCode: 0 });
