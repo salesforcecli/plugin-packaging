@@ -44,6 +44,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:list', 'force:package:list'];
   public static readonly flags = {
     loglevel,

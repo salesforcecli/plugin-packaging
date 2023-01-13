@@ -22,6 +22,7 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:uninstall:report', 'force:package:uninstall:report'];
   public static readonly flags = {
     loglevel,
@@ -29,6 +30,8 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
     'api-version': orgApiVersionFlagWithDeprecations,
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'request-id': Flags.salesforceId({
+      length: 'both',
+      deprecateAliases: true,
       aliases: ['requestid'],
       char: 'i',
       summary: messages.getMessage('request-id'),
@@ -48,7 +51,7 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
     const arg =
       result.Status === 'Success'
         ? [result.SubscriberPackageVersionId]
-        : [result.Id, flags['target-org'].getUsername()];
+        : [this.config.bin, result.Id, flags['target-org'].getUsername()];
     this.log(messages.getMessage(result.Status, arg));
 
     return result;

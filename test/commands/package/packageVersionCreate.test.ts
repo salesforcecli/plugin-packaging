@@ -47,7 +47,7 @@ const pkgVersionCreateSuccessResult: Partial<PackageVersionCreateRequestResult> 
   CreatedBy: '0053i000001ZIyGAAW',
 };
 
-describe('force:package:version:create - tests', () => {
+describe('package:version:create - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let createStub = $$.SANDBOX.stub(PackageVersion, 'create');
@@ -72,7 +72,7 @@ describe('force:package:version:create - tests', () => {
     sandbox.restore();
   });
 
-  describe('force:package:version:create', () => {
+  describe('package:version:create', () => {
     it('should create a new package version', async () => {
       createStub.resolves(pkgVersionCreateSuccessResult);
       const res = await new PackageVersionCreateCommand(
@@ -94,7 +94,7 @@ describe('force:package:version:create - tests', () => {
       });
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sfdx force:package:install" command.`,
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sfdx package:install" command.`,
       ]);
     });
 

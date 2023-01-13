@@ -14,7 +14,7 @@ import * as sinon from 'sinon';
 import { Package1Version } from '@salesforce/packaging';
 import { Package1VersionCreateCommand } from '../../../src/commands/package1/version/create';
 
-describe('force:package1:version:create', () => {
+describe('package1:version:create', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -65,7 +65,7 @@ describe('force:package1:version:create', () => {
   it('should print SUCCESS status correctly', async () => {
     libraryStubResult('SUCCESS');
     const command = new Package1VersionCreateCommand(
-      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
+      ['--package-id', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
       config
     );
     const result = await command.run();
@@ -78,7 +78,7 @@ describe('force:package1:version:create', () => {
   it('should print QUEUED status correctly', async () => {
     libraryStubResult('QUEUED');
     const command = new Package1VersionCreateCommand(
-      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
+      ['--package-id', '03346000000MrC0AXX', '--name', 'test', '--target-org', testOrg.username],
       config
     );
     const result = await command.run();
@@ -86,14 +86,14 @@ describe('force:package1:version:create', () => {
     expect(result.Status).to.equal('QUEUED');
     expect(uxLogStub.callCount).to.equal(1);
     expect(uxLogStub.firstCall.args[0]).to.equal(
-      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u ${testOrg.username}`
+      `PackageUploadRequest has been enqueued. You can query the status using${os.EOL}sfdx package1:version:create:get -i 0HD4p000000blUvGXX -u ${testOrg.username}`
     );
   });
 
   it('should validate --version', async () => {
     libraryStubResult('SUCCESS');
     const command = new Package1VersionCreateCommand(
-      ['--packageid', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3', '--target-org', testOrg.username],
+      ['--package-id', '03346000000MrC0AXX', '--name', 'test', '--version', '2.3', '--target-org', testOrg.username],
       config
     );
     const result = await command.run();

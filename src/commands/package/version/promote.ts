@@ -21,6 +21,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:promote', 'force:package:version:promote'];
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
@@ -36,6 +37,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
     }),
     'no-prompt': Flags.boolean({
       char: 'n',
+      deprecateAliases: true,
       aliases: ['noprompt'],
       summary: messages.getMessage('no-prompt'),
       description: messages.getMessage('no-prompt-long'),
@@ -72,7 +74,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       const err = SfError.wrap(e as Error);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
         err.message = messages.getMessage('previouslyReleasedMessage');
-        err.actions = [messages.getMessage('previouslyReleasedAction')];
+        err.actions = [messages.getMessage('previouslyReleasedAction', [this.config.bin, this.config.bin])];
       }
       throw err;
     }

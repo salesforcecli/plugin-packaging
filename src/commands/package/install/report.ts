@@ -25,6 +25,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:install:report', 'force:package:install:report'];
   public static org: Org;
 
@@ -32,9 +33,11 @@ export class Report extends SfCommand<PackageInstallRequest> {
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     loglevel,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'request-id': Flags.salesforceId({
+      startsWith: '0Hf',
+      length: 'both',
       char: 'i',
+      deprecateAliases: true,
       aliases: ['requestid'],
       summary: messages.getMessage('request-id'),
       description: messages.getMessage('request-id-long'),
@@ -42,13 +45,13 @@ export class Report extends SfCommand<PackageInstallRequest> {
     }),
   };
 
-  public static parseStatus(request: PackageInstallRequest, username: string, alias?: string): string {
+  public static parseStatus(binName: string, request: PackageInstallRequest, username: string, alias?: string): string {
     const pkgIdOrAlias = alias ?? request.SubscriberPackageVersionKey;
     const { Status } = request;
     if (Status === 'SUCCESS') {
       return installMsgs.getMessage('package-install-success', [pkgIdOrAlias]);
     } else if (['IN_PROGRESS', 'UNKNOWN'].includes(Status)) {
-      return installMsgs.getMessage('packageInstallInProgress', [request.Id, username]);
+      return installMsgs.getMessage('packageInstallInProgress', [binName, request.Id, username]);
     } else {
       let errorMessage = '<empty>';
       const errors = request?.Errors?.errors;
@@ -66,7 +69,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
     const { flags } = await this.parse(Report);
     const connection = flags['target-org'].getConnection(flags['api-version']);
     const pkgInstallRequest = await SubscriberPackageVersion.getInstallRequest(flags['request-id'], connection);
-    this.log(Report.parseStatus(pkgInstallRequest, flags['target-org'].getUsername() as string));
+    this.log(Report.parseStatus(this.config.bin, pkgInstallRequest, flags['target-org'].getUsername() as string));
 
     return pkgInstallRequest;
   }

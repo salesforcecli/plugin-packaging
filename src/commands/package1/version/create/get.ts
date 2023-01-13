@@ -22,13 +22,16 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:create:get', 'force:package1:version:create:get'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'request-id': Flags.salesforceId({
+      startsWith: '0HD',
+      length: 'both',
+      deprecateAliases: true,
       aliases: ['requestid'],
       char: 'i',
       summary: messages.getMessage('requestId'),
@@ -53,7 +56,7 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
       const arg =
         result.Status === 'SUCCESS'
           ? [result.MetadataPackageVersionId]
-          : [result.Id, flags['target-org'].getUsername()];
+          : [this.config.bin, result.Id, flags['target-org'].getUsername()];
       this.log(messages.getMessage(result.Status, arg));
     }
 

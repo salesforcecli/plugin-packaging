@@ -37,6 +37,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:install', 'force:package:install'];
   public static readonly flags = {
     loglevel,
@@ -51,6 +52,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
     'installation-key': Flags.string({
       char: 'k',
+      deprecateAliases: true,
       aliases: ['installationkey'],
       summary: messages.getMessage('installation-key'),
       description: messages.getMessage('installation-key-long'),
@@ -58,6 +60,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     'publish-wait': Flags.duration({
       unit: 'minutes',
       char: 'b',
+      deprecateAliases: true,
       aliases: ['publishwait'],
       summary: messages.getMessage('publish-wait'),
       description: messages.getMessage('publish-wait-long'),
@@ -65,6 +68,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
     'no-prompt': Flags.boolean({
       char: 'r',
+      deprecateAliases: true,
       aliases: ['noprompt'],
       summary: messages.getMessage('no-prompt'),
       description: messages.getMessage('no-prompt-long'),
@@ -77,6 +81,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
     'apex-compile': Flags.enum({
       char: 'a',
+      deprecateAliases: true,
       aliases: ['apexcompile'],
       summary: messages.getMessage('apexCompile'),
       description: messages.getMessage('apexCompileLong'),
@@ -85,6 +90,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
     'security-type': Flags.enum({
       char: 's',
+      deprecateAliases: true,
       aliases: ['securitytype'],
       summary: messages.getMessage('security-type'),
       description: messages.getMessage('security-type-long'),
@@ -93,6 +99,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
     'upgrade-type': Flags.enum({
       char: 't',
+      deprecateAliases: true,
       aliases: ['upgradetype'],
       summary: messages.getMessage('upgradeType'),
       description: messages.getMessage('upgradeTypeLong'),
@@ -177,6 +184,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
           timeThen = Date.now();
           remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
           this.spinner.status = messages.getMessage('packageInstallWaitingStatus', [
+            this.config.bin,
             remainingTime.minutes,
             piRequest.Status,
           ]);
@@ -199,6 +207,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       if (pkgInstallRequest) {
         this.log(
           Report.parseStatus(
+            this.config.bin,
             pkgInstallRequest,
             flags['target-org'].getUsername() as string,
             flags.package as Optional<string>

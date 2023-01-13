@@ -4,14 +4,14 @@ install a package in the target org
 
 Supply the ID of the package version to install. The package installs in your default target org unless you supply the username for a different target org.
 
-For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgradetype value. To delete components that can be safely deleted and deprecate the others, specify --upgradetype Mixed (the default). To deprecate all removed components, specify --upgradetype DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgradetype Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
+For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgrade-type value. To delete components that can be safely deleted and deprecate the others, specify --upgrade-type Mixed (the default). To deprecate all removed components, specify --upgrade-type DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgrade-type Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
 
 # examples
 
-$ sfdx force:package:install --package 04t... -u me@example.com
-$ sfdx force:package:install --package awesome_package_alias
-$ sfdx force:package:install --package "Awesome Package Alias"
-$ sfdx force:package:install --package 04t... -t DeprecateOnly
+$ <%= config.bin %> <%= command.id %> --package 04t... -u me@example.com
+$ <%= config.bin %> <%= command.id %> --package awesome_package_alias
+$ <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
+$ <%= config.bin %> <%= command.id %> --package 04t... -t DeprecateOnly
 
 # wait
 
@@ -35,7 +35,7 @@ do not prompt for confirmation
 
 # no-prompt-long
 
-Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.
+Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgrade-type Delete to proceed.
 
 # prompt-upgrade-type
 
@@ -65,7 +65,7 @@ The ID (starts with 04t) or alias of the package version to install.
 
 # security-type
 
-security access type for the installed package (deprecation notice: The default --securitytype value will change from AllUsers to AdminsOnly in v47.0 or later.)
+security access type for the installed package (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
 
 # security-type-long
 
@@ -87,7 +87,7 @@ compile all Apex in the org and package, or only Apex in the package; unlocked p
 
 Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
-This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apexcompile package is specified.
+This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apex-compile package is specified.
 
 # promptEnableRss
 
@@ -114,7 +114,7 @@ This command is supported only on API versions 36.0 and higher
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
-sfdx force:package:install:report -i %s -u %s
+%s package:install:report -i %s -u %s
 
 # packageInstallError
 

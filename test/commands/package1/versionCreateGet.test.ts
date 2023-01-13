@@ -13,7 +13,7 @@ import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Package1Version } from '@salesforce/packaging';
 import { Package1VersionCreateGetCommand } from '../../../src/commands/package1/version/create/get';
 
-describe('force:package1:version:create:get', () => {
+describe('package1:version:create:get', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -69,8 +69,8 @@ describe('force:package1:version:create:get', () => {
       config
     ).run();
     expect(result.Status).to.equal('SUCCESS');
-    expect(uxStub.callCount).to.equal(1);
-    expect(uxStub.firstCall.args[0]).to.equal('Successfully uploaded package [04t4p000002BavTXXX]');
+    expect(uxStub.callCount).to.equal(2);
+    expect(uxStub.secondCall.args[0]).to.equal('Successfully uploaded package [04t4p000002BavTXXX]');
   });
 
   it('should print IN_PROGRESS status correctly', async () => {
@@ -81,11 +81,11 @@ describe('force:package1:version:create:get', () => {
     ).run();
 
     expect(result.Status).to.equal('IN_PROGRESS');
-    expect(uxStub.callCount).to.equal(1);
+    expect(uxStub.callCount).to.equal(2);
     // PackageUploadRequest is still InProgress. You can query the status using
-    // sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_9aabdcd7250f980c5a96bf96fb9a9711@gb.org
-    expect(uxStub.firstCall.args[0]).to.match(
-      /PackageUploadRequest is still InProgress\. You can query the status using\s+sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
+    // sfdx package1:version:create:get -i 0HD4p000000blUvGXX -u admin_9aabdcd7250f980c5a96bf96fb9a9711@gb.org
+    expect(uxStub.secondCall.args[0]).to.match(
+      /PackageUploadRequest is still InProgress\. You can query the status using\s+sfdx package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
     );
   });
 
@@ -97,11 +97,11 @@ describe('force:package1:version:create:get', () => {
     ).run();
 
     expect(result.Status).to.equal('QUEUED');
-    expect(uxStub.callCount).to.equal(1);
+    expect(uxStub.callCount).to.equal(2);
     // "PackageUploadRequest has been enqueued. You can query the status using
-    // sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_59d2d480323a011b8887b00138d2e9bb@gb.org"
-    expect(uxStub.firstCall.args[0]).to.match(
-      /PackageUploadRequest has been enqueued\. You can query the status using\s+sfdx force:package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
+    // sfdx package1:version:create:get -i 0HD4p000000blUvGXX -u admin_59d2d480323a011b8887b00138d2e9bb@gb.org"
+    expect(uxStub.secondCall.args[0]).to.match(
+      /PackageUploadRequest has been enqueued\. You can query the status using\s+sfdx package1:version:create:get -i 0HD4p000000blUvGXX -u admin_.*@.*\.org/
     );
   });
 

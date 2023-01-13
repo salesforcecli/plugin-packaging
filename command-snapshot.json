@@ -196,7 +196,7 @@
   {
     "command": "package:version:displayancestry",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "dotcode", "json", "loglevel", "package", "target-hub-org", "verbose"],
+    "flags": ["api-version", "dot-code", "json", "loglevel", "package", "target-hub-org", "verbose"],
     "alias": ["force:package:beta:version:displayancestry", "force:package:version:displayancestry"]
   },
   {

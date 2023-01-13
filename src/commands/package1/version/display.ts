@@ -23,15 +23,17 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
   public static readonly summary = messages.getMessage('description');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:display', 'force:package1:version:display'];
 
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-version-id': Flags.salesforceId({
+      length: 'both',
       char: 'i',
+      deprecateAliases: true,
       aliases: ['packageversionid'],
       summary: messages.getMessage('package-id'),
       description: messages.getMessage('package-id-long'),

@@ -4,16 +4,16 @@ create a package
 
 First, use this command to create a package. Then create a package version.
 
-If you don’t have a namespace defined in your sfdx-project.json file, use --nonamespace.
+If you don’t have a namespace defined in your sfdx-project.json file, use --no-namespace.
 
 Your --name value must be unique within your namespace.
 
-Run 'sfdx force:package:list' to list all packages in the Dev Hub org.
+Run '<%= config.bin %> package:list to list all packages in the Dev Hub org.
 
 # examples
 
-$ sfdx force:package:create -n YourPackageName -t Unlocked -r force-app
-$ sfdx force:package:create -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
+$ <%= config.bin %> <%= command.id %> -n YourPackageName -t Unlocked -r force-app
+$ <%= config.bin %> <%= command.id %> -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
 
 # name
 

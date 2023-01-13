@@ -14,7 +14,7 @@ import { SfCommand } from '@salesforce/sf-plugins-core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
 import { PackageUninstallCommand } from '../../../src/commands/package/uninstall';
 
-describe('force:package:uninstall', () => {
+describe('package:uninstall', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -72,7 +72,7 @@ describe('force:package:uninstall', () => {
     expect(result.Status).to.equal('InProgress');
     expect(logStub.callCount).to.equal(1);
     expect(logStub.firstCall.args[0]).to.deep.equal(
-      `PackageUninstallRequest is currently InProgress.${os.EOL}You can continue to query the status using sfdx force:package:uninstall:report -i 06y23000000002MXXX -u ${testOrg.username}`
+      `PackageUninstallRequest is currently InProgress.${os.EOL}You can continue to query the status using sfdx package:uninstall:report -i 06y23000000002MXXX -u ${testOrg.username}`
     );
   });
 

@@ -17,7 +17,7 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
 const INSTALL_KEY = 'testinstallkey';
 
-describe('force:package:convert', () => {
+describe('package:convert', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
@@ -66,7 +66,7 @@ describe('force:package:convert', () => {
 
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const command = new PackageConvert(
-      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com'],
+      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
       config
     );
     spinnerStartStub = stubMethod(sandbox, command.spinner, 'start');
@@ -93,7 +93,7 @@ describe('force:package:convert', () => {
     convertStub.restore();
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const result = await new PackageConvert(
-      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com'],
+      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
       config
     ).run();
     expect(result).to.deep.equal(pvc);
@@ -117,7 +117,7 @@ describe('force:package:convert', () => {
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     try {
       await new PackageConvert(
-        ['-p', CONVERTED_FROM_PACKAGE_ID, '--installationkey', INSTALL_KEY, '-v', 'test@user.com'],
+        ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
         config
       ).run();
     } catch (e) {

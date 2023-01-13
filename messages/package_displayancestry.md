@@ -4,10 +4,10 @@ display the ancestry tree for a 2GP managed package version
 
 # examples
 
-$ sfdx force:package:version:displayancestry -p package_version_alias
-$ sfdx force:package:version:displayancestry -p package_version_alias --dotcode
-$ sfdx force:package:version:displayancestry -p OHo...
-$ sfdx force:package:version:displayancestry -p 04t...
+$ <%= config.bin %> <%= command.id %> -p package_version_alias
+$ <%= config.bin %> <%= command.id %> -p package_version_alias --dot-code
+$ <%= config.bin %> <%= command.id %> -p OHo...
+$ <%= config.bin %> <%= command.id %> -p 04t...
 
 # package
 

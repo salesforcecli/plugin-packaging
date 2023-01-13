@@ -50,12 +50,12 @@ Displays extended package version details.
 
 # examples
 
-$ sfdx force:package:version:list --verbose --createdlastdays 3 --released --orderby PatchVersion
-$ sfdx force:package:version:list --packages 0Ho000000000000,0Ho000000000001 --released --modifiedlastdays 0
-$ sfdx force:package:version:list --released
-$ sfdx force:package:version:list --concise --modifiedlastdays 0
-$ sfdx force:package:version:list --concise -c 3 -r
-$ sfdx force:package:version:list --packages exp-mgr,exp-mgr-util --released --modifiedlastdays 0
+$ <%= config.bin %> <%= command.id %> --verbose --created-last-days 3 --released --order-by PatchVersion
+$ <%= config.bin %> <%= command.id %> --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0
+$ <%= config.bin %> <%= command.id %> --released
+$ <%= config.bin %> <%= command.id %> --concise --modified-last-days 0
+$ <%= config.bin %> <%= command.id %> --concise -c 3 -r
+$ <%= config.bin %> <%= command.id %> --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
 
 # name
 

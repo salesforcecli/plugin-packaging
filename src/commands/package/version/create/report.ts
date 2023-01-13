@@ -30,6 +30,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:create:report', 'force:package:version:create:report'];
   public static readonly flags = {
     loglevel,
@@ -37,6 +38,8 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
     'api-version': orgApiVersionFlagWithDeprecations,
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-create-request-id': Flags.salesforceId({
+      length: 'both',
+      deprecateAliases: true,
       aliases: ['packagecreaterequestid'],
       char: 'i',
       summary: messages.getMessage('request-id'),
@@ -117,7 +120,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       // Check if errors were truncated.  If so, inform the user with
       // instructions on how to retrieve the remaining errors.
       if (record.Error.length > ERROR_LIMIT) {
-        this.warn(messages.getMessage('truncatedErrors', [requestId, devOrg.getUsername() as string]));
+        this.warn(messages.getMessage('truncatedErrors', [this.config.bin, requestId, devOrg.getUsername() as string]));
       }
     }
   }

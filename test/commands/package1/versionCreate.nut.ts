@@ -17,7 +17,7 @@ type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 // @ts-ignore
 const pollUntilComplete = async (id: string): Promise<PackageUploadRequest> => {
-  const result = execCmd<PackageUploadRequest>(`force:package1:version:create:get -i ${id} -u 1gp --json`, {
+  const result = execCmd<PackageUploadRequest>(`package1:version:create:get -i ${id} -u 1gp --json`, {
     ensureExitCode: 0,
   }).jsonOutput?.result;
   if (result?.Status === 'SUCCESS') {
@@ -47,7 +47,7 @@ describe('package1:version:create', () => {
 
     execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { cli: 'sfdx' });
 
-    packageId = execCmd<[{ MetadataPackageId: string }]>('force:package1:version:list --json -u 1gp', {
+    packageId = execCmd<[{ MetadataPackageId: string }]>('package1:version:list --json -u 1gp', {
       ensureExitCode: 0,
     }).jsonOutput?.result?.at(0)?.MetadataPackageId;
   });
@@ -58,13 +58,13 @@ describe('package1:version:create', () => {
   });
   // we need to the run the synchronous command first, to avoid duplicate package version create API requests in the NUTs
   it(`should create a new 1gp package version for package id ${packageId} and wait`, () => {
-    const command = `force:package1:version:create -n 1gpPackageNUT -i ${packageId} -w 5 -u 1gp`;
+    const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} -w 5 -u 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output?.trim()).to.match(/Successfully uploaded package \[04t.{15}]/);
   });
 
   it(`should create a new 1gp package version for package id ${packageId} and wait (json)`, () => {
-    const command = `force:package1:version:create -n 1gpPackageNUT -i ${packageId} --json -w 5 -u 1gp`;
+    const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} --json -w 5 -u 1gp`;
     const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(output?.Status).to.equal('SUCCESS');
     expect(output?.Id).to.be.a('string');
@@ -75,11 +75,11 @@ describe('package1:version:create', () => {
   });
 
   it(`should create a new 1gp package version for package id ${packageId} without waiting`, async () => {
-    const command = `force:package1:version:create -n 1gpPackageNUT -i ${packageId} -u 1gp`;
+    const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} -u 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(/PackageUploadRequest has been enqueued\./);
-    // sfdx force:package1:version:create:get -i 0HD4p000000blVAGAY -u admin@integrationtestrelorgna40.org
-    expect(output).to.match(/sfdx force:package1:version:create:get -i 0HD.{15} -u/);
+    // sfdx package1:version:create:get -i 0HD4p000000blVAGAY -u admin@integrationtestrelorgna40.org
+    expect(output).to.match(/sfdx package1:version:create:get -i 0HD.{15} -u/);
     // ensure the package has uploaded by waiting for the package report to be done
     // @ts-ignore
     uploadRequestId = /0HD\w*/.exec(output)?.at(0);
@@ -87,7 +87,7 @@ describe('package1:version:create', () => {
   });
 
   it(`should create a new 1gp package version for package id ${packageId} (json)`, async () => {
-    const command = `force:package1:version:create -n 1gpPackageNUT -i ${packageId} --json -u 1gp`;
+    const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} --json -u 1gp`;
     const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(output?.Status).to.equal('QUEUED');
     expect(output?.Id).to.be.a('string');
@@ -102,13 +102,13 @@ describe('package1:version:create', () => {
 
   describe('package1:version:create:get', () => {
     it('will get the result (human)', () => {
-      const command = `force:package1:version:create:get -i ${uploadRequestId} -u 1gp`;
+      const command = `package1:version:create:get -i ${uploadRequestId} -u 1gp`;
       const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.match(/Successfully uploaded package \[04t.{15}]/);
     });
 
     it('will get the result (json)', () => {
-      const command = `force:package1:version:create:get -i ${uploadRequestId} -u 1gp --json`;
+      const command = `package1:version:create:get -i ${uploadRequestId} -u 1gp --json`;
       const result = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       expect(result).to.have.all.keys(
         'Id',

@@ -25,6 +25,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly deprecateAliases = true;
   public static readonly aliases = [
     'force:package:beta:version:displayancestry',
     'force:package:version:displayancestry',
@@ -41,7 +42,9 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
       description: messages.getMessage('package-long'),
       required: true,
     }),
-    dotcode: Flags.boolean({
+    'dot-code': Flags.boolean({
+      aliases: ['dotcode'],
+      deprecateAliases: true,
       summary: messages.getMessage('dotcode'),
       description: messages.getMessage('dotcode-long'),
     }),
@@ -59,7 +62,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
       flags['target-hub-org'].getConnection(flags['api-version'])
     );
     const jsonProducer = packageAncestry.getJsonProducer();
-    if (flags.dotcode) {
+    if (flags['dot-code']) {
       const dotProducer = packageAncestry.getDotProducer();
       const dotCodeResult = dotProducer.produce<string | void>();
       if (flags.json) {
