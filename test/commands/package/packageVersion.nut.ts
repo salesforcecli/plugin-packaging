@@ -102,7 +102,19 @@ describe('package:version:*', () => {
         'VerifyingFeaturesAndSettings',
         'VerifyingDependencies',
         'FinalizingPackageVersion',
-      ]).to.include(result?.Status);
+      ]).to.include(result.Status);
+    });
+
+    it('should create a new package version with a packageID in packageDirectories package property', async () => {
+      // Modify sfdx-project.json, packageDirectories to have a packageID as the value of the package property.
+      const project = await SfProject.resolve();
+      const projectJson = project.getSfProjectJson();
+      const contents = projectJson.getContents();
+      const packageDir = contents.packageDirectories.find((pkgDir) => pkgDir.package === pkgName);
+      packageDir.package = packageId;
+      projectJson.setContents(contents);
+      projectJson.writeSync(contents);
+      execCmd(`package:version:create --package ${packageId} -x --json`, { ensureExitCode: 0 });
     });
   });
 
