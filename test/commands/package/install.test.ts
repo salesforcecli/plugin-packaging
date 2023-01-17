@@ -161,7 +161,7 @@ describe('package:install', () => {
       const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.deep.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -174,7 +174,7 @@ describe('package:install', () => {
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
       expect(uxLogStub.callCount).to.equal(1);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(uxWarnStub.firstCall.args[0]).to.include('The "-u" flag has been deprecated. Use "--target-org" instead.');
       expect(result).to.deep.equal(pkgInstallRequest);
@@ -187,7 +187,7 @@ describe('package:install', () => {
       error.setData(pkgInstallRequest);
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
-      const result = await new Install(['-p', myPackageVersion04t, '--json', '-u', testOrg.username], config).run();
+      const result = await new Install(['-p', myPackageVersion04t, '--json', '-o', testOrg.username], config).run();
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
     });
@@ -317,7 +317,7 @@ describe('package:install', () => {
           'AllUsers',
           '-t',
           'DeprecateOnly',
-          '-u',
+          '-o',
           testOrg.username,
         ],
         config
@@ -339,7 +339,7 @@ describe('package:install', () => {
 
       expect(uxLogStub.callCount).to.equal(1);
       expect(uxWarnStub.args[0][0]).to.equal(warningMsg);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });
@@ -502,7 +502,7 @@ describe('package:install', () => {
         });
 
         const result = await new Install(
-          ['-p', myPackageVersion04t, '--no-prompt', '-k', installationkey, '-u', testOrg.username],
+          ['-p', myPackageVersion04t, '--no-prompt', '-k', installationkey, '-o', testOrg.username],
           config
         ).run();
 

@@ -5,7 +5,7 @@ retrieve the status of a package installation request
 # examples
 
 $ <%= config.bin %> <%= command.id %> -i 0Hf...
-$ <%= config.bin %> <%= command.id %> -i 0Hf... -u me@example.com
+$ <%= config.bin %> <%= command.id %> -i 0Hf... -o me@example.com
 
 # request-id
 

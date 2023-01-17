@@ -5,7 +5,7 @@ retrieve status of package uninstall request
 # examples
 
 $ <%= config.bin %> <%= command.id %> -i 06y...
-$ <%= config.bin %> <%= command.id %> -i 06y... -u me@example.com
+$ <%= config.bin %> <%= command.id %> -i 06y... -o me@example.com
 
 # request-id
 
@@ -18,7 +18,7 @@ The ID of the package uninstall request you want to check.
 # InProgress
 
 PackageUninstallRequest is currently InProgress. You can continue to query the status using
-%s package:uninstall:report -i %s -u %s
+%s package:uninstall:report -i %s -o %s
 
 # Unknown
 

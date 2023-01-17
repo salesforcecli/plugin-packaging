@@ -8,7 +8,7 @@ For package upgrades, to specify options for component deprecation or deletion o
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> --package 04t... -u me@example.com
+$ <%= config.bin %> <%= command.id %> --package 04t... -o me@example.com
 $ <%= config.bin %> <%= command.id %> --package awesome_package_alias
 $ <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
 $ <%= config.bin %> <%= command.id %> --package 04t... -t DeprecateOnly
@@ -114,7 +114,7 @@ This command is supported only on API versions 36.0 and higher
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
-%s package:install:report -i %s -u %s
+%s package:install:report -i %s -o %s
 
 # packageInstallError
 

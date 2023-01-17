@@ -5,4 +5,4 @@ list the org’s installed packages
 # examples
 
 $ <%= config.bin %> <%= command.id %>
-$ <%= config.bin %> <%= command.id %> -u me@example.com
+$ <%= config.bin %> <%= command.id %> -o me@example.com

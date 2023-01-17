@@ -95,4 +95,4 @@ Successfully uploaded package [%s]
 # QUEUED
 
 PackageUploadRequest has been enqueued. You can query the status using
-%s package1:version:create:get -i %s -u %s
+%s package1:version:create:get -i %s -o %s

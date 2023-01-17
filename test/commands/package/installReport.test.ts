@@ -94,7 +94,7 @@ describe('package:install:report', () => {
     const result = await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
     expect(result).to.deep.equal(pkgInstallRequest);
     expect(uxLogStub.calledOnce).to.be.true;
-    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -u ${testOrg.username}`;
+    const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
     expect(uxLogStub.args[0][0]).to.equal(msg);
   });
 
