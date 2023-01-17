@@ -184,7 +184,6 @@ export class Install extends SfCommand<PackageInstallRequest> {
           timeThen = Date.now();
           remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
           this.spinner.status = messages.getMessage('packageInstallWaitingStatus', [
-            this.config.bin,
             remainingTime.minutes,
             piRequest.Status,
           ]);
