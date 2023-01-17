@@ -135,11 +135,16 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
             result.SubscriberPackageVersionId,
             INSTALL_URL_BASE.toString(),
             result.SubscriberPackageVersionId,
+            this.config.bin,
           ])
         );
         break;
       default:
-        this.spinner.status = pvcMessages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), result.Id]);
+        this.spinner.status = pvcMessages.getMessage('InProgress', [
+          this.config.bin,
+          camelCaseToTitleCase(result.Status),
+          result.Id,
+        ]);
     }
 
     this.spinner.stop();
