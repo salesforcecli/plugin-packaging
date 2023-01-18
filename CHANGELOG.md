@@ -1,3 +1,21 @@
+## [1.12.3](https://github.com/salesforcecli/plugin-packaging/compare/1.12.2...1.12.3) (2023-01-18)
+
+
+### Bug Fixes
+
+* bump pkg library version and modify language flag description ([b974b9e](https://github.com/salesforcecli/plugin-packaging/commit/b974b9e05f9f984b97fa6dcaefd1ae0c29ed2655))
+
+
+
+## [1.12.2](https://github.com/salesforcecli/plugin-packaging/compare/1.12.1...1.12.2) (2023-01-09)
+
+
+### Bug Fixes
+
+* allow path and package flags, emit warning and telemtry if both present ([931dfe2](https://github.com/salesforcecli/plugin-packaging/commit/931dfe2c3981b525a9726f4045ed521dab259690))
+
+
+
 ## [1.12.1](https://github.com/salesforcecli/plugin-packaging/compare/1.12.0...1.12.1) (2023-01-07)
 
 

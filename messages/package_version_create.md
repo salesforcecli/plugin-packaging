@@ -233,10 +233,12 @@ Create version status: %s
 
 # language
 
-The language for the package.
+The language for the package. Only applies to orgs running API version 57.0 or higher.
 
 # languageLong
 
 The language for the package. Specify the language using a language code listed under "Supported Languages" in Salesforce Help.
 
 If no language is specified, the language defaults to the language of the Dev Hub user who created the package.
+
+Only applies to orgs running API version 57.0 or higher.

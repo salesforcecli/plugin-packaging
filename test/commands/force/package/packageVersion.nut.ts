@@ -56,7 +56,7 @@ describe('package:version:*', () => {
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
     it('should create a new package version and wait (human)', () => {
       const result = execCmd(
-        `force:package:version:create --package ${pkgName} --wait 20 -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
+        `force:package:version:create --package ${packageId} --wait 20 -x --codecoverage --versiondescription "Initial version" --versionnumber 1.0.0.NEXT`,
         { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }
       ).shellOutput.stdout;
       expect(result).to.match(/Successfully created the package version \[08c.{15}]/);
@@ -101,6 +101,18 @@ describe('package:version:*', () => {
         'VerifyingDependencies',
         'FinalizingPackageVersion',
       ]).to.include(result.Status);
+    });
+
+    it('should create a new package version with a packageID in packageDirectories package property', async () => {
+      // Modify sfdx-project.json, packageDirectories to have a packageID as the value of the package property.
+      const project = await SfProject.resolve();
+      const projectJson = project.getSfProjectJson();
+      const contents = projectJson.getContents();
+      const packageDir = contents.packageDirectories.find((pkgDir) => pkgDir.package === pkgName);
+      packageDir.package = packageId;
+      projectJson.setContents(contents);
+      projectJson.writeSync(contents);
+      execCmd(`force:package:version:create --package ${packageId} -x --json`, { ensureExitCode: 0 });
     });
   });
 
