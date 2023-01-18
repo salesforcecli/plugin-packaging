@@ -65,3 +65,11 @@ the instance where the conversion package version will be created——for examp
 # longInstance
 
 The instance where the conversion package version will be created——for example, NA50.
+
+# seedMetadata
+
+Directory containing metadata to be deployed prior to conversion.
+
+# longSeedMetadata
+
+The directory containing metadata that will be deployed on the build org prior to attempting conversion.
