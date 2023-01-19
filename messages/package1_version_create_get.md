@@ -1,19 +1,15 @@
 # summary
 
-retrieve the status of a package version creation request
+Retrieve the status of a package version creation request.
 
 # examples
 
 $ <%= config.bin %> <%= command.id %> -i 0HD...
 $ <%= config.bin %> <%= command.id %> -i 0HD... -o devhub@example.com
 
-# requestId
+# flags.request-id.summary
 
-PackageUploadRequest ID
-
-# request-id-long
-
-The ID of the PackageUploadRequest.
+ID of the PackageUploadRequest.
 
 # IN_PROGRESS
 

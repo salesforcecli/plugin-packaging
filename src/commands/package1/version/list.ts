@@ -20,7 +20,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 export type Package1ListCommandResult = Package1Display[];
 export class Package1VersionListCommand extends SfCommand<Package1ListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:list', 'force:package1:version:list'];
@@ -33,8 +32,8 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
       deprecateAliases: true,
       aliases: ['packageid'],
       char: 'i',
-      summary: messages.getMessage('package-id'),
-      description: messages.getMessage('package-id-long'),
+      summary: messages.getMessage('flags.package-id.summary'),
+      description: messages.getMessage('flags.package-id.description'),
       startsWith: '033',
     }),
   };

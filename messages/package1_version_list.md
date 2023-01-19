@@ -1,14 +1,14 @@
 # summary
 
-list package versions for the specified first-generation package or for the org
+List package versions for the specified first-generation package or for the org.
 
-# package-id
+# flags.package-id.summary
 
-metadata package ID (starts with 033)
+Metadata package ID (starts with 033) whose package versions you want to list.
 
-# package-id-long
+# flags.package-id.description
 
-Metadata package ID (starts with 033) whose package versions you want to list. If not specified, shows all versions for all packages (managed and unmanaged) in the org.
+If not specified, shows all versions for all packages (managed and unmanaged) in the org.
 
 # examples
 

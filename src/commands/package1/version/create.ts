@@ -23,7 +23,7 @@ export type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
 export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
   public static readonly deprecateAliases = true;
@@ -38,60 +38,54 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
       deprecateAliases: true,
       aliases: ['packageid'],
       char: 'i',
-      summary: messages.getMessage('id'),
-      description: messages.getMessage('id-long'),
+      summary: messages.getMessage('flags.package-id.summary'),
       required: true,
       startsWith: '033',
     }),
     name: Flags.string({
       char: 'n',
-      summary: messages.getMessage('name'),
-      description: messages.getMessage('name-long'),
+      summary: messages.getMessage('flags.name.summary'),
       required: true,
     }),
     description: Flags.string({
       char: 'd',
-      summary: messages.getMessage('description'),
-      description: messages.getMessage('description-long'),
+      summary: messages.getMessage('flags.description.summary'),
     }),
     version: Flags.string({
       char: 'v',
-      summary: messages.getMessage('version'),
-      description: messages.getMessage('version-long'),
+      summary: messages.getMessage('flags.version.summary'),
     }),
     'managed-released': Flags.boolean({
       char: 'm',
       deprecateAliases: true,
       aliases: ['managedrelease'],
-      summary: messages.getMessage('managed-release'),
-      description: messages.getMessage('managed-release-long'),
+      summary: messages.getMessage('flags.managed-release.summary'),
+      description: messages.getMessage('flags.managed-release.description'),
     }),
     'release-notes-url': Flags.string({
       char: 'r',
       deprecateAliases: true,
       aliases: ['releasenotesurl'],
-      summary: messages.getMessage('release-notes'),
-      description: messages.getMessage('release-notes-long'),
+      summary: messages.getMessage('flags.release-notes-url.summary'),
+      description: messages.getMessage('flags.release-notes-url.description'),
     }),
     'post-install-url': Flags.string({
       char: 'p',
       deprecateAliases: true,
       aliases: ['postinstallurl'],
-      summary: messages.getMessage('post-install'),
-      description: messages.getMessage('post-install-long'),
+      summary: messages.getMessage('flags.post-install-url.summary'),
+      description: messages.getMessage('flags.post-install-url.description'),
     }),
     'installation-key': Flags.string({
       char: 'k',
       deprecateAliases: true,
       aliases: ['installationkey'],
-      summary: messages.getMessage('installation-key'),
-      description: messages.getMessage('installation-key-long'),
+      summary: messages.getMessage('flags.installation-key.summary'),
     }),
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
-      summary: messages.getMessage('wait'),
-      description: messages.getMessage('wait-long'),
+      summary: messages.getMessage('flags.wait.summary'),
     }),
   };
 
