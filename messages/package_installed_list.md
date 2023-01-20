@@ -1,6 +1,6 @@
 # summary
 
-list the org’s installed packages
+List the org’s installed packages.
 
 # examples
 

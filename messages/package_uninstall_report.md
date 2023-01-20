@@ -1,19 +1,15 @@
 # summary
 
-retrieve status of package uninstall request
+Retrieve status of package uninstall request.
 
 # examples
 
 $ <%= config.bin %> <%= command.id %> -i 06y...
 $ <%= config.bin %> <%= command.id %> -i 06y... -o me@example.com
 
-# request-id
+# flags.request-id.summary
 
-ID of the package uninstall request you want to check
-
-# request-id-long
-
-The ID of the package uninstall request you want to check.
+ID of the package uninstall request you want to check.
 
 # InProgress
 
