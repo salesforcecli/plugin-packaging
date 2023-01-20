@@ -10,12 +10,17 @@ If you don’t have a namespace defined in your sfdx-project.json file, use --no
 
 Your --name value must be unique within your namespace.
 
-Run '<%= config.bin %> package:list to list all packages in the Dev Hub org.
+Run '<%= config.bin %> package list to list all packages in the Dev Hub org.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -n YourPackageName -t Unlocked -r force-app
-$ <%= config.bin %> <%= command.id %> -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
+- Create an unlocked package from the files in the "force-app" directory; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --name MyUnlockedPackage --package-type Unlocked --path force-app
+
+- Create a managed packaged from the "force-app" directory files, give the package a description, and use the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --name MyManagedPackage --description "Your Package Descripton" --package-type Managed --path force-app --target-hub-org devhub@example.com
 
 # flags.name.summary
 

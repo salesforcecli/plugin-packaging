@@ -8,8 +8,13 @@ Specify the ID or alias of the package version you want to delete.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
-$ <%= config.bin %> <%= command.id %> -p 04t...
+- Delete a package version with the specified alias using your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
+
+- Delete a package version with the specified ID using the Dev Hub org with username "devhub@example.com":
+
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org devhub@example.com
 
 # flags.package.summary
 

@@ -10,8 +10,13 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
-$ <%= config.bin %> <%= command.id %> -p 0Ho...
+- Delete a package using its alias from your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
+
+- Delete a package using its ID from the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 0Ho... --target-hub-org devhub@example.com
 
 # flags.package.summary
 

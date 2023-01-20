@@ -12,9 +12,17 @@ To uninstall a first-generation package, from Setup, enter Installed Packages in
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p 04t... -o me@example.com
-$ <%= config.bin %> <%= command.id %> -p undesirable_package_alias
-$ <%= config.bin %> <%= command.id %> -p "Undesirable Package Alias"
+- Uninstall a package with specified ID from an org with username me@example.com:
+
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org me@example.com
+
+- Uninstall a package with the specified alias from your default org:
+
+  <%= config.bin %> <%= command.id %> --package undesirable_package_alias
+
+- Uninstall a package with an alias that contains spaces from your default org:
+
+  <%= config.bin %> <%= command.id %> --package "Undesirable Package Alias"
 
 # flags.wait.summary
 

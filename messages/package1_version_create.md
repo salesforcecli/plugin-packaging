@@ -4,12 +4,17 @@ Create a first-generation package version in the release org.
 
 # description
 
-The package version is based on the contents of the specified metadata package. Omit -m if you want to create an unmanaged package version.
+The package version is based on the contents of the specified metadata package. Omit --managed-released if you want to create an unmanaged package version.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example
-$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example --description "example description" --wait 30
+- Create a first-generation package version from the package with the specified ID and name the package version "example"; use your default org:
+
+  <%= config.bin %> <%= command.id %> --package-id 033... --name example
+
+- Same as previous example, but provide a description and wait for 30 minutes for the package version to be created; use the specified org:
+
+  <%= config.bin %> <%= command.id %> --package-id 033... --name example --description "example description" --wait 30 --target-org myorg@example.com
 
 # flags.package-id.summary
 

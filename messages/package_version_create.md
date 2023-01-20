@@ -6,21 +6,32 @@ Create a package version in the Dev Hub org.
 
 The package version is based on the package contents in the specified directory.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
 We recommend that you specify the --installation-key parameter to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 To promote a package version to released, you must use the --code-coverage parameter. The package must also meet the code coverage requirements. This requirement applies to both managed and unlocked packages.
 
 We don’t calculate code coverage for org-dependent unlocked packages, or for package versions that specify --skip-validation.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -d common -k password123
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -k password123
-$ <%= config.bin %> <%= command.id %> -p 0Ho... -k password123
-$ <%= config.bin %> <%= command.id %> -d common -k password123 --skip-validation
+- Create a package version from the contents of the "common" directory and give it an installation key of "password123"; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --path common --installation-key password123
+
+- Create a package version from a package with the specified alias; uses the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123 --target-hub-org devhub@example.com
+
+- Create a package version from a package with the specified ID:
+
+  <%= config.bin %> <%= command.id %> --package 0Ho... --installation-key password123
+
+- Create a package version and skip the validation step:
+
+  <%= config.bin %> <%= command.id %> --path common --installation-key password123 --skip-validation
 
 # flags.package.summary
 

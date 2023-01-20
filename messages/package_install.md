@@ -1,19 +1,30 @@
 # summary
 
-Install a package in the target org.
+Install a version of a package in the target org.
 
 # description
 
-Supply the ID of the package version to install. The package installs in your default target org unless you supply the username for a different target org.
+To install a package, specify a specific version of the package using the 04t package ID. The package and the version you specified installs in your default target org unless you supply the username for a different target org.
 
 For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgrade-type value. To delete components that can be safely deleted and deprecate the others, specify --upgrade-type Mixed (the default). To deprecate all removed components, specify --upgrade-type DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgrade-type Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> --package 04t... -o me@example.com
-$ <%= config.bin %> <%= command.id %> --package awesome_package_alias
-$ <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
-$ <%= config.bin %> <%= command.id %> --package 04t... -t DeprecateOnly
+- Install a package version with the specified ID in the org with username "me@example.com":
+
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org me@example.com
+
+- Install a package version with the specified alias into your default org:
+
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias
+
+- Install a package version with an alias that includes spaces into your default org:
+
+  <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
+
+- Install an unlocked package version with the specified ID and deprecate all removed components:
+
+  <%= config.bin %> <%= command.id %> --package 04t... --upgrade-type DeprecateOnly
 
 # flags.wait.summary
 

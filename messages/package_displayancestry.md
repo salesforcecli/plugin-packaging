@@ -4,10 +4,21 @@ Display the ancestry tree for a 2GP managed package version.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p package_version_alias
-$ <%= config.bin %> <%= command.id %> -p package_version_alias --dot-code
-$ <%= config.bin %> <%= command.id %> -p OHo...
-$ <%= config.bin %> <%= command.id %> -p 04t...
+- Display the ancestry tree for a package version with the specified alias, using your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package package_version_alias
+
+- Similar to previous example, but display the output in DOT code:
+
+  <%= config.bin %> <%= command.id %> --package package_version_alias --dot-code
+
+- Display the ancestry tree for a package with the specified ID, using the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --package OHo... --target-hub-org devhub@example.com
+
+- Display the ancestry tree of a package version with the specified ID, using your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 04t...
 
 # flags.package.summary
 

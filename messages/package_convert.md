@@ -10,15 +10,21 @@ It then creates a new package version in the Dev Hub with contents based on the 
 
 The latest released non-patch package version from the specified first-generation package will be converted.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
 We recommend specifying the --installation-key to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> --package 033xx0000004Gmn -k password123
+- Create a second-generation package version from the first-generation package with the specified ID and give it the installation key "password123"; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123
+
+- Similar to previous example, but uses the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123 --target-hub-org devhuborg@example.com
 
 # flags.package.summary
 

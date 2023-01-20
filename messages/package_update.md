@@ -10,8 +10,13 @@ Run "<%= config.bin %> package list" to list all packages in the Dev Hub org.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -n "New Package Name"
-$ <%= config.bin %> <%= command.id %> -p 0Ho... -d "New Package Description"
+- Update the name of the package with the specified alias; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --name "New Package Name"
+
+- Update the description of the package with the specified ID; uses the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 0Ho... --description "New Package Description" --target-hub-org devhub@example.com
 
 # flags.package.summary
 
