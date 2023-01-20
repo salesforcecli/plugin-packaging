@@ -1,6 +1,8 @@
 # summary
 
-install a package in the target org
+Install a package in the target org.
+
+# description
 
 Supply the ID of the package version to install. The package installs in your default target org unless you supply the username for a different target org.
 
@@ -13,27 +15,19 @@ $ <%= config.bin %> <%= command.id %> --package awesome_package_alias
 $ <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
 $ <%= config.bin %> <%= command.id %> --package 04t... -t DeprecateOnly
 
-# wait
+# flags.wait.summary
 
-number of minutes to wait for installation status
+Number of minutes to wait for installation status.
 
-# wait-long
+# flags.installation-key.summary
 
-Maximum number of minutes to wait for installation status. The default is 0.
+Installation key for key-protected package (default: null).
 
-# installation-key
+# flags.no-prompt.summary
 
-installation key for key-protected package (default: null)
+Don't prompt for confirmation.
 
-# installation-key-long
-
-Installation key for installing a key-protected package. The default is null.
-
-# no-prompt
-
-do not prompt for confirmation
-
-# no-prompt-long
+# flags.no-prompt.description
 
 Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgrade-type Delete to proceed.
 
@@ -43,50 +37,40 @@ The Delete upgrade type permanently deletes metadata types that have been remove
 
 Do you want to continue? (y/n)
 
-# publish-wait
+# flags.publish-wait.summary
 
-number of minutes to wait for subscriber package version ID to become available in the target org
-
-# publish-wait-long
-
-Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.
+Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request.
 
 # package-install-success
 
 Successfully installed package [%s]
 
-# package
+# flags.package.summary
 
-ID (starts with 04t) or alias of the package version to install
+ID (starts with 04t) or alias of the package version to install.
 
-# package-long
+# flags.security-type.summary
 
-The ID (starts with 04t) or alias of the package version to install.
+Security access type for the installed package. (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
 
-# security-type
+# flags.upgrade-type.summary
 
-security access type for the installed package (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
+Upgrade type for the package installation; available only for unlocked packages.
 
-# security-type-long
-
-Security access type for the installed package.
-
-# upgradeType
-
-the upgrade type for the package installation; available only for unlocked packages
-
-# upgradeTypeLong
+# flags.upgrade-type.description
 
 For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can specify DeprecateOnly or Delete only for unlocked package upgrades.
 
-# apexCompile
+# flags.apex-compile.summary
 
-compile all Apex in the org and package, or only Apex in the package; unlocked packages only
+Compile all Apex in the org and package, or only Apex in the package; unlocked packages only.
 
-# apexCompileLong
+# flags.apex-compile.description
 
 Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.
+
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
+
 This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apex-compile package is specified.
 
 # promptEnableRss

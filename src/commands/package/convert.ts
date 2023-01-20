@@ -29,7 +29,7 @@ const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'packa
 
 export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:convert', 'force:package:convert'];
@@ -41,8 +41,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     package: Flags.salesforceId({
       length: 'both',
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
       startsWith: '033',
     }),
@@ -50,39 +49,37 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       char: 'k',
       deprecateAliases: true,
       aliases: ['installationkey'],
-      summary: messages.getMessage('key'),
-      description: messages.getMessage('key-long'),
+      summary: messages.getMessage('flags.installation-key.summary'),
+      description: messages.getMessage('flags.installation-key.description'),
       exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     'definition-file': Flags.file({
       char: 'f',
       deprecateAliases: true,
       aliases: ['definitionfile'],
-      summary: messages.getMessage('definition-file'),
-      description: messages.getMessage('definition-file-long'),
+      summary: messages.getMessage('flags.definition-file.summary'),
+      description: messages.getMessage('flags.definition-file.description'),
       hidden: true,
     }),
     'installation-key-bypass': Flags.boolean({
       char: 'x',
       deprecateAliases: true,
       aliases: ['installationkeybypass'],
-      summary: messages.getMessage('key-bypass'),
-      description: messages.getMessage('key-bypass-long'),
+      summary: messages.getMessage('flags.installation-key-bypass.summary'),
+      description: messages.getMessage('flags.installation-key-bypass.description'),
       exactlyOne: ['installation-key', 'installation-key-bypass'],
     }),
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
-      summary: messages.getMessage('wait'),
-      description: messages.getMessage('wait-long'),
+      summary: messages.getMessage('flags.wait.summary'),
       default: Duration.minutes(0),
     }),
     'build-instance': Flags.string({
       char: 's',
       deprecateAliases: true,
       aliases: ['buildinstance'],
-      summary: messages.getMessage('instance'),
-      description: messages.getMessage('instance-long'),
+      summary: messages.getMessage('flags.build-instance.summary'),
       hidden: true,
     }),
   };

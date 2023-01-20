@@ -20,7 +20,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:delete', 'force:package:delete'];
@@ -33,18 +33,15 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
       char: 'n',
       deprecateAliases: true,
       aliases: ['noprompt'],
-      summary: messages.getMessage('no-prompt'),
-      description: messages.getMessage('no-prompt-long'),
+      summary: messages.getMessage('flags.no-prompt.summary'),
     }),
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     undelete: Flags.boolean({
-      summary: messages.getMessage('undelete'),
-      description: messages.getMessage('undelete-long'),
+      summary: messages.getMessage('flags.undelete.summary'),
       hidden: true,
       default: false,
     }),

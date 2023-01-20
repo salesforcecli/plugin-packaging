@@ -21,7 +21,7 @@ const packageCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'pac
 
 export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:update', 'force:package:update'];
@@ -32,27 +32,24 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     name: Flags.string({
       char: 'n',
-      summary: messages.getMessage('name'),
-      description: messages.getMessage('name-long'),
+      summary: messages.getMessage('flags.name.summary'),
     }),
     description: Flags.string({
       char: 'd',
-      summary: messages.getMessage('description'),
-      description: messages.getMessage('description-long'),
+      summary: messages.getMessage('flags.description.summary'),
     }),
     'error-notification-username': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       deprecateAliases: true,
       aliases: ['errornotificationusername'],
-      summary: packageCreate.getMessage('error-notification-username'),
-      description: packageCreate.getMessage('error-notification-username-long'),
+      summary: packageCreate.getMessage('flags.error-notification-username.summary'),
+      description: packageCreate.getMessage('flags.error-notification-username.description'),
     }),
   };
 

@@ -1,6 +1,8 @@
 # summary
 
-creates a second-generation package version from a first-generation package
+Create a second-generation package version from a first-generation package.
+
+# description
 
 The package convert creates a new package in the Dev Hub if one does not already exist for the specified first-generation package.
 
@@ -18,53 +20,41 @@ To list package version creation requests in the org, run "<%= config.bin %> pac
 
 $ <%= config.bin %> <%= command.id %> --package 033xx0000004Gmn -k password123
 
-# package
+# flags.package.summary
 
-ID (starts with 033) of the first-generation package to convert
+ID (starts with 033) of the first-generation package to convert.
 
-# package-long
+# flags.installation-key.summary
 
-The ID (starts with 033) or alias of the package to convert.
+Installation key for key-protected package.
 
-# key
+# flags.installation-key.description
 
-installation key for key-protected package (either --installation-key or --installation-key-bypass is required)
+Either an --installation-key value or the --installation-key-bypass flag is required.
 
-# key-long
+# flags.installation-key-bypass.summary
 
-Installation key for creating the key-protected package. Either an --installation-key value or the --installation-key-bypass flag is required.
+Bypass the installation key requirement.
 
-# key-bypass
+# flags.installation-key-bypass.description
 
-bypass the installation key requirement (either --installation-key or --installation-key-bypass is required)
+If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
-# key-bypass-long
+# flags.definition-file.summary
 
-Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
+Path to a definition file that contains features and org preferences that the metadata of the package version depends on.
 
-# definition-file
+# flags.definition-file.description
 
-path to a definition file that contains features and org preferences that the metadata of the package version depends on.
+This definition file is similar to the scratch org definition file.
 
-# definition-file-long
+# flags.wait.summary
 
-The path to a definition file, similar to the scratch org definition file, that contains the list of features and org preferences that the metadata of the package version depends on.
+Minutes to wait for the package version to be created.
 
-# wait
+# flags.build-instance.summary
 
-minutes to wait for the package version to be created
-
-# wait-long
-
-The number of minutes to wait for the package version to be created.
-
-# instance
-
-the instance where the conversion package version will be created——for example, NA50
-
-# instance-long
-
-The instance where the conversion package version will be created——for example, NA50.
+Instance where the conversion package version will be created, such as NA50.
 
 # in-progress
 

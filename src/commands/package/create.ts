@@ -21,7 +21,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 export type PackageCreate = { Id: string };
 export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:create', 'force:package:create'];
@@ -32,50 +32,47 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
     'api-version': orgApiVersionFlagWithDeprecations,
     name: Flags.string({
       char: 'n',
-      summary: messages.getMessage('name'),
-      description: messages.getMessage('name-long'),
+      summary: messages.getMessage('flags.name.summary'),
       required: true,
     }),
     'package-type': Flags.enum({
       char: 't',
       deprecateAliases: true,
       aliases: ['packagetype'],
-      summary: messages.getMessage('package-type'),
-      description: messages.getMessage('package-type-long'),
+      summary: messages.getMessage('flags.package-type.summary'),
+      description: messages.getMessage('flags.package-type.description'),
       required: true,
       options: ['Managed', 'Unlocked'],
     }),
     description: Flags.string({
       char: 'd',
-      summary: messages.getMessage('description'),
-      description: messages.getMessage('description-long'),
+      summary: messages.getMessage('flags.description.summary'),
     }),
     'no-namespace': Flags.boolean({
       char: 'e',
       deprecateAliases: true,
       aliases: ['nonamespace'],
-      summary: messages.getMessage('no-namespace'),
-      description: messages.getMessage('no-namespace-long'),
+      summary: messages.getMessage('flags.no-namespace.summary'),
+      description: messages.getMessage('flags.no-namespace.description'),
     }),
     path: Flags.directory({
       char: 'r',
-      summary: messages.getMessage('path'),
-      description: messages.getMessage('path-long'),
+      summary: messages.getMessage('flags.path.summary'),
       required: true,
     }),
     'org-dependent': Flags.boolean({
       deprecateAliases: true,
       aliases: ['orgdependent'],
-      summary: messages.getMessage('org-dependent'),
-      description: messages.getMessage('org-dependent-long'),
+      summary: messages.getMessage('flags.org-dependent.summary'),
+      description: messages.getMessage('flags.org-dependent.description'),
     }),
     'error-notification-username': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       deprecateAliases: true,
       aliases: ['errornotificationusername'],
-      summary: messages.getMessage('error-notification-username'),
-      description: messages.getMessage('error-notification-username-long'),
+      summary: messages.getMessage('flags.error-notification-username.summary'),
+      description: messages.getMessage('flags.error-notification-username.description'),
     }),
   };
 

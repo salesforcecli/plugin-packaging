@@ -1,6 +1,8 @@
 # summary
 
-list all packages in the Dev Hub org
+List all packages in the Dev Hub org.
+
+# description
 
 You can view the namespace, IDs, and other details for each package.
 
@@ -37,13 +39,9 @@ Description
 
 Type
 
-# verbose-description
+# flags.verbose.summary
 
-display extended package detail
-
-# verbose-description-long
-
-Displays extended package details.
+Display extended package detail.
 
 # convertedFromPackageId
 

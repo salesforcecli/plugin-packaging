@@ -41,7 +41,7 @@ export type PackageListCommandResult = Package2Result[];
 
 export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
   public static readonly deprecateAliases = true;
@@ -51,8 +51,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
     'target-hub-org': requiredHubFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     verbose: Flags.boolean({
-      summary: messages.getMessage('verbose-description'),
-      description: messages.getMessage('verbose-description-long'),
+      summary: messages.getMessage('flags.verbose.summary'),
     }),
   };
 
