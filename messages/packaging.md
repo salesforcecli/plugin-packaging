@@ -1,15 +1,7 @@
-# created-last-days-description
+# flags.created-last-days.summary
 
-created in the last specified number of days (starting at 00:00:00 of first day to now; 0 for today)
+Number of days since the request was created, starting at 00:00:00 of first day to now. Use 0 for today.
 
-# created-last-days-description-long
+# flags.modified-last-days.summary
 
-Filters the list based on the specified maximum number of days since the request was created (starting at 00:00:00 of first day to now; 0 for today).
-
-# modified-last-days-description
-
-list items modified in the specified last number of days (starting at 00:00:00 of first day to now; 0 for today)
-
-# modified-last-days-description-long
-
-Lists the items modified in the specified last number of days, starting at 00:00:00 of first day to now. Use 0 for today.
+Number of days since the items were modified, starting at 00:00:00 of first day to now. Use 0 for today.

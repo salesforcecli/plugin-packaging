@@ -23,7 +23,6 @@ export type DisplayAncestryCommandResult = PackageAncestryNodeData | string | vo
 
 export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAncestryCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = [
@@ -38,19 +37,18 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
+      description: messages.getMessage('flags.package.description'),
       required: true,
     }),
     'dot-code': Flags.boolean({
       aliases: ['dotcode'],
       deprecateAliases: true,
-      summary: messages.getMessage('dotcode'),
-      description: messages.getMessage('dotcode-long'),
+      summary: messages.getMessage('flags.dot-code.summary'),
+      description: messages.getMessage('flags.dot-code.description'),
     }),
     verbose: Flags.boolean({
-      summary: messages.getMessage('verbose'),
-      description: messages.getMessage('verbose-long'),
+      summary: messages.getMessage('flags.verbose.summary'),
     }),
   };
 

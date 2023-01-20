@@ -1,6 +1,8 @@
 # summary
 
-promote a package version to released
+Promote a package version to released.
+
+# description
 
 Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
@@ -10,13 +12,9 @@ $ <%= config.bin %> <%= command.id %> -p 04t...
 $ <%= config.bin %> <%= command.id %> -p awesome_package_alias
 $ <%= config.bin %> <%= command.id %> -p "Awesome Package Alias"
 
-# package
+# flags.package.summary
 
-ID (starts with 04t) or alias of the package version to promote
-
-# package-long
-
-The ID (starts with 04t) or alias of the package version to promote.
+ID (starts with 04t) or alias of the package version to promote.
 
 # packageVersionPromoteConfirm
 
@@ -26,13 +24,9 @@ Are you sure you want to release package version %s? You can't undo this action.
 
 Promote operation denied
 
-# no-prompt
+# flags.no-prompt.summary
 
-no prompt to confirm setting the package version as released
-
-# no-prompt-long
-
-Do not prompt to confirm setting the package version as released.
+Don't prompt to confirm setting the package version as released.
 
 # humanSuccess
 

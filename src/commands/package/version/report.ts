@@ -32,7 +32,7 @@ export type PackageVersionReportResultModified = Omit<
 };
 export class PackageVersionReportCommand extends SfCommand<PackageVersionReportResultModified> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:report', 'force:package:version:report'];
@@ -43,13 +43,11 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     verbose: Flags.boolean({
-      summary: messages.getMessage('verbose-description'),
-      description: messages.getMessage('verbose-description-long'),
+      summary: messages.getMessage('flags.verbose.summary'),
     }),
   };
   protected haveCodeCoverageData = false;

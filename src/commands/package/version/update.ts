@@ -20,7 +20,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:update', 'force:package:version:update'];
@@ -31,40 +31,34 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     'version-name': Flags.string({
       aliases: ['versionname'],
       deprecateAliases: true,
       char: 'a',
-      summary: messages.getMessage('version-name'),
-      description: messages.getMessage('version-name-long'),
+      summary: messages.getMessage('flags.version-name.summary'),
     }),
     'version-description': Flags.string({
       aliases: ['versiondescription'],
       deprecateAliases: true,
       char: 'e',
-      summary: messages.getMessage('version-description'),
-      description: messages.getMessage('version-description-long'),
+      summary: messages.getMessage('flags.version-description.summary'),
     }),
     branch: Flags.string({
       char: 'b',
-      summary: messages.getMessage('branch'),
-      description: messages.getMessage('branchLong'),
+      summary: messages.getMessage('flags.branch.summary'),
     }),
     tag: Flags.string({
       char: 't',
-      summary: messages.getMessage('tag'),
-      description: messages.getMessage('tagLong'),
+      summary: messages.getMessage('flags.tag.summary'),
     }),
     'installation-key': Flags.string({
       aliases: ['installationkey'],
       deprecateAliases: true,
       char: 'k',
-      summary: messages.getMessage('installation-key'),
-      description: messages.getMessage('installation-key-long'),
+      summary: messages.getMessage('flags.installation-key.summary'),
     }),
   };
 

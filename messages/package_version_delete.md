@@ -1,6 +1,9 @@
 # summary
 
-delete a package version
+Delete a package version.
+
+# description
+
 Specify the ID or alias of the package version you want to delete.
 
 # examples
@@ -8,25 +11,17 @@ Specify the ID or alias of the package version you want to delete.
 $ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
 $ <%= config.bin %> <%= command.id %> -p 04t...
 
-# package
+# flags.package.summary
 
-ID (starts with 04t) or alias of the package to update a version of
+ID (starts with 04t) or alias of the package version to delete.
 
-# package-long
-
-The ID (starts with 04t) or alias of the package version to delete.
-
-# undelete
-
-undelete a deleted package version
-
-# undelete-long
+# flags.undelete.summary
 
 Undelete a deleted package version.
 
-# no-prompt
+# flags.no-prompt.summary
 
-don’t prompt before deleting the package version
+Don’t prompt before deleting the package version.
 
 # prompt-delete
 

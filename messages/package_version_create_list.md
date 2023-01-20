@@ -1,20 +1,18 @@
 # summary
 
-list package version creation requests
+List package version creation requests.
+
+# description
 
 Shows the details of each request to create a package version in the Dev Hub org.
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-To get information about a specific request, run "<%= config.bin %> package:version:create:report" and supply the request ID.
+To get information about a specific request, run "<%= config.bin %> package version create report" and supply the request ID.
 
-# status-description
+# flags.status.summary
 
-filter the list by version creation request status
-
-# status-description-long
-
-Filters the list based on the status of version creation requests.
+Status of the version creation request, used to filter the list.
 
 # examples
 

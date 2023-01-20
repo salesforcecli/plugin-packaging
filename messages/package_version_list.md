@@ -1,52 +1,32 @@
 # summary
 
-list all package versions in the Dev Hub org.
+List all package versions in the Dev Hub org.
 
-Displays details of each package version in the org.
+# description
 
-Use --concise or --verbose to display limited or additional details, respectively.
+The command displays details of each package version in the org. Use --concise or --verbose to display limited or additional details, respectively.
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-# conciseDescription
+# flags.concise.summary
 
-display limited package version details
+Display limited package version details.
 
-# conciseLongDescription
+# flags.packages.summary
 
-Displays limited package version details.
+Comma-delimited list of packages (aliases or 0Ho IDs) to list.
 
-# packagesDescription
+# flags.released.summary
 
-filter results on specified comma-delimited packages (aliases or 0Ho IDs)
+Display released versions only (IsReleased=true).
 
-# packagesLongDescription
+# flags.order-by.summary
 
-Filters results on the specified comma-delimited packages (aliases or 0Ho IDs).
+Package version fields used to order the list.
 
-# releasedDescription
+# flags.verbose.summary
 
-display released versions only
-
-# releasedLongDescription
-
-Displays released versions only (IsReleased=true).
-
-# order-by-description
-
-order by the specified package version fields
-
-# order-by-description-long
-
-Orders the list by the specified package version fields.
-
-# verbose-description
-
-display extended package version details
-
-# verbose-description-long
-
-Displays extended package version details.
+Display extended package version details.
 
 # examples
 

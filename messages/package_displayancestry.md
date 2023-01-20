@@ -1,6 +1,6 @@
 # summary
 
-display the ancestry tree for a 2GP managed package version
+Display the ancestry tree for a 2GP managed package version.
 
 # examples
 
@@ -9,27 +9,22 @@ $ <%= config.bin %> <%= command.id %> -p package_version_alias --dot-code
 $ <%= config.bin %> <%= command.id %> -p OHo...
 $ <%= config.bin %> <%= command.id %> -p 04t...
 
-# package
+# flags.package.summary
 
-ID or alias of the package (starts with 0Ho) or package version (starts with 04t) to display ancestry for
+ID or alias of the package (starts with 0Ho) or package version (starts with 04t) to display ancestry for.
 
-# package-long
+# flags.package.description
 
-The ID or alias of the package or package version to display ancestry for. If you specify a package ID (starts with 0Ho) or alias, the ancestor tree for every package version associated with the package ID is displayed.
-If you specify a package version (starts with 04t) or alias, the ancestry tree of the specified package version is displayed.
+If you specify a package ID (starts with 0Ho) or alias, the ancestor tree for every package version associated with the package ID is displayed. If you specify a package version (starts with 04t) or alias, the ancestry tree of the specified package version is displayed.
 
-# dotcode
+# flags.dot-code.summary
 
-display the ancestry tree in DOT code
+Display the ancestry tree in DOT code.
 
-# dotcode-long
+# flags.dot-code.description
 
-Displays the ancestry tree in DOT code. You can use the DOT code output in graph visualization software to create tree visualizations.
+You can use the DOT code output in graph visualization software to create tree visualizations.
 
-# verbose
+# flags.verbose.summary
 
-display both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree
-
-# verbose-long
-
-Displays both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.
+Display both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.

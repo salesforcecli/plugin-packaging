@@ -20,7 +20,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:promote', 'force:package:version:promote'];
   public static readonly examples = messages.getMessages('examples');
@@ -31,16 +31,14 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     'no-prompt': Flags.boolean({
       char: 'n',
       deprecateAliases: true,
       aliases: ['noprompt'],
-      summary: messages.getMessage('no-prompt'),
-      description: messages.getMessage('no-prompt-long'),
+      summary: messages.getMessage('flags.no-prompt.summary'),
     }),
   };
 

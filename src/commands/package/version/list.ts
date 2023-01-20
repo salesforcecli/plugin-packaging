@@ -58,7 +58,7 @@ export type PackageVersionListCommandResult = PackageVersionListDetails[];
 
 export class PackageVersionListCommand extends SfCommand<PackageVersionListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:list', 'force:package:version:list'];
@@ -70,41 +70,34 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       char: 'c',
       deprecateAliases: true,
       aliases: ['createdlastdays'],
-      summary: packaging.getMessage('created-last-days-description'),
-      description: packaging.getMessage('created-last-days-description-long'),
+      summary: packaging.getMessage('flags.created-last-days.summary'),
     }),
     concise: Flags.boolean({
-      summary: messages.getMessage('conciseDescription'),
-      description: messages.getMessage('conciseLongDescription'),
+      summary: messages.getMessage('flags.concise.summary'),
     }),
     'modified-last-days': Flags.integer({
       char: 'm',
       deprecateAliases: true,
       aliases: ['modifiedlastdays'],
-      summary: packaging.getMessage('modified-last-days-description'),
-      description: packaging.getMessage('modified-last-days-description-long'),
+      summary: packaging.getMessage('flags.modified-last-days.summary'),
     }),
     packages: Flags.string({
       char: 'p',
-      summary: messages.getMessage('packagesDescription'),
-      description: messages.getMessage('packagesLongDescription'),
+      summary: messages.getMessage('flags.packages.summary'),
     }),
     released: Flags.boolean({
       char: 'r',
-      summary: messages.getMessage('releasedDescription'),
-      description: messages.getMessage('releasedLongDescription'),
+      summary: messages.getMessage('flags.released.summary'),
     }),
     'order-by': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       deprecateAliases: true,
       aliases: ['orderby'],
-      summary: messages.getMessage('order-by-description'),
-      description: messages.getMessage('order-by-description-long'),
+      summary: messages.getMessage('flags.order-by.summary'),
     }),
     verbose: Flags.boolean({
-      summary: messages.getMessage('verbose-description'),
-      description: messages.getMessage('verbose-description-long'),
+      summary: messages.getMessage('flags.verbose.summary'),
     }),
   };
 
