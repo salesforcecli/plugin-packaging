@@ -72,7 +72,7 @@ describe('package:uninstall', () => {
     expect(result.Status).to.equal('InProgress');
     expect(logStub.callCount).to.equal(1);
     expect(logStub.firstCall.args[0]).to.deep.equal(
-      `PackageUninstallRequest is currently InProgress.${os.EOL}You can continue to query the status using sfdx package:uninstall:report -i 06y23000000002MXXX -o ${testOrg.username}`
+      `PackageUninstallRequest is currently InProgress.${os.EOL}You can continue to query the status using sfdx package uninstall report -i 06y23000000002MXXX -o ${testOrg.username}`
     );
   });
 
