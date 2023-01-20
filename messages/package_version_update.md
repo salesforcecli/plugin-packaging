@@ -10,9 +10,17 @@ To display details about a package version, run "<%= config.bin %> package versi
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -k password123
-$ <%= config.bin %> <%= command.id %> -p 04t... -b main -t 'Release 1.0.7'
-$ <%= config.bin %> <%= command.id %> -p 04t... -e "New Package Version Description"
+- Update the package version that has the specified alias (that contains spaces) with a new installation key "password123"; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123
+
+- Update the package version that has the specified ID with a new branch and tag; use the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --package 04t... --branch main --tag 'Release 1.0.7' --target-hub-org devhub@example.com
+
+- Update the package version that has the specified ID with a new description:
+
+  <%= config.bin %> <%= command.id %> --package 04t... --version-description "New Package Version Description"
 
 # flags.package.summary
 

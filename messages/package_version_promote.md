@@ -8,9 +8,17 @@ Supply the ID or alias of the package version you want to promote. Promotes the 
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p 04t...
-$ <%= config.bin %> <%= command.id %> -p awesome_package_alias
-$ <%= config.bin %> <%= command.id %> -p "Awesome Package Alias"
+- Promote the package version with the specified ID to released; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 04t...
+
+- Promote the package version with the specified alias to released; uses the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias --target-hub-org devhub@example.com
+
+- Promote the package version with an alias that has spaces to released:
+
+  <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
 
 # flags.package.summary
 

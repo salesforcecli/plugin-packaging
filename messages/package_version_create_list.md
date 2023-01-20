@@ -16,11 +16,25 @@ Status of the version creation request, used to filter the list.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %>
-$ <%= config.bin %> <%= command.id %> --created-last-days 3
-$ <%= config.bin %> <%= command.id %> --status Error
-$ <%= config.bin %> <%= command.id %> -s InProgress
-$ <%= config.bin %> <%= command.id %> -c 3 -s Success
+- List all package version creation requests in your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %>
+
+- List package version creation requests from the last 3 days in the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-hub-org
+
+- List package version creation requests with status Error:
+
+  <%= config.bin %> <%= command.id %> --status Error
+
+- List package version creation requests with status InProgress:
+
+  <%= config.bin %> <%= command.id %> --status InProgress
+
+- List package version creation requests with status Success that were created today:
+
+  <%= config.bin %> <%= command.id %> --created-last-days 0 --status Success
 
 # id
 
