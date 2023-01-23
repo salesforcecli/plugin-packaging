@@ -938,11 +938,11 @@
     "@oclif/core" "^2.0.3"
 
 "@oclif/plugin-warn-if-update-available@^2.0.14":
-  version "2.0.20"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-warn-if-update-available/-/plugin-warn-if-update-available-2.0.20.tgz#095f6df60e367d620ff8836d61dd752e08865205"
-  integrity sha512-vbPeT6dIGy28yZZ1ey/+c47iBUTNwnrs9mOEEgek9ZWtx0OszVWlP5XYiaoypnStbkXzVA96Bty8aKdi2zhOaA==
+  version "2.0.21"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-warn-if-update-available/-/plugin-warn-if-update-available-2.0.21.tgz#ffc95180f081eedc6e65838d6d2de7cc0c2902b3"
+  integrity sha512-WWZS6lAUYx/eqidZyYXuUP61wGVCIZ4MwV/+C231TkZmMwkEMoWJVCskjNyIjpdNNf5fZQu+an5vjQqH9ibUGA==
   dependencies:
-    "@oclif/core" "^1.25.0"
+    "@oclif/core" "^2.0.3"
     chalk "^4.1.0"
     debug "^4.1.0"
     fs-extra "^9.0.1"
@@ -2094,9 +2094,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-sdk@^2.1231.0:
-  version "2.1299.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1299.0.tgz#493254104af5b9aaee0d7cd9150611d137e4f205"
-  integrity sha512-xTh6pmCUEJljkFfTM3sE8UozDxal80uX/5WZl8GcjQ+NbrGeQEdvL6wFWBwEEVbhR0VBVuU37cKPuQlfENbRYA==
+  version "2.1300.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1300.0.tgz#40190f3ccea8693c3764edab7aa5bd26db350fa7"
+  integrity sha512-1pz/+Kot+kTiH0WDH5A8Ao06dwz73xX6oCIpTbGTt/AKdmGTC8aAkMbk+KXoQatJSsQyqqxrtWIeKIQUaeUYDw==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -3470,9 +3470,9 @@ eslint-plugin-prefer-arrow@^1.2.1:
   integrity sha512-J9I5PKCOJretVuiZRGvPQxCbllxGAV/viI20JO3LYblAodofBxyMnZAJ+WGeClHgANnSJberTNoFWWjrWKBuXQ==
 
 eslint-plugin-sf-plugin@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.6.3.tgz#ed0a3da86901abbca13d8674ddea9669d388d409"
-  integrity sha512-ExtwCAl97Jy6XZ+z4gL9NQUmFQffXPNBQmdapBotrhZ0YpOi2E8Kek+aFPhOPO8gd1GnTYJd/AspxVnqeV+fuw==
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.7.0.tgz#c77e89b7c98bdb174ea084f0d537b88f04158fea"
+  integrity sha512-Pl1Qgk4KPyOkns7K0kJOL2cDs4dxiT8kQQAiq+omwAnvU8nyB7hDR0MBaFzy3qhFp9anzQ6Mo0aBdcYQ4z4njQ==
   dependencies:
     "@typescript-eslint/utils" "^5.48.1"
 
