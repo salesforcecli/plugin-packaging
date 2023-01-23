@@ -1,3 +1,9 @@
+## [1.12.3](https://github.com/salesforcecli/plugin-packaging/compare/1.12.2...1.12.3) (2023-01-18)
+
+### Bug Fixes
+
+- bump pkg library version and modify language flag description ([b974b9e](https://github.com/salesforcecli/plugin-packaging/commit/b974b9e05f9f984b97fa6dcaefd1ae0c29ed2655))
+
 ## [1.12.2](https://github.com/salesforcecli/plugin-packaging/compare/1.12.1...1.12.2) (2023-01-09)
 
 ### Bug Fixes
