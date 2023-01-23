@@ -35,7 +35,7 @@ const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mi
 
 export class Install extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:install', 'force:package:install'];
@@ -46,45 +46,41 @@ export class Install extends SfCommand<PackageInstallRequest> {
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
-      summary: messages.getMessage('wait'),
-      description: messages.getMessage('wait-long'),
+      summary: messages.getMessage('flags.wait.summary'),
       default: Duration.minutes(0),
     }),
     'installation-key': Flags.string({
       char: 'k',
       deprecateAliases: true,
       aliases: ['installationkey'],
-      summary: messages.getMessage('installation-key'),
-      description: messages.getMessage('installation-key-long'),
+      summary: messages.getMessage('flags.installation-key.summary'),
     }),
     'publish-wait': Flags.duration({
       unit: 'minutes',
       char: 'b',
       deprecateAliases: true,
       aliases: ['publishwait'],
-      summary: messages.getMessage('publish-wait'),
-      description: messages.getMessage('publish-wait-long'),
+      summary: messages.getMessage('flags.publish-wait.summary'),
       default: Duration.minutes(0),
     }),
     'no-prompt': Flags.boolean({
       char: 'r',
       deprecateAliases: true,
       aliases: ['noprompt'],
-      summary: messages.getMessage('no-prompt'),
-      description: messages.getMessage('no-prompt-long'),
+      summary: messages.getMessage('flags.no-prompt.summary'),
+      description: messages.getMessage('flags.no-prompt.description'),
     }),
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     'apex-compile': Flags.enum({
       char: 'a',
       deprecateAliases: true,
       aliases: ['apexcompile'],
-      summary: messages.getMessage('apexCompile'),
-      description: messages.getMessage('apexCompileLong'),
+      summary: messages.getMessage('flags.apex-compile.summary'),
+      description: messages.getMessage('flags.apex-compile.description'),
       default: 'all',
       options: ['all', 'package'],
     }),
@@ -92,8 +88,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       char: 's',
       deprecateAliases: true,
       aliases: ['securitytype'],
-      summary: messages.getMessage('security-type'),
-      description: messages.getMessage('security-type-long'),
+      summary: messages.getMessage('flags.security-type.summary'),
       default: 'AdminsOnly',
       options: ['AllUsers', 'AdminsOnly'],
     }),
@@ -101,8 +96,8 @@ export class Install extends SfCommand<PackageInstallRequest> {
       char: 't',
       deprecateAliases: true,
       aliases: ['upgradetype'],
-      summary: messages.getMessage('upgradeType'),
-      description: messages.getMessage('upgradeTypeLong'),
+      summary: messages.getMessage('flags.upgrade-type.summary'),
+      description: messages.getMessage('flags.upgrade-type.description'),
       default: 'Mixed',
       options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),

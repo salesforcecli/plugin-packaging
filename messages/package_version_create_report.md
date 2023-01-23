@@ -1,23 +1,26 @@
 # summary
 
-retrieve details about a package version creation request
+Retrieve details about a package version creation request.
+
+# description
 
 Specify the request ID for which you want to view details. If applicable, the command displays errors related to the request.
 
-To show all requests in the org, run "<%= config.bin %> <%= command.id %>".
+To show all requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -i 08c...
-$ <%= config.bin %> <%= command.id %> -i 08c... -v devhub@example.com
+- Retrieve details about the package version creation request with the specified ID; uses your default Dev Hub org:
 
-# request-id
+  <%= config.bin %> <%= command.id %> --package-create-request-id 08c...
 
-package version creation request ID (starts with 08c)
+- Retrieve details about the specified package version creation request in the Dev Hub org with username devhub@example.com:
 
-# request-id-long
+  <%= config.bin %> <%= command.id %> --package-create-request-id 08c... --target-hub-org devhub@example.com
 
-The ID (starts with 08c) of the package version creation request you want to display.
+# flags.package-create-request-id.summary
+
+ID (starts with 08c) of the package version creation request you want to display.
 
 # truncatedErrors
 

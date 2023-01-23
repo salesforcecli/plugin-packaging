@@ -1,84 +1,68 @@
 # summary
 
-create a first-generation package version in the release org
-The package version is based on the contents of the specified metadata package. Omit -m if you want to create an unmanaged package version.
-
-# examples
-
-$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example
-$ <%= config.bin %> <%= command.id %> --packageid 03346000000MrC0XXX --name example --description "example description" --wait 30
-
-# id
-
-ID of the metadata package (starts with 033) of which you’re creating a new version
-
-# id-long
-
-ID of the metadata package (starts with 033) of which you’re creating a new version.
-
-# name
-
-package version name
-
-# name-long
-
-Package version name.
+Create a first-generation package version in the release org.
 
 # description
 
-package version description
+The package version is based on the contents of the specified metadata package. Omit --managed-released if you want to create an unmanaged package version.
 
-# description-long
+# examples
+
+- Create a first-generation package version from the package with the specified ID and name the package version "example"; use your default org:
+
+  <%= config.bin %> <%= command.id %> --package-id 033... --name example
+
+- Same as previous example, but provide a description and wait for 30 minutes for the package version to be created; use the specified org:
+
+  <%= config.bin %> <%= command.id %> --package-id 033... --name example --description "example description" --wait 30 --target-org myorg@example.com
+
+# flags.package-id.summary
+
+ID of the metadata package (starts with 033) of which you’re creating a new version.
+
+# flags.name.summary
+
+Package version name.
+
+# flags.description.summary
 
 Package version description.
 
-# version
-
-package version in major.minor format, for example, 3.2
-
-# version-long
+# flags.version.summary
 
 Package version in major.minor format, for example, 3.2.
 
-# release-notes
+# flags.release-notes-url.summary
 
-release notes URL
+Release notes URL.
 
-# release-notes-long
+# flags.release-notes-url.description
 
-The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
+This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
 
-# post-install
+# flags.post-install-url.summary
 
-post install URL
+Post install URL.
 
-# post-install-long
+# flags.post-install-url.description
 
-The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
+The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
 
-# managed-release
+# flags.managed-release.summary
 
-create a managed package version
+Create a managed package version.
 
-# managed-release-long
+# flags.managed-release.description
 
-Creates a managed package version. To create a beta version, don’t include this parameter.
+To create a beta version, don’t include this parameter.
 
-# installation-key
+# flags.installation-key.summary
 
-installation key for key-protected package (default: null)
+Installation key for key-protected package (default: null).
 
-# installation-key-long
+# flags.wait.summary
 
-Installation key for creating the key-protected package. The default is null.
-
-# wait
-
-minutes to wait for the package version to be created (default: 2 minutes)
-
-# wait-long
-
-Minutes to wait for the package version to be created. The default is 2 minutes.
+Minutes to wait for the package version to be created (default: 2 minutes).
 
 # uploadFailure
 

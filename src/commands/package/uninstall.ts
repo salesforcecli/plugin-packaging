@@ -23,7 +23,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageUninstallCommand extends SfCommand<UninstallResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:uninstall', 'force:package:uninstall'];
@@ -34,14 +34,12 @@ export class PackageUninstallCommand extends SfCommand<UninstallResult> {
     wait: Flags.duration({
       unit: 'minutes',
       char: 'w',
-      summary: messages.getMessage('wait'),
-      description: messages.getMessage('wait-long'),
+      summary: messages.getMessage('flags.wait.summary'),
       default: Duration.minutes(0),
     }),
     package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('package'),
-      description: messages.getMessage('package-long'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
   };

@@ -1,6 +1,8 @@
 # summary
 
-delete a package
+Delete a package.
+
+# description
 
 Specify the ID or alias of the package you want to delete.
 
@@ -8,30 +10,23 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
-$ <%= config.bin %> <%= command.id %> -p 0Ho...
+- Delete a package using its alias from your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
 
-ID (starts with 0Ho) or alias of the package to delete
+- Delete a package using its ID from the specified Dev Hub org:
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package 0Ho... --target-hub-org devhub@example.com
 
-The ID (starts with 0Ho) or alias of the package to delete.
+# flags.package.summary
 
-# undelete
+ID (starts with 0Ho) or alias of the package to delete.
 
-undelete a deleted package
-
-# undelete-long
+# flags.undelete.summary
 
 Undelete a deleted package.
 
-# no-prompt
-
-don’t prompt before deleting the package
-
-# no-prompt-long
+# flags.no-prompt.summary
 
 Don’t prompt before deleting the package.
 

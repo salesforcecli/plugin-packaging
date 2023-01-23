@@ -28,7 +28,7 @@ export type ReportCommandResult = PackageVersionCreateRequestResult[];
 
 export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:create:report', 'force:package:version:create:report'];
@@ -42,8 +42,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       deprecateAliases: true,
       aliases: ['packagecreaterequestid'],
       char: 'i',
-      summary: messages.getMessage('request-id'),
-      description: messages.getMessage('request-id-long'),
+      summary: messages.getMessage('flags.package-create-request-id.summary'),
       required: true,
     }),
   };

@@ -1,19 +1,20 @@
 # summary
 
-retrieve the status of a package version creation request
+Retrieve the status of a package version creation request.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -i 0HD...
-$ <%= config.bin %> <%= command.id %> -i 0HD... -o devhub@example.com
+- Get the status of the creation request for the package version with the specified ID in your default org:
 
-# requestId
+  <%= config.bin %> <%= command.id %> --request-id 0HD...
 
-PackageUploadRequest ID
+- Same as previous example, but use the specified org:
 
-# request-id-long
+  <%= config.bin %> <%= command.id %> --request-id 0HD... --target-org myorg@example.com
 
-The ID of the PackageUploadRequest.
+# flags.request-id.summary
+
+ID of the PackageUploadRequest (starts with 0HD).
 
 # IN_PROGRESS
 

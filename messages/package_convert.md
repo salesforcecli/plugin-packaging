@@ -1,6 +1,8 @@
 # summary
 
-creates a second-generation package version from a first-generation package
+Create a second-generation package version from a first-generation package.
+
+# description
 
 The package convert creates a new package in the Dev Hub if one does not already exist for the specified first-generation package.
 
@@ -8,63 +10,57 @@ It then creates a new package version in the Dev Hub with contents based on the 
 
 The latest released non-patch package version from the specified first-generation package will be converted.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
 We recommend specifying the --installation-key to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> --package 033xx0000004Gmn -k password123
+- Create a second-generation package version from the first-generation package with the specified ID and give it the installation key "password123"; uses your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123
 
-ID (starts with 033) of the first-generation package to convert
+- Similar to previous example, but uses the specified Dev Hub org:
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123 --target-hub-org devhuborg@example.com
 
-The ID (starts with 033) or alias of the package to convert.
+# flags.package.summary
 
-# key
+ID (starts with 033) of the first-generation package to convert.
 
-installation key for key-protected package (either --installation-key or --installation-key-bypass is required)
+# flags.installation-key.summary
 
-# key-long
+Installation key for key-protected package.
 
-Installation key for creating the key-protected package. Either an --installation-key value or the --installation-key-bypass flag is required.
+# flags.installation-key.description
 
-# key-bypass
+Either an --installation-key value or the --installation-key-bypass flag is required.
 
-bypass the installation key requirement (either --installation-key or --installation-key-bypass is required)
+# flags.installation-key-bypass.summary
 
-# key-bypass-long
+Bypass the installation key requirement.
 
-Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
+# flags.installation-key-bypass.description
 
-# definition-file
+If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
 
-path to a definition file that contains features and org preferences that the metadata of the package version depends on.
+# flags.definition-file.summary
 
-# definition-file-long
+Path to a definition file that contains features and org preferences that the metadata of the package version depends on.
 
-The path to a definition file, similar to the scratch org definition file, that contains the list of features and org preferences that the metadata of the package version depends on.
+# flags.definition-file.description
 
-# wait
+This definition file is similar to the scratch org definition file.
 
-minutes to wait for the package version to be created
+# flags.wait.summary
 
-# wait-long
+Minutes to wait for the package version to be created.
 
-The number of minutes to wait for the package version to be created.
+# flags.build-instance.summary
 
-# instance
-
-the instance where the conversion package version will be created——for example, NA50
-
-# instance-long
-
-The instance where the conversion package version will be created——for example, NA50.
+Instance where the conversion package version will be created, such as NA50.
 
 # in-progress
 

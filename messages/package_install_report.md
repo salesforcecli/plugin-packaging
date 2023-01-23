@@ -1,16 +1,17 @@
 # summary
 
-retrieve the status of a package installation request
+Retrieve the status of a package installation request.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -i 0Hf...
-$ <%= config.bin %> <%= command.id %> -i 0Hf... -o me@example.com
+- Retrieve the status of a package installation request with the specified ID on your default org:
 
-# request-id
+  <%= config.bin %> <%= command.id %> --request-id 0Hf...
 
-ID of the package install request you want to check
+- Similar to previous example, except use the org with username me@example.com:
 
-# request-id-long
+  <%= config.bin %> <%= command.id %> --request-id 0Hf... --target-org me@example.com
 
-The ID of the package install request you want to check.
+# flags.request-id.summary
+
+ID of the package install request you want to check; starts with 0Hf.

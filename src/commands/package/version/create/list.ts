@@ -24,7 +24,7 @@ export type CreateListCommandResult = PackageVersionCreateRequestResult[];
 
 export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
+  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:version:create:list', 'force:package:version:create:list'];
@@ -36,13 +36,11 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       char: 'c',
       deprecateAliases: true,
       aliases: ['createdlastdays'],
-      summary: packaging.getMessage('created-last-days-description'),
-      description: packaging.getMessage('created-last-days-description-long'),
+      summary: packaging.getMessage('flags.created-last-days.summary'),
     }),
     status: Flags.enum({
       char: 's',
-      summary: messages.getMessage('status-description'),
-      description: messages.getMessage('status-description-long'),
+      summary: messages.getMessage('flags.status.summary'),
       options: ['Queued', 'InProgress', 'Success', 'Error'],
     }),
   };

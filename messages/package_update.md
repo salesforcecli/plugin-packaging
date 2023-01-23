@@ -1,37 +1,32 @@
 # summary
 
-update package details
-
-Specify a new value for each option you want to update.
-
-Run "<%= config.bin %> package:list to list all packages in the Dev Hub org.
-
-# examples
-
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -n "New Package Name"
-$ <%= config.bin %> <%= command.id %> -p 0Ho... -d "New Package Description"
-
-# package
-
-ID (starts with 0Ho) or alias of the package to update
-
-# package-long
-
-The ID (starts with 0Ho) or alias of the package to update.
-
-# name
-
-new package name
-
-# name-long
-
-New name of the package.
+Update package details.
 
 # description
 
-new package description
+Specify a new value for each option you want to update.
 
-# description-long
+Run "<%= config.bin %> package list" to list all packages in the Dev Hub org.
+
+# examples
+
+- Update the name of the package with the specified alias; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --name "New Package Name"
+
+- Update the description of the package with the specified ID; uses the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --package 0Ho... --description "New Package Description" --target-hub-org devhub@example.com
+
+# flags.package.summary
+
+ID (starts with 0Ho) or alias of the package to update.
+
+# flags.name.summary
+
+New name of the package.
+
+# flags.description.summary
 
 New description of the package.
 

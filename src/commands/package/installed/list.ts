@@ -32,7 +32,6 @@ export type PackageInstalledCommandResult = PackageInstalledListResult[];
 
 export class PackageInstalledListCommand extends SfCommand<PackageInstalledCommandResult> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:installed:list', 'force:package:installed:list'];

@@ -20,7 +20,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1
 
 export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects.PackageUploadRequest> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:beta:version:create:get', 'force:package1:version:create:get'];
@@ -34,8 +33,7 @@ export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects
       deprecateAliases: true,
       aliases: ['requestid'],
       char: 'i',
-      summary: messages.getMessage('requestId'),
-      description: messages.getMessage('request-id-long'),
+      summary: messages.getMessage('flags.request-id.summary'),
       required: true,
     }),
   };

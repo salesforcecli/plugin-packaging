@@ -1,29 +1,28 @@
 # summary
 
-retrieve details about a package version in the Dev Hub org
+Retrieve details about a package version in the Dev Hub org.
 
-To update package version values, run "<%= config.bin %> package:version:update".
+# description
+
+To update package version values, run "<%= config.bin %> package version update".
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p 04t...
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
+- Retrieve details about the package version with the specified ID from your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package 04t...
 
-ID (starts with 04t) or alias of the package to retrieve details for
+- Retrieve details about the package version with the specified alias (that contains spaces) from the Dev Hub org with username devhub@example.com:
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --target-hub-org devhub@example.com
 
-The ID (starts with 04t) or alias of the package to retrieve details for.
+# flags.package.summary
 
-# verbose-description
+ID (starts with 04t) or alias of the package to retrieve details for.
 
-displays extended package version details
+# flags.verbose.summary
 
-# verbose-description-long
-
-Displays extended package version details.
+Display extended package version details.
 
 # dependencies
 

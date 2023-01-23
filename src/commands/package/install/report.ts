@@ -23,7 +23,6 @@ const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'packa
 
 export class Report extends SfCommand<PackageInstallRequest> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:install:report', 'force:package:install:report'];
@@ -39,8 +38,7 @@ export class Report extends SfCommand<PackageInstallRequest> {
       char: 'i',
       deprecateAliases: true,
       aliases: ['requestid'],
-      summary: messages.getMessage('request-id'),
-      description: messages.getMessage('request-id-long'),
+      summary: messages.getMessage('flags.request-id.summary'),
       required: true,
     }),
   };

@@ -1,32 +1,32 @@
 # summary
 
-delete a package version
+Delete a package version.
+
+# description
+
 Specify the ID or alias of the package version you want to delete.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias"
-$ <%= config.bin %> <%= command.id %> -p 04t...
+- Delete a package version with the specified alias using your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
 
-ID (starts with 04t) or alias of the package to update a version of
+- Delete a package version with the specified ID using the Dev Hub org with username "devhub@example.com":
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org devhub@example.com
 
-The ID (starts with 04t) or alias of the package version to delete.
+# flags.package.summary
 
-# undelete
+ID (starts with 04t) or alias of the package version to delete.
 
-undelete a deleted package version
-
-# undelete-long
+# flags.undelete.summary
 
 Undelete a deleted package version.
 
-# no-prompt
+# flags.no-prompt.summary
 
-don’t prompt before deleting the package version
+Don’t prompt before deleting the package version.
 
 # prompt-delete
 

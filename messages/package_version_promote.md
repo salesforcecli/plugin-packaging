@@ -1,22 +1,28 @@
 # summary
 
-promote a package version to released
+Promote a package version to released.
+
+# description
 
 Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -p 04t...
-$ <%= config.bin %> <%= command.id %> -p awesome_package_alias
-$ <%= config.bin %> <%= command.id %> -p "Awesome Package Alias"
+- Promote the package version with the specified ID to released; uses your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package 04t...
 
-ID (starts with 04t) or alias of the package version to promote
+- Promote the package version with the specified alias to released; uses the Dev Hub org with username devhub@example.com:
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias --target-hub-org devhub@example.com
 
-The ID (starts with 04t) or alias of the package version to promote.
+- Promote the package version with an alias that has spaces to released:
+
+  <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
+
+# flags.package.summary
+
+ID (starts with 04t) or alias of the package version to promote.
 
 # packageVersionPromoteConfirm
 
@@ -26,13 +32,9 @@ Are you sure you want to release package version %s? You can't undo this action.
 
 Promote operation denied
 
-# no-prompt
+# flags.no-prompt.summary
 
-no prompt to confirm setting the package version as released
-
-# no-prompt-long
-
-Do not prompt to confirm setting the package version as released.
+Don't prompt to confirm setting the package version as released.
 
 # humanSuccess
 

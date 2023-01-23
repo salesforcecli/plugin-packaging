@@ -1,13 +1,20 @@
 # summary
 
-list all packages in the Dev Hub org
+List all packages in the Dev Hub org.
+
+# description
 
 You can view the namespace, IDs, and other details for each package.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -v devhub@example.com
-$ <%= config.bin %> <%= command.id %> -v devhub@example.com --verbose
+- List all packages in the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com
+
+- List all packages details in the specified Dev Hub org, and show extended details about each package:
+
+  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com --verbose
 
 # namespace
 
@@ -37,13 +44,9 @@ Description
 
 Type
 
-# verbose-description
+# flags.verbose.summary
 
-display extended package detail
-
-# verbose-description-long
-
-Displays extended package details.
+Display extended package detail.
 
 # convertedFromPackageId
 

@@ -1,166 +1,123 @@
 # summary
 
-create a package version
+Create a package version in the Dev Hub org.
 
-# cliLongDescription
-
-Creates a package version in the Dev Hub org.
+# description
 
 The package version is based on the package contents in the specified directory.
 
-To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package:version:create:report -i 08c...".
+To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
 We recommend that you specify the --installation-key parameter to protect the contents of your package and to prevent unauthorized installation of your package.
 
-To list package version creation requests in the org, run "<%= config.bin %> package:version:create:list".
+To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 To promote a package version to released, you must use the --code-coverage parameter. The package must also meet the code coverage requirements. This requirement applies to both managed and unlocked packages.
 
 We don’t calculate code coverage for org-dependent unlocked packages, or for package versions that specify --skip-validation.
 
 # examples
 
-$ <%= config.bin %> <%= command.id %> -d common -k password123
-$ <%= config.bin %> <%= command.id %> -p "Your Package Alias" -k password123
-$ <%= config.bin %> <%= command.id %> -p 0Ho... -k password123
-$ <%= config.bin %> <%= command.id %> -d common -k password123 --skip-validation
+- Create a package version from the contents of the "common" directory and give it an installation key of "password123"; uses your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --path common --installation-key password123
 
-ID (starts with 0Ho) or alias of the package to create a version of
+- Create a package version from a package with the specified alias; uses the Dev Hub org with username devhub@example.com:
 
-# package-long
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123 --target-hub-org devhub@example.com
 
-The ID (starts with 0Ho) or alias of the package to create a version of.
+- Create a package version from a package with the specified ID:
 
-# path
+  <%= config.bin %> <%= command.id %> --package 0Ho... --installation-key password123
 
-path to directory that contains the contents of the package
+- Create a package version and skip the validation step:
 
-# path-long
+  <%= config.bin %> <%= command.id %> --path common --installation-key password123 --skip-validation
 
-The path to the directory that contains the contents of the package.
+# flags.package.summary
 
-# definition-file
+ID (starts with 0Ho) or alias of the package to create a version of.
 
-path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on
+# flags.path.summary
 
-# definition-file-long
+Path to the directory that contains the contents of the package.
 
-The path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
+# flags.definition-file.summary
 
-# branch
+Path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
 
-the package version’s branch
-
-# branch-long
+# flags.branch.summary
 
 Name of the branch in your source control system that the package version is based on.
 
-# tag
+# flags.tag.summary
 
-the package version’s tag
+Package version’s tag.
 
-# tag-long
+# flags.installation-key.summary
 
-The package version’s tag.
+Installation key for key-protected package. (either --installation-key or --installation-key-bypass is required)
 
-# installation-key
+# flags.installation-key-bypass.summary
 
-installation key for key-protected package (either --installation-key or --installation-key-bypass is required)
+Bypass the installation key requirement. (either --installation-key or --installation-key-bypass is required)
 
-# installation-key-long
+# flags.installation-key-bypass.description
 
-Installation key for creating the key-protected package. Either an --installation-key value or the --installation-key-bypass flag is required.
+If you bypass this requirement, anyone can install your package.
 
-# installation-key-bypass
+# flags.preserve.summary
 
-bypass the installation key requirement (either --installation-key or --installation-key-bypass is required)
+Preserve temp files that would otherwise be deleted.
 
-# installation-key-bypass-long
+# flags.validate-schema.summary
 
-Bypasses the installation key requirement. If you bypass this requirement, anyone can install your package. Either an --installation-key value or the --installation-key-bypass flag is required.
-
-# preserve
-
-temp files are preserved that would otherwise be deleted
-
-# preserve-long
-
-Specifies that the temp files are preserved that would otherwise be deleted
-
-# validate-schema
-
-sfdx-project.json is validated against JSON schema
-
-# validate-schema-long
-
-Specifies that the sfdx-project.json file should be validated against JSON schema.
+Validate the sfdx-project.json file against the JSON schema.
 
 # tempFileLocation
 
 The temp files are located at: %s.
 
-# wait
+# flags.wait.summary
 
-minutes to wait for the package version to be created
+Number of minutes to wait for the package version to be created.
 
-# wait-long
+# flags.build-instance.summary
 
-The number of minutes to wait for the package version to be created.
+Instance where the package version will be created, such as NA50.
 
-# instance
+# flags.version-name.summary
 
-the instance where the package version will be created——for example, NA50
+Name of the package version to be created; overrides the sfdx-project.json value.
 
-# instance-long
+# flags.version-number.summary
 
-The instance where the package version will be created——for example, NA50.
+Version number of the package version to be created; overrides the sfdx-project.json value.
 
-# version-name
+# flags.version-description.summary
 
-the name of the package version to be created
+Description of the package version to be created; overrides the sfdx-project.json value.
 
-# version-name-long
+# flags.code-coverage.summary
 
-The name of the package version to be created. Overrides the sfdx-project.json value.
+Calculate and store the code coverage percentage by running the packaged Apex tests included in this package version.
 
-# version-number
+# flags.code-coverage.description
 
-the version number of the package version to be created
+Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skip-validation.
 
-# version-number-long
+# flags.releasenotes-url.summary
 
-The version number of the package version to be created. Overrides the sfdx-project.json value.
+Release notes URL.
 
-# version-description
+# flags.releasenotes-url.description
 
-the description of the package version to be created
+This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
 
-# version-description-long
+# flags.skip-validation.summary
 
-The description of the package version to be created. Overrides the sfdx-project.json value.
+Skip validation during package version creation; you can’t promote unvalidated package versions.
 
-# code-coverage
-
-calculate the code coverage by running the packaged Apex tests
-
-# code-coverage-long
-
-Calculate and store the code coverage percentage by running the Apex tests included in this package version. Before you can promote and release a managed or unlocked package version, the Apex code must meet a minimum 75% code coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions that specify --skip-validation.
-
-# release-notes-url
-
-release notes URL
-
-# release-notes-url-long
-
-The release notes URL. This link is displayed in the package installation UI to provide release notes for this package version to subscribers.
-
-# skip-validation
-
-skip validation during package version creation; you can’t promote unvalidated package versions
-
-# skip-validation-long
+# flags.skip-validation.description
 
 Skips validation of dependencies, package ancestors, and metadata during package version creation. Skipping validation reduces the time it takes to create a new package version, but you can promote only validated package versions. Skipping validation can suppress important errors that can surface at a later stage. You can specify skip validation or code coverage, but not both. Code coverage is calculated during validation.
 
@@ -168,47 +125,41 @@ Skips validation of dependencies, package ancestors, and metadata during package
 
 Skipping validation suppresses errors that usually surface during package version creation. Instead, these errors surface at a later stage, such as installation or post-installation. If you encounter errors that are difficult to debug, retry package version creation without the --skip-validation parameter.
 
-# skip-ancestor-check
+# flags.skip-ancestor-check.summary
 
-Overrides ancestry requirements.
+Overrides ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
 
-# skip-ancestor-check-long
+# flags.post-install-url.summary
 
-Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
+Post-install instructions URL.
 
-# post-install-url
+# flags.post-install-url.description
 
-post-install URL
+The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
 
-# post-install-url-long
+# flags.post-install-script.summary
 
-The post-install instructions URL. The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
+Name of the post-install script; applies to managed packages only.
 
-# post-install-script
+# flags.post-install-script.description
 
-post-install script name; managed packages only
+The post-install script is an Apex class within this package that is run in the installing org after installations or upgrades of this package version.
 
-# post-install-script-long
+# flags.uninstall-script.summary
 
-Applies to managed packages only. The post-install script name. The post-install script is an Apex class within this package that is run in the installing org after installations or upgrades of this package version.
+Uninstall script name; applies to managed packages only.
 
-# uninstall-script
+# flags.uninstall-script.description
 
-uninstall script name; managed packages only
+The uninstall script is an Apex class within this package that is run in the installing org after uninstallations of this package.
 
-# uninstall-script-long
+# flags.language.summary
 
-Applies to managed packages only. The uninstall script name. The uninstall script is an Apex class within this package that is run in the installing org after uninstallations of this package.
+Language for the package.
 
-# language
+# flags.language.description
 
-The language for the package.
-
-# language-long
-
-The language for the package. Specify the language using a language code listed under "Supported Languages" in Salesforce Help.
-
-If no language is specified, the language defaults to the language of the Dev Hub user who created the package.
+Specify the language using a language code listed under "Supported Languages" in Salesforce Help. If no language is specified, the language defaults to the language of the Dev Hub user who created the package.
 
 # InProgress
 

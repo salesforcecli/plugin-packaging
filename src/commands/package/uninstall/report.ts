@@ -20,7 +20,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.SubscriberPackageVersionUninstallRequest> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:beta:uninstall:report', 'force:package:uninstall:report'];
@@ -34,8 +33,7 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
       deprecateAliases: true,
       aliases: ['requestid'],
       char: 'i',
-      summary: messages.getMessage('request-id'),
-      description: messages.getMessage('request-id-long'),
+      summary: messages.getMessage('flags.request-id.summary'),
       required: true,
       startsWith: '06y',
     }),
