@@ -49,6 +49,7 @@
       "json",
       "loglevel",
       "package",
+      "seedmetadata",
       "targetdevhubusername",
       "wait"
     ],

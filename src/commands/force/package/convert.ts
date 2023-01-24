@@ -66,6 +66,11 @@ export class PackageConvert extends SfdxCommand {
       longDescription: messages.getMessage('longInstance'),
       hidden: true,
     }),
+    seedmetadata: flags.directory({
+      char: 'm',
+      description: messages.getMessage('seedMetadata'),
+      longDescription: messages.getMessage('longSeedMetadata'),
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
@@ -102,6 +107,7 @@ export class PackageConvert extends SfdxCommand {
         definitionfile: this.flags.definitionfile as string,
         installationKeyBypass: this.flags.installationkeybypass as boolean,
         buildInstance: this.flags.buildinstance as string,
+        seedMetadata: this.flags.seedmetadata as string,
       },
       project
     );
