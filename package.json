@@ -98,19 +98,20 @@
             "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
             "subtopics": {
               "version": {
-                "description": "first-generation manage package versions",
-                "longDescription": "Use the package version commands to first-generation manage package versions.",
+                "description": "manage first-generation package versions",
+                "longDescription": "Use the package1 version commands to manage first-generation package versions.",
                 "subtopics": {
                   "create": {
-                    "description": "create package versions",
-                    "longDescription": "Use the package version list command to list package versions."
+                    "description": "create first-generation package versions",
+                    "longDescription": "Use the package1 version create command to create first-generation package versions."
                   },
                   "display": {
-                    "description": "display package versions",
-                    "longDescription": "Use the package version list command to list package versions."
+                    "description": "display first-generation package versions",
+                    "longDescription": "Use the package1 version display command to display first-generation package version information."
                   },
                   "list": {
-                    "description": "list package versions"
+                    "description": "list first-generation package versions",
+                    "longDescription": "Use the package1 version list command to list first-generation package versions."
                   }
                 }
               }
@@ -130,9 +131,13 @@
                 "subtopics": {
                   "create": {
                     "description": "create package versions",
-                    "longDescription": "Use the package version list command to list package versions."
+                    "longDescription": "Use the package version create command to create package versions."
                   }
                 }
+              },
+              "installed": {
+                "description": "list installed packages",
+                "longDescription": "Use the package installed commands to list installed packages."
               },
               "uninstall": {
                 "description": "uninstall packages",
