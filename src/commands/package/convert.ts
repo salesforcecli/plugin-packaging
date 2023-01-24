@@ -82,6 +82,11 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       summary: messages.getMessage('flags.build-instance.summary'),
       hidden: true,
     }),
+    'seed-metadata': Flags.directory({
+      char: 'm',
+      summary: messages.getMessage('flags.seed-metadata.summary'),
+      description: messages.getMessage('flags.seed-metadata.description'),
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
@@ -117,6 +122,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         definitionfile: flags['definition-file'] as string,
         installationKeyBypass: flags['installation-key-bypass'],
         buildInstance: flags['build-instance'] as string,
+        seedMetadata: flags['seed-metadata'] as string,
       },
       project
     );
