@@ -1,28 +1,40 @@
-# cliDescription
+# summary
 
-list package version creation requests
+List package version creation requests.
+
+# description
 
 Shows the details of each request to create a package version in the Dev Hub org.
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-To get information about a specific request, run "sfdx force:package:version:create:report" and supply the request ID.
+To get information about a specific request, run "<%= config.bin %> package version create report" and supply the request ID.
 
-# statusDescription
+# flags.status.summary
 
-filter the list by version creation request status
-
-# statusLongDescription
-
-Filters the list based on the status of version creation requests.
+Status of the version creation request, used to filter the list.
 
 # examples
 
-$ sfdx force:package:version:create:list
-$ sfdx force:package:version:create:list --createdlastdays 3
-$ sfdx force:package:version:create:list --status Error
-$ sfdx force:package:version:create:list -s InProgress
-$ sfdx force:package:version:create:list -c 3 -s Success
+- List all package version creation requests in your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %>
+
+- List package version creation requests from the last 3 days in the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-hub-org
+
+- List package version creation requests with status Error:
+
+  <%= config.bin %> <%= command.id %> --status Error
+
+- List package version creation requests with status InProgress:
+
+  <%= config.bin %> <%= command.id %> --status InProgress
+
+- List package version creation requests with status Success that were created today:
+
+  <%= config.bin %> <%= command.id %> --created-last-days 0 --status Success
 
 # id
 
@@ -32,7 +44,7 @@ ID
 
 Status
 
-# packageId
+# package-id
 
 Package Id
 

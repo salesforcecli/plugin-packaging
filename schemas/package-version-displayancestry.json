@@ -1,0 +1,61 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/DisplayAncestryCommandResult",
+  "definitions": {
+    "DisplayAncestryCommandResult": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PackageAncestryNodeData"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "PackageAncestryNodeData": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PackageAncestryNodeOptions"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackageAncestryNodeData"
+          }
+        }
+      },
+      "required": ["data", "children"],
+      "additionalProperties": false
+    },
+    "PackageAncestryNodeOptions": {
+      "type": "object",
+      "properties": {
+        "AncestorId": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionId": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": ["string", "number"]
+        },
+        "MinorVersion": {
+          "type": ["string", "number"]
+        },
+        "PatchVersion": {
+          "type": ["string", "number"]
+        },
+        "BuildNumber": {
+          "type": ["string", "number"]
+        },
+        "depthCounter": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}

@@ -1,6 +1,8 @@
-# cliDescription
+# summary
 
-delete a package
+Delete a package.
+
+# description
 
 Specify the ID or alias of the package you want to delete.
 
@@ -8,46 +10,39 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 # examples
 
-$ sfdx force:package:delete -p "Your Package Alias"
-$ sfdx force:package:delete -p 0Ho...
+- Delete a package using its alias from your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
 
-ID (starts with 0Ho) or alias of the package to delete
+- Delete a package using its ID from the specified Dev Hub org:
 
-# packageLong
+  <%= config.bin %> <%= command.id %> --package 0Ho... --target-hub-org devhub@example.com
 
-The ID (starts with 0Ho) or alias of the package to delete.
+# flags.package.summary
 
-# undelete
+ID (starts with 0Ho) or alias of the package to delete.
 
-undelete a deleted package
-
-# undeleteLong
+# flags.undelete.summary
 
 Undelete a deleted package.
 
-# noPrompt
-
-don’t prompt before deleting the package
-
-# noPromptLong
+# flags.no-prompt.summary
 
 Don’t prompt before deleting the package.
 
-# promptDelete
+# prompt-delete
 
 Deleted packages can’t be recovered.
 
 Do you want to continue? (y/n)
 
-# promptUndelete
+# prompt-undelete
 
 This will undelete the package, which may result in unintended consequences for customers. Proceed with caution.
 
 Do you want to continue? (y/n)
 
-# promptDeleteDeny
+# prompt-delete-deny
 
 The request to delete this package was canceled
 

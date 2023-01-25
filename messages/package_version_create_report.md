@@ -1,26 +1,29 @@
-# cliDescription
+# summary
 
-retrieve details about a package version creation request
+Retrieve details about a package version creation request.
+
+# description
 
 Specify the request ID for which you want to view details. If applicable, the command displays errors related to the request.
 
-To show all requests in the org, run "sfdx force:package:version:create:list".
+To show all requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
 
-$ sfdx force:package:version:create:report -i 08c...
-$ sfdx force:package:version:create:report -i 08c... -v devhub@example.com
+- Retrieve details about the package version creation request with the specified ID; uses your default Dev Hub org:
 
-# requestId
+  <%= config.bin %> <%= command.id %> --package-create-request-id 08c...
 
-package version creation request ID (starts with 08c)
+- Retrieve details about the specified package version creation request in the Dev Hub org with username devhub@example.com:
 
-# requestIdLong
+  <%= config.bin %> <%= command.id %> --package-create-request-id 08c... --target-hub-org devhub@example.com
 
-The ID (starts with 08c) of the package version creation request you want to display.
+# flags.package-create-request-id.summary
+
+ID (starts with 08c) of the package version creation request you want to display.
 
 # truncatedErrors
 
 ...
 
-To see all errors, run: sfdx force:data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='%s'" -u %s
+To see all errors, run: %s data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='%s'" -o %s

@@ -1,76 +1,67 @@
-# cliDescription
+# summary
 
-create a package
-
-First, use this command to create a package. Then create a package version.
-
-If you don’t have a namespace defined in your sfdx-project.json file, use --nonamespace.
-
-Your --name value must be unique within your namespace.
-
-Run 'sfdx force:package:list' to list all packages in the Dev Hub org.
-
-# examples
-
-$ sfdx force:package:create -n YourPackageName -t Unlocked -r force-app
-$ sfdx force:package:create -n YourPackageName -d "Your Package Descripton" -t Unlocked -r force-app
-
-# name
-
-package name
-
-# nameLong
-
-Name of the package to create.
-
-# orgDependent
-
-depends on unpackaged metadata in the installation org. Applies to unlocked packages only.
-
-# orgDependentLong
-
-Package depends on unpackaged metadata in the installation org. Applies to unlocked packages only.
-Use Source Tracking in Sandboxes to develop your org-dependent unlocked package.
-For more information, see "Create Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
-
-# errorNotificationUsername
-
-active Dev Hub user designated to receive email notifications for package errors
-
-# errorNotificationUsernameLong
-
-An active Dev Hub org user designated to receive email notifications for unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.
+Create a package.
 
 # description
 
-package description
+First, use this command to create a package. Then create a package version.
 
-# descriptionLong
+If you don’t have a namespace defined in your sfdx-project.json file, use --no-namespace.
+
+Your --name value must be unique within your namespace.
+
+Run '<%= config.bin %> package list to list all packages in the Dev Hub org.
+
+# examples
+
+- Create an unlocked package from the files in the "force-app" directory; uses your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --name MyUnlockedPackage --package-type Unlocked --path force-app
+
+- Create a managed packaged from the "force-app" directory files, give the package a description, and use the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --name MyManagedPackage --description "Your Package Descripton" --package-type Managed --path force-app --target-hub-org devhub@example.com
+
+# flags.name.summary
+
+Name of the package to create.
+
+# flags.org-dependent.summary
+
+Depends on unpackaged metadata in the installation org; applies to unlocked packages only.
+
+# flags.org-dependent.description
+
+Use Source Tracking in Sandboxes to develop your org-dependent unlocked package. For more information, see "Create Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
+
+# flags.error-notification-username.summary
+
+Active Dev Hub user designated to receive email notifications for package errors.
+
+# flags.error-notification-username.description
+
+Email notifications include information about unhandled Apex exceptions, and install, upgrade, or uninstall failures associated with your package.
+
+# flags.description.summary
 
 Description of the package.
 
-# noNamespace
+# flags.no-namespace.summary
 
-creates the package with no namespace; available only for unlocked packages.
+Create the package with no namespace; available only for unlocked packages.
 
-# noNamespaceLong
+# flags.no-namespace.description
 
-Creates the package with no namespace. Available only for unlocked packages. Useful when you’re migrating an existing org to packages. But, use a namespaced package for new metadata.
+This flag is useful when you’re migrating an existing org to packages. But use a namespaced package for new metadata.
 
-# packageType
+# flags.package-type.summary
 
-package type
+Type of package.
 
-# packageTypeLong
+# flags.package-type.description
 
-Package type for the package.
-The options for package type are Managed and Unlocked (Managed=DeveloperManagedSubscriberManaged, Unlocked=DeveloperControlledSubscriberEditable).
-These options determine upgrade and editability rules.
+The options for package type are Managed and Unlocked (Managed=DeveloperManagedSubscriberManaged, Unlocked=DeveloperControlledSubscriberEditable). These options determine upgrade and editability rules.
 
-# path
+# flags.path.summary
 
-path to directory that contains the contents of the package
-
-# longPath
-
-The path to the directory that contains the contents of the package.
+Path to directory that contains the contents of the package.

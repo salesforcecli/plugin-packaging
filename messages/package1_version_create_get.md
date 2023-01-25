@@ -1,24 +1,25 @@
-# cliDescription
+# summary
 
-retrieve the status of a package version creation request
+Retrieve the status of a package version creation request.
 
 # examples
 
-$ sfdx force:package1:version:create:get -i 0HD...
-$ sfdx force:package1:version:create:get -i 0HD... -u devhub@example.com
+- Get the status of the creation request for the package version with the specified ID in your default org:
 
-# requestId
+  <%= config.bin %> <%= command.id %> --request-id 0HD...
 
-PackageUploadRequest ID
+- Same as previous example, but use the specified org:
 
-# requestIdLong
+  <%= config.bin %> <%= command.id %> --request-id 0HD... --target-org myorg@example.com
 
-The ID of the PackageUploadRequest.
+# flags.request-id.summary
+
+ID of the PackageUploadRequest (starts with 0HD).
 
 # IN_PROGRESS
 
 PackageUploadRequest is still InProgress. You can query the status using
-sfdx force:package1:version:create:get -i %s -u %s
+%s package1:version:create:get -i %s -o %s
 
 # SUCCESS
 
@@ -27,7 +28,7 @@ Successfully uploaded package [%s]
 # QUEUED
 
 PackageUploadRequest has been enqueued. You can query the status using
-sfdx force:package1:version:create:get -i %s -u %s
+%s package1:version:create:get -i %s -o %s
 
 # uploadFailure
 

@@ -1,34 +1,40 @@
-# cliDescription
+# summary
 
-promote a package version to released
+Promote a package version to released.
+
+# description
 
 Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
 # examples
 
-$ sfdx force:package:version:promote -p 04t...
-$ sfdx force:package:version:promote -p awesome_package_alias
-$ sfdx force:package:version:promote -p "Awesome Package Alias"
+- Promote the package version with the specified ID to released; uses your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package 04t...
 
-ID (starts with 04t) or alias of the package version to promote
+- Promote the package version with the specified alias to released; uses the Dev Hub org with username devhub@example.com:
 
-# packageLong
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias --target-hub-org devhub@example.com
 
-The ID (starts with 04t) or alias of the package version to promote.
+- Promote the package version with an alias that has spaces to released:
+
+  <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
+
+# flags.package.summary
+
+ID (starts with 04t) or alias of the package version to promote.
 
 # packageVersionPromoteConfirm
 
 Are you sure you want to release package version %s? You can't undo this action. Release package (y/n)?
 
-# setasreleasedForce
+# promote-deny
 
-no prompt to confirm setting the package version as released
+Promote operation denied
 
-# setasreleasedForceLong
+# flags.no-prompt.summary
 
-Do not prompt to confirm setting the package version as released.
+Don't prompt to confirm setting the package version as released.
 
 # humanSuccess
 
@@ -40,9 +46,9 @@ You already promoted a package version with this major.minor.patch version numbe
 
 # previouslyReleasedAction
 
-Create a new package version with a different --versionumber, then promote the package version.
-sfdx force:package:version:create -p <name> -n <versionnum> -k <key>
-sfdx force:package:version:promote -p 05ixxx
+Create a new package version with a different --version-umber, then promote the package version.
+%s package:version:create -p <name> -n <versionnum> -k <key>
+%s package:version:promote -p 05ixxx
 
 # hasMetadataRemovedWarning
 
