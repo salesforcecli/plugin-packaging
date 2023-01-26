@@ -6,11 +6,11 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
-    "@oclif/core": "^1.25.0",
+    "@oclif/core": "^2.0.6",
     "@salesforce/core": "^3.33.0",
     "@salesforce/kit": "^1.8.3",
     "@salesforce/packaging": "^1.1.11",
-    "@salesforce/sf-plugins-core": "^1.22.1",
+    "@salesforce/sf-plugins-core": "^2.0.0-beta.6",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },

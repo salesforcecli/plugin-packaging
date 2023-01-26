@@ -12,7 +12,7 @@ import {
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { CliUx } from '@oclif/core';
+import { ux } from '@oclif/core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectory(__dirname);
@@ -59,7 +59,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
       SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
     }));
 
-    const tableOptions: CliUx.Table.table.Options = {
+    const tableOptions: ux.Table.table.Options = {
       Id: { header: 'ID' },
       SubscriberPackageId: { header: 'Package ID' },
       SubscriberPackageName: { header: 'Package Name' },

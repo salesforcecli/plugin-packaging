@@ -35,14 +35,15 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       summary: messages.getMessage('flags.name.summary'),
       required: true,
     }),
-    'package-type': Flags.enum({
+    'package-type': Flags.custom<PackageType>({
+      options: ['Managed', 'Unlocked'],
+    })({
+      required: true,
       char: 't',
       deprecateAliases: true,
       aliases: ['packagetype'],
       summary: messages.getMessage('flags.package-type.summary'),
       description: messages.getMessage('flags.package-type.description'),
-      required: true,
-      options: ['Managed', 'Unlocked'],
     }),
     description: Flags.string({
       char: 'd',
@@ -84,7 +85,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       name: flags.name,
       noNamespace: flags['no-namespace'],
       orgDependent: flags['org-dependent'],
-      packageType: flags['package-type'] as PackageType,
+      packageType: flags['package-type'],
       path: flags.path,
     };
     const result: PackageCreate = await Package.create(
