@@ -135,6 +135,41 @@ export class Install extends SfCommand<PackageInstallRequest> {
       this.warn(warningMsg);
     });
 
+    if (flags.wait) {
+      let timeThen = Date.now();
+      // waiting for publish to finish
+      let remainingTime = flags['publish-wait'];
+
+      Lifecycle.getInstance().on(
+        PackageEvents.install['subscriber-status'],
+        // eslint-disable-next-line @typescript-eslint/require-await
+        async (publishStatus: PackagingSObjects.InstallValidationStatus) => {
+          const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
+          timeThen = Date.now();
+          remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
+          const status =
+            publishStatus === 'NO_ERRORS_DETECTED'
+              ? messages.getMessage('availableForInstallation')
+              : messages.getMessage('unavailableForInstallation');
+          this.spinner.status = messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]);
+        }
+      );
+
+      if (flags['publish-wait'].milliseconds > 0) {
+        this.spinner.start(
+          messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, 'Querying Status'])
+        );
+
+        await this.subscriberPackageVersion.waitForPublish({
+          publishTimeout: flags['publish-wait'],
+          publishFrequency: Duration.seconds(10),
+          installationKey: flags['installation-key'],
+        });
+        // need to stop the spinner to avoid weird behavior with the prompts below
+        this.spinner.stop();
+      }
+    }
+
     // If the user has specified --upgradetype Delete, then prompt for confirmation
     // unless the noprompt option has been included.
     if (flags['upgrade-type'] === 'Delete') {
@@ -155,21 +190,6 @@ export class Install extends SfCommand<PackageInstallRequest> {
       let timeThen = Date.now();
       this.spinner.start(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
 
-      // waiting for publish to finish
-      Lifecycle.getInstance().on(
-        PackageEvents.install['subscriber-status'],
-        // eslint-disable-next-line @typescript-eslint/require-await
-        async (publishStatus: PackagingSObjects.InstallValidationStatus) => {
-          const elapsedTime = Duration.milliseconds(Date.now() - timeThen);
-          timeThen = Date.now();
-          remainingTime = Duration.milliseconds(remainingTime.milliseconds - elapsedTime.milliseconds);
-          const status =
-            publishStatus === 'NO_ERRORS_DETECTED'
-              ? messages.getMessage('availableForInstallation')
-              : messages.getMessage('unavailableForInstallation');
-          this.spinner.status = messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]);
-        }
-      );
       // waiting for package install to finish
       Lifecycle.getInstance().on(
         PackageEvents.install.status,
