@@ -172,6 +172,10 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       summary: messages.getMessage('flags.language.summary'),
       description: messages.getMessage('flags.language.description'),
     }),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('flags.verbose.summary'),
+      description: messages.getMessage('flags.verbose.description'),
+    }),
   };
 
   public async run(): Promise<PackageVersionCommandResult> {
@@ -193,10 +197,15 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
         if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
-          this.spinner.status = messages.getMessage('packageVersionCreateWaitingStatus', [
+          const status = messages.getMessage('packageVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.Status,
           ]);
+          if (flags.verbose) {
+            this.log(status);
+          } else {
+            this.spinner.status = status;
+          }
         }
       }
     );
@@ -208,7 +217,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       }
     );
 
-    this.spinner.start(messages.getMessage('requestInProgress'));
+    const startMsg = messages.getMessage('requestInProgress');
+    // verbose does not use a spinner to ensure a separate line for each status update.
+    if (flags.verbose) {
+      this.log(`${startMsg}..`);
+    } else {
+      this.spinner.start(startMsg);
+    }
 
     const result = await PackageVersion.create(
       {
@@ -223,7 +238,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
         frequency,
       }
     );
-    this.spinner.stop(messages.getMessage('packageVersionCreateFinalStatus', [result.Status]));
+    const finalStatusMsg = messages.getMessage('packageVersionCreateFinalStatus', [result.Status]);
+    if (flags.verbose) {
+      this.log(finalStatusMsg);
+    } else {
+      this.spinner.stop(finalStatusMsg);
+    }
+
     switch (result.Status) {
       case 'Error':
         throw messages.createError('multipleErrors', [
