@@ -99,7 +99,11 @@ describe('package:install', () => {
   let getExternalSitesStub: sinon.SinonStub;
   let installStub: sinon.SinonStub;
   let installStatusStub: sinon.SinonStub;
-  const sandbox = sinon.createSandbox();
+
+  const stubSpinner = (cmd: Install) => {
+    $$.SANDBOX.stub(cmd.spinner, 'start');
+    $$.SANDBOX.stub(cmd.spinner, 'stop');
+  };
 
   before(async () => {
     await $$.stubAuths(testOrg);
@@ -107,13 +111,12 @@ describe('package:install', () => {
   });
 
   beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
-    uxWarnStub = sandbox.stub(SfCommand.prototype, 'warn');
+    uxLogStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    uxWarnStub = $$.SANDBOX.stub(SfCommand.prototype, 'warn');
   });
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
   });
 
   describe('package:install', () => {
@@ -134,7 +137,9 @@ describe('package:install', () => {
 
     it('should error without required --package param', async () => {
       try {
-        await new Install(['-o', testOrg.username], config).run();
+        const cmd = new Install(['-o', testOrg.username], config);
+        stubSpinner(cmd);
+        await cmd.run();
         expect(false, 'Expected required flag error').to.be.true;
       } catch (err) {
         const error = err as Error;
@@ -145,7 +150,9 @@ describe('package:install', () => {
 
     it('should error with org API Version < 36.0', async () => {
       try {
-        await new Install(['-p', myPackageVersion04t, '-o', testOrg.username, '--api-version', '33.0'], config).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username, '--api-version', '33.0'], config);
+        stubSpinner(cmd);
+        await cmd.run();
         expect(false, 'Expected API version too low error').to.be.true;
       } catch (err) {
         const error = err as Error;
@@ -158,7 +165,9 @@ describe('package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
@@ -172,7 +181,9 @@ describe('package:install', () => {
       error.setData(pkgInstallRequest);
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
-      const result = await new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
       expect(uxLogStub.callCount).to.equal(1);
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
@@ -187,7 +198,9 @@ describe('package:install', () => {
       error.setData(pkgInstallRequest);
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
-      const result = await new Install(['-p', myPackageVersion04t, '--json', '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '--json', '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
     });
@@ -197,7 +210,9 @@ describe('package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = 'Successfully installed package [04t6A000002zgKSQAY]';
@@ -211,7 +226,9 @@ describe('package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       try {
-        await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        await cmd.run();
         expect.fail('Expected error to be thrown');
       } catch (err) {
         const error = err as Error;
@@ -228,7 +245,9 @@ describe('package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       try {
-        await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        await cmd.run();
         expect.fail('Expected error to be thrown');
       } catch (err) {
         const error = err as Error;
@@ -241,7 +260,9 @@ describe('package:install', () => {
 
     it('should throw PackageAliasNotFoundError', async () => {
       try {
-        await new Install(['-p', 'my_package_alias', '-o', testOrg.username], config).run();
+        const cmd = new Install(['-p', 'my_package_alias', '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        await cmd.run();
         expect.fail('Expected InvalidAliasOrIdError to be thrown');
       } catch (err) {
         const error = err as Error;
@@ -275,7 +296,9 @@ describe('package:install', () => {
       const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
-      const result = await new Install(['-p', 'my_package_alias', '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', 'my_package_alias', '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = 'Successfully installed package [my_package_alias]';
@@ -289,10 +312,9 @@ describe('package:install', () => {
       const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { Password: installationkey });
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
-      const result = await new Install(
-        ['-p', myPackageVersion04t, '-k', installationkey, '-o', testOrg.username],
-        config
-      ).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-k', installationkey, '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
     });
@@ -307,7 +329,7 @@ describe('package:install', () => {
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const result = await new Install(
+      const cmd = new Install(
         [
           '-p',
           myPackageVersion04t,
@@ -321,7 +343,9 @@ describe('package:install', () => {
           testOrg.username,
         ],
         config
-      ).run();
+      );
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
@@ -335,7 +359,9 @@ describe('package:install', () => {
       });
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.callCount).to.equal(1);
       expect(uxWarnStub.args[0][0]).to.equal(warningMsg);
@@ -353,7 +379,9 @@ describe('package:install', () => {
       });
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const result = await new Install(['-p', myPackageVersion04t, '-w', '1', '-o', testOrg.username], config).run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
       // expect(uxSetSpinnerStatusStub.args[0][0]).to.equal(
@@ -380,8 +408,9 @@ describe('package:install', () => {
       });
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const command = new Install(['-p', myPackageVersion04t, '-w', '1', '-b', '1', '-o', testOrg.username], config);
-      const result = await command.run();
+      const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-b', '1', '-o', testOrg.username], config);
+      stubSpinner(cmd);
+      const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
       // expect(uxSetSpinnerStatusStub.callCount).to.equal(4);
@@ -406,10 +435,12 @@ describe('package:install', () => {
           Package2ContainerOptions: 'Unlocked',
         });
 
-        const result = await new Install(
+        const cmd = new Install(
           ['-p', myPackageVersion04t, '-t', 'Delete', '--no-prompt', '-o', testOrg.username],
           config
-        ).run();
+        );
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(uxConfirmStub.calledOnce).to.be.false;
         expect(result).to.deep.equal(pkgInstallRequest);
@@ -423,10 +454,9 @@ describe('package:install', () => {
         });
         uxConfirmStub.resolves(true);
 
-        const result = await new Install(
-          ['-p', myPackageVersion04t, '-t', 'Delete', '-o', testOrg.username],
-          config
-        ).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-t', 'Delete', '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(uxConfirmStub.calledOnce).to.be.true;
         expect(result).to.deep.equal(pkgInstallRequest);
@@ -457,11 +487,12 @@ describe('package:install', () => {
           Package2ContainerOptions: 'Managed',
         });
 
-        const result = await new Install(
+        const cmd = new Install(
           ['-p', myPackageVersion04t, '-t', 'Delete', '--no-prompt', '-o', testOrg.username],
           config
-        ).run();
-
+        );
+        stubSpinner(cmd);
+        const result = await cmd.run();
         expect(uxConfirmStub.calledOnce).to.be.false;
         expect(result).to.deep.equal(pkgInstallRequest);
       });
@@ -477,10 +508,9 @@ describe('package:install', () => {
         );
         installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
 
-        const result = await new Install(
-          ['-p', myPackageVersion04t, '--no-prompt', '-o', testOrg.username],
-          config
-        ).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '--no-prompt', '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(getExternalSitesStub.calledOnce).to.be.true;
         expect(uxConfirmStub.calledOnce).to.be.false;
@@ -501,10 +531,12 @@ describe('package:install', () => {
           CspTrustedSites: { settings: ['url/for/site2'] },
         });
 
-        const result = await new Install(
+        const cmd = new Install(
           ['-p', myPackageVersion04t, '--no-prompt', '-k', installationkey, '-o', testOrg.username],
           config
-        ).run();
+        );
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(uxConfirmStub.calledOnce).to.be.false;
         expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
@@ -521,7 +553,9 @@ describe('package:install', () => {
         });
         uxConfirmStub.resolves(true);
 
-        const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(uxConfirmStub.calledOnce).to.be.true;
         expect(uxConfirmStub.args[0][0]).to.include(extSites.join('\n'));
@@ -537,7 +571,9 @@ describe('package:install', () => {
           CspTrustedSites: { settings: [{ endpointUrl: 'url/for/site2' }] },
         });
 
-        const result = await new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config).run();
+        const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
+        stubSpinner(cmd);
+        const result = await cmd.run();
 
         expect(uxConfirmStub.calledOnce).to.be.true;
         expect(uxConfirmStub.args[0][0]).to.include(extSites.join('\n'));

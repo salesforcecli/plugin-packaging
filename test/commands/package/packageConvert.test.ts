@@ -10,7 +10,6 @@ import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
 import * as sinon from 'sinon';
-import { stubMethod } from '@salesforce/ts-sinon';
 import { PackageConvert } from '../../../src/commands/package/convert';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
@@ -22,11 +21,14 @@ describe('package:convert', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let spinnerStartStub: sinon.SinonStub;
   let convertStub: sinon.SinonStub;
+
+  const stubSpinner = (cmd: PackageConvert) => {
+    spinnerStartStub = $$.SANDBOX.stub(cmd.spinner, 'start');
+    $$.SANDBOX.stub(cmd.spinner, 'stop');
+  };
 
   before(async () => {
     await $$.stubAuths(testOrg);
@@ -35,7 +37,6 @@ describe('package:convert', () => {
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
   });
 
   it('returns error for missing installationkey or installationkeybypass flag', async () => {
@@ -43,7 +44,9 @@ describe('package:convert', () => {
       'Exactly one of the following must be provided: --installation-key, --installation-key-bypass';
 
     try {
-      await new PackageConvert(['-p', CONVERTED_FROM_PACKAGE_ID, '-v', 'test@user.com'], config).run();
+      const cmd = new PackageConvert(['-p', CONVERTED_FROM_PACKAGE_ID, '-v', 'test@user.com'], config);
+      stubSpinner(cmd);
+      await cmd.run();
     } catch (e) {
       expect((e as Error).message).to.include(expectedErrorMsg);
     }
@@ -65,12 +68,12 @@ describe('package:convert', () => {
     };
 
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
-    const command = new PackageConvert(
+    const cmd = new PackageConvert(
       ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
       config
     );
-    spinnerStartStub = stubMethod(sandbox, command.spinner, 'start');
-    const result = await command.run();
+    stubSpinner(cmd);
+    const result = await cmd.run();
 
     expect(spinnerStartStub.called).to.be.true;
     expect(result).to.deep.equal(pvc);
@@ -92,10 +95,12 @@ describe('package:convert', () => {
 
     convertStub.restore();
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
-    const result = await new PackageConvert(
+    const cmd = new PackageConvert(
       ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
       config
-    ).run();
+    );
+    stubSpinner(cmd);
+    const result = await cmd.run();
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (error)', async () => {
@@ -116,10 +121,12 @@ describe('package:convert', () => {
     convertStub.restore();
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     try {
-      await new PackageConvert(
+      const cmd = new PackageConvert(
         ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
         config
-      ).run();
+      );
+      stubSpinner(cmd);
+      await cmd.run();
     } catch (e) {
       expect((e as Error).message).to.include('Error: server error 1');
       expect((e as Error).message).to.include('Error: server error 2');
