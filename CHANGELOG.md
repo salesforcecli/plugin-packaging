@@ -1,3 +1,14 @@
+## [1.12.5](https://github.com/salesforcecli/plugin-packaging/compare/1.12.4...1.12.5) (2023-01-30)
+
+
+### Bug Fixes
+
+* align with current output (thanks, ut) ([e833184](https://github.com/salesforcecli/plugin-packaging/commit/e83318456256a941055df37700e333e5786c7a81))
+* placeholder for where the multiple errors are shown ([668c6ea](https://github.com/salesforcecli/plugin-packaging/commit/668c6ea5665395b1227d9dfe93b6d64334dd8ee4))
+* remove unused token ([86d383e](https://github.com/salesforcecli/plugin-packaging/commit/86d383e5e862265e11f94c5c872a02957a78d1cf))
+
+
+
 ## [1.12.4](https://github.com/salesforcecli/plugin-packaging/compare/1.12.3...1.12.4) (2023-01-25)
 
 
