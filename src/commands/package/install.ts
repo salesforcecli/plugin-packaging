@@ -135,7 +135,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       this.warn(warningMsg);
     });
 
-    if (flags['publish-wait']) {
+    if (flags['publish-wait']?.milliseconds > 0) {
       let timeThen = Date.now();
       // waiting for publish to finish
       let remainingTime = flags['publish-wait'];
@@ -155,19 +155,17 @@ export class Install extends SfCommand<PackageInstallRequest> {
         }
       );
 
-      if (flags['publish-wait'].milliseconds > 0) {
-        this.spinner.start(
-          messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, 'Querying Status'])
-        );
+      this.spinner.start(
+        messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, 'Querying Status'])
+      );
 
-        await this.subscriberPackageVersion.waitForPublish({
-          publishTimeout: flags['publish-wait'],
-          publishFrequency: Duration.seconds(10),
-          installationKey: flags['installation-key'],
-        });
-        // need to stop the spinner to avoid weird behavior with the prompts below
-        this.spinner.stop();
-      }
+      await this.subscriberPackageVersion.waitForPublish({
+        publishTimeout: flags['publish-wait'],
+        publishFrequency: Duration.seconds(10),
+        installationKey: flags['installation-key'],
+      });
+      // need to stop the spinner to avoid weird behavior with the prompts below
+      this.spinner.stop();
     }
 
     // If the user has specified --upgradetype Delete, then prompt for confirmation
@@ -183,7 +181,6 @@ export class Install extends SfCommand<PackageInstallRequest> {
     let installOptions: Optional<PackageInstallOptions>;
     if (flags.wait) {
       installOptions = {
-        publishTimeout: flags['publish-wait'],
         pollingTimeout: flags.wait,
       };
       let remainingTime = flags.wait;
