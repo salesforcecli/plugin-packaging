@@ -65,3 +65,11 @@ Instance where the conversion package version will be created, such as NA50.
 # in-progress
 
 Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'
+
+# flags.seed-metadata.summary
+
+Directory containing metadata to be deployed prior to conversion.
+
+# flags.seed-metadata.description
+
+The directory containing metadata that will be deployed on the build org prior to attempting conversion.
