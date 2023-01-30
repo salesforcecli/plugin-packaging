@@ -1,3 +1,12 @@
+# [1.13.0](https://github.com/salesforcecli/plugin-packaging/compare/1.12.5...1.13.0) (2023-01-30)
+
+
+### Features
+
+* adds the seedMetadata command line parameter to the convert command ([6242478](https://github.com/salesforcecli/plugin-packaging/commit/6242478337f5099239b14be954ca8abd855eddab))
+
+
+
 ## [1.12.5](https://github.com/salesforcecli/plugin-packaging/compare/1.12.4...1.12.5) (2023-01-30)
 
 
