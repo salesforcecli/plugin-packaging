@@ -135,7 +135,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       this.warn(warningMsg);
     });
 
-    if (flags.wait) {
+    if (flags['publish-wait']) {
       let timeThen = Date.now();
       // waiting for publish to finish
       let remainingTime = flags['publish-wait'];
