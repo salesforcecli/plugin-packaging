@@ -185,7 +185,7 @@ The directory [%s] doesn’t exist in the current directory.
 
 # multipleErrors
 
-Multiple errors occurred:
+Multiple errors occurred: %s
 
 # requestInProgress
 

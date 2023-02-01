@@ -49,6 +49,7 @@
       "json",
       "loglevel",
       "package",
+      "seed-metadata",
       "target-hub-org",
       "wait"
     ],

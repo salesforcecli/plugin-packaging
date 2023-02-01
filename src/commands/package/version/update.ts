@@ -77,7 +77,7 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
       Tag: flags.tag,
     });
 
-    this.logSuccess(messages.getMessage('success', [result.id]));
+    this.logSuccess(messages.getMessage('success'));
 
     return result;
   }
