@@ -416,7 +416,7 @@ describe('package:install', () => {
       });
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
-      const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-b', '1', '-o', testOrg.username], config);
+      const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-b', '2', '-o', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
 
