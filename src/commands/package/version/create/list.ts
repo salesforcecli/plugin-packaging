@@ -22,6 +22,8 @@ const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packagi
 
 export type CreateListCommandResult = PackageVersionCreateRequestResult[];
 
+type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
+
 export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
@@ -38,10 +40,11 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       aliases: ['createdlastdays'],
       summary: packaging.getMessage('flags.created-last-days.summary'),
     }),
-    status: Flags.enum({
+    status: Flags.custom<Status>({
+      options: ['Queued', 'InProgress', 'Success', 'Error'],
+    })({
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
-      options: ['Queued', 'InProgress', 'Success', 'Error'],
     }),
   };
 
@@ -50,7 +53,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     const connection = flags['target-hub-org'].getConnection(flags['api-version']);
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
       createdlastdays: flags['created-last-days'],
-      status: flags.status as 'Queued' | 'InProgress' | 'Success' | 'Error',
+      status: flags.status,
       connection,
     });
 

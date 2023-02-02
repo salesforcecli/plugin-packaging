@@ -75,31 +75,34 @@ export class Install extends SfCommand<PackageInstallRequest> {
       summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
-    'apex-compile': Flags.enum({
+    'apex-compile': Flags.custom<PackageInstallCreateRequest['ApexCompileType']>({
+      options: ['all', 'package'],
+    })({
       char: 'a',
       deprecateAliases: true,
       aliases: ['apexcompile'],
       summary: messages.getMessage('flags.apex-compile.summary'),
       description: messages.getMessage('flags.apex-compile.description'),
       default: 'all',
-      options: ['all', 'package'],
     }),
-    'security-type': Flags.enum({
+    'security-type': Flags.custom<'AllUsers' | 'AdminsOnly'>({
+      options: ['AllUsers', 'AdminsOnly'],
+    })({
       char: 's',
       deprecateAliases: true,
       aliases: ['securitytype'],
       summary: messages.getMessage('flags.security-type.summary'),
       default: 'AdminsOnly',
-      options: ['AllUsers', 'AdminsOnly'],
     }),
-    'upgrade-type': Flags.enum({
+    'upgrade-type': Flags.custom<'DeprecateOnly' | 'Mixed' | 'Delete'>({
+      options: ['DeprecateOnly', 'Mixed', 'Delete'],
+    })({
       char: 't',
       deprecateAliases: true,
       aliases: ['upgradetype'],
       summary: messages.getMessage('flags.upgrade-type.summary'),
       description: messages.getMessage('flags.upgrade-type.description'),
       default: 'Mixed',
-      options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),
   };
 
@@ -125,7 +128,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     const request: PackageInstallCreateRequest = {
       SubscriberPackageVersionKey: await this.subscriberPackageVersion.getId(),
       Password: flags['installation-key'],
-      ApexCompileType: flags['apex-compile'] as PackageInstallCreateRequest['ApexCompileType'],
+      ApexCompileType: flags['apex-compile'],
       SecurityType: securityType[flags['security-type']] as PackageInstallCreateRequest['SecurityType'],
       UpgradeType: upgradeType[flags['upgrade-type']] as PackageInstallCreateRequest['UpgradeType'],
     };
@@ -135,27 +138,11 @@ export class Install extends SfCommand<PackageInstallRequest> {
       this.warn(warningMsg);
     });
 
-    // If the user has specified --upgradetype Delete, then prompt for confirmation
-    // unless the noprompt option has been included.
-    if (flags['upgrade-type'] === 'Delete') {
-      await this.confirmUpgradeType(noPrompt);
-    }
-
-    // If the package has external sites, ask the user for permission to enable them
-    // unless the noprompt option has been included.
-    await this.confirmExternalSites(request, noPrompt);
-
-    let installOptions: Optional<PackageInstallOptions>;
-    if (flags.wait) {
-      installOptions = {
-        publishTimeout: flags['publish-wait'],
-        pollingTimeout: flags.wait,
-      };
-      let remainingTime = flags.wait;
+    if (flags['publish-wait']?.milliseconds > 0) {
       let timeThen = Date.now();
-      this.spinner.start(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
-
       // waiting for publish to finish
+      let remainingTime = flags['publish-wait'];
+
       Lifecycle.getInstance().on(
         PackageEvents.install['subscriber-status'],
         // eslint-disable-next-line @typescript-eslint/require-await
@@ -170,6 +157,39 @@ export class Install extends SfCommand<PackageInstallRequest> {
           this.spinner.status = messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, status]);
         }
       );
+
+      this.spinner.start(
+        messages.getMessage('packagePublishWaitingStatus', [remainingTime.minutes, 'Querying Status'])
+      );
+
+      await this.subscriberPackageVersion.waitForPublish({
+        publishTimeout: flags['publish-wait'],
+        publishFrequency: Duration.seconds(10),
+        installationKey: flags['installation-key'],
+      });
+      // need to stop the spinner to avoid weird behavior with the prompts below
+      this.spinner.stop();
+    }
+
+    // If the user has specified --upgradetype Delete, then prompt for confirmation
+    // unless the noprompt option has been included.
+    if (flags['upgrade-type'] === 'Delete') {
+      await this.confirmUpgradeType(noPrompt);
+    }
+
+    // If the package has external sites, ask the user for permission to enable them
+    // unless the noprompt option has been included.
+    await this.confirmExternalSites(request, noPrompt);
+
+    let installOptions: Optional<PackageInstallOptions>;
+    if (flags.wait) {
+      installOptions = {
+        pollingTimeout: flags.wait,
+      };
+      let remainingTime = flags.wait;
+      let timeThen = Date.now();
+      this.spinner.start(messages.getMessage('packageInstallWaiting', [remainingTime.minutes]));
+
       // waiting for package install to finish
       Lifecycle.getInstance().on(
         PackageEvents.install.status,

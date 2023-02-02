@@ -372,6 +372,11 @@ describe('package:install', () => {
 
     it('should listen for Package/install-status polling events and log statuses', async () => {
       const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
+      const waitForPublishStub = stubMethod(
+        $$.SANDBOX,
+        SubscriberPackageVersion.prototype,
+        'waitForPublish'
+      ).resolves();
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(PackageEvents.install.status, pkgInstallRequest);
         await Lifecycle.getInstance().emit(PackageEvents.install.status, successRequest);
@@ -384,15 +389,18 @@ describe('package:install', () => {
       const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      // expect(uxSetSpinnerStatusStub.args[0][0]).to.equal(
-      //   '1 minutes remaining until timeout. Install status: IN_PROGRESS'
-      // );
-      // expect(uxSetSpinnerStatusStub.args[1][0]).to.equal('1 minutes remaining until timeout. Install status: SUCCESS');
       expect(result).to.deep.equal(pkgInstallRequest);
+      // wait for publish should only be called when --publish-wait flag is passed
+      expect(waitForPublishStub.called).to.be.false;
     });
 
     it('should listen for Package/install-status and Package/install/subscriber-status polling events and log statuses', async () => {
       const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
+      const waitForPublishStub = stubMethod(
+        $$.SANDBOX,
+        SubscriberPackageVersion.prototype,
+        'waitForPublish'
+      ).resolves();
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(
           PackageEvents.install['subscriber-status'],
@@ -413,18 +421,19 @@ describe('package:install', () => {
       const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      // expect(uxSetSpinnerStatusStub.callCount).to.equal(4);
-      // expect(uxSetSpinnerStatusStub.args[0][0]).to.equal(
-      //   '1 minutes remaining until timeout. Publish status: Unavailable for installation'
-      // );
-      // expect(uxSetSpinnerStatusStub.args[1][0]).to.equal(
-      //   '1 minutes remaining until timeout. Publish status: Available for installation'
-      // );
-      // expect(uxSetSpinnerStatusStub.args[2][0]).to.equal(
-      //   '1 minutes remaining until timeout. Install status: IN_PROGRESS'
-      // );
-      // expect(uxSetSpinnerStatusStub.args[3][0]).to.equal('1 minutes remaining until timeout. Install status: SUCCESS');
       expect(result).to.deep.equal(pkgInstallRequest);
+      expect(waitForPublishStub.calledOnce).to.be.true;
+      expect(waitForPublishStub.args[0][0]).to.deep.equal({
+        installationKey: undefined,
+        publishFrequency: {
+          quantity: 10,
+          unit: 2,
+        },
+        publishTimeout: {
+          quantity: 2,
+          unit: 0,
+        },
+      });
     });
 
     describe('confirm upgrade type', () => {
