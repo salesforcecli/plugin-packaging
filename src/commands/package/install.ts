@@ -75,31 +75,34 @@ export class Install extends SfCommand<PackageInstallRequest> {
       summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
-    'apex-compile': Flags.enum({
+    'apex-compile': Flags.custom<PackageInstallCreateRequest['ApexCompileType']>({
+      options: ['all', 'package'],
+    })({
       char: 'a',
       deprecateAliases: true,
       aliases: ['apexcompile'],
       summary: messages.getMessage('flags.apex-compile.summary'),
       description: messages.getMessage('flags.apex-compile.description'),
       default: 'all',
-      options: ['all', 'package'],
     }),
-    'security-type': Flags.enum({
+    'security-type': Flags.custom<'AllUsers' | 'AdminsOnly'>({
+      options: ['AllUsers', 'AdminsOnly'],
+    })({
       char: 's',
       deprecateAliases: true,
       aliases: ['securitytype'],
       summary: messages.getMessage('flags.security-type.summary'),
       default: 'AdminsOnly',
-      options: ['AllUsers', 'AdminsOnly'],
     }),
-    'upgrade-type': Flags.enum({
+    'upgrade-type': Flags.custom<'DeprecateOnly' | 'Mixed' | 'Delete'>({
+      options: ['DeprecateOnly', 'Mixed', 'Delete'],
+    })({
       char: 't',
       deprecateAliases: true,
       aliases: ['upgradetype'],
       summary: messages.getMessage('flags.upgrade-type.summary'),
       description: messages.getMessage('flags.upgrade-type.description'),
       default: 'Mixed',
-      options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),
   };
 
@@ -125,7 +128,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     const request: PackageInstallCreateRequest = {
       SubscriberPackageVersionKey: await this.subscriberPackageVersion.getId(),
       Password: flags['installation-key'],
-      ApexCompileType: flags['apex-compile'] as PackageInstallCreateRequest['ApexCompileType'],
+      ApexCompileType: flags['apex-compile'],
       SecurityType: securityType[flags['security-type']] as PackageInstallCreateRequest['SecurityType'],
       UpgradeType: upgradeType[flags['upgrade-type']] as PackageInstallCreateRequest['UpgradeType'],
     };

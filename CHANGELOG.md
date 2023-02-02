@@ -1,3 +1,9 @@
+# [1.14.0](https://github.com/salesforcecli/plugin-packaging/compare/1.13.0...1.14.0) (2023-02-02)
+
+### Features
+
+- use latest sf-plugins-core and oclif/core ([c8910f7](https://github.com/salesforcecli/plugin-packaging/commit/c8910f70d280eb13bd1d197e00d7ffc3e5b2910f))
+
 # [1.13.0](https://github.com/salesforcecli/plugin-packaging/compare/1.12.5...1.13.0) (2023-01-30)
 
 ### Features

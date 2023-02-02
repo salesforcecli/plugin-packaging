@@ -13,7 +13,7 @@ import {
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { Messages, SfProject } from '@salesforce/core';
-import { CliUx } from '@oclif/core';
+import { ux } from '@oclif/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -213,7 +213,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private getColumnData(concise: boolean, verbose: boolean): CliUx.Table.table.Columns<Record<string, unknown>> {
+  private getColumnData(concise: boolean, verbose: boolean): ux.Table.table.Columns<Record<string, unknown>> {
     if (concise) {
       return {
         Package2Id: { header: messages.getMessage('package-id') },
