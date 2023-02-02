@@ -169,6 +169,7 @@
       "target-hub-org",
       "uninstall-script",
       "validate-schema",
+      "verbose",
       "version-description",
       "version-name",
       "version-number",

@@ -53,10 +53,13 @@ describe('package:version:create - tests', () => {
   let createStub = $$.SANDBOX.stub(PackageVersion, 'create');
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let logStub: sinon.SinonStub;
+
+  const stubSpinner = (cmd: PackageVersionCreateCommand) => {
+    $$.SANDBOX.stub(cmd.spinner, 'start');
+    $$.SANDBOX.stub(cmd.spinner, 'stop');
+  };
 
   before(async () => {
     await $$.stubAuths(testOrg);
@@ -64,21 +67,19 @@ describe('package:version:create - tests', () => {
   });
 
   beforeEach(async () => {
-    logStub = sandbox.stub(SfCommand.prototype, 'log');
+    logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
   });
 
   describe('package:version:create', () => {
     it('should create a new package version', async () => {
       createStub.resolves(pkgVersionCreateSuccessResult);
-      const res = await new PackageVersionCreateCommand(
-        ['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x'],
-        config
-      ).run();
+      const cmd = new PackageVersionCreateCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x'], config);
+      stubSpinner(cmd);
+      const res = await cmd.run();
       expect(res).to.deep.equal({
         Branch: undefined,
         CreatedBy: '0053i000001ZIyGAAW',
@@ -102,7 +103,9 @@ describe('package:version:create - tests', () => {
       createStub = $$.SANDBOX.stub(PackageVersion, 'create');
       createStub.resolves(pkgVersionCreateErrorResult);
       try {
-        await new PackageVersionCreateCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x'], config).run();
+        const cmd = new PackageVersionCreateCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x'], config);
+        stubSpinner(cmd);
+        await cmd.run();
         assert.fail('the above should throw multiple errors');
       } catch (e) {
         expect((e as Error).message).to.equal(

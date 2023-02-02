@@ -161,6 +161,14 @@ Language for the package.
 
 Specify the language using a language code listed under "Supported Languages" in Salesforce Help. If no language is specified, the language defaults to the language of the Dev Hub user who created the package.
 
+# flags.verbose.summary
+
+Display verbose command output.
+
+# flags.verbose.description
+
+Display verbose command output. When polling for the status of the creation, this will output status and timeout data on a separate line for each poll request, which is useful in CI systems where timeouts can occur with long periods of no output from commands.
+
 # InProgress
 
 Package version creation request status is '%s'. Run "%s package:version:create:report -i %s" to query for status.
