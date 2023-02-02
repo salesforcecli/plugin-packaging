@@ -6,11 +6,14 @@
  */
 
 import * as path from 'path';
-
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
+import { Messages } from '@salesforce/core';
+
+Messages.importMessagesDirectory(__dirname);
+const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_update');
 
 describe('package:version:promote / package:version:update', () => {
   let packageId: string | undefined | null;
@@ -93,7 +96,7 @@ describe('package:version:promote / package:version:update', () => {
     const result = execCmd(`package:version:update --package ${packageId} --branch MySuperCoolBranch`, {
       ensureExitCode: 0,
     }).shellOutput.stdout;
-    expect(result).to.contain(`Successfully updated the package version. ${packageId}`);
+    expect(result).to.contain(messages.getMessage('success', [packageId]));
   });
 
   it('should update a package (--json)', () => {

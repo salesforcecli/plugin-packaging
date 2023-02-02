@@ -48,4 +48,4 @@ New installation key for key-protected package (default: null)
 
 # success
 
-Successfully updated the package version.
+Successfully updated the package version. %s
