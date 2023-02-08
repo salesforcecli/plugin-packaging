@@ -110,7 +110,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       createdLastDays: flags['created-last-days'] as number,
       concise: flags.concise,
       modifiedLastDays: flags['modified-last-days'] as number,
-      packages: flags.packages?.split(' ') ?? [],
+      packages: flags.packages?.split(',') ?? [],
       isReleased: flags.released,
       orderBy: flags['order-by'] as string,
       verbose: flags.verbose,
