@@ -97,23 +97,8 @@
           "version": {
             "description": "Commands to manage first-generation package versions.",
             "subtopics": {
-              "version": {
-                "description": "manage first-generation package versions",
-                "longDescription": "Use the package1 version commands to manage first-generation package versions.",
-                "subtopics": {
-                  "create": {
-                    "description": "create first-generation package versions",
-                    "longDescription": "Use the package1 version create command to create first-generation package versions."
-                  },
-                  "display": {
-                    "description": "display first-generation package versions",
-                    "longDescription": "Use the package1 version display command to display first-generation package version information."
-                  },
-                  "list": {
-                    "description": "list first-generation package versions",
-                    "longDescription": "Use the package1 version list command to list first-generation package versions."
-                  }
-                }
+              "create": {
+                "description": "Command to get package creation requests."
               }
             }
           }
