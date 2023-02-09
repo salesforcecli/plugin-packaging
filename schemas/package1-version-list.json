@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Package1ListCommandResult",
+  "definitions": {
+    "Package1ListCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Package1Display"
+      }
+    },
+    "Package1Display": {
+      "type": "object",
+      "properties": {
+        "MetadataPackageVersionId": {
+          "type": "string"
+        },
+        "MetadataPackageId": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "ReleaseState": {
+          "type": "string"
+        },
+        "BuildNumber": {
+          "type": "number"
+        }
+      },
+      "required": ["MetadataPackageVersionId", "MetadataPackageId", "Name", "Version", "ReleaseState", "BuildNumber"],
+      "additionalProperties": false
+    }
+  }
+}

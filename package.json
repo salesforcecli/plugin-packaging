@@ -1,48 +1,49 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SFDX plugin that support Salesforce Packaging Platform",
-  "version": "1.12.3",
+  "version": "1.14.3",
   "main": "lib/index.js",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
-    "@oclif/core": "^1.22.0",
-    "@salesforce/command": "^5.2.33",
-    "@salesforce/core": "^3.32.11",
-    "@salesforce/kit": "^1.8.2",
-    "@salesforce/packaging": "^1.1.11",
+    "@oclif/core": "^2.0.7",
+    "@salesforce/core": "^3.33.0",
+    "@salesforce/kit": "^1.8.3",
+    "@salesforce/packaging": "^1.2.7",
+    "@salesforce/sf-plugins-core": "^2.0.1",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^3.2.18",
-    "@oclif/plugin-version": "^1.1.2",
-    "@salesforce/cli-plugins-testkit": "^3.2.17",
+    "@oclif/plugin-version": "^1.2.0",
+    "@salesforce/cli-plugins-testkit": "^3.2.20",
     "@salesforce/dev-config": "^3.1.0",
-    "@salesforce/dev-scripts": "^3.1.0",
-    "@salesforce/plugin-auth": "^2.3.7",
-    "@salesforce/plugin-command-reference": "^1.5.6",
-    "@salesforce/plugin-config": "^1.4.22",
+    "@salesforce/dev-scripts": "^3.1.1",
+    "@salesforce/plugin-auth": "^2.3.12",
+    "@salesforce/plugin-command-reference": "^2.2.9",
+    "@salesforce/plugin-config": "^1.4.23",
     "@salesforce/prettier-config": "^0.0.2",
-    "@salesforce/ts-sinon": "1.4.4",
+    "@salesforce/ts-sinon": "1.4.5",
     "@salesforce/ts-types": "^1.5.20",
-    "@swc/core": "^1.3.24",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
+    "@swc/core": "^1.3.27",
+    "@typescript-eslint/eslint-plugin": "^5.48.2",
+    "@typescript-eslint/parser": "^5.48.2",
     "chai": "^4.3.7",
-    "eslint": "^8.31.0",
+    "eslint": "^8.32.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-config-salesforce": "^1.1.0",
-    "eslint-config-salesforce-license": "^0.1.6",
+    "eslint-config-salesforce-license": "^0.2.0",
     "eslint-config-salesforce-typescript": "^1.1.1",
     "eslint-plugin-header": "^3.1.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jsdoc": "^39.6.7",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsdoc": "^39.8.0",
+    "eslint-plugin-sf-plugin": "^1.8.0",
     "husky": "^7.0.4",
     "mocha": "^9.1.3",
     "nyc": "^15.1.0",
-    "oclif": "^3.4.3",
-    "prettier": "^2.8.1",
+    "oclif": "^3.6.0",
+    "prettier": "^2.8.3",
     "pretty-quick": "^3.1.3",
     "shx": "0.3.4",
     "sinon": "^11.1.2",
@@ -56,7 +57,8 @@
   "files": [
     "/lib",
     "/messages",
-    "/oclif.manifest.json"
+    "/oclif.manifest.json",
+    "/schemas"
   ],
   "homepage": "https://github.com/salesforcecli/plugin-packaging",
   "keywords": [
@@ -85,17 +87,15 @@
     ],
     "plugins": [],
     "topics": {
-      "force": {
-        "description": "tools for the Salesforce developer",
-        "longDescription": "Commands to develop on the Salesforce Platform.",
+      "package1": {
+        "description": "Commands to develop first-generation managed and unmanaged packages.",
         "trailblazerCommunityLink": {
-          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000HTp1",
-          "name": "Salesforce DX"
+          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+          "name": "Unlocked Packages and Managed 2GPs"
         },
         "subtopics": {
-          "package1": {
-            "description": "develop first-generation managed and unmanaged packages",
-            "longDescription": "Use the package1 commands to create and view first-generation package versions in your Dev Hub org.",
+          "version": {
+            "description": "Commands to manage first-generation package versions.",
             "subtopics": {
               "version": {
                 "description": "manage first-generation package versions",
@@ -118,34 +118,28 @@
             }
           },
           "package": {
-            "description": "develop and install packages",
-            "longDescription": "Use the package commands to develop and install packages.",
+            "description": "Commands to develop and install unlocked packages and managed 2GP packages.",
             "trailblazerCommunityLink": {
               "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
               "name": "Unlocked Packages and Managed 2GPs"
             },
             "subtopics": {
               "version": {
-                "description": "manage package versions",
-                "longDescription": "Use the package version commands to manage package versions.",
+                "description": "Commands to manage package versions.",
                 "subtopics": {
                   "create": {
-                    "description": "create package versions",
-                    "longDescription": "Use the package version create command to create package versions."
+                    "description": "Commands to list and report package creation requests."
                   }
                 }
               },
               "installed": {
-                "description": "list installed packages",
-                "longDescription": "Use the package installed commands to list installed packages."
+                "description": "Command to list installed packages."
               },
               "uninstall": {
-                "description": "uninstall packages",
-                "longDescription": "Use the package uninstall commands to uninstall packages."
+                "description": "Command to report on uninstalled packages."
               },
               "install": {
-                "description": "install packages",
-                "longDescription": "Use the package install commands to install packages."
+                "description": "Command to report on installed packages."
               }
             }
           }
@@ -163,7 +157,7 @@
     "format": "sf-format",
     "lint": "sf-lint",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:command-reference",
+    "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:json-schema && yarn test:command-reference",
     "prepack": "sf-prepack",
     "prepare": "sf-install",
     "pretest": "sf-compile-test",
@@ -172,6 +166,7 @@
     "test:deprecation-policy": "./bin/dev snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 1800000 --parallel",
     "test:nuts:package1": "nyc mocha \"**/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
+    "test:json-schema": "./bin/dev schema:compare",
     "version": "oclif readme"
   },
   "publishConfig": {

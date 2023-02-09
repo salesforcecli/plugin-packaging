@@ -1,61 +1,58 @@
-# cliDescription
+# summary
 
-list all package versions in the Dev Hub org.
+List all package versions in the Dev Hub org.
 
-Displays details of each package version in the org.
+# description
 
-Use --concise or --verbose to display limited or additional details, respectively.
+The command displays details of each package version in the org. Use --concise or --verbose to display limited or additional details, respectively.
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-# conciseDescription
+# flags.concise.summary
 
-display limited package version details
+Display limited package version details.
 
-# conciseLongDescription
+# flags.packages.summary
 
-Displays limited package version details.
+Comma-delimited list of packages (aliases or 0Ho IDs) to list.
 
-# packagesDescription
+# flags.released.summary
 
-filter results on specified comma-delimited packages (aliases or 0Ho IDs)
+Display released versions only (IsReleased=true).
 
-# packagesLongDescription
+# flags.order-by.summary
 
-Filters results on the specified comma-delimited packages (aliases or 0Ho IDs).
+Package version fields used to order the list.
 
-# releasedDescription
+# flags.verbose.summary
 
-display released versions only
-
-# releasedLongDescription
-
-Displays released versions only (IsReleased=true).
-
-# orderByDescription
-
-order by the specified package version fields
-
-# orderByLongDescription
-
-Orders the list by the specified package version fields.
-
-# verboseDescription
-
-display extended package version details
-
-# verboseLongDescription
-
-Displays extended package version details.
+Display extended package version details.
 
 # examples
 
-$ sfdx force:package:version:list --verbose --createdlastdays 3 --released --orderby PatchVersion
-$ sfdx force:package:version:list --packages 0Ho000000000000,0Ho000000000001 --released --modifiedlastdays 0
-$ sfdx force:package:version:list --released
-$ sfdx force:package:version:list --concise --modifiedlastdays 0
-$ sfdx force:package:version:list --concise -c 3 -r
-$ sfdx force:package:version:list --packages exp-mgr,exp-mgr-util --released --modifiedlastdays 0
+- List package versions in your default Dev Hub org that were created in the last 3 days; show only the released versions and order the list using the PatchVersion field. Display extended details about each package version:
+
+  <%= config.bin %> <%= command.id %> --verbose --created-last-days 3 --released --order-by PatchVersion
+
+- List the released package versions for the two specified packages that were modified today; use the Dev Hub org with username devhub@example.com:
+
+  <%= config.bin %> <%= command.id %> --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0 --target-hub-org devhub@example.com
+
+- List all released package versions in your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --released
+
+- List package versions that were modified today in your default Dev Hub org; show limited details about each one:
+
+  <%= config.bin %> <%= command.id %> --concise --modified-last-days 0
+
+- List released package versions that were created in the last 3 days in your default Dev Hub org; show limited details:
+
+  <%= config.bin %> <%= command.id %> --concise --created-last-days 3 --released
+
+- List released package versions that were modified today for the two packages with specified aliases in your default Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
 
 # name
 
@@ -85,7 +82,7 @@ Subscriber Package Version Id
 
 Converted From Version Id
 
-# packageId
+# package-id
 
 Package Id
 

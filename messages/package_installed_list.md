@@ -1,8 +1,13 @@
-# cliDescription
+# summary
 
-list the org’s installed packages
+List the org’s installed packages.
 
 # examples
 
-$ sfdx force:package:installed:list
-$ sfdx force:package:installed:list -u me@example.com
+- List the installed packages in your default org:
+
+  <%= config.bin %> <%= command.id %>
+
+- List the installed packages in the org with username me@example.com:
+
+  <%= config.bin %> <%= command.id %> --target-org me@example.com

@@ -1,46 +1,46 @@
-# cliDescription
+# summary
 
-delete a package version
+Delete a package version.
+
+# description
+
 Specify the ID or alias of the package version you want to delete.
 
 # examples
 
-$ sfdx force:package:version:delete -p "Your Package Alias"
-$ sfdx force:package:version:delete -p 04t...
+- Delete a package version with the specified alias using your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias"
 
-ID (starts with 04t) or alias of the package to update a version of
+- Delete a package version with the specified ID using the Dev Hub org with username "devhub@example.com":
 
-# packageLong
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org devhub@example.com
 
-The ID (starts with 04t) or alias of the package version to delete.
+# flags.package.summary
 
-# undelete
+ID (starts with 04t) or alias of the package version to delete.
 
-undelete a deleted package version
-
-# undeleteLong
+# flags.undelete.summary
 
 Undelete a deleted package version.
 
-# noPrompt
+# flags.no-prompt.summary
 
-don’t prompt before deleting the package version
+Don’t prompt before deleting the package version.
 
-# promptDelete
+# prompt-delete
 
 Deleted package versions can’t be recovered.
 
 Do you want to continue? (y/n)
 
-# promptUndelete
+# prompt-undelete
 
 This will undelete the package version, which may result in unintended consequences for customers. Proceed with caution.
 
 Do you want to continue? (y/n)
 
-# promptDeleteDeny
+# prompt-delete-deny
 
 The request to delete this package version has been canceled.
 

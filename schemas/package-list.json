@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageListCommandResult",
+  "definitions": {
+    "PackageListCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Package2Result"
+      }
+    },
+    "Package2Result": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "SubscriberPackageId": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "NamespacePrefix": {
+          "type": "string"
+        },
+        "ContainerOptions": {
+          "$ref": "#/definitions/PackageType"
+        },
+        "ConvertedFromPackageId": {
+          "type": "string"
+        },
+        "PackageErrorUsername": {
+          "type": "string"
+        },
+        "Alias": {
+          "type": "string"
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "IsOrgDependent": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "PackageType": {
+      "type": "string",
+      "enum": ["Managed", "Unlocked"]
+    }
+  }
+}

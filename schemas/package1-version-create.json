@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageUploadRequest",
+  "definitions": {
+    "PackageUploadRequest": {
+      "$ref": "#/definitions/PackagingSObjects.PackageUploadRequest"
+    },
+    "PackagingSObjects.PackageUploadRequest": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "number"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "number"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "number"
+        },
+        "MetadataPackageId": {
+          "type": "string"
+        },
+        "MetadataPackageVersionId": {
+          "type": "string"
+        },
+        "IsReleaseVersion": {
+          "type": "boolean"
+        },
+        "VersionName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "number"
+        },
+        "MinorVersion": {
+          "type": "number"
+        },
+        "ReleaseNotesUrl": {
+          "type": "string"
+        },
+        "PostInstallUrl": {
+          "type": "string"
+        },
+        "Password": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "Errors": {
+          "type": "array",
+          "items": {}
+        }
+      },
+      "required": [
+        "Id",
+        "IsDeleted",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById",
+        "SystemModstamp",
+        "MetadataPackageId",
+        "MetadataPackageVersionId",
+        "IsReleaseVersion",
+        "VersionName",
+        "Description",
+        "MajorVersion",
+        "MinorVersion",
+        "ReleaseNotesUrl",
+        "PostInstallUrl",
+        "Password",
+        "Status",
+        "Errors"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

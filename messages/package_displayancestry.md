@@ -1,35 +1,41 @@
-# cliDescription
+# summary
 
-display the ancestry tree for a 2GP managed package version
+Display the ancestry tree for a 2GP managed package version.
 
 # examples
 
-$ sfdx force:package:version:displayancestry -p package_version_alias
-$ sfdx force:package:version:displayancestry -p package_version_alias --dotcode
-$ sfdx force:package:version:displayancestry -p OHo...
-$ sfdx force:package:version:displayancestry -p 04t...
+- Display the ancestry tree for a package version with the specified alias, using your default Dev Hub org:
 
-# package
+  <%= config.bin %> <%= command.id %> --package package_version_alias
 
-ID or alias of the package (starts with 0Ho) or package version (starts with 04t) to display ancestry for
+- Similar to previous example, but display the output in DOT code:
 
-# packageLong
+  <%= config.bin %> <%= command.id %> --package package_version_alias --dot-code
 
-The ID or alias of the package or package version to display ancestry for. If you specify a package ID (starts with 0Ho) or alias, the ancestor tree for every package version associated with the package ID is displayed.
-If you specify a package version (starts with 04t) or alias, the ancestry tree of the specified package version is displayed.
+- Display the ancestry tree for a package with the specified ID, using the Dev Hub org with username devhub@example.com:
 
-# dotcode
+  <%= config.bin %> <%= command.id %> --package OHo... --target-hub-org devhub@example.com
 
-display the ancestry tree in DOT code
+- Display the ancestry tree of a package version with the specified ID, using your default Dev Hub org:
 
-# dotcodeLong
+  <%= config.bin %> <%= command.id %> --package 04t...
 
-Displays the ancestry tree in DOT code. You can use the DOT code output in graph visualization software to create tree visualizations.
+# flags.package.summary
 
-# verbose
+ID or alias of the package (starts with 0Ho) or package version (starts with 04t) to display ancestry for.
 
-display both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree
+# flags.package.description
 
-# verboseLong
+If you specify a package ID (starts with 0Ho) or alias, the ancestor tree for every package version associated with the package ID is displayed. If you specify a package version (starts with 04t) or alias, the ancestry tree of the specified package version is displayed.
 
-Displays both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.
+# flags.dot-code.summary
+
+Display the ancestry tree in DOT code.
+
+# flags.dot-code.description
+
+You can use the DOT code output in graph visualization software to create tree visualizations.
+
+# flags.verbose.summary
+
+Display both the package version ID (starts with 04t) and the version number (major.minor.patch.build) in the ancestry tree.
