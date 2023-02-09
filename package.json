@@ -116,32 +116,32 @@
                 }
               }
             }
-          },
-          "package": {
-            "description": "Commands to develop and install unlocked packages and managed 2GP packages.",
-            "trailblazerCommunityLink": {
-              "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
-              "name": "Unlocked Packages and Managed 2GPs"
-            },
+          }
+        }
+      },
+      "package": {
+        "description": "Commands to develop and install unlocked packages and managed 2GP packages.",
+        "trailblazerCommunityLink": {
+          "url": "https://success.salesforce.com/_ui/core/chatter/groups/GroupProfilePage?g=0F93A000000Lg5U",
+          "name": "Unlocked Packages and Managed 2GPs"
+        },
+        "subtopics": {
+          "version": {
+            "description": "Commands to manage package versions.",
             "subtopics": {
-              "version": {
-                "description": "Commands to manage package versions.",
-                "subtopics": {
-                  "create": {
-                    "description": "Commands to list and report package creation requests."
-                  }
-                }
-              },
-              "installed": {
-                "description": "Command to list installed packages."
-              },
-              "uninstall": {
-                "description": "Command to report on uninstalled packages."
-              },
-              "install": {
-                "description": "Command to report on installed packages."
+              "create": {
+                "description": "Commands to list and report package creation requests."
               }
             }
+          },
+          "installed": {
+            "description": "Command to list installed packages."
+          },
+          "uninstall": {
+            "description": "Command to report on uninstalled packages."
+          },
+          "install": {
+            "description": "Command to report on installed packages."
           }
         }
       }
