@@ -756,7 +756,7 @@
     is-wsl "^2.1.1"
     tslib "^2.5.0"
 
-"@oclif/core@^1.25.0":
+"@oclif/core@^1.25.0", "@oclif/core@^1.26.1":
   version "1.26.1"
   resolved "https://registry.yarnpkg.com/@oclif/core/-/core-1.26.1.tgz#26e46c96143d3e2b1dd9bd558ae1653fe9a4f3fa"
   integrity sha512-g+OWJcM7JOVI53caTEtq0BB1nPotWctRLUyFODPgvDqXhVR7QED+Qz3LwFAMD8dt7/Ar2ZNq15U3bnpnOv453A==
@@ -1196,14 +1196,23 @@
     shx "^0.3.3"
     tslib "^2.5.0"
 
-"@salesforce/packaging@^1.2.3":
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-1.2.3.tgz#c363c23613979e278b7e3c795a7e816273d38de4"
-  integrity sha512-wdSwXDi/8pDQoLfT7SN/RWbFlsZMNhksHazt6Uzg4ewiwKtq0cDSR9uo3r/uTYmhPbVQ423I/drawStI9P1U2w==
+"@salesforce/kit@^1.8.4":
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.8.5.tgz#3dcda46e7216363f8703c1c1d3b4dc5d80c1b4d3"
+  integrity sha512-py5M1PI5tWy/au/1tJ6qQBv7pHX3B4APqsNxg7yx/s2jbERUD6QNwcmWAayuRpZVVnFXBShBYROFZCojuNJwMA==
   dependencies:
-    "@oclif/core" "^1.25.0"
+    "@salesforce/ts-types" "^1.7.3"
+    shx "^0.3.3"
+    tslib "^2.5.0"
+
+"@salesforce/packaging@^1.2.7":
+  version "1.2.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-1.2.7.tgz#94960ab92421520530992663c5fea2a84312c070"
+  integrity sha512-GuGh2XZOMlFvoKyUX+MVGU2gr5KMSdwzeIj1SeD6H1xv8yQF1N/Ubq8FPZlUDbENRkqXLCY4jir94i6KDJDlNQ==
+  dependencies:
+    "@oclif/core" "^1.26.1"
     "@salesforce/core" "^3.32.11"
-    "@salesforce/kit" "^1.8.3"
+    "@salesforce/kit" "^1.8.4"
     "@salesforce/schemas" "^1.5.0"
     "@salesforce/source-deploy-retrieve" "^7.7.5"
     "@salesforce/ts-types" "^1.7.1"
@@ -1311,7 +1320,7 @@
     sinon "^5.1.1"
     tslib "^2.5.0"
 
-"@salesforce/ts-types@^1.5.20", "@salesforce/ts-types@^1.7.1", "@salesforce/ts-types@^1.7.2":
+"@salesforce/ts-types@^1.5.20", "@salesforce/ts-types@^1.7.1", "@salesforce/ts-types@^1.7.2", "@salesforce/ts-types@^1.7.3":
   version "1.7.3"
   resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-1.7.3.tgz#89b79ff0aaa55fea9f2de0afa8e515be3e17d0d8"
   integrity sha512-jpmekGqZ7tpHRJwf1rF0yBJ/IMC5mOrryNi4HZkKuNQn8RF97WpynmL8Om04mLTCESvCiif3y7NWfIcxtID2Gw==
