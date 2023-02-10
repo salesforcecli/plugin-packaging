@@ -147,3 +147,11 @@ Available for installation
 # unavailableForInstallation
 
 Unavailable for installation
+
+# skipHandlersDescription
+
+Skip the feature enforcement install handler
+
+# skipHandlersDescriptionLong
+
+Allows installer to optionally skip the install handler for org feature enforcement in order to decrease overall installation time.

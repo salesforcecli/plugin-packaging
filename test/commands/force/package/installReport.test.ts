@@ -41,6 +41,7 @@ describe('force:package:install:report', () => {
     EnableRss: false,
     UpgradeType: 'mixed-mode',
     ApexCompileType: 'all',
+    SkipHandlers: null,
     Status: 'IN_PROGRESS',
     Errors: null,
   };
