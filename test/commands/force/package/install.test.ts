@@ -338,7 +338,7 @@ describe('force:package:install', () => {
         'AllUsers',
         '-t',
         'DeprecateOnly',
-        '-l',
+        '-l FeatureEnforcement',
       ]);
 
       expect(result).to.deep.equal(pkgInstallRequest);

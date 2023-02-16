@@ -150,8 +150,8 @@ Unavailable for installation
 
 # skipHandlersDescription
 
-Skip the feature enforcement install handler
+Skip install handlers (available handlers: FeatureEnforcement)
 
 # skipHandlersDescriptionLong
 
-Allows installer to optionally skip the install handler for org feature enforcement in order to decrease overall installation time.
+Allows the installer of a package to optionally skip install handlers in order to decrease overall installation time (available handlers: FeatureEnforcement)

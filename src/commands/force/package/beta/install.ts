@@ -26,7 +26,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 // maps of command flag values to PackageInstallRequest values
 const securityType = { AllUsers: 'full', AdminsOnly: 'none' };
 const upgradeType = { Delete: 'delete-only', DeprecateOnly: 'deprecate-only', Mixed: 'mixed-mode' };
-const skipHandlersType = { FeatureEnforcement: 'FeatureEnforcement' };
 
 export class Install extends SfdxCommand {
   public static readonly description = messages.getMessage('cliDescription');
@@ -82,7 +81,7 @@ export class Install extends SfdxCommand {
       default: 'Mixed',
       options: ['DeprecateOnly', 'Mixed', 'Delete'],
     }),
-    skiphandlers: flags.boolean({
+    skiphandlers: flags.array({
       char: 'l',
       description: messages.getMessage('skipHandlersDescription'),
       longDescription: messages.getMessage('skipHandlersDescriptionLong'),
@@ -141,7 +140,7 @@ export class Install extends SfdxCommand {
       SecurityType: securityType[this.flags.securitytype as string] as PackageInstallCreateRequest['SecurityType'],
       SkipHandlers: (this.flags.skiphandlers === undefined
         ? this.flags.skiphandlers
-        : skipHandlersType['FeatureEnforcement']) as PackageInstallCreateRequest['SkipHandlers'],
+        : String(this.flags.skiphandlers)) as PackageInstallCreateRequest['SkipHandlers'],
       UpgradeType: upgradeType[this.flags.upgradetype as string] as PackageInstallCreateRequest['UpgradeType'],
     };
 
