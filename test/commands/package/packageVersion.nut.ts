@@ -340,6 +340,7 @@ describe('package:version:*', () => {
         'IsPasswordProtected',
         'IsReleased',
         'CreatedDate',
+        'Language',
         'LastModifiedDate',
         'InstallUrl',
         'CodeCoverage',
