@@ -1,3 +1,12 @@
+## [1.14.5](https://github.com/salesforcecli/plugin-packaging/compare/1.14.4...1.14.5) (2023-02-19)
+
+
+### Bug Fixes
+
+* update nut for v57.0 ([076bfa6](https://github.com/salesforcecli/plugin-packaging/commit/076bfa6c99fe8b93f1ee6909d78a22355d122bc4))
+
+
+
 ## [1.14.4](https://github.com/salesforcecli/plugin-packaging/compare/1.14.3...1.14.4) (2023-02-11)
 
 
