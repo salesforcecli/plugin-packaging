@@ -71,7 +71,7 @@
           "enum": ["all", "package", null]
         },
         "SkipHandlers": {
-          "type": "string"
+          "type": ["string", "null"]
         },
         "Status": {
           "type": "string",
@@ -102,7 +102,6 @@
         "SecurityType",
         "PackageInstallSource",
         "EnableRss",
-        "SkipHandlers",
         "Status"
       ],
       "additionalProperties": false
