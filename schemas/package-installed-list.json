@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageInstalledCommandResult",
+  "definitions": {
+    "PackageInstalledCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageInstalledListResult"
+      }
+    },
+    "PackageInstalledListResult": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "SubscriberPackageId": {
+          "type": "string"
+        },
+        "SubscriberPackageName": {
+          "type": "string"
+        },
+        "SubscriberPackageNamespace": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionId": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionName": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionNumber": {
+          "type": "string"
+        }
+      },
+      "required": ["Id"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,65 +1,51 @@
-# cliDescription
+# summary
 
-update a package version
-
-Specify a new value for each option you want to update.
-
-To display details about a package version, run "sfdx force:package:version:report".
-
-# examples
-
-$ sfdx force:package:version:update -p "Your Package Alias" -k password123
-$ sfdx force:package:version:update -p 04t... -b main -t 'Release 1.0.7'
-$ sfdx force:package:version:update -p 04t... -e "New Package Version Description"
-
-# package
-
-ID (starts with 04t) or alias of the package to update a version of
-
-# packageLong
-
-The ID (starts with 04t) or alias of the package to update a version of.
-
-# name
-
-new package version name
-
-# nameLong
-
-The new package version name.
+Update a package version.
 
 # description
 
-new package version description
+Specify a new value for each option you want to update.
 
-# descriptionLong
+To display details about a package version, run "<%= config.bin %> package version display".
 
-The new package version description.
+# examples
 
-# branch
+- Update the package version that has the specified alias (that contains spaces) with a new installation key "password123"; uses your default Dev Hub org:
 
-new package version branch
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123
 
-# branchLong
+- Update the package version that has the specified ID with a new branch and tag; use the Dev Hub org with username devhub@example.com:
 
-The new package version branch.
+  <%= config.bin %> <%= command.id %> --package 04t... --branch main --tag 'Release 1.0.7' --target-hub-org devhub@example.com
 
-# tag
+- Update the package version that has the specified ID with a new description:
 
-new package version tag
+  <%= config.bin %> <%= command.id %> --package 04t... --version-description "New Package Version Description"
 
-# tagLong
+# flags.package.summary
 
-The new package version tag.
+ID (starts with 04t) or alias of the package to update a version of.
 
-# key
+# flags.version-name.summary
 
-new installation key for key-protected package (default: null)
+New package version name.
 
-# longKey
+# flags.version-description.summary
 
-The new installation key for the key-protected package. The default is null.
+New package version description.
+
+# flags.branch.summary
+
+New package version branch.
+
+# flags.tag.summary
+
+New package version tag.
+
+# flags.installation-key.summary
+
+New installation key for key-protected package (default: null)
 
 # success
 
-Successfully updated the package version.
+Successfully updated the package version. %s

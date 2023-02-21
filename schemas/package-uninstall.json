@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/UninstallResult",
+  "definitions": {
+    "UninstallResult": {
+      "$ref": "#/definitions/PackagingSObjects.SubscriberPackageVersionUninstallRequest"
+    },
+    "PackagingSObjects.SubscriberPackageVersionUninstallRequest": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "number"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "number"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "number"
+        },
+        "SubscriberPackageVersionId": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string",
+          "enum": ["Error", "InProgress", "Queued", "Success"]
+        }
+      },
+      "required": [
+        "Id",
+        "IsDeleted",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById",
+        "SystemModstamp",
+        "SubscriberPackageVersionId",
+        "Status"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

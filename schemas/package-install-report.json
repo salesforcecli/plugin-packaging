@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageInstallRequest",
+  "definitions": {
+    "PackageInstallRequest": {
+      "$ref": "#/definitions/PackagingSObjects.PackageInstallRequest"
+    },
+    "PackagingSObjects.PackageInstallRequest": {
+      "type": "object",
+      "properties": {
+        "attributes": {
+          "$ref": "#/definitions/PackagingSObjects.Attributes"
+        },
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionKey": {
+          "type": "string"
+        },
+        "NameConflictResolution": {
+          "type": "string",
+          "enum": ["Block", "RenameMetadata"]
+        },
+        "SecurityType": {
+          "type": "string",
+          "enum": ["Custom", "Full", "None"]
+        },
+        "PackageInstallSource": {
+          "type": "string"
+        },
+        "ProfileMappings": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PackagingSObjects.SubscriberPackageProfileMappings"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "Password": {
+          "type": ["string", "null"]
+        },
+        "EnableRss": {
+          "type": "boolean"
+        },
+        "UpgradeType": {
+          "type": ["string", "null"],
+          "enum": ["delete-only", "deprecate-only", "mixed-mode", null]
+        },
+        "ApexCompileType": {
+          "type": ["string", "null"],
+          "enum": ["all", "package", null]
+        },
+        "SkipHandlers": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string",
+          "enum": ["ERROR", "IN_PROGRESS", "SUCCESS", "UNKNOWN"]
+        },
+        "Errors": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PackagingSObjects.SubscriberPackageInstallErrors"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "attributes",
+        "Id",
+        "IsDeleted",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById",
+        "SystemModstamp",
+        "SubscriberPackageVersionKey",
+        "NameConflictResolution",
+        "SecurityType",
+        "PackageInstallSource",
+        "EnableRss",
+        "SkipHandlers",
+        "Status"
+      ],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.Attributes": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["type", "url"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageProfileMappings": {
+      "type": "object",
+      "properties": {
+        "profileMappings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageProfileMapping"
+          }
+        }
+      },
+      "required": ["profileMappings"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageProfileMapping": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "required": ["source", "target"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageInstallErrors": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageInstallError"
+          }
+        }
+      },
+      "required": ["errors"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageInstallError": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "required": ["message"],
+      "additionalProperties": false
+    }
+  }
+}

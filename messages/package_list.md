@@ -1,13 +1,20 @@
-# cliDescription
+# summary
 
-list all packages in the Dev Hub org
+List all packages in the Dev Hub org.
+
+# description
 
 You can view the namespace, IDs, and other details for each package.
 
 # examples
 
-$ sfdx force:package:list -v devhub@example.com
-$ sfdx force:package:list -v devhub@example.com --verbose
+- List all packages in the specified Dev Hub org:
+
+  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com
+
+- List all packages details in the specified Dev Hub org, and show extended details about each package:
+
+  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com --verbose
 
 # namespace
 
@@ -21,7 +28,7 @@ Name
 
 Id
 
-# packageId
+# package-id
 
 Subscriber Package Id
 
@@ -33,17 +40,13 @@ Alias
 
 Description
 
-# packageType
+# package-type
 
 Type
 
-# verboseDescription
+# flags.verbose.summary
 
-display extended package detail
-
-# verboseLongDescription
-
-Displays extended package details.
+Display extended package detail.
 
 # convertedFromPackageId
 
@@ -53,7 +56,7 @@ Converted From Package Id
 
 Org-Dependent Unlocked Package
 
-# errorNotificationUsername
+# error-notification-username
 
 Error Notification Username
 

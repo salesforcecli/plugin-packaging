@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageVersionCreateRequestResult",
+  "definitions": {
+    "PackageVersionCreateRequestResult": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "Status": {
+          "$ref": "#/definitions/PackagingSObjects.Package2VersionStatus"
+        },
+        "Package2Id": {
+          "type": "string"
+        },
+        "Package2VersionId": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionId": {
+          "type": ["string", "null"]
+        },
+        "Tag": {
+          "type": "string"
+        },
+        "Branch": {
+          "type": "string"
+        },
+        "Error": {
+          "type": "array",
+          "items": {}
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "HasMetadataRemoved": {
+          "type": ["boolean", "null"]
+        },
+        "CreatedBy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Id",
+        "Status",
+        "Package2Id",
+        "Package2VersionId",
+        "SubscriberPackageVersionId",
+        "Tag",
+        "Branch",
+        "Error",
+        "CreatedDate",
+        "HasMetadataRemoved",
+        "CreatedBy"
+      ],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.Package2VersionStatus": {
+      "type": "string",
+      "enum": [
+        "Queued",
+        "InProgress",
+        "Success",
+        "Error",
+        "Initializing",
+        "VerifyingFeaturesAndSettings",
+        "VerifyingDependencies",
+        "VerifyingMetadata",
+        "FinalizingPackageVersion"
+      ]
+    }
+  }
+}

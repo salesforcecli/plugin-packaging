@@ -1,0 +1,146 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageVersionListCommandResult",
+  "definitions": {
+    "PackageVersionListCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageVersionListDetails"
+      }
+    },
+    "PackageVersionListDetails": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "HasMetadataRemoved": {
+          "type": "string"
+        },
+        "IsPasswordProtected": {
+          "type": ["string", "boolean"]
+        },
+        "IsReleased": {
+          "type": ["string", "boolean"]
+        },
+        "HasPassedCodeCoverageCheck": {
+          "type": ["string", "boolean"]
+        },
+        "BuildDurationInSeconds": {
+          "type": ["string", "number"]
+        },
+        "CodeCoverage": {
+          "type": "string"
+        },
+        "NamespacePrefix": {
+          "type": "string"
+        },
+        "Package2Name": {
+          "type": "string"
+        },
+        "Version": {
+          "type": "string"
+        },
+        "InstallUrl": {
+          "type": "string"
+        },
+        "AncestorVersion": {
+          "type": "string"
+        },
+        "Alias": {
+          "type": "string"
+        },
+        "IsOrgDependent": {
+          "type": "string",
+          "enum": ["N/A", "Yes", "No"]
+        },
+        "CreatedBy": {
+          "type": "string"
+        },
+        "Id": {
+          "type": "string"
+        },
+        "Package2Id": {
+          "type": "string"
+        },
+        "SubscriberPackageVersionId": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Tag": {
+          "type": "string"
+        },
+        "Branch": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "string"
+        },
+        "MinorVersion": {
+          "type": "string"
+        },
+        "PatchVersion": {
+          "type": "string"
+        },
+        "BuildNumber": {
+          "type": "string"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "AncestorId": {
+          "type": "string"
+        },
+        "ValidationSkipped": {
+          "type": "boolean"
+        },
+        "ConvertedFromVersionId": {
+          "type": "string"
+        },
+        "ReleaseVersion": {
+          "type": "string"
+        },
+        "Language": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Alias",
+        "AncestorId",
+        "AncestorVersion",
+        "Branch",
+        "BuildDurationInSeconds",
+        "BuildNumber",
+        "CodeCoverage",
+        "CreatedBy",
+        "CreatedDate",
+        "Description",
+        "HasMetadataRemoved",
+        "HasPassedCodeCoverageCheck",
+        "Id",
+        "InstallUrl",
+        "IsOrgDependent",
+        "IsPasswordProtected",
+        "IsReleased",
+        "LastModifiedDate",
+        "MajorVersion",
+        "MinorVersion",
+        "Name",
+        "NamespacePrefix",
+        "Package2Id",
+        "Package2Name",
+        "PatchVersion",
+        "SubscriberPackageVersionId",
+        "Tag",
+        "ValidationSkipped",
+        "Version"
+      ]
+    }
+  }
+}

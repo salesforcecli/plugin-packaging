@@ -1,97 +1,96 @@
-# cliDescription
+# summary
 
-install a package in the target org
+Install a version of a package in the target org.
 
-Supply the ID of the package version to install. The package installs in your default target org unless you supply the username for a different target org.
+# description
 
-For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgradetype value. To delete components that can be safely deleted and deprecate the others, specify --upgradetype Mixed (the default). To deprecate all removed components, specify --upgradetype DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgradetype Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
+To install a package, specify a specific version of the package using the 04t package ID. The package and the version you specified installs in your default target org unless you supply the username for a different target org.
+
+For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgrade-type value. To delete components that can be safely deleted and deprecate the others, specify --upgrade-type Mixed (the default). To deprecate all removed components, specify --upgrade-type DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgrade-type Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
 
 # examples
 
-$ sfdx force:package:beta:install --package 04t... -u me@example.com
-$ sfdx force:package:beta:install --package awesome_package_alias
-$ sfdx force:package:beta:install --package "Awesome Package Alias"
-$ sfdx force:package:beta:install --package 04t... -t DeprecateOnly
+- Install a package version with the specified ID in the org with username "me@example.com":
 
-# wait
+  <%= config.bin %> <%= command.id %> --package 04t... --target-org me@example.com
 
-number of minutes to wait for installation status
+- Install a package version with the specified alias into your default org:
 
-# waitLong
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias
 
-Maximum number of minutes to wait for installation status. The default is 0.
+- Install a package version with an alias that includes spaces into your default org:
 
-# installationKey
+  <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
 
-installation key for key-protected package (default: null)
+- Install an unlocked package version with the specified ID and deprecate all removed components:
 
-# installationKeyLong
+  <%= config.bin %> <%= command.id %> --package 04t... --upgrade-type DeprecateOnly
 
-Installation key for installing a key-protected package. The default is null.
+# flags.wait.summary
 
-# noPrompt
+Number of minutes to wait for installation status.
 
-do not prompt for confirmation
+# flags.installation-key.summary
 
-# noPromptLong
+Installation key for key-protected package (default: null).
 
-Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgradetype Delete to proceed.
+# flags.no-prompt.summary
 
-# promptUpgradeType
+Don't prompt for confirmation.
+
+# flags.no-prompt.description
+
+Allows the following without an explicit confirmation response: 1) Remote Site Settings and Content Security Policy websites to send or receive data, and 2) --upgrade-type Delete to proceed.
+
+# prompt-upgrade-type
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
 
 Do you want to continue? (y/n)
 
-# promptUpgradeTypeDeny
+# flags.publish-wait.summary
 
-We canceled this package installation per your request.
+Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request.
 
-# publishWait
-
-number of minutes to wait for subscriber package version ID to become available in the target org
-
-# publishWaitLong
-
-Maximum number of minutes to wait for the Subscriber Package Version ID to become available in the target org before canceling the install request. The default is 0.
-
-# packageInstallSuccess
+# package-install-success
 
 Successfully installed package [%s]
 
-# package
+# flags.package.summary
 
-ID (starts with 04t) or alias of the package version to install
+ID (starts with 04t) or alias of the package version to install.
 
-# packageLong
+# flags.security-type.summary
 
-The ID (starts with 04t) or alias of the package version to install.
+Security access type for the installed package. (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
 
-# securityType
+# flags.skip-handlers.summary
 
-security access type for the installed package (deprecation notice: The default --securitytype value will change from AllUsers to AdminsOnly in v47.0 or later.)
+Skip install handlers (available handlers: FeatureEnforcement).
 
-# securityTypeLong
+# flags.skip-handlers.description
 
-Security access type for the installed package.
+Allows the installer of a package to optionally skip install handlers in order to decrease overall installation time (available handlers: FeatureEnforcement).
 
-# upgradeType
+# flags.upgrade-type.summary
 
-the upgrade type for the package installation; available only for unlocked packages
+Upgrade type for the package installation; available only for unlocked packages.
 
-# upgradeTypeLong
+# flags.upgrade-type.description
 
 For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can specify DeprecateOnly or Delete only for unlocked package upgrades.
 
-# apexCompile
+# flags.apex-compile.summary
 
-compile all Apex in the org and package, or only Apex in the package; unlocked packages only
+Compile all Apex in the org and package, or only Apex in the package; unlocked packages only.
 
-# apexCompileLong
+# flags.apex-compile.description
 
 Applies to unlocked packages only. Specifies whether to compile all Apex in the org and package, or only the Apex in the package.
+
 For package installs into production orgs, or any org that has Apex Compile on Deploy enabled, the platform compiles all Apex in the org after the package install or upgrade operation completes.
-This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apexcompile package is specified.
+
+This approach assures that package installs and upgrades don’t impact the performance of an org, and is done even if --apex-compile package is specified.
 
 # promptEnableRss
 
@@ -101,7 +100,7 @@ This package might send or receive data from these third-party websites:
 
 Grant access (y/n)?
 
-# promptUpgradeType
+# prompt-upgrade-type
 
 The Delete upgrade type permanently deletes metadata types that have been removed from the package. Deleted metadata can’t be recovered. We don't delete custom objects and custom fields. Instead, we deprecate them.
 
@@ -118,7 +117,7 @@ This command is supported only on API versions 36.0 and higher
 # packageInstallInProgress
 
 PackageInstallRequest is currently InProgress. You can continue to query the status using
-sfdx force:package:beta:install:report -i %s -u %s
+%s package:install:report -i %s -o %s
 
 # packageInstallError
 
@@ -147,11 +146,3 @@ Available for installation
 # unavailableForInstallation
 
 Unavailable for installation
-
-# skipHandlersDescription
-
-Skip install handlers (available handlers: FeatureEnforcement)
-
-# skipHandlersDescriptionLong
-
-Allows the installer of a package to optionally skip install handlers in order to decrease overall installation time (available handlers: FeatureEnforcement)

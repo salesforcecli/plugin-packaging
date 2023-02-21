@@ -1,16 +1,17 @@
-# cliDescription
+# summary
 
-retrieve the status of a package installation request
+Retrieve the status of a package installation request.
 
 # examples
 
-$ sfdx force:package:install:report -i 0Hf...
-$ sfdx force:package:install:report -i 0Hf... -u me@example.com
+- Retrieve the status of a package installation request with the specified ID on your default org:
 
-# requestId
+  <%= config.bin %> <%= command.id %> --request-id 0Hf...
 
-ID of the package install request you want to check
+- Similar to previous example, except use the org with username me@example.com:
 
-# requestIdLong
+  <%= config.bin %> <%= command.id %> --request-id 0Hf... --target-org me@example.com
 
-The ID of the package install request you want to check.
+# flags.request-id.summary
+
+ID of the package install request you want to check; starts with 0Hf.

@@ -1,24 +1,25 @@
-# cliDescription
+# summary
 
-retrieve status of package uninstall request
+Retrieve the status of a package uninstall request.
 
 # examples
 
-$ sfdx force:package:beta:uninstall:report -i 06y...
-$ sfdx force:package:beta:uninstall:report -i 06y... -u me@example.com
+- Retrieve the status of a package uninstall in your default org using the specified request ID:
 
-# requestId
+  <%= config.bin %> <%= command.id %> --request-id 06y...
 
-ID of the package uninstall request you want to check
+- Similar to previous example, but use the org with username me@example.com:
 
-# requestIdLong
+  <%= config.bin %> <%= command.id %> --request-id 06y... --target-org me@example.com
 
-The ID of the package uninstall request you want to check.
+# flags.request-id.summary
+
+ID of the package uninstall request you want to check; starts with 06y.
 
 # InProgress
 
 PackageUninstallRequest is currently InProgress. You can continue to query the status using
-sfdx force:package:beta:uninstall:report -i %s -u %s
+%s package:uninstall:report -i %s -o %s
 
 # Unknown
 
@@ -28,6 +29,6 @@ TODO: fix me
 
 Successfully uninstalled package [%s]
 
-# packageIdInvalid
+# package-id-invalid
 
 Verify that you entered a valid package uninstall request ID (starts with 06y) and try again.
