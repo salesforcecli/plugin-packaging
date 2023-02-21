@@ -40,7 +40,7 @@ const pkgInstallRequest = {
   EnableRss: false,
   UpgradeType: 'mixed-mode',
   ApexCompileType: 'all',
-  SkipHandlers: undefined,
+  SkipHandlers: null,
   Status: 'IN_PROGRESS',
   Errors: null,
 };
