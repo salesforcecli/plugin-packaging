@@ -104,9 +104,9 @@ export class Install extends SfCommand<PackageInstallRequest> {
       description: messages.getMessage('flags.upgrade-type.description'),
       default: 'Mixed',
     }),
-    'skip-handlers': Flags.custom<'FeatureEnforcement'>({
+    'skip-handlers': Flags.string({
+      multiple: true,
       options: ['FeatureEnforcement'],
-    })({
       char: 'l',
       summary: messages.getMessage('flags.skip-handlers.summary'),
       description: messages.getMessage('flags.skip-handlers.description'),
