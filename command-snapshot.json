@@ -92,6 +92,7 @@
       "package",
       "publish-wait",
       "security-type",
+      "skip-handlers",
       "target-org",
       "upgrade-type",
       "wait"

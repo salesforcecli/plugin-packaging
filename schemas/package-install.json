@@ -70,6 +70,9 @@
           "type": ["string", "null"],
           "enum": ["all", "package", null]
         },
+        "SkipHandlers": {
+          "type": ["string", "null"]
+        },
         "Status": {
           "type": "string",
           "enum": ["ERROR", "IN_PROGRESS", "SUCCESS", "UNKNOWN"]

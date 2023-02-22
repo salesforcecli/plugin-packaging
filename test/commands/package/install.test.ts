@@ -40,6 +40,7 @@ const pkgInstallRequest = {
   EnableRss: false,
   UpgradeType: 'mixed-mode',
   ApexCompileType: 'all',
+  SkipHandlers: null,
   Status: 'IN_PROGRESS',
   Errors: null,
 };
@@ -48,6 +49,7 @@ const pkgInstallCreateRequest = {
   SubscriberPackageVersionKey: myPackageVersion04t,
   Password: undefined,
   ApexCompileType: 'all',
+  SkipHandlers: undefined,
   SecurityType: 'none',
   UpgradeType: 'mixed-mode',
 };
@@ -319,11 +321,12 @@ describe('package:install', () => {
       expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
     });
 
-    it('sets PackageInstallRequest values for securityType, upgradeType, apexCompileType', async () => {
+    it('sets PackageInstallRequest values for securityType, upgradeType, apexCompileType, SkipHandlers', async () => {
       const overrides = {
         ApexCompileType: 'package',
         SecurityType: 'full',
         UpgradeType: 'deprecate-only',
+        SkipHandlers: 'FeatureEnforcement',
       };
       const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, overrides);
       installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
@@ -339,6 +342,8 @@ describe('package:install', () => {
           'AllUsers',
           '-t',
           'DeprecateOnly',
+          '-l',
+          'FeatureEnforcement',
           '-o',
           testOrg.username,
         ],

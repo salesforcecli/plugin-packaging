@@ -64,6 +64,14 @@ ID (starts with 04t) or alias of the package version to install.
 
 Security access type for the installed package. (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
 
+# flags.skip-handlers.summary
+
+Skip install handlers (available handlers: FeatureEnforcement).
+
+# flags.skip-handlers.description
+
+Allows the installer of a package to optionally skip install handlers in order to decrease overall installation time (available handlers: FeatureEnforcement).
+
 # flags.upgrade-type.summary
 
 Upgrade type for the package installation; available only for unlocked packages.
