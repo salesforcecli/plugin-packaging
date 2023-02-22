@@ -138,7 +138,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       Password: flags['installation-key'],
       ApexCompileType: flags['apex-compile'],
       SecurityType: securityType[flags['security-type']] as PackageInstallCreateRequest['SecurityType'],
-      SkipHandlers: flags['skip-handlers'],
+      SkipHandlers: flags['skip-handlers']?.join(','),
       UpgradeType: upgradeType[flags['upgrade-type']] as PackageInstallCreateRequest['UpgradeType'],
     };
 
