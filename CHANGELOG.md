@@ -1,3 +1,12 @@
+## [1.15.1](https://github.com/salesforcecli/plugin-packaging/compare/1.15.0...1.15.1) (2023-03-04)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/packaging from 1.4.1 to 1.4.2 ([4eff647](https://github.com/salesforcecli/plugin-packaging/commit/4eff647b8cf676774e2d485538f37fe6e80e4a54))
+
+
+
 # [1.15.0](https://github.com/salesforcecli/plugin-packaging/compare/1.14.5...1.15.0) (2023-02-22)
 
 
