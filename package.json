@@ -19,7 +19,7 @@
     "@oclif/plugin-version": "^1.2.0",
     "@salesforce/cli-plugins-testkit": "^3.2.20",
     "@salesforce/dev-config": "^3.1.0",
-    "@salesforce/dev-scripts": "^3.1.1",
+    "@salesforce/dev-scripts": "^4.1.2",
     "@salesforce/plugin-auth": "^2.3.12",
     "@salesforce/plugin-command-reference": "^2.4.1",
     "@salesforce/plugin-config": "^1.4.23",
@@ -48,7 +48,8 @@
     "shx": "0.3.4",
     "sinon": "^11.1.2",
     "ts-node": "^10.8.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "wireit": "^0.9.5"
   },
   "config": {},
   "engines": {
@@ -134,28 +135,130 @@
   },
   "repository": "salesforcecli/plugin-packaging",
   "scripts": {
-    "build": "sf-build",
+    "build": "wireit",
     "clean": "sf-clean",
     "clean-all": "sf-clean all",
     "clean:lib": "shx rm -rf lib && shx rm -rf coverage && shx rm -rf .nyc_output && shx rm -f oclif.manifest.json",
-    "compile": "sf-compile",
-    "format": "sf-format",
-    "lint": "sf-lint",
+    "compile": "wireit",
+    "format": "wireit",
+    "lint": "wireit",
     "postpack": "shx rm -f oclif.manifest.json",
-    "posttest": "yarn lint && yarn test:deprecation-policy && yarn test:json-schema && yarn test:command-reference",
     "prepack": "sf-prepack",
     "prepare": "sf-install",
-    "pretest": "sf-compile-test",
-    "test": "sf-test",
-    "test:command-reference": "./bin/dev commandreference:generate --erroronwarnings",
-    "test:deprecation-policy": "./bin/dev snapshot:compare",
+    "test": "wireit",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 --timeout 1800000 --parallel",
     "test:nuts:package": "nyc mocha \"test/commands/package/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
     "test:nuts:package1": "nyc mocha \"test/commands/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel",
-    "test:json-schema": "./bin/dev schema:compare",
+    "test:only": "wireit",
     "version": "oclif readme"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "wireit": {
+    "build": {
+      "dependencies": [
+        "compile",
+        "lint"
+      ]
+    },
+    "compile": {
+      "command": "tsc -p . --pretty --incremental",
+      "files": [
+        "src/**/*.ts",
+        "tsconfig.json",
+        "messages/**"
+      ],
+      "output": [
+        "lib/**",
+        "*.tsbuildinfo"
+      ],
+      "clean": "if-file-deleted"
+    },
+    "format": {
+      "command": "prettier --write \"+(src|test|schemas)/**/*.+(ts|js|json)|command-snapshot.json\"",
+      "files": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "schemas/**/*.json",
+        "command-snapshot.json",
+        ".prettier*"
+      ],
+      "output": []
+    },
+    "lint": {
+      "command": "eslint src test --color --cache --cache-location .eslintcache",
+      "files": [
+        "src/**/*.ts",
+        "test/**/*.ts",
+        "messages/**",
+        ".eslint*"
+      ],
+      "output": []
+    },
+    "test:compile": {
+      "command": "tsc -p \"./test\" --pretty",
+      "files": [
+        "test/**/*.ts",
+        "tsconfig.json",
+        "test/tsconfig.json"
+      ],
+      "output": []
+    },
+    "test": {
+      "dependencies": [
+        "test:compile",
+        "test:only",
+        "test:command-reference",
+        "test:deprecation-policy",
+        "lint",
+        "test:json-schema"
+      ]
+    },
+    "test:only": {
+      "command": "nyc mocha \"test/**/*.test.ts\"",
+      "env": {
+        "FORCE_COLOR": "2"
+      },
+      "files": [
+        "test/**/*.ts",
+        "src/**/*.ts",
+        "tsconfig.json",
+        ".mocha*",
+        "test/tsconfig.json",
+        "!*.nut.ts",
+        ".nycrc"
+      ],
+      "output": []
+    },
+    "test:command-reference": {
+      "command": "\"./bin/dev\" commandreference:generate --erroronwarnings",
+      "files": [
+        "src/**/*.ts",
+        "messages/**",
+        "package.json"
+      ],
+      "output": [
+        "tmp/root"
+      ]
+    },
+    "test:deprecation-policy": {
+      "command": "\"./bin/dev\" snapshot:compare",
+      "files": [
+        "src/**/*.ts"
+      ],
+      "output": [],
+      "dependencies": [
+        "compile"
+      ]
+    },
+    "test:json-schema": {
+      "command": "\"./bin/dev\" schema:compare",
+      "files": [
+        "src/**/*.ts",
+        "schemas"
+      ],
+      "output": []
+    }
   }
 }
