@@ -1,3 +1,21 @@
+## [1.15.2](https://github.com/salesforcecli/plugin-packaging/compare/1.15.1...1.15.2) (2023-03-07)
+
+
+### Bug Fixes
+
+* nut tests by bumping testkit ([4e17560](https://github.com/salesforcecli/plugin-packaging/commit/4e17560704209d6309ebac6aefb16e0d072827ca))
+
+
+
+## [1.15.1](https://github.com/salesforcecli/plugin-packaging/compare/1.15.0...1.15.1) (2023-03-04)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/packaging from 1.4.1 to 1.4.2 ([4eff647](https://github.com/salesforcecli/plugin-packaging/commit/4eff647b8cf676774e2d485538f37fe6e80e4a54))
+
+
+
 # [1.15.0](https://github.com/salesforcecli/plugin-packaging/compare/1.14.5...1.15.0) (2023-02-22)
 
 

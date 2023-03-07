@@ -67,8 +67,8 @@ describe('package1:version:list', () => {
   it('should list 1gp packages in dev hub related to the package id - human readable results - no results', () => {
     // fake package ID
     const command = `package1:version:list -i 03346000000MrC0AXX -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output?.trim()).to.contain('No Results Found');
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput;
+    expect(output?.stderr?.trim()).to.contain('No Results Found');
   });
 
   it("should validate packageversionid flag (doesn't start with 033)", () => {
