@@ -36,8 +36,8 @@ describe('package1:version:display', () => {
   it('should list 1gp packages in dev hub - human readable results - no results', () => {
     // fake package ID
     const command = `package1:version:display -i 04t46000001ZfaXXXX -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.contain('No results found');
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput;
+    expect(output.stderr).to.contain('No results found');
   });
 
   it('should validate packageversionid flag (too short)', () => {
