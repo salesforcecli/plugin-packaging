@@ -1,3 +1,12 @@
+# [1.16.0](https://github.com/salesforcecli/plugin-packaging/compare/1.15.2...1.16.0) (2023-03-08)
+
+
+### Features
+
+* changing the flag -f to visible ([954f1ed](https://github.com/salesforcecli/plugin-packaging/commit/954f1ed0dae4f96748e76930a6266d4d75c30a17))
+
+
+
 ## [1.15.2](https://github.com/salesforcecli/plugin-packaging/compare/1.15.1...1.15.2) (2023-03-07)
 
 
