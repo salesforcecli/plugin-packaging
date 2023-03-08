@@ -59,7 +59,6 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       aliases: ['definitionfile'],
       summary: messages.getMessage('flags.definition-file.summary'),
       description: messages.getMessage('flags.definition-file.description'),
-      hidden: true,
     }),
     'installation-key-bypass': Flags.boolean({
       char: 'x',
