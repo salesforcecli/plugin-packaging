@@ -1,3 +1,12 @@
+## [1.16.1](https://github.com/salesforcecli/plugin-packaging/compare/1.16.0...1.16.1) (2023-03-09)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/packaging from 1.4.2 to 1.4.3 ([df6c5ea](https://github.com/salesforcecli/plugin-packaging/commit/df6c5eaf1243dd71f82b2f6783e6126145d0adaa))
+
+
+
 # [1.16.0](https://github.com/salesforcecli/plugin-packaging/compare/1.15.2...1.16.0) (2023-03-08)
 
 
