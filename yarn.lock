@@ -1225,15 +1225,15 @@
     ts-retry-promise "^0.7.0"
     xml2js "^0.4.23"
 
-"@salesforce/plugin-auth@^2.7.3":
-  version "2.7.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.3.tgz#ddac83df1a3f6532d718fdcfd8e90327c8152919"
-  integrity sha512-iv5Iwkvy58ud/GqthkM8AEVqtV9w8KoVdPM8dw98IjfKJgToQUXiBRhSlzEQkV0YFNsUF3co++aOmN9M36Gmwg==
+"@salesforce/plugin-auth@^2.7.7":
+  version "2.7.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.7.tgz#f273774b94e7aee9a30f86cb24f0486b83c573c2"
+  integrity sha512-yUWFI4ANtL+Y0dQR0hmMoL/nf7MA6/eBnuDhOL3SvtXxRkp7D1+uXl3Erlq8r6/ZhfWX4wdskJOPHfEc+XCs7A==
   dependencies:
-    "@oclif/core" "^2.3.1"
-    "@salesforce/core" "^3.33.5"
+    "@oclif/core" "^2.4.0"
+    "@salesforce/core" "^3.33.6"
     "@salesforce/kit" "^1.9.0"
-    "@salesforce/sf-plugins-core" "^2.2.3"
+    "@salesforce/sf-plugins-core" "^2.2.4"
     chalk "^4.1.2"
     fs-extra "^10.0.1"
     inquirer "^8.2.5"
@@ -1277,7 +1277,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.5.0.tgz#8bfe2cb5d7cb29d3394b3b9cfb71bb527009c82c"
   integrity sha512-EKFBURBuON7cj8XZCW+ybeSRRw7wUP1XUXZVHzFgx8KiYmSeGiRHBYbDjQOsQMho2uOLsTozMPEt2ehYnji0YA==
 
-"@salesforce/sf-plugins-core@^2.0.1", "@salesforce/sf-plugins-core@^2.2.3", "@salesforce/sf-plugins-core@^2.2.4":
+"@salesforce/sf-plugins-core@^2.0.1", "@salesforce/sf-plugins-core@^2.2.4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-2.2.4.tgz#c94f83cab62ff0009b88069e72b4cdcfc9748b82"
   integrity sha512-lKi0W4y3SJfZCT1cuWZsc6vbJLS+QwO4TMbu/dob0LIba7r3+nrd7st8t2xvm/Z3hRKr8xsJADq/XFYPU7jfmQ==
