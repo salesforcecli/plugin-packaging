@@ -14,7 +14,7 @@ Supply the ID or alias of the package version you want to promote. Promotes the 
 
 - Promote the package version with the specified alias to released; uses the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --package awesome_package_alias --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package awesome_package_alias --target-dev-hub devhub@example.com
 
 - Promote the package version with an alias that has spaces to released:
 

@@ -16,7 +16,7 @@ Run "<%= config.bin %> package list" to list all packages in the Dev Hub org.
 
 - Update the description of the package with the specified ID; uses the specified Dev Hub org:
 
-  <%= config.bin %> <%= command.id %> --package 0Ho... --description "New Package Description" --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package 0Ho... --description "New Package Description" --target-dev-hub devhub@example.com
 
 # flags.package.summary
 

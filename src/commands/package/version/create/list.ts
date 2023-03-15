@@ -5,16 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as chalk from 'chalk';
+import { requiredHubFlag } from '../../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
@@ -32,7 +27,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   public static readonly aliases = ['force:package:beta:version:create:list', 'force:package:version:create:list'];
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
@@ -50,7 +45,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
 
   public async run(): Promise<CreateListCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateListCommand);
-    const connection = flags['target-hub-org'].getConnection(flags['api-version']);
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,

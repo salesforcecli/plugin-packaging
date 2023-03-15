@@ -6,13 +6,7 @@
  */
 
 import * as os from 'os';
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
@@ -23,6 +17,7 @@ import {
   PackageVersionEvents,
   PackagingSObjects,
 } from '@salesforce/packaging';
+import { requiredHubFlag } from '../../../utils/hubFlag';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectory(__dirname);
@@ -39,7 +34,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
   public static readonly aliases = ['force:package:beta:version:create', 'force:package:version:create'];
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     branch: Flags.string({
       char: 'b',
@@ -227,7 +222,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
 
     const result = await PackageVersion.create(
       {
-        connection: flags['target-hub-org'].getConnection(flags['api-version']),
+        connection: flags['target-dev-hub'].getConnection(flags['api-version']),
         project: this.project,
         ...Object.fromEntries(Object.entries(flags).map(([key, value]) => [key.replace(/-/g, ''), value])),
         packageId: flags.package,

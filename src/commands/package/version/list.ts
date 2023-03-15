@@ -5,13 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, SfProject } from '@salesforce/core';
 import { ux } from '@oclif/core';
 import {
@@ -22,6 +16,7 @@ import {
   PackageVersionListResult,
 } from '@salesforce/packaging';
 import { Optional } from '@salesforce/ts-types';
+import { requiredHubFlag } from '../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
@@ -64,7 +59,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   public static readonly aliases = ['force:package:beta:version:list', 'force:package:version:list'];
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
@@ -103,7 +98,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 
   public async run(): Promise<PackageVersionListCommandResult> {
     const { flags } = await this.parse(PackageVersionListCommand);
-    const connection = flags['target-hub-org'].getConnection(flags['api-version']);
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const project = SfProject.getInstance();
 
     const records = await Package.listVersions(connection, project, {

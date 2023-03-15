@@ -5,15 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
+import { requiredHubFlag } from '../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_update');
@@ -28,7 +23,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
@@ -57,7 +52,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     const { flags } = await this.parse(PackageUpdateCommand);
     const pkg = new Package({
       packageAliasOrId: flags.package,
-      connection: flags['target-hub-org'].getConnection(flags['api-version']),
+      connection: flags['target-dev-hub'].getConnection(flags['api-version']),
       project: this.project,
     });
 

@@ -22,7 +22,7 @@ Status of the version creation request, used to filter the list.
 
 - List package version creation requests from the last 3 days in the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-hub-org
+  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-dev-hub
 
 - List package version creation requests with status Error:
 

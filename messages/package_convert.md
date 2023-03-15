@@ -24,7 +24,7 @@ To list package version creation requests in the org, run "<%= config.bin %> pac
 
 - Similar to previous example, but uses the specified Dev Hub org:
 
-  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123 --target-hub-org devhuborg@example.com
+  <%= config.bin %> <%= command.id %> --package 033... --installation-key password123 --target-dev-hub devhuborg@example.com
 
 # flags.package.summary
 

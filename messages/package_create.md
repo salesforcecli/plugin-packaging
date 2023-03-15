@@ -20,7 +20,7 @@ Run '<%= config.bin %> package list to list all packages in the Dev Hub org.
 
 - Create a managed packaged from the "force-app" directory files, give the package a description, and use the specified Dev Hub org:
 
-  <%= config.bin %> <%= command.id %> --name MyManagedPackage --description "Your Package Descripton" --package-type Managed --path force-app --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --name MyManagedPackage --description "Your Package Descripton" --package-type Managed --path force-app --target-dev-hub devhub@example.com
 
 # flags.name.summary
 

@@ -50,7 +50,7 @@
       "loglevel",
       "package",
       "seed-metadata",
-      "target-hub-org",
+      "target-dev-hub",
       "wait"
     ],
     "alias": ["force:package:beta:convert", "force:package:convert"]
@@ -69,14 +69,14 @@
       "org-dependent",
       "package-type",
       "path",
-      "target-hub-org"
+      "target-dev-hub"
     ],
     "alias": ["force:package:beta:create", "force:package:create"]
   },
   {
     "command": "package:delete",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org", "undelete"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-dev-hub", "undelete"],
     "alias": ["force:package:beta:delete", "force:package:delete"]
   },
   {
@@ -114,7 +114,7 @@
   {
     "command": "package:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "target-hub-org", "verbose"],
+    "flags": ["api-version", "json", "loglevel", "target-dev-hub", "verbose"],
     "alias": ["force:package:beta:list", "force:package:list"]
   },
   {
@@ -140,7 +140,7 @@
       "loglevel",
       "name",
       "package",
-      "target-hub-org"
+      "target-dev-hub"
     ],
     "alias": ["force:package:beta:update", "force:package:update"]
   },
@@ -167,7 +167,7 @@
       "skip-ancestor-check",
       "skip-validation",
       "tag",
-      "target-hub-org",
+      "target-dev-hub",
       "uninstall-script",
       "validate-schema",
       "verbose",
@@ -181,25 +181,25 @@
   {
     "command": "package:version:create:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-hub-org"],
+    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-dev-hub"],
     "alias": ["force:package:beta:version:create:list", "force:package:version:create:list"]
   },
   {
     "command": "package:version:create:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "package-create-request-id", "target-hub-org"],
+    "flags": ["api-version", "json", "loglevel", "package-create-request-id", "target-dev-hub"],
     "alias": ["force:package:beta:version:create:report", "force:package:version:create:report"]
   },
   {
     "command": "package:version:delete",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org", "undelete"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-dev-hub", "undelete"],
     "alias": ["force:package:beta:version:delete", "force:package:version:delete"]
   },
   {
     "command": "package:version:displayancestry",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "dot-code", "json", "loglevel", "package", "target-hub-org", "verbose"],
+    "flags": ["api-version", "dot-code", "json", "loglevel", "package", "target-dev-hub", "verbose"],
     "alias": ["force:package:beta:version:displayancestry", "force:package:version:displayancestry"]
   },
   {
@@ -215,7 +215,7 @@
       "order-by",
       "packages",
       "released",
-      "target-hub-org",
+      "target-dev-hub",
       "verbose"
     ],
     "alias": ["force:package:beta:version:list", "force:package:version:list"]
@@ -223,13 +223,13 @@
   {
     "command": "package:version:promote",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-hub-org"],
+    "flags": ["api-version", "json", "loglevel", "no-prompt", "package", "target-dev-hub"],
     "alias": ["force:package:beta:version:promote", "force:package:version:promote"]
   },
   {
     "command": "package:version:report",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "json", "loglevel", "package", "target-hub-org", "verbose"],
+    "flags": ["api-version", "json", "loglevel", "package", "target-dev-hub", "verbose"],
     "alias": ["force:package:beta:version:report", "force:package:version:report"]
   },
   {
@@ -243,7 +243,7 @@
       "loglevel",
       "package",
       "tag",
-      "target-hub-org",
+      "target-dev-hub",
       "version-description",
       "version-name"
     ],

@@ -5,17 +5,12 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { Optional } from '@salesforce/ts-types';
+import { requiredHubFlag } from '../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
@@ -39,7 +34,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
@@ -55,7 +50,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
   public async run(): Promise<PackageVersionReportResultModified> {
     const { flags } = await this.parse(PackageVersionReportCommand);
     const packageVersion = new PackageVersion({
-      connection: flags['target-hub-org'].getConnection(flags['api-version']),
+      connection: flags['target-dev-hub'].getConnection(flags['api-version']),
       project: this.project,
       idOrAlias: flags.package,
     });
