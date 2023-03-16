@@ -1,3 +1,12 @@
+## [1.16.2](https://github.com/salesforcecli/plugin-packaging/compare/1.16.1...1.16.2) (2023-03-16)
+
+
+### Bug Fixes
+
+* rename devhub flag ([5bb0a25](https://github.com/salesforcecli/plugin-packaging/commit/5bb0a25d7e81be2efbd72b4671a9f4a02cd878a3))
+
+
+
 ## [1.16.1](https://github.com/salesforcecli/plugin-packaging/compare/1.16.0...1.16.1) (2023-03-09)
 
 
