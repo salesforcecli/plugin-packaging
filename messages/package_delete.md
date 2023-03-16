@@ -16,7 +16,7 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 - Delete a package using its ID from the specified Dev Hub org:
 
-  <%= config.bin %> <%= command.id %> --package 0Ho... --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package 0Ho... --target-dev-hub devhub@example.com
 
 # flags.package.summary
 

@@ -10,11 +10,11 @@ You can view the namespace, IDs, and other details for each package.
 
 - List all packages in the specified Dev Hub org:
 
-  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com
 
 - List all packages details in the specified Dev Hub org, and show extended details about each package:
 
-  <%= config.bin %> <%= command.id %> --target-hub-org devhub@example.com --verbose
+  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com --verbose
 
 # namespace
 

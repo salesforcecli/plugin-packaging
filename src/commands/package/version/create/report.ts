@@ -5,18 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
 import * as pkgUtils from '@salesforce/packaging';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { camelCaseToTitleCase } from '@salesforce/kit';
+import { requiredHubFlag } from '../../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_report');
@@ -34,7 +29,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
   public static readonly aliases = ['force:package:beta:version:create:report', 'force:package:version:create:report'];
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-create-request-id': Flags.salesforceId({
@@ -51,9 +46,9 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
     const { flags } = await this.parse(PackageVersionCreateReportCommand);
     const result = await PackageVersion.getCreateStatus(
       flags['package-create-request-id'],
-      flags['target-hub-org'].getConnection(flags['api-version'])
+      flags['target-dev-hub'].getConnection(flags['api-version'])
     );
-    this.display(result, flags['package-create-request-id'], flags['target-hub-org']);
+    this.display(result, flags['package-create-request-id'], flags['target-dev-hub']);
     return [result];
   }
 

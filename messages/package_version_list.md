@@ -36,7 +36,7 @@ Display extended package version details.
 
 - List the released package versions for the two specified packages that were modified today; use the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0 --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0 --target-dev-hub devhub@example.com
 
 - List all released package versions in your default Dev Hub org:
 

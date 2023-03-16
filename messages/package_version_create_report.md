@@ -16,7 +16,7 @@ To show all requests in the org, run "<%= config.bin %> package version create l
 
 - Retrieve details about the specified package version creation request in the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --package-create-request-id 08c... --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package-create-request-id 08c... --target-dev-hub devhub@example.com
 
 # flags.package-create-request-id.summary
 

@@ -5,16 +5,11 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
+import { requiredHubFlag } from '../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
@@ -48,7 +43,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   public static readonly aliases = ['force:package:beta:list', 'force:package:list'];
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     verbose: Flags.boolean({
       summary: messages.getMessage('flags.verbose.summary'),
@@ -59,7 +54,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
 
   public async run(): Promise<PackageListCommandResult> {
     const { flags } = await this.parse(PackageListCommand);
-    const queryResult = await Package.list(flags['target-hub-org'].getConnection(flags['api-version']));
+    const queryResult = await Package.list(flags['target-dev-hub'].getConnection(flags['api-version']));
     this.mapRecordsToResults(queryResult);
     this.displayResults(flags.verbose);
     return this.results;

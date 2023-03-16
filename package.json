@@ -151,7 +151,7 @@
     "test:deprecation-policy": "./bin/dev snapshot:compare",
     "test:nuts": "nyc mocha \"**/*.nut.ts\" --slow 4500 -t 1800000 --parallel --jobs 20",
     "test:nuts:package": "nyc mocha \"test/commands/package/*.nut.ts\" --slow 4500 --timeout 600000 --parallel --jobs 20",
-    "test:nuts:package1": "nyc mocha \"test/commands/package1/*.nut.ts\" --slow 4500 --timeout 600000--parallel --jobs 20",
+    "test:nuts:package1": "nyc mocha \"test/commands/package1/*.nut.ts\" --slow 4500 --timeout 600000 --parallel --jobs 20",
     "test:json-schema": "./bin/dev schema:compare",
     "version": "oclif readme"
   },

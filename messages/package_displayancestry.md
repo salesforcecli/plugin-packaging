@@ -14,7 +14,7 @@ Display the ancestry tree for a 2GP managed package version.
 
 - Display the ancestry tree for a package with the specified ID, using the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --package OHo... --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package OHo... --target-dev-hub devhub@example.com
 
 - Display the ancestry tree of a package version with the specified ID, using your default Dev Hub org:
 

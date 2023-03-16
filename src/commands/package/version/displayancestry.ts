@@ -5,15 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
+import { requiredHubFlag } from '../../../utils/hubFlag';
 
 // Import i18n messages
 Messages.importMessagesDirectory(__dirname);
@@ -33,7 +28,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
 
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
@@ -57,7 +52,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
     const packageAncestry = await Package.getAncestry(
       flags.package,
       this.project,
-      flags['target-hub-org'].getConnection(flags['api-version'])
+      flags['target-dev-hub'].getConnection(flags['api-version'])
     );
     const jsonProducer = packageAncestry.getJsonProducer();
     if (flags['dot-code']) {

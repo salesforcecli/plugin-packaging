@@ -5,15 +5,10 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageCreateOptions, PackageType } from '@salesforce/packaging';
+import { requiredHubFlag } from '../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
@@ -28,7 +23,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     name: Flags.string({
       char: 'n',
@@ -89,7 +84,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       path: flags.path,
     };
     const result: PackageCreate = await Package.create(
-      flags['target-hub-org'].getConnection(flags['api-version']),
+      flags['target-dev-hub'].getConnection(flags['api-version']),
       this.project,
       options
     );

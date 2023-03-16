@@ -23,7 +23,7 @@ We don’t calculate code coverage for org-dependent unlocked packages, or for p
 
 - Create a package version from a package with the specified alias; uses the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123 --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --installation-key password123 --target-dev-hub devhub@example.com
 
 - Create a package version from a package with the specified ID:
 

@@ -14,7 +14,7 @@ To update package version values, run "<%= config.bin %> package version update"
 
 - Retrieve details about the package version with the specified alias (that contains spaces) from the Dev Hub org with username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --target-hub-org devhub@example.com
+  <%= config.bin %> <%= command.id %> --package "Your Package Alias" --target-dev-hub devhub@example.com
 
 # flags.package.summary
 

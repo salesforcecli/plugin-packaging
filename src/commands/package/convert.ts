@@ -5,13 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {
-  Flags,
-  loglevel,
-  orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
-  SfCommand,
-} from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
@@ -22,6 +16,7 @@ import {
 } from '@salesforce/packaging';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { Optional } from '@salesforce/ts-types';
+import { requiredHubFlag } from '../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
@@ -36,7 +31,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
   public static readonly hidden = true;
   public static readonly flags = {
     loglevel,
-    'target-hub-org': requiredHubFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.salesforceId({
       length: 'both',
@@ -114,7 +109,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     this.spinner.status = 'Converting Package';
     const result = await Package.convert(
       flags.package,
-      flags['target-hub-org'].getConnection(flags['api-version']),
+      flags['target-dev-hub'].getConnection(flags['api-version']),
       {
         wait: flags.wait,
         installationKey: flags['installation-key'] as string,
