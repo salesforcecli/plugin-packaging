@@ -1,3 +1,12 @@
+## [1.16.3](https://github.com/salesforcecli/plugin-packaging/compare/1.16.2...1.16.3) (2023-04-04)
+
+
+### Bug Fixes
+
+* restore json result to original for code coverga ([cd4a6fa](https://github.com/salesforcecli/plugin-packaging/commit/cd4a6fa31a6c9a9dadbdd23d910ce601d4a2628b))
+
+
+
 ## [1.16.2](https://github.com/salesforcecli/plugin-packaging/compare/1.16.1...1.16.2) (2023-03-16)
 
 
