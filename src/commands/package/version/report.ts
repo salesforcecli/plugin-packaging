@@ -7,7 +7,7 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
+import { CodeCoverage, PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { Optional } from '@salesforce/ts-types';
 import { requiredHubFlag } from '../../../utils/hubFlag';
@@ -20,7 +20,7 @@ export type PackageVersionReportResultModified = Omit<
   PackageVersionReportResult,
   'CodeCoverage' | 'HasPassedCodeCoverageCheck' | 'Package2' | 'HasMetadataRemoved' | 'PackageType'
 > & {
-  CodeCoverage: string;
+  CodeCoverage: CodeCoverage | string | undefined;
   HasPassedCodeCoverageCheck: boolean | undefined | string;
   Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: string }>;
   HasMetadataRemoved: boolean | string;
@@ -114,7 +114,12 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       { key: messages.getMessage('ancestorVersion'), value: record.AncestorVersion },
       {
         key: pvlMessages.getMessage('codeCoverage'),
-        value: record.CodeCoverage,
+        value:
+          typeof record.CodeCoverage === 'string'
+            ? record.CodeCoverage
+            : !record.CodeCoverage
+            ? 'N/A'
+            : `${record.CodeCoverage.apexCodeCoveragePercentage.toFixed(2)}%`,
       },
       {
         key: pvlMessages.getMessage('hasPassedCodeCoverageCheck'),
@@ -208,9 +213,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     if (results.Package2.IsOrgDependent === true || results.ValidationSkipped === true) {
       record.CodeCoverage = 'N/A';
     } else {
-      record.CodeCoverage = results.CodeCoverage?.apexCodeCoveragePercentage
-        ? `${results.CodeCoverage?.apexCodeCoveragePercentage}%`
-        : 'N/A';
+      record.CodeCoverage = results.CodeCoverage;
     }
 
     record.HasPassedCodeCoverageCheck =

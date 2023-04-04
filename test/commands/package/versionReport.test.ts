@@ -23,7 +23,7 @@ const pkgVersionReportResultModified: PackageVersionReportResultModified = {
   Branch: '',
   BuildDurationInSeconds: 10,
   BuildNumber: 0,
-  CodeCoverage: 'N/A',
+  CodeCoverage: null,
   CodeCoveragePercentages: {
     codeCovPercentages: [
       {
@@ -187,7 +187,7 @@ describe('package:version:report - tests', () => {
       pvrrm.AncestorId = 'N/A';
       pvrrm.AncestorId = 'N/A';
       pvrrm.Package2.IsOrgDependent = 'N/A';
-      pvrrm.CodeCoverage = '33%';
+      pvrrm.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrrm.HasMetadataRemoved = 'Yes';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
       delete pvrrm['PackageType'];

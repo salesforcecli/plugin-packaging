@@ -7,7 +7,14 @@
       "additionalProperties": false,
       "properties": {
         "CodeCoverage": {
-          "type": "string"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/CodeCoverage"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "HasPassedCodeCoverageCheck": {
           "type": ["boolean", "string"]
@@ -170,7 +177,24 @@
           "type": "string"
         }
       },
-      "required": ["CodeCoverage", "HasMetadataRemoved", "Package2", "Version"]
+      "required": ["HasMetadataRemoved", "Package2", "Version"]
+    },
+    "CodeCoverage": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "apexCodeCoveragePercentage": {
+              "type": "number"
+            }
+          },
+          "required": ["apexCodeCoveragePercentage"],
+          "additionalProperties": false
+        }
+      ]
     },
     "PackageType": {
       "type": "string",
