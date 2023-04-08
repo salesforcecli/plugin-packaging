@@ -1,3 +1,12 @@
+## [1.16.4](https://github.com/salesforcecli/plugin-packaging/compare/1.16.3...1.16.4) (2023-04-08)
+
+
+### Bug Fixes
+
+* **deps:** bump vm2 from 3.9.13 to 3.9.15 ([6fe73ab](https://github.com/salesforcecli/plugin-packaging/commit/6fe73abba93fefa4f93983697cdd39fd2a0cb917))
+
+
+
 ## [1.16.3](https://github.com/salesforcecli/plugin-packaging/compare/1.16.2...1.16.3) (2023-04-04)
 
 
