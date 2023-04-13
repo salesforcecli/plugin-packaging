@@ -728,10 +728,10 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^2.0.3", "@oclif/core@^2.0.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0", "@oclif/core@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.1.tgz#0a45b050426fd9b650b70ef53cfc46bb6f6b1a18"
-  integrity sha512-5s+SbsffV3XQ5pgv7h8/iLF116TfCLwsu9+/rZXEWypgsfvR8Z6anzVpbpGJxIYWHl9XLrm/viCwZVp3WtbnlQ==
+"@oclif/core@^2.0.3", "@oclif/core@^2.0.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0", "@oclif/core@^2.5.1", "@oclif/core@^2.7.1":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.8.2.tgz#86fc31f20419dbb3cd25f89f4f1d83760c60f7c0"
+  integrity sha512-g50NrCdEcFlBfuwZb9RxLmxPNQ9wIaBPOiwbxlGYRkHMnsC6LNHcvVtyDnmndU8qoXrmCOZ6ocSZenOMlG+G1w==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
@@ -757,6 +757,7 @@
     strip-ansi "^6.0.1"
     supports-color "^8.1.1"
     supports-hyperlinks "^2.2.0"
+    ts-node "^10.9.1"
     tslib "^2.5.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
@@ -767,12 +768,12 @@
   resolved "https://registry.yarnpkg.com/@oclif/linewrap/-/linewrap-1.0.0.tgz#aedcb64b479d4db7be24196384897b5000901d91"
   integrity sha512-Ups2dShK52xXa8w6iBWLgcjPJWjais6KPJQq3gQ/88AY6BXoTX+MIGFPrWQO1KLMiQfoTpcLnUwloN4brrVUHw==
 
-"@oclif/plugin-command-snapshot@^3.3.8":
-  version "3.3.8"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-3.3.8.tgz#4ef6c9b0461b40c4be1f94977e5eb9dd6c756081"
-  integrity sha512-piYlSDDzldDkvToKEG8HCnYaBwpWIX0b2TNc9ZtmH2khVgwPvmMrfZQfLl/4ZXxobdk0ndgrUUIg0mOhgCAXgg==
+"@oclif/plugin-command-snapshot@^3.3.10":
+  version "3.3.10"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-3.3.10.tgz#870b9c2107890d6a31360da02e7f568d8bdb658a"
+  integrity sha512-KVDa2WWP5NCbKgqFyV8XOW4m9ynKofTQILXETnimv/aUI6LfcCADB1543v3OXnMbDbDlA7ypc6KATlsPCMuvsw==
   dependencies:
-    "@oclif/core" "^2.4.0"
+    "@oclif/core" "^2.7.1"
     chalk "^4.1.2"
     just-diff "^5.2.0"
     lodash "^4.17.21"
@@ -7430,7 +7431,7 @@ ts-json-schema-generator@^1.2.0:
     safe-stable-stringify "^2.4.1"
     typescript "~4.9.3"
 
-ts-node@^10.0.0, ts-node@^10.8.1:
+ts-node@^10.0.0, ts-node@^10.8.1, ts-node@^10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
