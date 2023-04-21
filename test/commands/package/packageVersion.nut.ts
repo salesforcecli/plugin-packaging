@@ -386,11 +386,15 @@ describe('package:version:*', () => {
 
     it('will delete a package (json)', () => {
       const id = deletableVersionIds.pop();
+      expect(id).to.be.a('string').with.length.greaterThanOrEqual(15);
       const command = `package:version:delete -p ${id} --json`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       expect(result).to.have.property('success', true);
       expect(result).to.have.property('id', id);
       expect(result).to.have.property('errors');
+      const listCommand = `package:version:list -v ${session.hubOrg.username} -p ${packageId} --json`;
+      const output = execCmd<PackageVersionListCommandResult>(listCommand, { ensureExitCode: 0 }).jsonOutput?.result;
+      expect(output?.some((pv) => pv.SubscriberPackageVersionId === id)).to.be.false;
     });
 
     it('will delete a package (human)', () => {
