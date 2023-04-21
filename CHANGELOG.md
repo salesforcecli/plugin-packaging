@@ -1,3 +1,12 @@
+## [1.16.8](https://github.com/salesforcecli/plugin-packaging/compare/1.16.7...1.16.8) (2023-04-21)
+
+
+### Bug Fixes
+
+* ensure deleted version is not listed ([#311](https://github.com/salesforcecli/plugin-packaging/issues/311)) ([db4bde3](https://github.com/salesforcecli/plugin-packaging/commit/db4bde3baffcfa1f95d490186a280445fabbfdf1))
+
+
+
 ## [1.16.7](https://github.com/salesforcecli/plugin-packaging/compare/1.16.6...1.16.7) (2023-04-21)
 
 
