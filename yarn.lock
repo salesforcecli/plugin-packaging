@@ -728,10 +728,10 @@
     widest-line "^3.1.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^2.0.3", "@oclif/core@^2.0.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0", "@oclif/core@^2.5.1":
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.5.1.tgz#0a45b050426fd9b650b70ef53cfc46bb6f6b1a18"
-  integrity sha512-5s+SbsffV3XQ5pgv7h8/iLF116TfCLwsu9+/rZXEWypgsfvR8Z6anzVpbpGJxIYWHl9XLrm/viCwZVp3WtbnlQ==
+"@oclif/core@^2.0.3", "@oclif/core@^2.0.7", "@oclif/core@^2.3.0", "@oclif/core@^2.4.0", "@oclif/core@^2.5.1", "@oclif/core@^2.6.4", "@oclif/core@^2.8.2":
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.8.2.tgz#86fc31f20419dbb3cd25f89f4f1d83760c60f7c0"
+  integrity sha512-g50NrCdEcFlBfuwZb9RxLmxPNQ9wIaBPOiwbxlGYRkHMnsC6LNHcvVtyDnmndU8qoXrmCOZ6ocSZenOMlG+G1w==
   dependencies:
     "@types/cli-progress" "^3.11.0"
     ansi-escapes "^4.3.2"
@@ -757,6 +757,7 @@
     strip-ansi "^6.0.1"
     supports-color "^8.1.1"
     supports-hyperlinks "^2.2.0"
+    ts-node "^10.9.1"
     tslib "^2.5.0"
     widest-line "^3.1.0"
     wordwrap "^1.0.0"
@@ -950,7 +951,7 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.7.0"
 
-"@salesforce/core@^3.32.12", "@salesforce/core@^3.33.5", "@salesforce/core@^3.33.6", "@salesforce/core@^3.34.1", "@salesforce/core@^3.34.6":
+"@salesforce/core@^3.32.12", "@salesforce/core@^3.33.6", "@salesforce/core@^3.34.1", "@salesforce/core@^3.34.6":
   version "3.34.6"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-3.34.6.tgz#816031d3aab098d56165d876db626a3610d86c6e"
   integrity sha512-9Nd+bQRSvCYDiZo97bhseajLhr7d51J9gsPUnfN3nHy1/TBQXjN+upRAPAeldvzU8G3L98WGDMtEpSTOG/PxkQ==
@@ -1051,15 +1052,15 @@
     ts-retry-promise "^0.7.0"
     xml2js "^0.4.23"
 
-"@salesforce/plugin-auth@^2.7.7":
-  version "2.7.7"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.7.tgz#f273774b94e7aee9a30f86cb24f0486b83c573c2"
-  integrity sha512-yUWFI4ANtL+Y0dQR0hmMoL/nf7MA6/eBnuDhOL3SvtXxRkp7D1+uXl3Erlq8r6/ZhfWX4wdskJOPHfEc+XCs7A==
+"@salesforce/plugin-auth@^2.7.12":
+  version "2.7.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.12.tgz#5c10ebaeb19a18773e4cc3eda18ea34bf599858c"
+  integrity sha512-33jdf2gfAQYhffTXv/2EOuIiZY/X64DpbJxLHo4tLJ/C/ZOioyL50Fc9qbNpH9OK+82OuN7u/rqDt+WYTnhUbQ==
   dependencies:
-    "@oclif/core" "^2.4.0"
-    "@salesforce/core" "^3.33.6"
-    "@salesforce/kit" "^1.9.0"
-    "@salesforce/sf-plugins-core" "^2.2.4"
+    "@oclif/core" "^2.6.4"
+    "@salesforce/core" "^3.34.1"
+    "@salesforce/kit" "^1.9.2"
+    "@salesforce/sf-plugins-core" "^2.2.5"
     chalk "^4.1.2"
     fs-extra "^10.0.1"
     inquirer "^8.2.5"
@@ -1093,14 +1094,14 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.5.1.tgz#2d1bfdcf593caaa04cd4b3e6fe621097ff7f28fe"
   integrity sha512-MRqU+tn8w5IFvZ0Lm9YKLgxYxr2MQMI+fXXsTrwfUnijsps+ybF9IOTu6MOMxxl2vCUkO8XDjA435wXlWSLI6g==
 
-"@salesforce/sf-plugins-core@^2.0.1", "@salesforce/sf-plugins-core@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-2.2.4.tgz#c94f83cab62ff0009b88069e72b4cdcfc9748b82"
-  integrity sha512-lKi0W4y3SJfZCT1cuWZsc6vbJLS+QwO4TMbu/dob0LIba7r3+nrd7st8t2xvm/Z3hRKr8xsJADq/XFYPU7jfmQ==
+"@salesforce/sf-plugins-core@^2.0.1", "@salesforce/sf-plugins-core@^2.2.4", "@salesforce/sf-plugins-core@^2.2.5":
+  version "2.2.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-2.2.9.tgz#d07fb04ec53bfacfa7260aaff6dcf1ef31806bda"
+  integrity sha512-OjVZSJLd3ZxBi3EoqqmjZwyUG0IhJiZpz0LNhGMmv24cDDpkocTRJ/gMjsj1NpFEB94/Chgu40xB5wGloUnxqQ==
   dependencies:
-    "@oclif/core" "^2.4.0"
-    "@salesforce/core" "^3.33.5"
-    "@salesforce/kit" "^1.9.0"
+    "@oclif/core" "^2.8.2"
+    "@salesforce/core" "^3.34.6"
+    "@salesforce/kit" "^1.9.2"
     "@salesforce/ts-types" "^1.7.3"
     chalk "^4"
     inquirer "^8.2.5"
@@ -7396,7 +7397,7 @@ ts-json-schema-generator@^1.2.0:
     safe-stable-stringify "^2.4.1"
     typescript "~4.9.3"
 
-ts-node@^10.0.0, ts-node@^10.8.1:
+ts-node@^10.0.0, ts-node@^10.8.1, ts-node@^10.9.1:
   version "10.9.1"
   resolved "https://registry.yarnpkg.com/ts-node/-/ts-node-10.9.1.tgz#e73de9102958af9e1f0b168a6ff320e25adcff4b"
   integrity sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==
