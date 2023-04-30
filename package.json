@@ -7,7 +7,7 @@
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^2.5.1",
-    "@salesforce/core": "^3.33.6",
+    "@salesforce/core": "^3.36.0",
     "@salesforce/kit": "^1.9.0",
     "@salesforce/packaging": "^1.4.16",
     "@salesforce/sf-plugins-core": "^2.2.9",
