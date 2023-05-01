@@ -114,8 +114,8 @@ export class Install extends SfCommand<PackageInstallRequest> {
     }),
   };
 
-  private connection: Connection;
-  private subscriberPackageVersion: SubscriberPackageVersion;
+  private connection!: Connection;
+  private subscriberPackageVersion!: SubscriberPackageVersion;
 
   public async run(): Promise<PackageInstallRequest> {
     const { flags } = await this.parse(Install);

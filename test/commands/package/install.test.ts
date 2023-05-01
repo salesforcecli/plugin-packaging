@@ -10,14 +10,12 @@ import { Connection, Lifecycle, SfProject, SfError, SfProjectJson } from '@sales
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
-import { expect, config as chaiConfig } from 'chai';
+import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import * as sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Install } from '../../../src/commands/package/install';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
-
-chaiConfig.truncateThreshold = 0;
 
 const myPackageVersion04t = '04t6A000002zgKSQAY';
 
@@ -191,6 +189,9 @@ describe('package:install', () => {
       expect(uxLogStub.callCount).to.equal(1);
       const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
+      expect(uxWarnStub.firstCall.args[0]).to.include(
+        'The "-u" flag has been deprecated. Use "--target-org | -o" instead.'
+      );
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
       // expect(uxStopSpinnerStub.args[0][0]).to.equal('Polling timeout exceeded');

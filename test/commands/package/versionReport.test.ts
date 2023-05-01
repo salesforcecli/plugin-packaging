@@ -139,7 +139,9 @@ describe('package:version:report - tests', () => {
   describe('package:version:report', () => {
     it('should produce package version report', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);
-      $$.SANDBOX.stub(PackageVersion.prototype, 'report').resolves(reportResult);
+      $$.SANDBOX.stub(PackageVersion.prototype, 'report').callsFake(
+        (): Promise<PackageVersionReportResult> => Promise.resolve(reportResult as PackageVersionReportResult)
+      );
       const command = new PackageVersionReportCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org'], config);
       command.project = SfProject.getInstance();
 
@@ -190,7 +192,6 @@ describe('package:version:report - tests', () => {
       pvrrm.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrrm.HasMetadataRemoved = 'Yes';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
-      delete pvrrm['PackageType'];
 
       const result = cmd['massageResultsForDisplay'](pvrr);
       expect(result).to.deep.equal(pvrrm);
@@ -198,7 +199,7 @@ describe('package:version:report - tests', () => {
     it('should massage results - isOrgDependent && skipped validation', () => {
       const pvrr = Object.assign({}, pkgVersionReportResult);
       pvrr.PatchVersion = 6;
-      pvrr.PackageType = 'Unlocked';
+      pvrr.PackageType = undefined;
       pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrr.HasMetadataRemoved = true;
       pvrr.Package2.IsOrgDependent = true;
@@ -211,8 +212,6 @@ describe('package:version:report - tests', () => {
       pvrrm.CodeCoverage = 'N/A';
       pvrrm.HasMetadataRemoved = 'N/A';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
-
-      delete pvrrm['PackageType'];
 
       const result = cmd['massageResultsForDisplay'](pvrr);
       expect(result).to.deep.equal(pvrrm);
