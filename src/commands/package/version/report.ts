@@ -222,8 +222,6 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
 
     record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');
 
-    // eslint-disable-next-line no-console
-    console.error('results - keys', Object.keys(results));
     if (results.PackageType !== 'Managed') {
       record.AncestorVersion = 'N/A';
       record.AncestorId = 'N/A';
@@ -247,7 +245,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
     record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
 
-    record.ConvertedFromVersionId = results.ConvertedFromVersionId ?? ' ';
+    record.ConvertedFromVersionId ??= ' ';
 
     return record;
   }

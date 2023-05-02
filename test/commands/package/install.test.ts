@@ -194,7 +194,6 @@ describe('package:install', () => {
       );
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
-      // expect(uxStopSpinnerStub.args[0][0]).to.equal('Polling timeout exceeded');
     });
 
     it('should return PackageInstallRequest when polling timed out with --json', async () => {
