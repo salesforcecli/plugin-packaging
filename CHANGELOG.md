@@ -1,3 +1,12 @@
+## [1.16.11](https://github.com/salesforcecli/plugin-packaging/compare/1.16.10...1.16.11) (2023-05-02)
+
+
+### Bug Fixes
+
+* strict null checks ([84880c5](https://github.com/salesforcecli/plugin-packaging/commit/84880c5c7dbd8230ed20d22edd0a9679547aea6d))
+
+
+
 ## [1.16.10](https://github.com/salesforcecli/plugin-packaging/compare/1.16.9...1.16.10) (2023-04-27)
 
 
