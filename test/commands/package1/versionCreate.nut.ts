@@ -9,7 +9,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
 import { sleep } from '@salesforce/kit';
 
@@ -38,18 +38,20 @@ describe('package1:version:create', () => {
       throw new Error('"ONEGP_TESTKIT_AUTH_URL" env var required for 1gp NUTs');
     }
     session = await TestSession.create({
-      project: { name: 'package1VersionDisplay' },
+      project: { name: 'package1VersionCreate' },
       devhubAuthStrategy: 'AUTO',
     });
 
     const authPath = path.join(process.cwd(), 'authUrl.txt');
     await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
 
-    execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { cli: 'sfdx' });
+    execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { ensureExitCode: 0 });
 
     packageId = execCmd<[{ MetadataPackageId: string }]>('package1:version:list --json -o 1gp', {
       ensureExitCode: 0,
     }).jsonOutput?.result?.at(0)?.MetadataPackageId;
+
+    assert(packageId, 'No 1gp package found in the org');
   });
 
   after(async () => {
