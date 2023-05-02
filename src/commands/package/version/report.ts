@@ -7,7 +7,13 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { CodeCoverage, PackageVersion, PackageVersionReportResult, PackagingSObjects } from '@salesforce/packaging';
+import {
+  CodeCoverage,
+  PackageVersion,
+  PackageType,
+  PackageVersionReportResult,
+  PackagingSObjects,
+} from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { Optional } from '@salesforce/ts-types';
 import { requiredHubFlag } from '../../../utils/hubFlag';
@@ -16,15 +22,18 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
 const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
-export type PackageVersionReportResultModified = Omit<
-  PackageVersionReportResult,
-  'CodeCoverage' | 'HasPassedCodeCoverageCheck' | 'Package2' | 'HasMetadataRemoved' | 'PackageType'
-> & {
+
+const omissions = ['CodeCoverage', 'HasPassedCodeCoverageCheck', 'Package2', 'HasMetadataRemoved'] as const;
+type Omission = (typeof omissions)[number];
+
+export type PackageVersionReportResultModified = Omit<PackageVersionReportResult, Omission> & {
   CodeCoverage: CodeCoverage | string | undefined;
   HasPassedCodeCoverageCheck: boolean | undefined | string;
   Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: string }>;
+  PackageType?: PackageType;
   HasMetadataRemoved: boolean | string;
 };
+
 export class PackageVersionReportCommand extends SfCommand<PackageVersionReportResultModified> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
@@ -202,7 +211,15 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
 
   // eslint-disable-next-line class-methods-use-this
   private massageResultsForDisplay(results: PackageVersionReportResult): PackageVersionReportResultModified {
-    const record = JSON.parse(JSON.stringify(results)) as PackageVersionReportResultModified;
+    const record = Object.fromEntries(
+      Object.entries(results).filter(([key, value]) => {
+        if (key === 'PackageType' && typeof value === 'string' && value === 'Unlocked') {
+          return false;
+        }
+        return !omissions.some((o) => o === key);
+      })
+    ) as PackageVersionReportResultModified;
+
     record.Version = [record.MajorVersion, record.MinorVersion, record.PatchVersion, record.BuildNumber].join('.');
 
     if (results.PackageType !== 'Managed') {
@@ -217,8 +234,11 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     }
 
     record.HasPassedCodeCoverageCheck =
-      results.Package2.IsOrgDependent || results.ValidationSkipped ? 'N/A' : results.HasPassedCodeCoverageCheck;
+      results.Package2.IsOrgDependent || results.ValidationSkipped
+        ? 'N/A'
+        : results.HasPassedCodeCoverageCheck ?? undefined;
 
+    record.Package2 = {};
     record.Package2.IsOrgDependent =
       results.PackageType === 'Managed' ? 'N/A' : results.Package2.IsOrgDependent === true ? 'Yes' : 'No';
 
@@ -226,9 +246,6 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
 
     record.ConvertedFromVersionId ??= ' ';
-
-    // for backward compatibility, remove PackageType from the record
-    delete record['PackageType'];
 
     return record;
   }

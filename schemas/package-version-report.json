@@ -73,6 +73,16 @@
           },
           "additionalProperties": false
         },
+        "PackageType": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/PackageType"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "HasMetadataRemoved": {
           "type": ["boolean", "string"]
         },
@@ -107,9 +117,6 @@
           "type": "string"
         },
         "Branch": {
-          "type": "string"
-        },
-        "AncestorId": {
           "type": "string"
         },
         "ValidationSkipped": {
@@ -174,7 +181,10 @@
           "type": "string"
         },
         "AncestorVersion": {
-          "type": "string"
+          "type": ["string", "null"]
+        },
+        "AncestorId": {
+          "type": ["string", "null"]
         }
       },
       "required": ["HasMetadataRemoved", "Package2", "Version"]

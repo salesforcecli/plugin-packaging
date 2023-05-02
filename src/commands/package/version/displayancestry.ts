@@ -57,14 +57,14 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
     const jsonProducer = packageAncestry.getJsonProducer();
     if (flags['dot-code']) {
       const dotProducer = packageAncestry.getDotProducer();
-      const dotCodeResult = dotProducer.produce<string | void>();
+      const dotCodeResult = dotProducer.produce();
       if (flags.json) {
         return dotCodeResult;
       } else {
         this.log(dotCodeResult as string);
       }
     } else {
-      if (packageAncestry.requestedPackageId.startsWith('04t')) {
+      if (packageAncestry.requestedPackageId?.startsWith('04t')) {
         const paths = packageAncestry.getLeafPathToRoot(packageAncestry.requestedPackageId);
         this.log(`${paths[0].map((p) => p.getVersion()).join(' -> ')} (root)`);
         this.log();

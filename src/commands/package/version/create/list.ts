@@ -49,7 +49,6 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
-      connection,
     });
 
     if (results.length === 0) {

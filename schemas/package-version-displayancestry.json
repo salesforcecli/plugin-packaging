@@ -55,7 +55,15 @@
         "depthCounter": {
           "type": "number"
         }
-      }
+      },
+      "required": [
+        "BuildNumber",
+        "MajorVersion",
+        "MinorVersion",
+        "PatchVersion",
+        "SubscriberPackageVersionId",
+        "depthCounter"
+      ]
     }
   }
 }
