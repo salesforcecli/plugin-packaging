@@ -7,7 +7,7 @@
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
-import { expect } from 'chai';
+import { expect, config as chaiConfig } from 'chai';
 import { Duration } from '@salesforce/kit';
 import {
   PackageAncestryNodeData,
@@ -17,6 +17,8 @@ import {
   VersionNumber,
 } from '@salesforce/packaging';
 import { PackageVersionListCommandResult, PackageVersionListDetails } from '../../../src/commands/package/version/list';
+
+chaiConfig.truncateThreshold = 0;
 
 describe('package:version:*', () => {
   let session: TestSession;
