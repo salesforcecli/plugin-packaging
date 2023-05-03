@@ -54,7 +54,7 @@ describe('package:version:*', () => {
       // eslint-disable-next-line no-console
       console.log(result);
       expect(result).to.include("Package version creation request status is '");
-      expect(result).to.match(/Run "sfdx package:version:create:report -i 08c.{15}" to query for status\./);
+      expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
     });
 
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
@@ -68,7 +68,7 @@ describe('package:version:*', () => {
       expect(result).to.match(
         /Package Installation URL: https:\/\/login.salesforce.com\/packaging\/installPackage\.apexp\?p0=04t.{15}/
       );
-      expect(result).to.match(/As an alternative, you can use the "sfdx package:install" command\./);
+      expect(result).to.match(/As an alternative, you can use the "sfd?x? package:install" command\./);
     });
 
     it('should create a new package version (json)', () => {

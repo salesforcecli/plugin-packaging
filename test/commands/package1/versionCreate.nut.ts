@@ -9,9 +9,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import { assert, expect } from 'chai';
+import { assert, expect, config as chaiConfig } from 'chai';
 import { PackagingSObjects } from '@salesforce/packaging';
 import { sleep } from '@salesforce/kit';
+
+chaiConfig.truncateThreshold = 0;
 
 type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
@@ -80,7 +82,7 @@ describe('package1:version:create', () => {
     const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} -o 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(/PackageUploadRequest has been enqueued\./);
-    expect(output).to.match(/sfdx package1:version:create:get -i 0HD.{15} -o/);
+    expect(output).to.match(/package1:version:create:get -i 0HD.{15} -o/);
     // ensure the package has uploaded by waiting for the package report to be done
     // @ts-ignore
     uploadRequestId = /0HD\w*/.exec(output)?.at(0);
