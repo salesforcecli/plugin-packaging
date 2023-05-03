@@ -135,6 +135,7 @@
     "flags": [
       "api-version",
       "description",
+      "enable-app-analytics",
       "error-notification-username",
       "json",
       "loglevel",

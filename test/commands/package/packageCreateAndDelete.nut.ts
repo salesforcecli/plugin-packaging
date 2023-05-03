@@ -7,15 +7,20 @@
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
+import { Org } from '@salesforce/core';
 
 describe('package create/update/delete', () => {
   let session: TestSession;
   let pkgName: string;
+  let hubOrg: Org;
+  let apiVersion: string;
   before(async () => {
     session = await TestSession.create({
       devhubAuthStrategy: 'AUTO',
       project: { name: 'packageCreateDelete' },
     });
+    hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
+    apiVersion = hubOrg.getConnection().getApiVersion();
   });
 
   after(async () => {
@@ -36,6 +41,13 @@ describe('package create/update/delete', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.match(/Successfully updated the package\.\s+0Ho/);
     });
+    it('should not be able to enable app analytics on package that is not managed', () => {
+      if (apiVersion >= '59.0') {
+        const command = `package:update --package ${pkgName} --enable-app-analytics -v ${session.hubOrg.username}`;
+        const errOut = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
+        expect(errOut).to.contain('App Analytics is only available for managed packages');
+      }
+    })
     it('should delete a package - human readable results', () => {
       const command = `package:delete -p ${pkgName} -v ${session.hubOrg.username} --no-prompt`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;

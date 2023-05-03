@@ -63,3 +63,7 @@ Error Notification Username
 # createdBy
 
 Created By
+
+# app-analytics-enabled
+
+App Analytics Enabled

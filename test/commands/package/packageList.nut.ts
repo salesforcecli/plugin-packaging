@@ -14,11 +14,15 @@ const { expect } = chai;
 
 describe('package list', () => {
   let session: TestSession;
+  let hubOrg: Org;
+  let apiVersion: string;
   before(async () => {
     session = await TestSession.create({
       devhubAuthStrategy: 'AUTO',
       project: { name: 'packageList' },
     });
+    hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
+    apiVersion = hubOrg.getConnection().getApiVersion()
   });
 
   after(async () => {
@@ -34,12 +38,13 @@ describe('package list', () => {
     const command = `package:list -v ${session.hubOrg.username} --verbose`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
-    expect(output).to.match(
-      /Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type\s+?Subscriber Package Id\s+?Converted From Package Id\s+?Org-Dependent Unlocked Package\s+?Error Notification Username\s+?Created By/
-    );
+    let headerExpression = 'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?App Analytics Enabled\\s+?Created By'
+    if (apiVersion < '59.0') {
+      headerExpression = headerExpression.replace('App Analytics Enabled\\s+?', '')
+    }
+    expect(output).to.match(new RegExp(headerExpression));
   });
   it('should list packages in dev hub - json results', async () => {
-    const hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
     const packages = await Package.list(hubOrg.getConnection());
     const command = `package:list -v ${session.hubOrg.username} --json`;
     const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
@@ -53,9 +58,13 @@ describe('package list', () => {
       'ConvertedFromPackageId',
       'PackageErrorUsername',
       'Alias',
+      'AppAnalyticsEnabled',
       'CreatedBy',
       'IsOrgDependent',
     ];
+    if (apiVersion < '59.0') {
+      keys.splice(keys.indexOf('AppAnalyticsEnabled'), 1);
+    }
     const deprecatedPackages = packages.filter((pkg) => pkg.IsDeprecated);
     const notDeprecatedCount = packages.length - deprecatedPackages.length;
     expect(output).to.be.ok;
