@@ -67,6 +67,9 @@
             "PackageErrorUsername": {
               "type": "string"
             },
+            "AppAnalyticsEnabled": {
+              "type": "boolean"
+            },
             "IsOrgDependent": {
               "type": "string"
             }

@@ -46,6 +46,11 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       summary: packageCreate.getMessage('flags.error-notification-username.summary'),
       description: packageCreate.getMessage('flags.error-notification-username.description'),
     }),
+    'enable-app-analytics': Flags.boolean({
+      summary: messages.getMessage('flags.enable-app-analytics.summary'),
+      allowNo: true,
+      hidden: true, // Only hidden while we wait for api-version 59.0 to ship with 246 (after September 2023)
+    }),
   };
 
   public async run(): Promise<PackageSaveResult> {
@@ -61,6 +66,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       Name: flags.name,
       Description: flags.description,
       PackageErrorUsername: flags['error-notification-username'],
+      AppAnalyticsEnabled: flags['enable-app-analytics'],
     });
 
     this.logSuccess(messages.getMessage('success', [pkg.getId()]));

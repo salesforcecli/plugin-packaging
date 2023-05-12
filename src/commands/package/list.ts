@@ -25,6 +25,7 @@ export type Package2Result = Partial<
     | 'ContainerOptions'
     | 'ConvertedFromPackageId'
     | 'PackageErrorUsername'
+    | 'AppAnalyticsEnabled'
   > & {
     Alias: string;
     CreatedBy: string;
@@ -54,9 +55,10 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
 
   public async run(): Promise<PackageListCommandResult> {
     const { flags } = await this.parse(PackageListCommand);
-    const queryResult = await Package.list(flags['target-dev-hub'].getConnection(flags['api-version']));
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const queryResult = await Package.list(connection);
     this.mapRecordsToResults(queryResult);
-    this.displayResults(flags.verbose);
+    this.displayResults(flags.verbose, connection.getApiVersion());
     return this.results;
   }
 
@@ -75,6 +77,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
             ConvertedFromPackageId,
             IsOrgDependent,
             PackageErrorUsername,
+            AppAnalyticsEnabled,
             CreatedById,
           }) =>
             ({
@@ -88,13 +91,14 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
               Alias: this.project.getAliasesFromPackageId(Id).join(),
               IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
               PackageErrorUsername,
+              AppAnalyticsEnabled,
               CreatedBy: CreatedById,
             } as Package2Result)
         );
     }
   }
 
-  private displayResults(verbose = false): void {
+  private displayResults(verbose = false, apiVersion: string): void {
     this.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
     const columns = {
       NamespacePrefix: { header: messages.getMessage('namespace') },
@@ -113,6 +117,13 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
         ConvertedFromPackageId: { header: messages.getMessage('convertedFromPackageId') },
         IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
         PackageErrorUsername: { header: messages.getMessage('error-notification-username') },
+      });
+      if (apiVersion >= '59.0') {
+        Object.assign(columns, {
+          AppAnalyticsEnabled: { header: messages.getMessage('app-analytics-enabled') },
+        });
+      }
+      Object.assign(columns, {
         CreatedBy: {
           header: messages.getMessage('createdBy'),
         },

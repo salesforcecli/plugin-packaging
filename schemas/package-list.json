@@ -35,6 +35,9 @@
         "PackageErrorUsername": {
           "type": "string"
         },
+        "AppAnalyticsEnabled": {
+          "type": "boolean"
+        },
         "Alias": {
           "type": "string"
         },

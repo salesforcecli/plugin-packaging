@@ -30,6 +30,10 @@ New name of the package.
 
 New description of the package.
 
+# flags.enable-app-analytics.summary
+
+Enable AppExchange App Analytics usage data collection on this managed package and its components.
+
 # success
 
 Successfully updated the package. %s
