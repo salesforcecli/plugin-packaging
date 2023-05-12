@@ -1,3 +1,12 @@
+# [1.17.0](https://github.com/salesforcecli/plugin-packaging/compare/1.16.11...1.17.0) (2023-05-12)
+
+
+### Features
+
+* add enable-app-analytics option for api version >= 59.0 ([55621a7](https://github.com/salesforcecli/plugin-packaging/commit/55621a7c7937618b3fd7893b20b49e57a96633d0))
+
+
+
 ## [1.16.11](https://github.com/salesforcecli/plugin-packaging/compare/1.16.10...1.16.11) (2023-05-02)
 
 
