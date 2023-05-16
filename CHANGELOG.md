@@ -1,3 +1,12 @@
+## [1.17.1](https://github.com/salesforcecli/plugin-packaging/compare/1.17.0...1.17.1) (2023-05-16)
+
+
+### Bug Fixes
+
+* **deps:** bump vm2 from 3.9.17 to 3.9.18 ([11eb9f7](https://github.com/salesforcecli/plugin-packaging/commit/11eb9f7978f224e0f22ae1b64e6160618088e67b))
+
+
+
 # [1.17.0](https://github.com/salesforcecli/plugin-packaging/compare/1.16.11...1.17.0) (2023-05-12)
 
 
