@@ -81,26 +81,39 @@ describe('package1:version:create', () => {
   it(`should create a new 1gp package version for package id ${packageId} without waiting`, async () => {
     const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} -o 1gp`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.match(/PackageUploadRequest has been enqueued\./);
-    expect(output).to.match(/package1:version:create:get -i 0HD.{15} -o/);
-    // ensure the package has uploaded by waiting for the package report to be done
-    // @ts-ignore
-    uploadRequestId = /0HD\w*/.exec(output)?.at(0);
-    await pollUntilComplete(uploadRequestId);
+
+    // Sometimes the package version is created faster than the test expects for a
+    // non-waiting scenario so only verify the enqueued output.
+    if (!output.includes('Successfully uploaded package')) {
+      expect(output).to.match(/PackageUploadRequest has been enqueued\./);
+      expect(output).to.match(/package1:version:create:get -i 0HD.{15} -o/);
+      // ensure the package has uploaded by waiting for the package report to be done
+      // @ts-ignore
+      uploadRequestId = /0HD\w*/.exec(output)?.at(0);
+      await pollUntilComplete(uploadRequestId);
+    }
   });
 
   it(`should create a new 1gp package version for package id ${packageId} (json)`, async () => {
     const command = `package1:version:create -n 1gpPackageNUT -i ${packageId} --json -o 1gp`;
     const output = execCmd<PackageUploadRequest>(command, { ensureExitCode: 0 }).jsonOutput?.result;
-    expect(output?.Status).to.equal('QUEUED');
-    expect(output?.Id).to.be.a('string');
-    expect(output?.MetadataPackageId).to.be.a('string');
-    expect(output?.MetadataPackageVersionId).to.be.a('string');
-    expect(output?.MetadataPackageVersionId.startsWith('04t')).to.be.true;
-    expect(output?.MetadataPackageId.startsWith('033')).to.be.true;
-    // ensure the package has uploaded by waiting for the package report to be done
-    // @ts-ignore
-    await pollUntilComplete(output?.Id);
+
+    // Sometimes the package version is created faster than the test expects for a
+    // non-waiting scenario so only verify the enqueued output.
+    if (output?.Status !== 'SUCCESS') {
+      expect(output?.Status).to.equal('QUEUED');
+      expect(output?.Id).to.be.a('string');
+      expect(output?.MetadataPackageId).to.be.a('string');
+      expect(output?.MetadataPackageVersionId).to.be.a('string');
+      expect(output?.MetadataPackageVersionId.startsWith('04t')).to.be.true;
+      expect(output?.MetadataPackageId.startsWith('033')).to.be.true;
+      // ensure the package has uploaded by waiting for the package report to be done
+      // @ts-ignore
+      await pollUntilComplete(output?.Id);
+    }
+    // Use this test's 0Hd if it wasn't already set by the previous test so that
+    // tests run later won't fail.
+    uploadRequestId ??= output?.Id ?? '';
   });
 
   describe('package1:version:create:get', () => {
