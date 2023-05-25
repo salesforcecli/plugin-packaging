@@ -1,3 +1,12 @@
+## [1.17.2](https://github.com/salesforcecli/plugin-packaging/compare/1.17.1...1.17.2) (2023-05-25)
+
+
+### Bug Fixes
+
+* make 1gp package version create tests more resilient ([582d64a](https://github.com/salesforcecli/plugin-packaging/commit/582d64ae72f890fe3ecac8f25feed728240d29b8))
+
+
+
 ## [1.17.1](https://github.com/salesforcecli/plugin-packaging/compare/1.17.0...1.17.1) (2023-05-16)
 
 
