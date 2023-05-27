@@ -1006,12 +1006,12 @@
     ts-retry-promise "^0.7.0"
     xml2js "^0.5.0"
 
-"@salesforce/plugin-auth@^2.7.13":
-  version "2.7.14"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.14.tgz#1175760ec0a2e5b205cd4d6e9b52f24f417b2585"
-  integrity sha512-UIU4hZwpSKAJA10y27n+u+puOU0kAvoCDA9CsAjwYqUBiLU0jPmvqGjudo4I7LVRzMCSF8/PiIzCyTWzPkgrCw==
+"@salesforce/plugin-auth@^2.7.16":
+  version "2.7.16"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.7.16.tgz#1b74926af6d6828e0f2f6e6b09e15fb523199a08"
+  integrity sha512-pZ+tK9YYIPE+CmhnyM9NgeS7aRu3nXeOez+GU+hxCanBzLSfpkBVrNrvFj6rLccbWtDaohvmZts/eEMzrR2oLg==
   dependencies:
-    "@oclif/core" "^2.8.2"
+    "@oclif/core" "^2.8.5"
     "@salesforce/core" "^3.34.9"
     "@salesforce/kit" "^1.9.2"
     "@salesforce/sf-plugins-core" "^2.2.10"
