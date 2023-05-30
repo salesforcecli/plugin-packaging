@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageVersionRetrieveCommandResult",
+  "definitions": {
+    "PackageVersionRetrieveCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FileDownloadEntry"
+      }
+    },
+    "FileDownloadEntry": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "filePath": {
+          "type": "string"
+        }
+      },
+      "required": ["fullName", "type", "filePath"],
+      "additionalProperties": false
+    }
+  }
+}

@@ -339,6 +339,12 @@
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"]
   },
   {
+    "command": "package:version:retrieve",
+    "plugin": "@salesforce/plugin-packaging",
+    "flags": ["api-version", "json", "loglevel", "output-dir", "package", "target-org"],
+    "alias": []
+  },
+  {
     "command": "package:version:update",
     "plugin": "@salesforce/plugin-packaging",
     "flags": [
