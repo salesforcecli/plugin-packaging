@@ -9,8 +9,6 @@ import { resolve } from 'path';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
-// import * as sinon from 'sinon';
-// import { SfCommand } from '@salesforce/sf-plugins-core';
 import { SourceComponent, registry } from '@salesforce/source-deploy-retrieve';
 import { Package, PackageVersionMetadataDownloadResult } from '@salesforce/packaging';
 import { PackageVersionRetrieveCommand } from '../../../src/commands/package/version/retrieve';
@@ -37,16 +35,9 @@ describe('package:version:create - tests', () => {
   const downloadStub = $$.SANDBOX.stub(Package, 'downloadPackageVersionMetadata');
   const config = new Config({ root: resolve(__dirname, '../../package.json') });
 
-  // stubs
-  // let logStub: sinon.SinonStub;
-
   before(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-  });
-
-  beforeEach(async () => {
-    // logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
