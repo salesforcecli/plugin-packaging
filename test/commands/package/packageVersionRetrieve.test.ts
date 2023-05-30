@@ -4,7 +4,6 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-// import * as os from 'os';
 import { resolve } from 'path';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
 import { Config } from '@oclif/core';
@@ -13,7 +12,7 @@ import { SourceComponent, registry } from '@salesforce/source-deploy-retrieve';
 import { Package, PackageVersionMetadataDownloadResult } from '@salesforce/packaging';
 import { PackageVersionRetrieveCommand } from '../../../src/commands/package/version/retrieve';
 
-const pkgVersionSourcesDownloadSuccessResult: PackageVersionMetadataDownloadResult = {
+const pkgVersionRetrieveSuccessResult: PackageVersionMetadataDownloadResult = {
   packagePath: '/tmp/foo',
   converted: [
     new SourceComponent({
@@ -29,7 +28,7 @@ const pkgVersionSourcesDownloadSuccessResult: PackageVersionMetadataDownloadResu
   ],
 };
 
-describe('package:version:create - tests', () => {
+describe('package:version:retrieve - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   const downloadStub = $$.SANDBOX.stub(Package, 'downloadPackageVersionMetadata');
@@ -44,9 +43,9 @@ describe('package:version:create - tests', () => {
     $$.restore();
   });
 
-  describe('package:version:sources:download', () => {
-    it('should display downloaded sources in tabular format', async () => {
-      downloadStub.resolves(pkgVersionSourcesDownloadSuccessResult);
+  describe('package:version:retrieve', () => {
+    it('should display retrieved files', async () => {
+      downloadStub.resolves(pkgVersionRetrieveSuccessResult);
       const cmd = new PackageVersionRetrieveCommand(['-p', '04t000000000001', '-o', 'test@dev.org'], config);
       const res = await cmd.run();
       expect(res).to.deep.equal([
