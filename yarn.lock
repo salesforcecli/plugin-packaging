@@ -1023,10 +1023,10 @@
   resolved "https://registry.yarnpkg.com/@salesforce/dev-config/-/dev-config-4.0.1.tgz#662ffaa4409713553aaf68eed93e7d2429c3ff0e"
   integrity sha512-0zMjXG4Vjlu/mB7zbuKSXfXiP7CEZBwsPtYqNgburk/wZIU9KcMspLwVBDUxmUj9ltRksD9o1ubRUblN5M3Z0g==
 
-"@salesforce/dev-scripts@^5.4.0":
-  version "5.4.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-5.4.0.tgz#41729d13c49d3a2c0bc62e4086c39cf2c23d2d77"
-  integrity sha512-Mh8IHYbNsUx5L7B8BuxoGQRTq5OhKAuDT3JZdmcYvYcUw5S7mGNo439gLImBaU0c4FEvBSIGTpfFadJTATGfWQ==
+"@salesforce/dev-scripts@^5.4.1":
+  version "5.4.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-5.4.1.tgz#dedd5fcfb9da3d5401d421eac86ea7d6694ba6d4"
+  integrity sha512-jBKcuDAjFKY7lNyvmHDwuiw1vs4eeOWlfpfnJxTYabuatDtPzNA7Mm5LBrJ7I5u9cyEJ0VlAn0mGpHTIgzKYMQ==
   dependencies:
     "@commitlint/cli" "^17.1.2"
     "@commitlint/config-conventional" "^17.1.0"
@@ -1116,10 +1116,10 @@
     open "^8.2.1"
     tslib "^2"
 
-"@salesforce/plugin-command-reference@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.0.1.tgz#24c317ad4bde64c69ba59d47a44fd32751c64bea"
-  integrity sha512-1SnHxjnGW8WIzmG5A3AL4VoH4eHAdUzlfnFJkl51brAmrnsA7SCqIi2wSx4lYBVMDDbPrJZnvISOWFcrP1GCsA==
+"@salesforce/plugin-command-reference@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.0.2.tgz#d0065460eb4b90c8addaaa36bb5253d1ae522bbf"
+  integrity sha512-sY4dFlx/EeUkoRMaI8YjRryv5AbjhX/tp4lXVYH5gc9MAOvmCiUxUOSsCvLs3ah/wj0vvwaA+seYXWxup+zDdA==
   dependencies:
     "@oclif/core" "^2.8.5"
     "@salesforce/core" "^4.0.1"
