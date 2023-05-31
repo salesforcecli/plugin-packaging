@@ -1,3 +1,12 @@
+# [1.18.0](https://github.com/salesforcecli/plugin-packaging/compare/1.17.3...1.18.0) (2023-05-31)
+
+
+### Features
+
+* node16, dep bumps for core4 ([00f8d4d](https://github.com/salesforcecli/plugin-packaging/commit/00f8d4d3f4965cc2a70465269be3efdc1c364011))
+
+
+
 ## [1.17.3](https://github.com/salesforcecli/plugin-packaging/compare/1.17.2...1.17.3) (2023-05-26)
 
 
