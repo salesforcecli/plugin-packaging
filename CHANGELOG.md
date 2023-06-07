@@ -1,3 +1,12 @@
+## [1.18.2](https://github.com/salesforcecli/plugin-packaging/compare/1.18.1...1.18.2) (2023-06-07)
+
+
+### Bug Fixes
+
+* **deps:** bump tslib from 2.5.2 to 2.5.3 ([43f130f](https://github.com/salesforcecli/plugin-packaging/commit/43f130f1e11b496b28b29b6cb38d9c5aec94f580))
+
+
+
 ## [1.18.1](https://github.com/salesforcecli/plugin-packaging/compare/1.18.0...1.18.1) (2023-06-07)
 
 
