@@ -1,3 +1,17 @@
+# [1.19.0](https://github.com/salesforcecli/plugin-packaging/compare/1.18.2...1.19.0) (2023-06-07)
+
+
+### Features
+
+* package:version:retrieve command ([6b4d876](https://github.com/salesforcecli/plugin-packaging/commit/6b4d876584e33c4e1978171de218290163d44453))
+* package:version:retrieve command ([c0cb638](https://github.com/salesforcecli/plugin-packaging/commit/c0cb638e86f4cb0d620116cb114d899b69122d51))
+* package:version:retrieve command ([c0c972c](https://github.com/salesforcecli/plugin-packaging/commit/c0c972cb98af86cc43d49b5afb2f7f09c41f87f5))
+* package:version:retrieve command ([cb9e3e5](https://github.com/salesforcecli/plugin-packaging/commit/cb9e3e5afce0047903e83dccf76b8474f3461711))
+* package:version:retrieve command ([2e09866](https://github.com/salesforcecli/plugin-packaging/commit/2e098668a3621241eaac001efc4ec9e380f849b0))
+* package:version:retrieve command ([ec0fe15](https://github.com/salesforcecli/plugin-packaging/commit/ec0fe15ac1089e84d7e5a04a2a0cc9887f8aace2))
+
+
+
 ## [1.18.2](https://github.com/salesforcecli/plugin-packaging/compare/1.18.1...1.18.2) (2023-06-07)
 
 
