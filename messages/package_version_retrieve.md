@@ -14,9 +14,9 @@ Specify the subscriber package version ID (starts with 04t) and the path to an e
 
 - Retrieve package metadata for a subscriber package version ID (starts with 04t) into my-folder/ within your Salesforce DX project directory:
 
-  <%= config.bin %> <%= command.id %> --package 04t... --output-dir my-folder –target-org my-scratch
+  <%= config.bin %> <%= command.id %> --package 04t... --output-dir my-folder –-target-org my-scratch
 
-  If you omit –target-org, this command runs against your default org.
+  If you omit --target-org, this command runs against your default org.
 
 # flags.package.summary
 

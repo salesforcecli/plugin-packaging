@@ -34,7 +34,6 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
-  public static readonly deprecateAliases = true;
   public static readonly flags = {
     loglevel,
     'api-version': orgApiVersionFlagWithDeprecations,
@@ -42,10 +41,12 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('flags.package.summary'),
+      required: true,
     }),
     'output-dir': Flags.directory({
       char: 'd',
       summary: messages.getMessage('flags.outputDir.summary'),
+      default: 'force-app',
     }),
   };
 
@@ -54,7 +55,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
     const connection = flags['target-org'].getConnection(flags['api-version']);
     const options = {
       subscriberPackageVersionId: flags.package ?? '',
-      destinationFolder: flags['output-dir'] ?? 'force-app',
+      destinationFolder: flags['output-dir'],
     };
 
     const result: PackageVersionMetadataDownloadResult = await Package.downloadPackageVersionMetadata(
@@ -71,7 +72,8 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
           type: component.type.name,
           filePath: path.relative('.', component.xml),
         });
-      } else if (component.content) {
+      }
+      if (component.content) {
         results.push({
           fullName: component.fullName,
           type: component.type.name,
