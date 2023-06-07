@@ -342,7 +342,9 @@
     "command": "package:version:retrieve",
     "plugin": "@salesforce/plugin-packaging",
     "flags": ["api-version", "json", "loglevel", "output-dir", "package", "target-org"],
-    "alias": []
+    "alias": [],
+    "flagChars": ["d", "o", "p"],
+    "flagAliases": ["apiversion", "targetusername", "u"]
   },
   {
     "command": "package:version:update",
