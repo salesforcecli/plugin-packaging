@@ -18,7 +18,7 @@ export class PackageVersionUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:version:update', 'force:package:version:update'];
+  public static readonly aliases = ['force:package:version:update'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

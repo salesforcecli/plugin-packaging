@@ -18,7 +18,7 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:delete', 'force:package:delete'];
+  public static readonly aliases = ['force:package:delete'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

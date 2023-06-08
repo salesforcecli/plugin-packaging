@@ -20,10 +20,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = [
-    'force:package:beta:version:displayancestry',
-    'force:package:version:displayancestry',
-  ];
+  public static readonly aliases = ['force:package:version:displayancestry'];
   public static readonly requiresProject = true;
 
   public static readonly flags = {

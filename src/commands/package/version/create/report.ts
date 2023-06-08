@@ -26,7 +26,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:version:create:report', 'force:package:version:create:report'];
+  public static readonly aliases = ['force:package:version:create:report'];
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,

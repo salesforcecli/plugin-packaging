@@ -23,7 +23,7 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package1:beta:version:display', 'force:package1:version:display'];
+  public static readonly aliases = ['force:package1:version:display'];
 
   public static readonly flags = {
     loglevel,

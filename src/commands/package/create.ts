@@ -19,7 +19,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:create', 'force:package:create'];
+  public static readonly aliases = ['force:package:create'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

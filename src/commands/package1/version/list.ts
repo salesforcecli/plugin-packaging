@@ -22,7 +22,7 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package1:beta:version:list', 'force:package1:version:list'];
+  public static readonly aliases = ['force:package1:version:list'];
   public static readonly flags = {
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
