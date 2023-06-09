@@ -1,3 +1,12 @@
+# [1.20.0](https://github.com/salesforcecli/plugin-packaging/compare/1.19.0...1.20.0) (2023-06-09)
+
+
+### Features
+
+* remove beta aliases ([#356](https://github.com/salesforcecli/plugin-packaging/issues/356)) ([043a704](https://github.com/salesforcecli/plugin-packaging/commit/043a704913ae5fb92db89a4f87511e8c53487029))
+
+
+
 # [1.19.0](https://github.com/salesforcecli/plugin-packaging/compare/1.18.2...1.19.0) (2023-06-07)
 
 
