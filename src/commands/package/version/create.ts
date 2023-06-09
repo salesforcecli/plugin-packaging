@@ -31,7 +31,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:version:create', 'force:package:version:create'];
+  public static readonly aliases = ['force:package:version:create'];
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,

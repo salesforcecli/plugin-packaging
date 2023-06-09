@@ -17,7 +17,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:version:promote', 'force:package:version:promote'];
+  public static readonly aliases = ['force:package:version:promote'];
   public static readonly examples = messages.getMessages('examples');
   public static readonly requiresProject = true;
   public static readonly flags = {

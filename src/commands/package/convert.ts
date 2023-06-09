@@ -27,7 +27,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:beta:convert', 'force:package:convert'];
+  public static readonly aliases = ['force:package:convert'];
   public static readonly hidden = true;
   public static readonly flags = {
     loglevel,
