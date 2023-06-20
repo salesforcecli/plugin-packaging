@@ -58,6 +58,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     }),
     'definition-file': Flags.file({
       deprecateAliases: true,
+      exists: true,
       aliases: ['definitionfile'],
       char: 'f',
       summary: messages.getMessage('flags.definition-file.summary'),
