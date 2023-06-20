@@ -1,3 +1,12 @@
+## [1.20.1](https://github.com/salesforcecli/plugin-packaging/compare/1.20.0...1.20.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* make sure file exists with oclif ([d866cb4](https://github.com/salesforcecli/plugin-packaging/commit/d866cb4580518bdb39f76a28bb1001823b5a70f5))
+
+
+
 # [1.20.0](https://github.com/salesforcecli/plugin-packaging/compare/1.19.0...1.20.0) (2023-06-09)
 
 
