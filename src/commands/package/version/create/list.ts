@@ -6,8 +6,13 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
-import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
+import { Connection, Messages } from '@salesforce/core';
+import {
+  PackageVersion,
+  PackagingSObjects,
+  PackageVersionCreateRequestResult,
+  getPackageVersionNumber,
+} from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { requiredHubFlag } from '../../../../utils/hubFlag';
 
@@ -15,7 +20,29 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-export type CreateListCommandResult = PackageVersionCreateRequestResult[];
+export type CreateListCommandResult = Array<
+  PackageVersionCreateRequestResult & {
+    VersionName?: string;
+    VersionNumber?: string;
+  }
+>;
+
+type ColumnDataHeader = {
+  header?: string;
+};
+type ColumnData = {
+  Id: ColumnDataHeader;
+  Status: ColumnDataHeader;
+  Package2Id: ColumnDataHeader;
+  Package2VersionId: ColumnDataHeader;
+  SubscriberPackageVersionId: ColumnDataHeader;
+  Tag: ColumnDataHeader;
+  Branch: ColumnDataHeader;
+  CreatedDate: ColumnDataHeader;
+  CreatedBy: ColumnDataHeader;
+  VersionName?: ColumnDataHeader;
+  VersionNumber?: ColumnDataHeader;
+};
 
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
 
@@ -41,21 +68,26 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('flags.verbose.summary'),
+    }),
   };
+
+  private connection!: Connection;
 
   public async run(): Promise<CreateListCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateListCommand);
-    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
+    this.connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const results = (await PackageVersion.getPackageVersionCreateRequests(this.connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
-    });
+    })) as CreateListCommandResult;
 
     if (results.length === 0) {
       this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      const columnData = {
+      const columnData: ColumnData = {
         Id: {},
         Status: {
           header: messages.getMessage('status'),
@@ -80,9 +112,53 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
           header: messages.getMessage('createdBy'),
         },
       };
+      if (flags.verbose) {
+        try {
+          await this.addVerboseData(results, columnData);
+        } catch (err) {
+          const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
+          this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
+        }
+      }
       this.table(results, columnData, { 'no-truncate': true });
     }
 
     return results;
+  }
+
+  // Queries Package2Version for the name and version number of the packages and adds that data
+  // to the results and table output.
+  private async addVerboseData(results: CreateListCommandResult, columnData: ColumnData): Promise<void> {
+    // Query for the version name and number data
+    const queryFields = ['Id', 'Name', 'MajorVersion', 'MinorVersion', 'PatchVersion', 'BuildNumber'];
+    const whereclause = "WHERE Id IN ('%IDS%')";
+    const whereClauseItems = results.map((pvcrr) => pvcrr.Package2VersionId).filter(Boolean);
+    type PackageVersionData = Pick<
+      PackagingSObjects.Package2Version,
+      'Id' | 'Name' | 'MajorVersion' | 'MinorVersion' | 'PatchVersion' | 'BuildNumber'
+    >;
+    type VersionDataMap = {
+      [id: string]: { name: string; version: string };
+    };
+    const versionData = await PackageVersion.queryPackage2Version<PackageVersionData>(
+      this.connection,
+      queryFields,
+      whereclause,
+      whereClauseItems
+    );
+    const vDataMap: VersionDataMap = {};
+    versionData.map((vData) => {
+      const version = getPackageVersionNumber(vData as PackagingSObjects.Package2Version, true);
+      vDataMap[vData.Id] = { name: vData.Name, version };
+    });
+    results.map((pvcrr) => {
+      if (vDataMap[pvcrr.Package2VersionId]) {
+        pvcrr.VersionName = vDataMap[pvcrr.Package2VersionId].name;
+        pvcrr.VersionNumber = vDataMap[pvcrr.Package2VersionId].version;
+      }
+    });
+
+    columnData.VersionName = { header: 'Version Name' };
+    columnData.VersionNumber = { header: 'Version Number' };
   }
 }
