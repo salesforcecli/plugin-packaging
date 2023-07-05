@@ -7,12 +7,7 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Connection, Messages } from '@salesforce/core';
-import {
-  PackageVersion,
-  PackagingSObjects,
-  PackageVersionCreateRequestResult,
-  getPackageVersionNumber,
-} from '@salesforce/packaging';
+import { PackageVersion, PackageVersionCreateRequestResult, getPackageVersionNumber } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { requiredHubFlag } from '../../../../utils/hubFlag';
 
@@ -129,27 +124,21 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   // Queries Package2Version for the name and version number of the packages and adds that data
   // to the results and table output.
   private async addVerboseData(results: CreateListCommandResult, columnData: ColumnData): Promise<void> {
-    // Query for the version name and number data
-    const queryFields = ['Id', 'Name', 'MajorVersion', 'MinorVersion', 'PatchVersion', 'BuildNumber'];
-    const whereclause = "WHERE Id IN ('%IDS%')";
-    const whereClauseItems = results.map((pvcrr) => pvcrr.Package2VersionId).filter(Boolean);
-    type PackageVersionData = Pick<
-      PackagingSObjects.Package2Version,
-      'Id' | 'Name' | 'MajorVersion' | 'MinorVersion' | 'PatchVersion' | 'BuildNumber'
-    >;
     type VersionDataMap = {
       [id: string]: { name: string; version: string };
     };
-    const versionData = await PackageVersion.queryPackage2Version<PackageVersionData>(
-      this.connection,
-      queryFields,
-      whereclause,
-      whereClauseItems
-    );
+    // Query for the version name and number data
+    const versionData = await PackageVersion.queryPackage2Version(this.connection, {
+      fields: ['Id', 'Name', 'MajorVersion', 'MinorVersion', 'PatchVersion', 'BuildNumber'],
+      whereClause: "WHERE Id IN ('%IDS%')",
+      whereClauseItems: results.map((pvcrr) => pvcrr.Package2VersionId).filter(Boolean),
+    });
     const vDataMap: VersionDataMap = {};
     versionData.map((vData) => {
-      const version = getPackageVersionNumber(vData as PackagingSObjects.Package2Version, true);
-      vDataMap[vData.Id] = { name: vData.Name, version };
+      if (vData) {
+        const version = getPackageVersionNumber(vData, true);
+        vDataMap[vData.Id] = { name: vData.Name, version };
+      }
     });
     results.map((pvcrr) => {
       if (vDataMap[pvcrr.Package2VersionId]) {
