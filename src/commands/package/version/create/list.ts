@@ -73,7 +73,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   public async run(): Promise<CreateListCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateListCommand);
     this.connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    const results = (await PackageVersion.getPackageVersionCreateRequests(this.connection, {
+    let results = (await PackageVersion.getPackageVersionCreateRequests(this.connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
     })) as CreateListCommandResult;
@@ -109,7 +109,9 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       };
       if (flags.verbose) {
         try {
-          await this.addVerboseData(results, columnData);
+          results = await this.fetchVerboseData(results);
+          columnData.VersionName = { header: 'Version Name' };
+          columnData.VersionNumber = { header: 'Version Number' };
         } catch (err) {
           const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
           this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
@@ -122,8 +124,8 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
   }
 
   // Queries Package2Version for the name and version number of the packages and adds that data
-  // to the results and table output.
-  private async addVerboseData(results: CreateListCommandResult, columnData: ColumnData): Promise<void> {
+  // to the results.
+  private async fetchVerboseData(results: CreateListCommandResult): Promise<CreateListCommandResult> {
     type VersionDataMap = {
       [id: string]: { name: string; version: string };
     };
@@ -133,6 +135,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       whereClause: "WHERE Id IN ('%IDS%')",
       whereClauseItems: results.map((pvcrr) => pvcrr.Package2VersionId).filter(Boolean),
     });
+
     const vDataMap: VersionDataMap = {};
     versionData.map((vData) => {
       if (vData) {
@@ -140,14 +143,17 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
         vDataMap[vData.Id] = { name: vData.Name, version };
       }
     });
-    results.map((pvcrr) => {
-      if (vDataMap[pvcrr.Package2VersionId]) {
-        pvcrr.VersionName = vDataMap[pvcrr.Package2VersionId].name;
-        pvcrr.VersionNumber = vDataMap[pvcrr.Package2VersionId].version;
-      }
-    });
 
-    columnData.VersionName = { header: 'Version Name' };
-    columnData.VersionNumber = { header: 'Version Number' };
+    return results.map((pvcrr) => {
+      if (vDataMap[pvcrr.Package2VersionId]) {
+        return {
+          ...pvcrr,
+          ...{
+            VersionName: vDataMap[pvcrr.Package2VersionId].name,
+            VersionNumber: vDataMap[pvcrr.Package2VersionId].version,
+          },
+        };
+      } else return pvcrr;
+    });
   }
 }
