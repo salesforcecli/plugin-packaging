@@ -794,6 +794,41 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
+"@oclif/core@^2.8.11", "@oclif/core@^2.8.7":
+  version "2.8.11"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-2.8.11.tgz#fbdf8b5b74a8b2012f2fcd5a30a515d327b54482"
+  integrity sha512-9wYW6KRSWfB/D+tqeyl/jxmEz/xPXkFJGVWfKaptqHz6FPWNJREjAM945MuJL2Y8NRhMe+ScRlZ3WpdToX5aVQ==
+  dependencies:
+    "@types/cli-progress" "^3.11.0"
+    ansi-escapes "^4.3.2"
+    ansi-styles "^4.3.0"
+    cardinal "^2.1.1"
+    chalk "^4.1.2"
+    clean-stack "^3.0.1"
+    cli-progress "^3.12.0"
+    debug "^4.3.4"
+    ejs "^3.1.8"
+    fs-extra "^9.1.0"
+    get-package-type "^0.1.0"
+    globby "^11.1.0"
+    hyperlinker "^1.0.0"
+    indent-string "^4.0.0"
+    is-wsl "^2.2.0"
+    js-yaml "^3.14.1"
+    natural-orderby "^2.0.3"
+    object-treeify "^1.1.33"
+    password-prompt "^1.1.2"
+    semver "^7.5.3"
+    string-width "^4.2.3"
+    strip-ansi "^6.0.1"
+    supports-color "^8.1.1"
+    supports-hyperlinks "^2.2.0"
+    ts-node "^10.9.1"
+    tslib "^2.5.0"
+    widest-line "^3.1.0"
+    wordwrap "^1.0.0"
+    wrap-ansi "^7.0.0"
+
 "@oclif/plugin-command-snapshot@^4.0.2":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-4.0.2.tgz#236fa8a402db63ffc9ed437aa6d2555026de4040"
@@ -997,7 +1032,7 @@
     jsonwebtoken "9.0.0"
     ts-retry-promise "^0.7.0"
 
-"@salesforce/core@^4.0.1", "@salesforce/core@^4.1.0", "@salesforce/core@^4.1.2", "@salesforce/core@^4.1.3", "@salesforce/core@^4.2.1":
+"@salesforce/core@^4.0.1", "@salesforce/core@^4.1.0", "@salesforce/core@^4.1.2", "@salesforce/core@^4.1.3":
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-4.2.1.tgz#7fdbac22816d698b01b4007ba41028c230c7962e"
   integrity sha512-1bi3era5/0lFqYNU786b1As+8JTDay1o8EUMbrhNR/GhVAH1hlJlGNgfseASrKDR9vuITykKI/5jWUa7kzFU6w==
@@ -1014,6 +1049,28 @@
     form-data "^4.0.0"
     js2xmlparser "^4.0.1"
     jsforce "^2.0.0-beta.24"
+    jsonwebtoken "9.0.0"
+    jszip "3.10.1"
+    proper-lockfile "^4.1.2"
+    ts-retry-promise "^0.7.0"
+
+"@salesforce/core@^4.3.2":
+  version "4.3.5"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-4.3.5.tgz#6b17141301923b5cd9423e08a7c2172084beca6b"
+  integrity sha512-OpelT9syDjEab4jCF82jzTzRJfAoTqj+jfQjzh0MwYMgsS4wGTtjUILZqqE82Cq/W4ByADjlclHcOd3gE9XVMQ==
+  dependencies:
+    "@salesforce/bunyan" "^2.0.0"
+    "@salesforce/kit" "^3.0.3"
+    "@salesforce/schemas" "^1.5.1"
+    "@salesforce/ts-types" "^2.0.2"
+    "@types/semver" "^7.5.0"
+    ajv "^8.12.0"
+    change-case "^4.1.2"
+    debug "^3.2.7"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    js2xmlparser "^4.0.1"
+    jsforce "^2.0.0-beta.27"
     jsonwebtoken "9.0.0"
     jszip "3.10.1"
     proper-lockfile "^4.1.2"
@@ -1080,17 +1137,17 @@
     "@salesforce/ts-types" "^2.0.1"
     tslib "^2.5.2"
 
-"@salesforce/packaging@^2.1.2":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.1.2.tgz#3b8b7d7ebe357572beb83b4a7da5881f17d64d7a"
-  integrity sha512-H/XskHCH6qz5jmI7GUe5uridDNtpIlZ1ayGM0dKTuvX6D1KulFydXfJUV3ed+aKg43JRNmf3PUtgCKP4zTSIbw==
+"@salesforce/packaging@^2.2.0":
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.2.0.tgz#1984718c2b35fe353950ee948a3c5fe81268b862"
+  integrity sha512-AeN6Q0nWqWQGWr1Gp8sYjlLrwTDCNSuCw3xRpGgdNucfF5KMspp9Bnren+Wa6CdbZrMpgomV/gEeCmaxNwMccw==
   dependencies:
-    "@oclif/core" "^2.8.5"
-    "@salesforce/core" "^4.0.1"
-    "@salesforce/kit" "^3.0.2"
-    "@salesforce/schemas" "^1.5.1"
+    "@oclif/core" "^2.8.7"
+    "@salesforce/core" "^4.3.2"
+    "@salesforce/kit" "^3.0.3"
+    "@salesforce/schemas" "^1.6.0"
     "@salesforce/source-deploy-retrieve" "^8.6.0"
-    "@salesforce/ts-types" "^2.0.2"
+    "@salesforce/ts-types" "^2.0.3"
     "@xmldom/xmldom" "^0.8.8"
     debug "^4.3.4"
     globby "^11"
@@ -1101,7 +1158,7 @@
     jsforce "^2.0.0-beta.23"
     jszip "^3.10.1"
     ts-retry-promise "^0.7.0"
-    xml2js "^0.5.0"
+    xml2js "^0.6.0"
 
 "@salesforce/plugin-auth@^2.8.0":
   version "2.8.0"
@@ -1142,6 +1199,11 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.5.1.tgz#2d1bfdcf593caaa04cd4b3e6fe621097ff7f28fe"
   integrity sha512-MRqU+tn8w5IFvZ0Lm9YKLgxYxr2MQMI+fXXsTrwfUnijsps+ybF9IOTu6MOMxxl2vCUkO8XDjA435wXlWSLI6g==
 
+"@salesforce/schemas@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.6.0.tgz#14505ebad2fb2d4f7b14837545d662766d293561"
+  integrity sha512-SwhDTLucj/GRbPpxlEoDZeqlX22o+G6fiebTXTu1cZKmd1oE0W2L7SlTTgJnWck8bhTeBIgQi9cpD8c2t5ISKA==
+
 "@salesforce/sf-plugins-core@^3.0.2", "@salesforce/sf-plugins-core@^3.0.4":
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-3.0.4.tgz#e62633de4f15e869b0200dfce2c633f8640d142c"
@@ -1150,6 +1212,18 @@
     "@oclif/core" "^2.8.2"
     "@salesforce/core" "^4.1.2"
     "@salesforce/kit" "^3.0.2"
+    "@salesforce/ts-types" "^2.0.2"
+    chalk "^4"
+    inquirer "^8.2.5"
+
+"@salesforce/sf-plugins-core@^3.1.4":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-3.1.4.tgz#2526338d0dfb2247de382ff1a88017640df11f4e"
+  integrity sha512-njdV0/cEHa3jI+8/izMxf/ChOO7gJiC39ooa0oZu9DD8INFFfRdJ9u6cgT3xk16buZG1E9zUJpmV2CjWn2HJeg==
+  dependencies:
+    "@oclif/core" "^2.8.11"
+    "@salesforce/core" "^4.3.2"
+    "@salesforce/kit" "^3.0.3"
     "@salesforce/ts-types" "^2.0.2"
     chalk "^4"
     inquirer "^8.2.5"
@@ -4917,6 +4991,32 @@ jsforce@^2.0.0-beta.23, jsforce@^2.0.0-beta.24:
     strip-ansi "^6.0.0"
     xml2js "^0.5.0"
 
+jsforce@^2.0.0-beta.27:
+  version "2.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.27.tgz#ba822b18b77bea4529491060a9b07bc1009735ac"
+  integrity sha512-d9dDWWeHwayRKPo8FJBAIUyk8sNXGSHwdUjR6al3yK0YKci27Jc1XfNaQTxEAuymHQJVaCb1gxTKqmA4uznFdQ==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@babel/runtime-corejs3" "^7.12.5"
+    "@types/node" "^12.19.9"
+    abort-controller "^3.0.0"
+    base64url "^3.0.1"
+    commander "^4.0.1"
+    core-js "^3.6.4"
+    csv-parse "^4.8.2"
+    csv-stringify "^5.3.4"
+    faye "^1.4.0"
+    form-data "^4.0.0"
+    fs-extra "^8.1.0"
+    https-proxy-agent "^5.0.0"
+    inquirer "^7.0.0"
+    multistream "^3.1.0"
+    node-fetch "^2.6.1"
+    open "^7.0.0"
+    regenerator-runtime "^0.13.3"
+    strip-ansi "^6.0.0"
+    xml2js "^0.5.0"
+
 json-buffer@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
@@ -7131,6 +7231,13 @@ semver@^7.0.0, semver@^7.1.1, semver@^7.1.3, semver@^7.2.1, semver@^7.3.2, semve
   dependencies:
     lru-cache "^6.0.0"
 
+semver@^7.5.3:
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.5.3.tgz#161ce8c2c6b4b3bdca6caadc9fa3317a4c4fe88e"
+  integrity sha512-QBlUtyVk/5EeHbi7X0fw6liDZc7BBmEaSYn01fMU1OUYbf6GPsbTtd8WmnqbI20SeycoHSeiybkE/q1Q+qlThQ==
+  dependencies:
+    lru-cache "^6.0.0"
+
 sentence-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/sentence-case/-/sentence-case-3.0.4.tgz#3645a7b8c117c787fde8702056225bb62a45131f"
@@ -8374,6 +8481,14 @@ xml2js@0.5.0, xml2js@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.5.0.tgz#d9440631fbb2ed800203fad106f2724f62c493b7"
   integrity sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==
+  dependencies:
+    sax ">=0.6.0"
+    xmlbuilder "~11.0.0"
+
+xml2js@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.6.0.tgz#07afc447a97d2bd6507a1f76eeadddb09f7a8282"
+  integrity sha512-eLTh0kA8uHceqesPqSE+VvO1CDDJWMwlQfB6LuN6T8w6MaDJ8Txm8P7s5cHD0miF0V+GGTZrDQfxPZQVsur33w==
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "~11.0.0"

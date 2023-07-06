@@ -14,6 +14,10 @@ To get information about a specific request, run "<%= config.bin %> package vers
 
 Status of the version creation request, used to filter the list.
 
+# flags.verbose.summary
+
+Displays additional information at a slight performance cost, such as the version name and number for each package version create request.
+
 # examples
 
 - List all package version creation requests in your default Dev Hub org:

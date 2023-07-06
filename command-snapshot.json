@@ -266,7 +266,7 @@
   {
     "command": "package:version:create:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-dev-hub"],
+    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-dev-hub", "verbose"],
     "alias": ["force:package:version:create:list"],
     "flagChars": ["c", "s", "v"],
     "flagAliases": ["apiversion", "createdlastdays", "target-hub-org", "targetdevhubusername"]
