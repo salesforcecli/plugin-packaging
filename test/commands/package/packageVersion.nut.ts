@@ -243,7 +243,7 @@ describe('package:version:*', () => {
     });
 
     it('should list the package versions created --verbose (json)', async () => {
-      const command = `package:version:create:list -v ${session.hubOrg.username} --json --verbose`;
+      const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
