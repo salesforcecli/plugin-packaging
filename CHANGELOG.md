@@ -1,3 +1,12 @@
+# [1.21.0](https://github.com/salesforcecli/plugin-packaging/compare/1.20.1...1.21.0) (2023-07-06)
+
+
+### Features
+
+* display version in list ([0f4e1c8](https://github.com/salesforcecli/plugin-packaging/commit/0f4e1c80b15ced41cdf741c32973e56596d0b202))
+
+
+
 ## [1.20.1](https://github.com/salesforcecli/plugin-packaging/compare/1.20.0...1.20.1) (2023-06-20)
 
 
