@@ -194,6 +194,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     if (flags.wait) {
       installOptions = {
         pollingTimeout: flags.wait,
+        pollingFrequency: Duration.seconds(2),
       };
       let remainingTime = flags.wait;
       let timeThen = Date.now();
