@@ -1,3 +1,12 @@
+## [1.21.3](https://github.com/salesforcecli/plugin-packaging/compare/1.21.2...1.21.3) (2023-07-24)
+
+
+### Bug Fixes
+
+* **deps:** bump word-wrap from 1.2.3 to 1.2.5 ([2348827](https://github.com/salesforcecli/plugin-packaging/commit/23488278ae616d15f0adaa6f9b26a8511f0e679a))
+
+
+
 ## [1.21.2](https://github.com/salesforcecli/plugin-packaging/compare/1.21.1...1.21.2) (2023-07-24)
 
 
