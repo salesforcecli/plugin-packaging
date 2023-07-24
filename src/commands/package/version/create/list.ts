@@ -41,6 +41,9 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
+    'show-conversions-only': Flags.boolean({
+      summary: messages.getMessage('flags.show-conversions-only.summary'),
+    }),
   };
 
   public async run(): Promise<CreateListCommandResult> {
@@ -49,13 +52,14 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
+      showConversionsOnly: flags['show-conversions-only'],
     });
 
     if (results.length === 0) {
       this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      const columnData = {
+      let columnData = {
         Id: {},
         Status: {
           header: messages.getMessage('status'),
@@ -80,6 +84,14 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
           header: messages.getMessage('createdBy'),
         },
       };
+
+      if (flags['show-conversions-only']) {
+        columnData = Object.assign(columnData, {
+          ConvertedFromVersionId: {
+            header: messages.getMessage('convertedFromVersionId'),
+          },
+        });
+      }
       this.table(results, columnData, { 'no-truncate': true });
     }
 

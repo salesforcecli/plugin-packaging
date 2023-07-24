@@ -3,6 +3,10 @@
   "include": ["./**/*.ts"],
   "compilerOptions": {
     "skipLibCheck": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": "..",
+    "paths": {
+      "@salesforce/core": ["node_modules/@salesforce/core"]
+    }
   }
 }

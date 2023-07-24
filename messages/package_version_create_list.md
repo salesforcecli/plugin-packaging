@@ -14,6 +14,10 @@ To get information about a specific request, run "<%= config.bin %> package vers
 
 Status of the version creation request, used to filter the list.
 
+# flags.show-conversions-only.summary
+
+Filter the list output to display only converted package version.
+
 # examples
 
 - List all package version creation requests in your default Dev Hub org:
@@ -71,3 +75,7 @@ Installation URL
 # createdBy
 
 Created By
+
+# convertedFromVersionId
+
+Converted From Version Id

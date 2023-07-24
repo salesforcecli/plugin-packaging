@@ -191,10 +191,12 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     });
     if (!verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
-      displayRecords.splice(
-        displayRecords.map((e) => e.key).indexOf(pvlMessages.getMessage('convertedFromVersionId')),
-        1
-      );
+      if (record.ConvertedFromVersionId === null || record.ConvertedFromVersionId === ' ') {
+        displayRecords.splice(
+          displayRecords.map((e) => e.key).indexOf(pvlMessages.getMessage('convertedFromVersionId')),
+          1
+        );
+      }
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf(messages.getMessage('dependencies')), 1);
       displayRecords.splice(
         displayRecords.map((e) => e.key).indexOf(messages.getMessage('codeCoveragePercentages')),

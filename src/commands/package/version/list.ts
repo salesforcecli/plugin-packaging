@@ -70,6 +70,9 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     concise: Flags.boolean({
       summary: messages.getMessage('flags.concise.summary'),
     }),
+    'show-conversions-only': Flags.boolean({
+      summary: messages.getMessage('flags.show-conversions-only.summary'),
+    }),
     'modified-last-days': Flags.integer({
       char: 'm',
       deprecateAliases: true,
@@ -109,6 +112,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       isReleased: flags.released,
       orderBy: flags['order-by'] as string,
       verbose: flags.verbose,
+      showConversionsOnly: flags['show-conversions-only'],
     });
 
     const results: PackageVersionListCommandResult = [];
@@ -199,7 +203,9 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         });
       });
       this.styledHeader(`Package Versions [${results.length}]`);
-      this.table(results, this.getColumnData(flags.concise, flags.verbose), { 'no-truncate': true });
+      this.table(results, this.getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
+        'no-truncate': true,
+      });
     } else {
       this.warn('No results found');
     }
@@ -208,7 +214,17 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   }
 
   // eslint-disable-next-line class-methods-use-this
-  private getColumnData(concise: boolean, verbose: boolean): ux.Table.table.Columns<Record<string, unknown>> {
+  private getColumnData(
+    concise: boolean,
+    verbose: boolean,
+    conversions: boolean
+  ): ux.Table.table.Columns<Record<string, unknown>> {
+    const conversionCols = {
+      ConvertedFromVersionId: {
+        header: messages.getMessage('convertedFromVersionId'),
+      },
+    };
+
     if (concise) {
       return {
         Package2Id: { header: messages.getMessage('package-id') },
@@ -219,7 +235,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         IsReleased: { header: 'Released' },
       };
     }
-    const defaultCols = {
+    let defaultCols = {
       Package2Name: { header: 'Package Name' },
       NamespacePrefix: { header: 'Namespace' },
       Name: { header: 'Version Name' },
@@ -235,6 +251,10 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       AncestorVersion: { header: 'Ancestor Version' },
       Branch: { header: messages.getMessage('packageBranch') },
     };
+
+    if (conversions && !verbose) {
+      defaultCols = Object.assign(defaultCols, conversionCols);
+    }
 
     if (!verbose) {
       return defaultCols;
