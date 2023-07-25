@@ -17,6 +17,7 @@ import {
   VersionNumber,
 } from '@salesforce/packaging';
 import { PackageVersionListCommandResult, PackageVersionListDetails } from '../../../src/commands/package/version/list';
+import { CreateListCommandResult } from '../../../src/commands/package/version/create/list';
 
 chaiConfig.truncateThreshold = 0;
 
@@ -182,7 +183,7 @@ describe('package:version:*', () => {
 
     it('should list all of the successful package versions created', async () => {
       const command = `package:version:create:list --status Success -v ${session.hubOrg.username} --json`;
-      const output = execCmd<[{ Status: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
+      const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
       output?.result?.forEach((result) => {
         expect(result?.Status).to.equal('Success');
       });
@@ -190,7 +191,7 @@ describe('package:version:*', () => {
 
     it('should list all of the package versions created within the last 2 days', () => {
       const command = `package:version:create:list --created-last-days 2 -v ${session.hubOrg.username} --json`;
-      const output = execCmd<[{ CreatedDate: string }]>(command, { ensureExitCode: 0 }).jsonOutput;
+      const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
         'Status',
@@ -223,7 +224,7 @@ describe('package:version:*', () => {
 
     it('should list the package versions created (json)', async () => {
       const command = `package:version:create:list -v ${session.hubOrg.username} --json`;
-      const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
+      const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
       const keys = [
         'Id',
         'Status',
@@ -251,6 +252,29 @@ describe('package:version:*', () => {
       expect(output).to.match(
         / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+Converted From Version Id\s+/
       );
+    });
+    it('should list the package versions created --verbose (json)', async () => {
+      const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
+      const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
+      const keys = [
+        'Id',
+        'Status',
+        'Package2Id',
+        'Package2VersionId',
+        'SubscriberPackageVersionId',
+        'Tag',
+        'Branch',
+        'Error',
+        'CreatedDate',
+        'HasMetadataRemoved',
+        'CreatedBy',
+        'VersionName',
+        'VersionNumber',
+      ];
+      expect(output).to.be.ok;
+      expect(output?.status).to.equal(0);
+      expect(output?.result).to.have.length.greaterThan(0);
+      expect(output?.result[0]).to.have.keys(keys);
     });
   });
   describe('package:version:list', () => {

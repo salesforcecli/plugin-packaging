@@ -18,6 +18,10 @@ Status of the version creation request, used to filter the list.
 
 Filter the list output to display only converted package version.
 
+# flags.verbose.summary
+
+Displays additional information at a slight performance cost, such as the version name and number for each package version create request.
+
 # examples
 
 - List all package version creation requests in your default Dev Hub org:

@@ -273,7 +273,8 @@
       "loglevel",
       "show-conversions-only",
       "status",
-      "target-dev-hub"
+      "target-dev-hub",
+      "verbose"
     ],
     "alias": ["force:package:version:create:list"],
     "flagChars": ["c", "s", "v"],

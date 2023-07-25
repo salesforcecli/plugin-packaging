@@ -6,8 +6,8 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
-import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
+import { Connection, Messages } from '@salesforce/core';
+import { PackageVersion, PackageVersionCreateRequestResult, getPackageVersionNumber } from '@salesforce/packaging';
 import * as chalk from 'chalk';
 import { requiredHubFlag } from '../../../../utils/hubFlag';
 
@@ -15,7 +15,12 @@ Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 
-export type CreateListCommandResult = PackageVersionCreateRequestResult[];
+export type CreateListCommandResult = Array<
+  PackageVersionCreateRequestResult & {
+    VersionName?: string;
+    VersionNumber?: string;
+  }
+>;
 
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
 
@@ -44,16 +49,21 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     'show-conversions-only': Flags.boolean({
       summary: messages.getMessage('flags.show-conversions-only.summary'),
     }),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('flags.verbose.summary'),
+    }),
   };
+
+  private connection!: Connection;
 
   public async run(): Promise<CreateListCommandResult> {
     const { flags } = await this.parse(PackageVersionCreateListCommand);
-    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    const results = await PackageVersion.getPackageVersionCreateRequests(connection, {
+    this.connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    let results = (await PackageVersion.getPackageVersionCreateRequests(this.connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
       showConversionsOnly: flags['show-conversions-only'],
-    });
+    })) as CreateListCommandResult;
 
     if (results.length === 0) {
       this.warn('No results found');
@@ -92,9 +102,62 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
           },
         });
       }
+
+      if (flags.verbose) {
+        try {
+          results = await this.fetchVerboseData(results);
+          columnData = Object.assign(columnData, {
+            VersionName: {
+              header: 'Version Name',
+            },
+          });
+          columnData = Object.assign(columnData, {
+            VersionNumber: {
+              header: 'Version Number',
+            },
+          });
+        } catch (err) {
+          const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
+          this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
+        }
+      }
       this.table(results, columnData, { 'no-truncate': true });
     }
 
     return results;
+  }
+
+  // Queries Package2Version for the name and version number of the packages and adds that data
+  // to the results.
+  private async fetchVerboseData(results: CreateListCommandResult): Promise<CreateListCommandResult> {
+    type VersionDataMap = {
+      [id: string]: { name: string; version: string };
+    };
+    // Query for the version name and number data
+    const versionData = await PackageVersion.queryPackage2Version(this.connection, {
+      fields: ['Id', 'Name', 'MajorVersion', 'MinorVersion', 'PatchVersion', 'BuildNumber'],
+      whereClause: "WHERE Id IN ('%IDS%')",
+      whereClauseItems: results.map((pvcrr) => pvcrr.Package2VersionId).filter(Boolean),
+    });
+
+    const vDataMap: VersionDataMap = {};
+    versionData.map((vData) => {
+      if (vData) {
+        const version = getPackageVersionNumber(vData, true);
+        vDataMap[vData.Id] = { name: vData.Name, version };
+      }
+    });
+
+    return results.map((pvcrr) => {
+      if (vDataMap[pvcrr.Package2VersionId]) {
+        return {
+          ...pvcrr,
+          ...{
+            VersionName: vDataMap[pvcrr.Package2VersionId].name,
+            VersionNumber: vDataMap[pvcrr.Package2VersionId].version,
+          },
+        };
+      } else return pvcrr;
+    });
   }
 }

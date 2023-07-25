@@ -5,65 +5,68 @@
     "CreateListCommandResult": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/PackageVersionCreateRequestResult"
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "VersionName": {
+            "type": "string"
+          },
+          "VersionNumber": {
+            "type": "string"
+          },
+          "Id": {
+            "type": "string"
+          },
+          "Status": {
+            "$ref": "#/definitions/PackagingSObjects.Package2VersionStatus"
+          },
+          "Package2Id": {
+            "type": "string"
+          },
+          "Package2VersionId": {
+            "type": "string"
+          },
+          "SubscriberPackageVersionId": {
+            "type": ["string", "null"]
+          },
+          "Tag": {
+            "type": "string"
+          },
+          "Branch": {
+            "type": "string"
+          },
+          "Error": {
+            "type": "array",
+            "items": {}
+          },
+          "CreatedDate": {
+            "type": "string"
+          },
+          "HasMetadataRemoved": {
+            "type": ["boolean", "null"]
+          },
+          "CreatedBy": {
+            "type": "string"
+          },
+          "ConvertedFromVersionId": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "Branch",
+          "ConvertedFromVersionId",
+          "CreatedBy",
+          "CreatedDate",
+          "Error",
+          "HasMetadataRemoved",
+          "Id",
+          "Package2Id",
+          "Package2VersionId",
+          "Status",
+          "SubscriberPackageVersionId",
+          "Tag"
+        ]
       }
-    },
-    "PackageVersionCreateRequestResult": {
-      "type": "object",
-      "properties": {
-        "Id": {
-          "type": "string"
-        },
-        "Status": {
-          "$ref": "#/definitions/PackagingSObjects.Package2VersionStatus"
-        },
-        "Package2Id": {
-          "type": "string"
-        },
-        "Package2VersionId": {
-          "type": "string"
-        },
-        "SubscriberPackageVersionId": {
-          "type": ["string", "null"]
-        },
-        "Tag": {
-          "type": "string"
-        },
-        "Branch": {
-          "type": "string"
-        },
-        "Error": {
-          "type": "array",
-          "items": {}
-        },
-        "CreatedDate": {
-          "type": "string"
-        },
-        "HasMetadataRemoved": {
-          "type": ["boolean", "null"]
-        },
-        "CreatedBy": {
-          "type": "string"
-        },
-        "ConvertedFromVersionId": {
-          "type": ["string", "null"]
-        }
-      },
-      "required": [
-        "Id",
-        "Status",
-        "Package2Id",
-        "Package2VersionId",
-        "SubscriberPackageVersionId",
-        "Tag",
-        "Branch",
-        "Error",
-        "CreatedDate",
-        "HasMetadataRemoved",
-        "CreatedBy",
-        "ConvertedFromVersionId"
-      ],
-      "additionalProperties": false
     },
     "PackagingSObjects.Package2VersionStatus": {
       "type": "string",
