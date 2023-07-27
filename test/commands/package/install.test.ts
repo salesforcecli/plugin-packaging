@@ -172,7 +172,7 @@ describe('package:install', () => {
       const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sf package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.deep.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
@@ -187,7 +187,7 @@ describe('package:install', () => {
       stubSpinner(cmd);
       const result = await cmd.run();
       expect(uxLogStub.callCount).to.equal(1);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sf package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(uxWarnStub.firstCall.args[0]).to.include(
         'The "-u" flag has been deprecated. Use "--target-org | -o" instead.'
@@ -371,7 +371,7 @@ describe('package:install', () => {
 
       expect(uxLogStub.callCount).to.equal(1);
       expect(uxWarnStub.args[0][0]).to.equal(warningMsg);
-      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sfdx package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
+      const msg = `PackageInstallRequest is currently InProgress. You can continue to query the status using${EOL}sf package:install:report -i 0Hf1h0000006sh2CAA -o ${testOrg.username}`;
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(pkgInstallRequest);
     });
