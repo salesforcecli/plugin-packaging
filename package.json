@@ -1,6 +1,6 @@
 {
   "name": "@salesforce/plugin-packaging",
-  "description": "SFDX plugin that support Salesforce Packaging Platform",
+  "description": "SF plugin that support Salesforce Packaging Platform",
   "version": "1.21.4",
   "main": "lib/index.js",
   "author": "Salesforce",
@@ -65,13 +65,15 @@
     "force",
     "salesforce",
     "sfdx",
+    "sf",
     "salesforcedx",
-    "sfdx-plugin"
+    "sfdx-plugin",
+    "sf-plugin"
   ],
   "license": "BSD-3-Clause",
   "oclif": {
     "commands": "./lib/commands",
-    "bin": "sfdx",
+    "bin": "sf",
     "additionalVersionFlags": [
       "-v"
     ],
