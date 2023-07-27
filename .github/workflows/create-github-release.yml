@@ -1,4 +1,4 @@
-https://github.com/forcedotcom/packaging/pull/359name: create-github-release
+name: create-github-release
 
 on:
   push:
