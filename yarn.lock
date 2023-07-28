@@ -1051,10 +1051,10 @@
     "@salesforce/ts-types" "^2.0.5"
     tslib "^2.6.0"
 
-"@salesforce/packaging@profiles":
-  version "2.2.9-profiles.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.2.9-profiles.0.tgz#b0caa4b356f592c92f256079eb3be8d6b006e0fd"
-  integrity sha512-8d5HLgLMFbekYyhasmuQsqMu5+VqjOK9rZLzJlQHpk8K8XXUy9LpiNN8F+QsphM3emWlEtMKjzF7lsM24e+Uog==
+"@salesforce/packaging@2.2.9-profiles.1":
+  version "2.2.9-profiles.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.2.9-profiles.1.tgz#e1d116b03482e8f8f9c7389db9008f682d14bc7f"
+  integrity sha512-un7G7Av90fzs+dk0RQpsRRGyX1gOCxXze1DDPNrOngMQ+/agqGpqxO+iFR0hifolM/mGw1HCFZEXKuYjbZUDZg==
   dependencies:
     "@oclif/core" "^2.9.4"
     "@salesforce/core" "^4.3.10"
@@ -1069,7 +1069,6 @@
     graphology-types "^0.24.7"
     jsforce "^2.0.0-beta.27"
     jszip "^3.10.1"
-    xml2js "^0.6.0"
 
 "@salesforce/plugin-auth@^2.8.0":
   version "2.8.0"
@@ -8150,14 +8149,6 @@ xml2js@0.5.0, xml2js@^0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.5.0.tgz#d9440631fbb2ed800203fad106f2724f62c493b7"
   integrity sha512-drPFnkQJik/O+uPKpqSgr22mpuFHqKdbS835iAQrUC73L2F5WkboIRd63ai/2Yg6I1jzifPFKH2NTK+cfglkIA==
-  dependencies:
-    sax ">=0.6.0"
-    xmlbuilder "~11.0.0"
-
-xml2js@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/xml2js/-/xml2js-0.6.0.tgz#07afc447a97d2bd6507a1f76eeadddb09f7a8282"
-  integrity sha512-eLTh0kA8uHceqesPqSE+VvO1CDDJWMwlQfB6LuN6T8w6MaDJ8Txm8P7s5cHD0miF0V+GGTZrDQfxPZQVsur33w==
   dependencies:
     sax ">=0.6.0"
     xmlbuilder "~11.0.0"
