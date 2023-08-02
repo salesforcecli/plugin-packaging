@@ -80,6 +80,7 @@ describe('package:version:*', () => {
       expect(result).to.have.all.keys(
         'Id',
         'Status',
+        'ConvertedFromVersionId',
         'Package2Id',
         'Package2VersionId',
         'SubscriberPackageVersionId',
@@ -201,6 +202,7 @@ describe('package:version:*', () => {
         'Branch',
         'Error',
         'CreatedDate',
+        'ConvertedFromVersionId',
         'HasMetadataRemoved',
         'CreatedBy',
       ];
@@ -231,6 +233,7 @@ describe('package:version:*', () => {
         'SubscriberPackageVersionId',
         'Tag',
         'Branch',
+        'ConvertedFromVersionId',
         'Error',
         'CreatedDate',
         'HasMetadataRemoved',
@@ -255,6 +258,7 @@ describe('package:version:*', () => {
         'Branch',
         'Error',
         'CreatedDate',
+        'ConvertedFromVersionId',
         'HasMetadataRemoved',
         'CreatedBy',
         'VersionName',
@@ -339,6 +343,7 @@ describe('package:version:*', () => {
         'ReleaseVersion',
         'BuildDurationInSeconds',
         'HasMetadataRemoved',
+        'ConvertedFromVersionId',
         'CreatedBy',
       ];
       expect(output).to.have.length.greaterThan(0);

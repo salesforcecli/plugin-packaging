@@ -64,6 +64,7 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.inProgress,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
+      ConvertedFromVersionId: null,
       Tag: '',
     };
 
@@ -90,6 +91,7 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.success,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
+      ConvertedFromVersionId: null,
       Tag: '',
     };
 
@@ -115,6 +117,7 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.error,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
+      ConvertedFromVersionId: null,
       Tag: '',
     };
 

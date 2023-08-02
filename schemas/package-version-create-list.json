@@ -47,10 +47,14 @@
           },
           "CreatedBy": {
             "type": "string"
+          },
+          "ConvertedFromVersionId": {
+            "type": ["string", "null"]
           }
         },
         "required": [
           "Branch",
+          "ConvertedFromVersionId",
           "CreatedBy",
           "CreatedDate",
           "Error",

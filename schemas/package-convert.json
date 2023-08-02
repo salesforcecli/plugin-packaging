@@ -38,6 +38,9 @@
         },
         "CreatedBy": {
           "type": "string"
+        },
+        "ConvertedFromVersionId": {
+          "type": ["string", "null"]
         }
       },
       "required": [
@@ -51,7 +54,8 @@
         "Error",
         "CreatedDate",
         "HasMetadataRemoved",
-        "CreatedBy"
+        "CreatedBy",
+        "ConvertedFromVersionId"
       ],
       "additionalProperties": false
     },
