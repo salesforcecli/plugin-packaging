@@ -22,6 +22,24 @@ export type CreateListCommandResult = Array<
   }
 >;
 
+type ColumnDataHeader = {
+  header?: string;
+};
+type ColumnData = {
+  Id: ColumnDataHeader;
+  Status: ColumnDataHeader;
+  Package2Id: ColumnDataHeader;
+  Package2VersionId: ColumnDataHeader;
+  SubscriberPackageVersionId: ColumnDataHeader;
+  Tag: ColumnDataHeader;
+  Branch: ColumnDataHeader;
+  CreatedDate: ColumnDataHeader;
+  CreatedBy: ColumnDataHeader;
+  VersionName?: ColumnDataHeader;
+  VersionNumber?: ColumnDataHeader;
+  ConvertedFromVersionId?: ColumnDataHeader;
+};
+
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
 
 export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
@@ -69,7 +87,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      let columnData = {
+      const columnData: ColumnData = {
         Id: {},
         Status: {
           header: messages.getMessage('status'),
@@ -96,26 +114,14 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       };
 
       if (flags['show-conversions-only']) {
-        columnData = Object.assign(columnData, {
-          ConvertedFromVersionId: {
-            header: messages.getMessage('convertedFromVersionId'),
-          },
-        });
+        columnData.ConvertedFromVersionId = { header: messages.getMessage('convertedFromVersionId') };
       }
 
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
-          columnData = Object.assign(columnData, {
-            VersionName: {
-              header: 'Version Name',
-            },
-          });
-          columnData = Object.assign(columnData, {
-            VersionNumber: {
-              header: 'Version Number',
-            },
-          });
+          columnData.VersionName = { header: 'Version Name' };
+          columnData.VersionNumber = { header: 'Version Number' };
         } catch (err) {
           const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
           this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);

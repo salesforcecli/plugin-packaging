@@ -301,15 +301,12 @@ describe('package:install', () => {
       stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const cmd = new Install(['-p', 'my_package_alias', '-o', testOrg.username], config);
       stubSpinner(cmd);
-      /*
       const result = await cmd.run();
-
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = 'Successfully installed package [my_package_alias]';
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(request);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
-      */
     });
 
     it('should use installation key as password', async () => {

@@ -270,6 +270,7 @@ describe('package:version:*', () => {
         'CreatedBy',
         'VersionName',
         'VersionNumber',
+        'ConvertedFromVersionId',
       ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);

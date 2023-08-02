@@ -97,7 +97,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       },
     ];
 
-    if (record.ConvertedFromVersionId !== null) {
+    if (record.ConvertedFromVersionId) {
       data.push({
         key: pvlMessages.getMessage('convertedFromVersionId'),
         value: record.ConvertedFromVersionId,

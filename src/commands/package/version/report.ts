@@ -191,7 +191,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     });
     if (!verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
-      if (record.ConvertedFromVersionId === null || record.ConvertedFromVersionId === ' ') {
+      if (!record.ConvertedFromVersionId?.trim()) {
         displayRecords.splice(
           displayRecords.map((e) => e.key).indexOf(pvlMessages.getMessage('convertedFromVersionId')),
           1

@@ -219,12 +219,6 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     verbose: boolean,
     conversions: boolean
   ): ux.Table.table.Columns<Record<string, unknown>> {
-    const conversionCols = {
-      ConvertedFromVersionId: {
-        header: messages.getMessage('convertedFromVersionId'),
-      },
-    };
-
     if (concise) {
       return {
         Package2Id: { header: messages.getMessage('package-id') },
@@ -253,7 +247,11 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     };
 
     if (conversions && !verbose) {
-      defaultCols = Object.assign(defaultCols, conversionCols);
+      defaultCols = Object.assign(defaultCols, {
+        ConvertedFromVersionId: {
+          header: messages.getMessage('convertedFromVersionId'),
+        },
+      });
     }
 
     if (!verbose) {
