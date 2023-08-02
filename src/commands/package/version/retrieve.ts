@@ -45,7 +45,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
     }),
     'output-dir': Flags.directory({
       char: 'd',
-      summary: messages.getMessage('flags.outputDir.summary'),
+      summary: messages.getMessage('flags.output-dir.summary'),
       default: 'force-app',
     }),
   };

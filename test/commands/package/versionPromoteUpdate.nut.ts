@@ -43,6 +43,7 @@ describe('package:version:promote / package:version:update', () => {
     ).jsonOutput?.result;
     expect(result).to.have.all.keys(
       'Id',
+      'ConvertedFromVersionId',
       'Status',
       'Package2Id',
       'Package2VersionId',

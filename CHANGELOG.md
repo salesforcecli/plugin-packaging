@@ -1,3 +1,21 @@
+## [1.21.4](https://github.com/salesforcecli/plugin-packaging/compare/1.21.3...1.21.4) (2023-07-25)
+
+### Bug Fixes
+
+- **deps:** bump semver from 5.7.1 to 5.7.2 ([#383](https://github.com/salesforcecli/plugin-packaging/issues/383)) ([54b16e1](https://github.com/salesforcecli/plugin-packaging/commit/54b16e1fd32df0fa2d204dcd2ad1a03e238817b8))
+
+## [1.21.3](https://github.com/salesforcecli/plugin-packaging/compare/1.21.2...1.21.3) (2023-07-24)
+
+### Bug Fixes
+
+- **deps:** bump word-wrap from 1.2.3 to 1.2.5 ([2348827](https://github.com/salesforcecli/plugin-packaging/commit/23488278ae616d15f0adaa6f9b26a8511f0e679a))
+
+## [1.21.2](https://github.com/salesforcecli/plugin-packaging/compare/1.21.1...1.21.2) (2023-07-24)
+
+### Bug Fixes
+
+- reduce polling frequency ([b3572f5](https://github.com/salesforcecli/plugin-packaging/commit/b3572f5ce41e5c1d8e9e11f509eae64e7742fdf5))
+
 ## [1.21.1](https://github.com/salesforcecli/plugin-packaging/compare/1.21.0...1.21.1) (2023-07-10)
 
 ### Bug Fixes
