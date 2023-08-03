@@ -1,3 +1,9 @@
+## [1.21.5](https://github.com/salesforcecli/plugin-packaging/compare/1.21.4...1.21.5) (2023-08-02)
+
+### Bug Fixes
+
+- bump packaging ([daf4988](https://github.com/salesforcecli/plugin-packaging/commit/daf498817e6daf3a31184a27a9af8c975ea67b4b))
+
 ## [1.21.4](https://github.com/salesforcecli/plugin-packaging/compare/1.21.3...1.21.4) (2023-07-25)
 
 ### Bug Fixes
