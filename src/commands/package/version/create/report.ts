@@ -16,6 +16,7 @@ import { requiredHubFlag } from '../../../../utils/hubFlag';
 Messages.importMessagesDirectory(__dirname);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_report');
 const pvclMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
+const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
 const ERROR_LIMIT = 12;
 
@@ -95,6 +96,13 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
         value: record.CreatedBy,
       },
     ];
+
+    if (record.ConvertedFromVersionId) {
+      data.push({
+        key: pvlMessages.getMessage('convertedFromVersionId'),
+        value: record.ConvertedFromVersionId,
+      });
+    }
 
     this.styledHeader(chalk.blue('Package Version Create Request'));
     this.table(data, {

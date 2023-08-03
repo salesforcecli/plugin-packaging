@@ -22,7 +22,7 @@ Specify the subscriber package version ID (starts with 04t) and the path to an e
 
 Subscriber package version ID (starts with 04t).
 
-# flags.outputDir.summary
+# flags.output-dir.summary
 
 Path within your Salesforce DX project directory in which to download the metadata. This directory must be empty.
 
