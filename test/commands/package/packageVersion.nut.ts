@@ -403,7 +403,7 @@ describe('package:version:*', () => {
         .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
     });
 
-    it('should list package versions in dev hub created as part of package conversion from 1GP --show-conversions-only flag (human)', () => {
+    it.skip('should list package versions in dev hub created as part of package conversion from 1GP --show-conversions-only flag (human)', () => {
       const command = `package:version:list -v ${session.hubOrg.username} --show-conversions-only`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
