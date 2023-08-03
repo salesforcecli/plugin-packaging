@@ -48,11 +48,11 @@ Post install URL.
 
 The contents of the post-installation instructions URL are displayed in the UI after installation of the package version.
 
-# flags.managed-release.summary
+# flags.managed-released.summary
 
 Create a managed package version.
 
-# flags.managed-release.description
+# flags.managed-released.description
 
 To create a beta version, don’t include this parameter.
 

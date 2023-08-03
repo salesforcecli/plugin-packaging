@@ -52,7 +52,8 @@ describe('package:version:promote / package:version:update', () => {
       'Error',
       'CreatedDate',
       'HasMetadataRemoved',
-      'CreatedBy'
+      'CreatedBy',
+      'ConvertedFromVersionId'
     );
     expect(result?.Id).to.match(/08c.{15}/);
     expect(result?.Package2Id).to.match(/0Ho.{15}/);

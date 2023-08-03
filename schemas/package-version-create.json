@@ -38,6 +38,9 @@
         },
         "CreatedBy": {
           "type": "string"
+        },
+        "ConvertedFromVersionId": {
+          "type": ["string", "null"]
         }
       },
       "additionalProperties": false

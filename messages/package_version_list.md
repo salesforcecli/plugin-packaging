@@ -28,6 +28,10 @@ Package version fields used to order the list.
 
 Display extended package version details.
 
+# flags.show-conversions-only.summary
+
+Filter the list output to display only converted package version.
+
 # examples
 
 - List package versions in your default Dev Hub org that were created in the last 3 days; show only the released versions and order the list using the PatchVersion field. Display extended details about each package version:
