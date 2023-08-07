@@ -14,6 +14,10 @@ To get information about a specific request, run "<%= config.bin %> package vers
 
 Status of the version creation request, used to filter the list.
 
+# flags.show-conversions-only.summary
+
+Filter the list output to display only converted package version.
+
 # flags.verbose.summary
 
 Displays additional information at a slight performance cost, such as the version name and number for each package version create request.
@@ -75,3 +79,7 @@ Installation URL
 # createdBy
 
 Created By
+
+# convertedFromVersionId
+
+Converted From Version Id

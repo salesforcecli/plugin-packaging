@@ -266,7 +266,16 @@
   {
     "command": "package:version:create:list",
     "plugin": "@salesforce/plugin-packaging",
-    "flags": ["api-version", "created-last-days", "json", "loglevel", "status", "target-dev-hub", "verbose"],
+    "flags": [
+      "api-version",
+      "created-last-days",
+      "json",
+      "loglevel",
+      "show-conversions-only",
+      "status",
+      "target-dev-hub",
+      "verbose"
+    ],
     "alias": ["force:package:version:create:list"],
     "flagChars": ["c", "s", "v"],
     "flagAliases": ["apiversion", "createdlastdays", "target-hub-org", "targetdevhubusername"]
@@ -308,6 +317,7 @@
       "order-by",
       "packages",
       "released",
+      "show-conversions-only",
       "target-dev-hub",
       "verbose"
     ],

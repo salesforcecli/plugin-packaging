@@ -302,7 +302,6 @@ describe('package:install', () => {
       const cmd = new Install(['-p', 'my_package_alias', '-o', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
-
       expect(uxLogStub.calledOnce).to.be.true;
       const msg = 'Successfully installed package [my_package_alias]';
       expect(uxLogStub.args[0][0]).to.equal(msg);

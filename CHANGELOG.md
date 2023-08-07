@@ -1,3 +1,31 @@
+# [1.22.0](https://github.com/salesforcecli/plugin-packaging/compare/1.21.5...1.22.0) (2023-08-03)
+
+
+### Bug Fixes
+
+* fix bad merge ([78a215e](https://github.com/salesforcecli/plugin-packaging/commit/78a215eba65f173a20f083fe205f7943d4ea2bd4))
+* skip this nut for now ([c7ebbc4](https://github.com/salesforcecli/plugin-packaging/commit/c7ebbc413b18e32c67dac226dd8d791309753d6c))
+
+
+### Features
+
+* query improvements for 1gp to 2gp conversions ([1ff5421](https://github.com/salesforcecli/plugin-packaging/commit/1ff542171e1751fec645bdb1f99e18c199e506e6))
+* query improvements for 1gp to 2gp conversions 2 ([ed4fe5d](https://github.com/salesforcecli/plugin-packaging/commit/ed4fe5d1a65108d27972e44de9af0525e97c2427))
+* query improvements for 1gp to 2gp conversions v2 ([3531fed](https://github.com/salesforcecli/plugin-packaging/commit/3531fed9dad046703fc05c2f8e3fdcbcdd72c00a))
+* query improvements for 1gp to 2gp conversions v2 ([b7acd6c](https://github.com/salesforcecli/plugin-packaging/commit/b7acd6c62d9ca45ca665527d6bdccb14912550a9))
+* query improvements for 1gp to 2gp conversions v4 ([37bda28](https://github.com/salesforcecli/plugin-packaging/commit/37bda280518298060ba3ceac30808012ac6a93e1))
+
+
+
+## [1.21.5](https://github.com/salesforcecli/plugin-packaging/compare/1.21.4...1.21.5) (2023-08-02)
+
+
+### Bug Fixes
+
+* bump packaging ([daf4988](https://github.com/salesforcecli/plugin-packaging/commit/daf498817e6daf3a31184a27a9af8c975ea67b4b))
+
+
+
 ## [1.21.4](https://github.com/salesforcecli/plugin-packaging/compare/1.21.3...1.21.4) (2023-07-25)
 
 

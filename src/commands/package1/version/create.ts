@@ -59,8 +59,8 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
       char: 'm',
       deprecateAliases: true,
       aliases: ['managedrelease'],
-      summary: messages.getMessage('flags.managed-release.summary'),
-      description: messages.getMessage('flags.managed-release.description'),
+      summary: messages.getMessage('flags.managed-released.summary'),
+      description: messages.getMessage('flags.managed-released.description'),
     }),
     'release-notes-url': Flags.string({
       char: 'r',

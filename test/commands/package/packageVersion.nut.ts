@@ -88,7 +88,8 @@ describe('package:version:*', () => {
         'Error',
         'CreatedDate',
         'HasMetadataRemoved',
-        'CreatedBy'
+        'CreatedBy',
+        'ConvertedFromVersionId'
       );
       packageVersionId = result?.Id;
       expect(result?.Id).to.match(/08c.{15}/);
@@ -203,6 +204,7 @@ describe('package:version:*', () => {
         'CreatedDate',
         'HasMetadataRemoved',
         'CreatedBy',
+        'ConvertedFromVersionId',
       ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
@@ -235,6 +237,7 @@ describe('package:version:*', () => {
         'CreatedDate',
         'HasMetadataRemoved',
         'CreatedBy',
+        'ConvertedFromVersionId',
       ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
@@ -242,6 +245,14 @@ describe('package:version:*', () => {
       expect(output?.result[0]).to.have.keys(keys);
     });
 
+    it('should list the package versions created as part of package conversion from 1GP --show-conversions-only flag (human)', async () => {
+      const command = `package:version:create:list -v ${session.hubOrg.username} --show-conversions-only`;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(output).to.contain('=== Package Version Create Requests  [');
+      expect(output).to.match(
+        / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+Converted From Version Id\s+/
+      );
+    });
     it('should list the package versions created --verbose (json)', async () => {
       const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
@@ -259,6 +270,7 @@ describe('package:version:*', () => {
         'CreatedBy',
         'VersionName',
         'VersionNumber',
+        'ConvertedFromVersionId',
       ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
@@ -340,6 +352,7 @@ describe('package:version:*', () => {
         'BuildDurationInSeconds',
         'HasMetadataRemoved',
         'CreatedBy',
+        'ConvertedFromVersionId',
       ];
       expect(output).to.have.length.greaterThan(0);
       expect(output?.at(0)).to.have.keys(keys);
@@ -388,6 +401,15 @@ describe('package:version:*', () => {
       (output as PackageVersionListDetails[])
         .filter((f: { CodeCoverage: string | boolean }) => f.CodeCoverage)
         .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
+    });
+
+    it.skip('should list package versions in dev hub created as part of package conversion from 1GP --show-conversions-only flag (human)', () => {
+      const command = `package:version:list -v ${session.hubOrg.username} --show-conversions-only`;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(output).to.contain('=== Package Versions [');
+      expect(output).to.match(
+        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch\s+Converted From Version Id/
+      );
     });
   });
 
