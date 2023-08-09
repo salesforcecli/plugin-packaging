@@ -55,6 +55,7 @@ describe('package:convert', () => {
   it('starts package version create request (in progress)', async () => {
     const pvc = {
       Branch: 'main',
+      ConvertedFromVersionId: null,
       CreatedBy: '133',
       CreatedDate: '2022-08-31 11:48',
       Error: [],
@@ -64,7 +65,6 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.inProgress,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
-      ConvertedFromVersionId: null,
       Tag: '',
     };
 
@@ -82,6 +82,7 @@ describe('package:convert', () => {
   it('starts package version create request (success)', async () => {
     const pvc = {
       Branch: 'main',
+      ConvertedFromVersionId: '04t3i000002OUEkAAO',
       CreatedBy: '133',
       CreatedDate: '2022-08-31 11:48',
       Error: [],
@@ -91,7 +92,6 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.success,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
-      ConvertedFromVersionId: null,
       Tag: '',
     };
 
@@ -108,6 +108,7 @@ describe('package:convert', () => {
   it('starts package version create request (error)', async () => {
     const pvc = {
       Branch: 'main',
+      ConvertedFromVersionId: null,
       CreatedBy: '133',
       CreatedDate: '2022-08-31 11:48',
       Error: [new Error('server error 1'), new Error('server error 2')],
@@ -117,7 +118,6 @@ describe('package:convert', () => {
       Package2VersionId: '05i3i000000bllhAAA',
       Status: Package2VersionStatus.error,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
-      ConvertedFromVersionId: null,
       Tag: '',
     };
 

@@ -46,7 +46,7 @@ You already promoted a package version with this major.minor.patch version numbe
 
 # previouslyReleasedAction
 
-Create a new package version with a different --version-umber, then promote the package version.
+Create a new package version with a different --version-number, then promote the package version.
 %s package:version:create -p <name> -n <versionnum> -k <key>
 %s package:version:promote -p 05ixxx
 

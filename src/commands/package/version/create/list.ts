@@ -37,6 +37,7 @@ type ColumnData = {
   CreatedBy: ColumnDataHeader;
   VersionName?: ColumnDataHeader;
   VersionNumber?: ColumnDataHeader;
+  ConvertedFromVersionId?: ColumnDataHeader;
 };
 
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
@@ -63,6 +64,9 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
+    'show-conversions-only': Flags.boolean({
+      summary: messages.getMessage('flags.show-conversions-only.summary'),
+    }),
     verbose: Flags.boolean({
       summary: messages.getMessage('flags.verbose.summary'),
     }),
@@ -76,6 +80,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     let results = (await PackageVersion.getPackageVersionCreateRequests(this.connection, {
       createdlastdays: flags['created-last-days'],
       status: flags.status,
+      showConversionsOnly: flags['show-conversions-only'],
     })) as CreateListCommandResult;
 
     if (results.length === 0) {
@@ -107,6 +112,11 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
           header: messages.getMessage('createdBy'),
         },
       };
+
+      if (flags['show-conversions-only']) {
+        columnData.ConvertedFromVersionId = { header: messages.getMessage('convertedFromVersionId') };
+      }
+
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
