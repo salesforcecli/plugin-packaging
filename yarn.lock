@@ -1035,10 +1035,10 @@
     "@salesforce/ts-types" "^2.0.6"
     tslib "^2.6.1"
 
-"@salesforce/packaging@^2.3.2":
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.3.2.tgz#8eebba839a62c4edbe998490f17a87fc2bbbebdd"
-  integrity sha512-zbHnmkG7LzH/oYtnAdCH7bYRTH2XSf7wUMgIw0ukuSai1ImW714cuaPoS6AlAhGhSZSBYwGAgkBL3BV/FpkgVw==
+"@salesforce/packaging@^2.3.3":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.3.3.tgz#b3134c26a2854df56985266b93b7884f253b1550"
+  integrity sha512-gGxN4FA5mX85B6960sUOrUz9KYAC7Iw5GXPYV/0YoBSU4M42I0V4pgWcOQOiRwW8gbe8wpSKB/Ccv6NSjNCuBQ==
   dependencies:
     "@oclif/core" "^2.11.8"
     "@salesforce/core" "^5.2.0"
@@ -1048,7 +1048,7 @@
     "@salesforce/ts-types" "^2.0.6"
     fast-xml-parser "^4.2.5"
     globby "^11"
-    graphology "^0.25.1"
+    graphology "^0.25.4"
     graphology-traversal "^0.3.1"
     graphology-types "^0.24.7"
     jsforce "^2.0.0-beta.27"
@@ -3939,7 +3939,7 @@ graphology-utils@^2.0.0, graphology-utils@^2.4.2:
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-2.5.2.tgz#4d30d6e567d27c01f105e1494af816742e8d2440"
   integrity sha512-ckHg8MXrXJkOARk56ZaSCM1g1Wihe2d6iTmz1enGOz4W/l831MBCKSayeFQfowgF8wd+PQ4rlch/56Vs/VZLDQ==
 
-graphology@^0.25.1:
+graphology@^0.25.4:
   version "0.25.4"
   resolved "https://registry.yarnpkg.com/graphology/-/graphology-0.25.4.tgz#e528a64555ac1f392a9d965321ada5b2b843efe1"
   integrity sha512-33g0Ol9nkWdD6ulw687viS8YJQBxqG5LWII6FI6nul0pq6iM2t5EKquOTFDbyTblRB3O9I+7KX4xI8u5ffekAQ==
