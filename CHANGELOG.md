@@ -1,3 +1,12 @@
+## [1.22.2](https://github.com/salesforcecli/plugin-packaging/compare/1.22.1...1.22.2) (2023-08-17)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/packaging from 2.3.2 to 2.3.3 ([8723c75](https://github.com/salesforcecli/plugin-packaging/commit/8723c754556d690069371b52806dd7441d291713))
+
+
+
 ## [1.22.1](https://github.com/salesforcecli/plugin-packaging/compare/1.22.0...1.22.1) (2023-08-09)
 
 
