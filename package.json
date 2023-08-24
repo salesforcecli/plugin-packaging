@@ -59,7 +59,7 @@
     "/messages",
     "/oclif.manifest.json",
     "/schemas",
-    "/yarn.lock"
+    "yarn.lock"
   ],
   "homepage": "https://github.com/salesforcecli/plugin-packaging",
   "keywords": [
