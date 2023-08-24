@@ -69,12 +69,12 @@ To run your modified plugin commands locally, use `./bin/dev` or `./bin/dev.cmd`
 There should be no differences when running via the Salesforce CLI or using the local scripts. However, it can be useful to link the plugin to do some additional testing or run your commands from anywhere on your machine.
 
 ```bash
-# Link your plugin to the sfdx cli
-sfdx plugins:link .
+# Link your plugin to the sf cli
+sf plugins:link .
 # To verify
-sfdx plugins
+sf plugins
 # To run
-sfdx force:package:create --help
+sf force package create --help
 ```
 
 ## Useful yarn commands
