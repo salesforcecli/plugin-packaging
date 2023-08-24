@@ -6,11 +6,11 @@
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
-    "@oclif/core": "^2.11.8",
+    "@oclif/core": "2.11.8",
     "@salesforce/core": "^5.2.0",
     "@salesforce/kit": "^3.0.9",
     "@salesforce/packaging": "^2.3.3",
-    "@salesforce/sf-plugins-core": "^3.1.14",
+    "@salesforce/sf-plugins-core": "3.1.17",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },
@@ -58,8 +58,7 @@
     "/lib",
     "/messages",
     "/oclif.manifest.json",
-    "/schemas",
-    "yarn.lock"
+    "/schemas"
   ],
   "homepage": "https://github.com/salesforcecli/plugin-packaging",
   "keywords": [
