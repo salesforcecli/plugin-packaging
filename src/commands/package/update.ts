@@ -49,7 +49,6 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     'enable-app-analytics': Flags.boolean({
       summary: messages.getMessage('flags.enable-app-analytics.summary'),
       allowNo: true,
-      hidden: true, // Only hidden while we wait for api-version 59.0 to ship with 246 (after September 2023)
     }),
   };
 
