@@ -1,3 +1,12 @@
+# [1.23.0](https://github.com/salesforcecli/plugin-packaging/compare/1.22.2...1.23.0) (2023-08-30)
+
+
+### Features
+
+* make visible the enable-app-analytics flag to the sf package update command ([e264c64](https://github.com/salesforcecli/plugin-packaging/commit/e264c64acd21a28e7031a5dd7dcb0896bd7a2645))
+
+
+
 ## [1.22.2](https://github.com/salesforcecli/plugin-packaging/compare/1.22.1...1.22.2) (2023-08-17)
 
 
