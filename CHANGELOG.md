@@ -1,3 +1,12 @@
+## [1.23.1](https://github.com/salesforcecli/plugin-packaging/compare/1.23.0...1.23.1) (2023-09-02)
+
+
+### Bug Fixes
+
+* **deps:** bump @salesforce/core from 5.2.0 to 5.2.5 ([ad46586](https://github.com/salesforcecli/plugin-packaging/commit/ad46586040a8bc94ff83fce1ecc67d3ae136b6e6))
+
+
+
 # [1.23.0](https://github.com/salesforcecli/plugin-packaging/compare/1.22.2...1.23.0) (2023-08-30)
 
 
