@@ -1,3 +1,12 @@
+# [1.24.0](https://github.com/salesforcecli/plugin-packaging/compare/1.23.2...1.24.0) (2023-09-05)
+
+
+### Features
+
+* unhide package:version:retrieve command (W-13562915) ([1628bbb](https://github.com/salesforcecli/plugin-packaging/commit/1628bbb2197be210a07105d14b8265eb31564ce8))
+
+
+
 ## [1.23.2](https://github.com/salesforcecli/plugin-packaging/compare/1.23.1...1.23.2) (2023-09-02)
 
 
