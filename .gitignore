@@ -42,6 +42,7 @@ node_modules
 # os specific files
 .DS_Store
 .idea
-.iml 
+.iml
 
 oclif.manifest.json
+oclif.lock
