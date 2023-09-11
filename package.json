@@ -1,7 +1,7 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SF plugin that support Salesforce Packaging Platform",
-  "version": "1.24.0",
+  "version": "1.25.0",
   "main": "lib/index.js",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
