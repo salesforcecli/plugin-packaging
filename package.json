@@ -10,7 +10,7 @@
     "@salesforce/core": "^5.2.5",
     "@salesforce/kit": "^3.0.9",
     "@salesforce/packaging": "^2.3.3",
-    "@salesforce/sf-plugins-core": "^3.1.20",
+    "@salesforce/sf-plugins-core": "^3.1.22",
     "chalk": "^4.1.2",
     "tslib": "^2"
   },
