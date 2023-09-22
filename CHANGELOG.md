@@ -1,3 +1,9 @@
+# [1.26.0](https://github.com/salesforcecli/plugin-packaging/compare/1.25.1...1.26.0) (2023-09-22)
+
+### Features
+
+- hide 'package version retrieve' command ([00af9ca](https://github.com/salesforcecli/plugin-packaging/commit/00af9caa209f7ee52d2a445e8b48db32f085f29c))
+
 ## [1.25.1](https://github.com/salesforcecli/plugin-packaging/compare/1.25.0...1.25.1) (2023-09-21)
 
 ### Bug Fixes
