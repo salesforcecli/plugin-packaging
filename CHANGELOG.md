@@ -1,3 +1,9 @@
+## [1.26.1](https://github.com/salesforcecli/plugin-packaging/compare/1.26.0...1.26.1) (2023-09-23)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 3.1.20 to 3.1.23 ([9a6398b](https://github.com/salesforcecli/plugin-packaging/commit/9a6398be5b559483810f6a7bcf66d2201353d6e7))
+
 # [1.26.0](https://github.com/salesforcecli/plugin-packaging/compare/1.25.1...1.26.0) (2023-09-22)
 
 ### Features
