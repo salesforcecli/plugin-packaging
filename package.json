@@ -20,7 +20,7 @@
     "@salesforce/cli-plugins-testkit": "^4.3.6",
     "@salesforce/dev-config": "^4.0.1",
     "@salesforce/dev-scripts": "^5.10.0",
-    "@salesforce/plugin-auth": "^2.8.12",
+    "@salesforce/plugin-auth": "^2.8.17",
     "@salesforce/plugin-command-reference": "^3.0.25",
     "@salesforce/prettier-config": "^0.0.3",
     "@salesforce/ts-sinon": "^1.4.14",
