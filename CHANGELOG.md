@@ -1,3 +1,9 @@
+## [1.26.3](https://github.com/salesforcecli/plugin-packaging/compare/1.26.2...1.26.3) (2023-09-29)
+
+### Bug Fixes
+
+- **deps:** core deps including SDR ([#451](https://github.com/salesforcecli/plugin-packaging/issues/451)) ([a64208a](https://github.com/salesforcecli/plugin-packaging/commit/a64208aa0516087c4c3df3631a493e19078142d9))
+
 ## [1.26.2](https://github.com/salesforcecli/plugin-packaging/compare/1.26.1...1.26.2) (2023-09-28)
 
 ### Bug Fixes
