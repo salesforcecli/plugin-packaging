@@ -93,6 +93,10 @@ Name of the package version to be created; overrides the sfdx-project.json value
 
 Version number of the package version to be created; overrides the sfdx-project.json value.
 
+# flags.version-number.description
+
+For information about the format of the version number, see https://developer.salesforce.com/docs/atlas.en-us.pkg2_dev.meta/pkg2_dev/sfdx_dev2gp_config_file.htm.
+
 # flags.version-description.summary
 
 Description of the package version to be created; overrides the sfdx-project.json value.
