@@ -1,3 +1,9 @@
+## [1.26.4](https://github.com/salesforcecli/plugin-packaging/compare/1.26.3...1.26.4) (2023-10-16)
+
+### Bug Fixes
+
+- add link to info about format of version number ([1b13d61](https://github.com/salesforcecli/plugin-packaging/commit/1b13d6136e237b8a25b7e874b4c1cb1b10333ab7))
+
 ## [1.26.3](https://github.com/salesforcecli/plugin-packaging/compare/1.26.2...1.26.3) (2023-09-29)
 
 ### Bug Fixes
