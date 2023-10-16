@@ -157,6 +157,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       aliases: ['versionnumber'],
       char: 'n',
       summary: messages.getMessage('flags.version-number.summary'),
+      description: messages.getMessage('flags.version-number.description'),
     }),
     wait: Flags.duration({
       unit: 'minutes',
