@@ -1027,23 +1027,23 @@
     "@salesforce/ts-types" "^2.0.8"
     tslib "^2.6.2"
 
-"@salesforce/packaging@^2.4.5":
-  version "2.4.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.4.5.tgz#eee74c4ea8486ff31db6f354f05b9d2eb9919f10"
-  integrity sha512-cOpmGjRoq2GWRNnHSkef1l501zw4Z8nigYEau2KPfHQB5pAh42W+NuB47WNw/wUMvSa1PcDaxBSROx4A7jrr0w==
+"@salesforce/packaging@^2.4.15":
+  version "2.4.15"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-2.4.15.tgz#8ab68babca0fe92215d16c08794c5c3a80019c12"
+  integrity sha512-sZVeRHaPt6XGSOj7z9D0e+cg/xn73W2A1fQDYcMjZ7GfDlRwUheloEtWZw0IZzlH5G19x7/x1ICRdO3SFBRvbQ==
   dependencies:
     "@oclif/core" "^2.15.0"
-    "@salesforce/core" "^5.3.1"
+    "@salesforce/core" "^5.3.9"
     "@salesforce/kit" "^3.0.12"
     "@salesforce/schemas" "^1.6.0"
-    "@salesforce/source-deploy-retrieve" "^9.7.18"
+    "@salesforce/source-deploy-retrieve" "^9.7.25"
     "@salesforce/ts-types" "^2.0.8"
-    fast-xml-parser "^4.3.0"
+    fast-xml-parser "^4.3.1"
     globby "^11"
     graphology "^0.25.4"
     graphology-traversal "^0.3.1"
     graphology-types "^0.24.7"
-    jsforce "^2.0.0-beta.27"
+    jsforce "^2.0.0-beta.28"
     jszip "^3.10.1"
 
 "@salesforce/plugin-auth@^2.8.22":
@@ -1097,16 +1097,16 @@
     chalk "^4"
     inquirer "^8.2.5"
 
-"@salesforce/source-deploy-retrieve@^9.7.18":
-  version "9.7.18"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-9.7.18.tgz#38b1577eec7ae08c3ed627c7a38f59c87632b01d"
-  integrity sha512-kdnX8P/cjUwgKnDF60kXlvm4zwP2xXpFqEB3KniSrvuvbzXKrPbaa05cJvHVnTohAcYTNPHiM+LNkTgZuENNmA==
+"@salesforce/source-deploy-retrieve@^9.7.25":
+  version "9.7.27"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-9.7.27.tgz#1d88eb237361bab62c3a4c683be178ca3cc77e4c"
+  integrity sha512-ot0TpibH8OZVOJpMo10TuZ6acqpV7T04qNCpEcjrcpGVolCahMzFtpiJ4TjBxL+MPY/efuWWBj3YELjy9hgFxw==
   dependencies:
-    "@salesforce/core" "^5.2.10"
-    "@salesforce/kit" "^3.0.11"
+    "@salesforce/core" "^5.3.1"
+    "@salesforce/kit" "^3.0.13"
     "@salesforce/ts-types" "^2.0.7"
     fast-levenshtein "^3.0.0"
-    fast-xml-parser "^4.2.7"
+    fast-xml-parser "^4.3.2"
     got "^11.8.6"
     graceful-fs "^4.2.11"
     ignore "^5.2.4"
@@ -3423,10 +3423,10 @@ fast-safe-stringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.1.1.tgz#c406a83b6e70d9e35ce3b30a81141df30aeba884"
   integrity sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==
 
-fast-xml-parser@^4.2.7, fast-xml-parser@^4.3.0:
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.3.1.tgz#4f89c31e4c392d6e3d68b299733cad0c2d50d495"
-  integrity sha512-viVv3xb8D+SiS1W4cv4tva3bni08kAkx0gQnWrykMM8nXPc1FxqZPU00dCEVjkiCg4HoXd2jC4x29Nzg/l2DAA==
+fast-xml-parser@^4.3.1, fast-xml-parser@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.3.2.tgz#761e641260706d6e13251c4ef8e3f5694d4b0d79"
+  integrity sha512-rmrXUXwbJedoXkStenj1kkljNF7ugn5ZjR9FJcwmCfcCbtOMDghPajbc+Tck6vE6F5XsDmx+Pr2le9fw8+pXBg==
   dependencies:
     strnum "^1.0.5"
 
@@ -4728,10 +4728,10 @@ jsesc@^2.5.1:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
-jsforce@^2.0.0-beta.27:
-  version "2.0.0-beta.27"
-  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.27.tgz#ba822b18b77bea4529491060a9b07bc1009735ac"
-  integrity sha512-d9dDWWeHwayRKPo8FJBAIUyk8sNXGSHwdUjR6al3yK0YKci27Jc1XfNaQTxEAuymHQJVaCb1gxTKqmA4uznFdQ==
+jsforce@^2.0.0-beta.27, jsforce@^2.0.0-beta.28:
+  version "2.0.0-beta.28"
+  resolved "https://registry.yarnpkg.com/jsforce/-/jsforce-2.0.0-beta.28.tgz#5fd8d9b8e5efc798698793b147e00371f3d74e8f"
+  integrity sha512-tTmKRhr4yWNinhmurY/tiiltLFQq9RQ+gpYAt3wjFdCGjzd49/wqYQIFw4SsI3+iLjxXnc0uTgGwdAkDjxDWnA==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@babel/runtime-corejs3" "^7.12.5"
