@@ -1046,16 +1046,16 @@
     jsforce "^2.0.0-beta.27"
     jszip "^3.10.1"
 
-"@salesforce/plugin-auth@^2.8.22":
-  version "2.8.22"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.22.tgz#1b64c0ef629af568a61a37cfe9e4feb71690dd9d"
-  integrity sha512-Pw/tC2R9ZYepTYwK3DeFNYwm7zwifhKaAdem82fGyNKSdFq7pz5VL/i/H7tP+HvvD07QtX8lRUlovMRMMAOOqg==
+"@salesforce/plugin-auth@^2.8.23":
+  version "2.8.23"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.23.tgz#0d810acee98d4491ef50c63929182b921f525d71"
+  integrity sha512-2TsXJoD7mOATwnhdtCCMlwikvoBzOe7E+Jz3u7IFWoU8StYknc+liVOV4IAgUt/IfygHWf8g1UyZLWWWgSCW1A==
   dependencies:
     "@oclif/core" "^2.15.0"
     "@salesforce/core" "^5.3.9"
     "@salesforce/kit" "^3.0.9"
     "@salesforce/sf-plugins-core" "^3.1.28"
-    "@salesforce/ts-types" "^2.0.6"
+    "@salesforce/ts-types" "^2.0.9"
     chalk "^4.1.2"
     inquirer "^8.2.6"
     open "^8.2.1"
@@ -1125,10 +1125,10 @@
     sinon "^5.1.1"
     tslib "^2.6.1"
 
-"@salesforce/ts-types@^2.0.6", "@salesforce/ts-types@^2.0.7", "@salesforce/ts-types@^2.0.8":
-  version "2.0.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-2.0.8.tgz#e732b5a42cbec6bda79c089a0633fc643daf8bca"
-  integrity sha512-vuzLcxtThBhpuhmnoh8GFrVU8XjdoNyQm9gPtmcjUyUD/9nQIBTAX8oGoUvCiiq93c4LFEmSua+xm3yu0bbNfg==
+"@salesforce/ts-types@^2.0.6", "@salesforce/ts-types@^2.0.7", "@salesforce/ts-types@^2.0.8", "@salesforce/ts-types@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-2.0.9.tgz#66bff7b41720065d6b01631b6f6a3ccca02857c5"
+  integrity sha512-boUD9jw5vQpTCPCCmK/NFTWjSuuW+lsaxOynkyNXLW+zxOc4GDjhtKc4j0vWZJQvolpafbyS8ZLFHZJvs12gYA==
   dependencies:
     tslib "^2.6.2"
 
