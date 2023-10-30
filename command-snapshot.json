@@ -68,6 +68,7 @@
       "package",
       "seed-metadata",
       "target-dev-hub",
+      "verbose",
       "wait"
     ],
     "alias": ["force:package:convert"],

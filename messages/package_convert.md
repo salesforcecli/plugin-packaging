@@ -62,6 +62,10 @@ Minutes to wait for the package version to be created.
 
 Instance where the conversion package version will be created, such as NA50.
 
+# flags.verbose.summary
+
+Display verbose command output.
+
 # in-progress
 
 Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'
