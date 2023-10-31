@@ -1,15 +1,15 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SF plugin that support Salesforce Packaging Platform",
-  "version": "1.26.4",
+  "version": "1.26.5",
   "main": "lib/index.js",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^2.15.0",
-    "@salesforce/core": "^5.3.1",
-    "@salesforce/kit": "^3.0.12",
-    "@salesforce/packaging": "^2.4.5",
+    "@salesforce/core": "^5.3.14",
+    "@salesforce/kit": "^3.0.15",
+    "@salesforce/packaging": "^2.4.19",
     "@salesforce/sf-plugins-core": "^3.1.25",
     "chalk": "^4.1.2",
     "tslib": "^2"
