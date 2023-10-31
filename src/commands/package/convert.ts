@@ -81,24 +81,32 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       summary: messages.getMessage('flags.seed-metadata.summary'),
       description: messages.getMessage('flags.seed-metadata.description'),
     }),
+    verbose: Flags.boolean({
+      summary: messages.getMessage('flags.verbose.summary'),
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
     const { flags } = await this.parse(PackageConvert);
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.progress, async (data: PackageVersionCreateEventData) => {
-      this.spinner.status = messages.getMessage('in-progress', [
+      const inProgressMessage = messages.getMessage('in-progress', [
         data.timeRemaining?.seconds,
         camelCaseToTitleCase(data.packageVersionCreateRequestResult.Status),
       ]);
+      this.display(inProgressMessage, flags.verbose);
     });
 
     // eslint-disable-next-line @typescript-eslint/require-await
     Lifecycle.getInstance().on(PackageEvents.convert.success, async () => {
-      this.spinner.status = 'SUCCESS';
+      this.display('SUCCESS', flags.verbose);
     });
 
-    this.spinner.start('Converting Package', 'Initializing');
+    if (flags.verbose) {
+      this.log('Converting Package');
+    } else {
+      this.spinner.start('Converting Package', 'Initializing');
+    }
     // initialize the project instance if in a project
     let project: Optional<SfProject>;
     try {
@@ -106,7 +114,6 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     } catch (err) {
       // ignore project is optional
     }
-    this.spinner.status = 'Converting Package';
     const result = await Package.convert(
       flags.package,
       flags['target-dev-hub'].getConnection(flags['api-version']),
@@ -125,26 +132,40 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       case 'Error':
         this.spinner.stop();
         throw new SfError(result.Error?.join('\n') ?? pvcMessages.getMessage('unknownError'));
-      case 'Success':
-        this.spinner.stop(
-          pvcMessages.getMessage(result.Status, [
-            result.Id,
-            result.SubscriberPackageVersionId,
-            INSTALL_URL_BASE.toString(),
-            result.SubscriberPackageVersionId,
-            this.config.bin,
-          ])
-        );
+      case 'Success': {
+        const successMessage = pvcMessages.getMessage(result.Status, [
+          result.Id,
+          result.SubscriberPackageVersionId,
+          INSTALL_URL_BASE.toString(),
+          result.SubscriberPackageVersionId,
+          this.config.bin,
+        ])
+        if (flags.verbose) {
+          this.log(successMessage);
+        } else {
+          this.spinner.stop(successMessage);
+        }
         break;
-      default:
-        this.spinner.status = pvcMessages.getMessage('InProgress', [
+      }
+      default: {
+        const inProgressMessage = pvcMessages.getMessage('InProgress', [
           this.config.bin,
           camelCaseToTitleCase(result.Status),
           result.Id,
         ]);
+        this.display(inProgressMessage, flags.verbose);
+      }
     }
 
     this.spinner.stop();
     return result;
+  }
+
+  private display(message: string, verbose: boolean): void {
+    if (verbose) {
+      this.log(message);
+    } else {
+      this.spinner.status = message;
+    }
   }
 }
