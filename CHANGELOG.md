@@ -1,3 +1,9 @@
+# [1.27.0](https://github.com/salesforcecli/plugin-packaging/compare/1.26.5...1.27.0) (2023-10-31)
+
+### Features
+
+- Adds verbose option to package convert ([5356fe1](https://github.com/salesforcecli/plugin-packaging/commit/5356fe114bc64541567a1caf6741fd055a625e36))
+
 ## [1.26.5](https://github.com/salesforcecli/plugin-packaging/compare/1.26.4...1.26.5) (2023-10-31)
 
 ### Bug Fixes
