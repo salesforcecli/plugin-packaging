@@ -236,7 +236,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     }
 
     record.HasPassedCodeCoverageCheck =
-      results.Package2.IsOrgDependent || results.ValidationSkipped
+      Boolean(results.Package2.IsOrgDependent) || results.ValidationSkipped
         ? 'N/A'
         : results.HasPassedCodeCoverageCheck ?? undefined;
 

@@ -55,7 +55,9 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
 
   private display(record: PackageVersionCreateRequestResult, requestId: string, devOrg: Org): void {
     const installUrlValue =
-      record.Status === 'Success' ? `${pkgUtils.INSTALL_URL_BASE.toString()}${record.SubscriberPackageVersionId}` : '';
+      record.Status.toString() === 'Success'
+        ? `${pkgUtils.INSTALL_URL_BASE.toString()}${record.SubscriberPackageVersionId}`
+        : '';
 
     const data = [
       {
