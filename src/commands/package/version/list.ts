@@ -147,7 +147,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         const codeCoverage =
           record.CodeCoverage?.apexCodeCoveragePercentage != null
             ? `${record.CodeCoverage.apexCodeCoveragePercentage.toString()}%`
-            : record.Package2.IsOrgDependent || record.ValidationSkipped
+            : Boolean(record.Package2.IsOrgDependent) || record.ValidationSkipped
             ? 'N/A'
             : '';
 
@@ -196,7 +196,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           Alias: AliasStr,
           IsOrgDependent: isOrgDependent,
           ReleaseVersion: record.ReleaseVersion == null ? '' : Number.parseFloat(record.ReleaseVersion).toFixed(1),
-          BuildDurationInSeconds: record.BuildDurationInSeconds == null ? '' : record.BuildDurationInSeconds,
+          BuildDurationInSeconds: record.BuildDurationInSeconds ?? '',
           HasMetadataRemoved: hasMetadataRemoved,
           CreatedBy: record.CreatedById,
           Language: record.Language,
