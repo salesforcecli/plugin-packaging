@@ -1108,12 +1108,12 @@
     minimatch "^5.1.6"
     proxy-agent "^6.3.1"
 
-"@salesforce/ts-sinon@^1.4.14":
-  version "1.4.14"
-  resolved "https://registry.yarnpkg.com/@salesforce/ts-sinon/-/ts-sinon-1.4.14.tgz#f36ff049f39f8f712b51e1b655e03cf2988d8a6b"
-  integrity sha512-Le8gueZW8opoJ7PeCS9C4lKad1bUKoBYaArGhBPUDaK+ZItcIeOMT8IXtjP0ajVBHk5wbqGgoxXyThTnTu8jRA==
+"@salesforce/ts-sinon@^1.4.19":
+  version "1.4.19"
+  resolved "https://registry.yarnpkg.com/@salesforce/ts-sinon/-/ts-sinon-1.4.19.tgz#64157b6c8cf4a3c637867e2ddd90c2d058c334f7"
+  integrity sha512-vopxKrI6QD0OCtPlge1eGGHFWLkoDee7KaB/dpGeRwioeNfCVJ8ikELN0hv0zq9Ys6gUYWYcdpxzTP1upslCJA==
   dependencies:
-    "@salesforce/ts-types" "^2.0.6"
+    "@salesforce/ts-types" "^2.0.9"
     sinon "^5.1.1"
     tslib "^2.6.1"
 
