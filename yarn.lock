@@ -1039,13 +1039,13 @@
     jsforce "^2.0.0-beta.28"
     jszip "^3.10.1"
 
-"@salesforce/plugin-auth@^2.8.25":
-  version "2.8.25"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.25.tgz#45a7fe917e704453028e83d2ae3e3bd8d9e03f43"
-  integrity sha512-usOwqPCHrtXZUMJS/xQjmPDIEZtPDVC/dCPmRJZMQ8iQglauSfinxoI2o8eTv/aDIckZbktM7p4UxXb+FPq92w==
+"@salesforce/plugin-auth@^2.8.26":
+  version "2.8.26"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.8.26.tgz#8bc968271701a3349259c75bc6bc8087a72e6547"
+  integrity sha512-ZuXg537zDyQioGec4T2oIWCerrkNgrr0OgFgFyrNz2gGWLUw3h7eYxdE+7SzTvPj2lTG2eg2OZ/+1vx5JcSxeQ==
   dependencies:
     "@oclif/core" "^2.15.0"
-    "@salesforce/core" "^5.3.14"
+    "@salesforce/core" "^5.3.17"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/sf-plugins-core" "^3.1.28"
     "@salesforce/ts-types" "^2.0.9"
