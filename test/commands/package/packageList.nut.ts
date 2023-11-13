@@ -22,27 +22,11 @@ describe('package list', () => {
       project: { name: 'packageList' },
     });
     hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
-    apiVersion = hubOrg.getConnection().getApiVersion()
+    apiVersion = hubOrg.getConnection().getApiVersion();
   });
 
   after(async () => {
     await session?.clean();
-  });
-  it('should list packages in dev hub - human readable results', () => {
-    const command = `package:list -v ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.contain('=== Packages');
-    expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
-  });
-  it('should list packages in dev hub - verbose human readable results', () => {
-    const command = `package:list -v ${session.hubOrg.username} --verbose`;
-    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-    expect(output).to.contain('=== Packages');
-    let headerExpression = 'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?App Analytics Enabled\\s+?Created By'
-    if (apiVersion < '59.0') {
-      headerExpression = headerExpression.replace('App Analytics Enabled\\s+?', '')
-    }
-    expect(output).to.match(new RegExp(headerExpression));
   });
   it('should list packages in dev hub - json results', async () => {
     const packages = await Package.list(hubOrg.getConnection());
@@ -71,5 +55,22 @@ describe('package list', () => {
     expect(output?.status).to.equal(0);
     expect(output?.result.length).to.have.within(notDeprecatedCount - 5, notDeprecatedCount + 5);
     expect(output?.result[0]).to.have.keys(keys);
+  });
+  it('should list packages in dev hub - human readable results', () => {
+    const command = `package:list -v ${session.hubOrg.username}`;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+    expect(output).to.contain('=== Packages');
+    expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
+  });
+  it('should list packages in dev hub - verbose human readable results', () => {
+    const command = `package:list -v ${session.hubOrg.username} --verbose`;
+    const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+    expect(output).to.contain('=== Packages');
+    let headerExpression =
+      'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?App Analytics Enabled\\s+?Created By';
+    if (apiVersion < '59.0') {
+      headerExpression = headerExpression.replace('App Analytics Enabled\\s+?', '');
+    }
+    expect(output).to.match(new RegExp(headerExpression));
   });
 });
