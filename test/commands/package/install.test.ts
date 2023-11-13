@@ -8,7 +8,6 @@ import { EOL } from 'node:os';
 import { resolve } from 'node:path';
 import { Connection, Lifecycle, SfProject, SfError, SfProjectJson } from '@salesforce/core';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
-import { stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
@@ -43,7 +42,7 @@ const pkgInstallRequest = {
   SkipHandlers: null,
   Status: 'IN_PROGRESS',
   Errors: null,
-};
+} satisfies PackagingSObjects.PackageInstallRequest;
 
 const pkgInstallCreateRequest = {
   SubscriberPackageVersionKey: myPackageVersion04t,
@@ -126,7 +125,7 @@ describe('package:install', () => {
       getExternalSitesStub = $$.SANDBOX.stub();
       installStub = $$.SANDBOX.stub();
       installStatusStub = $$.SANDBOX.stub();
-      uxConfirmStub = stubMethod($$.SANDBOX, SfCommand.prototype, 'confirm');
+      uxConfirmStub = $$.SANDBOX.stub(SfCommand.prototype, 'confirm');
 
       // The SubscriberPackageVersion class is tested in the packaging library, so
       // we just stub the public APIs used by the command.
@@ -164,8 +163,8 @@ describe('package:install', () => {
     });
 
     it('should print IN_PROGRESS status correctly', async () => {
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
       stubSpinner(cmd);
@@ -181,8 +180,8 @@ describe('package:install', () => {
     it('should print IN_PROGRESS status when timed out', async () => {
       const error = new SfError('polling timed out', 'PackageInstallTimeout');
       error.setData(pkgInstallRequest);
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').throws(error);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const cmd = new Install(['-p', myPackageVersion04t, '-u', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
@@ -199,8 +198,8 @@ describe('package:install', () => {
     it('should return PackageInstallRequest when polling timed out with --json', async () => {
       const error = new SfError('polling timed out', 'PackageInstallTimeout');
       error.setData(pkgInstallRequest);
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').throws(error);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').throws(error);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const cmd = new Install(['-p', myPackageVersion04t, '--json', '-o', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
@@ -210,8 +209,8 @@ describe('package:install', () => {
 
     it('should print SUCCESS status correctly', async () => {
       const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(request);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
       stubSpinner(cmd);
@@ -226,8 +225,8 @@ describe('package:install', () => {
 
     it('should throw error for ERROR status and no install errors', async () => {
       const request = Object.assign({}, pkgInstallRequest, { Status: 'ERROR' });
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(request);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       try {
         const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
         stubSpinner(cmd);
@@ -245,8 +244,8 @@ describe('package:install', () => {
         Status: 'ERROR',
         Errors: { errors: [new Error('message 1'), new Error('message 2')] },
       });
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(request);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       try {
         const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
         stubSpinner(cmd);
@@ -282,23 +281,26 @@ describe('package:install', () => {
     it('should print SUCCESS status correctly for package alias', async () => {
       // Stubs SfProject.getInstance, SfProject.getSfProjectJson, and SfProjectJson.getContents
       // in a way that makes TS happy... all to test package aliases.
-      const getContentsStub = stubMethod($$.SANDBOX, SfProjectJson.prototype, 'getContents').returns({
+      const getContentsStub = $$.SANDBOX.stub(SfProjectJson.prototype, 'getContents').returns({
         packageAliases: { ['my_package_alias']: myPackageVersion04t },
+        packageDirectories: [],
       });
-      const getSfProjectJsonStub = stubMethod($$.SANDBOX, SfProject.prototype, 'getSfProjectJson').callsFake(() => ({
+      // @ts-expect-error stubbing only 1 method
+      const getSfProjectJsonStub = $$.SANDBOX.stub(SfProject.prototype, 'getSfProjectJson').callsFake(() => ({
         getContents: getContentsStub,
       }));
-      const getPackageIdFromAliasStub = stubMethod($$.SANDBOX, SfProject.prototype, 'getPackageIdFromAlias').returns(
+      const getPackageIdFromAliasStub = $$.SANDBOX.stub(SfProject.prototype, 'getPackageIdFromAlias').returns(
         myPackageVersion04t
       );
-      stubMethod($$.SANDBOX, SfProject, 'getInstance').callsFake(() => ({
+      // @ts-expect-error stubbing only a subset of methods
+      $$.SANDBOX.stub(SfProject, 'getInstance').callsFake(() => ({
         getSfProjectJson: getSfProjectJsonStub,
         getPackageIdFromAlias: getPackageIdFromAliasStub,
       }));
 
       const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(request);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(request);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const cmd = new Install(['-p', 'my_package_alias', '-o', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
@@ -312,8 +314,8 @@ describe('package:install', () => {
     it('should use installation key as password', async () => {
       const installationkey = '1234abcd';
       const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { Password: installationkey });
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
       const cmd = new Install(['-p', myPackageVersion04t, '-k', installationkey, '-o', testOrg.username], config);
       stubSpinner(cmd);
       const result = await cmd.run();
@@ -329,8 +331,8 @@ describe('package:install', () => {
         SkipHandlers: 'FeatureEnforcement',
       };
       const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, overrides);
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(
         [
@@ -358,11 +360,11 @@ describe('package:install', () => {
 
     it('should listen for PackageInstallRequest:warning events and log warnings', async () => {
       const warningMsg = 'test warning message';
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(PackageEvents.install.warning, warningMsg);
         return pkgInstallRequest;
       });
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
       stubSpinner(cmd);
@@ -377,17 +379,13 @@ describe('package:install', () => {
 
     it('should listen for Package/install-status polling events and log statuses', async () => {
       const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-      const waitForPublishStub = stubMethod(
-        $$.SANDBOX,
-        SubscriberPackageVersion.prototype,
-        'waitForPublish'
-      ).resolves();
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
+      const waitForPublishStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'waitForPublish').resolves();
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(PackageEvents.install.status, pkgInstallRequest);
         await Lifecycle.getInstance().emit(PackageEvents.install.status, successRequest);
         return pkgInstallRequest;
       });
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-o', testOrg.username], config);
       stubSpinner(cmd);
@@ -401,12 +399,8 @@ describe('package:install', () => {
 
     it('should listen for Package/install-status and Package/install/subscriber-status polling events and log statuses', async () => {
       const successRequest = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });
-      const waitForPublishStub = stubMethod(
-        $$.SANDBOX,
-        SubscriberPackageVersion.prototype,
-        'waitForPublish'
-      ).resolves();
-      installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
+      const waitForPublishStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'waitForPublish').resolves();
+      installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(
           PackageEvents.install['subscriber-status'],
           'PACKAGE_UNAVAILABLE' as InstallValidationStatus
@@ -419,7 +413,7 @@ describe('package:install', () => {
         await Lifecycle.getInstance().emit(PackageEvents.install.status, successRequest);
         return pkgInstallRequest;
       });
-      stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
+      $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves(subscriberPackageVersion);
 
       const cmd = new Install(['-p', myPackageVersion04t, '-w', '1', '-b', '2', '-o', testOrg.username], config);
       stubSpinner(cmd);
@@ -443,8 +437,8 @@ describe('package:install', () => {
 
     describe('confirm upgrade type', () => {
       it('should NOT confirm UpgradeType with --no-prompt flag', async () => {
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           Package2ContainerOptions: 'Unlocked',
         });
@@ -461,8 +455,8 @@ describe('package:install', () => {
       });
 
       it('should confirm UpgradeType when NO --no-prompt flag', async () => {
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           Package2ContainerOptions: 'Unlocked',
         });
@@ -477,8 +471,8 @@ describe('package:install', () => {
       });
 
       it('should confirm UpgradeType and throw with no consent', async () => {
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           Package2ContainerOptions: 'Unlocked',
         });
@@ -495,8 +489,8 @@ describe('package:install', () => {
       });
 
       it('should NOT confirm UpgradeType with non-Unlocked packages', async () => {
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           Package2ContainerOptions: 'Managed',
         });
@@ -517,10 +511,10 @@ describe('package:install', () => {
 
       it('should NOT confirm external sites with --no-prompt flag', async () => {
         const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { EnableRss: true });
-        getExternalSitesStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'getExternalSites').resolves(
+        getExternalSitesStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'getExternalSites').resolves(
           extSites
         );
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
 
         const cmd = new Install(['-p', myPackageVersion04t, '--no-prompt', '-o', testOrg.username], config);
         stubSpinner(cmd);
@@ -538,8 +532,8 @@ describe('package:install', () => {
           EnableRss: true,
           Password: installationkey,
         });
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           RemoteSiteSettings: { settings: ['url/for/site1'] },
           CspTrustedSites: { settings: ['url/for/site2'] },
@@ -559,8 +553,8 @@ describe('package:install', () => {
 
       it('should confirm external sites when NO --no-prompt flag (yes answer)', async () => {
         const expectedCreateRequest = Object.assign({}, pkgInstallCreateRequest, { EnableRss: true });
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           RemoteSiteSettings: { settings: [{ url: 'url/for/site1' }] },
           CspTrustedSites: { settings: [{ endpointUrl: 'url/for/site2' }] },
@@ -578,8 +572,8 @@ describe('package:install', () => {
       });
 
       it('should confirm external sites when NO --no-prompt flag (no answer)', async () => {
-        installStub = stubMethod($$.SANDBOX, SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
-        stubMethod($$.SANDBOX, Connection.prototype, 'singleRecordQuery').resolves({
+        installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').resolves(pkgInstallRequest);
+        $$.SANDBOX.stub(Connection.prototype, 'singleRecordQuery').resolves({
           ...subscriberPackageVersion,
           RemoteSiteSettings: { settings: [{ url: 'url/for/site1' }] },
           CspTrustedSites: { settings: [{ endpointUrl: 'url/for/site2' }] },

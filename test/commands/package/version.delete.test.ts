@@ -6,7 +6,6 @@
  */
 import { resolve } from 'node:path';
 import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
-import { stubMethod } from '@salesforce/ts-sinon';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
@@ -32,7 +31,7 @@ describe('package:version:delete', () => {
 
   beforeEach(async () => {
     uxSuccessStub = sandbox.stub(SfCommand.prototype, 'logSuccess');
-    uxConfirmStub = stubMethod($$.SANDBOX, SfCommand.prototype, 'confirm');
+    uxConfirmStub = $$.SANDBOX.stub(SfCommand.prototype, 'confirm');
     deleteStub = $$.SANDBOX.stub();
     undeleteStub = $$.SANDBOX.stub();
 
