@@ -15,7 +15,6 @@ import {
   PackagingSObjects,
 } from '@salesforce/packaging';
 import * as chalk from 'chalk';
-import { Optional } from '@salesforce/ts-types';
 import { requiredHubFlag } from '../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
@@ -74,7 +73,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       return;
     }
 
-    let dependencies: Optional<string>;
+    let dependencies: string | undefined;
 
     // collect the Dependency 04ts into a comma-separated list for non-json output
     if (verbose && record.SubscriberPackageVersion?.Dependencies != null) {

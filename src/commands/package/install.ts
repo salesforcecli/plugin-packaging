@@ -21,7 +21,6 @@ import {
   PackagingSObjects,
   SubscriberPackageVersion,
 } from '@salesforce/packaging';
-import { Optional } from '@salesforce/ts-types';
 import { Report } from './install/report';
 
 export type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
@@ -190,7 +189,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     // unless the noprompt option has been included.
     await this.confirmExternalSites(request, noPrompt);
 
-    let installOptions: Optional<PackageInstallOptions>;
+    let installOptions: PackageInstallOptions | undefined;
     if (flags.wait) {
       installOptions = {
         pollingTimeout: flags.wait,
@@ -216,7 +215,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       );
     }
 
-    let pkgInstallRequest: Optional<PackageInstallRequest>;
+    let pkgInstallRequest: PackageInstallRequest | undefined;
     try {
       pkgInstallRequest = await this.subscriberPackageVersion.install(request, installOptions);
       this.spinner.stop();
@@ -234,7 +233,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
             this.config.bin,
             pkgInstallRequest,
             flags['target-org'].getUsername() as string,
-            flags.package as Optional<string>
+            flags.package
           )
         );
       }
@@ -243,7 +242,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
     return pkgInstallRequest;
   }
 
-  protected async finally(err: Optional<Error>): Promise<void> {
+  protected async finally(err?: Error): Promise<void> {
     // Remove all the event listeners or they will still handle events
     Lifecycle.getInstance().removeAllListeners(PackageEvents.install.warning);
     Lifecycle.getInstance().removeAllListeners(PackageEvents.install.status);
