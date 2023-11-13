@@ -47,7 +47,7 @@ describe('package1:version:create', () => {
     const authPath = path.join(process.cwd(), 'authUrl.txt');
     await fs.promises.writeFile(authPath, process.env.ONEGP_TESTKIT_AUTH_URL, 'utf8');
 
-    execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { ensureExitCode: 0 });
+    execCmd(`auth:sfdxurl:store -f ${authPath} -a 1gp`, { ensureExitCode: 0, cli: 'sf' });
 
     packageId = execCmd<[{ MetadataPackageId: string }]>('package1:version:list --json -o 1gp', {
       ensureExitCode: 0,
