@@ -15,7 +15,6 @@ import {
   Package,
   PackageVersionListResult,
 } from '@salesforce/packaging';
-import { Optional } from '@salesforce/ts-types';
 import { requiredHubFlag } from '../../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
@@ -118,7 +117,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     const results: PackageVersionListCommandResult = [];
 
     if (records?.length > 0) {
-      let ancestorVersionsMap: Optional<Map<string, string>>;
+      let ancestorVersionsMap: Map<string, string> | undefined;
       // lookup ancestorVersions if ancestorIds are present
       const ancestorIds = records.filter((record) => record.AncestorId).map((record) => record.AncestorId);
       if (ancestorIds?.length > 0) {
@@ -135,7 +134,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         const AliasStr = aliases.length > 0 ? aliases.join() : '';
 
         // set Ancestor display values
-        let ancestorVersion: Optional<string>;
+        let ancestorVersion: string | undefined;
         if (record.AncestorId) {
           ancestorVersion = ancestorVersionsMap?.get(record.AncestorId);
         } else if (containerOptionsMap.get(record.Package2Id) !== 'Managed') {

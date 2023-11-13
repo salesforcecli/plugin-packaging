@@ -15,7 +15,6 @@ import {
   PackageVersionCreateRequestResult,
 } from '@salesforce/packaging';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
-import { Optional } from '@salesforce/ts-types';
 import { requiredHubFlag } from '../../utils/hubFlag';
 
 Messages.importMessagesDirectory(__dirname);
@@ -108,7 +107,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       this.spinner.start('Converting Package', 'Initializing');
     }
     // initialize the project instance if in a project
-    let project: Optional<SfProject>;
+    let project: SfProject | undefined;
     try {
       project = await SfProject.resolve();
     } catch (err) {
@@ -139,7 +138,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
           INSTALL_URL_BASE.toString(),
           result.SubscriberPackageVersionId,
           this.config.bin,
-        ])
+        ]);
         if (flags.verbose) {
           this.log(successMessage);
         } else {
