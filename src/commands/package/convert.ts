@@ -13,6 +13,7 @@ import {
   PackageEvents,
   PackageVersionCreateEventData,
   PackageVersionCreateRequestResult,
+  PackagingSObjects,
 } from '@salesforce/packaging';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { requiredHubFlag } from '../../utils/hubFlag';
@@ -128,10 +129,10 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     );
 
     switch (result.Status) {
-      case 'Error':
+      case PackagingSObjects['Package2VersionStatus'].error:
         this.spinner.stop();
         throw new SfError(result.Error?.join('\n') ?? pvcMessages.getMessage('unknownError'));
-      case 'Success': {
+      case PackagingSObjects['Package2VersionStatus'].success: {
         const successMessage = pvcMessages.getMessage(result.Status, [
           result.Id,
           result.SubscriberPackageVersionId,
