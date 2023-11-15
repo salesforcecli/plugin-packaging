@@ -29,7 +29,6 @@ describe('package list', () => {
     await session?.clean();
   });
   it('should list packages in dev hub - json results', async () => {
-    execCmd('plugins reset', { ensureExitCode: 0, cli: 'sf' });
     const packages = await Package.list(hubOrg.getConnection());
     const command = `package:list -v ${session.hubOrg.username} --json`;
     const output = execCmd<{ [key: string]: unknown }>(command, { ensureExitCode: 0 }).jsonOutput;
