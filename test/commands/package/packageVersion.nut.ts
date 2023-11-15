@@ -114,7 +114,7 @@ describe('package:version:*', () => {
       const project = await SfProject.resolve();
       const projectJson = project.getSfProjectJson();
       const contents = projectJson.getContents();
-      if (!contents.packageDirectories.some((pkgDir) => pkgDir.package === packageId)) {
+      if (!contents.packageDirectories.some((pkgDir) => pkgDir.package === pkgName)) {
         expect.fail('packageDirectory not found');
       }
       const newPackageDirs = contents.packageDirectories.map((pkgDir) =>
