@@ -1,3 +1,9 @@
+## [1.27.2](https://github.com/salesforcecli/plugin-packaging/compare/1.27.1...1.27.2) (2023-11-16)
+
+### Bug Fixes
+
+- **deps:** devScripts update ([#493](https://github.com/salesforcecli/plugin-packaging/issues/493)) and core v6 ([e8f1534](https://github.com/salesforcecli/plugin-packaging/commit/e8f1534dddd0d7c35b8de8c6853d7f2ffc9d6a75))
+
 ## [1.27.1](https://github.com/salesforcecli/plugin-packaging/compare/1.27.0...1.27.1) (2023-11-01)
 
 ### Bug Fixes
