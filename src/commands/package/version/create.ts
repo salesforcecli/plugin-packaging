@@ -243,11 +243,11 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     }
 
     switch (result.Status) {
-      case 'Error':
+      case Package2VersionStatus.error:
         throw messages.createError('multipleErrors', [
           result.Error?.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
         ]);
-      case 'Success':
+      case Package2VersionStatus.success:
         this.log(
           messages.getMessage(result.Status, [
             result.Id,

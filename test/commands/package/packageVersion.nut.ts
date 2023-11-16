@@ -114,14 +114,15 @@ describe('package:version:*', () => {
       const project = await SfProject.resolve();
       const projectJson = project.getSfProjectJson();
       const contents = projectJson.getContents();
-      const packageDir = contents.packageDirectories.find((pkgDir) => pkgDir.package === pkgName);
-      if (packageDir) {
-        packageDir.package = packageId;
-      } else {
+      if (!contents.packageDirectories.some((pkgDir) => pkgDir.package === pkgName)) {
         expect.fail('packageDirectory not found');
       }
-      projectJson.setContents(contents);
-      projectJson.writeSync(contents);
+      const newPackageDirs = contents.packageDirectories.map((pkgDir) =>
+        pkgDir.package === pkgName ? { ...pkgDir, package: packageId } : pkgDir
+      );
+
+      projectJson.set('packageDirectories', newPackageDirs);
+      projectJson.writeSync();
       execCmd(`package:version:create --package ${packageId} -x --json`, { ensureExitCode: 0 });
     });
   });
