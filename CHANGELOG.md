@@ -1,3 +1,9 @@
+## [1.27.5](https://github.com/salesforcecli/plugin-packaging/compare/1.27.4...1.27.5) (2023-11-30)
+
+### Bug Fixes
+
+- bump oclif ([5937490](https://github.com/salesforcecli/plugin-packaging/commit/5937490202bda5fa4226b5e6d64ad61534b26e40))
+
 ## [1.27.4](https://github.com/salesforcecli/plugin-packaging/compare/1.27.3...1.27.4) (2023-11-30)
 
 ## [1.27.3](https://github.com/salesforcecli/plugin-packaging/compare/1.27.2...1.27.3) (2023-11-25)
