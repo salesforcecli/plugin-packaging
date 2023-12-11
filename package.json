@@ -17,13 +17,13 @@
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^4.0.16",
     "@salesforce/cli-plugins-testkit": "^4.4.12",
-    "@salesforce/dev-scripts": "^8.1.0",
+    "@salesforce/dev-scripts": "^8.1.1",
     "@salesforce/plugin-command-reference": "^3.0.51",
     "@swc/core": "1.3.100",
     "eslint-plugin-sf-plugin": "^1.16.15",
     "oclif": "^4",
     "shx": "0.3.4",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   },
   "config": {},
