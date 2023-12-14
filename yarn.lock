@@ -1009,7 +1009,7 @@
     semver "^7.5.4"
     ts-retry-promise "^0.7.1"
 
-"@salesforce/core@^6.2.0", "@salesforce/core@^6.2.2", "@salesforce/core@^6.4.0":
+"@salesforce/core@^6.2.2", "@salesforce/core@^6.4.0":
   version "6.4.1"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-6.4.1.tgz#27edd083b62ee96d6270b60da6dfb959bff1a0a5"
   integrity sha512-Bn/Pox5JLeVBg35zgSmtNU+f9wdOaa7a/hmCIvQibci1dpKtLGUmSpdHibWR6zHag8ZoRkueea7zuqEjYzECyA==
@@ -1078,23 +1078,23 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/packaging@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.0.4.tgz#14ab3bfb9218bf0d1fd124931e47e21ab3a20128"
-  integrity sha512-7AnBhS17MABCxCR9nyv2BmOfLtBXhOJbhnfKMS5FXZkBCNR4UzmiFMem5bCHBOghkcHyk34p6CESMLBBFGtojQ==
+"@salesforce/packaging@^3.0.9":
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.0.9.tgz#970084258ae08c9f3ef361edfb723b674ec1e763"
+  integrity sha512-MWhxwOfYQ0pzDbm+q/j61SA3ZpBNeA86+XBgc2ipiPQljHI9r/jl837fAG2hfehZPanrm+G2qBt6ww0VMFfnow==
   dependencies:
     "@oclif/core" "^3"
-    "@salesforce/core" "^6.2.0"
+    "@salesforce/core" "^6.2.2"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/schemas" "^1.6.1"
-    "@salesforce/source-deploy-retrieve" "^10.0.2"
+    "@salesforce/source-deploy-retrieve" "^10.0.3"
     "@salesforce/ts-types" "^2.0.9"
     fast-xml-parser "^4.3.1"
     globby "^11"
     graphology "^0.25.4"
     graphology-traversal "^0.3.1"
     graphology-types "^0.24.7"
-    jsforce "^2.0.0-beta.28"
+    jsforce "^2.0.0-beta.29"
     jszip "^3.10.1"
 
 "@salesforce/plugin-command-reference@^3.0.51":
@@ -1134,12 +1134,12 @@
     chalk "^4"
     inquirer "^8.2.5"
 
-"@salesforce/source-deploy-retrieve@^10.0.2":
-  version "10.0.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.0.3.tgz#bd95e15a78ef08e4ade5f96b2846c0137cccf8bb"
-  integrity sha512-7YgGd2CpOTYXdbtoB31eJEylYl1gbZvMqzbw8VjK1OVcywzuFUA43xznxzrSyFsBZZO6QAUAKyxoxxYR9goTyg==
+"@salesforce/source-deploy-retrieve@^10.0.3":
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.2.1.tgz#fe5ba3006761ecc462b427c26619cdff26512e1e"
+  integrity sha512-KaslYNh0oZTKGklECIPRM4SwciPIZqQdjOe/YttCLh0JDchVVeu/Qv8VCldHGnhGUpZ83bSvWG/YWXeEtoY/2w==
   dependencies:
-    "@salesforce/core" "^6.2.0"
+    "@salesforce/core" "^6.4.0"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/ts-types" "^2.0.9"
     fast-levenshtein "^3.0.0"
