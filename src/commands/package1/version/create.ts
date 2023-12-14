@@ -16,7 +16,7 @@ import { Lifecycle, Messages } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import { Package1Version, PackageVersionEvents, PackagingSObjects } from '@salesforce/packaging';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create');
 
 export type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;

@@ -15,7 +15,7 @@ import {
 import { Messages } from '@salesforce/core';
 import { Package1Display, Package1Version } from '@salesforce/packaging';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_list');
 export type Package1ListCommandResult = Package1Display[];
 export class Package1VersionListCommand extends SfCommand<Package1ListCommandResult> {

@@ -5,14 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { EOL } from 'node:os';
-import { resolve } from 'node:path';
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { Report } from '../../../src/commands/package/install/report';
+import { Report } from '../../../src/commands/package/install/report.js';
 
 const pkgInstallRequest = {
   attributes: {
@@ -43,7 +42,7 @@ const pkgInstallRequest = {
 describe('package:install:report', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+  const config = new Config({ root: import.meta.url });
 
   const sandbox = sinon.createSandbox();
 

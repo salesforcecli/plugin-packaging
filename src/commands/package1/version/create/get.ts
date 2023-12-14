@@ -15,7 +15,7 @@ import {
 import { Messages } from '@salesforce/core';
 import { Package1Version, PackagingSObjects } from '@salesforce/packaging';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package1_version_create_get');
 
 export class Package1VersionCreateGetCommand extends SfCommand<PackagingSObjects.PackageUploadRequest> {

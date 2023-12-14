@@ -18,7 +18,7 @@ import { Duration } from '@salesforce/kit';
 
 export type UninstallResult = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_uninstall');
 
 export class PackageUninstallCommand extends SfCommand<UninstallResult> {

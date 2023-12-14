@@ -16,8 +16,11 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
-import { PackageVersionListCommandResult, PackageVersionListDetails } from '../../../src/commands/package/version/list';
-import { CreateListCommandResult } from '../../../src/commands/package/version/create/list';
+import {
+  PackageVersionListCommandResult,
+  PackageVersionListDetails,
+} from '../../../src/commands/package/version/list.js';
+import { CreateListCommandResult } from '../../../src/commands/package/version/create/list.js';
 
 chaiConfig.truncateThreshold = 0;
 

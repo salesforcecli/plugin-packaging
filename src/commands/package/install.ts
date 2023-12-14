@@ -21,11 +21,11 @@ import {
   PackagingSObjects,
   SubscriberPackageVersion,
 } from '@salesforce/packaging';
-import { Report } from './install/report';
+import { Report } from './install/report.js';
 
 export type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 
 // maps of command flag values to PackageInstallRequest values

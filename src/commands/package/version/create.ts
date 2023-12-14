@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as os from 'node:os';
+import os from 'node:os';
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
@@ -17,10 +17,10 @@ import {
   PackageVersionEvents,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../../utils/hubFlag';
+import { requiredHubFlag } from '../../../utils/hubFlag.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 
 export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;

@@ -17,7 +17,7 @@ import { PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packagi
 
 export type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install_report');
 const installMsgs = Messages.loadMessages('@salesforce/plugin-packaging', 'package_install');
 

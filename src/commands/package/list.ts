@@ -8,10 +8,10 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import * as chalk from 'chalk';
-import { requiredHubFlag } from '../../utils/hubFlag';
+import chalk from 'chalk';
+import { requiredHubFlag } from '../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
 
 export type Package2Result = Partial<

@@ -8,10 +8,10 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../../utils/hubFlag';
+import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 // Import i18n messages
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_displayancestry');
 
 export type DisplayAncestryCommandResult = PackageAncestryNodeData | string | void;

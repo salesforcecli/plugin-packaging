@@ -15,7 +15,7 @@ import {
 import { ux } from '@oclif/core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_installed_list');
 
 export type PackageInstalledListResult = {
