@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as path from 'node:path';
+import path from 'node:path';
 import {
   Flags,
   loglevel,
@@ -17,7 +17,7 @@ import { Messages } from '@salesforce/core';
 import { ux } from '@oclif/core';
 import { Package, PackageVersionMetadataDownloadResult } from '@salesforce/packaging';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_retrieve');
 
 export type FileDownloadEntry = {

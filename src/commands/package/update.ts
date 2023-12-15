@@ -8,9 +8,9 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../utils/hubFlag';
+import { requiredHubFlag } from '../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_update');
 const packageCreate = Messages.loadMessages('@salesforce/plugin-packaging', 'package_create');
 

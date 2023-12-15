@@ -4,20 +4,19 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { resolve } from 'node:path';
-import * as os from 'node:os';
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
+import os from 'node:os';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import { Package1Version } from '@salesforce/packaging';
-import { Package1VersionCreateCommand } from '../../../src/commands/package1/version/create';
+import { Package1VersionCreateCommand } from '../../../src/commands/package1/version/create.js';
 
 describe('package1:version:create', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+  const config = new Config({ root: import.meta.url });
 
   const sandbox = sinon.createSandbox();
 

@@ -7,7 +7,7 @@
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
 import { expect } from 'chai';
-import { PackageInstalledListResult } from '../../../src/commands/package/installed/list';
+import { PackageInstalledListResult } from '../../../src/commands/package/installed/list.js';
 
 describe('package:installed:list', () => {
   let session: TestSession;

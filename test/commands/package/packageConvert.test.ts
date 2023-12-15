@@ -4,13 +4,12 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { resolve } from 'node:path';
 import { expect } from 'chai';
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
 import { Config } from '@oclif/core';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import * as sinon from 'sinon';
-import { PackageConvert } from '../../../src/commands/package/convert';
+import sinon from 'sinon';
+import { PackageConvert } from '../../../src/commands/package/convert.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 const CONVERTED_FROM_PACKAGE_ID = '033xx0000004Gmn';
@@ -19,7 +18,7 @@ const INSTALL_KEY = 'testinstallkey';
 describe('package:convert', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+  const config = new Config({ root: import.meta.url });
 
   // stubs
   let spinnerStartStub: sinon.SinonStub;

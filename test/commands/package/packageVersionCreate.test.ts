@@ -4,15 +4,14 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import * as os from 'node:os';
-import { resolve } from 'node:path';
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup';
+import os from 'node:os';
+import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create';
+import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 const pkgVersionCreateErrorResult: Partial<PackageVersionCreateRequestResult> = {
@@ -51,7 +50,7 @@ describe('package:version:create - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let createStub = $$.SANDBOX.stub(PackageVersion, 'create');
-  const config = new Config({ root: resolve(__dirname, '../../package.json') });
+  const config = new Config({ root: import.meta.url });
 
   // stubs
   let logStub: sinon.SinonStub;

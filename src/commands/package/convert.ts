@@ -16,9 +16,9 @@ import {
   PackagingSObjects,
 } from '@salesforce/packaging';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
-import { requiredHubFlag } from '../../utils/hubFlag';
+import { requiredHubFlag } from '../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_convert');
 const pvcMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 

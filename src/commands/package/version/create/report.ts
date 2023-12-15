@@ -7,13 +7,13 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
-import * as pkgUtils from '@salesforce/packaging';
+import pkgUtils from '@salesforce/packaging';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
-import * as chalk from 'chalk';
+import chalk from 'chalk';
 import { camelCaseToTitleCase } from '@salesforce/kit';
-import { requiredHubFlag } from '../../../../utils/hubFlag';
+import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_report');
 const pvclMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create_list');
 const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');

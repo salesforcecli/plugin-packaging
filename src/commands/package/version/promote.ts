@@ -8,9 +8,9 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackageSaveResult, PackageVersion } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../../utils/hubFlag';
+import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_promote');
 
 export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {

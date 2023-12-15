@@ -6,7 +6,7 @@
  */
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import * as chai from 'chai';
+import chai from 'chai';
 import { Org } from '@salesforce/core';
 import { Package } from '@salesforce/packaging';
 

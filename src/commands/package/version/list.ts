@@ -15,9 +15,9 @@ import {
   Package,
   PackageVersionListResult,
 } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../../utils/hubFlag';
+import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const packaging = Messages.loadMessages('@salesforce/plugin-packaging', 'packaging');
 

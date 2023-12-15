@@ -14,10 +14,10 @@ import {
   PackageVersionReportResult,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import * as chalk from 'chalk';
-import { requiredHubFlag } from '../../../utils/hubFlag';
+import chalk from 'chalk';
+import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
-Messages.importMessagesDirectory(__dirname);
+Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
 const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
