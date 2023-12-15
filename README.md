@@ -30,36 +30,36 @@ See [DEVELOPING.md](DEVELOPING.md)
 
 <!-- commands -->
 
-- [`sf package1:version:create`](#sf-package1versioncreate)
-- [`sf package1:version:create:get`](#sf-package1versioncreateget)
-- [`sf package1:version:display`](#sf-package1versiondisplay)
-- [`sf package1:version:list`](#sf-package1versionlist)
-- [`sf package:create`](#sf-packagecreate)
-- [`sf package:delete`](#sf-packagedelete)
-- [`sf package:install`](#sf-packageinstall)
-- [`sf package:install:report`](#sf-packageinstallreport)
-- [`sf package:installed:list`](#sf-packageinstalledlist)
-- [`sf package:list`](#sf-packagelist)
-- [`sf package:uninstall`](#sf-packageuninstall)
-- [`sf package:uninstall:report`](#sf-packageuninstallreport)
-- [`sf package:update`](#sf-packageupdate)
-- [`sf package:version:create`](#sf-packageversioncreate)
-- [`sf package:version:create:list`](#sf-packageversioncreatelist)
-- [`sf package:version:create:report`](#sf-packageversioncreatereport)
-- [`sf package:version:delete`](#sf-packageversiondelete)
-- [`sf package:version:displayancestry`](#sf-packageversiondisplayancestry)
-- [`sf package:version:list`](#sf-packageversionlist)
-- [`sf package:version:promote`](#sf-packageversionpromote)
-- [`sf package:version:report`](#sf-packageversionreport)
-- [`sf package:version:update`](#sf-packageversionupdate)
+- [`sf package1 version create`](#sf-package1-version-create)
+- [`sf package1 version create get`](#sf-package1-version-create-get)
+- [`sf package1 version display`](#sf-package1-version-display)
+- [`sf package1 version list`](#sf-package1-version-list)
+- [`sf package create`](#sf-package-create)
+- [`sf package delete`](#sf-package-delete)
+- [`sf package install`](#sf-package-install)
+- [`sf package install report`](#sf-package-install-report)
+- [`sf package installed list`](#sf-package-installed-list)
+- [`sf package list`](#sf-package-list)
+- [`sf package uninstall`](#sf-package-uninstall)
+- [`sf package uninstall report`](#sf-package-uninstall-report)
+- [`sf package update`](#sf-package-update)
+- [`sf package version create`](#sf-package-version-create)
+- [`sf package version create list`](#sf-package-version-create-list)
+- [`sf package version create report`](#sf-package-version-create-report)
+- [`sf package version delete`](#sf-package-version-delete)
+- [`sf package version displayancestry`](#sf-package-version-displayancestry)
+- [`sf package version list`](#sf-package-version-list)
+- [`sf package version promote`](#sf-package-version-promote)
+- [`sf package version report`](#sf-package-version-report)
+- [`sf package version update`](#sf-package-version-update)
 
-## `sf package1:version:create`
+## `sf package1 version create`
 
 Create a first-generation package version in the release org.
 
 ```
 USAGE
-  $ sf package1:version:create -o <value> -i <value> -n <value> [--json] [--api-version <value>] [-d <value>] [-v <value>]
+  $ sf package1 version create -o <value> -i <value> -n <value> [--json] [--api-version <value>] [-d <value>] [-v <value>]
     [-m] [-r <value>] [-p <value>] [-k <value>] [-w <value>]
 
 FLAGS
@@ -87,18 +87,18 @@ DESCRIPTION
   create an unmanaged package version.
 
 ALIASES
-  $ sf force:package1:version:create
+  $ sf force package1 version create
 
 EXAMPLES
   Create a first-generation package version from the package with the specified ID and name the package version
   "example"; use your default org:
 
-    $ sf package1:version:create --package-id 033... --name example
+    $ sf package1 version create --package-id 033... --name example
 
   Same as previous example, but provide a description and wait for 30 minutes for the package version to be created;
   use the specified org:
 
-    $ sf package1:version:create --package-id 033... --name example --description "example description" --wait 30 \
+    $ sf package1 version create --package-id 033... --name example --description "example description" --wait 30 \
       --target-org myorg@example.com
 
 FLAG DESCRIPTIONS
@@ -117,15 +117,15 @@ FLAG DESCRIPTIONS
     subscribers.
 ```
 
-_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package1/version/create.ts)_
+_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package1/version/create.ts)_
 
-## `sf package1:version:create:get`
+## `sf package1 version create get`
 
 Retrieve the status of a package version creation request.
 
 ```
 USAGE
-  $ sf package1:version:create:get -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package1 version create get -o <value> -i <value> [--json] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the PackageUploadRequest (starts with 0HD).
@@ -137,27 +137,27 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package1:version:create:get
+  $ sf force package1 version create get
 
 EXAMPLES
   Get the status of the creation request for the package version with the specified ID in your default org:
 
-    $ sf package1:version:create:get --request-id 0HD...
+    $ sf package1 version create get --request-id 0HD...
 
   Same as previous example, but use the specified org:
 
-    $ sf package1:version:create:get --request-id 0HD... --target-org myorg@example.com
+    $ sf package1 version create get --request-id 0HD... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package1/version/create/get.ts)_
+_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package1/version/create/get.ts)_
 
-## `sf package1:version:display`
+## `sf package1 version display`
 
 Display details about a first-generation package version.
 
 ```
 USAGE
-  $ sf package1:version:display -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package1 version display -o <value> -i <value> [--json] [--api-version <value>]
 
 FLAGS
   -i, --package-version-id=<value>  (required) ID (starts with 04t) of the metadata package version whose details you
@@ -170,27 +170,27 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package1:version:display
+  $ sf force package1 version display
 
 EXAMPLES
   Display details about the first-generation package version with the specified ID in your default org:
 
-    $ sf package1:version:display --package-version-id 04t...
+    $ sf package1 version display --package-version-id 04t...
 
   Same as previous example, but use the specified org:
 
-    $ sf package1:version:display --package-version-id 04t... --target-org myorg@example.com
+    $ sf package1 version display --package-version-id 04t... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package1/version/display.ts)_
+_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package1/version/display.ts)_
 
-## `sf package1:version:list`
+## `sf package1 version list`
 
 List package versions for the specified first-generation package or for the org.
 
 ```
 USAGE
-  $ sf package1:version:list -o <value> [--json] [--api-version <value>] [-i <value>]
+  $ sf package1 version list -o <value> [--json] [--api-version <value>] [-i <value>]
 
 FLAGS
   -i, --package-id=<value>   Metadata package ID (starts with 033) whose package versions you want to list.
@@ -202,16 +202,16 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package1:version:list
+  $ sf force package1 version list
 
 EXAMPLES
   List all first-generation package versions in your default org:
 
-    $ sf package1:version:list
+    $ sf package1 version list
 
   List package versions for the specified first-generation package in the specifief org:
 
-    $ sf package1:version:list --package-id 033... --target-org myorg@example.com
+    $ sf package1 version list --package-id 033... --target-org myorg@example.com
 
 FLAG DESCRIPTIONS
   -i, --package-id=<value>  Metadata package ID (starts with 033) whose package versions you want to list.
@@ -219,15 +219,15 @@ FLAG DESCRIPTIONS
     If not specified, shows all versions for all packages (managed and unmanaged) in the org.
 ```
 
-_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package1/version/list.ts)_
+_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package1/version/list.ts)_
 
-## `sf package:create`
+## `sf package create`
 
 Create a package.
 
 ```
 USAGE
-  $ sf package:create -v <value> -n <value> -t Managed|Unlocked -r <value> [--json] [--api-version <value>] [-d
+  $ sf package create -v <value> -n <value> -t Managed|Unlocked -r <value> [--json] [--api-version <value>] [-d
     <value>] [-e] [--org-dependent] [-o <value>]
 
 FLAGS
@@ -260,17 +260,17 @@ DESCRIPTION
   Run 'sf package list to list all packages in the Dev Hub org.
 
 ALIASES
-  $ sf force:package:create
+  $ sf force package create
 
 EXAMPLES
   Create an unlocked package from the files in the "force-app" directory; uses your default Dev Hub org:
 
-    $ sf package:create --name MyUnlockedPackage --package-type Unlocked --path force-app
+    $ sf package create --name MyUnlockedPackage --package-type Unlocked --path force-app
 
   Create a managed packaged from the "force-app" directory files, give the package a description, and use the
   specified Dev Hub org:
 
-    $ sf package:create --name MyManagedPackage --description "Your Package Descripton" --package-type Managed \
+    $ sf package create --name MyManagedPackage --description "Your Package Descripton" --package-type Managed \
       --path force-app --target-dev-hub devhub@example.com
 
 FLAG DESCRIPTIONS
@@ -297,15 +297,15 @@ FLAG DESCRIPTIONS
     Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
 ```
 
-_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/create.ts)_
+_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/create.ts)_
 
-## `sf package:delete`
+## `sf package delete`
 
 Delete a package.
 
 ```
 USAGE
-  $ sf package:delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don’t prompt before deleting the package.
@@ -326,27 +326,27 @@ DESCRIPTION
   package versions.
 
 ALIASES
-  $ sf force:package:delete
+  $ sf force package delete
 
 EXAMPLES
   Delete a package using its alias from your default Dev Hub org:
 
-    $ sf package:delete --package "Your Package Alias"
+    $ sf package delete --package "Your Package Alias"
 
   Delete a package using its ID from the specified Dev Hub org:
 
-    $ sf package:delete --package 0Ho... --target-dev-hub devhub@example.com
+    $ sf package delete --package 0Ho... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/delete.ts)_
+_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/delete.ts)_
 
-## `sf package:install`
+## `sf package install`
 
 Install a version of a package in the target org.
 
 ```
 USAGE
-  $ sf package:install -o <value> -p <value> [--json] [--api-version <value>] [-w <value>] [-k <value>] [-b <value>]
+  $ sf package install -o <value> -p <value> [--json] [--api-version <value>] [-w <value>] [-k <value>] [-b <value>]
     [-r] [-a all|package] [-s AllUsers|AdminsOnly] [-t DeprecateOnly|Mixed|Delete]
 
 FLAGS
@@ -387,24 +387,24 @@ DESCRIPTION
   Mixed.
 
 ALIASES
-  $ sf force:package:install
+  $ sf force package install
 
 EXAMPLES
   Install a package version with the specified ID in the org with username "me@example.com":
 
-    $ sf package:install --package 04t... --target-org me@example.com
+    $ sf package install --package 04t... --target-org me@example.com
 
   Install a package version with the specified alias into your default org:
 
-    $ sf package:install --package awesome_package_alias
+    $ sf package install --package awesome_package_alias
 
   Install a package version with an alias that includes spaces into your default org:
 
-    $ sf package:install --package "Awesome Package Alias"
+    $ sf package install --package "Awesome Package Alias"
 
   Install an unlocked package version with the specified ID and deprecate all removed components:
 
-    $ sf package:install --package 04t... --upgrade-type DeprecateOnly
+    $ sf package install --package 04t... --upgrade-type DeprecateOnly
 
 FLAG DESCRIPTIONS
   -a, --apex-compile=all|package
@@ -435,15 +435,15 @@ FLAG DESCRIPTIONS
     specify DeprecateOnly or Delete only for unlocked package upgrades.
 ```
 
-_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/install.ts)_
+_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/install.ts)_
 
-## `sf package:install:report`
+## `sf package install report`
 
 Retrieve the status of a package installation request.
 
 ```
 USAGE
-  $ sf package:install:report -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package install report -o <value> -i <value> [--json] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the package install request you want to check; starts with 0Hf.
@@ -455,27 +455,27 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package:install:report
+  $ sf force package install report
 
 EXAMPLES
   Retrieve the status of a package installation request with the specified ID on your default org:
 
-    $ sf package:install:report --request-id 0Hf...
+    $ sf package install report --request-id 0Hf...
 
   Similar to previous example, except use the org with username me@example.com:
 
-    $ sf package:install:report --request-id 0Hf... --target-org me@example.com
+    $ sf package install report --request-id 0Hf... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/install/report.ts)_
+_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/install/report.ts)_
 
-## `sf package:installed:list`
+## `sf package installed list`
 
 List the org’s installed packages.
 
 ```
 USAGE
-  $ sf package:installed:list -o <value> [--json] [--api-version <value>]
+  $ sf package installed list -o <value> [--json] [--api-version <value>]
 
 FLAGS
   -o, --target-org=<value>   (required) Username or alias of the target org. Not required if the `target-org`
@@ -486,27 +486,27 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package:installed:list
+  $ sf force package installed list
 
 EXAMPLES
   List the installed packages in your default org:
 
-    $ sf package:installed:list
+    $ sf package installed list
 
   List the installed packages in the org with username me@example.com:
 
-    $ sf package:installed:list --target-org me@example.com
+    $ sf package installed list --target-org me@example.com
 ```
 
-_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/installed/list.ts)_
+_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/installed/list.ts)_
 
-## `sf package:list`
+## `sf package list`
 
 List all packages in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package:list -v <value> [--json] [--api-version <value>] [--verbose]
+  $ sf package list -v <value> [--json] [--api-version <value>] [--verbose]
 
 FLAGS
   -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
@@ -523,27 +523,27 @@ DESCRIPTION
   Description
 
 ALIASES
-  $ sf force:package:list
+  $ sf force package list
 
 EXAMPLES
   List all packages in the specified Dev Hub org:
 
-    $ sf package:list --target-dev-hub devhub@example.com
+    $ sf package list --target-dev-hub devhub@example.com
 
   List all packages details in the specified Dev Hub org, and show extended details about each package:
 
-    $ sf package:list --target-dev-hub devhub@example.com --verbose
+    $ sf package list --target-dev-hub devhub@example.com --verbose
 ```
 
-_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/list.ts)_
+_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/list.ts)_
 
-## `sf package:uninstall`
+## `sf package uninstall`
 
 Uninstall a second-generation package from the target org.
 
 ```
 USAGE
-  $ sf package:uninstall -o <value> -p <value> [--json] [--api-version <value>] [-w <value>]
+  $ sf package uninstall -o <value> -p <value> [--json] [--api-version <value>] [-w <value>]
 
 FLAGS
   -o, --target-org=<value>   (required) Username or alias of the target org. Not required if the `target-org`
@@ -566,31 +566,31 @@ DESCRIPTION
   Installed Packages.
 
 ALIASES
-  $ sf force:package:uninstall
+  $ sf force package uninstall
 
 EXAMPLES
   Uninstall a package with specified ID from an org with username me@example.com:
 
-    $ sf package:uninstall --package 04t... --target-org me@example.com
+    $ sf package uninstall --package 04t... --target-org me@example.com
 
   Uninstall a package with the specified alias from your default org:
 
-    $ sf package:uninstall --package undesirable_package_alias
+    $ sf package uninstall --package undesirable_package_alias
 
   Uninstall a package with an alias that contains spaces from your default org:
 
-    $ sf package:uninstall --package "Undesirable Package Alias"
+    $ sf package uninstall --package "Undesirable Package Alias"
 ```
 
-_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/uninstall.ts)_
+_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/uninstall.ts)_
 
-## `sf package:uninstall:report`
+## `sf package uninstall report`
 
 Retrieve the status of a package uninstall request.
 
 ```
 USAGE
-  $ sf package:uninstall:report -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package uninstall report -o <value> -i <value> [--json] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the package uninstall request you want to check; starts with 06y.
@@ -602,27 +602,27 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package:uninstall:report
+  $ sf force package uninstall report
 
 EXAMPLES
   Retrieve the status of a package uninstall in your default org using the specified request ID:
 
-    $ sf package:uninstall:report --request-id 06y...
+    $ sf package uninstall report --request-id 06y...
 
   Similar to previous example, but use the org with username me@example.com:
 
-    $ sf package:uninstall:report --request-id 06y... --target-org me@example.com
+    $ sf package uninstall report --request-id 06y... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/uninstall/report.ts)_
+_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/uninstall/report.ts)_
 
-## `sf package:update`
+## `sf package update`
 
 Update package details.
 
 ```
 USAGE
-  $ sf package:update -v <value> -p <value> [--json] [--api-version <value>] [-n <value>] [-d <value>] [-o <value>]
+  $ sf package update -v <value> -p <value> [--json] [--api-version <value>] [-n <value>] [-d <value>] [-o <value>]
     [--enable-app-analytics]
 
 FLAGS
@@ -648,16 +648,16 @@ DESCRIPTION
   Run "sf package list" to list all packages in the Dev Hub org.
 
 ALIASES
-  $ sf force:package:update
+  $ sf force package update
 
 EXAMPLES
   Update the name of the package with the specified alias; uses your default Dev Hub org:
 
-    $ sf package:update --package "Your Package Alias" --name "New Package Name"
+    $ sf package update --package "Your Package Alias" --name "New Package Name"
 
   Update the description of the package with the specified ID; uses the specified Dev Hub org:
 
-    $ sf package:update --package 0Ho... --description "New Package Description" --target-dev-hub devhub@example.com
+    $ sf package update --package 0Ho... --description "New Package Description" --target-dev-hub devhub@example.com
 
 FLAG DESCRIPTIONS
   -o, --error-notification-username=<value>
@@ -668,15 +668,15 @@ FLAG DESCRIPTIONS
     associated with your package.
 ```
 
-_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/update.ts)_
+_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/update.ts)_
 
-## `sf package:version:create`
+## `sf package version create`
 
 Create a package version in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package:version:create -v <value> [--json] [--api-version <value>] [-b <value>] [-c | --skip-validation] [-f <value>]
+  $ sf package version create -v <value> [--json] [--api-version <value>] [-b <value>] [-c | --skip-validation] [-f <value>]
     [-k <value>] [-x] [-p <value>] [-d <value>] [--post-install-script <value>] [--post-install-url <value>]
     [--releasenotes-url <value>] [--skip-ancestor-check] [-t <value>] [--uninstall-script <value>] [-e <value>] [-a
     <value>] [-n <value>] [-w <value>] [--language <value>] [--verbose]
@@ -739,27 +739,27 @@ DESCRIPTION
   --skip-validation.
 
 ALIASES
-  $ sf force:package:version:create
+  $ sf force package version create
 
 EXAMPLES
   Create a package version from the contents of the "common" directory and give it an installation key of
   "password123"; uses your default Dev Hub org:
 
-    $ sf package:version:create --path common --installation-key password123
+    $ sf package version create --path common --installation-key password123
 
   Create a package version from a package with the specified alias; uses the Dev Hub org with username
   devhub@example.com:
 
-    $ sf package:version:create --package "Your Package Alias" --installation-key password123 --target-dev-hub \
+    $ sf package version create --package "Your Package Alias" --installation-key password123 --target-dev-hub \
       devhub@example.com
 
   Create a package version from a package with the specified ID:
 
-    $ sf package:version:create --package 0Ho... --installation-key password123
+    $ sf package version create --package 0Ho... --installation-key password123
 
   Create a package version and skip the validation step:
 
-    $ sf package:version:create --path common --installation-key password123 --skip-validation
+    $ sf package version create --path common --installation-key password123 --skip-validation
 
 FLAG DESCRIPTIONS
   -c, --code-coverage
@@ -823,15 +823,15 @@ FLAG DESCRIPTIONS
     periods of no output from commands.
 ```
 
-_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/create.ts)_
+_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/create.ts)_
 
-## `sf package:version:create:list`
+## `sf package version create list`
 
 List package version creation requests.
 
 ```
 USAGE
-  $ sf package:version:create:list -v <value> [--json] [--api-version <value>] [-c <value>] [-s Queued|InProgress|Success|Error]
+  $ sf package version create list -v <value> [--json] [--api-version <value>] [-c <value>] [-s Queued|InProgress|Success|Error]
     [--show-conversions-only] [--verbose]
 
 FLAGS
@@ -859,39 +859,39 @@ DESCRIPTION
   To get information about a specific request, run "sf package version create report" and supply the request ID.
 
 ALIASES
-  $ sf force:package:version:create:list
+  $ sf force package version create list
 
 EXAMPLES
   List all package version creation requests in your default Dev Hub org:
 
-    $ sf package:version:create:list
+    $ sf package version create list
 
   List package version creation requests from the last 3 days in the Dev Hub org with username devhub@example.com:
 
-    $ sf package:version:create:list --created-last-days 3 --target-dev-hub
+    $ sf package version create list --created-last-days 3 --target-dev-hub
 
   List package version creation requests with status Error:
 
-    $ sf package:version:create:list --status Error
+    $ sf package version create list --status Error
 
   List package version creation requests with status InProgress:
 
-    $ sf package:version:create:list --status InProgress
+    $ sf package version create list --status InProgress
 
   List package version creation requests with status Success that were created today:
 
-    $ sf package:version:create:list --created-last-days 0 --status Success
+    $ sf package version create list --created-last-days 0 --status Success
 ```
 
-_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/create/list.ts)_
+_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/create/list.ts)_
 
-## `sf package:version:create:report`
+## `sf package version create report`
 
 Retrieve details about a package version creation request.
 
 ```
 USAGE
-  $ sf package:version:create:report -v <value> -i <value> [--json] [--api-version <value>]
+  $ sf package version create report -v <value> -i <value> [--json] [--api-version <value>]
 
 FLAGS
   -i, --package-create-request-id=<value>  (required) ID (starts with 08c) of the package version creation request you
@@ -912,28 +912,28 @@ DESCRIPTION
   To show all requests in the org, run "sf package version create list".
 
 ALIASES
-  $ sf force:package:version:create:report
+  $ sf force package version create report
 
 EXAMPLES
   Retrieve details about the package version creation request with the specified ID; uses your default Dev Hub org:
 
-    $ sf package:version:create:report --package-create-request-id 08c...
+    $ sf package version create report --package-create-request-id 08c...
 
   Retrieve details about the specified package version creation request in the Dev Hub org with username
   devhub@example.com:
 
-    $ sf package:version:create:report --package-create-request-id 08c... --target-dev-hub devhub@example.com
+    $ sf package version create report --package-create-request-id 08c... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/create/report.ts)_
+_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/create/report.ts)_
 
-## `sf package:version:delete`
+## `sf package version delete`
 
 Delete a package version.
 
 ```
 USAGE
-  $ sf package:version:delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package version delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don’t prompt before deleting the package version.
@@ -951,27 +951,27 @@ DESCRIPTION
   Specify the ID or alias of the package version you want to delete.
 
 ALIASES
-  $ sf force:package:version:delete
+  $ sf force package version delete
 
 EXAMPLES
   Delete a package version with the specified alias using your default Dev Hub org:
 
-    $ sf package:version:delete --package "Your Package Alias"
+    $ sf package version delete --package "Your Package Alias"
 
   Delete a package version with the specified ID using the Dev Hub org with username "devhub@example.com":
 
-    $ sf package:version:delete --package 04t... --target-org devhub@example.com
+    $ sf package version delete --package 04t... --target-org devhub@example.com
 ```
 
-_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/delete.ts)_
+_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/delete.ts)_
 
-## `sf package:version:displayancestry`
+## `sf package version displayancestry`
 
 Display the ancestry tree for a 2GP managed package version.
 
 ```
 USAGE
-  $ sf package:version:displayancestry -v <value> -p <value> [--json] [--api-version <value>] [--dot-code] [--verbose]
+  $ sf package version displayancestry -v <value> -p <value> [--json] [--api-version <value>] [--dot-code] [--verbose]
 
 FLAGS
   -p, --package=<value>         (required) ID or alias of the package (starts with 0Ho) or package version (starts with
@@ -987,25 +987,25 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sf force:package:version:displayancestry
+  $ sf force package version displayancestry
 
 EXAMPLES
   Display the ancestry tree for a package version with the specified alias, using your default Dev Hub org:
 
-    $ sf package:version:displayancestry --package package_version_alias
+    $ sf package version displayancestry --package package_version_alias
 
   Similar to previous example, but display the output in DOT code:
 
-    $ sf package:version:displayancestry --package package_version_alias --dot-code
+    $ sf package version displayancestry --package package_version_alias --dot-code
 
   Display the ancestry tree for a package with the specified ID, using the Dev Hub org with username
   devhub@example.com:
 
-    $ sf package:version:displayancestry --package OHo... --target-dev-hub devhub@example.com
+    $ sf package version displayancestry --package OHo... --target-dev-hub devhub@example.com
 
   Display the ancestry tree of a package version with the specified ID, using your default Dev Hub org:
 
-    $ sf package:version:displayancestry --package 04t...
+    $ sf package version displayancestry --package 04t...
 
 FLAG DESCRIPTIONS
   -p, --package=<value>
@@ -1021,15 +1021,15 @@ FLAG DESCRIPTIONS
     You can use the DOT code output in graph visualization software to create tree visualizations.
 ```
 
-_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/displayancestry.ts)_
+_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/displayancestry.ts)_
 
-## `sf package:version:list`
+## `sf package version list`
 
 List all package versions in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package:version:list -v <value> [--json] [--api-version <value>] [-c <value>] [--concise] [--show-conversions-only]
+  $ sf package version list -v <value> [--json] [--api-version <value>] [-c <value>] [--concise] [--show-conversions-only]
     [-m <value>] [-p <value>] [-r] [-o <value>] [--verbose]
 
 FLAGS
@@ -1056,48 +1056,48 @@ DESCRIPTION
   Description
 
 ALIASES
-  $ sf force:package:version:list
+  $ sf force package version list
 
 EXAMPLES
   List package versions in your default Dev Hub org that were created in the last 3 days; show only the released
   versions and order the list using the PatchVersion field. Display extended details about each package version:
 
-    $ sf package:version:list --verbose --created-last-days 3 --released --order-by PatchVersion
+    $ sf package version list --verbose --created-last-days 3 --released --order-by PatchVersion
 
   List the released package versions for the two specified packages that were modified today; use the Dev Hub org with
   username devhub@example.com:
 
-    $ sf package:version:list --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0 \
+    $ sf package version list --packages 0Ho000000000000,0Ho000000000001 --released --modified-last-days 0 \
       --target-dev-hub devhub@example.com
 
   List all released package versions in your default Dev Hub org:
 
-    $ sf package:version:list --released
+    $ sf package version list --released
 
   List package versions that were modified today in your default Dev Hub org; show limited details about each one:
 
-    $ sf package:version:list --concise --modified-last-days 0
+    $ sf package version list --concise --modified-last-days 0
 
   List released package versions that were created in the last 3 days in your default Dev Hub org; show limited
   details:
 
-    $ sf package:version:list --concise --created-last-days 3 --released
+    $ sf package version list --concise --created-last-days 3 --released
 
   List released package versions that were modified today for the two packages with specified aliases in your default
   Dev Hub org:
 
-    $ sf package:version:list --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
+    $ sf package version list --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
 ```
 
-_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/list.ts)_
+_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/list.ts)_
 
-## `sf package:version:promote`
+## `sf package version promote`
 
 Promote a package version to released.
 
 ```
 USAGE
-  $ sf package:version:promote -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package version promote -v <value> -p <value> [--json] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don't prompt to confirm setting the package version as released.
@@ -1115,32 +1115,32 @@ DESCRIPTION
   Supply the ID or alias of the package version you want to promote. Promotes the package version to released status.
 
 ALIASES
-  $ sf force:package:version:promote
+  $ sf force package version promote
 
 EXAMPLES
   Promote the package version with the specified ID to released; uses your default Dev Hub org:
 
-    $ sf package:version:promote --package 04t...
+    $ sf package version promote --package 04t...
 
   Promote the package version with the specified alias to released; uses the Dev Hub org with username
   devhub@example.com:
 
-    $ sf package:version:promote --package awesome_package_alias --target-dev-hub devhub@example.com
+    $ sf package version promote --package awesome_package_alias --target-dev-hub devhub@example.com
 
   Promote the package version with an alias that has spaces to released:
 
-    $ sf package:version:promote --package "Awesome Package Alias"
+    $ sf package version promote --package "Awesome Package Alias"
 ```
 
-_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/promote.ts)_
+_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/promote.ts)_
 
-## `sf package:version:report`
+## `sf package version report`
 
 Retrieve details about a package version in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package:version:report -v <value> -p <value> [--json] [--api-version <value>] [--verbose]
+  $ sf package version report -v <value> -p <value> [--json] [--api-version <value>] [--verbose]
 
 FLAGS
   -p, --package=<value>         (required) ID (starts with 04t) or alias of the package to retrieve details for.
@@ -1158,28 +1158,28 @@ DESCRIPTION
   To update package version values, run "sf package version update".
 
 ALIASES
-  $ sf force:package:version:report
+  $ sf force package version report
 
 EXAMPLES
   Retrieve details about the package version with the specified ID from your default Dev Hub org:
 
-    $ sf package:version:report --package 04t...
+    $ sf package version report --package 04t...
 
   Retrieve details about the package version with the specified alias (that contains spaces) from the Dev Hub org with
   username devhub@example.com:
 
-    $ sf package:version:report --package "Your Package Alias" --target-dev-hub devhub@example.com
+    $ sf package version report --package "Your Package Alias" --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/report.ts)_
+_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/report.ts)_
 
-## `sf package:version:update`
+## `sf package version update`
 
 Update a package version.
 
 ```
 USAGE
-  $ sf package:version:update -v <value> -p <value> [--json] [--api-version <value>] [-a <value>] [-e <value>] [-b <value>]
+  $ sf package version update -v <value> -p <value> [--json] [--api-version <value>] [-a <value>] [-e <value>] [-b <value>]
     [-t <value>] [-k <value>]
 
 FLAGS
@@ -1204,25 +1204,25 @@ DESCRIPTION
   To display details about a package version, run "sf package version display".
 
 ALIASES
-  $ sf force:package:version:update
+  $ sf force package version update
 
 EXAMPLES
   Update the package version that has the specified alias (that contains spaces) with a new installation key
   "password123"; uses your default Dev Hub org:
 
-    $ sf package:version:update --package "Your Package Alias" --installation-key password123
+    $ sf package version update --package "Your Package Alias" --installation-key password123
 
   Update the package version that has the specified ID with a new branch and tag; use the Dev Hub org with username
   devhub@example.com:
 
-    $ sf package:version:update --package 04t... --branch main --tag 'Release 1.0.7' --target-dev-hub \
+    $ sf package version update --package 04t... --branch main --tag 'Release 1.0.7' --target-dev-hub \
       devhub@example.com
 
   Update the package version that has the specified ID with a new description:
 
-    $ sf package:version:update --package 04t... --version-description "New Package Version Description"
+    $ sf package version update --package 04t... --version-description "New Package Version Description"
 ```
 
-_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.10/src/commands/package/version/update.ts)_
+_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/1.27.11/src/commands/package/version/update.ts)_
 
 <!-- commandsstop -->
