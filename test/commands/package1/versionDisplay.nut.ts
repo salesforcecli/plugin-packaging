@@ -43,14 +43,14 @@ describe('package1:version:display', () => {
   it('should validate packageversionid flag (too short)', () => {
     // fake package ID - too short
     const command = `package1:version:display -i 04t46000001Zfa -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
+    const output = execCmd(command, { ensureExitCode: 'nonZero' }).shellOutput.stderr;
     expect(output).to.contain('The id must be 15 or 18 characters.');
   });
 
   it("should validate packageversionid flag (doesn't start with 04t)", () => {
     // fake package ID - not an 04t package
     const command = `package1:version:display -i 05t46000001ZfaAAAS -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
+    const output = execCmd(command, { ensureExitCode: 'nonZero' }).shellOutput.stderr;
     expect(output).to.contain('The id must begin with 04t');
   });
 
