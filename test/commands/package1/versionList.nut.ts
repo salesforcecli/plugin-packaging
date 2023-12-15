@@ -74,14 +74,14 @@ describe('package1:version:list', () => {
   it("should validate packageversionid flag (doesn't start with 033)", () => {
     // fake package ID - not an 033 package
     const command = `package1:version:list -i 03446000001ZfaAAAS -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
+    const output = execCmd(command, { ensureExitCode: 'nonZero' }).shellOutput.stderr;
     expect(output).to.contain('The id must begin with 033.');
   });
 
   it('should validate packageversionid flag (too short)', () => {
     // fake package ID - not an 033 package
     const command = `package1:version:list -i 03346000001Zfa -o ${session.hubOrg.username}`;
-    const output = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
+    const output = execCmd(command, { ensureExitCode: 'nonZero' }).shellOutput.stderr;
     expect(output).to.contain('The id must be 18 characters.');
   });
 
