@@ -789,10 +789,10 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/core@^3", "@oclif/core@^3.0.4", "@oclif/core@^3.10.8", "@oclif/core@^3.12.0", "@oclif/core@^3.13.1", "@oclif/core@^3.14.1":
-  version "3.14.1"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-3.14.1.tgz#634fc96124068e47b720d62f3b278d818a07495e"
-  integrity sha512-HLFL2s45DFdqYI2CFjVS/CIQ4cQ4yZqH0XqO9nnwcRWYboz2rEW/vLmidjIYGDjh6xA/k5psiAL3O1KEjqSHuQ==
+"@oclif/core@^3", "@oclif/core@^3.0.4", "@oclif/core@^3.10.8", "@oclif/core@^3.12.0", "@oclif/core@^3.13.1", "@oclif/core@^3.14.1", "@oclif/core@^3.15.0":
+  version "3.15.0"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-3.15.0.tgz#28405012137fa92efcc5a2c4d61336dd64c697cb"
+  integrity sha512-A1EVh4gv7mqAJ9OGVxLugaLcHvQnGwvOnPToP8OT9AldJ0LwVExOwhhlnOstYca33MIpGH00twYxWMS5nxMuDQ==
   dependencies:
     ansi-escapes "^4.3.2"
     ansi-styles "^4.3.0"
@@ -1121,13 +1121,13 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.6.1.tgz#7d1c071e1e509ca9d2d8a6e48ac7447dd67a534d"
   integrity sha512-eVy947ZMxCJReKJdgfddUIsBIbPTa/i8RwQGwxq4/ss38H5sLOAeSTaun9V7HpJ1hkpDznWKfgzYvjsst9K6ig==
 
-"@salesforce/sf-plugins-core@^5.0.5", "@salesforce/sf-plugins-core@^5.0.9":
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-5.0.9.tgz#b23347c6ebcc12bad714025adaaf901c1506ce89"
-  integrity sha512-S/zsMf9v799sPsBYJO+6Olkqr+hAn+CVOUEYvhkQ08lgi9NEe6Q61xorKVppMBL76/PBSSxoP5xsWMJZqF/o5g==
+"@salesforce/sf-plugins-core@^5.0.12", "@salesforce/sf-plugins-core@^5.0.5":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-5.0.12.tgz#f638a8091316b70b4cb981b0847326fd8c32c2f4"
+  integrity sha512-2ZuD++T+c0mGmLep0K54ucA3GIjlRWdR0L+oMLlcTYcf6rxEV72D9MMszS3syVabSJeNGrKIgsO3kP9c13PCAQ==
   dependencies:
-    "@oclif/core" "^3.14.1"
-    "@salesforce/core" "^6.2.2"
+    "@oclif/core" "^3.15.0"
+    "@salesforce/core" "^6.4.1"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/ts-types" "^2.0.9"
     "@types/inquirer" "^8.2.3"
