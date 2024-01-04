@@ -45,7 +45,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
     const { flags } = await this.parse(PackageVersionDeleteCommand);
     const packageVersion = new PackageVersion({
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project,
+      project: this.project!,
       idOrAlias: flags.package,
     });
     await this.confirmDelete(flags['no-prompt'], flags.undelete);
@@ -59,7 +59,7 @@ export class PackageVersionDeleteCommand extends SfCommand<PackageSaveResult> {
       return true;
     }
     const message = undelete ? messages.getMessage('prompt-undelete') : messages.getMessage('prompt-delete');
-    const accepted = await this.confirm(message);
+    const accepted = await this.confirm({ message });
     if (!accepted) {
       throw new Error(messages.getMessage('prompt-delete-deny'));
     }

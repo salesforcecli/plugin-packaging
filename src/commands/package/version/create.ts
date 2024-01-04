@@ -225,7 +225,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     const result = await PackageVersion.create(
       {
         connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-        project: this.project,
+        project: this.project!,
         ...Object.fromEntries(Object.entries(flags).map(([key, value]) => [key.replace(/-/g, ''), value])),
         packageId: flags.package,
         path: flags.path,

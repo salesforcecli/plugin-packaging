@@ -253,7 +253,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
   private async confirmUpgradeType(noPrompt: boolean): Promise<void> {
     if ((await this.subscriberPackageVersion.getPackageType()) === 'Unlocked' && !noPrompt) {
       const promptMsg = messages.getMessage('prompt-upgrade-type');
-      if (!(await this.confirm(promptMsg))) {
+      if (!(await this.confirm({ message: promptMsg }))) {
         throw messages.createError('promptUpgradeTypeDeny');
       }
     }
@@ -265,7 +265,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
       let enableRss = true;
       if (!noPrompt) {
         const promptMsg = messages.getMessage('promptEnableRss', [extSites.join('\n')]);
-        enableRss = await this.confirm(promptMsg);
+        enableRss = await this.confirm({ message: promptMsg });
       }
       if (enableRss) {
         request.EnableRss = enableRss;

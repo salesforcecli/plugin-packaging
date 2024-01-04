@@ -88,7 +88,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
               NamespacePrefix,
               ContainerOptions,
               ConvertedFromPackageId,
-              Alias: this.project.getAliasesFromPackageId(Id).join(),
+              Alias: this.project!.getAliasesFromPackageId(Id).join(),
               IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
               PackageErrorUsername,
               AppAnalyticsEnabled,

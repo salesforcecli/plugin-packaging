@@ -48,7 +48,7 @@ export class PackageVersionDisplayAncestryCommand extends SfCommand<DisplayAnces
     const { flags } = await this.parse(PackageVersionDisplayAncestryCommand);
     const packageAncestry = await Package.getAncestry(
       flags.package,
-      this.project,
+      this.project!,
       flags['target-dev-hub'].getConnection(flags['api-version'])
     );
     const jsonProducer = packageAncestry.getJsonProducer();

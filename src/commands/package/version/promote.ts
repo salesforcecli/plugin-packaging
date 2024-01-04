@@ -41,7 +41,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
     const { flags } = await this.parse(PackageVersionPromoteCommand);
     const packageVersion = new PackageVersion({
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project,
+      project: this.project!,
       idOrAlias: flags.package,
     });
     const packageVersionData = await packageVersion.getData();
@@ -53,7 +53,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       }
 
       // Prompt for confirmation
-      if (!(await this.confirm(messages.getMessage('packageVersionPromoteConfirm', [flags.package])))) {
+      if (!(await this.confirm({ message: messages.getMessage('packageVersionPromoteConfirm', [flags.package]) }))) {
         throw messages.createError('promote-deny');
       }
     }
