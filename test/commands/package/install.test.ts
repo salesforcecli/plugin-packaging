@@ -11,7 +11,7 @@ import { Config } from '@oclif/core';
 import { expect } from 'chai';
 import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@salesforce/packaging';
 import sinon from 'sinon';
-import { SfCommand } from '@salesforce/sf-plugins-core';
+import { SfCommand, stubPrompter } from '@salesforce/sf-plugins-core';
 import { Install } from '../../../src/commands/package/install.js';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
@@ -94,7 +94,7 @@ describe('package:install', () => {
   const config = new Config({ root: import.meta.url });
   let uxLogStub: sinon.SinonStub;
   let uxWarnStub: sinon.SinonStub;
-  let uxConfirmStub: sinon.SinonStub;
+  let promptStub: ReturnType<typeof stubPrompter>;
   let packageVersionStub: sinon.SinonStub;
   let getExternalSitesStub: sinon.SinonStub;
   let installStub: sinon.SinonStub;
@@ -124,7 +124,7 @@ describe('package:install', () => {
       getExternalSitesStub = $$.SANDBOX.stub();
       installStub = $$.SANDBOX.stub();
       installStatusStub = $$.SANDBOX.stub();
-      uxConfirmStub = $$.SANDBOX.stub(SfCommand.prototype, 'confirm');
+      promptStub = stubPrompter($$.SANDBOX);
 
       // The SubscriberPackageVersion class is tested in the packaging library, so
       // we just stub the public APIs used by the command.
@@ -449,7 +449,7 @@ describe('package:install', () => {
         stubSpinner(cmd);
         const result = await cmd.run();
 
-        expect(uxConfirmStub.calledOnce).to.be.false;
+        expect(promptStub.confirm.callCount).to.equal(0);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
@@ -459,13 +459,13 @@ describe('package:install', () => {
           ...subscriberPackageVersion,
           Package2ContainerOptions: 'Unlocked',
         });
-        uxConfirmStub.resolves(true);
+        promptStub.confirm.resolves(true);
 
         const cmd = new Install(['-p', myPackageVersion04t, '-t', 'Delete', '-o', testOrg.username], config);
         stubSpinner(cmd);
         const result = await cmd.run();
 
-        expect(uxConfirmStub.calledOnce).to.be.true;
+        expect(promptStub.confirm.callCount).to.equal(1);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
 
@@ -483,7 +483,7 @@ describe('package:install', () => {
           const error = err as Error;
           expect(error.name).to.equal('PromptUpgradeTypeDenyError');
           expect(error.message).to.include('We canceled this package installation per your request.');
-          expect(uxConfirmStub.calledOnce).to.be.true;
+          expect(promptStub.confirm.callCount).to.equal(1);
         }
       });
 
@@ -500,7 +500,7 @@ describe('package:install', () => {
         );
         stubSpinner(cmd);
         const result = await cmd.run();
-        expect(uxConfirmStub.calledOnce).to.be.false;
+        expect(promptStub.confirm.called).equal(false);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
     });
@@ -520,7 +520,7 @@ describe('package:install', () => {
         const result = await cmd.run();
 
         expect(getExternalSitesStub.calledOnce).to.be.true;
-        expect(uxConfirmStub.calledOnce).to.be.false;
+        expect(promptStub.confirm.callCount).to.equal(0);
         expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
@@ -545,7 +545,7 @@ describe('package:install', () => {
         stubSpinner(cmd);
         const result = await cmd.run();
 
-        expect(uxConfirmStub.calledOnce).to.be.false;
+        expect(promptStub.confirm.called).to.be.false;
         expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
@@ -558,14 +558,14 @@ describe('package:install', () => {
           RemoteSiteSettings: { settings: [{ url: 'url/for/site1' }] },
           CspTrustedSites: { settings: [{ endpointUrl: 'url/for/site2' }] },
         });
-        uxConfirmStub.resolves(true);
+        promptStub.confirm.resolves(true);
 
         const cmd = new Install(['-p', myPackageVersion04t, '-o', testOrg.username], config);
         stubSpinner(cmd);
         const result = await cmd.run();
 
-        expect(uxConfirmStub.calledOnce).to.be.true;
-        expect(uxConfirmStub.args[0][0]).to.include(extSites.join('\n'));
+        expect(promptStub.confirm.callCount).to.equal(1);
+        expect(promptStub.confirm.args[0][0].message).to.include(extSites.join('\n'));
         expect(installStub.args[0][0]).to.deep.equal(expectedCreateRequest);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
@@ -582,8 +582,8 @@ describe('package:install', () => {
         stubSpinner(cmd);
         const result = await cmd.run();
 
-        expect(uxConfirmStub.calledOnce).to.be.true;
-        expect(uxConfirmStub.args[0][0]).to.include(extSites.join('\n'));
+        expect(promptStub.confirm.callCount).equal(1);
+        expect(promptStub.confirm.args[0][0].message).to.include(extSites.join('\n'));
         expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);
         expect(result).to.deep.equal(pkgInstallRequest);
       });
