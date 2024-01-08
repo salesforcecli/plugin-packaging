@@ -1,3 +1,9 @@
+# [2.1.0](https://github.com/salesforcecli/plugin-packaging/compare/2.0.3...2.1.0) (2024-01-08)
+
+### Features
+
+- use new inquirer via sf-plugins-core ([#537](https://github.com/salesforcecli/plugin-packaging/issues/537)) ([f3f2006](https://github.com/salesforcecli/plugin-packaging/commit/f3f200651936b90d998f450a6de7bad24fee0f4f))
+
 ## [2.0.3](https://github.com/salesforcecli/plugin-packaging/compare/2.0.2...2.0.3) (2024-01-06)
 
 ### Bug Fixes
