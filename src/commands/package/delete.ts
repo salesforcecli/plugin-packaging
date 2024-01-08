@@ -44,15 +44,15 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
 
   public async run(): Promise<PackageSaveResult> {
     const { flags } = await this.parse(PackageDeleteCommand);
-    const promptMsg = flags.undelete ? 'prompt-undelete' : 'prompt-delete';
-    const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm(messages.getMessage(promptMsg));
+    const message = messages.getMessage(flags.undelete ? 'prompt-undelete' : 'prompt-delete');
+    const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm({ message });
     if (!accepted) {
       throw messages.createError('prompt-delete-deny');
     }
 
     const pkg = new Package({
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project,
+      project: this.project!,
       packageAliasOrId: flags.package,
     });
     const result = flags.undelete ? await pkg.undelete() : await pkg.delete();

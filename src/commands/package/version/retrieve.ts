@@ -59,7 +59,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
     };
 
     const result: PackageVersionMetadataDownloadResult = await Package.downloadPackageVersionMetadata(
-      this.project,
+      this.project!,
       options,
       connection
     );

@@ -57,7 +57,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     const pkg = new Package({
       packageAliasOrId: flags.package,
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project,
+      project: this.project!,
     });
 
     const result = await pkg.update({

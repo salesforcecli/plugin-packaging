@@ -85,7 +85,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
     };
     const result: PackageCreate = await Package.create(
       flags['target-dev-hub'].getConnection(flags['api-version']),
-      this.project,
+      this.project!,
       options
     );
     this.display(result);
