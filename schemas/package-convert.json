@@ -14,6 +14,9 @@
         "Package2Id": {
           "type": "string"
         },
+        "Package2Name": {
+          "type": ["string", "null"]
+        },
         "Package2VersionId": {
           "type": "string"
         },
@@ -36,6 +39,9 @@
         "HasMetadataRemoved": {
           "type": ["boolean", "null"]
         },
+        "HasPassedCodeCoverageCheck": {
+          "type": ["boolean", "null"]
+        },
         "CreatedBy": {
           "type": "string"
         },
@@ -47,6 +53,7 @@
         "Id",
         "Status",
         "Package2Id",
+        "Package2Name",
         "Package2VersionId",
         "SubscriberPackageVersionId",
         "Tag",
@@ -54,6 +61,7 @@
         "Error",
         "CreatedDate",
         "HasMetadataRemoved",
+        "HasPassedCodeCoverageCheck",
         "CreatedBy",
         "ConvertedFromVersionId"
       ],
