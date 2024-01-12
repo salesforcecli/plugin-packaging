@@ -45,6 +45,7 @@ describe('package:version:promote / package:version:update', () => {
       'Id',
       'Status',
       'Package2Id',
+      'Package2Name',
       'Package2VersionId',
       'SubscriberPackageVersionId',
       'Tag',
@@ -52,6 +53,7 @@ describe('package:version:promote / package:version:update', () => {
       'Error',
       'CreatedDate',
       'HasMetadataRemoved',
+      'HasPassedCodeCoverageCheck',
       'CreatedBy',
       'ConvertedFromVersionId'
     );

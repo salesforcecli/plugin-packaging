@@ -24,6 +24,23 @@ import { CreateListCommandResult } from '../../../src/commands/package/version/c
 
 chaiConfig.truncateThreshold = 0;
 
+const expectedPVCRkeys = [
+  'Id',
+  'Status',
+  'Package2Id',
+  'Package2Name',
+  'Package2VersionId',
+  'SubscriberPackageVersionId',
+  'Tag',
+  'Branch',
+  'Error',
+  'CreatedDate',
+  'HasMetadataRemoved',
+  'HasPassedCodeCoverageCheck',
+  'CreatedBy',
+  'ConvertedFromVersionId',
+];
+
 describe('package:version:*', () => {
   let session: TestSession;
   let packageId: string | undefined;
@@ -80,20 +97,7 @@ describe('package:version:*', () => {
         `package:version:create --package ${pkgName} --json --tag tag --branch branch -x --code-coverage --version-description "Initial version"`,
         { ensureExitCode: 0 }
       ).jsonOutput?.result;
-      expect(result).to.have.all.keys(
-        'Id',
-        'Status',
-        'Package2Id',
-        'Package2VersionId',
-        'SubscriberPackageVersionId',
-        'Tag',
-        'Branch',
-        'Error',
-        'CreatedDate',
-        'HasMetadataRemoved',
-        'CreatedBy',
-        'ConvertedFromVersionId'
-      );
+      expect(result).to.have.all.keys(expectedPVCRkeys);
       packageVersionId = result?.Id;
       expect(result?.Id).to.match(/08c.{15}/);
       expect(result?.Package2Id).to.match(/0Ho.{15}/);
@@ -196,24 +200,10 @@ describe('package:version:*', () => {
     it('should list all of the package versions created within the last 2 days', () => {
       const command = `package:version:create:list --created-last-days 2 -v ${session.hubOrg.username} --json`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
-      const keys = [
-        'Id',
-        'Status',
-        'Package2Id',
-        'Package2VersionId',
-        'SubscriberPackageVersionId',
-        'Tag',
-        'Branch',
-        'Error',
-        'CreatedDate',
-        'HasMetadataRemoved',
-        'CreatedBy',
-        'ConvertedFromVersionId',
-      ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
-      expect(output?.result[0]).to.have.keys(keys);
+      expect(output?.result[0]).to.have.keys(expectedPVCRkeys);
       const current = Date.now();
       // @ts-ignore
       const created = Date.parse(output?.result?.at(0).CreatedDate);
@@ -229,24 +219,10 @@ describe('package:version:*', () => {
     it('should list the package versions created (json)', async () => {
       const command = `package:version:create:list -v ${session.hubOrg.username} --json`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
-      const keys = [
-        'Id',
-        'Status',
-        'Package2Id',
-        'Package2VersionId',
-        'SubscriberPackageVersionId',
-        'Tag',
-        'Branch',
-        'Error',
-        'CreatedDate',
-        'HasMetadataRemoved',
-        'CreatedBy',
-        'ConvertedFromVersionId',
-      ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
-      expect(output?.result[0]).to.have.keys(keys);
+      expect(output?.result[0]).to.have.keys(expectedPVCRkeys);
     });
 
     it('should list the package versions created as part of package conversion from 1GP --show-conversions-only flag (human)', async () => {
@@ -260,26 +236,10 @@ describe('package:version:*', () => {
     it('should list the package versions created --verbose (json)', async () => {
       const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
-      const keys = [
-        'Id',
-        'Status',
-        'Package2Id',
-        'Package2VersionId',
-        'SubscriberPackageVersionId',
-        'Tag',
-        'Branch',
-        'Error',
-        'CreatedDate',
-        'HasMetadataRemoved',
-        'CreatedBy',
-        'VersionName',
-        'VersionNumber',
-        'ConvertedFromVersionId',
-      ];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
-      expect(output?.result[0]).to.have.keys(keys);
+      expect(output?.result[0]).to.have.keys(expectedPVCRkeys);
     });
   });
   describe('package:version:list', () => {
