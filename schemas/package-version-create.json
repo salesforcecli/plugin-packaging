@@ -14,6 +14,9 @@
         "Package2Id": {
           "type": "string"
         },
+        "Package2Name": {
+          "type": ["string", "null"]
+        },
         "Package2VersionId": {
           "type": "string"
         },
@@ -34,6 +37,9 @@
           "type": "string"
         },
         "HasMetadataRemoved": {
+          "type": ["boolean", "null"]
+        },
+        "HasPassedCodeCoverageCheck": {
           "type": ["boolean", "null"]
         },
         "CreatedBy": {
