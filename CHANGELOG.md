@@ -1,3 +1,9 @@
+## [2.1.1](https://github.com/salesforcecli/plugin-packaging/compare/2.1.0...2.1.1) (2024-01-14)
+
+### Bug Fixes
+
+- bump to latest packaging lib ([93886a3](https://github.com/salesforcecli/plugin-packaging/commit/93886a3e67b777becb2d0d15fa4c3305e75f83e7))
+
 # [2.1.0](https://github.com/salesforcecli/plugin-packaging/compare/2.0.3...2.1.0) (2024-01-08)
 
 ### Features
