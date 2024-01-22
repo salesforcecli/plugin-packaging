@@ -26,4 +26,4 @@ ID (starts with 08c) of the package version creation request you want to display
 
 ...
 
-To see all errors, run: %s data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='%s'" -o %s
+To see all errors, run: %s data query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='%s'" -o %s
