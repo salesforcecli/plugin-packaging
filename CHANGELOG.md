@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/salesforcecli/plugin-packaging/compare/2.1.1...2.1.2) (2024-01-22)
+
+### Bug Fixes
+
+- correct query command to use latest syntax ([92d28b2](https://github.com/salesforcecli/plugin-packaging/commit/92d28b21a5b85c3d0c85192d7e8400a7fb820d58))
+- update test ([e618dcc](https://github.com/salesforcecli/plugin-packaging/commit/e618dcc5746ccc15e31fe491fef0bea84f698279))
+
 ## [2.1.1](https://github.com/salesforcecli/plugin-packaging/compare/2.1.0...2.1.1) (2024-01-14)
 
 ### Bug Fixes
