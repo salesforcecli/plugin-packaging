@@ -160,7 +160,7 @@ describe('package:version:create:report - tests', () => {
         '(11) SampleDataController: Invalid type: Schema.Property__c\n(12) SampleDataController: Invalid type: Schema.Broker__c'
       );
       expect(warnStub.secondCall.args[0]).to.deep.equal(
-        `...${os.EOL}${os.EOL}To see all errors, run: sf data:soql:query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -o test@hub.org`
+        `...${os.EOL}${os.EOL}To see all errors, run: sf data query -t -q "SELECT Message FROM Package2VersionCreateRequestError WHERE ParentRequest.Id='08c3i000000fyoVAAQ'" -o test@hub.org`
       );
     });
   });
