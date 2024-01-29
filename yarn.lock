@@ -1688,10 +1688,10 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/packaging@^3.2.5":
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.2.5.tgz#106a754aece9e753b32254e46373d9eb4cf8a742"
-  integrity sha512-vEydpa7gjr8vn35MezRPxoJE3b7f/fzIU9uBwgONf8THCJ7PMhj9PPfWOXfNp+/7qorqmYIVCJxMFWpJrMStlQ==
+"@salesforce/packaging@^3.2.6":
+  version "3.2.6"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.2.6.tgz#bcd9e8ee513846ff2d5b6856c7a45acfb8dcd81b"
+  integrity sha512-thj7SO1/pNAkMfgW1UGuxpPaQavaPHnIxFTvzXNlBkjoMCi+E+wPznytK80Jf4LbFNqIRek3JnoYbGL06pzzOA==
   dependencies:
     "@oclif/core" "^3"
     "@salesforce/core" "^6.4.7"
