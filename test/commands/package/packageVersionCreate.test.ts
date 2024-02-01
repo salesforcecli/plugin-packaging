@@ -11,6 +11,7 @@ import { assert, expect } from 'chai';
 import { PackageVersion, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
 import sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
+import { env } from '@salesforce/kit';
 import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
@@ -76,9 +77,12 @@ describe('package:version:create - tests', () => {
   describe('package:version:create', () => {
     it('should create a new package version', async () => {
       createStub.resolves(pkgVersionCreateSuccessResult);
+      const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+
       const cmd = new PackageVersionCreateCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x'], config);
       stubSpinner(cmd);
       const res = await cmd.run();
+      expect(envSpy.calledOnce).to.equal(true);
       expect(res).to.deep.equal({
         Branch: undefined,
         CreatedBy: '0053i000001ZIyGAAW',

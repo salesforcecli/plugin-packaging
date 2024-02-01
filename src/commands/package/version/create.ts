@@ -7,7 +7,7 @@
 
 import os from 'node:os';
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
+import { camelCaseToTitleCase, Duration, env } from '@salesforce/kit';
 import { Lifecycle, Messages } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
@@ -221,6 +221,10 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     } else {
       this.spinner.start(startMsg);
     }
+
+    // Set the SF_APPLY_REPLACEMENTS_ON_CONVERT env var so that
+    // string replacements happen automatically.
+    env.setBoolean('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
 
     const result = await PackageVersion.create(
       {
