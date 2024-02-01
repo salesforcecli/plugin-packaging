@@ -1,3 +1,9 @@
+## [2.1.5](https://github.com/salesforcecli/plugin-packaging/compare/2.1.4...2.1.5) (2024-02-01)
+
+### Bug Fixes
+
+- set string replace env var before convert ([#566](https://github.com/salesforcecli/plugin-packaging/issues/566)) ([a64804a](https://github.com/salesforcecli/plugin-packaging/commit/a64804a742db47991c4af92220e0c8cf5a45119f))
+
 ## [2.1.4](https://github.com/salesforcecli/plugin-packaging/compare/2.1.3...2.1.4) (2024-01-29)
 
 ### Bug Fixes
