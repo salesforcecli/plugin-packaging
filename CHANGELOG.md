@@ -1,3 +1,9 @@
+## [2.1.6](https://github.com/salesforcecli/plugin-packaging/compare/2.1.5...2.1.6) (2024-02-06)
+
+### Bug Fixes
+
+- **deps:** latest version of pkg lib ([#569](https://github.com/salesforcecli/plugin-packaging/issues/569)) ([e48cb7c](https://github.com/salesforcecli/plugin-packaging/commit/e48cb7cbaeb2473c116e665aef3bd2072c96d897))
+
 ## [2.1.5](https://github.com/salesforcecli/plugin-packaging/compare/2.1.4...2.1.5) (2024-02-01)
 
 ### Bug Fixes
