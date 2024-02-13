@@ -29,7 +29,7 @@
 1.  Build and lint the code: `yarn build`
 1.  Create a branch off main for new work: `git checkout -b <branch_name>` _Suggestion: use branch_name format of initials/work-title_. For external contributors, please fork the main branch of the repo instead and PR the fork to the main branch.
 1.  Make code changes and build: `yarn build`
-1.  Run changed commands: `./bin/dev force:package:beta:create -h`
+1.  Run changed commands: e.g., `./bin/dev.js package:create -h`
 1.  Write tests and run: `yarn test` (unit) and/or `yarn test:nuts` (NUTs)
 1.  Show all changed files: `git status`
 1.  Add all files to staging: `git add .`
@@ -59,11 +59,11 @@ When you want to use a branch of the packaging library in this plugin to test ch
 
 ## Running Commands
 
-To run your modified plugin commands locally, use `./bin/dev` or `./bin/dev.cmd` file, which uses ts-node to execute the plugin's TypeScript commands.
+To run your modified plugin commands locally, use `./bin/dev.js` or `./bin/dev.cmd` (Windows).
 
 ```bash
 # Run using local dev file.
-./bin/dev force:package:create --help
+./bin/dev.js package:create --help
 ```
 
 There should be no differences when running via the Salesforce CLI or using the local scripts. However, it can be useful to link the plugin to do some additional testing or run your commands from anywhere on your machine.
@@ -74,7 +74,7 @@ sf plugins:link .
 # To verify
 sf plugins
 # To run
-sf force package create --help
+sf package create --help
 ```
 
 ## Useful yarn commands
