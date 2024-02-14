@@ -1,3 +1,9 @@
+## [2.1.8](https://github.com/salesforcecli/plugin-packaging/compare/2.1.7...2.1.8) (2024-02-14)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 3.19.0 to 3.19.1 ([de247ac](https://github.com/salesforcecli/plugin-packaging/commit/de247ac47b79c2f257b7ec1eda058144c2bcc082))
+
 ## [2.1.7](https://github.com/salesforcecli/plugin-packaging/compare/2.1.6...2.1.7) (2024-02-07)
 
 ### Bug Fixes
