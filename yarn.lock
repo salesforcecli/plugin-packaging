@@ -1766,14 +1766,14 @@
     chalk "^4"
     inquirer "^8.2.5"
 
-"@salesforce/sf-plugins-core@^7.1.8":
-  version "7.1.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-7.1.8.tgz#b7f4a01b1212d7aedb592f49c1fad07fcf942225"
-  integrity sha512-5QAcxCQ/YX1hywfKHRIe6RAVsHM27nMUOJlIW9+H2pdJeZbXg1TtMITjv7oQfxmGFlRG2UzgAm5ZfUlrl0IHtQ==
+"@salesforce/sf-plugins-core@^7.1.9":
+  version "7.1.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-7.1.9.tgz#b4ea2005096f2289160cfd4452afb51d53bdefb3"
+  integrity sha512-nyl6Kh1IHbGxcbQSUoJcte3t4fvozaXuHQWkHExIMGKjvSp8fCnx4pra8NZRdg/HnbWWu6eIHV4b/cHdzKWjnQ==
   dependencies:
     "@inquirer/confirm" "^2.0.17"
     "@inquirer/password" "^1.1.16"
-    "@oclif/core" "^3.18.2"
+    "@oclif/core" "^3.19.1"
     "@salesforce/core" "^6.5.2"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/ts-types" "^2.0.9"
