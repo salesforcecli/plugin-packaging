@@ -1,3 +1,9 @@
+## [2.1.10](https://github.com/salesforcecli/plugin-packaging/compare/2.1.9...2.1.10) (2024-02-21)
+
+### Bug Fixes
+
+- **deps:** bump ip from 1.1.8 to 1.1.9 ([f64c4a1](https://github.com/salesforcecli/plugin-packaging/commit/f64c4a1de7eafa527c19e42810dd37e6f1be7a57))
+
 ## [2.1.9](https://github.com/salesforcecli/plugin-packaging/compare/2.1.8...2.1.9) (2024-02-17)
 
 ### Bug Fixes
