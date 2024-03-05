@@ -1446,10 +1446,10 @@
     read-package-json-fast "^3.0.0"
     which "^3.0.0"
 
-"@oclif/core@^3", "@oclif/core@^3.15.1", "@oclif/core@^3.18.1", "@oclif/core@^3.19.1", "@oclif/core@^3.19.2", "@oclif/core@^3.19.3", "@oclif/core@^3.19.6":
-  version "3.19.6"
-  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-3.19.6.tgz#12e5cb073016d8c32c469d2fec0cd585ac5c1c09"
-  integrity sha512-1ryQWAx7VOf+Wq6pv00uilOo56DrG0drr42crmCQ3eYrPPz252EmNCoFkoOBk7McN6x0f4ega83c0yNNCXmiXw==
+"@oclif/core@^3", "@oclif/core@^3.15.1", "@oclif/core@^3.18.1", "@oclif/core@^3.19.1", "@oclif/core@^3.19.2", "@oclif/core@^3.19.3", "@oclif/core@^3.19.6", "@oclif/core@^3.22.0":
+  version "3.22.0"
+  resolved "https://registry.yarnpkg.com/@oclif/core/-/core-3.22.0.tgz#92e414347e9a0823504f45fae8c99a2604708f13"
+  integrity sha512-w7V1la5PAS5Ojr5aOG904A245kdVJRMcvgcRr3NG28EX2vIm7jkg71gIULlbvhDrFRzljH2iX2VYqF7ho3x8GQ==
   dependencies:
     "@types/cli-progress" "^3.11.5"
     ansi-escapes "^4.3.2"
@@ -1467,6 +1467,7 @@
     indent-string "^4.0.0"
     is-wsl "^2.2.0"
     js-yaml "^3.14.1"
+    minimatch "^9.0.3"
     natural-orderby "^2.0.3"
     object-treeify "^1.1.33"
     password-prompt "^1.1.3"
