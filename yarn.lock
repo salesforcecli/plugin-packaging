@@ -1712,18 +1712,18 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/packaging@^3.2.18":
-  version "3.2.18"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.2.18.tgz#785faade1bfbbf7e806f220d4d727a109a663852"
-  integrity sha512-KrDqnatF1M5T2ZkSugN4BEEv/dCowifX9cIABco7c0N4wb9CQcEkClA46XFq91gdrTbMgEStlGM9BPLos1Vpww==
+"@salesforce/packaging@^3.2.33":
+  version "3.2.33"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.2.33.tgz#1c83675dc550348b13774c4dbf27ce42e1f6f664"
+  integrity sha512-CwjQWNeyvjUw1Ha+bv/ErymmUibHFBobZbZkOW6MWU8n1a4eGplo8PUKzXyWCRw39F7BAVnt1rtjTZHvISmUSg==
   dependencies:
     "@oclif/core" "^3"
-    "@salesforce/core" "^6.5.3"
+    "@salesforce/core" "^6.7.3"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/schemas" "^1.6.1"
-    "@salesforce/source-deploy-retrieve" "^10.3.9"
+    "@salesforce/source-deploy-retrieve" "^10.5.5"
     "@salesforce/ts-types" "^2.0.9"
-    fast-xml-parser "^4.3.4"
+    fast-xml-parser "^4.3.6"
     globby "^11"
     graphology "^0.25.4"
     graphology-traversal "^0.3.1"
@@ -1781,16 +1781,16 @@
     "@salesforce/ts-types" "^2.0.9"
     chalk "^5.3.0"
 
-"@salesforce/source-deploy-retrieve@^10.3.9":
-  version "10.4.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.4.0.tgz#1fa5aa4053f92713135f3ef4bdf53094a9ead0fb"
-  integrity sha512-fxFQfZ8Hv1/Z+BeVXNjjiGsXmXeBOD6arqJCF7z4pQYgiOQqfWJ8zoCGe5TfJtDLmWiaSzAMGOYN55HEpxs2Sw==
+"@salesforce/source-deploy-retrieve@^10.5.5":
+  version "10.5.6"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.5.6.tgz#e6b7df348e5841b467adef7da88fde89ba0ed408"
+  integrity sha512-GdILZFHjd9ouxjkapOnik8y2BZhSr8hw+QtWOPy1pzQgYYduYs77QAB6dTkp6GjCnXBHfsUK9DVN4u4ItCcTSQ==
   dependencies:
-    "@salesforce/core" "^6.5.3"
+    "@salesforce/core" "^6.7.3"
     "@salesforce/kit" "^3.0.15"
     "@salesforce/ts-types" "^2.0.9"
     fast-levenshtein "^3.0.0"
-    fast-xml-parser "^4.3.4"
+    fast-xml-parser "^4.3.5"
     got "^11.8.6"
     graceful-fs "^4.2.11"
     ignore "^5.3.1"
@@ -4490,10 +4490,10 @@ fast-xml-parser@4.2.5:
   dependencies:
     strnum "^1.0.5"
 
-fast-xml-parser@^4.3.4:
-  version "4.3.4"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.3.4.tgz#385cc256ad7bbc57b91515a38a22502a9e1fca0d"
-  integrity sha512-utnwm92SyozgA3hhH2I8qldf2lBqm6qHOICawRNRFu1qMe3+oqr+GcXjGqTmXTMGE5T4eC03kr/rlh5C1IRdZA==
+fast-xml-parser@^4.3.5, fast-xml-parser@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.3.6.tgz#190f9d99097f0c8f2d3a0e681a10404afca052ff"
+  integrity sha512-M2SovcRxD4+vC493Uc2GZVcZaj66CCJhWurC4viynVSTvrpErCShNcDz1lAho6n9REQKvL/ll4A4/fw6Y9z8nw==
   dependencies:
     strnum "^1.0.5"
 
