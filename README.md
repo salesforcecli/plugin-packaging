@@ -59,8 +59,8 @@ Create a first-generation package version in the release org.
 
 ```
 USAGE
-  $ sf package1 version create -o <value> -i <value> -n <value> [--json] [--api-version <value>] [-d <value>] [-v <value>]
-    [-m] [-r <value>] [-p <value>] [-k <value>] [-w <value>]
+  $ sf package1 version create -o <value> -i <value> -n <value> [--json] [--flags-dir <value>] [--api-version <value>] [-d
+    <value>] [-v <value>] [-m] [-r <value>] [-p <value>] [-k <value>] [-w <value>]
 
 FLAGS
   -d, --description=<value>        Package version description.
@@ -78,7 +78,8 @@ FLAGS
       --api-version=<value>        Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Create a first-generation package version in the release org.
@@ -125,7 +126,7 @@ Retrieve the status of a package version creation request.
 
 ```
 USAGE
-  $ sf package1 version create get -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package1 version create get -o <value> -i <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the PackageUploadRequest (starts with 0HD).
@@ -134,7 +135,8 @@ FLAGS
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package1 version create get
@@ -157,7 +159,7 @@ Display details about a first-generation package version.
 
 ```
 USAGE
-  $ sf package1 version display -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package1 version display -o <value> -i <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -i, --package-version-id=<value>  (required) ID (starts with 04t) of the metadata package version whose details you
@@ -167,7 +169,8 @@ FLAGS
       --api-version=<value>         Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package1 version display
@@ -190,7 +193,7 @@ List package versions for the specified first-generation package or for the org.
 
 ```
 USAGE
-  $ sf package1 version list -o <value> [--json] [--api-version <value>] [-i <value>]
+  $ sf package1 version list -o <value> [--json] [--flags-dir <value>] [--api-version <value>] [-i <value>]
 
 FLAGS
   -i, --package-id=<value>   Metadata package ID (starts with 033) whose package versions you want to list.
@@ -199,7 +202,8 @@ FLAGS
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package1 version list
@@ -227,8 +231,8 @@ Create a package.
 
 ```
 USAGE
-  $ sf package create -v <value> -n <value> -t Managed|Unlocked -r <value> [--json] [--api-version <value>] [-d
-    <value>] [-e] [--org-dependent] [-o <value>]
+  $ sf package create -v <value> -n <value> -t Managed|Unlocked -r <value> [--json] [--flags-dir <value>]
+    [--api-version <value>] [-d <value>] [-e] [--org-dependent] [-o <value>]
 
 FLAGS
   -d, --description=<value>                  Description of the package.
@@ -239,14 +243,16 @@ FLAGS
   -r, --path=<value>                         (required) Path to directory that contains the contents of the package.
   -t, --package-type=<option>                (required) Type of package.
                                              <options: Managed|Unlocked>
-  -v, --target-dev-hub=<value>               (required) Username or alias of the Dev Hub org. Not required if the
-                                             `target-dev-hub` configuration variable is already set.
+  -v, --target-dev-hub=<value>               (required) [default: admin@integrationtesthubna40.org] Username or alias of
+                                             the Dev Hub org. Not required if the `target-dev-hub` configuration
+                                             variable is already set.
       --api-version=<value>                  Override the api version used for api requests made by this command
       --org-dependent                        Depends on unpackaged metadata in the installation org; applies to unlocked
                                              packages only.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Create a package.
@@ -305,17 +311,18 @@ Delete a package.
 
 ```
 USAGE
-  $ sf package delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package delete -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don’t prompt before deleting the package.
   -p, --package=<value>         (required) ID (starts with 0Ho) or alias of the package to delete.
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Delete a package.
@@ -346,15 +353,15 @@ Install a version of a package in the target org.
 
 ```
 USAGE
-  $ sf package install -o <value> -p <value> [--json] [--api-version <value>] [-w <value>] [-k <value>] [-b <value>]
-    [-r] [-a all|package] [-s AllUsers|AdminsOnly] [-t DeprecateOnly|Mixed|Delete]
+  $ sf package install -o <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-w <value>] [-k
+    <value>] [-b <value>] [-r] [-a all|package] [-s AllUsers|AdminsOnly] [-t DeprecateOnly|Mixed|Delete]
 
 FLAGS
   -a, --apex-compile=<option>     [default: all] Compile all Apex in the org and package, or only Apex in the package;
                                   unlocked packages only.
                                   <options: all|package>
-  -b, --publish-wait=<value>      [default: 0 minutes] Maximum number of minutes to wait for the Subscriber Package
-                                  Version ID to become available in the target org before canceling the install request.
+  -b, --publish-wait=<value>      Maximum number of minutes to wait for the Subscriber Package Version ID to become
+                                  available in the target org before canceling the install request.
   -k, --installation-key=<value>  Installation key for key-protected package (default: null).
   -o, --target-org=<value>        (required) Username or alias of the target org. Not required if the `target-org`
                                   configuration variable is already set.
@@ -367,11 +374,12 @@ FLAGS
   -t, --upgrade-type=<option>     [default: Mixed] Upgrade type for the package installation; available only for
                                   unlocked packages.
                                   <options: DeprecateOnly|Mixed|Delete>
-  -w, --wait=<value>              [default: 0 minutes] Number of minutes to wait for installation status.
+  -w, --wait=<value>              Number of minutes to wait for installation status.
       --api-version=<value>       Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Install a version of a package in the target org.
@@ -443,7 +451,7 @@ Retrieve the status of a package installation request.
 
 ```
 USAGE
-  $ sf package install report -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package install report -o <value> -i <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the package install request you want to check; starts with 0Hf.
@@ -452,7 +460,8 @@ FLAGS
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package install report
@@ -475,7 +484,7 @@ List the org’s installed packages.
 
 ```
 USAGE
-  $ sf package installed list -o <value> [--json] [--api-version <value>]
+  $ sf package installed list -o <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -o, --target-org=<value>   (required) Username or alias of the target org. Not required if the `target-org`
@@ -483,7 +492,8 @@ FLAGS
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package installed list
@@ -506,16 +516,17 @@ List all packages in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package list -v <value> [--json] [--api-version <value>] [--verbose]
+  $ sf package list -v <value> [--json] [--flags-dir <value>] [--api-version <value>] [--verbose]
 
 FLAGS
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
       --verbose                 Display extended package detail.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   List all packages in the Dev Hub org.
@@ -543,17 +554,18 @@ Uninstall a second-generation package from the target org.
 
 ```
 USAGE
-  $ sf package uninstall -o <value> -p <value> [--json] [--api-version <value>] [-w <value>]
+  $ sf package uninstall -o <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-w <value>]
 
 FLAGS
   -o, --target-org=<value>   (required) Username or alias of the target org. Not required if the `target-org`
                              configuration variable is already set.
   -p, --package=<value>      (required) ID (starts with 04t) or alias of the package version to uninstall.
-  -w, --wait=<value>         [default: 0 minutes] Number of minutes to wait for uninstall status.
+  -w, --wait=<value>         Number of minutes to wait for uninstall status.
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Uninstall a second-generation package from the target org.
@@ -590,7 +602,7 @@ Retrieve the status of a package uninstall request.
 
 ```
 USAGE
-  $ sf package uninstall report -o <value> -i <value> [--json] [--api-version <value>]
+  $ sf package uninstall report -o <value> -i <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -i, --request-id=<value>   (required) ID of the package uninstall request you want to check; starts with 06y.
@@ -599,7 +611,8 @@ FLAGS
       --api-version=<value>  Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package uninstall report
@@ -622,8 +635,8 @@ Update package details.
 
 ```
 USAGE
-  $ sf package update -v <value> -p <value> [--json] [--api-version <value>] [-n <value>] [-d <value>] [-o <value>]
-    [--enable-app-analytics]
+  $ sf package update -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-n <value>] [-d
+    <value>] [-o <value>] [--enable-app-analytics]
 
 FLAGS
   -d, --description=<value>                  New description of the package.
@@ -631,14 +644,16 @@ FLAGS
   -o, --error-notification-username=<value>  Active Dev Hub user designated to receive email notifications for package
                                              errors.
   -p, --package=<value>                      (required) ID (starts with 0Ho) or alias of the package to update.
-  -v, --target-dev-hub=<value>               (required) Username or alias of the Dev Hub org. Not required if the
-                                             `target-dev-hub` configuration variable is already set.
+  -v, --target-dev-hub=<value>               (required) [default: admin@integrationtesthubna40.org] Username or alias of
+                                             the Dev Hub org. Not required if the `target-dev-hub` configuration
+                                             variable is already set.
       --api-version=<value>                  Override the api version used for api requests made by this command
       --[no-]enable-app-analytics            Enable AppExchange App Analytics usage data collection on this managed
                                              package and its components.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Update package details.
@@ -676,10 +691,10 @@ Create a package version in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package version create -v <value> [--json] [--api-version <value>] [-b <value>] [-c | --skip-validation] [-f <value>]
-    [-k <value>] [-x] [-p <value>] [-d <value>] [--post-install-script <value>] [--post-install-url <value>]
-    [--releasenotes-url <value>] [--skip-ancestor-check] [-t <value>] [--uninstall-script <value>] [-e <value>] [-a
-    <value>] [-n <value>] [-w <value>] [--language <value>] [--verbose]
+  $ sf package version create -v <value> [--json] [--flags-dir <value>] [--api-version <value>] [-b <value>] [-c |
+    --skip-validation] [-f <value>] [-k <value>] [-x] [-p <value>] [-d <value>] [--post-install-script <value>]
+    [--post-install-url <value>] [--releasenotes-url <value>] [--skip-ancestor-check] [-t <value>] [--uninstall-script
+    <value>] [-e <value>] [-a <value>] [-n <value>] [-w <value>] [--language <value>] [--verbose]
 
 FLAGS
   -a, --version-name=<value>         Name of the package version to be created; overrides the sfdx-project.json value.
@@ -699,10 +714,10 @@ FLAGS
                                      sfdx-project.json value.
   -p, --package=<value>              ID (starts with 0Ho) or alias of the package to create a version of.
   -t, --tag=<value>                  Package version’s tag.
-  -v, --target-dev-hub=<value>       (required) Username or alias of the Dev Hub org. Not required if the
-                                     `target-dev-hub` configuration variable is already set.
-  -w, --wait=<value>                 [default: 0 minutes] Number of minutes to wait for the package version to be
-                                     created.
+  -v, --target-dev-hub=<value>       (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev
+                                     Hub org. Not required if the `target-dev-hub` configuration variable is already
+                                     set.
+  -w, --wait=<value>                 Number of minutes to wait for the package version to be created.
   -x, --installation-key-bypass      Bypass the installation key requirement. (either --installation-key or
                                      --installation-key-bypass is required)
       --api-version=<value>          Override the api version used for api requests made by this command
@@ -718,7 +733,8 @@ FLAGS
       --verbose                      Display verbose command output.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Create a package version in the Dev Hub org.
@@ -831,23 +847,24 @@ List package version creation requests.
 
 ```
 USAGE
-  $ sf package version create list -v <value> [--json] [--api-version <value>] [-c <value>] [-s Queued|InProgress|Success|Error]
-    [--show-conversions-only] [--verbose]
+  $ sf package version create list -v <value> [--json] [--flags-dir <value>] [--api-version <value>] [-c <value>] [-s
+    Queued|InProgress|Success|Error] [--show-conversions-only] [--verbose]
 
 FLAGS
   -c, --created-last-days=<value>  Number of days since the request was created, starting at 00:00:00 of first day to
                                    now. Use 0 for today.
   -s, --status=<option>            Status of the version creation request, used to filter the list.
                                    <options: Queued|InProgress|Success|Error>
-  -v, --target-dev-hub=<value>     (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                   configuration variable is already set.
+  -v, --target-dev-hub=<value>     (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev
+                                   Hub org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>        Override the api version used for api requests made by this command
       --show-conversions-only      Filter the list output to display only converted package version.
       --verbose                    Displays additional information at a slight performance cost, such as the version
                                    name and number for each package version create request.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   List package version creation requests.
@@ -891,17 +908,19 @@ Retrieve details about a package version creation request.
 
 ```
 USAGE
-  $ sf package version create report -v <value> -i <value> [--json] [--api-version <value>]
+  $ sf package version create report -v <value> -i <value> [--json] [--flags-dir <value>] [--api-version <value>]
 
 FLAGS
   -i, --package-create-request-id=<value>  (required) ID (starts with 08c) of the package version creation request you
                                            want to display.
-  -v, --target-dev-hub=<value>             (required) Username or alias of the Dev Hub org. Not required if the
-                                           `target-dev-hub` configuration variable is already set.
+  -v, --target-dev-hub=<value>             (required) [default: admin@integrationtesthubna40.org] Username or alias of
+                                           the Dev Hub org. Not required if the `target-dev-hub` configuration variable
+                                           is already set.
       --api-version=<value>                Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Retrieve details about a package version creation request.
@@ -933,17 +952,18 @@ Delete a package version.
 
 ```
 USAGE
-  $ sf package version delete -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package version delete -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don’t prompt before deleting the package version.
   -p, --package=<value>         (required) ID (starts with 04t) or alias of the package version to delete.
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Delete a package version.
@@ -971,20 +991,22 @@ Display the ancestry tree for a 2GP managed package version.
 
 ```
 USAGE
-  $ sf package version displayancestry -v <value> -p <value> [--json] [--api-version <value>] [--dot-code] [--verbose]
+  $ sf package version displayancestry -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [--dot-code]
+    [--verbose]
 
 FLAGS
   -p, --package=<value>         (required) ID or alias of the package (starts with 0Ho) or package version (starts with
                                 04t) to display ancestry for.
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
       --dot-code                Display the ancestry tree in DOT code.
       --verbose                 Display both the package version ID (starts with 04t) and the version number
                                 (major.minor.patch.build) in the ancestry tree.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 ALIASES
   $ sf force package version displayancestry
@@ -1029,8 +1051,8 @@ List all package versions in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package version list -v <value> [--json] [--api-version <value>] [-c <value>] [--concise] [--show-conversions-only]
-    [-m <value>] [-p <value>] [-r] [-o <value>] [--verbose]
+  $ sf package version list -v <value> [--json] [--flags-dir <value>] [--api-version <value>] [-c <value>] [--concise]
+    [--show-conversions-only] [-m <value>] [-p <value>] [-r] [-o <value>] [--verbose]
 
 FLAGS
   -c, --created-last-days=<value>   Number of days since the request was created, starting at 00:00:00 of first day to
@@ -1040,15 +1062,16 @@ FLAGS
   -o, --order-by=<value>            Package version fields used to order the list.
   -p, --packages=<value>            Comma-delimited list of packages (aliases or 0Ho IDs) to list.
   -r, --released                    Display released versions only (IsReleased=true).
-  -v, --target-dev-hub=<value>      (required) Username or alias of the Dev Hub org. Not required if the
-                                    `target-dev-hub` configuration variable is already set.
+  -v, --target-dev-hub=<value>      (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev
+                                    Hub org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>         Override the api version used for api requests made by this command
       --concise                     Display limited package version details.
       --show-conversions-only       Filter the list output to display only converted package version.
       --verbose                     Display extended package version details.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   List all package versions in the Dev Hub org.
@@ -1097,17 +1120,18 @@ Promote a package version to released.
 
 ```
 USAGE
-  $ sf package version promote -v <value> -p <value> [--json] [--api-version <value>] [-n]
+  $ sf package version promote -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-n]
 
 FLAGS
   -n, --no-prompt               Don't prompt to confirm setting the package version as released.
   -p, --package=<value>         (required) ID (starts with 04t) or alias of the package version to promote.
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Promote a package version to released.
@@ -1140,17 +1164,18 @@ Retrieve details about a package version in the Dev Hub org.
 
 ```
 USAGE
-  $ sf package version report -v <value> -p <value> [--json] [--api-version <value>] [--verbose]
+  $ sf package version report -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [--verbose]
 
 FLAGS
   -p, --package=<value>         (required) ID (starts with 04t) or alias of the package to retrieve details for.
-  -v, --target-dev-hub=<value>  (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
-                                configuration variable is already set.
+  -v, --target-dev-hub=<value>  (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev Hub
+                                org. Not required if the `target-dev-hub` configuration variable is already set.
       --api-version=<value>     Override the api version used for api requests made by this command
       --verbose                 Display extended package version details.
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Retrieve details about a package version in the Dev Hub org.
@@ -1179,8 +1204,8 @@ Update a package version.
 
 ```
 USAGE
-  $ sf package version update -v <value> -p <value> [--json] [--api-version <value>] [-a <value>] [-e <value>] [-b <value>]
-    [-t <value>] [-k <value>]
+  $ sf package version update -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-a <value>] [-e
+    <value>] [-b <value>] [-t <value>] [-k <value>]
 
 FLAGS
   -a, --version-name=<value>         New package version name.
@@ -1189,12 +1214,14 @@ FLAGS
   -k, --installation-key=<value>     New installation key for key-protected package (default: null)
   -p, --package=<value>              (required) ID (starts with 04t) or alias of the package to update a version of.
   -t, --tag=<value>                  New package version tag.
-  -v, --target-dev-hub=<value>       (required) Username or alias of the Dev Hub org. Not required if the
-                                     `target-dev-hub` configuration variable is already set.
+  -v, --target-dev-hub=<value>       (required) [default: admin@integrationtesthubna40.org] Username or alias of the Dev
+                                     Hub org. Not required if the `target-dev-hub` configuration variable is already
+                                     set.
       --api-version=<value>          Override the api version used for api requests made by this command
 
 GLOBAL FLAGS
-  --json  Format output as json.
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
 
 DESCRIPTION
   Update a package version.

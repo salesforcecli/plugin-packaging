@@ -47,7 +47,7 @@ describe('package create/update/delete', () => {
         const errOut = execCmd(command, { ensureExitCode: 1 }).shellOutput.stderr;
         expect(errOut).to.contain('App Analytics is only available for managed packages');
       }
-    })
+    });
     it('should delete a package - human readable results', () => {
       const command = `package:delete -p ${pkgName} -v ${session.hubOrg.username} --no-prompt`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;

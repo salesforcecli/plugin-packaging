@@ -184,10 +184,10 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       void Lifecycle.getInstance().emitTelemetry({ Name: 'PathAndPackageFlag' });
     }
 
-    if (flags.skipvalidation) {
+    if (flags['skip-validation']) {
       this.warn(messages.getMessage('skip-validation-warning'));
     }
-    const frequency = flags.wait && flags.skipvalidation ? Duration.seconds(5) : Duration.seconds(30);
+    const frequency = flags.wait && flags['skip-validation'] ? Duration.seconds(5) : Duration.seconds(30);
     Lifecycle.getInstance().on(
       PackageVersionEvents.create.progress,
       // no async methods
