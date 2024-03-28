@@ -1,3 +1,9 @@
+# [2.3.0](https://github.com/salesforcecli/plugin-packaging/compare/2.2.0...2.3.0) (2024-03-28)
+
+### Features
+
+- library bump for sdr/customReg ([cfb8906](https://github.com/salesforcecli/plugin-packaging/commit/cfb89065eb14699515d91ffde1ffac5e0ce52bdb))
+
 # [2.2.0](https://github.com/salesforcecli/plugin-packaging/compare/2.1.12...2.2.0) (2024-03-25)
 
 ### Features
