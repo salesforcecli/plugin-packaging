@@ -5967,10 +5967,10 @@ obliterator@^2.0.1, obliterator@^2.0.2:
   resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
   integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
 
-oclif@^4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.7.0.tgz#c833b9dd0d0c263e35a42aa38978ec2c54b9ba69"
-  integrity sha512-HGlX843hEBNSggaOEhht0EBYFW+xUG/6v6LZFRG09Ysk4OHDzU6CS5jdFu0KbiMPQD4PV8Gm5XwWQYxbV8by9g==
+oclif@^4.7.1:
+  version "4.7.1"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.7.1.tgz#377f7babdee62b428fca0c6c6015663b7cf91eee"
+  integrity sha512-6GGtbKISjlyxH6QK9jVw0nYf0uaHg26L+B+ke7gJEqjVQ6O23D6Eu/O7xxvt+Tj7/6Hnt0AVNL/vy7tBJ4W37w==
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.535.0"
     "@aws-sdk/client-s3" "^3.535.0"
