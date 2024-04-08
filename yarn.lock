@@ -1449,16 +1449,16 @@
     "@salesforce/ts-types" "^2.0.9"
     tslib "^2.6.2"
 
-"@salesforce/packaging@^3.2.34":
-  version "3.2.34"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.2.34.tgz#aaca9338569f5d69f385f488b3b1df948fc79080"
-  integrity sha512-56+vumYMV3es/4GeDsRSM97dZBj1htKma3LHpAodguueYjQVqqIFJ4IH7Nx3y4JCAaRff9SBK5+mHs1RqUJnJg==
+"@salesforce/packaging@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-3.4.0.tgz#5f40b77a6403e35e9d252ce8f63cc209cce8d988"
+  integrity sha512-ZT9SomoxxYxBS7kOZAujWIaBBDeOO1iNpyBLGV1JRg45Ek68kMoZUdEkHXnH4jJrDvrnLBnM4q8/sdDkhzO/iA==
   dependencies:
     "@oclif/core" "^3"
-    "@salesforce/core" "^6.7.3"
-    "@salesforce/kit" "^3.0.15"
-    "@salesforce/schemas" "^1.6.1"
-    "@salesforce/source-deploy-retrieve" "^10.6.1"
+    "@salesforce/core" "^6.7.6"
+    "@salesforce/kit" "^3.1.0"
+    "@salesforce/schemas" "^1.7.0"
+    "@salesforce/source-deploy-retrieve" "^10.7.0"
     "@salesforce/ts-types" "^2.0.9"
     fast-xml-parser "^4.3.6"
     globby "^11"
@@ -1486,11 +1486,6 @@
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@salesforce/prettier-config/-/prettier-config-0.0.3.tgz#ba648d4886bb38adabe073dbea0b3a91b3753bb0"
   integrity sha512-hYOhoPTCSYMDYn+U1rlEk16PoBeAJPkrdg4/UtAzupM1mRRJOwEPMG1d7U8DxJFKuXW3DMEYWr2MwAIBDaHmFg==
-
-"@salesforce/schemas@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.6.1.tgz#7d1c071e1e509ca9d2d8a6e48ac7447dd67a534d"
-  integrity sha512-eVy947ZMxCJReKJdgfddUIsBIbPTa/i8RwQGwxq4/ss38H5sLOAeSTaun9V7HpJ1hkpDznWKfgzYvjsst9K6ig==
 
 "@salesforce/schemas@^1.7.0":
   version "1.7.0"
@@ -1523,16 +1518,16 @@
     "@salesforce/ts-types" "^2.0.9"
     chalk "^5.3.0"
 
-"@salesforce/source-deploy-retrieve@^10.6.1":
-  version "10.6.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.6.1.tgz#d153168c5870ce051a6e397df00083da1e6a8106"
-  integrity sha512-AdX0rlMNw88kD4jTqdW7uxl6wTd+WTESHEH5Vj8e9Fj2cC8pZj5BwDMYbU/cVFFbQoEBjqqnxwJC6ziPw83Bsw==
+"@salesforce/source-deploy-retrieve@^10.7.0":
+  version "10.9.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-10.9.1.tgz#315981e58e684b4fe49dd812b3e3c6a3daf92bf6"
+  integrity sha512-FmSO6F4DFv7CqtFIzs0v8yuMlEie+hG2fq7QrBmhBxd6+1WNfk7wM3vXZyO0zOv9uarkILStB5+Dy91DYVrRHw==
   dependencies:
     "@salesforce/core" "^6.7.3"
     "@salesforce/kit" "^3.1.0"
     "@salesforce/ts-types" "^2.0.9"
     fast-levenshtein "^3.0.0"
-    fast-xml-parser "^4.3.5"
+    fast-xml-parser "^4.3.6"
     got "^11.8.6"
     graceful-fs "^4.2.11"
     ignore "^5.3.1"
@@ -3955,7 +3950,7 @@ fast-xml-parser@4.2.5:
   dependencies:
     strnum "^1.0.5"
 
-fast-xml-parser@^4.3.5, fast-xml-parser@^4.3.6:
+fast-xml-parser@^4.3.6:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.3.6.tgz#190f9d99097f0c8f2d3a0e681a10404afca052ff"
   integrity sha512-M2SovcRxD4+vC493Uc2GZVcZaj66CCJhWurC4viynVSTvrpErCShNcDz1lAho6n9REQKvL/ll4A4/fw6Y9z8nw==
