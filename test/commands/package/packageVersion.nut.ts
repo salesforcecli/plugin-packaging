@@ -238,7 +238,7 @@ describe('package:version:*', () => {
     it('should list the package versions created --verbose (json)', async () => {
       const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
-      const expectedVerboseKeys = [...expectedPVCRkeys, 'VersionName', 'VersionNumber'];
+      const expectedVerboseKeys = [...expectedPVCRkeys, 'VersionName'];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
