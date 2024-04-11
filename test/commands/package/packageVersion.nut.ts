@@ -39,6 +39,8 @@ const expectedPVCRkeys = [
   'HasPassedCodeCoverageCheck',
   'CreatedBy',
   'ConvertedFromVersionId',
+  'CodeCoverage',
+  'VersionNumber',
 ];
 
 describe('package:version:*', () => {
