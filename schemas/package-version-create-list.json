@@ -12,7 +12,7 @@
             "type": "string"
           },
           "VersionNumber": {
-            "type": "string"
+            "type": ["string", "null"]
           },
           "Id": {
             "type": "string"
@@ -51,6 +51,9 @@
           "HasPassedCodeCoverageCheck": {
             "type": ["boolean", "null"]
           },
+          "CodeCoverage": {
+            "type": ["number", "null"]
+          },
           "CreatedBy": {
             "type": "string"
           },
@@ -60,6 +63,7 @@
         },
         "required": [
           "Branch",
+          "CodeCoverage",
           "ConvertedFromVersionId",
           "CreatedBy",
           "CreatedDate",
@@ -72,7 +76,8 @@
           "Package2VersionId",
           "Status",
           "SubscriberPackageVersionId",
-          "Tag"
+          "Tag",
+          "VersionNumber"
         ]
       }
     },
