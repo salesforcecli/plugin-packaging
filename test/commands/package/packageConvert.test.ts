@@ -5,9 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { expect } from 'chai';
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
+import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
-import { Package, PackagingSObjects } from '@salesforce/packaging';
+import { Package, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
 import sinon from 'sinon';
 import { PackageConvert } from '../../../src/commands/package/convert.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -67,7 +67,9 @@ describe('package:convert', () => {
       Status: Package2VersionStatus.inProgress,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
       Tag: '',
-    };
+      CodeCoverage: null,
+      VersionNumber: null,
+    } satisfies PackageVersionCreateRequestResult;
 
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const cmd = new PackageConvert(
@@ -96,6 +98,8 @@ describe('package:convert', () => {
       Status: Package2VersionStatus.success,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
       Tag: '',
+      CodeCoverage: null,
+      VersionNumber: null,
     };
 
     convertStub.restore();
@@ -124,6 +128,8 @@ describe('package:convert', () => {
       Status: Package2VersionStatus.error,
       SubscriberPackageVersionId: '04t3i000002OUEkAAO',
       Tag: '',
+      CodeCoverage: null,
+      VersionNumber: null,
     };
 
     convertStub.restore();
