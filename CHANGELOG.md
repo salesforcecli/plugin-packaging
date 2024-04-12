@@ -1,3 +1,9 @@
+# [2.4.0](https://github.com/salesforcecli/plugin-packaging/compare/2.3.0...2.4.0) (2024-04-12)
+
+### Features
+
+- core7, jsforce-node, etc ([#635](https://github.com/salesforcecli/plugin-packaging/issues/635)) ([77c9f80](https://github.com/salesforcecli/plugin-packaging/commit/77c9f80587de61c4805d6940deed2839332bf201))
+
 # [2.3.0](https://github.com/salesforcecli/plugin-packaging/compare/2.2.0...2.3.0) (2024-03-28)
 
 ### Features
