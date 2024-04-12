@@ -48,6 +48,12 @@
         "HasPassedCodeCoverageCheck": {
           "type": ["boolean", "null"]
         },
+        "CodeCoverage": {
+          "type": ["number", "null"]
+        },
+        "VersionNumber": {
+          "type": ["string", "null"]
+        },
         "CreatedBy": {
           "type": "string"
         },
@@ -68,6 +74,8 @@
         "CreatedDate",
         "HasMetadataRemoved",
         "HasPassedCodeCoverageCheck",
+        "CodeCoverage",
+        "VersionNumber",
         "CreatedBy",
         "ConvertedFromVersionId"
       ],

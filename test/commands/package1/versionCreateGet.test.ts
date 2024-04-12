@@ -4,7 +4,7 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { MockTestOrgData, TestContext } from '@salesforce/core/lib/testSetup.js';
+import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
@@ -128,7 +128,7 @@ describe('package1:version:create:get', () => {
         config
       ).run();
 
-      assert.fail('the above should throw an erorr, from the ERROR status');
+      assert.fail('the above should throw an error, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.match(/Package upload failed\.\s+message1/);
     }
@@ -142,7 +142,7 @@ describe('package1:version:create:get', () => {
         config
       ).run();
 
-      assert.fail('the above should throw an erorr, from the ERROR status');
+      assert.fail('the above should throw an error, from the ERROR status');
     } catch (e) {
       expect((e as Error).message).to.match(/Package upload failed\.\s+message1\s+message2/);
     }
