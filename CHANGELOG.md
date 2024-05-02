@@ -1,3 +1,9 @@
+## [2.4.2](https://github.com/salesforcecli/plugin-packaging/compare/2.4.1...2.4.2) (2024-05-02)
+
+### Bug Fixes
+
+- **deps:** bump ejs from 3.1.9 to 3.1.10 ([abdeedc](https://github.com/salesforcecli/plugin-packaging/commit/abdeedc1d6063a4cf7705edafd8a05829da68e3a))
+
 ## [2.4.1](https://github.com/salesforcecli/plugin-packaging/compare/2.4.0...2.4.1) (2024-04-27)
 
 ### Bug Fixes
