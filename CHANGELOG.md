@@ -1,3 +1,11 @@
+## [2.4.3](https://github.com/salesforcecli/plugin-packaging/compare/2.4.2...2.4.3) (2024-05-10)
+
+### Bug Fixes
+
+- bump deps for the packaging lib and core ([583a4c0](https://github.com/salesforcecli/plugin-packaging/commit/583a4c07aa842e6c041bcf9e114fcbf738b070c2))
+- bump oclif core ([13e842b](https://github.com/salesforcecli/plugin-packaging/commit/13e842b48f85c7b3bd5b86749c34454e26a0b381))
+- bump sf-plugins-core ([a8cec09](https://github.com/salesforcecli/plugin-packaging/commit/a8cec098b3d5c465178e693e1e66716684568fff))
+
 ## [2.4.2](https://github.com/salesforcecli/plugin-packaging/compare/2.4.1...2.4.2) (2024-05-02)
 
 ### Bug Fixes
