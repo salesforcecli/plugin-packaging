@@ -1,3 +1,9 @@
+## [2.4.4](https://github.com/salesforcecli/plugin-packaging/compare/2.4.3...2.4.4) (2024-05-14)
+
+### Bug Fixes
+
+- bumps versions of pkg lib, core and plugins core ([a8e48bb](https://github.com/salesforcecli/plugin-packaging/commit/a8e48bb8d12378d8b0b90fc0bae63dbc26591930))
+
 ## [2.4.3](https://github.com/salesforcecli/plugin-packaging/compare/2.4.2...2.4.3) (2024-05-10)
 
 ### Bug Fixes
