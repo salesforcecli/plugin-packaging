@@ -606,20 +606,12 @@
     "@smithy/types" "^3.0.0"
     tslib "^2.6.2"
 
-"@aws-sdk/types@3.575.0":
+"@aws-sdk/types@3.575.0", "@aws-sdk/types@^3.222.0":
   version "3.575.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.575.0.tgz#ed8f33e15c7ea22b5244018330475983d0558556"
   integrity sha512-XrnolQGs0wXxdgNudirR14OgNOarH7WUif38+2Pd4onZH+L7XoILem0EgA1tRpgFpw2pFHlZCNaAHDNSBEal7g==
   dependencies:
     "@smithy/types" "^3.0.0"
-    tslib "^2.6.2"
-
-"@aws-sdk/types@^3.222.0":
-  version "3.567.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.567.0.tgz#b2dc88e154140b1ff87e94f63c97447bdb1c1738"
-  integrity sha512-JBznu45cdgQb8+T/Zab7WpBmfEAh77gsk99xuF4biIb2Sw1mdseONdoGDjEJX57a25TzIv/WUJ2oABWumckz1A==
-  dependencies:
-    "@smithy/types" "^2.12.0"
     tslib "^2.6.2"
 
 "@aws-sdk/util-arn-parser@3.568.0":
@@ -1454,30 +1446,7 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.0"
 
-"@salesforce/core@^7.0.0", "@salesforce/core@^7.3.1", "@salesforce/core@^7.3.3", "@salesforce/core@^7.3.5":
-  version "7.3.5"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-7.3.5.tgz#0dccb4d8ddd36cde449d67a482dfb52e63de1c9f"
-  integrity sha512-9hkK4EyV1Z7T1mDyb/Rj1dO0Owp3f2PNGXSyQhCG2nozSCxAQlPeFFqn2L3d7kJJxdhlr58P4QXiFCoJVVvbLQ==
-  dependencies:
-    "@jsforce/jsforce-node" "^3.2.0"
-    "@salesforce/kit" "^3.1.1"
-    "@salesforce/schemas" "^1.7.0"
-    "@salesforce/ts-types" "^2.0.9"
-    ajv "^8.13.0"
-    change-case "^4.1.2"
-    faye "^1.4.0"
-    form-data "^4.0.0"
-    js2xmlparser "^4.0.1"
-    jsonwebtoken "9.0.2"
-    jszip "3.10.1"
-    pino "^8.21.0"
-    pino-abstract-transport "^1.1.0"
-    pino-pretty "^10.3.1"
-    proper-lockfile "^4.1.2"
-    semver "^7.6.0"
-    ts-retry-promise "^0.7.1"
-
-"@salesforce/core@^7.3.6":
+"@salesforce/core@^7.0.0", "@salesforce/core@^7.3.1", "@salesforce/core@^7.3.5", "@salesforce/core@^7.3.6":
   version "7.3.6"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-7.3.6.tgz#b2769abf3d8cee6fef26741dd9bdbe977a497023"
   integrity sha512-LngaY4GxixZ7X5oPGa00NdRzpqTXC8jPOQ/H+oFNiZb8nhMfYTBsQob258z33sIBf+G/5RZOJgX10Z+teJzt6A==
@@ -1505,10 +1474,10 @@
   resolved "https://registry.yarnpkg.com/@salesforce/dev-config/-/dev-config-4.1.0.tgz#e529576466d074e7a5f1441236510fef123da01e"
   integrity sha512-2iDDepiIwjXHS5IVY7pwv8jMo4xWosJ7p/UTj+lllpB/gnJiYLhjJPE4Z3FCGFKyvfg5jGaimCd8Ca6bLGsCQA==
 
-"@salesforce/dev-scripts@^9.1.1":
-  version "9.1.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-9.1.1.tgz#16028018f3146d0fe28a4693114e3ad2b8075e05"
-  integrity sha512-Nl0jJt6ywPw8QtBa0scZxJeGUEwJl2t2MazZxkXBkdfi13I1ce6NQ6Ce2CYCgh8gsKVP65NWBdyBWRoTz1BMBA==
+"@salesforce/dev-scripts@^9.1.2":
+  version "9.1.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/dev-scripts/-/dev-scripts-9.1.2.tgz#41180b427bc4d97acd6667410f6b7642bfc000fe"
+  integrity sha512-ZVNL2j3rU+qDZ6G1nxu6pV8HFdru2L9PYL//npEmvnofwt4j8fmYiZD39K8ljLN3RxT7X1//b55R1h0DbcgeLA==
   dependencies:
     "@commitlint/cli" "^17.1.2"
     "@commitlint/config-conventional" "^17.8.1"
@@ -1589,7 +1558,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.7.0.tgz#b7e0af3ee414ae7160bce351c0184d77ccb98fe3"
   integrity sha512-Z0PiCEV55khm0PG+DsnRYCjaDmacNe3HDmsoSm/CSyYvJJm+D5vvkHKN9/PKD/gaRe8XAU836yfamIYFblLINw==
 
-"@salesforce/sf-plugins-core@^9.0.10":
+"@salesforce/sf-plugins-core@^9.0.10", "@salesforce/sf-plugins-core@^9.0.5":
   version "9.0.10"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.0.10.tgz#fb576664906f085cb160201163d3c6b05e39e72f"
   integrity sha512-vj6tjqRAweTuzxi7OBPsqC+kLPk6pl6wZUtpC8bf+CKqrVhouPtZUBnG01Xm0jG6Antjgn0vZrd26j23Yjs9Kw==
@@ -1599,19 +1568,6 @@
     "@oclif/core" "^3.26.6"
     "@salesforce/core" "^7.3.6"
     "@salesforce/kit" "^3.1.1"
-    "@salesforce/ts-types" "^2.0.9"
-    chalk "^5.3.0"
-
-"@salesforce/sf-plugins-core@^9.0.5":
-  version "9.0.7"
-  resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-9.0.7.tgz#77ffc67df994e0cec205827462811f521e3086ba"
-  integrity sha512-5F6/ax7welNZrizpl9QSQmGADqlCzFDB8t8I5P/n2LplMb3CwJRrZPcOZxJNnhlfXNlLrYtoShv2C+yrxgqYUA==
-  dependencies:
-    "@inquirer/confirm" "^2.0.17"
-    "@inquirer/password" "^1.1.16"
-    "@oclif/core" "^3.26.5"
-    "@salesforce/core" "^7.3.3"
-    "@salesforce/kit" "^3.1.0"
     "@salesforce/ts-types" "^2.0.9"
     chalk "^5.3.0"
 
@@ -2031,13 +1987,6 @@
     "@smithy/protocol-http" "^4.0.0"
     "@smithy/types" "^3.0.0"
     "@smithy/util-stream" "^3.0.0"
-    tslib "^2.6.2"
-
-"@smithy/types@^2.12.0":
-  version "2.12.0"
-  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-2.12.0.tgz#c44845f8ba07e5e8c88eda5aed7e6a0c462da041"
-  integrity sha512-QwYgloJ0sVNBeBuBs65cIkTbfzV/Q6ZNPCJ99EICFEdJYG50nGIY/uYXp+TbsdJReIuPr0a0kXmCvren3MbRRw==
-  dependencies:
     tslib "^2.6.2"
 
 "@smithy/types@^3.0.0":
@@ -5439,7 +5388,7 @@ lowercase-keys@^3.0.0:
   resolved "https://registry.yarnpkg.com/lowercase-keys/-/lowercase-keys-3.0.0.tgz#c5e7d442e37ead247ae9db117a9d0a467c89d4f2"
   integrity sha512-ozCC6gdQ+glXOQsveKD0YsDy8DSQFjDTz4zyzEHNV5+JP5D62LmfDZ6o1cycFx9ouG940M5dE8C8CTewdj2YWQ==
 
-lru-cache@^10.0.1:
+lru-cache@^10.0.1, "lru-cache@^9.1.1 || ^10.0.0":
   version "10.2.2"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.2.2.tgz#48206bc114c1252940c41b25b41af5b545aca878"
   integrity sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==
@@ -5462,11 +5411,6 @@ lru-cache@^7.14.1:
   version "7.18.3"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.18.3.tgz#f793896e0fd0e954a59dfdd82f0773808df6aa89"
   integrity sha512-jumlc0BIUrS3qJGgIkWZsyfAM7NCWiBcCDhnd+3NNM5KbBmLTgHVfWBcg6W+rLUsIpzpERPsvwUP7CckAQSOoA==
-
-"lru-cache@^9.1.1 || ^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.0.0.tgz#b9e2a6a72a129d81ab317202d93c7691df727e61"
-  integrity sha512-svTf/fzsKHffP42sujkO/Rjs37BCIsQVRCeNYIm9WN8rgT7ffoUnRtZCqU+6BqcSBdv8gwJeTz8knJpgACeQMw==
 
 lunr@^2.3.9:
   version "2.3.9"
