@@ -121,7 +121,15 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       summary: messages.getMessage('flags.skip-validation.summary'),
       description: messages.getMessage('flags.skip-validation.description'),
       default: false,
-      exclusive: ['code-coverage'],
+      exclusive: ['code-coverage', 'async-validation'],
+    }),
+    'async-validation': Flags.boolean({
+      deprecateAliases: true,
+      aliases: ['asyncvalidation'],
+      summary: messages.getMessage('flags.async-validation.summary'),
+      description: messages.getMessage('flags.async-validation.description'),
+      default: false,
+      exclusive: ['skip-validation'],
     }),
     tag: Flags.string({
       char: 't',
@@ -193,8 +201,17 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
-        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
-          const status = messages.getMessage('packageVersionCreateWaitingStatus', [
+        let status: string;
+
+        if (data.Status === Package2VersionStatus.performingValidations && flags['async-validation']) {
+          status = messages.getMessage('packageVersionCreatePerformingValidations');
+          if (flags.verbose) {
+            this.log(status);
+          } else {
+            this.spinner.status = status;
+          }
+        } else if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
+          status = messages.getMessage('packageVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.Status,
           ]);

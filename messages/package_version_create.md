@@ -33,6 +33,10 @@ We don’t calculate code coverage for org-dependent unlocked packages, or for p
 
   <%= config.bin %> <%= command.id %> --path common --installation-key password123 --skip-validation
 
+- Create a package version and perform package validations asynchronously:
+
+  <%= config.bin %> <%= command.id %> --path common --installation-key password123 --async-validation
+
 # flags.package.summary
 
 ID (starts with 0Ho) or alias of the package to create a version of.
@@ -129,6 +133,14 @@ Skips validation of dependencies, package ancestors, and metadata during package
 
 Skipping validation suppresses errors that usually surface during package version creation. Instead, these errors surface at a later stage, such as installation or post-installation. If you encounter errors that are difficult to debug, retry package version creation without the --skip-validation parameter.
 
+# flags.async-validation.summary
+
+Return a new package version before completing package validations.
+
+# flags.async-validation.description
+
+Specifying async validation returns the package version earlier in the process, allowing you to install and test the new version right away. If your development team is using continuous integration (CI) scripts, async validation can reduce your overall CI run time.
+
 # flags.skip-ancestor-check.summary
 
 Overrides ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
@@ -198,6 +210,11 @@ Version create.
 # packageVersionCreateWaitingStatus
 
 %d minutes remaining until timeout. Create version status: %s
+
+# packageVersionCreatePerformingValidations
+
+We're finishing up validations on our end. In the meantime feel free
+to use this package version to perform validations yourself.
 
 # packageVersionCreateFinalStatus
 
