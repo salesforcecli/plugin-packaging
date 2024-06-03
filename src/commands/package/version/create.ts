@@ -203,14 +203,15 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       async (data: PackageVersionCreateReportProgress) => {
         let status: string;
 
-        if (flags['async-validation'] && data.Status === Package2VersionStatus.performingValidations) {
-          status = messages.getMessage('packageVersionCreatePerformingValidations');
-          if (flags.verbose) {
-            this.log(status);
-          } else {
-            this.spinner.status = status;
-          }
-        } else if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
+        // if (flags['async-validation'] && data.Status === Package2VersionStatus.performingValidations) {
+        //   status = messages.getMessage('packageVersionCreatePerformingValidations');
+        //   if (flags.verbose) {
+        //     this.log(status);
+        //   } else {
+        //     this.spinner.status = status;
+        //   }
+        // } else
+        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
           status = messages.getMessage('packageVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.Status,
