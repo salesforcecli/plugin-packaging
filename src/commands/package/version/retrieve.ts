@@ -13,7 +13,7 @@ import {
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core/messages';
 import { Package, PackageVersionMetadataDownloadResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);

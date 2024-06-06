@@ -10,7 +10,7 @@ import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-t
 import { expect } from 'chai';
 import { PackageSaveResult, PackageVersionCreateRequestResult } from '@salesforce/packaging';
 import { Duration } from '@salesforce/kit';
-import { Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core/messages';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_update');
