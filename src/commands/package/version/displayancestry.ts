@@ -6,7 +6,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core/messages';
 import { Package, PackageAncestryNodeData } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
