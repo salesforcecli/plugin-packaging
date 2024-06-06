@@ -5,9 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand, Ux } from '@salesforce/sf-plugins-core';
 import { Messages, SfProject } from '@salesforce/core';
-import { ux } from '@oclif/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -202,7 +201,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         });
       });
       this.styledHeader(`Package Versions [${results.length}]`);
-      this.table(results, this.getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
+      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
         'no-truncate': true,
       });
     } else {
@@ -211,79 +210,78 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 
     return results;
   }
+}
 
-  // eslint-disable-next-line class-methods-use-this
-  private getColumnData(
-    concise: boolean,
-    verbose: boolean,
-    conversions: boolean
-  ): ux.Table.table.Columns<Record<string, unknown>> {
-    if (concise) {
-      return {
-        Package2Id: { header: messages.getMessage('package-id') },
-        Version: { header: messages.getMessage('version') },
-        SubscriberPackageVersionId: {
-          header: messages.getMessage('subscriberPackageVersionId'),
-        },
-        IsReleased: { header: 'Released' },
-      };
-    }
-    let defaultCols = {
-      Package2Name: { header: 'Package Name' },
-      NamespacePrefix: { header: 'Namespace' },
-      Name: { header: 'Version Name' },
+const getColumnData = (
+  concise: boolean,
+  verbose: boolean,
+  conversions: boolean
+): Ux.Table.Columns<Record<string, unknown>> => {
+  if (concise) {
+    return {
+      Package2Id: { header: messages.getMessage('package-id') },
       Version: { header: messages.getMessage('version') },
       SubscriberPackageVersionId: {
         header: messages.getMessage('subscriberPackageVersionId'),
       },
-      Alias: { header: messages.getMessage('alias') },
-      IsPasswordProtected: { header: messages.getMessage('installKey') },
       IsReleased: { header: 'Released' },
-      ValidationSkipped: { header: messages.getMessage('validationSkipped') },
-      AncestorId: { header: 'Ancestor' },
-      AncestorVersion: { header: 'Ancestor Version' },
-      Branch: { header: messages.getMessage('packageBranch') },
     };
-
-    if (conversions && !verbose) {
-      defaultCols = Object.assign(defaultCols, {
-        ConvertedFromVersionId: {
-          header: messages.getMessage('convertedFromVersionId'),
-        },
-      });
-    }
-
-    if (!verbose) {
-      return defaultCols;
-    } else {
-      // add additional columns for verbose output
-      return {
-        ...defaultCols,
-        Package2Id: { header: messages.getMessage('package-id') },
-        InstallUrl: { header: messages.getMessage('installUrl') },
-        Id: { header: messages.getMessage('id') },
-        CreatedDate: { header: 'Created Date' },
-        LastModifiedDate: { header: 'Last Modified Date' },
-        Tag: { header: messages.getMessage('packageTag') },
-        Description: { header: messages.getMessage('description') },
-        CodeCoverage: { header: messages.getMessage('codeCoverage') },
-        HasPassedCodeCoverageCheck: {
-          header: messages.getMessage('hasPassedCodeCoverageCheck'),
-        },
-        ConvertedFromVersionId: {
-          header: messages.getMessage('convertedFromVersionId'),
-        },
-        IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
-        ReleaseVersion: { header: messages.getMessage('releaseVersion') },
-        BuildDurationInSeconds: {
-          header: messages.getMessage('buildDurationInSeconds'),
-        },
-        HasMetadataRemoved: {
-          header: messages.getMessage('hasMetadataRemoved'),
-        },
-        CreatedBy: { header: messages.getMessage('createdBy') },
-        Language: { header: messages.getMessage('language') },
-      };
-    }
   }
-}
+  let defaultCols = {
+    Package2Name: { header: 'Package Name' },
+    NamespacePrefix: { header: 'Namespace' },
+    Name: { header: 'Version Name' },
+    Version: { header: messages.getMessage('version') },
+    SubscriberPackageVersionId: {
+      header: messages.getMessage('subscriberPackageVersionId'),
+    },
+    Alias: { header: messages.getMessage('alias') },
+    IsPasswordProtected: { header: messages.getMessage('installKey') },
+    IsReleased: { header: 'Released' },
+    ValidationSkipped: { header: messages.getMessage('validationSkipped') },
+    AncestorId: { header: 'Ancestor' },
+    AncestorVersion: { header: 'Ancestor Version' },
+    Branch: { header: messages.getMessage('packageBranch') },
+  };
+
+  if (conversions && !verbose) {
+    defaultCols = Object.assign(defaultCols, {
+      ConvertedFromVersionId: {
+        header: messages.getMessage('convertedFromVersionId'),
+      },
+    });
+  }
+
+  if (!verbose) {
+    return defaultCols;
+  } else {
+    // add additional columns for verbose output
+    return {
+      ...defaultCols,
+      Package2Id: { header: messages.getMessage('package-id') },
+      InstallUrl: { header: messages.getMessage('installUrl') },
+      Id: { header: messages.getMessage('id') },
+      CreatedDate: { header: 'Created Date' },
+      LastModifiedDate: { header: 'Last Modified Date' },
+      Tag: { header: messages.getMessage('packageTag') },
+      Description: { header: messages.getMessage('description') },
+      CodeCoverage: { header: messages.getMessage('codeCoverage') },
+      HasPassedCodeCoverageCheck: {
+        header: messages.getMessage('hasPassedCodeCoverageCheck'),
+      },
+      ConvertedFromVersionId: {
+        header: messages.getMessage('convertedFromVersionId'),
+      },
+      IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
+      ReleaseVersion: { header: messages.getMessage('releaseVersion') },
+      BuildDurationInSeconds: {
+        header: messages.getMessage('buildDurationInSeconds'),
+      },
+      HasMetadataRemoved: {
+        header: messages.getMessage('hasMetadataRemoved'),
+      },
+      CreatedBy: { header: messages.getMessage('createdBy') },
+      Language: { header: messages.getMessage('language') },
+    };
+  }
+};

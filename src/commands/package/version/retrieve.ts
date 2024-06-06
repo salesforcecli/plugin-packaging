@@ -14,7 +14,6 @@ import {
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { ux } from '@oclif/core';
 import { Package, PackageVersionMetadataDownloadResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -82,18 +81,15 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
       }
     });
 
-    const columnData: ux.Table.table.Columns<Record<string, unknown>> = {
-      fullName: {
-        header: messages.getMessage('headers.fullName'),
+    this.table(
+      results,
+      {
+        fullName: { header: messages.getMessage('headers.fullName') },
+        type: { header: messages.getMessage('headers.type') },
+        filePath: { header: messages.getMessage('headers.filePath') },
       },
-      type: {
-        header: messages.getMessage('headers.type'),
-      },
-      filePath: {
-        header: messages.getMessage('headers.filePath'),
-      },
-    };
-    this.table(results, columnData, { 'no-truncate': true });
+      { 'no-truncate': true }
+    );
 
     return results;
   }
