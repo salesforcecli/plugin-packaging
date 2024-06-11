@@ -518,7 +518,7 @@ Create a package version in the Dev Hub org.
 ```
 USAGE
   $ sf package version create -v <value> [--json] [--flags-dir <value>] [--api-version <value>] [-b <value>] [-c |
-    --skip-validation] [-f <value>] [-k <value>] [-x] [-p <value>] [-d <value>] [--post-install-script <value>]
+    --skip-validation | --async-validation] [-f <value>] [-k <value>] [-x] [-p <value>] [-d <value>] [--post-install-script <value>]
     [--post-install-url <value>] [--releasenotes-url <value>] [--skip-ancestor-check] [-t <value>] [--uninstall-script
     <value>] [-e <value>] [-a <value>] [-n <value>] [-w <value>] [--language <value>] [--verbose]
 
@@ -554,6 +554,7 @@ FLAGS
                                      that isn’t the highest released package version.
       --skip-validation              Skip validation during package version creation; you can’t promote unvalidated
                                      package versions.
+      --async-validation             Return a new package version before completing package validations.                               
       --uninstall-script=<value>     Uninstall script name; applies to managed packages only.
       --verbose                      Display verbose command output.
 
@@ -601,6 +602,9 @@ EXAMPLES
   Create a package version and skip the validation step:
 
     $ sf package version create --path common --installation-key password123 --skip-validation
+
+   Create a package version and perform package validations asynchronously:
+    $ sf package version create --path common --installation-key password123 --async-validation
 
 FLAG DESCRIPTIONS
   -c, --code-coverage
@@ -651,6 +655,12 @@ FLAG DESCRIPTIONS
     validation reduces the time it takes to create a new package version, but you can promote only validated package
     versions. Skipping validation can suppress important errors that can surface at a later stage. You can specify skip
     validation or code coverage, but not both. Code coverage is calculated during validation.
+
+  --async-validation Return a new package version before completing package validations.
+  
+  Specifying async validation returns the package version earlier in the process, allowing you to install and test
+  the new version right away. If your development team is using continuous integration (CI) scripts, async validation
+  can reduce your overall CI run time.
 
   --uninstall-script=<value>  Uninstall script name; applies to managed packages only.
 
