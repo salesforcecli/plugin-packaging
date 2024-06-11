@@ -1,3 +1,9 @@
+## [2.4.6](https://github.com/salesforcecli/plugin-packaging/compare/2.4.5...2.4.6) (2024-06-06)
+
+### Bug Fixes
+
+- **deps:** devScripts update for oclif/core-4 ([#680](https://github.com/salesforcecli/plugin-packaging/issues/680)) ([cc82f5b](https://github.com/salesforcecli/plugin-packaging/commit/cc82f5b2c4d57c0580a105a4514003278ec15fd2))
+
 ## [2.4.5](https://github.com/salesforcecli/plugin-packaging/compare/2.4.4...2.4.5) (2024-05-18)
 
 ### Bug Fixes

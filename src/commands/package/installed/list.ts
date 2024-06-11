@@ -5,14 +5,13 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Messages } from '@salesforce/core';
+import { Messages } from '@salesforce/core/messages';
 import {
   loglevel,
   orgApiVersionFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { ux } from '@oclif/core';
 import { SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -59,16 +58,19 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
       SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
     }));
 
-    const tableOptions: ux.Table.table.Options = {
-      Id: { header: 'ID' },
-      SubscriberPackageId: { header: 'Package ID' },
-      SubscriberPackageName: { header: 'Package Name' },
-      SubscriberPackageNamespace: { header: 'Namespace' },
-      SubscriberPackageVersionId: { header: 'Package Version ID' },
-      SubscriberPackageVersionName: { header: 'Version Name' },
-      SubscriberPackageVersionNumber: { header: 'Version' },
-    };
-    this.table(records, tableOptions, { 'no-truncate': true });
+    this.table(
+      records,
+      {
+        Id: { header: 'ID' },
+        SubscriberPackageId: { header: 'Package ID' },
+        SubscriberPackageName: { header: 'Package Name' },
+        SubscriberPackageNamespace: { header: 'Namespace' },
+        SubscriberPackageVersionId: { header: 'Package Version ID' },
+        SubscriberPackageVersionName: { header: 'Version Name' },
+        SubscriberPackageVersionNumber: { header: 'Version' },
+      },
+      { 'no-truncate': true }
+    );
 
     return records;
   }
