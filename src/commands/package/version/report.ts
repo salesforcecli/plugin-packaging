@@ -14,7 +14,6 @@ import {
   PackageVersionReportResult,
   PackagingSObjects,
 } from '@salesforce/packaging';
-import chalk from 'chalk';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -203,7 +202,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       );
       displayCoverageRecords.splice(0, displayCoverageRecords.length);
     }
-    this.styledHeader(chalk.blue('Package Version'));
+    this.styledHeader('Package Version');
     this.table(displayRecords, { key: { header: 'Name' }, value: { header: 'Value' } });
     if (displayCoverageRecords.length > 0) {
       this.table(displayCoverageRecords, { key: { header: 'Class Name' }, value: { header: 'Code Coverage' } });

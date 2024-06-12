@@ -5,11 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
+import {
+  Flags,
+  loglevel,
+  orgApiVersionFlagWithDeprecations,
+  SfCommand,
+  StandardColors,
+} from '@salesforce/sf-plugins-core';
 import { Messages, Org } from '@salesforce/core';
 import pkgUtils from '@salesforce/packaging';
 import { PackageVersion, PackageVersionCreateRequestResult } from '@salesforce/packaging';
-import chalk from 'chalk';
 import { camelCaseToTitleCase } from '@salesforce/kit';
 import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
@@ -106,7 +111,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       });
     }
 
-    this.styledHeader(chalk.blue('Package Version Create Request'));
+    this.styledHeader('Package Version Create Request');
     this.table(data, {
       key: { header: 'Name' },
       value: { header: 'Value' },
@@ -118,7 +123,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       record.Error.slice(0, ERROR_LIMIT).forEach((error: string) => {
         errors.push(`(${errors.length + 1}) ${error}`);
       });
-      this.styledHeader(chalk.red('Errors'));
+      this.styledHeader(StandardColors.error('Errors'));
       this.warn(errors.join('\n'));
 
       // Check if errors were truncated.  If so, inform the user with

@@ -8,7 +8,6 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Connection, Messages } from '@salesforce/core';
 import { PackageVersion, PackageVersionCreateRequestResult, getPackageVersionNumber } from '@salesforce/packaging';
-import chalk from 'chalk';
 import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -86,7 +85,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
+      this.styledHeader(`Package Version Create Requests  [${results.length}]`);
       const columnData: ColumnData = {
         Id: {},
         Status: {

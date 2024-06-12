@@ -8,7 +8,6 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
 import { Package, PackagingSObjects } from '@salesforce/packaging';
-import chalk from 'chalk';
 import { requiredHubFlag } from '../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -99,7 +98,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   }
 
   private displayResults(verbose = false, apiVersion: string): void {
-    this.styledHeader(chalk.blue(`Packages [${this.results.length}]`));
+    this.styledHeader(`Packages [${this.results.length}]`);
     const columns = {
       NamespacePrefix: { header: messages.getMessage('namespace') },
       Name: { header: messages.getMessage('name') },
