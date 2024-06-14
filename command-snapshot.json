@@ -323,9 +323,10 @@
       "target-hub-org",
       "targetdevhubusername"
     ],
-    "flagChars": ["c", "m", "o", "p", "r", "v"],
+    "flagChars": ["b", "c", "m", "o", "p", "r", "v"],
     "flags": [
       "api-version",
+      "branch",
       "concise",
       "created-last-days",
       "flags-dir",

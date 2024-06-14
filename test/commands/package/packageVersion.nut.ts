@@ -71,11 +71,9 @@ describe('package:version:*', () => {
   describe('package:version:create', () => {
     it('should create a new package version (human)', () => {
       const result = execCmd(
-        `package:version:create --package ${pkgName} -x --code-coverage --version-description "Initial version"`,
+        `package:version:create --package ${pkgName} -x --code-coverage --version-description "Initial version" --branch testing`,
         { ensureExitCode: 0 }
       ).shellOutput.stdout;
-      // eslint-disable-next-line no-console
-      console.log(result);
       expect(result).to.include("Package version creation request status is '");
       expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
     });
@@ -285,6 +283,16 @@ describe('package:version:*', () => {
       expect(output).to.match(
         /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
       );
+    });
+
+    it("should list installed packages in dev hub - verbose human readable results only on the 'testing' branch", () => {
+      const command = `package:version:list -v ${session.hubOrg.username} --verbose --branch testing`;
+      const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(output).to.contain('=== Package Versions [');
+      expect(output).to.match(
+        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
+      );
+      expect(output).to.include('testing');
     });
     it('should list package versions in dev hub - json results', () => {
       const command = `package:version:list -v ${session.hubOrg.username} --json`;

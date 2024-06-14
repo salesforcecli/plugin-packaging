@@ -12,6 +12,10 @@ All filter parameters are applied using the AND logical operator (not OR).
 
 Display limited package version details.
 
+# flags.branch.summary
+
+Use to filter the results to a specific branch
+
 # flags.packages.summary
 
 Comma-delimited list of packages (aliases or 0Ho IDs) to list.
