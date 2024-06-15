@@ -1478,17 +1478,18 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.0"
 
-"@salesforce/core@^7.0.0", "@salesforce/core@^7.3.1", "@salesforce/core@^7.3.10", "@salesforce/core@^7.3.5", "@salesforce/core@^7.3.6", "@salesforce/core@^7.3.8":
-  version "7.3.10"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-7.3.10.tgz#83da85c4e93ca625e2c13118aad9c1df2931bc0f"
-  integrity sha512-kEKoqkmhWNoiucAE3Ylv6FpC4iVgk4aE0dmcwSmNrMjxSbtjQJGUybprfO/itrLJv+56eM7/4FARQQ2gDbRzQQ==
+"@salesforce/core@^7.0.0", "@salesforce/core@^7.3.1", "@salesforce/core@^7.3.10", "@salesforce/core@^7.3.5", "@salesforce/core@^7.3.6", "@salesforce/core@^7.3.8", "@salesforce/core@^7.3.9":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-7.4.1.tgz#7c37623f6a89c199bf12cd6dc28d89bc950914ef"
+  integrity sha512-ccYs7uL4GYjdOcc44trfRnaz69kG0jU0aoT0qjPkIel8oVOyEoXaoDCG0A+2diqmicDp5uWK0pNs+tdWNj2mcQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.2.0"
-    "@salesforce/kit" "^3.1.1"
+    "@salesforce/kit" "^3.1.2"
     "@salesforce/schemas" "^1.9.0"
     "@salesforce/ts-types" "^2.0.9"
     ajv "^8.15.0"
     change-case "^4.1.2"
+    fast-levenshtein "^3.0.0"
     faye "^1.4.0"
     form-data "^4.0.0"
     js2xmlparser "^4.0.1"
@@ -3780,12 +3781,12 @@ eslint-plugin-jsdoc@^46.10.1:
     semver "^7.5.4"
     spdx-expression-parse "^4.0.0"
 
-eslint-plugin-sf-plugin@^1.18.0:
-  version "1.18.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.18.0.tgz#c6eca90e7738e9a114d8257588220c63a2a3e0e3"
-  integrity sha512-5Q4yI6Hr07v/lTaivs8A8re2FUXDEGyzzHzBk2cWi4c6iMxUYf/vaZKO6ZSSsc4eCcP11JY3RkDBQn6P33x58g==
+eslint-plugin-sf-plugin@^1.18.6:
+  version "1.18.6"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.18.6.tgz#6ed177484a9150e0c6b6734bf6804f4534f5071e"
+  integrity sha512-wq+dEEKTl540nDa8LGurDNXjPHyWBdBQQ74EA2RQgkjEcICYYDe37Od536v5OalXQeJ/SWcOVfZ544lI1lBltQ==
   dependencies:
-    "@salesforce/core" "^7.0.0"
+    "@salesforce/core" "^7.3.9"
     "@typescript-eslint/utils" "^6.17.0"
 
 eslint-plugin-unicorn@^50.0.1:
