@@ -124,8 +124,6 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       exclusive: ['code-coverage', 'async-validation'],
     }),
     'async-validation': Flags.boolean({
-      deprecateAliases: true,
-      aliases: ['asyncvalidation'],
       summary: messages.getMessage('flags.async-validation.summary'),
       description: messages.getMessage('flags.async-validation.description'),
       default: false,
