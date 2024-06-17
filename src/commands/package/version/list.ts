@@ -45,7 +45,6 @@ export type PackageVersionListDetails = Omit<
   Alias: string;
   IsOrgDependent: 'N/A' | 'Yes' | 'No';
   CreatedBy: string;
-  ValidatedAsync: boolean;
 };
 
 export type PackageVersionListCommandResult = PackageVersionListDetails[];
@@ -190,7 +189,6 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           CodeCoverage: codeCoverage,
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
-          ValidatedAsync: record.ValidatedAsync,
           AncestorId: record.AncestorId,
           AncestorVersion: ancestorVersion as string,
           Alias: AliasStr,
@@ -241,7 +239,6 @@ const getColumnData = (
     IsPasswordProtected: { header: messages.getMessage('installKey') },
     IsReleased: { header: 'Released' },
     ValidationSkipped: { header: messages.getMessage('validationSkipped') },
-    ValidatedAsync: { header: messages.getMessage('validatedAsync') },
     AncestorId: { header: 'Ancestor' },
     AncestorVersion: { header: 'Ancestor Version' },
     Branch: { header: messages.getMessage('packageBranch') },

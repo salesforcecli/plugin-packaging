@@ -100,9 +100,6 @@
         "ValidationSkipped": {
           "type": "boolean"
         },
-        "ValidatedAsync": {
-          "type": "boolean"
-        },
         "ConvertedFromVersionId": {
           "type": "string"
         },

@@ -118,10 +118,6 @@ Code Coverage Met
 
 Validation Skipped
 
-# validatedAsync
-
-Validation Async
-
 # releaseVersion
 
 Release Version
