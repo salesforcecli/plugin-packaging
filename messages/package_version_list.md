@@ -14,7 +14,7 @@ Display limited package version details.
 
 # flags.branch.summary
 
-Use to filter the results to a specific branch
+Branch in your source control system used to filter the results; only package versions based on the specified branch are listed.
 
 # flags.packages.summary
 
@@ -53,6 +53,10 @@ Filter the list output to display only converted package version.
 - List package versions that were modified today in your default Dev Hub org; show limited details about each one:
 
   <%= config.bin %> <%= command.id %> --concise --modified-last-days 0
+
+- List package versions that are based on the "featureA" branch in your source control system that were modified today in your default Dev Hub org; show limited details about each one:
+
+  <%= config.bin %> <%= command.id %> --concise --modified-last-days 0 --branch featureA
 
 - List released package versions that were created in the last 3 days in your default Dev Hub org; show limited details:
 
