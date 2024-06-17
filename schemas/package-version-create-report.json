@@ -92,7 +92,8 @@
         "VerifyingFeaturesAndSettings",
         "VerifyingDependencies",
         "VerifyingMetadata",
-        "FinalizingPackageVersion"
+        "FinalizingPackageVersion",
+        "PerformingValidations"
       ]
     }
   }
