@@ -1,3 +1,9 @@
+# [2.6.0](https://github.com/salesforcecli/plugin-packaging/compare/2.5.0...2.6.0) (2024-06-18)
+
+### Features
+
+- create/consume branch flag to filter PVL ([2f74ed2](https://github.com/salesforcecli/plugin-packaging/commit/2f74ed2b23fc2980379626cc24ad8ecf85accd70))
+
 # [2.5.0](https://github.com/salesforcecli/plugin-packaging/compare/2.4.6...2.5.0) (2024-06-18)
 
 ### Bug Fixes
