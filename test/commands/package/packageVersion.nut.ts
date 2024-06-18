@@ -87,7 +87,7 @@ describe('package:version:*', () => {
       ).shellOutput.stdout;
       // eslint-disable-next-line no-console
       console.log(result);
-      expect(result).to.include("Package version creating request status is '");
+      expect(result).to.include("Package version creation request status is '");
       expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
     });
 
