@@ -88,9 +88,7 @@ describe('package:version:*', () => {
       // eslint-disable-next-line no-console
       console.log(result);
       expect(result).to.include("Package version creating request status is '");
-      expect(result).to.match(
-        /The validations for this package version are in progress, but you can now begin testing this package version./
-      );
+      expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
     });
 
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
@@ -324,7 +322,6 @@ describe('package:version:*', () => {
         'InstallUrl',
         'CodeCoverage',
         'ValidationSkipped',
-        'ValidatedAsync',
         'AncestorId',
         'AncestorVersion',
         'Alias',
@@ -367,7 +364,6 @@ describe('package:version:*', () => {
         'CodeCoverage',
         'HasPassedCodeCoverageCheck',
         'ValidationSkipped',
-        'ValidatedAsync',
         'AncestorId',
         'AncestorVersion',
         'Alias',
