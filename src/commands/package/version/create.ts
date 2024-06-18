@@ -121,7 +121,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       summary: messages.getMessage('flags.skip-validation.summary'),
       description: messages.getMessage('flags.skip-validation.description'),
       default: false,
-      exclusive: ['code-coverage'],
+      exclusive: ['code-coverage', 'async-validation'],
+    }),
+    'async-validation': Flags.boolean({
+      summary: messages.getMessage('flags.async-validation.summary'),
+      description: messages.getMessage('flags.async-validation.description'),
+      default: false,
+      exclusive: ['skip-validation'],
     }),
     tag: Flags.string({
       char: 't',
@@ -193,7 +199,8 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
-        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error) {
+        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error && data.Status !== Package2VersionStatus.performingValidations
+        ) {
           const status = messages.getMessage('packageVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.Status,
@@ -251,6 +258,18 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
         throw messages.createError('multipleErrors', [
           result.Error?.map((e: string, i) => `${os.EOL}(${i + 1}) ${e}`).join(''),
         ]);
+      case Package2VersionStatus.performingValidations:
+        this.log(messages.getMessage('packageVersionCreatePerformingValidations'));
+        this.log(
+          messages.getMessage(Package2VersionStatus.success, [
+            result.Id,
+            result.SubscriberPackageVersionId,
+            INSTALL_URL_BASE.toString(),
+            result.SubscriberPackageVersionId,
+            this.config.bin,
+          ])
+        );
+        break;
       case Package2VersionStatus.success:
         this.log(
           messages.getMessage(result.Status, [
