@@ -102,6 +102,37 @@ describe('package:version:create - tests', () => {
       ]);
     });
 
+    it('should create a new package version with async validation', async () => {
+      createStub = $$.SANDBOX.stub(PackageVersion, 'create');
+      createStub.resolves(pkgVersionCreateSuccessResult);
+      const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+
+      const cmd = new PackageVersionCreateCommand(
+        ['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x', '--async-validation'],
+        config
+      );
+      stubSpinner(cmd);
+      const res = await cmd.run();
+      expect(envSpy.calledOnce).to.equal(true);
+      expect(res).to.deep.equal({
+        Branch: undefined,
+        CreatedBy: '0053i000001ZIyGAAW',
+        CreatedDate: '2022-11-03 09:46',
+        Error: [],
+        HasMetadataRemoved: false,
+        Id: '08c3i000000fylgAAA',
+        Package2Id: '0Ho3i000000TNHYCA4',
+        Package2VersionId: '05i3i000000fxw1AAA',
+        Status: 'Success',
+        SubscriberPackageVersionId: '04t3i000002eya2AAA',
+        Tag: undefined,
+      });
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal([
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
+      ]);
+    });
+
     it('should report multiple errors', async () => {
       createStub = $$.SANDBOX.stub(PackageVersion, 'create');
       createStub.resolves(pkgVersionCreateErrorResult);
