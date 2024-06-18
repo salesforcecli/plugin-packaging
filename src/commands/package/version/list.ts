@@ -85,6 +85,10 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       char: 'r',
       summary: messages.getMessage('flags.released.summary'),
     }),
+    branch: Flags.string({
+      char: 'b',
+      summary: messages.getMessage('flags.branch.summary'),
+    }),
     'order-by': Flags.string({
       // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
@@ -103,13 +107,14 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
     const project = SfProject.getInstance();
 
     const records = await Package.listVersions(connection, project, {
-      createdLastDays: flags['created-last-days'] as number,
+      createdLastDays: flags['created-last-days'],
       concise: flags.concise,
-      modifiedLastDays: flags['modified-last-days'] as number,
+      modifiedLastDays: flags['modified-last-days'],
       packages: flags.packages?.split(',') ?? [],
       isReleased: flags.released,
-      orderBy: flags['order-by'] as string,
+      orderBy: flags['order-by'],
       verbose: flags.verbose,
+      branch: flags.branch,
       showConversionsOnly: flags['show-conversions-only'],
     });
 
@@ -129,7 +134,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];
-        const aliases: string[] = ids.map((id) => project.getAliasesFromPackageId(id)).flat();
+        const aliases = ids.map((id) => project.getAliasesFromPackageId(id)).flat();
         const AliasStr = aliases.length > 0 ? aliases.join() : '';
 
         // set Ancestor display values

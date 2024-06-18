@@ -199,7 +199,10 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: PackageVersionCreateReportProgress) => {
-        if (data.Status !== Package2VersionStatus.success && data.Status !== Package2VersionStatus.error && data.Status !== Package2VersionStatus.performingValidations
+        if (
+          data.Status !== Package2VersionStatus.success &&
+          data.Status !== Package2VersionStatus.error &&
+          data.Status !== Package2VersionStatus.performingValidations
         ) {
           const status = messages.getMessage('packageVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
