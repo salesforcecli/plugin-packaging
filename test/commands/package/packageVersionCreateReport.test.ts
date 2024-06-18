@@ -63,6 +63,23 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   CreatedBy: '0053i000001ZIyGAAW',
 };
 
+const pkgVersionCreateSuccessResultAsyncValidation: PackageVersionCreateRequestResult = {
+  Id: '08c3i000000fylgAAA',
+  Status: Package2VersionStatus.success,
+  Package2Id: '0Ho3i000000TNHYCA4',
+  Package2VersionId: '05i3i000000fxw1AAA',
+  SubscriberPackageVersionId: '04t3i000002eya2AAA',
+  // @ts-ignore
+  Tag: null,
+  // @ts-ignore
+  Branch: null,
+  Error: [],
+  CreatedDate: '2022-11-03 09:46',
+  HasMetadataRemoved: false,
+  CreatedBy: '0053i000001ZIyGAAW',
+  ValidatedAsync: true,
+};
+
 describe('package:version:create:report - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
@@ -110,6 +127,34 @@ describe('package:version:create:report - tests', () => {
           Status: 'Success',
           SubscriberPackageVersionId: '04t3i000002eya2AAA',
           Tag: null,
+        },
+      ]);
+      expect(tableStub.callCount).to.equal(1);
+      expect(styledHeaderStub.callCount).to.equal(1);
+    });
+
+    it('should report on a new package version with async validation', async () => {
+      createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
+      createStatusStub.resolves(pkgVersionCreateSuccessResultAsyncValidation);
+      const res = await new PackageVersionCreateReportCommand(
+        ['-i', '08c3i000000fyoVAAQ', '-v', 'test@hub.org'],
+        config
+      ).run();
+
+      expect(res).to.deep.equal([
+        {
+          Branch: null,
+          CreatedBy: '0053i000001ZIyGAAW',
+          CreatedDate: '2022-11-03 09:46',
+          Error: [],
+          HasMetadataRemoved: false,
+          Id: '08c3i000000fylgAAA',
+          Package2Id: '0Ho3i000000TNHYCA4',
+          Package2VersionId: '05i3i000000fxw1AAA',
+          Status: 'Success',
+          SubscriberPackageVersionId: '04t3i000002eya2AAA',
+          Tag: null,
+          ValidatedAsync: true,
         },
       ]);
       expect(tableStub.callCount).to.equal(1);

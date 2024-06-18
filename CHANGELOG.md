@@ -1,3 +1,16 @@
+# [2.5.0](https://github.com/salesforcecli/plugin-packaging/compare/2.4.6...2.5.0) (2024-06-18)
+
+### Bug Fixes
+
+- bump core and kit and regen schemas ([26032ea](https://github.com/salesforcecli/plugin-packaging/commit/26032ea11fda54b2dc72a244010153a4aea6aa45))
+- deprecated field and spacing issue ([a3cc60f](https://github.com/salesforcecli/plugin-packaging/commit/a3cc60fbc0309bf3c8fdf9d5cc380e948c555163))
+- removing changes other than package version create ([03ade82](https://github.com/salesforcecli/plugin-packaging/commit/03ade82cf1573e0e26a8a960d9eb1f1cac7ab6a4))
+
+### Features
+
+- add fields to package version list ([4d9a11e](https://github.com/salesforcecli/plugin-packaging/commit/4d9a11edf6f068cc99e1cb087af19c95712cc03e))
+- async validation for package version create ([19357af](https://github.com/salesforcecli/plugin-packaging/commit/19357aff6c0403af76030b3edfe1bc97f30d2cd0))
+
 ## [2.4.6](https://github.com/salesforcecli/plugin-packaging/compare/2.4.5...2.4.6) (2024-06-06)
 
 ### Bug Fixes

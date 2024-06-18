@@ -78,6 +78,17 @@ describe('package:version:*', () => {
       expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
     });
 
+    it('should create a new package version with async-validation', () => {
+      const result = execCmd(
+        `package:version:create --package ${pkgName} -x --async-validation --version-description "Initial version"`,
+        { ensureExitCode: 0 }
+      ).shellOutput.stdout;
+      // eslint-disable-next-line no-console
+      console.log(result);
+      expect(result).to.include("Package version creation request status is '");
+      expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
+    });
+
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
     it('should create a new package version and wait (human)', () => {
       const result = execCmd(
