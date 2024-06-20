@@ -7,7 +7,7 @@
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
 import { ConfigAggregator, Org, SfProject } from '@salesforce/core';
-import { expect, config as chaiConfig } from 'chai';
+import { expect, config as chaiConfig, assert } from 'chai';
 import { Duration } from '@salesforce/kit';
 import {
   PackageAncestryNodeData,
@@ -16,6 +16,7 @@ import {
   PackagingSObjects,
   VersionNumber,
 } from '@salesforce/packaging';
+import { isNamedPackagingDirectory, isPackagingDirectory } from '@salesforce/core/project';
 import {
   PackageVersionListCommandResult,
   PackageVersionListDetails,
@@ -132,12 +133,12 @@ describe('package:version:*', () => {
       const project = await SfProject.resolve();
       const projectJson = project.getSfProjectJson();
       const contents = projectJson.getContents();
-      if (!contents.packageDirectories.some((pkgDir) => pkgDir.package === pkgName)) {
+      if (!contents.packageDirectories.some((pkgDir) => isPackagingDirectory(pkgDir) && pkgDir.package === pkgName)) {
         expect.fail('packageDirectory not found');
       }
-      const newPackageDirs = contents.packageDirectories.map((pkgDir) =>
-        pkgDir.package === pkgName ? { ...pkgDir, package: packageId } : pkgDir
-      );
+      const newPackageDirs = contents.packageDirectories
+        .filter(isPackagingDirectory)
+        .map((pkgDir) => (pkgDir.package === pkgName ? { ...pkgDir, package: packageId } : pkgDir));
 
       projectJson.set('packageDirectories', newPackageDirs);
       projectJson.writeSync();
@@ -477,6 +478,7 @@ describe('package:version:*', () => {
       project = await SfProject.resolve();
       const pjson = project.getSfProjectJson();
       const pkg = project.getDefaultPackage();
+      assert(isNamedPackagingDirectory(pkg));
       pkg.package = ancestryPkgName;
       pkg.versionNumber = sortedVersions[0].toString();
       pkg.versionName = 'v1';
