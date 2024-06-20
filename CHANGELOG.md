@@ -1,3 +1,9 @@
+## [2.6.1](https://github.com/salesforcecli/plugin-packaging/compare/2.6.0...2.6.1) (2024-06-20)
+
+### Bug Fixes
+
+- bump deps, fix NUT types ([1581ab0](https://github.com/salesforcecli/plugin-packaging/commit/1581ab09ac2c67fc2d58fa887915a6dc23a80fa9))
+
 # [2.6.0](https://github.com/salesforcecli/plugin-packaging/compare/2.5.0...2.6.0) (2024-06-18)
 
 ### Features
