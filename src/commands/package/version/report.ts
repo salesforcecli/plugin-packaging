@@ -118,6 +118,10 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         key: pvlMessages.getMessage('validationSkipped'),
         value: record.ValidationSkipped,
       },
+      {
+        key: pvlMessages.getMessage('validatedAsync'),
+        value: record.ValidatedAsync == null ?? null,
+      },
       { key: messages.getMessage('ancestorId'), value: record.AncestorId },
       { key: messages.getMessage('ancestorVersion'), value: record.AncestorVersion },
       {
