@@ -6,7 +6,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand, Ux } from '@salesforce/sf-plugins-core';
-import { Messages, SfProject } from '@salesforce/core';
+import { Connection, Messages, SfProject } from '@salesforce/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -45,7 +45,7 @@ export type PackageVersionListDetails = Omit<
   Alias: string;
   IsOrgDependent: 'N/A' | 'Yes' | 'No';
   CreatedBy: string;
-  ValidatedAsync: boolean;
+  ValidatedAsync?: boolean;
 };
 
 export type PackageVersionListCommandResult = PackageVersionListDetails[];
@@ -195,7 +195,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           CodeCoverage: codeCoverage,
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
-          ValidatedAsync: record.ValidatedAsync == null ?? false,
+          ValidatedAsync: record.ValidatedAsync,
           AncestorId: record.AncestorId,
           AncestorVersion: ancestorVersion as string,
           Alias: AliasStr,
@@ -208,7 +208,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         });
       });
       this.styledHeader(`Package Versions [${results.length}]`);
-      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
+      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only'], connection), {
         'no-truncate': true,
       });
     } else {
@@ -222,7 +222,8 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 const getColumnData = (
   concise: boolean,
   verbose: boolean,
-  conversions: boolean
+  conversions: boolean,
+  connection: Connection
 ): Ux.Table.Columns<Record<string, unknown>> => {
   if (concise) {
     return {
@@ -246,11 +247,18 @@ const getColumnData = (
     IsPasswordProtected: { header: messages.getMessage('installKey') },
     IsReleased: { header: 'Released' },
     ValidationSkipped: { header: messages.getMessage('validationSkipped') },
-    ValidatedAsync: { header: messages.getMessage('validatedAsync') },
     AncestorId: { header: 'Ancestor' },
     AncestorVersion: { header: 'Ancestor Version' },
     Branch: { header: messages.getMessage('packageBranch') },
   };
+
+  if (Number(connection.version) > 60) {
+    defaultCols = Object.assign(defaultCols, {
+      ValidatedAsync: {
+        header: messages.getMessage('validatedAsync'),
+      },
+    });
+  }
 
   if (conversions && !verbose) {
     defaultCols = Object.assign(defaultCols, {

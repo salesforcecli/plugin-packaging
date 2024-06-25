@@ -120,7 +120,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       },
       {
         key: pvlMessages.getMessage('validatedAsync'),
-        value: record.ValidatedAsync == null ?? null,
+        value: record.ValidatedAsync,
       },
       { key: messages.getMessage('ancestorId'), value: record.AncestorId },
       { key: messages.getMessage('ancestorVersion'), value: record.AncestorVersion },
@@ -164,6 +164,10 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       {
         key: plMessages.getMessage('createdBy'),
         value: record.CreatedById,
+      },
+      {
+        key: pvlMessages.getMessage('endToEndBuildDuration'),
+        value: record.EndToEndBuildDuration === null ? '' : record.EndToEndBuildDuration?.toFixed(1),
       },
     ];
     const maximumNumClasses = 15; // Number of least code covered classes displayed on the cli output for better UX.
