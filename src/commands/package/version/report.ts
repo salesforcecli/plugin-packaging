@@ -165,10 +165,6 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         key: plMessages.getMessage('createdBy'),
         value: record.CreatedById,
       },
-      {
-        key: pvlMessages.getMessage('endToEndBuildDuration'),
-        value: record.EndToEndBuildDuration === null ? '' : record.EndToEndBuildDuration?.toFixed(1),
-      },
     ];
     const maximumNumClasses = 15; // Number of least code covered classes displayed on the cli output for better UX.
     let codeCovStr = ''; // String to display when code coverage data is empty or null
@@ -189,6 +185,11 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         }));
         this.haveCodeCoverageData = displayCoverageRecords.length > 0;
       }
+
+      displayRecords.push({
+        key: pvlMessages.getMessage('endToEndBuildDurationInSeconds'),
+        value: record.EndToEndBuildDurationInSeconds === null ? '' : record.EndToEndBuildDurationInSeconds?.toFixed(1),
+      });
     }
 
     // Always append code coverage column label ar the end

@@ -154,6 +154,6 @@ Created By
 
 Language
 
-# endToEndBuildDuration
+# endToEndBuildDurationInSeconds
 
-End To End Build Duration
+End To End Build Duration In Seconds
