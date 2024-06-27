@@ -6,7 +6,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand, Ux } from '@salesforce/sf-plugins-core';
-import { Connection, Messages, SfProject } from '@salesforce/core';
+import { Messages, SfProject } from '@salesforce/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -208,7 +208,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         });
       });
       this.styledHeader(`Package Versions [${results.length}]`);
-      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only'], connection), {
+      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
         'no-truncate': true,
       });
     } else {
@@ -222,8 +222,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 const getColumnData = (
   concise: boolean,
   verbose: boolean,
-  conversions: boolean,
-  connection: Connection
+  conversions: boolean
 ): Ux.Table.Columns<Record<string, unknown>> => {
   if (concise) {
     return {
@@ -247,18 +246,11 @@ const getColumnData = (
     IsPasswordProtected: { header: messages.getMessage('installKey') },
     IsReleased: { header: 'Released' },
     ValidationSkipped: { header: messages.getMessage('validationSkipped') },
+    ValidatedAsync: { header: messages.getMessage('validatedAsync') },
     AncestorId: { header: 'Ancestor' },
     AncestorVersion: { header: 'Ancestor Version' },
     Branch: { header: messages.getMessage('packageBranch') },
   };
-
-  if (Number(connection.version) > 60) {
-    defaultCols = Object.assign(defaultCols, {
-      ValidatedAsync: {
-        header: messages.getMessage('validatedAsync'),
-      },
-    });
-  }
 
   if (conversions && !verbose) {
     defaultCols = Object.assign(defaultCols, {
