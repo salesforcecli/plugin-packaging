@@ -191,6 +191,9 @@
         },
         "AncestorId": {
           "type": ["string", "null"]
+        },
+        "EndToEndBuildDurationInSeconds": {
+          "type": "number"
         }
       },
       "required": ["HasMetadataRemoved", "Package2", "Version"]

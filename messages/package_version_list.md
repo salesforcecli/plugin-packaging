@@ -126,6 +126,10 @@ Code Coverage Met
 
 Validation Skipped
 
+# validatedAsync
+
+Validated Async
+
 # releaseVersion
 
 Release Version
@@ -149,3 +153,7 @@ Created By
 # language
 
 Language
+
+# endToEndBuildDurationInSeconds
+
+End To End Build Duration In Seconds

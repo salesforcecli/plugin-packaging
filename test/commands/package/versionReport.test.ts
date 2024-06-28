@@ -59,6 +59,7 @@ const pkgVersionReportResultModified: PackageVersionReportResultModified = {
   Tag: '',
   ValidationSkipped: false,
   Version: '0.0.0.0',
+  EndToEndBuildDurationInSeconds: 299.0,
 };
 
 const pkgVersionReportResult: PackageVersionReportResult = {
@@ -105,6 +106,7 @@ const pkgVersionReportResult: PackageVersionReportResult = {
   Tag: '',
   ValidationSkipped: false,
   Version: '0.0.0.0',
+  EndToEndBuildDurationInSeconds: 299.0,
 };
 
 describe('package:version:report - tests', () => {
