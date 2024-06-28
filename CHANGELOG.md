@@ -1,3 +1,15 @@
+# [2.7.0](https://github.com/salesforcecli/plugin-packaging/compare/2.6.1...2.7.0) (2024-06-28)
+
+### Bug Fixes
+
+- add end to end build duration and fix version list ([8cfade8](https://github.com/salesforcecli/plugin-packaging/commit/8cfade8f23db9d710e78f9355b54611517d2acea))
+- field for endtoendbuilddurationInSeconds ([c1d2d20](https://github.com/salesforcecli/plugin-packaging/commit/c1d2d20e4e709434cbf605478cd2a7fa46315985))
+- use latest packaging lib ([0bbebc5](https://github.com/salesforcecli/plugin-packaging/commit/0bbebc591d752738145bcc1aee7b325604b74235))
+
+### Features
+
+- display validated-async in version list and report ([6a72e0e](https://github.com/salesforcecli/plugin-packaging/commit/6a72e0e082acbcb9a3172a3582fc82f9c4428afa))
+
 ## [2.6.1](https://github.com/salesforcecli/plugin-packaging/compare/2.6.0...2.6.1) (2024-06-20)
 
 ### Bug Fixes
