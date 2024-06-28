@@ -188,7 +188,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
 
       displayRecords.push({
         key: pvlMessages.getMessage('endToEndBuildDurationInSeconds'),
-        value: record.EndToEndBuildDurationInSeconds === null ? '' : record.EndToEndBuildDurationInSeconds?.toFixed(1),
+        value: record.EndToEndBuildDurationInSeconds?.toFixed(1) ?? '',
       });
     }
 
