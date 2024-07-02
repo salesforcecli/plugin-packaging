@@ -36,7 +36,7 @@ export type PackageVersionListDetails = Omit<
   IsReleased: string | boolean;
   HasPassedCodeCoverageCheck: string | boolean;
   BuildDurationInSeconds: string | number;
-  CodeCoverage: string;
+  CodeCoverage: string | undefined;
   NamespacePrefix: string;
   Package2Name: string;
   Version: string;
@@ -153,7 +153,9 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
             ? `${record.CodeCoverage.apexCodeCoveragePercentage.toString()}%`
             : Boolean(record.Package2.IsOrgDependent) || record.ValidationSkipped
             ? 'N/A'
-            : '';
+            : flags.verbose
+            ? ''
+            : undefined;
 
         const hasPassedCodeCoverageCheck =
           record.Package2.IsOrgDependent === true || record.ValidationSkipped
