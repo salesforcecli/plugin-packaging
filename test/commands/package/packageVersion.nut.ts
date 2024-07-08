@@ -330,7 +330,6 @@ describe('package:version:*', () => {
         'CreatedDate',
         'LastModifiedDate',
         'InstallUrl',
-        'CodeCoverage',
         'ValidationSkipped',
         'ValidatedAsync',
         'AncestorId',
@@ -389,7 +388,7 @@ describe('package:version:*', () => {
       expect(output).to.have.length.greaterThan(0);
       expect(output[0]).to.have.keys(keys);
       (output as PackageVersionListDetails[])
-        .filter((f: { CodeCoverage: string | boolean }) => f.CodeCoverage)
+        .filter((f: { CodeCoverage: string | undefined }) => f.CodeCoverage)
         .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
     });
 

@@ -36,7 +36,7 @@ export type PackageVersionListDetails = Omit<
   IsReleased: string | boolean;
   HasPassedCodeCoverageCheck: string | boolean;
   BuildDurationInSeconds: string | number;
-  CodeCoverage: string;
+  CodeCoverage: string | undefined;
   NamespacePrefix: string;
   Package2Name: string;
   Version: string;
@@ -192,7 +192,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
           LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
           InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
-          CodeCoverage: codeCoverage,
+          CodeCoverage: flags.verbose ? codeCoverage : undefined,
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
           ValidatedAsync: record.ValidatedAsync,
