@@ -36,7 +36,7 @@ export type PackageVersionListDetails = Omit<
   IsReleased: string | boolean;
   HasPassedCodeCoverageCheck: string | boolean;
   BuildDurationInSeconds: string | number;
-  CodeCoverage: string | undefined;
+  CodeCoverage: string;
   NamespacePrefix: string;
   Package2Name: string;
   Version: string;
@@ -148,12 +148,17 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           record.AncestorId = 'N/A';
         }
 
-        const codeCoverage =
-          record.CodeCoverage?.apexCodeCoveragePercentage != null
+        function getCodeCoverage(): string {
+          if (flags.verbose) {
+            return 'use --verbose for code coverage';
+          }
+
+          return record.CodeCoverage?.apexCodeCoveragePercentage != null
             ? `${record.CodeCoverage.apexCodeCoveragePercentage.toString()}%`
             : Boolean(record.Package2.IsOrgDependent) || record.ValidationSkipped
             ? 'N/A'
             : '';
+        }
 
         const hasPassedCodeCoverageCheck =
           record.Package2.IsOrgDependent === true || record.ValidationSkipped
@@ -192,7 +197,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
           LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
           InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
-          CodeCoverage: flags.verbose ? codeCoverage : undefined,
+          CodeCoverage: getCodeCoverage(),
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
           ValidatedAsync: record.ValidatedAsync,

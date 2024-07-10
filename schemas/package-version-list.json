@@ -120,6 +120,7 @@
         "Branch",
         "BuildDurationInSeconds",
         "BuildNumber",
+        "CodeCoverage",
         "CreatedBy",
         "CreatedDate",
         "Description",
