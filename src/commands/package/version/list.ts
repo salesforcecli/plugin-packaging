@@ -149,7 +149,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         }
 
         function getCodeCoverage(): string {
-          if (flags.verbose) {
+          if (!flags.verbose) {
             return 'use --verbose for code coverage';
           }
 
