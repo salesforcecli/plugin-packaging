@@ -309,8 +309,7 @@ describe('package:version:*', () => {
     });
     it('should list package versions in dev hub - json results', () => {
       const command = `package:version:list -v ${session.hubOrg.username} --json`;
-      const output = execCmd<PackageVersionListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput
-        ?.result as PackageVersionListCommandResult;
+      const output = execCmd<PackageVersionListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput?.result;
       const keys = [
         'Package2Id',
         'Branch',
@@ -346,7 +345,7 @@ describe('package:version:*', () => {
       ];
       expect(output).to.have.length.greaterThan(0);
       expect(output?.at(0)).to.have.keys(keys);
-      const codeCoverage = output?.[0]?.CodeCoverage || '';
+      const codeCoverage = output?.[0]?.CodeCoverage;
       expect(codeCoverage).to.equal('use --verbose for code coverage');
     });
 
