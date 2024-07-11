@@ -214,7 +214,7 @@ Version create.
 # packageVersionCreatePerformingValidations
 
 The validations for this package version are in progress, but you can now begin testing this package version.
-To determine whether all package validations complete successfully, run sf package version create report --package-create-request-id  08cxx and review the Status.
+To determine whether all package validations complete successfully, run "sf package version create report --package-create-request-id  08cxx" and review the Status.
 Async validated package versions can be promoted only if all validations complete successfully.
 
 # packageVersionCreateFinalStatus
