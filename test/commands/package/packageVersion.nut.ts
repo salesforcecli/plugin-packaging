@@ -346,8 +346,7 @@ describe('package:version:*', () => {
       ];
       expect(output).to.have.length.greaterThan(0);
       expect(output?.at(0)).to.have.keys(keys);
-      // @ts-ignore
-      const codeCoverage = output?.[0]?.CodeCoverage?.toString() || '';
+      const codeCoverage = output?.[0]?.CodeCoverage || '';
       expect(codeCoverage).to.equal('use --verbose for code coverage');
     });
 
