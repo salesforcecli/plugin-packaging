@@ -47,7 +47,7 @@ Path to the directory that contains the contents of the package.
 
 # flags.definition-file.summary
 
-Path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on. For a patch version, the features specified in this file are ignored, and instead the features specified for the ancestor version are used.
+Path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
 
 # flags.branch.summary
 
