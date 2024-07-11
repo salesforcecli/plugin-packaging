@@ -1,3 +1,13 @@
+## [2.7.1](https://github.com/salesforcecli/plugin-packaging/compare/2.7.0...2.7.1) (2024-07-11)
+
+### Bug Fixes
+
+- fixing codecoverage response for non verbose ([7ed19de](https://github.com/salesforcecli/plugin-packaging/commit/7ed19de476e4a7a00f4fa58d57823778aa55756c))
+- remove codeCoverage field from non-verbose query for package version list ([ea7024e](https://github.com/salesforcecli/plugin-packaging/commit/ea7024e8628b6fe86eb3fd6b35269d6dbdd0c5e8))
+- test ([1f65603](https://github.com/salesforcecli/plugin-packaging/commit/1f656032ae33c3d3b02314aeeae61844e94a0f78))
+- test and remove redundent code ([d5b4fa1](https://github.com/salesforcecli/plugin-packaging/commit/d5b4fa1ed3a0a2b357eeeaad008de4f11dfbc064))
+- typo on conditional statement ([cd30c81](https://github.com/salesforcecli/plugin-packaging/commit/cd30c814165eb5d800b5309559442c13c07f426c))
+
 # [2.7.0](https://github.com/salesforcecli/plugin-packaging/compare/2.6.1...2.7.0) (2024-06-28)
 
 ### Bug Fixes
