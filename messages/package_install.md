@@ -62,7 +62,7 @@ ID (starts with 04t) or alias of the package version to install.
 
 # flags.security-type.summary
 
-Security access type for the installed package. (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
+Security access type for the installed package. Available options are AdminsOnly and AllUsers. The default value is AdminsOnly.
 
 # flags.skip-handlers.summary
 
