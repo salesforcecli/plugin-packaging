@@ -1,28 +1,28 @@
 # summary
 
-Install a version of a package in the target org.
+Install or upgrade a version of a package in the target org.
 
 # description
 
-To install a package, specify a specific version of the package using the 04t package ID. The package and the version you specified installs in your default target org unless you supply the username for a different target org.
+To install or upgrade a package, specify a specific version of the package using the 04t package ID. The package and the version you specified installs in your default target org unless you supply the username for a different target org.
 
-For package upgrades, to specify options for component deprecation or deletion of removed components, include an --upgrade-type value. To delete components that can be safely deleted and deprecate the others, specify --upgrade-type Mixed (the default). To deprecate all removed components, specify --upgrade-type DeprecateOnly. To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify --upgrade-type Delete. (Note: This option can result in the loss of data that is associated with the deleted components.) The default is Mixed.
+When upgrading an unlocked package, include the --upgrade-type value to specify whether any removed components are deprecated or deleted. To delete components that can be safely deleted and deprecate the others, specify "--upgrade-type Mixed" (the default). To deprecate all removed components, specify "--upgrade-type DeprecateOnly". To delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify "--upgrade-type Delete". (Note: This option can result in the loss of data that is associated with the deleted components.)
 
 # examples
 
-- Install a package version with the specified ID in the org with username "me@example.com":
+- Install or upgrade a package version with the specified ID in the org with username "me@example.com":
 
   <%= config.bin %> <%= command.id %> --package 04t... --target-org me@example.com
 
-- Install a package version with the specified alias into your default org:
+- Install or upgrade a package version with the specified alias into your default org:
 
   <%= config.bin %> <%= command.id %> --package awesome_package_alias
 
-- Install a package version with an alias that includes spaces into your default org:
+- Install or upgrade a package version with an alias that includes spaces into your default org:
 
   <%= config.bin %> <%= command.id %> --package "Awesome Package Alias"
 
-- Install an unlocked package version with the specified ID and deprecate all removed components:
+- Upgrade an unlocked package version with the specified ID and deprecate all removed components:
 
   <%= config.bin %> <%= command.id %> --package 04t... --upgrade-type DeprecateOnly
 
@@ -62,7 +62,7 @@ ID (starts with 04t) or alias of the package version to install.
 
 # flags.security-type.summary
 
-Security access type for the installed package. (deprecation notice: The default --security-type value will change from AllUsers to AdminsOnly in v47.0 or later.)
+Security access type for the installed package. Available options are AdminsOnly and AllUsers.
 
 # flags.skip-handlers.summary
 
@@ -78,7 +78,11 @@ Upgrade type for the package installation; available only for unlocked packages.
 
 # flags.upgrade-type.description
 
-For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components, except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can specify DeprecateOnly or Delete only for unlocked package upgrades.
+For unlocked package upgrades, set this flag to one of these values:
+
+- DeprecateOnly: Mark all removed components as deprecated.
+- Mixed: Delete removed components, except for custom objects and custom fields, that don't have dependencies.
+- Delete: Delete all removed components that can be safely deleted, and deprecate the other components.
 
 # flags.apex-compile.summary
 
