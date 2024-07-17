@@ -1,6 +1,6 @@
 # summary
 
-Delete a package version.
+Delete a package version. In second-generation managed packaging, only beta package versions can be deleted. Before deleting a package version, review the considerations outlined in https://developer.salesforce.com/docs/atlas.en-us.pkg2_dev.meta/pkg2_dev/sfdx_dev_dev2gp_package_deletion.htm.
 
 # description
 
