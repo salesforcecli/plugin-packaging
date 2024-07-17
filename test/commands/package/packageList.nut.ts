@@ -19,7 +19,6 @@ describe('package list', () => {
   before(async () => {
     session = await TestSession.create({
       devhubAuthStrategy: 'AUTO',
-      project: { name: 'packageList' },
     });
     hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
     apiVersion = hubOrg.getConnection().getApiVersion();

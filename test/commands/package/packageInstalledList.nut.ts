@@ -16,7 +16,6 @@ describe('package:installed:list', () => {
   before(async () => {
     session = await TestSession.create({
       devhubAuthStrategy: 'AUTO',
-      project: { name: 'packageInstalledList' },
     });
   });
 
