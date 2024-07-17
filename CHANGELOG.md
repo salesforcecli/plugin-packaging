@@ -1,3 +1,9 @@
+## [2.7.2](https://github.com/salesforcecli/plugin-packaging/compare/2.7.1...2.7.2) (2024-07-17)
+
+### Bug Fixes
+
+- cli help text change for async validation ([1f563ab](https://github.com/salesforcecli/plugin-packaging/commit/1f563ab5e9daa7c8b48ab10992ac6c8b18690b38))
+
 ## [2.7.1](https://github.com/salesforcecli/plugin-packaging/compare/2.7.0...2.7.1) (2024-07-11)
 
 ### Bug Fixes
