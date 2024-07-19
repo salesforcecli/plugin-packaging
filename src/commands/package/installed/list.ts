@@ -12,19 +12,19 @@ import {
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { SubscriberPackageVersion } from '@salesforce/packaging';
+import { InstalledPackages, SubscriberPackageVersion } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_installed_list');
 
 export type PackageInstalledListResult = {
   Id: string;
-  SubscriberPackageId: string | undefined;
-  SubscriberPackageName: string | undefined;
-  SubscriberPackageNamespace: string | undefined;
-  SubscriberPackageVersionId: string | undefined;
-  SubscriberPackageVersionName: string | undefined;
-  SubscriberPackageVersionNumber: string | undefined;
+  SubscriberPackageId?: string;
+  SubscriberPackageName?: string;
+  SubscriberPackageNamespace?: string;
+  SubscriberPackageVersionId?: string;
+  SubscriberPackageVersionName?: string;
+  SubscriberPackageVersionNumber?: string;
 };
 
 export type PackageInstalledCommandResult = PackageInstalledListResult[];
@@ -43,34 +43,37 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
 
   public async run(): Promise<PackageInstalledCommandResult> {
     const { flags } = await this.parse(PackageInstalledListCommand);
-    const result = await SubscriberPackageVersion.installedList(
-      flags['target-org'].getConnection(flags['api-version'])
-    );
-
-    const records = result.map((record) => ({
-      Id: record.Id,
-      SubscriberPackageId: record.SubscriberPackageId,
-      SubscriberPackageName: record.SubscriberPackage?.Name,
-      SubscriberPackageNamespace: record.SubscriberPackage?.NamespacePrefix,
-      SubscriberPackageVersionId: record.SubscriberPackageVersion?.Id,
-      SubscriberPackageVersionName: record.SubscriberPackageVersion?.Name,
-      SubscriberPackageVersionNumber: `${record.SubscriberPackageVersion?.MajorVersion}.${record.SubscriberPackageVersion?.MinorVersion}.${record.SubscriberPackageVersion?.PatchVersion}.${record.SubscriberPackageVersion?.BuildNumber}`,
-    }));
+    const records = (
+      await SubscriberPackageVersion.installedList(flags['target-org'].getConnection(flags['api-version']))
+    ).map(transformRow);
 
     this.table(
       records,
-      {
-        Id: { header: 'ID' },
-        SubscriberPackageId: { header: 'Package ID' },
-        SubscriberPackageName: { header: 'Package Name' },
-        SubscriberPackageNamespace: { header: 'Namespace' },
-        SubscriberPackageVersionId: { header: 'Package Version ID' },
-        SubscriberPackageVersionName: { header: 'Version Name' },
-        SubscriberPackageVersionNumber: { header: 'Version' },
-      },
+      columns,
+
       { 'no-truncate': true }
     );
 
     return records;
   }
 }
+
+const transformRow = (r: InstalledPackages): PackageInstalledListResult => ({
+  Id: r.Id,
+  SubscriberPackageId: r.SubscriberPackageId,
+  SubscriberPackageName: r.SubscriberPackage?.Name,
+  SubscriberPackageNamespace: r.SubscriberPackage?.NamespacePrefix,
+  SubscriberPackageVersionId: r.SubscriberPackageVersion?.Id,
+  SubscriberPackageVersionName: r.SubscriberPackageVersion?.Name,
+  SubscriberPackageVersionNumber: `${r.SubscriberPackageVersion?.MajorVersion}.${r.SubscriberPackageVersion?.MinorVersion}.${r.SubscriberPackageVersion?.PatchVersion}.${r.SubscriberPackageVersion?.BuildNumber}`,
+});
+
+const columns = {
+  Id: { header: 'ID' },
+  SubscriberPackageId: { header: 'Package ID' },
+  SubscriberPackageName: { header: 'Package Name' },
+  SubscriberPackageNamespace: { header: 'Namespace' },
+  SubscriberPackageVersionId: { header: 'Package Version ID' },
+  SubscriberPackageVersionName: { header: 'Version Name' },
+  SubscriberPackageVersionNumber: { header: 'Version' },
+};
