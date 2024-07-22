@@ -62,6 +62,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       aliases: ['definitionfile'],
       char: 'f',
       summary: messages.getMessage('flags.definition-file.summary'),
+      description: messages.getMessage('flags.definition-file.description'),
     }),
     'installation-key': Flags.string({
       deprecateAliases: true,

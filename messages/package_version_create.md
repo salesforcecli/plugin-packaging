@@ -49,6 +49,10 @@ Path to the directory that contains the contents of the package.
 
 Path to a definition file similar to scratch org definition file that contains the list of features and org preferences that the metadata of the package version depends on.
 
+# flags.definition-file.description
+
+For a patch version, the features specified in this file are ignored, and instead the features specified for the ancestor version are used.
+
 # flags.branch.summary
 
 Name of the branch in your source control system that the package version is based on.
@@ -214,8 +218,8 @@ Version create.
 # packageVersionCreatePerformingValidations
 
 The validations for this package version are in progress, but you can now begin testing this package version.
-To determine whether all package validations completed successfully, run sf package version create report and review the Async Validation Status.
-Async validated package versions can be promoted only if all validations completed successfully.
+To determine whether all package validations complete successfully, run "sf package version create report --package-create-request-id 08cxx" and review the Status.
+Async validated package versions can be promoted only if all validations complete successfully.
 
 # packageVersionCreateFinalStatus
 

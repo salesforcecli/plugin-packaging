@@ -130,7 +130,7 @@ FLAG DESCRIPTIONS
     Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
 ```
 
-_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/create.ts)_
+_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/create.ts)_
 
 ## `sf package delete`
 
@@ -172,11 +172,11 @@ EXAMPLES
     $ sf package delete --package 0Ho... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/delete.ts)_
+_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/delete.ts)_
 
 ## `sf package install`
 
-Install a version of a package in the target org.
+Install or upgrade a version of a package in the target org.
 
 ```
 USAGE
@@ -194,9 +194,8 @@ FLAGS
                                   configuration variable is already set.
   -p, --package=<value>           (required) ID (starts with 04t) or alias of the package version to install.
   -r, --no-prompt                 Don't prompt for confirmation.
-  -s, --security-type=<option>    [default: AdminsOnly] Security access type for the installed package. (deprecation
-                                  notice: The default --security-type value will change from AllUsers to AdminsOnly in
-                                  v47.0 or later.)
+  -s, --security-type=<option>    [default: AdminsOnly] Security access type for the installed package. Available
+                                  options are AdminsOnly and AllUsers.
                                   <options: AllUsers|AdminsOnly>
   -t, --upgrade-type=<option>     [default: Mixed] Upgrade type for the package installation; available only for
                                   unlocked packages.
@@ -209,35 +208,36 @@ GLOBAL FLAGS
   --json               Format output as json.
 
 DESCRIPTION
-  Install a version of a package in the target org.
+  Install or upgrade a version of a package in the target org.
 
-  To install a package, specify a specific version of the package using the 04t package ID. The package and the version
-  you specified installs in your default target org unless you supply the username for a different target org.
+  To install or upgrade a package, specify a specific version of the package using the 04t package ID. The package and
+  the version you specified installs in your default target org unless you supply the username for a different target
+  org.
 
-  For package upgrades, to specify options for component deprecation or deletion of removed components, include an
-  --upgrade-type value. To delete components that can be safely deleted and deprecate the others, specify --upgrade-type
-  Mixed (the default). To deprecate all removed components, specify --upgrade-type DeprecateOnly. To delete all removed
-  components, except for custom objects and custom fields, that don't have dependencies, specify --upgrade-type Delete.
-  (Note: This option can result in the loss of data that is associated with the deleted components.) The default is
-  Mixed.
+  When upgrading an unlocked package, include the --upgrade-type value to specify whether any removed components are
+  deprecated or deleted. To delete components that can be safely deleted and deprecate the others, specify
+  "--upgrade-type Mixed" (the default). To deprecate all removed components, specify "--upgrade-type DeprecateOnly". To
+  delete all removed components, except for custom objects and custom fields, that don't have dependencies, specify
+  "--upgrade-type Delete". (Note: This option can result in the loss of data that is associated with the deleted
+  components.)
 
 ALIASES
   $ sf force package install
 
 EXAMPLES
-  Install a package version with the specified ID in the org with username "me@example.com":
+  Install or upgrade a package version with the specified ID in the org with username "me@example.com":
 
     $ sf package install --package 04t... --target-org me@example.com
 
-  Install a package version with the specified alias into your default org:
+  Install or upgrade a package version with the specified alias into your default org:
 
     $ sf package install --package awesome_package_alias
 
-  Install a package version with an alias that includes spaces into your default org:
+  Install or upgrade a package version with an alias that includes spaces into your default org:
 
     $ sf package install --package "Awesome Package Alias"
 
-  Install an unlocked package version with the specified ID and deprecate all removed components:
+  Upgrade an unlocked package version with the specified ID and deprecate all removed components:
 
     $ sf package install --package 04t... --upgrade-type DeprecateOnly
 
@@ -264,13 +264,14 @@ FLAG DESCRIPTIONS
 
     Upgrade type for the package installation; available only for unlocked packages.
 
-    For package upgrades, specifies whether to mark all removed components as deprecated (DeprecateOnly), to delete
-    removed components that can be safely deleted and deprecate the others (Mixed), or to delete all removed components,
-    except for custom objects and custom fields, that don't have dependencies (Delete). The default is Mixed. Can
-    specify DeprecateOnly or Delete only for unlocked package upgrades.
+    For unlocked package upgrades, set this flag to one of these values:
+
+    - DeprecateOnly: Mark all removed components as deprecated.
+    - Mixed: Delete removed components, except for custom objects and custom fields, that don't have dependencies.
+    - Delete: Delete all removed components that can be safely deleted, and deprecate the other components.
 ```
 
-_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/install.ts)_
+_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/install.ts)_
 
 ## `sf package install report`
 
@@ -303,7 +304,7 @@ EXAMPLES
     $ sf package install report --request-id 0Hf... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/install/report.ts)_
+_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/install/report.ts)_
 
 ## `sf package installed list`
 
@@ -335,7 +336,7 @@ EXAMPLES
     $ sf package installed list --target-org me@example.com
 ```
 
-_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/installed/list.ts)_
+_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/installed/list.ts)_
 
 ## `sf package list`
 
@@ -373,7 +374,7 @@ EXAMPLES
     $ sf package list --target-dev-hub devhub@example.com --verbose
 ```
 
-_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/list.ts)_
+_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/list.ts)_
 
 ## `sf package uninstall`
 
@@ -421,7 +422,7 @@ EXAMPLES
     $ sf package uninstall --package "Undesirable Package Alias"
 ```
 
-_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/uninstall.ts)_
+_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/uninstall.ts)_
 
 ## `sf package uninstall report`
 
@@ -454,7 +455,7 @@ EXAMPLES
     $ sf package uninstall report --request-id 06y... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/uninstall/report.ts)_
+_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/uninstall/report.ts)_
 
 ## `sf package update`
 
@@ -509,7 +510,7 @@ FLAG DESCRIPTIONS
     associated with your package.
 ```
 
-_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/update.ts)_
+_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/update.ts)_
 
 ## `sf package version create`
 
@@ -618,6 +619,14 @@ FLAG DESCRIPTIONS
     coverage requirement. We don’t calculate code coverage for org-dependent unlocked packages or for package versions
     that specify --skip-validation.
 
+  -f, --definition-file=<value>
+
+    Path to a definition file similar to scratch org definition file that contains the list of features and org
+    preferences that the metadata of the package version depends on.
+
+    For a patch version, the features specified in this file are ignored, and instead the features specified for the
+    ancestor version are used.
+
   -n, --version-number=<value>
 
     Version number of the package version to be created; overrides the sfdx-project.json value.
@@ -676,7 +685,7 @@ FLAG DESCRIPTIONS
     periods of no output from commands.
 ```
 
-_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/create.ts)_
+_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/create.ts)_
 
 ## `sf package version create list`
 
@@ -737,7 +746,7 @@ EXAMPLES
     $ sf package version create list --created-last-days 0 --status Success
 ```
 
-_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/create/list.ts)_
+_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/create/list.ts)_
 
 ## `sf package version create report`
 
@@ -780,7 +789,7 @@ EXAMPLES
     $ sf package version create report --package-create-request-id 08c... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/create/report.ts)_
+_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/create/report.ts)_
 
 ## `sf package version delete`
 
@@ -804,7 +813,9 @@ GLOBAL FLAGS
 DESCRIPTION
   Delete a package version.
 
-  Specify the ID or alias of the package version you want to delete.
+  Specify the ID or alias of the package version you want to delete. In second-generation managed packaging, only beta
+  package versions can be deleted. Before deleting a package version, review the considerations outlined in
+  https://developer.salesforce.com/docs/atlas.en-us.pkg2_dev.meta/pkg2_dev/sfdx_dev_dev2gp_package_deletion.htm.
 
 ALIASES
   $ sf force package version delete
@@ -819,7 +830,7 @@ EXAMPLES
     $ sf package version delete --package 04t... --target-org devhub@example.com
 ```
 
-_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/delete.ts)_
+_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/delete.ts)_
 
 ## `sf package version displayancestry`
 
@@ -879,7 +890,7 @@ FLAG DESCRIPTIONS
     You can use the DOT code output in graph visualization software to create tree visualizations.
 ```
 
-_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/displayancestry.ts)_
+_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/displayancestry.ts)_
 
 ## `sf package version list`
 
@@ -955,7 +966,7 @@ EXAMPLES
     $ sf package version list --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
 ```
 
-_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/list.ts)_
+_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/list.ts)_
 
 ## `sf package version promote`
 
@@ -999,7 +1010,7 @@ EXAMPLES
     $ sf package version promote --package "Awesome Package Alias"
 ```
 
-_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/promote.ts)_
+_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/promote.ts)_
 
 ## `sf package version report`
 
@@ -1039,7 +1050,7 @@ EXAMPLES
     $ sf package version report --package "Your Package Alias" --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/report.ts)_
+_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/report.ts)_
 
 ## `sf package version update`
 
@@ -1092,7 +1103,7 @@ EXAMPLES
     $ sf package version update --package 04t... --version-description "New Package Version Description"
 ```
 
-_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package/version/update.ts)_
+_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package/version/update.ts)_
 
 ## `sf package1 version create`
 
@@ -1159,7 +1170,7 @@ FLAG DESCRIPTIONS
     subscribers.
 ```
 
-_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package1/version/create.ts)_
+_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package1/version/create.ts)_
 
 ## `sf package1 version create get`
 
@@ -1192,7 +1203,7 @@ EXAMPLES
     $ sf package1 version create get --request-id 0HD... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package1/version/create/get.ts)_
+_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package1/version/create/get.ts)_
 
 ## `sf package1 version display`
 
@@ -1226,7 +1237,7 @@ EXAMPLES
     $ sf package1 version display --package-version-id 04t... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package1/version/display.ts)_
+_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package1/version/display.ts)_
 
 ## `sf package1 version list`
 
@@ -1264,6 +1275,6 @@ FLAG DESCRIPTIONS
     If not specified, shows all versions for all packages (managed and unmanaged) in the org.
 ```
 
-_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.1/src/commands/package1/version/list.ts)_
+_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.7.2/src/commands/package1/version/list.ts)_
 
 <!-- commandsstop -->
