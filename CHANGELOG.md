@@ -1,3 +1,9 @@
+## [2.7.3](https://github.com/salesforcecli/plugin-packaging/compare/2.7.2...2.7.3) (2024-07-22)
+
+### Bug Fixes
+
+- allow some cmds to run outside a project ([#733](https://github.com/salesforcecli/plugin-packaging/issues/733)) ([7d22617](https://github.com/salesforcecli/plugin-packaging/commit/7d22617cce018f91761f20b04aac62d48040067e)), closes [#738](https://github.com/salesforcecli/plugin-packaging/issues/738)
+
 ## [2.7.2](https://github.com/salesforcecli/plugin-packaging/compare/2.7.1...2.7.2) (2024-07-17)
 
 ### Bug Fixes
