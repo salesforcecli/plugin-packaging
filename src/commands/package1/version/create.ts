@@ -25,7 +25,6 @@ export class Package1VersionCreateCommand extends SfCommand<PackageUploadRequest
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly requiresProject = true;
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package1:version:create'];
 

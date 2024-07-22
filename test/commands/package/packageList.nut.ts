@@ -6,23 +6,22 @@
  */
 
 import { execCmd, TestSession } from '@salesforce/cli-plugins-testkit';
-import chai from 'chai';
+import { expect, config } from 'chai';
 import { Org } from '@salesforce/core';
 import { Package } from '@salesforce/packaging';
 
-const { expect } = chai;
+config.truncateThreshold = 50_000;
 
 describe('package list', () => {
   let session: TestSession;
   let hubOrg: Org;
-  let apiVersion: string;
+  let apiVersion: number;
   before(async () => {
     session = await TestSession.create({
       devhubAuthStrategy: 'AUTO',
-      project: { name: 'packageList' },
     });
     hubOrg = await Org.create({ aliasOrUsername: session.hubOrg.username });
-    apiVersion = hubOrg.getConnection().getApiVersion();
+    apiVersion = parseInt(hubOrg.getConnection().getApiVersion(), 10);
   });
 
   after(async () => {
@@ -46,7 +45,7 @@ describe('package list', () => {
       'CreatedBy',
       'IsOrgDependent',
     ];
-    if (apiVersion < '59.0') {
+    if (apiVersion < 59) {
       keys.splice(keys.indexOf('AppAnalyticsEnabled'), 1);
     }
     const deprecatedPackages = packages.filter((pkg) => pkg.IsDeprecated);
@@ -67,8 +66,8 @@ describe('package list', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     let headerExpression =
-      'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?App Analytics Enabled\\s+?Created By';
-    if (apiVersion < '59.0') {
+      'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?Created By\\s+?App Analytics Enabled';
+    if (apiVersion < 59.0) {
       headerExpression = headerExpression.replace('App Analytics Enabled\\s+?', '');
     }
     expect(output).to.match(new RegExp(headerExpression));

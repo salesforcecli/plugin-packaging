@@ -40,7 +40,6 @@ describe('package1:version:create', () => {
       throw new Error('"ONEGP_TESTKIT_AUTH_URL" env var required for 1gp NUTs');
     }
     session = await TestSession.create({
-      project: { name: 'package1VersionCreate' },
       devhubAuthStrategy: 'AUTO',
     });
 
