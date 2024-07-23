@@ -1,3 +1,9 @@
+## [2.7.4](https://github.com/salesforcecli/plugin-packaging/compare/2.7.3...2.7.4) (2024-07-23)
+
+### Bug Fixes
+
+- **style:** nullish template literals ([d90e148](https://github.com/salesforcecli/plugin-packaging/commit/d90e14863602f81a8ea692ffba52f21adc7897cf))
+
 ## [2.7.3](https://github.com/salesforcecli/plugin-packaging/compare/2.7.2...2.7.3) (2024-07-22)
 
 ### Bug Fixes
