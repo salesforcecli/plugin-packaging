@@ -61,11 +61,19 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
 const transformRow = (r: InstalledPackages): PackageInstalledListResult => ({
   Id: r.Id,
   SubscriberPackageId: r.SubscriberPackageId,
-  SubscriberPackageName: r.SubscriberPackage?.Name,
-  SubscriberPackageNamespace: r.SubscriberPackage?.NamespacePrefix,
-  SubscriberPackageVersionId: r.SubscriberPackageVersion?.Id,
-  SubscriberPackageVersionName: r.SubscriberPackageVersion?.Name,
-  SubscriberPackageVersionNumber: `${r.SubscriberPackageVersion?.MajorVersion}.${r.SubscriberPackageVersion?.MinorVersion}.${r.SubscriberPackageVersion?.PatchVersion}.${r.SubscriberPackageVersion?.BuildNumber}`,
+  ...(r.SubscriberPackage
+    ? {
+        SubscriberPackageName: r.SubscriberPackage.Name,
+        SubscriberPackageNamespace: r.SubscriberPackage.NamespacePrefix,
+      }
+    : {}),
+  ...(r.SubscriberPackageVersion
+    ? {
+        SubscriberPackageVersionId: r.SubscriberPackageVersion.Id,
+        SubscriberPackageVersionName: r.SubscriberPackageVersion.Name,
+        SubscriberPackageVersionNumber: `${r.SubscriberPackageVersion.MajorVersion}.${r.SubscriberPackageVersion.MinorVersion}.${r.SubscriberPackageVersion.PatchVersion}.${r.SubscriberPackageVersion.BuildNumber}`,
+      }
+    : {}),
 });
 
 const columns = {

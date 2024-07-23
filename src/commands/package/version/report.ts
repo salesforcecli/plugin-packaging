@@ -113,7 +113,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         key: pvlMessages.getMessage('packageTag'),
         value: record.Tag,
       },
-      { key: messages.getMessage('isReleased'), value: `${record.IsReleased}` },
+      { key: messages.getMessage('isReleased'), value: `${record.IsReleased ?? '<undefined>'} ` },
       {
         key: pvlMessages.getMessage('validationSkipped'),
         value: record.ValidationSkipped,
