@@ -15,13 +15,17 @@ import { env } from '@salesforce/kit';
 import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-const pkgVersionCreateErrorResult: Partial<PackageVersionCreateRequestResult> = {
+const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   Id: '08c3i000000fylXXXX',
   Status: Package2VersionStatus.error,
   Package2Id: '0Ho3i000000TNHXXXX',
+  // @ts-expect-error type has these fields, but they *shouldn't* be present when there's an error
   Package2VersionId: undefined,
+  // @ts-expect-error type has these fields, but they *shouldn't* be present when there's an error
   SubscriberPackageVersionId: undefined,
+  // @ts-expect-error type has these fields, but they *shouldn't* be present when there's an error
   Tag: undefined,
+  // @ts-expect-error type has these fields, but they *shouldn't* be present when there's an error
   Branch: undefined,
   Error: [
     'PropertyController: Invalid type: Schema.Property__c',
@@ -29,17 +33,20 @@ const pkgVersionCreateErrorResult: Partial<PackageVersionCreateRequestResult> = 
     'SampleDataController: Invalid type: Schema.Broker__c',
   ],
   CreatedDate: '2022-11-03 09:21',
+  // @ts-expect-error type has these fields, but they *shouldn't* be present when there's an error
   HasMetadataRemoved: undefined,
   CreatedBy: '0053i000001ZIyXXXX',
 };
 
-const pkgVersionCreateSuccessResult: Partial<PackageVersionCreateRequestResult> = {
+const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   Id: '08c3i000000fylgAAA',
   Status: Package2VersionStatus.success,
   Package2Id: '0Ho3i000000TNHYCA4',
   Package2VersionId: '05i3i000000fxw1AAA',
   SubscriberPackageVersionId: '04t3i000002eya2AAA',
+  // @ts-expect-error - type in packaging says it's string, docs say it's optional https://developer.salesforce.com/docs/atlas.en-us.api_tooling.meta/api_tooling/tooling_api_objects_package2version.htm
   Tag: undefined,
+  // @ts-expect-error - see Tag above
   Branch: undefined,
   Error: [],
   CreatedDate: '2022-11-03 09:46',
