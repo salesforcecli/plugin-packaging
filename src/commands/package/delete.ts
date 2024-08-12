@@ -9,6 +9,7 @@ import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@
 import { Messages } from '@salesforce/core/messages';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../utils/hubFlag.js';
+import { maybeGetProject } from '../../utils/getProject.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_delete');
@@ -51,7 +52,7 @@ export class PackageDeleteCommand extends SfCommand<PackageSaveResult> {
 
     const pkg = new Package({
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project,
+      project: await maybeGetProject(),
       packageAliasOrId: flags.package,
     });
     const result = flags.undelete ? await pkg.undelete() : await pkg.delete();

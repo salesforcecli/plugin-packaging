@@ -26,7 +26,7 @@ describe('package create/update/delete', () => {
   after(async () => {
     await session?.clean();
   });
-  describe('create/update/delete - human results', () => {
+  describe.only('create/update/delete - human results', () => {
     before(async () => {
       pkgName = `test-pkg-${Date.now()}`;
     });
