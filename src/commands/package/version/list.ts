@@ -6,7 +6,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand, Ux } from '@salesforce/sf-plugins-core';
-import { Messages, SfProject } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -15,6 +15,7 @@ import {
   PackageVersionListResult,
 } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
+import { maybeGetProject } from '../../../utils/getProject.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
@@ -105,7 +106,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
   public async run(): Promise<PackageVersionListCommandResult> {
     const { flags } = await this.parse(PackageVersionListCommand);
     const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    const project = SfProject.getInstance();
+    const project = await maybeGetProject();
 
     const records = await Package.listVersions(connection, project, {
       createdLastDays: flags['created-last-days'],
@@ -135,7 +136,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
 
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];
-        const aliases = ids.map((id) => project.getAliasesFromPackageId(id)).flat();
+        const aliases = ids.map((id) => (project ? project.getAliasesFromPackageId(id) : id)).flat();
         const AliasStr = aliases.length > 0 ? aliases.join() : '';
 
         // set Ancestor display values
