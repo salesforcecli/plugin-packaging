@@ -14,9 +14,7 @@ import { SfProject } from '@salesforce/core';
 export async function maybeGetProject(): Promise<SfProject | undefined> {
   try {
     return await SfProject.resolve();
-  } catch (err) {
-    if (err instanceof Error && err.name === 'InvalidProjectWorkspaceError') {
-      return undefined;
-    }
+  } catch {
+    return undefined;
   }
 }
