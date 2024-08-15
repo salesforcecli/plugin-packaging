@@ -16,6 +16,7 @@ import {
 } from '@salesforce/packaging';
 import chalk from 'chalk';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
+import { maybeGetProject } from '../../../utils/getProject.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_report');
@@ -39,7 +40,6 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:version:report'];
-  public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -59,7 +59,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     const { flags } = await this.parse(PackageVersionReportCommand);
     const packageVersion = new PackageVersion({
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project!,
+      project: await maybeGetProject(),
       idOrAlias: flags.package,
     });
     const results = await packageVersion.report(flags.verbose);

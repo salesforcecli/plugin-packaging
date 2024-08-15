@@ -9,6 +9,7 @@ import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@
 import { Messages } from '@salesforce/core/messages';
 import { Package, PackageSaveResult } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../utils/hubFlag.js';
+import { maybeGetProject } from '../../utils/getProject.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_update');
@@ -20,7 +21,6 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:update'];
-  public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -54,10 +54,11 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
 
   public async run(): Promise<PackageSaveResult> {
     const { flags } = await this.parse(PackageUpdateCommand);
+
     const pkg = new Package({
       packageAliasOrId: flags.package,
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
-      project: this.project!,
+      project: await maybeGetProject(),
     });
 
     const result = await pkg.update({

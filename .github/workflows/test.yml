@@ -26,7 +26,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         command:
           - 'yarn test:nuts:package'
-          - 'yarn test:nuts:package1'
+          # - 'yarn test:nuts:package1' disable because of the long-standing ORA bug
       fail-fast: false
     with:
       os: ${{ matrix.os }}

@@ -15,36 +15,46 @@ import { env } from '@salesforce/kit';
 import { PackageVersionCreateCommand } from '../../../src/commands/package/version/create.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
-const pkgVersionCreateErrorResult: Partial<PackageVersionCreateRequestResult> = {
+const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   Id: '08c3i000000fylXXXX',
   Status: Package2VersionStatus.error,
   Package2Id: '0Ho3i000000TNHXXXX',
-  Package2VersionId: undefined,
-  SubscriberPackageVersionId: undefined,
-  Tag: undefined,
-  Branch: undefined,
+  Package2VersionId: '',
+  SubscriberPackageVersionId: '',
+  Tag: '',
+  Branch: '',
   Error: [
     'PropertyController: Invalid type: Schema.Property__c',
     'SampleDataController: Invalid type: Schema.Property__c',
     'SampleDataController: Invalid type: Schema.Broker__c',
   ],
   CreatedDate: '2022-11-03 09:21',
-  HasMetadataRemoved: undefined,
+  HasMetadataRemoved: null,
   CreatedBy: '0053i000001ZIyXXXX',
+  Package2Name: null,
+  HasPassedCodeCoverageCheck: null,
+  CodeCoverage: null,
+  VersionNumber: null,
+  ConvertedFromVersionId: null,
 };
 
-const pkgVersionCreateSuccessResult: Partial<PackageVersionCreateRequestResult> = {
+const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   Id: '08c3i000000fylgAAA',
   Status: Package2VersionStatus.success,
   Package2Id: '0Ho3i000000TNHYCA4',
   Package2VersionId: '05i3i000000fxw1AAA',
   SubscriberPackageVersionId: '04t3i000002eya2AAA',
-  Tag: undefined,
-  Branch: undefined,
+  Tag: '',
+  Branch: '',
   Error: [],
   CreatedDate: '2022-11-03 09:46',
   HasMetadataRemoved: false,
   CreatedBy: '0053i000001ZIyGAAW',
+  Package2Name: null,
+  HasPassedCodeCoverageCheck: null,
+  CodeCoverage: null,
+  VersionNumber: null,
+  ConvertedFromVersionId: null,
 };
 
 describe('package:version:create - tests', () => {
@@ -84,7 +94,7 @@ describe('package:version:create - tests', () => {
       const res = await cmd.run();
       expect(envSpy.calledOnce).to.equal(true);
       expect(res).to.deep.equal({
-        Branch: undefined,
+        Branch: '',
         CreatedBy: '0053i000001ZIyGAAW',
         CreatedDate: '2022-11-03 09:46',
         Error: [],
@@ -94,7 +104,12 @@ describe('package:version:create - tests', () => {
         Package2VersionId: '05i3i000000fxw1AAA',
         Status: 'Success',
         SubscriberPackageVersionId: '04t3i000002eya2AAA',
-        Tag: undefined,
+        Tag: '',
+        Package2Name: null,
+        HasPassedCodeCoverageCheck: null,
+        CodeCoverage: null,
+        VersionNumber: null,
+        ConvertedFromVersionId: null,
       });
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
@@ -115,7 +130,7 @@ describe('package:version:create - tests', () => {
       const res = await cmd.run();
       expect(envSpy.calledOnce).to.equal(true);
       expect(res).to.deep.equal({
-        Branch: undefined,
+        Branch: '',
         CreatedBy: '0053i000001ZIyGAAW',
         CreatedDate: '2022-11-03 09:46',
         Error: [],
@@ -125,7 +140,12 @@ describe('package:version:create - tests', () => {
         Package2VersionId: '05i3i000000fxw1AAA',
         Status: 'Success',
         SubscriberPackageVersionId: '04t3i000002eya2AAA',
-        Tag: undefined,
+        Tag: '',
+        Package2Name: null,
+        HasPassedCodeCoverageCheck: null,
+        CodeCoverage: null,
+        VersionNumber: null,
+        ConvertedFromVersionId: null,
       });
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
