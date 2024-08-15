@@ -1,3 +1,9 @@
+# [2.8.0](https://github.com/salesforcecli/plugin-packaging/compare/2.7.4...2.8.0) (2024-08-15)
+
+### Features
+
+- make project optional ([#771](https://github.com/salesforcecli/plugin-packaging/issues/771)) ([5f674ee](https://github.com/salesforcecli/plugin-packaging/commit/5f674eedce4b577249403c616c95e3292e4617ba))
+
 ## [2.7.4](https://github.com/salesforcecli/plugin-packaging/compare/2.7.3...2.7.4) (2024-07-23)
 
 ### Bug Fixes
