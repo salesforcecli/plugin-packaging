@@ -137,7 +137,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       records.forEach((record) => {
         const ids = [record.Id, record.SubscriberPackageVersionId];
         const aliases = ids.map((id) => (project ? project.getAliasesFromPackageId(id) : id)).flat();
-        const AliasStr = aliases.length > 0 ? aliases.join() : '';
+        const AliasStr = project ? (aliases.length > 0 ? aliases.join() : '') : '';
 
         // set Ancestor display values
         let ancestorVersion: string | undefined;
