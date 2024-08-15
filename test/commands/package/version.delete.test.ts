@@ -76,7 +76,7 @@ describe('package:version:delete', () => {
       expect(false, 'Expected invalid id error').to.be.true;
     } catch (err) {
       const error = err as Error;
-      expect(error.name).to.equal('ErrorInvalidPackageVersionIdError');
+      expect(error.name).to.equal('PackageAliasNotFoundError');
     }
   });
   it('should delete a package version', async () => {
