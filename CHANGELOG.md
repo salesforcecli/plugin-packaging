@@ -1,3 +1,9 @@
+## [2.8.1](https://github.com/salesforcecli/plugin-packaging/compare/2.8.0...2.8.1) (2024-08-31)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.0.17 to 4.0.19 ([09b25ca](https://github.com/salesforcecli/plugin-packaging/commit/09b25cae81e2322fcd182ec25ff44077b2c2db10))
+
 # [2.8.0](https://github.com/salesforcecli/plugin-packaging/compare/2.7.4...2.8.0) (2024-08-15)
 
 ### Features
