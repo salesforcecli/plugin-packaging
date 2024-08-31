@@ -1,3 +1,9 @@
+## [2.8.2](https://github.com/salesforcecli/plugin-packaging/compare/2.8.1...2.8.2) (2024-08-31)
+
+### Bug Fixes
+
+- **deps:** bump micromatch from 4.0.5 to 4.0.8 ([5815b13](https://github.com/salesforcecli/plugin-packaging/commit/5815b136a2e7f71eee39a34c11a3f0111b421358))
+
 ## [2.8.1](https://github.com/salesforcecli/plugin-packaging/compare/2.8.0...2.8.1) (2024-08-31)
 
 ### Bug Fixes
