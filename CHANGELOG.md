@@ -1,3 +1,9 @@
+## [2.8.3](https://github.com/salesforcecli/plugin-packaging/compare/2.8.2...2.8.3) (2024-09-07)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.5.1 to 8.5.4 ([f634a2a](https://github.com/salesforcecli/plugin-packaging/commit/f634a2a6fe07e14a0cb9f1e684486919870c756b))
+
 ## [2.8.2](https://github.com/salesforcecli/plugin-packaging/compare/2.8.1...2.8.2) (2024-08-31)
 
 ### Bug Fixes
