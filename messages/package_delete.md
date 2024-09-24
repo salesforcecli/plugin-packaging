@@ -48,7 +48,7 @@ The request to delete this package was canceled
 
 # humanSuccess
 
-Successfully deleted the package.
+Successfully deleted the package. %s
 
 # humanSuccessUndelete
 
