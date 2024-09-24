@@ -93,7 +93,7 @@ describe('package:version:delete', () => {
     const results: PackageSaveResult = await command.run();
     expect(results.id).to.equal('testId');
     expect(uxSuccessStub.calledOnce).to.be.true;
-    expect(uxSuccessStub.args[0][0]).to.equal('Successfully deleted the package version. testId');
+    expect(uxSuccessStub.args[0][0]).to.equal('Successfully deleted the package version with id: testId');
     expect(results.id).to.equal('testId');
   });
   it('should undelete a package version', async () => {
