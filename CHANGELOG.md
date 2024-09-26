@@ -1,3 +1,10 @@
+## [2.8.8](https://github.com/salesforcecli/plugin-packaging/compare/2.8.7...2.8.8) (2024-09-26)
+
+### Bug Fixes
+
+- add specifier ([bb0c96d](https://github.com/salesforcecli/plugin-packaging/commit/bb0c96dfb4c89aa3e34deb34f61554e037853649))
+- another specifier ([bcec2af](https://github.com/salesforcecli/plugin-packaging/commit/bcec2af9a4218e674cfc77285f40b6ed361b0e05))
+
 ## [2.8.7](https://github.com/salesforcecli/plugin-packaging/compare/2.8.6...2.8.7) (2024-09-21)
 
 ### Bug Fixes
