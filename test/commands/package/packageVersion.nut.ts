@@ -443,7 +443,7 @@ describe('package:version:*', () => {
       const id = deletableVersionIds.pop();
       const command = `package:version:delete -p ${id} --noprompt`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
-      expect(result).to.contain(`Successfully deleted the package version with id: ${id}`);
+      expect(result).to.contain(`Successfully deleted the package version with ID: ${id}`);
     });
   });
 
