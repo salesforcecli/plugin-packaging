@@ -51,7 +51,7 @@ describe('package create/update/delete', () => {
     it('should delete a package - human readable results', () => {
       const command = `package:delete -p ${pkgName} -v ${session.hubOrg.username} --no-prompt`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
-      expect(output).to.contain('Successfully deleted the package with id: 0Ho');
+      expect(output).to.contain('Successfully deleted the package with ID: 0Ho');
     });
   });
   describe('create/update/delete - json results', () => {
