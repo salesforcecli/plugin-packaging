@@ -46,7 +46,7 @@ The request to delete this package version has been canceled.
 
 # humanSuccess
 
-Successfully deleted the package version.
+Successfully deleted the package version with ID: %s
 
 # humanSuccessUndelete
 
