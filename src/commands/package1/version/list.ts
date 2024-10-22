@@ -40,7 +40,7 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
 
   public async run(): Promise<Package1ListCommandResult> {
     const { flags } = await this.parse(Package1VersionListCommand);
-    const result = (
+    const data = (
       await Package1Version.list(flags['target-org'].getConnection(flags['api-version']), flags['package-id'] as string)
     ).map((record) => ({
       MetadataPackageVersionId: record.Id,
@@ -51,18 +51,11 @@ export class Package1VersionListCommand extends SfCommand<Package1ListCommandRes
       BuildNumber: record.BuildNumber,
     }));
 
-    if (result.length) {
-      this.table(result, {
-        MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
-        MetadataPackageId: { header: 'MetadataPackageId' },
-        Name: { header: 'Name' },
-        Version: { header: 'Version' },
-        ReleaseState: { header: 'ReleaseState' },
-        BuildNumber: { header: 'BuildNumber' },
-      });
+    if (data.length) {
+      this.table({ data });
     } else {
       this.warn('No Results Found');
     }
-    return result;
+    return data;
   }
 }

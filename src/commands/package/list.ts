@@ -61,30 +61,30 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
 
   private displayResults(results: Package2Result[], verbose = false, apiVersion: string): void {
     this.styledHeader(chalk.blue(`Packages [${results.length}]`));
-    const columns = {
-      NamespacePrefix: { header: messages.getMessage('namespace') },
-      Name: { header: messages.getMessage('name') },
-      Id: { header: messages.getMessage('id') },
-      Alias: { header: messages.getMessage('alias') },
-      Description: { header: messages.getMessage('description') },
-      ContainerOptions: {
-        header: messages.getMessage('package-type'),
-      },
-      ...(verbose
-        ? {
-            SubscriberPackageId: { header: messages.getMessage('package-id') },
-            ConvertedFromPackageId: { header: messages.getMessage('convertedFromPackageId') },
-            IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
-            PackageErrorUsername: { header: messages.getMessage('error-notification-username') },
-            CreatedBy: { header: messages.getMessage('createdBy') },
-          }
-        : {}),
-      ...(verbose && parseInt(apiVersion, 10) >= 59
-        ? { AppAnalyticsEnabled: { header: messages.getMessage('app-analytics-enabled') } }
-        : {}),
-    };
+    let columns = [
+      { key: 'NamespacePrefix', name: messages.getMessage('namespace') },
+      { key: 'Name', name: messages.getMessage('name') },
+      { key: 'Id', name: messages.getMessage('id') },
+      { key: 'Alias', name: messages.getMessage('alias') },
+      { key: 'Description', name: messages.getMessage('description') },
+      { key: 'ContainerOptions', name: messages.getMessage('package-type') },
+    ];
 
-    this.table(results, columns);
+    if (verbose) {
+      columns = columns.concat([
+        { name: 'SubscriberPackageId', key: messages.getMessage('package-id') },
+        { name: 'ConvertedFromPackageId', key: messages.getMessage('convertedFromPackageId') },
+        { name: 'IsOrgDependent', key: messages.getMessage('isOrgDependent') },
+        { name: 'PackageErrorUsername', key: messages.getMessage('error-notification-username') },
+        { name: 'CreatedBy', key: messages.getMessage('createdBy') },
+      ]);
+
+      if (parseInt(apiVersion, 10) >= 59) {
+        columns.push({ name: 'AppAnalyticsEnabled', key: messages.getMessage('app-analytics-enabled') });
+      }
+    }
+    // @ts-expect-error sdfsdfs
+    this.table({ data: results, columns });
   }
 }
 

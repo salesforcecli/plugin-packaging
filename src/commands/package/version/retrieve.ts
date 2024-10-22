@@ -81,15 +81,14 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
       }
     });
 
-    this.table(
-      results,
-      {
-        fullName: { header: messages.getMessage('headers.fullName') },
-        type: { header: messages.getMessage('headers.type') },
-        filePath: { header: messages.getMessage('headers.filePath') },
-      },
-      { 'no-truncate': true }
-    );
+    this.table({
+      data: results,
+      columns: [
+        { key: 'fullName', name: messages.getMessage('headers.fullName') },
+        { key: 'type', name: messages.getMessage('headers.type') },
+        { key: 'filePath', name: messages.getMessage('headers.filePath') },
+      ],
+    });
 
     return results;
   }

@@ -22,24 +22,6 @@ export type CreateListCommandResult = Array<
   }
 >;
 
-type ColumnDataHeader = {
-  header?: string;
-};
-type ColumnData = {
-  Id: ColumnDataHeader;
-  Status: ColumnDataHeader;
-  Package2Id: ColumnDataHeader;
-  Package2VersionId: ColumnDataHeader;
-  SubscriberPackageVersionId: ColumnDataHeader;
-  Tag: ColumnDataHeader;
-  Branch: ColumnDataHeader;
-  CreatedDate: ColumnDataHeader;
-  CreatedBy: ColumnDataHeader;
-  VersionName?: ColumnDataHeader;
-  VersionNumber?: ColumnDataHeader;
-  ConvertedFromVersionId?: ColumnDataHeader;
-};
-
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
 
 export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
@@ -87,47 +69,34 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      const columnData: ColumnData = {
-        Id: {},
-        Status: {
-          header: messages.getMessage('status'),
-        },
-        Package2Id: {
-          header: messages.getMessage('package-id'),
-        },
-        Package2VersionId: {
-          header: messages.getMessage('packageVersionId'),
-        },
-        SubscriberPackageVersionId: {
-          header: messages.getMessage('subscriberPackageVersionId'),
-        },
-        Tag: {
-          header: messages.getMessage('tag'),
-        },
-        Branch: {
-          header: messages.getMessage('branch'),
-        },
-        CreatedDate: { header: 'Created Date' },
-        CreatedBy: {
-          header: messages.getMessage('createdBy'),
-        },
-      };
+      const columnData = [
+        { name: 'Id', key: 'Id' },
+        { name: 'Status', key: messages.getMessage('status') },
+        { name: 'Package2Id', key: messages.getMessage('package-id') },
+        { name: 'Package2VersionId', key: messages.getMessage('packageVersionId') },
+        { name: 'SubscriberPackageVersionId', key: messages.getMessage('subscriberPackageVersionId') },
+        { name: 'Tag', key: messages.getMessage('tag') },
+        { name: 'Branch', key: messages.getMessage('branch') },
+        { name: 'CreatedDate', key: 'Created Date' },
+        { name: 'CreatedBy', key: messages.getMessage('createdBy') },
+      ];
 
       if (flags['show-conversions-only']) {
-        columnData.ConvertedFromVersionId = { header: messages.getMessage('convertedFromVersionId') };
+        columnData.push({ name: 'ConvertedFromVersionId', key: messages.getMessage('convertedFromVersionId') });
       }
 
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
-          columnData.VersionName = { header: 'Version Name' };
-          columnData.VersionNumber = { header: 'Version Number' };
+          columnData.push({ key: 'VersionName', name: 'Version Name' });
+          columnData.push({ key: 'VersionNumber', name: 'Version Number' });
         } catch (err) {
           const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
           this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
         }
-      }
-      this.table(results, columnData, { 'no-truncate': true });
+      } // @ts-expect-error sdfsdfs
+
+      this.table({ data: results, columns: columnData });
     }
 
     return results;
