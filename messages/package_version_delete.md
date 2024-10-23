@@ -50,4 +50,4 @@ Successfully deleted the package version with ID: %s
 
 # humanSuccessUndelete
 
-Successfully undeleted the package version.
+Successfully undeleted the package version. %s
