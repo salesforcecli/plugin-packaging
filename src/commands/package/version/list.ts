@@ -261,11 +261,11 @@ const getColumnData = (
   }
 
   if (!verbose) {
-    // @ts-expect-error sdfsdfs
+    // @ts-expect-error the default cols don't match 1:1 to the data in the table, but that's on purpose
     return defaultCols;
   } else {
     // add additional columns for verbose output
-    // @ts-expect-error sdfsdfs
+    // @ts-expect-error the verbose match 1:1 to the data in the table, but that's on purpose, but the OCLIF types can't determine tha
     return defaultCols.concat([
       { key: 'Package2Id', name: messages.getMessage('package-id') },
       { key: 'InstallUrl', name: messages.getMessage('installUrl') },

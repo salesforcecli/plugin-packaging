@@ -61,30 +61,26 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
 
   private displayResults(results: Package2Result[], verbose = false, apiVersion: string): void {
     this.styledHeader(chalk.blue(`Packages [${results.length}]`));
-    let columns = [
-      { key: 'NamespacePrefix', name: messages.getMessage('namespace') },
-      { key: 'Name', name: messages.getMessage('name') },
-      { key: 'Id', name: messages.getMessage('id') },
-      { key: 'Alias', name: messages.getMessage('alias') },
-      { key: 'Description', name: messages.getMessage('description') },
-      { key: 'ContainerOptions', name: messages.getMessage('package-type') },
-    ];
 
-    if (verbose) {
-      columns = columns.concat([
-        { name: 'SubscriberPackageId', key: messages.getMessage('package-id') },
-        { name: 'ConvertedFromPackageId', key: messages.getMessage('convertedFromPackageId') },
-        { name: 'IsOrgDependent', key: messages.getMessage('isOrgDependent') },
-        { name: 'PackageErrorUsername', key: messages.getMessage('error-notification-username') },
-        { name: 'CreatedBy', key: messages.getMessage('createdBy') },
-      ]);
-
-      if (parseInt(apiVersion, 10) >= 59) {
-        columns.push({ name: 'AppAnalyticsEnabled', key: messages.getMessage('app-analytics-enabled') });
-      }
-    }
-    // @ts-expect-error sdfsdfs
-    this.table({ data: results, columns });
+    const data = results.map((r) => ({
+      'Namespace Prefix': r.NamespacePrefix,
+      Name: r.Name,
+      Id: r.Id,
+      Alias: r.Alias,
+      Description: r.Description,
+      ContainerOptions: r.ContainerOptions,
+      ...(verbose
+        ? {
+            'Package Id': r.SubscriberPackageId,
+            'Converted From Package Id': r.ConvertedFromPackageId,
+            'Org-Dependent Unlocked Package': r.IsOrgDependent,
+            'Error Notification Username': r.PackageErrorUsername,
+            'Created By': r.CreatedBy,
+            ...(parseInt(apiVersion, 10) >= 59 ? { 'App Analytics Enabled': r.AppAnalyticsEnabled } : {}),
+          }
+        : {}),
+    }));
+    this.table({ data });
   }
 }
 

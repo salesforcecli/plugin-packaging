@@ -69,34 +69,31 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       this.warn('No results found');
     } else {
       this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      const columnData = [
-        { name: 'Id', key: 'Id' },
-        { name: 'Status', key: messages.getMessage('status') },
-        { name: 'Package2Id', key: messages.getMessage('package-id') },
-        { name: 'Package2VersionId', key: messages.getMessage('packageVersionId') },
-        { name: 'SubscriberPackageVersionId', key: messages.getMessage('subscriberPackageVersionId') },
-        { name: 'Tag', key: messages.getMessage('tag') },
-        { name: 'Branch', key: messages.getMessage('branch') },
-        { name: 'CreatedDate', key: 'Created Date' },
-        { name: 'CreatedBy', key: messages.getMessage('createdBy') },
-      ];
-
-      if (flags['show-conversions-only']) {
-        columnData.push({ name: 'ConvertedFromVersionId', key: messages.getMessage('convertedFromVersionId') });
-      }
 
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
-          columnData.push({ key: 'VersionName', name: 'Version Name' });
-          columnData.push({ key: 'VersionNumber', name: 'Version Number' });
         } catch (err) {
           const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
           this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
         }
-      } // @ts-expect-error sdfsdfs
+      }
 
-      this.table({ data: results, columns: columnData });
+      const data = results.map((r) => ({
+        Id: r.Id,
+        Status: r.Status,
+        'Package Id': r.Package2Id,
+        'Package Version Id': r.Package2VersionId,
+        'Subscriber Package Version Id': r.SubscriberPackageVersionId,
+        Tag: r.Tag,
+        Branch: r.Branch,
+        'Created Date': r.CreatedDate,
+        'Created By': r.CreatedBy,
+        ...(flags['show-conversions-only'] ? { 'Converted From Version Id': r.ConvertedFromVersionId } : {}),
+        ...(flags.verbose ? { 'Version Name': r.VersionName, 'Version Number': r.VersionNumber } : {}),
+      }));
+
+      this.table({ data });
     }
 
     return results;
