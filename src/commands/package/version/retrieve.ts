@@ -88,6 +88,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
         { key: 'type', name: messages.getMessage('headers.type') },
         { key: 'filePath', name: messages.getMessage('headers.filePath') },
       ],
+      overflow: 'wrap',
     });
 
     return results;

@@ -93,7 +93,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
         ...(flags.verbose ? { 'Version Name': r.VersionName, 'Version Number': r.VersionNumber } : {}),
       }));
 
-      this.table({ data });
+      this.table({ data, overflow: 'wrap' });
     }
 
     return results;

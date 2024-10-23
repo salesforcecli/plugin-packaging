@@ -58,6 +58,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
         { key: 'SubscriberPackageVersionName', name: 'Version Name' },
         { key: 'SubscriberPackageVersionNumber', name: 'Version' },
       ],
+      overflow: 'wrap',
     });
 
     return records;
