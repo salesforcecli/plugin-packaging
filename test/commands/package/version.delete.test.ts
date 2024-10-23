@@ -111,7 +111,7 @@ describe('package:version:delete', () => {
     command.project = SfProject.getInstance();
     const results: PackageSaveResult = await command.run();
     expect(uxSuccessStub.calledOnce).to.be.true;
-    expect(uxSuccessStub.args[0][0]).to.equal('Successfully undeleted the package version. testId');
+    expect(uxSuccessStub.args[0][0]).to.equal('Successfully undeleted package version testId.');
     expect(results.id).to.equal('testId');
   });
 });
