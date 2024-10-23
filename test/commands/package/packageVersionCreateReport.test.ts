@@ -89,11 +89,10 @@ describe('package:version:create:report - tests', () => {
   let warnStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
   beforeEach(async () => {
-    warnStub = sandbox.stub(SfCommand.prototype, 'warn');
-    styledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
-    tableStub = sandbox.stub(SfCommand.prototype, 'table');
+    warnStub = $$.SANDBOX.stub(SfCommand.prototype, 'warn');
+    styledHeaderStub = $$.SANDBOX.stub(SfCommand.prototype, 'styledHeader');
+    tableStub = $$.SANDBOX.stub(SfCommand.prototype, 'table');
   });
 
   before(async () => {
@@ -103,7 +102,7 @@ describe('package:version:create:report - tests', () => {
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
+    $$.SANDBOX.restore();
   });
 
   describe('package:version:create:report', () => {

@@ -18,8 +18,6 @@ describe('package:version:delete', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let uxSuccessStub: sinon.SinonStub;
   let uxConfirmStub: sinon.SinonStub;
@@ -29,7 +27,7 @@ describe('package:version:delete', () => {
   let undeleteStub: sinon.SinonStub;
 
   beforeEach(async () => {
-    uxSuccessStub = sandbox.stub(SfCommand.prototype, 'logSuccess');
+    uxSuccessStub = $$.SANDBOX.stub(SfCommand.prototype, 'logSuccess');
     uxConfirmStub = $$.SANDBOX.stub(SfCommand.prototype, 'confirm');
     deleteStub = $$.SANDBOX.stub();
     undeleteStub = $$.SANDBOX.stub();
@@ -50,7 +48,7 @@ describe('package:version:delete', () => {
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
+    $$.SANDBOX.restore();
   });
 
   beforeEach(() => {});
