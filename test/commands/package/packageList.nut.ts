@@ -66,9 +66,9 @@ describe('package list', () => {
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
     let headerExpression =
-      'Namespace Prefix\\s+?Name\\s+?Id\\s+?Alias\\s+?Description\\s+?Type\\s+?Subscriber Package Id\\s+?Converted From Package Id\\s+?Org-Dependent Unlocked Package\\s+?Error Notification Username\\s+?Created By\\s+?App Analytics Enabled';
+      'Namespace Prefix\\s+?|Name\\s+?|Id\\s+?|Alias\\s+?|Description\\s+?|Type\\s+?|Subscriber Package Id\\s+?|Converted From Package Id\\s+?|Org-Dependent Unlocked Package\\s+?|Error Notification Username\\s+?|Created By\\s+?|App Analytics Enabled';
     if (apiVersion < 59.0) {
-      headerExpression = headerExpression.replace('App Analytics Enabled\\s+?', '');
+      headerExpression = headerExpression.replace('App Analytics Enabled\\s+?|', '');
     }
     expect(output).to.match(new RegExp(headerExpression));
   });

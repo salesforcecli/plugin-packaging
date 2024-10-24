@@ -197,7 +197,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
-        / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+/
+        / Id\s+?|Status\s+?|Package Id\s+?|Package Version Id\s+?|Subscriber Package Version Id\s+?|Tag\s+?|Branch\s+?|Created Date\s+?|Created By\s+?|/
       );
     });
 
@@ -242,7 +242,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Version Create Requests  [');
       expect(output).to.match(
-        / Id\s+Status\s+Package Id\s+Package Version Id\s+Subscriber Package Version Id\s+Tag\s+Branch\s+Created Date\s+Created By\s+Converted From Version Id\s+/
+        / Id\s+?|Status\s+?|Package Id\s+?|Package Version Id\s+?|Subscriber Package Version Id\s+?|Tag\s+?|Branch\s+?|Created Date\s+?|Created By\s+?|Converted From Version Id\s+?|/
       );
     });
     it('should list the package versions created --verbose (json)', async () => {
@@ -262,7 +262,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch/
       );
     });
 
@@ -270,7 +270,7 @@ describe('package:version:*', () => {
       const command = `package:version:list -v ${session.hubOrg.username} --concise`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
-      expect(output).to.match(/Package Id\s+Version\s+Subscriber Package Version Id\s+Released/);
+      expect(output).to.match(/Package Id\s+?|Version\s+?|Subscriber Package Version Id\s+?|Released/);
     });
 
     it('should list package versions modified in the last 5 days', () => {
@@ -278,7 +278,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch/
       );
     });
     it('should list package versions created in the last 5 days', () => {
@@ -286,7 +286,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch/
       );
     });
     it('should list installed packages in dev hub - verbose human readable results', () => {
@@ -294,7 +294,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch\s+?|Package Id\s+?|Installation URL\s+?|Package Version Id\s+?|Created Date\s+?|Last Modified Date\s+?|Tag\s+?|Description\s+?|Code Coverage\s+?|Code Coverage Met\s+?|Converted From Version Id\s+?|Org-Dependent\s+?|Unlocked Package\s+?|Release\s+?|Version\s+?|Build Duration in Seconds\s+?|Managed Metadata Removed\s+?|Created By/
       );
     });
 
@@ -303,7 +303,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch\s+Package Id\s+Installation URL\s+Package Version Id\s+Created Date\s+Last Modified Date\s+Tag\s+Description\s+Code Coverage\s+Code Coverage Met\s+Converted From Version Id\s+Org-Dependent\s+Unlocked Package\s+Release\s+Version\s+Build Duration in Seconds\s+Managed Metadata Removed\s+Created By/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch\s+?|Package Id\s+?|Installation URL\s+?|Package Version Id\s+?|Created Date\s+?|Last Modified Date\s+?|Tag\s+?|Description\s+?|Code Coverage\s+?|Code Coverage Met\s+?|Converted From Version Id\s+?|Org-Dependent\s+?|Unlocked Package\s+?|Release\s+?|Version\s+?|Build Duration in Seconds\s+?|Managed Metadata Removed\s+?|Created By/
       );
       expect(output).to.include('testing');
     });
@@ -401,7 +401,7 @@ describe('package:version:*', () => {
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Package Versions [');
       expect(output).to.match(
-        /Package Name\s+Namespace\s+Version Name\s+Version\s+Subscriber Package Version Id\sAlias\s+Installation Key\s+Released\s+Validation Skipped\s+Validated Async\s+Ancestor\s+Ancestor Version\s+Branch\s+Converted From Version Id/
+        /Package Name\s+?|Namespace\s+?|Version Name\s+?|Version\s+?|Subscriber Package Version Id\sAlias\s+?|Installation Key\s+?|Released\s+?|Validation Skipped\s+?|Validated Async\s+?|Ancestor\s+?|Ancestor Version\s+?|Branch\s+?|Converted From Version Id/
       );
     });
   });
