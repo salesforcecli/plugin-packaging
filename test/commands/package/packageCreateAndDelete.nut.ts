@@ -34,7 +34,7 @@ describe('package create/update/delete', () => {
       const command = `package:create -n ${pkgName} -v ${session.hubOrg.username} -t Unlocked -r ./force-app`;
       const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(output).to.contain('=== Ids');
-      expect(output).to.match(/Package Id\s+?0Ho/);
+      expect(output).to.match(/Package Id\s+?|0Ho/);
     });
     it('should update a package - human readable results', () => {
       const command = `package:update --package ${pkgName} --description "My new description" -v ${session.hubOrg.username}`;

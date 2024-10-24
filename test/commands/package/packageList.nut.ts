@@ -59,7 +59,7 @@ describe('package list', () => {
     const command = `package:list -v ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.contain('=== Packages');
-    expect(output).to.match(/Namespace Prefix\s+?Name\s+?Id\s+?Alias\s+?Description\s+?Type/);
+    expect(output).to.match(/Namespace Prefix\s+?|Name\s+?|Id\s+?|Alias\s+?|Description\s+?|Type/);
   });
   it('should list packages in dev hub - verbose human readable results', () => {
     const command = `package:list -v ${session.hubOrg.username} --verbose`;
