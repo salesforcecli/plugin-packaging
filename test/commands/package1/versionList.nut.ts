@@ -29,7 +29,7 @@ describe('package1:version:list', () => {
     const command = `package1:version:list  -o ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(
-      /MetadataPackageVersionId\s+?MetadataPackageId\s+?Name\s+?Version\s+?ReleaseState\s+?BuildNumber/
+      /MetadataPackageVersionId\s+?|MetadataPackageId\s+?|Name\s+?|Version\s+?|ReleaseState\s+?|BuildNumber/
     );
   });
 
@@ -60,7 +60,7 @@ describe('package1:version:list', () => {
     const command = `package1:version:list -i ${packageId} -o ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(
-      /MetadataPackageVersionId\s+?MetadataPackageId\s+?Name\s+?Version\s+?ReleaseState\s+?BuildNumber/
+      /MetadataPackageVersionId\s+?|MetadataPackageId\s+?|Name\s+?|Version\s+?|ReleaseState\s+?|BuildNumber/
     );
   });
 

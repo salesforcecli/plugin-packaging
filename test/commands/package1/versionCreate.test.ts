@@ -18,8 +18,6 @@ describe('package1:version:create', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let uxLogStub: sinon.SinonStub;
 
@@ -29,16 +27,16 @@ describe('package1:version:create', () => {
   });
 
   beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxLogStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
+    $$.SANDBOX.restore();
   });
 
   const libraryStubResult = (status: string): void => {
-    sandbox.stub(Package1Version, 'create').resolves({
+    $$.SANDBOX.stub(Package1Version, 'create').resolves({
       CreatedById: '',
       CreatedDate: 0,
       Description: '',

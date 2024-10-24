@@ -18,8 +18,6 @@ describe('package:uninstall', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let logStub: sinon.SinonStub;
 
@@ -29,16 +27,16 @@ describe('package:uninstall', () => {
   });
 
   beforeEach(async () => {
-    logStub = sandbox.stub(SfCommand.prototype, 'log');
+    logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
+    $$.SANDBOX.restore();
   });
 
   const libraryStubResult = (status: 'Error' | 'InProgress' | 'Queued' | 'Success'): void => {
-    sandbox.stub(SubscriberPackageVersion.prototype, 'uninstall').resolves({
+    $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'uninstall').resolves({
       Id: '06y23000000002MXXX',
       IsDeleted: true,
       CreatedDate: 123,
