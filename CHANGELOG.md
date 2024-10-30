@@ -1,3 +1,9 @@
+# [2.9.0](https://github.com/salesforcecli/plugin-packaging/compare/2.8.12...2.9.0) (2024-10-30)
+
+### Features
+
+- new tables ([#823](https://github.com/salesforcecli/plugin-packaging/issues/823)) ([f67e5fa](https://github.com/salesforcecli/plugin-packaging/commit/f67e5fa28a277577c776783bf0db78f635847ced))
+
 ## [2.8.12](https://github.com/salesforcecli/plugin-packaging/compare/2.8.11...2.8.12) (2024-10-12)
 
 ### Bug Fixes
