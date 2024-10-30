@@ -60,31 +60,25 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   }
 
   private displayResults(results: Package2Result[], verbose = false, apiVersion: string): void {
-    this.styledHeader(chalk.blue(`Packages [${results.length}]`));
-    const columns = {
-      NamespacePrefix: { header: messages.getMessage('namespace') },
-      Name: { header: messages.getMessage('name') },
-      Id: { header: messages.getMessage('id') },
-      Alias: { header: messages.getMessage('alias') },
-      Description: { header: messages.getMessage('description') },
-      ContainerOptions: {
-        header: messages.getMessage('package-type'),
-      },
+    const data = results.map((r) => ({
+      'Namespace Prefix': r.NamespacePrefix,
+      Name: r.Name,
+      Id: r.Id,
+      Alias: r.Alias,
+      Description: r.Description,
+      ContainerOptions: r.ContainerOptions,
       ...(verbose
         ? {
-            SubscriberPackageId: { header: messages.getMessage('package-id') },
-            ConvertedFromPackageId: { header: messages.getMessage('convertedFromPackageId') },
-            IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
-            PackageErrorUsername: { header: messages.getMessage('error-notification-username') },
-            CreatedBy: { header: messages.getMessage('createdBy') },
+            'Package Id': r.SubscriberPackageId,
+            'Converted From Package Id': r.ConvertedFromPackageId,
+            'Org-Dependent Unlocked Package': r.IsOrgDependent,
+            'Error Notification Username': r.PackageErrorUsername,
+            'Created By': r.CreatedBy,
+            ...(parseInt(apiVersion, 10) >= 59 ? { 'App Analytics Enabled': r.AppAnalyticsEnabled } : {}),
           }
         : {}),
-      ...(verbose && parseInt(apiVersion, 10) >= 59
-        ? { AppAnalyticsEnabled: { header: messages.getMessage('app-analytics-enabled') } }
-        : {}),
-    };
-
-    this.table(results, columns);
+    }));
+    this.table({ data, title: chalk.blue(`Packages [${results.length}]`) });
   }
 }
 

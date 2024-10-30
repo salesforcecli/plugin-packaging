@@ -61,56 +61,52 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
 
     const data = [
       {
-        key: pvclMessages.getMessage('id'),
+        name: pvclMessages.getMessage('id'),
         value: record.Id,
       },
       {
-        key: pvclMessages.getMessage('status'),
+        name: pvclMessages.getMessage('status'),
         value: camelCaseToTitleCase(record.Status),
       },
       {
-        key: pvclMessages.getMessage('package-id'),
+        name: pvclMessages.getMessage('package-id'),
         value: record.Package2Id,
       },
       {
-        key: pvclMessages.getMessage('packageVersionId'),
+        name: pvclMessages.getMessage('packageVersionId'),
         value: record.Package2VersionId,
       },
       {
-        key: pvclMessages.getMessage('subscriberPackageVersionId'),
+        name: pvclMessages.getMessage('subscriberPackageVersionId'),
         value: record.SubscriberPackageVersionId,
       },
       {
-        key: pvclMessages.getMessage('tag'),
+        name: pvclMessages.getMessage('tag'),
         value: record.Tag,
       },
       {
-        key: pvclMessages.getMessage('branch'),
+        name: pvclMessages.getMessage('branch'),
         value: record.Branch,
       },
-      { key: 'Created Date', value: record.CreatedDate },
+      { name: 'Created Date', value: record.CreatedDate },
       {
-        key: pvclMessages.getMessage('installUrl'),
+        name: pvclMessages.getMessage('installUrl'),
         value: installUrlValue,
       },
       {
-        key: plMessages.getMessage('createdBy'),
+        name: plMessages.getMessage('createdBy'),
         value: record.CreatedBy,
       },
     ];
 
     if (record.ConvertedFromVersionId) {
       data.push({
-        key: pvlMessages.getMessage('convertedFromVersionId'),
+        name: pvlMessages.getMessage('convertedFromVersionId'),
         value: record.ConvertedFromVersionId,
       });
     }
 
-    this.styledHeader(chalk.blue('Package Version Create Request'));
-    this.table(data, {
-      key: { header: 'Name' },
-      value: { header: 'Value' },
-    });
+    this.table({ data, title: chalk.blue('Package Version Create Request') });
 
     if (record.Error?.length > 0) {
       this.log('');

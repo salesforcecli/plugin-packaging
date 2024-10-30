@@ -46,7 +46,7 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
       flags['target-org'].getConnection(flags['api-version']),
       flags['package-version-id']
     );
-    const results = (await pv1.getPackageVersion()).map((result) => ({
+    const data = (await pv1.getPackageVersion()).map((result) => ({
       MetadataPackageVersionId: result.Id,
       MetadataPackageId: result.MetadataPackageId,
       Name: result.Name,
@@ -55,19 +55,12 @@ export class Package1VersionDisplayCommand extends SfCommand<Package1DisplayComm
       BuildNumber: result.BuildNumber,
     }));
 
-    if (results.length === 0) {
+    if (data.length === 0) {
       this.warn('No results found');
     } else {
-      this.table(results, {
-        MetadataPackageVersionId: { header: 'MetadataPackageVersionId' },
-        MetadataPackageId: { header: 'MetadataPackageId' },
-        Name: { header: 'Name' },
-        Version: { header: 'Version' },
-        ReleaseState: { header: 'ReleaseState' },
-        BuildNumber: { header: 'BuildNumber' },
-      });
+      this.table({ data });
     }
 
-    return results;
+    return data;
   }
 }

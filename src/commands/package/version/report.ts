@@ -212,10 +212,9 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       );
       displayCoverageRecords.splice(0, displayCoverageRecords.length);
     }
-    this.styledHeader(chalk.blue('Package Version'));
-    this.table(displayRecords, { key: { header: 'Name' }, value: { header: 'Value' } });
+    this.table({ data: displayRecords, title: chalk.blue('Package Version') });
     if (displayCoverageRecords.length > 0) {
-      this.table(displayCoverageRecords, { key: { header: 'Class Name' }, value: { header: 'Code Coverage' } });
+      this.table({ data: displayCoverageRecords });
     }
   }
 

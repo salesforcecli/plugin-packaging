@@ -44,8 +44,6 @@ describe('package:install:report', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let uxLogStub: sinon.SinonStub;
   let getInstallRequestStub: sinon.SinonStub;
@@ -56,12 +54,11 @@ describe('package:install:report', () => {
   });
 
   beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
+    uxLogStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
   });
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
   });
 
   it('should error without required --request-id param', async () => {

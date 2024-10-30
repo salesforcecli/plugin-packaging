@@ -22,24 +22,6 @@ export type CreateListCommandResult = Array<
   }
 >;
 
-type ColumnDataHeader = {
-  header?: string;
-};
-type ColumnData = {
-  Id: ColumnDataHeader;
-  Status: ColumnDataHeader;
-  Package2Id: ColumnDataHeader;
-  Package2VersionId: ColumnDataHeader;
-  SubscriberPackageVersionId: ColumnDataHeader;
-  Tag: ColumnDataHeader;
-  Branch: ColumnDataHeader;
-  CreatedDate: ColumnDataHeader;
-  CreatedBy: ColumnDataHeader;
-  VersionName?: ColumnDataHeader;
-  VersionNumber?: ColumnDataHeader;
-  ConvertedFromVersionId?: ColumnDataHeader;
-};
-
 type Status = 'Queued' | 'InProgress' | 'Success' | 'Error';
 
 export class PackageVersionCreateListCommand extends SfCommand<CreateListCommandResult> {
@@ -86,48 +68,30 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-      const columnData: ColumnData = {
-        Id: {},
-        Status: {
-          header: messages.getMessage('status'),
-        },
-        Package2Id: {
-          header: messages.getMessage('package-id'),
-        },
-        Package2VersionId: {
-          header: messages.getMessage('packageVersionId'),
-        },
-        SubscriberPackageVersionId: {
-          header: messages.getMessage('subscriberPackageVersionId'),
-        },
-        Tag: {
-          header: messages.getMessage('tag'),
-        },
-        Branch: {
-          header: messages.getMessage('branch'),
-        },
-        CreatedDate: { header: 'Created Date' },
-        CreatedBy: {
-          header: messages.getMessage('createdBy'),
-        },
-      };
-
-      if (flags['show-conversions-only']) {
-        columnData.ConvertedFromVersionId = { header: messages.getMessage('convertedFromVersionId') };
-      }
-
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
-          columnData.VersionName = { header: 'Version Name' };
-          columnData.VersionNumber = { header: 'Version Number' };
         } catch (err) {
           const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
           this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
         }
       }
-      this.table(results, columnData, { 'no-truncate': true });
+
+      const data = results.map((r) => ({
+        Id: r.Id,
+        Status: r.Status,
+        'Package Id': r.Package2Id,
+        'Package Version Id': r.Package2VersionId,
+        'Subscriber Package Version Id': r.SubscriberPackageVersionId,
+        Tag: r.Tag,
+        Branch: r.Branch,
+        'Created Date': r.CreatedDate,
+        'Created By': r.CreatedBy,
+        ...(flags['show-conversions-only'] ? { 'Converted From Version Id': r.ConvertedFromVersionId } : {}),
+        ...(flags.verbose ? { 'Version Name': r.VersionName, 'Version Number': r.VersionNumber } : {}),
+      }));
+
+      this.table({ data, overflow: 'wrap', title: chalk.blue(`Package Version Create Requests  [${results.length}]`) });
     }
 
     return results;

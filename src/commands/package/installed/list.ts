@@ -47,12 +47,19 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
       await SubscriberPackageVersion.installedList(flags['target-org'].getConnection(flags['api-version']))
     ).map(transformRow);
 
-    this.table(
-      records,
-      columns,
-
-      { 'no-truncate': true }
-    );
+    this.table({
+      data: records,
+      columns: [
+        { key: 'Id', name: 'ID' },
+        { key: 'SubscriberPackageId', name: 'Package ID' },
+        { key: 'SubscriberPackageName', name: 'Package Name' },
+        { key: 'SubscriberPackageNamespace', name: 'Namespace' },
+        { key: 'SubscriberPackageVersionId', name: 'Package Version ID' },
+        { key: 'SubscriberPackageVersionName', name: 'Version Name' },
+        { key: 'SubscriberPackageVersionNumber', name: 'Version' },
+      ],
+      overflow: 'wrap',
+    });
 
     return records;
   }
@@ -75,13 +82,3 @@ const transformRow = (r: InstalledPackages): PackageInstalledListResult => ({
       }
     : {}),
 });
-
-const columns = {
-  Id: { header: 'ID' },
-  SubscriberPackageId: { header: 'Package ID' },
-  SubscriberPackageName: { header: 'Package Name' },
-  SubscriberPackageNamespace: { header: 'Namespace' },
-  SubscriberPackageVersionId: { header: 'Package Version ID' },
-  SubscriberPackageVersionName: { header: 'Version Name' },
-  SubscriberPackageVersionNumber: { header: 'Version' },
-};

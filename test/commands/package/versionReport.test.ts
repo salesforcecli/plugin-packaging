@@ -114,17 +114,15 @@ describe('package:version:report - tests', () => {
   const testOrg = new MockTestOrgData();
   const config = new Config({ root: import.meta.url });
 
-  const sandbox = sinon.createSandbox();
-
   // stubs
   let uxLogStub: sinon.SinonStub;
   let uxTableStub: sinon.SinonStub;
   let uxStyledHeaderStub: sinon.SinonStub;
 
   beforeEach(async () => {
-    uxLogStub = sandbox.stub(SfCommand.prototype, 'log');
-    uxTableStub = sandbox.stub(SfCommand.prototype, 'table');
-    uxStyledHeaderStub = sandbox.stub(SfCommand.prototype, 'styledHeader');
+    uxLogStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    uxTableStub = $$.SANDBOX.stub(SfCommand.prototype, 'table');
+    uxStyledHeaderStub = $$.SANDBOX.stub(SfCommand.prototype, 'styledHeader');
   });
 
   before(async () => {
@@ -134,7 +132,7 @@ describe('package:version:report - tests', () => {
 
   afterEach(() => {
     $$.restore();
-    sandbox.restore();
+    $$.SANDBOX.restore();
   });
 
   describe('package:version:report', () => {
@@ -150,8 +148,6 @@ describe('package:version:report - tests', () => {
       expect(result).to.deep.equal(pkgVersionReportResultModified);
       expect(uxLogStub.calledOnce).to.be.false;
       expect(uxTableStub.calledOnce).to.be.true;
-      expect(uxStyledHeaderStub.calledOnce).to.be.true;
-      expect(uxStyledHeaderStub.args[0][0]).to.include('Package Version');
     });
     it('should produce package version report - json result', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);

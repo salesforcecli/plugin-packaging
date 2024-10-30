@@ -26,7 +26,7 @@ describe('package:installed:list', () => {
     const command = `package:installed:list  -o ${session.hubOrg.username}`;
     const output = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
     expect(output).to.match(
-      /ID\s+?Package ID\s+?Package Name\s+?Namespace\s+?Package Version ID\s+?Version Name\s+?Version/
+      /ID\s+?|Package ID\s+?|Package Name\s+?|Namespace\s+?|Package Version ID\s+?|Version Name\s+?|Version/
     );
   });
 

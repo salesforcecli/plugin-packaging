@@ -5,8 +5,9 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand, Ux } from '@salesforce/sf-plugins-core';
+import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
+import type { TableOptions } from '@oclif/table';
 import {
   getContainerOptions,
   getPackageVersionStrings,
@@ -213,9 +214,11 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           Language: record.Language,
         });
       });
-      this.styledHeader(`Package Versions [${results.length}]`);
-      this.table(results, getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']), {
-        'no-truncate': true,
+      this.table({
+        title: `Package Versions [${results.length}]`,
+        data: results,
+        overflow: 'wrap',
+        columns: getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']),
       });
     } else {
       this.warn('No results found');
@@ -229,73 +232,58 @@ const getColumnData = (
   concise: boolean,
   verbose: boolean,
   conversions: boolean
-): Ux.Table.Columns<Record<string, unknown>> => {
+): TableOptions<PackageVersionListDetails>['columns'] => {
   if (concise) {
-    return {
-      Package2Id: { header: messages.getMessage('package-id') },
-      Version: { header: messages.getMessage('version') },
-      SubscriberPackageVersionId: {
-        header: messages.getMessage('subscriberPackageVersionId'),
-      },
-      IsReleased: { header: 'Released' },
-    };
+    return [
+      { key: 'Package2Id', name: messages.getMessage('package-id') },
+      { key: 'Version', name: messages.getMessage('version') },
+      { key: 'SubscriberPackageVersionId', name: messages.getMessage('subscriberPackageVersionId') },
+      { key: 'IsReleased', name: 'Released' },
+    ];
   }
-  let defaultCols = {
-    Package2Name: { header: 'Package Name' },
-    NamespacePrefix: { header: 'Namespace' },
-    Name: { header: 'Version Name' },
-    Version: { header: messages.getMessage('version') },
-    SubscriberPackageVersionId: {
-      header: messages.getMessage('subscriberPackageVersionId'),
-    },
-    Alias: { header: messages.getMessage('alias') },
-    IsPasswordProtected: { header: messages.getMessage('installKey') },
-    IsReleased: { header: 'Released' },
-    ValidationSkipped: { header: messages.getMessage('validationSkipped') },
-    ValidatedAsync: { header: messages.getMessage('validatedAsync') },
-    AncestorId: { header: 'Ancestor' },
-    AncestorVersion: { header: 'Ancestor Version' },
-    Branch: { header: messages.getMessage('packageBranch') },
-  };
+  const defaultCols = [
+    { key: 'Package2Name', name: 'Package Name' },
+    { key: 'NamespacePrefix', name: 'Namespace' },
+    { key: 'Name', name: 'Version Name' },
+    { key: 'Version', name: messages.getMessage('version') },
+    { key: 'SubscriberPackageVersionId', name: messages.getMessage('subscriberPackageVersionId') },
+    { key: 'Alias', name: messages.getMessage('alias') },
+    { key: 'IsPasswordProtected', name: messages.getMessage('installKey') },
+    { key: 'IsReleased', name: 'Released' },
+    { key: 'ValidationSkipped', name: messages.getMessage('validationSkipped') },
+    { key: 'ValidatedAsync', name: messages.getMessage('validatedAsync') },
+    { key: 'AncestorId', name: 'Ancestor' },
+    { key: 'AncestorVersion', name: 'Ancestor Version' },
+    { key: 'Branch', name: messages.getMessage('packageBranch') },
+  ];
 
   if (conversions && !verbose) {
-    defaultCols = Object.assign(defaultCols, {
-      ConvertedFromVersionId: {
-        header: messages.getMessage('convertedFromVersionId'),
-      },
-    });
+    defaultCols.push({ key: 'ConvertedFromVersionId', name: messages.getMessage('convertedFromVersionId') });
   }
 
   if (!verbose) {
+    // @ts-expect-error the default cols don't match 1:1 to the data in the table, but that's on purpose
     return defaultCols;
   } else {
     // add additional columns for verbose output
-    return {
-      ...defaultCols,
-      Package2Id: { header: messages.getMessage('package-id') },
-      InstallUrl: { header: messages.getMessage('installUrl') },
-      Id: { header: messages.getMessage('id') },
-      CreatedDate: { header: 'Created Date' },
-      LastModifiedDate: { header: 'Last Modified Date' },
-      Tag: { header: messages.getMessage('packageTag') },
-      Description: { header: messages.getMessage('description') },
-      CodeCoverage: { header: messages.getMessage('codeCoverage') },
-      HasPassedCodeCoverageCheck: {
-        header: messages.getMessage('hasPassedCodeCoverageCheck'),
-      },
-      ConvertedFromVersionId: {
-        header: messages.getMessage('convertedFromVersionId'),
-      },
-      IsOrgDependent: { header: messages.getMessage('isOrgDependent') },
-      ReleaseVersion: { header: messages.getMessage('releaseVersion') },
-      BuildDurationInSeconds: {
-        header: messages.getMessage('buildDurationInSeconds'),
-      },
-      HasMetadataRemoved: {
-        header: messages.getMessage('hasMetadataRemoved'),
-      },
-      CreatedBy: { header: messages.getMessage('createdBy') },
-      Language: { header: messages.getMessage('language') },
-    };
+    // @ts-expect-error the verbose match 1:1 to the data in the table, but that's on purpose, but the OCLIF types can't determine tha
+    return defaultCols.concat([
+      { key: 'Package2Id', name: messages.getMessage('package-id') },
+      { key: 'InstallUrl', name: messages.getMessage('installUrl') },
+      { key: 'Id', name: messages.getMessage('id') },
+      { key: 'CreatedDate', name: 'Created Date' },
+      { key: 'LastModifiedDate', name: 'Last Modified Date' },
+      { key: 'Tag', name: messages.getMessage('packageTag') },
+      { key: 'Description', name: messages.getMessage('description') },
+      { key: 'CodeCoverage', name: messages.getMessage('codeCoverage') },
+      { key: 'HasPassedCodeCoverageCheck', name: messages.getMessage('hasPassedCodeCoverageCheck') },
+      { key: 'ConvertedFromVersionId', name: messages.getMessage('convertedFromVersionId') },
+      { key: 'IsOrgDependent', name: messages.getMessage('isOrgDependent') },
+      { key: 'ReleaseVersion', name: messages.getMessage('releaseVersion') },
+      { key: 'BuildDurationInSeconds', name: messages.getMessage('buildDurationInSeconds') },
+      { key: 'HasMetadataRemoved', name: messages.getMessage('hasMetadataRemoved') },
+      { key: 'CreatedBy', name: messages.getMessage('createdBy') },
+      { key: 'Language', name: messages.getMessage('language') },
+    ]);
   }
 };
