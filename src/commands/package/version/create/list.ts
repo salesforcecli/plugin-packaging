@@ -68,8 +68,6 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      this.styledHeader(chalk.blue(`Package Version Create Requests  [${results.length}]`));
-
       if (flags.verbose) {
         try {
           results = await this.fetchVerboseData(results);
@@ -93,7 +91,7 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
         ...(flags.verbose ? { 'Version Name': r.VersionName, 'Version Number': r.VersionNumber } : {}),
       }));
 
-      this.table({ data, overflow: 'wrap' });
+      this.table({ data, overflow: 'wrap', title: chalk.blue(`Package Version Create Requests  [${results.length}]`) });
     }
 
     return results;

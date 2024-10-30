@@ -212,8 +212,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       );
       displayCoverageRecords.splice(0, displayCoverageRecords.length);
     }
-    this.styledHeader(chalk.blue('Package Version'));
-    this.table({ data: displayRecords });
+    this.table({ data: displayRecords, title: chalk.blue('Package Version') });
     if (displayCoverageRecords.length > 0) {
       this.table({ data: displayCoverageRecords });
     }

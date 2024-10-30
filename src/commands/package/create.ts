@@ -93,7 +93,6 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
   }
 
   private display(result: PackageCreate): void {
-    this.styledHeader('Ids');
-    this.table({ data: [{ name: 'Package Id', value: result.Id }] });
+    this.table({ data: [{ name: 'Package Id', value: result.Id }], title: 'Ids' });
   }
 }

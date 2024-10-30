@@ -148,8 +148,6 @@ describe('package:version:report - tests', () => {
       expect(result).to.deep.equal(pkgVersionReportResultModified);
       expect(uxLogStub.calledOnce).to.be.false;
       expect(uxTableStub.calledOnce).to.be.true;
-      expect(uxStyledHeaderStub.calledOnce).to.be.true;
-      expect(uxStyledHeaderStub.args[0][0]).to.include('Package Version');
     });
     it('should produce package version report - json result', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);

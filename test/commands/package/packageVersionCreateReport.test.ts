@@ -85,13 +85,11 @@ describe('package:version:create:report - tests', () => {
   const testOrg = new MockTestOrgData();
   let createStatusStub = $$.SANDBOX.stub(PackageVersion, 'getCreateStatus');
   let tableStub: sinon.SinonStub;
-  let styledHeaderStub: sinon.SinonStub;
   let warnStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
   beforeEach(async () => {
     warnStub = $$.SANDBOX.stub(SfCommand.prototype, 'warn');
-    styledHeaderStub = $$.SANDBOX.stub(SfCommand.prototype, 'styledHeader');
     tableStub = $$.SANDBOX.stub(SfCommand.prototype, 'table');
   });
 
@@ -129,7 +127,6 @@ describe('package:version:create:report - tests', () => {
         },
       ]);
       expect(tableStub.callCount).to.equal(1);
-      expect(styledHeaderStub.callCount).to.equal(1);
     });
 
     it('should report on a new package version with async validation', async () => {
@@ -157,7 +154,6 @@ describe('package:version:create:report - tests', () => {
         },
       ]);
       expect(tableStub.callCount).to.equal(1);
-      expect(styledHeaderStub.callCount).to.equal(1);
     });
 
     it('should report multiple errors', async () => {

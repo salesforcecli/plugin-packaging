@@ -214,8 +214,8 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           Language: record.Language,
         });
       });
-      this.styledHeader(`Package Versions [${results.length}]`);
       this.table({
+        title: `Package Versions [${results.length}]`,
         data: results,
         overflow: 'wrap',
         columns: getColumnData(flags.concise, flags.verbose, flags['show-conversions-only']),

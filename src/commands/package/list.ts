@@ -60,8 +60,6 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
   }
 
   private displayResults(results: Package2Result[], verbose = false, apiVersion: string): void {
-    this.styledHeader(chalk.blue(`Packages [${results.length}]`));
-
     const data = results.map((r) => ({
       'Namespace Prefix': r.NamespacePrefix,
       Name: r.Name,
@@ -80,7 +78,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
           }
         : {}),
     }));
-    this.table({ data });
+    this.table({ data, title: chalk.blue(`Packages [${results.length}]`) });
   }
 }
 

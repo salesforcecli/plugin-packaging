@@ -106,8 +106,7 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
       });
     }
 
-    this.styledHeader(chalk.blue('Package Version Create Request'));
-    this.table({ data });
+    this.table({ data, title: chalk.blue('Package Version Create Request') });
 
     if (record.Error?.length > 0) {
       this.log('');
