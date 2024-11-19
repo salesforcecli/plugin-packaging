@@ -1,3 +1,9 @@
+## [2.9.1](https://github.com/salesforcecli/plugin-packaging/compare/2.9.0...2.9.1) (2024-11-19)
+
+### Bug Fixes
+
+- **deps:** bump cross-spawn from 7.0.3 to 7.0.6 ([a3f158e](https://github.com/salesforcecli/plugin-packaging/commit/a3f158e88bf142364ee86a25b625c8d97d810e4d))
+
 # [2.9.0](https://github.com/salesforcecli/plugin-packaging/compare/2.8.12...2.9.0) (2024-10-30)
 
 ### Features
