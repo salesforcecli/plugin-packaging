@@ -141,10 +141,10 @@
     "@smithy/util-waiter" "^3.1.8"
     tslib "^2.6.2"
 
-"@aws-sdk/client-s3@^3.699.0":
-  version "3.701.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.701.0.tgz#67abfa23c657c0340a6d32dec0b20f84f04b7f2c"
-  integrity sha512-7iXmPC5r7YNjvwSsRbGq9oLVgfIWZesXtEYl908UqMmRj2sVAW/leLopDnbLT7TEedqlK0RasOZT05I0JTNdKw==
+"@aws-sdk/client-s3@^3.701.0":
+  version "3.705.0"
+  resolved "https://registry.yarnpkg.com/@aws-sdk/client-s3/-/client-s3-3.705.0.tgz#7a4a4784bd5b3ca3187ff876b771eaf0cbde1c42"
+  integrity sha512-Fm0Cbc4zr0yG0DnNycz7ywlL5tQFdLSb7xCIPfzrxJb3YQiTXWxH5eu61SSsP/Z6RBNRolmRPvst/iNgX0fWvA==
   dependencies:
     "@aws-crypto/sha1-browser" "5.2.0"
     "@aws-crypto/sha256-browser" "5.2.0"
@@ -6634,13 +6634,13 @@ obliterator@^2.0.1, obliterator@^2.0.2:
   resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
   integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
 
-oclif@^4.15.29:
-  version "4.15.29"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.15.29.tgz#ec1b081bdadb695ad3c9fd513be9bfa03afa26e7"
-  integrity sha512-J5yLogJS5j8BCGbXM4jTGT9euDnhjHSldEfJ5V4g7ZOfratZrPLLYypy/4PW6WCTn+lh8YCW7IlYOEbyBRmnGQ==
+oclif@^4.16.0:
+  version "4.16.0"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.16.0.tgz#bd2e0ec5dc48ed8a2f5dbd7e298727812b7aadb5"
+  integrity sha512-Y5bcJc4vwhAW0UN9ctZvfLYZz+nC4rQJPmmpKFXLj7A6uKS1c+GrNa4WwZnk9D4eN32kP/awyRRdd2lbX/S+KQ==
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.687.0"
-    "@aws-sdk/client-s3" "^3.699.0"
+    "@aws-sdk/client-s3" "^3.701.0"
     "@inquirer/confirm" "^3.1.22"
     "@inquirer/input" "^2.2.4"
     "@inquirer/select" "^2.5.0"
