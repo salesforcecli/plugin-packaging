@@ -16,7 +16,9 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 type Status = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 
-export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeListResult[]> {
+export type PackagePushUpgradeListResultArr = PackagePushUpgradeListResult[];
+
+export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeListResultArr> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -46,7 +48,7 @@ export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeL
 
   private connection!: Connection;
 
-  public async run(): Promise<PackagePushUpgradeListResult[]> {
+  public async run(): Promise<PackagePushUpgradeListResultArr> {
     const { flags } = await this.parse(PackagePushUpgradeListCommand);
     this.connection = flags['target-dev-hub'].getConnection('61.0');
 
@@ -84,7 +86,7 @@ export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeL
   }
 }
 
-function fetchVerboseData(results: PackagePushUpgradeListResult[]): PackagePushUpgradeListResult[] {
+function fetchVerboseData(results: PackagePushUpgradeListResultArr): PackagePushUpgradeListResultArr {
   return results.map((result) => ({
     ...result,
     ...{
