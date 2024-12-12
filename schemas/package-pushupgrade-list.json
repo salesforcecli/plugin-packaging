@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/PackagePushUpgradeListResultArr",
+  "$ref": "#/definitions/PackagePushRequestListResultArr",
   "definitions": {
-    "PackagePushUpgradeListResultArr": {
+    "PackagePushRequestListResultArr": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/PackagePushUpgradeListResult"
+        "$ref": "#/definitions/PackagePushRequestListResult"
       }
     },
-    "PackagePushUpgradeListResult": {
+    "PackagePushRequestListResult": {
       "type": "object",
       "properties": {
         "PushRequestId": {
