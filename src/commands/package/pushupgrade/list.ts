@@ -7,7 +7,7 @@
 
 import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
 import { Connection, Messages } from '@salesforce/core';
-import { PackagePushUpgradeListResult, PackagePushUpgrade } from '@salesforce/packaging';
+import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
 import chalk from 'chalk';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
@@ -16,9 +16,9 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 
 type Status = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 
-export type PackagePushUpgradeListResultArr = PackagePushUpgradeListResult[];
+export type PackagePushRequestListResultArr = PackagePushRequestListResult[];
 
-export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeListResultArr> {
+export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestListResultArr> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -48,12 +48,13 @@ export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeL
 
   private connection!: Connection;
 
-  public async run(): Promise<PackagePushUpgradeListResultArr> {
-    const { flags } = await this.parse(PackagePushUpgradeListCommand);
+  public async run(): Promise<PackagePushRequestListResultArr> {
+    const { flags } = await this.parse(PackagePushRequestListCommand);
     this.connection = flags['target-dev-hub'].getConnection('61.0');
 
     // Get results of query here
-    let results = await PackagePushUpgrade.list(this.connection, {
+    // Use const since we will add verbose later
+    const results = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid!,
       status: flags.status,
     });
@@ -61,16 +62,16 @@ export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeL
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      if (flags.verbose) {
-        try {
-          results = fetchVerboseData(results);
-        } catch (err) {
-          const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
-          this.warn(`error when retrieving verbose data due to: ${errMsg}`);
-        }
-      }
+      // if (flags.verbose) {
+      //   try {
+      //     results = fetchVerboseData(results);
+      //   } catch (err) {
+      //     const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
+      //     this.warn(`error when retrieving verbose data due to: ${errMsg}`);
+      //   }
+      // }
 
-      const data = results.map((record: PackagePushUpgradeListResult) => ({
+      const data = results.map((record) => ({
         PushRequestId: record?.PushRequestId,
         PackageVersionId: record?.PackageVersionId,
         PushRequestStatus: record?.PushRequestStatus,
@@ -86,14 +87,14 @@ export class PackagePushUpgradeListCommand extends SfCommand<PackagePushUpgradeL
   }
 }
 
-function fetchVerboseData(results: PackagePushUpgradeListResultArr): PackagePushUpgradeListResultArr {
-  return results.map((result) => ({
-    ...result,
-    ...{
-      PushUpgradeRequestCreatedDateTime: '',
-      ActualUpgradeStartTime: '',
-      ActualUpgradeEndTime: '',
-      ActualDurationsOfPushUpgrades: 0,
-    },
-  }));
-}
+// function fetchVerboseData(results: PackagePushRequestListResultArr): PackagePushRequestListResultArr {
+//   return results.map((result) => ({
+//     ...result,
+//     ...{
+//       PushUpgradeRequestCreatedDateTime: '',
+//       ActualUpgradeStartTime: '',
+//       ActualUpgradeEndTime: '',
+//       ActualDurationsOfPushUpgrades: 0,
+//     },
+//   }));
+// }
