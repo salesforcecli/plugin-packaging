@@ -1,6 +1,6 @@
 # summary
 
-List package version upgrades.
+List package push upgrades.
 
 # description
 
