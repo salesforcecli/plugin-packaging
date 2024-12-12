@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/CreateListCommandResult",
+  "definitions": {
+    "CreateListCommandResult": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "VersionName": {
+            "type": "string"
+          },
+          "VersionNumber": {
+            "type": ["string", "null"]
+          },
+          "Id": {
+            "type": "string"
+          },
+          "Status": {
+            "$ref": "#/definitions/PackagingSObjects.Package2VersionStatus"
+          },
+          "Package2Id": {
+            "type": "string"
+          },
+          "Package2Name": {
+            "type": ["string", "null"]
+          },
+          "Package2VersionId": {
+            "type": "string"
+          },
+          "SubscriberPackageVersionId": {
+            "type": ["string", "null"]
+          },
+          "Tag": {
+            "type": "string"
+          },
+          "Branch": {
+            "type": "string"
+          },
+          "Error": {
+            "type": "array",
+            "items": {}
+          },
+          "CreatedDate": {
+            "type": "string"
+          },
+          "HasMetadataRemoved": {
+            "type": ["boolean", "null"]
+          },
+          "HasPassedCodeCoverageCheck": {
+            "type": ["boolean", "null"]
+          },
+          "CodeCoverage": {
+            "type": ["number", "null"]
+          },
+          "CreatedBy": {
+            "type": "string"
+          },
+          "ConvertedFromVersionId": {
+            "type": ["string", "null"]
+          }
+        },
+        "required": [
+          "Branch",
+          "CodeCoverage",
+          "ConvertedFromVersionId",
+          "CreatedBy",
+          "CreatedDate",
+          "Error",
+          "HasMetadataRemoved",
+          "HasPassedCodeCoverageCheck",
+          "Id",
+          "Package2Id",
+          "Package2Name",
+          "Package2VersionId",
+          "Status",
+          "SubscriberPackageVersionId",
+          "Tag",
+          "VersionNumber"
+        ]
+      }
+    },
+    "PackagingSObjects.Package2VersionStatus": {
+      "type": "string",
+      "enum": [
+        "Queued",
+        "InProgress",
+        "Success",
+        "Error",
+        "Initializing",
+        "VerifyingFeaturesAndSettings",
+        "VerifyingDependencies",
+        "VerifyingMetadata",
+        "FinalizingPackageVersion",
+        "PerformingValidations"
+      ]
+    }
+  }
+}
