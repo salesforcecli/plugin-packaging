@@ -30,6 +30,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     packageid: Flags.string({
       char: 'p',
       summary: messages.getMessage('flags.package-id.summary'),
+      required: true,
     }),
     'scheduled-last-days': Flags.integer({
       char: 'l',
@@ -57,7 +58,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // Get results of query here
     // Use const since we will add verbose later
     const results = await PackagePushUpgrade.list(this.connection, {
-      packageId: flags.packageid!,
+      packageId: flags.packageid,
       status: flags.status,
     });
 
