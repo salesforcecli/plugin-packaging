@@ -22,6 +22,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+  public static state = 'beta';
   public static readonly aliases = ['force:package:pushupgrade:list'];
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
@@ -81,7 +82,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
         NumOrgsUpgradedSuccess: 0,
       }));
 
-      this.table({ data, overflow: 'wrap', title: chalk.blue(`Push Upgrade List:  [${results.length}]`) });
+      this.table({ data, overflow: 'wrap', title: chalk.blue(`Push Upgrade Request List:  [${results.length}]`) });
     }
     return results;
   }
