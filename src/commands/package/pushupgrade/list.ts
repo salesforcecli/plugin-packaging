@@ -57,7 +57,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
     // Get results of query here
     // Use const since we will add verbose later
-    const results = await PackagePushUpgrade.list(this.connection, {
+    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
     });
