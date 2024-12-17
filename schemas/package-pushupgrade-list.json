@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackagePushRequestListResultArr",
+  "definitions": {
+    "PackagePushRequestListResultArr": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackagePushRequestListResult"
+      }
+    },
+    "PackagePushRequestListResult": {
+      "type": "object",
+      "properties": {
+        "PushRequestId": {
+          "type": "string"
+        },
+        "PackageVersionId": {
+          "type": "string"
+        },
+        "PushRequestStatus": {
+          "type": "string"
+        },
+        "PushRequestScheduledDateTime": {
+          "type": "string"
+        },
+        "NumOrgsScheduled": {
+          "type": "number"
+        },
+        "NumOrgsUpgradedFail": {
+          "type": "number"
+        },
+        "NumOrgsUpgradedSuccess": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "PushRequestId",
+        "PackageVersionId",
+        "PushRequestStatus",
+        "PushRequestScheduledDateTime",
+        "NumOrgsScheduled",
+        "NumOrgsUpgradedSuccess",
+        "NumOrgsUpgradedFail"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
