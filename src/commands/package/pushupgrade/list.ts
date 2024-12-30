@@ -58,10 +58,10 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // Get results of query here
     // Use const since we will add verbose later
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const results: PackagePushRequestListResult[] = (await PackagePushUpgrade.list(this.connection, {
+    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
-    })) as PackagePushRequestListResult[];
+    });
 
     if (results.length === 0) {
       this.warn('No results found');
