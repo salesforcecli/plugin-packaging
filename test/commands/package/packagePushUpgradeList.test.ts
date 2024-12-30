@@ -26,6 +26,7 @@ const pushUpgradeListFail: PackagePushRequestListResult[] = [
 describe('package:pushupgrade:list - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const createStub = $$.SANDBOX.stub(PackagePushUpgrade, 'list');
   const config = new Config({ root: import.meta.url });
 
@@ -44,6 +45,7 @@ describe('package:pushupgrade:list - tests', () => {
   });
 
   it('should fail to list push upgrade requests', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     createStub.resolves(pushUpgradeListFail);
     const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
 
