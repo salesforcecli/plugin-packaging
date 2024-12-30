@@ -57,7 +57,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
     // Get results of query here
     // Use const since we will add verbose later
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
     const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
