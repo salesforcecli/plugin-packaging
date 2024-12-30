@@ -26,22 +26,14 @@
         "NumOrgsScheduled": {
           "type": "number"
         },
-        "NumOrgsUpgradedFail": {
+        "NumOrgsUpgradedSuccess": {
           "type": "number"
         },
-        "NumOrgsUpgradedSuccess": {
+        "NumOrgsUpgradedFail": {
           "type": "number"
         }
       },
-      "required": [
-        "PushRequestId",
-        "PackageVersionId",
-        "PushRequestStatus",
-        "PushRequestScheduledDateTime",
-        "NumOrgsScheduled",
-        "NumOrgsUpgradedSuccess",
-        "NumOrgsUpgradedFail"
-      ],
+      "required": ["PushRequestScheduledDateTime", "NumOrgsScheduled", "NumOrgsUpgradedSuccess", "NumOrgsUpgradedFail"],
       "additionalProperties": false
     }
   }
