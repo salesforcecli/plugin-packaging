@@ -24,7 +24,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
     'package-version-id': Flags.string({
-      char: 'p',
+      char: 'i',
       summary: messages.getMessage('flags.package-version-id.summary'),
       required: true,
     }),
