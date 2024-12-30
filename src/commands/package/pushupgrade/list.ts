@@ -57,10 +57,11 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
     // Get results of query here
     // Use const since we will add verbose later
-    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const results: PackagePushRequestListResult[] = (await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
-    });
+    })) as PackagePushRequestListResult[];
 
     if (results.length === 0) {
       this.warn('No results found');
@@ -74,9 +75,12 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
       //   }
       // }
 
-      const data = results.map((record) => ({
+      const data = results.map((record: PackagePushRequestListResult) => ({
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         PushRequestId: record?.PushRequestId,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         PackageVersionId: record?.PackageVersionId,
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
         PushRequestStatus: record?.PushRequestStatus,
         PushRequestScheduledDateTime: 'test',
         NumOrgsScheduled: 0,
@@ -86,6 +90,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
       this.table({ data, overflow: 'wrap', title: chalk.blue(`Push Upgrade Request List:  [${results.length}]`) });
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return results;
   }
 }
