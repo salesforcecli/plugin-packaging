@@ -54,6 +54,14 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public async run(): Promise<PackagePushRequestListResultArr> {
     const { flags } = await this.parse(PackagePushRequestListCommand);
     this.connection = flags['target-dev-hub'].getConnection('61.0');
+    const scheduledLastDays = flags['scheduled-last-days'];
+
+    // Check if scheduledLastDays is valid
+    if (flags['scheduled-last-days'] !== undefined) {
+      if (isNaN(scheduledLastDays!) || scheduledLastDays! <= 0) {
+        throw new Error('Invalid value for --scheduled-last-days. It must be a positive integer.');
+      }
+    }
 
     // Get results of query here
     // Use const since we will add verbose later
@@ -61,7 +69,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
-      scheduledLastDays: flags['scheduled-last-days'],
+      scheduledLastDays,
     });
 
     if (results.length === 0) {
