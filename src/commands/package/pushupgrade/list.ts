@@ -61,6 +61,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
       packageId: flags.packageid,
       status: flags.status,
+      scheduledLastDays: flags['scheduled-last-days'],
     });
 
     if (results.length === 0) {
