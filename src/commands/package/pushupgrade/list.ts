@@ -66,27 +66,39 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      // if (flags.verbose) {
-      //   try {
-      //     results = fetchVerboseData(results);
-      //   } catch (err) {
-      //     const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
-      //     this.warn(`error when retrieving verbose data due to: ${errMsg}`);
-      //   }
-      // }
+      const data = await Promise.all(
+        results.map(async (record: PackagePushRequestListResult) => {
+          const packagePushRequestOptions = { packagePushRequestId: record.PushRequestId! };
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(this.connection, packagePushRequestOptions);
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(
+            this.connection,
+            packagePushRequestOptions
+          );
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          const numOrgsUpgradedSuccess = await PackagePushUpgrade.getSucceededJobs(
+            this.connection,
+            packagePushRequestOptions
+          );
 
-      const data = results.map((record: PackagePushRequestListResult) => ({
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        PushRequestId: record?.PushRequestId,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        PackageVersionId: record?.PackageVersionId,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-        PushRequestStatus: record?.PushRequestStatus,
-        PushRequestScheduledDateTime: 'test',
-        NumOrgsScheduled: 0,
-        NumOrgsUpgradedFail: 0,
-        NumOrgsUpgradedSuccess: 0,
-      }));
+          return {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            PushRequestId: record?.PushRequestId,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            PackageVersionId: record?.PackageVersionId,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+            PushRequestStatus: record?.PushRequestStatus,
+            PushRequestScheduledDateTime: 'test',
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            NumOrgsScheduled: totalNumOrgs,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            NumOrgsUpgradedFail: numOrgsUpgradedFail,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            NumOrgsUpgradedSuccess: numOrgsUpgradedSuccess,
+          };
+        })
+      );
 
       this.table({ data, overflow: 'wrap', title: chalk.blue(`Push Upgrade Request List:  [${results.length}]`) });
     }
@@ -94,15 +106,3 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     return results;
   }
 }
-
-// function fetchVerboseData(results: PackagePushRequestListResultArr): PackagePushRequestListResultArr {
-//   return results.map((result) => ({
-//     ...result,
-//     ...{
-//       PushUpgradeRequestCreatedDateTime: '',
-//       ActualUpgradeStartTime: '',
-//       ActualUpgradeEndTime: '',
-//       ActualDurationsOfPushUpgrades: 0,
-//     },
-//   }));
-// }
