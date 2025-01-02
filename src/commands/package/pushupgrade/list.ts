@@ -83,13 +83,10 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
           );
 
           return {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             PushRequestId: record?.PushRequestId,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             PackageVersionId: record?.PackageVersionId,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             PushRequestStatus: record?.PushRequestStatus,
-            PushRequestScheduledDateTime: 'test',
+            PushRequestScheduledDateTime: record?.PushRequestScheduledDateTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsScheduled: totalNumOrgs,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
