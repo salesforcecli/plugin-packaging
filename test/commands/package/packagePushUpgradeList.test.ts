@@ -17,6 +17,8 @@ const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
     PackageVersionId: '04t0M000000AxuqSAC',
     PushRequestStatus: 'Success',
     PushRequestScheduledDateTime: '2024-01-02T00:00:00.000Z',
+    PushRequestStartTime: '2024-01-02T00:01:00.000Z',
+    PushRequestEndTime: '2024-01-02T00:10:00.000Z',
     NumOrgsScheduled: 2,
     NumOrgsUpgradedFail: 0,
     NumOrgsUpgradedSuccess: 2,
