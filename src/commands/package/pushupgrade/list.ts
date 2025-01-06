@@ -44,9 +44,6 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
-    verbose: Flags.boolean({
-      summary: messages.getMessage('flags.verbose.summary'),
-    }),
   };
 
   private connection!: Connection;
@@ -96,6 +93,10 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
             PackageVersionId: record?.PackageVersionId,
             PushRequestStatus: record?.PushRequestStatus,
             PushRequestScheduledDateTime: record?.PushRequestScheduledDateTime,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            PushRequestStartTime: record?.PushRequestStartTime,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            PushRequestEndTime: record?.PushRequestEndTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsScheduled: totalNumOrgs,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
