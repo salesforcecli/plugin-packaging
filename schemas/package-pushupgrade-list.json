@@ -23,6 +23,12 @@
         "PushRequestScheduledDateTime": {
           "type": "string"
         },
+        "PushRequestStartTime": {
+          "type": "string"
+        },
+        "PushRequestEndTime": {
+          "type": "string"
+        },
         "NumOrgsScheduled": {
           "type": "number"
         },
@@ -33,7 +39,14 @@
           "type": "number"
         }
       },
-      "required": ["PushRequestScheduledDateTime", "NumOrgsScheduled", "NumOrgsUpgradedSuccess", "NumOrgsUpgradedFail"],
+      "required": [
+        "PushRequestScheduledDateTime",
+        "PushRequestStartTime",
+        "PushRequestEndTime",
+        "NumOrgsScheduled",
+        "NumOrgsUpgradedSuccess",
+        "NumOrgsUpgradedFail"
+      ],
       "additionalProperties": false
     }
   }

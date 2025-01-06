@@ -184,7 +184,7 @@
     "command": "package:pushupgrade:list",
     "flagAliases": ["scheduledlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "s", "v"],
-    "flags": ["flags-dir", "json", "packageid", "scheduled-last-days", "status", "target-dev-hub", "verbose"],
+    "flags": ["flags-dir", "json", "packageid", "scheduled-last-days", "status", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
