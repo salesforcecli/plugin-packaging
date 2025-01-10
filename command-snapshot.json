@@ -180,6 +180,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": ["force:package:pushupgrade:abort"],
+    "command": "package:pushupgrade:abort",
+    "flagAliases": ["apiversion", "packagepushrequestid", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "package-push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:uninstall"],
     "command": "package:uninstall",
     "flagAliases": ["apiversion", "targetusername", "u"],
