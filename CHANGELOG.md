@@ -1,3 +1,9 @@
+## [2.9.12](https://github.com/salesforcecli/plugin-packaging/compare/2.9.11...2.9.12) (2025-01-12)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.0 to 4.2.2 ([46b2492](https://github.com/salesforcecli/plugin-packaging/commit/46b2492b8e3704c7f02d131a5540854a457070e7))
+
 ## [2.9.11](https://github.com/salesforcecli/plugin-packaging/compare/2.9.10...2.9.11) (2025-01-11)
 
 ### Bug Fixes
