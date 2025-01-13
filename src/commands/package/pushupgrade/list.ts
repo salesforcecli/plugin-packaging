@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
-import { Connection, Messages } from '@salesforce/core';
+import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
+import { Messages } from '@salesforce/core';
 import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
 import chalk from 'chalk';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
@@ -27,6 +27,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public static readonly aliases = ['force:package:pushupgrade:list'];
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
+    'api-version': orgApiVersionFlagWithDeprecations,
     packageid: Flags.string({
       char: 'p',
       summary: messages.getMessage('flags.package-id.summary'),
@@ -46,11 +47,9 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     }),
   };
 
-  private connection!: Connection;
-
   public async run(): Promise<PackagePushRequestListResultArr> {
     const { flags } = await this.parse(PackagePushRequestListCommand);
-    this.connection = flags['target-dev-hub'].getConnection('61.0');
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const scheduledLastDays = flags['scheduled-last-days'];
 
     // Check if scheduledLastDays is valid
@@ -63,7 +62,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // Get results of query here
     // Use const since we will add verbose later
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(this.connection, {
+    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(connection, {
       packageId: flags.packageid,
       status: flags.status,
       scheduledLastDays,
@@ -74,29 +73,30 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     } else {
       const data = await Promise.all(
         results.map(async (record: PackagePushRequestListResult) => {
-          const packagePushRequestOptions = { packagePushRequestId: record.PushRequestId! };
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+          const packagePushRequestOptions = { packagePushRequestId: record?.Id };
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(this.connection, packagePushRequestOptions);
+          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(
-            this.connection,
-            packagePushRequestOptions
-          );
+          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
           const numOrgsUpgradedSuccess = await PackagePushUpgrade.getSucceededJobs(
-            this.connection,
+            connection,
             packagePushRequestOptions
           );
 
           return {
-            PushRequestId: record?.PushRequestId,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            Id: record?.Id,
             PackageVersionId: record?.PackageVersionId,
-            PushRequestStatus: record?.PushRequestStatus,
-            PushRequestScheduledDateTime: record?.PushRequestScheduledDateTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            PushRequestStartTime: record?.PushRequestStartTime,
+            Status: record?.Status,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            PushRequestEndTime: record?.PushRequestEndTime,
+            ScheduledDateTime: record?.ScheduledDateTime,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            StartTime: record?.StartTime,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            EndTime: record?.EndTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsScheduled: totalNumOrgs,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
