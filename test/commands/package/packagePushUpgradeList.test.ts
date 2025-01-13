@@ -13,12 +13,12 @@ import { PackagePushRequestListCommand } from '../../../src/commands/package/pus
 
 const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
   {
-    PushRequestId: '0Af0M000000AxuqSAC',
+    Id: '0Af0M000000AxuqSAC',
     PackageVersionId: '04t0M000000AxuqSAC',
-    PushRequestStatus: 'Success',
-    PushRequestScheduledDateTime: '2024-01-02T00:00:00.000Z',
-    PushRequestStartTime: '2024-01-02T00:01:00.000Z',
-    PushRequestEndTime: '2024-01-02T00:10:00.000Z',
+    Status: 'Success',
+    ScheduledDateTime: '2024-01-02T00:00:00.000Z',
+    StartTime: '2024-01-02T00:01:00.000Z',
+    EndTime: '2024-01-02T00:10:00.000Z',
     NumOrgsScheduled: 2,
     NumOrgsUpgradedFail: 0,
     NumOrgsUpgradedSuccess: 2,
