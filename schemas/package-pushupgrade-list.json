@@ -11,22 +11,22 @@
     "PackagePushRequestListResult": {
       "type": "object",
       "properties": {
-        "PushRequestId": {
+        "Id": {
           "type": "string"
         },
         "PackageVersionId": {
           "type": "string"
         },
-        "PushRequestStatus": {
+        "Status": {
           "type": "string"
         },
-        "PushRequestScheduledDateTime": {
+        "ScheduledDateTime": {
           "type": "string"
         },
-        "PushRequestStartTime": {
+        "StartTime": {
           "type": "string"
         },
-        "PushRequestEndTime": {
+        "EndTime": {
           "type": "string"
         },
         "NumOrgsScheduled": {
@@ -40,9 +40,12 @@
         }
       },
       "required": [
-        "PushRequestScheduledDateTime",
-        "PushRequestStartTime",
-        "PushRequestEndTime",
+        "Id",
+        "PackageVersionId",
+        "Status",
+        "ScheduledDateTime",
+        "StartTime",
+        "EndTime",
         "NumOrgsScheduled",
         "NumOrgsUpgradedSuccess",
         "NumOrgsUpgradedFail"
