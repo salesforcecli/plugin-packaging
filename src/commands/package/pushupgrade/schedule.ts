@@ -6,7 +6,7 @@
  */
 import fs from 'node:fs/promises';
 import * as csv from 'csv-parse/sync';
-import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
+import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
@@ -23,6 +23,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   public static readonly aliases = ['force:package:pushupgrade:schedule'];
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
+    'api-version': orgApiVersionFlagWithDeprecations,
     'package-version-id': Flags.string({
       char: 'i',
       summary: messages.getMessage('flags.package-version-id.summary'),
@@ -39,9 +40,6 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       summary: messages.getMessage('flags.org-list.summary'),
       required: true,
     }),
-    verbose: Flags.boolean({
-      summary: messages.getMessage('flags.verbose.summary'),
-    }),
   };
 
   public async run(): Promise<PackagePushScheduleResult> {
@@ -56,7 +54,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     const orgList = await readOrgListFile(flags['org-list']);
 
     // Connect to the Dev Hub
-    const conn = flags['target-dev-hub'].getConnection('61.0');
+    const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
 
     // Schedule the push upgrade
     const result = await PackagePushUpgrade.schedule(
