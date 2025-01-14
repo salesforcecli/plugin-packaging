@@ -5,7 +5,6 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import fs from 'node:fs/promises';
-import * as csv from 'csv-parse/sync';
 import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
@@ -76,13 +75,13 @@ function isValidPackageVersionId(id: string): boolean {
 async function readOrgListFile(filePath: string): Promise<string[]> {
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
-    const records = csv.parse(fileContent, { columns: false, skipEmptyLines: true }) as string[][];
+    const orgIds = fileContent.split(/\s+/).filter((id) => id.length > 0);
 
-    if (records.length === 0) {
+    if (orgIds.length === 0) {
       throw new SfError(messages.getMessage('error.empty-org-list'));
     }
 
-    return records.map((row: string[]) => row[0]).filter((id: string) => /^00D[a-zA-Z0-9]{15}$/.test(id));
+    return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
   } catch (error) {
     throw new SfError(messages.getMessage('error.invalid-org-list-file'));
   }
