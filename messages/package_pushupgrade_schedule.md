@@ -12,31 +12,27 @@ To get information about a specific request, run "<%= config.bin %> package push
 
 # flags.package-version-id.summary
 
-Status of the push upgrade request, used to filter the list.
+Package version id to push upgrade.
 
 # flags.scheduled-start-time.summary
 
-Filter the list output to display only push upgrade requests from a specific amount of days.
+Set schedule start time for push upgrade request.
 
 # flags.org-list.summary
 
-Status of the push upgrade request, used to filter the list.
+List of eligible subscriber orgs.
 
 # error.invalid-package-version
 
-Status of the push upgrade request, used to filter the list.
+Invalid package version.
 
 # error.empty-org-list
 
-Status of the push upgrade request, used to filter the list.
+Org list file is empty.
 
 # error.invalid-org-list-file
 
-Status of the push upgrade request, used to filter the list.
-
-# flags.verbose.summary
-
-Displays additional information at a slight performance cost, such as number of orgs scheduled for push upgrade, orgs successfully upgraded, etc.
+Org list file is invalid.
 
 # examples
 

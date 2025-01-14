@@ -183,7 +183,7 @@
     "alias": ["force:package:pushupgrade:schedule"],
     "command": "package:pushupgrade:schedule",
     "flagAliases": ["apiversion", "scheduledstarttime", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["f", "i", "t", "v"],
+    "flagChars": ["l", "p", "t", "v"],
     "flags": [
       "api-version",
       "flags-dir",

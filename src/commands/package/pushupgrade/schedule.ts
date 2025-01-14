@@ -25,7 +25,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     'package-version-id': Flags.string({
-      char: 'i',
+      char: 'p',
       summary: messages.getMessage('flags.package-version-id.summary'),
       required: true,
     }),
@@ -36,7 +36,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       summary: messages.getMessage('flags.scheduled-start-time.summary'),
     }),
     'org-list': Flags.file({
-      char: 'f',
+      char: 'l',
       summary: messages.getMessage('flags.org-list.summary'),
       required: true,
     }),
