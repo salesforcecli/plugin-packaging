@@ -29,13 +29,13 @@
         "EndTime": {
           "type": "string"
         },
-        "NumOrgsScheduled": {
+        "OrgsScheduled": {
           "type": "number"
         },
-        "NumOrgsUpgradedSuccess": {
+        "OrgsUpgradeSucceeded": {
           "type": "number"
         },
-        "NumOrgsUpgradedFail": {
+        "OrgsUpgradeFailed": {
           "type": "number"
         }
       },
@@ -46,9 +46,9 @@
         "ScheduledDateTime",
         "StartTime",
         "EndTime",
-        "NumOrgsScheduled",
-        "NumOrgsUpgradedSuccess",
-        "NumOrgsUpgradedFail"
+        "OrgsScheduled",
+        "OrgsUpgradeSucceeded",
+        "OrgsUpgradeFailed"
       ],
       "additionalProperties": false
     }

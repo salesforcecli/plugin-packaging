@@ -19,9 +19,9 @@ const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
     ScheduledDateTime: '2024-01-02T00:00:00.000Z',
     StartTime: '2024-01-02T00:01:00.000Z',
     EndTime: '2024-01-02T00:10:00.000Z',
-    NumOrgsScheduled: 2,
-    NumOrgsUpgradedFail: 0,
-    NumOrgsUpgradedSuccess: 2,
+    OrgsScheduled: 2,
+    OrgsUpgradeFailed: 0,
+    OrgsUpgradeSucceeded: 2,
   },
 ];
 
