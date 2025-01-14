@@ -92,7 +92,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             Status: record?.Status,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            ScheduledDateTime: record?.ScheduledDateTime,
+            ScheduledStartTime: record?.ScheduledStartTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             StartTime: record?.StartTime,
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
