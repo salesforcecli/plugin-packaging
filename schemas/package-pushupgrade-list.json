@@ -20,7 +20,7 @@
         "Status": {
           "type": "string"
         },
-        "ScheduledDateTime": {
+        "ScheduledStartTime": {
           "type": "string"
         },
         "StartTime": {
@@ -43,7 +43,7 @@
         "Id",
         "PackageVersionId",
         "Status",
-        "ScheduledDateTime",
+        "ScheduledStartTime",
         "StartTime",
         "EndTime",
         "OrgsScheduled",
