@@ -17,6 +17,22 @@
         "PackageVersionId": {
           "type": "string"
         },
+        "PackageVersion": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "MajorVersion": {
+              "type": "string"
+            },
+            "MinorVersion": {
+              "type": "string"
+            }
+          },
+          "required": ["Name", "MajorVersion", "MinorVersion"],
+          "additionalProperties": false
+        },
         "Status": {
           "type": "string"
         },
@@ -42,6 +58,7 @@
       "required": [
         "Id",
         "PackageVersionId",
+        "PackageVersion",
         "Status",
         "ScheduledStartTime",
         "StartTime",
