@@ -15,6 +15,11 @@ const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
   {
     Id: '0Af0M000000AxuqSAC',
     PackageVersionId: '04t0M000000AxuqSAC',
+    PackageVersion: {
+      Name: 'VersionName',
+      MajorVersion: '1',
+      MinorVersion: '1',
+    },
     Status: 'Success',
     ScheduledStartTime: '2024-01-02T00:00:00.000Z',
     StartTime: '2024-01-02T00:01:00.000Z',

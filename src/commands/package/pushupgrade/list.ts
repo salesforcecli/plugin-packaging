@@ -86,22 +86,16 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
           );
 
           return {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             Id: record?.Id,
             PackageVersionId: record?.PackageVersionId,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            PackageVersionName: record?.PackageVersion?.Name,
+            PackageVersionNumber: record?.PackageVersion?.MajorVersion + '.' + record?.PackageVersion?.MinorVersion,
             Status: record?.Status,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             ScheduledStartTime: record?.ScheduledStartTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             StartTime: record?.StartTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             EndTime: record?.EndTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsScheduled: totalNumOrgs,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsUpgradedFail: numOrgsUpgradedFail,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             NumOrgsUpgradedSuccess: numOrgsUpgradedSuccess,
           };
         })
