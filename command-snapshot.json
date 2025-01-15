@@ -180,6 +180,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": ["force:package:pushupgrade:report"],
+    "command": "package:pushupgrade:report",
+    "flagAliases": ["apiversion", "pushrequestid", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:uninstall"],
     "command": "package:uninstall",
     "flagAliases": ["apiversion", "targetusername", "u"],
@@ -229,7 +237,6 @@
       "releasenotesurl",
       "skipancestorcheck",
       "skipvalidation",
-      "asyncvalidation",
       "target-hub-org",
       "targetdevhubusername",
       "uninstallscript",
@@ -241,6 +248,7 @@
     "flagChars": ["a", "b", "c", "d", "e", "f", "j", "k", "n", "p", "r", "s", "t", "v", "w", "x"],
     "flags": [
       "api-version",
+      "async-validation",
       "branch",
       "build-instance",
       "code-coverage",
@@ -259,7 +267,6 @@
       "releasenotes-url",
       "skip-ancestor-check",
       "skip-validation",
-      "async-validation",
       "tag",
       "target-dev-hub",
       "uninstall-script",
