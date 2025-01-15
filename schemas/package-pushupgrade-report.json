@@ -36,9 +36,15 @@
             },
             "Name": {
               "type": "string"
+            },
+            "MajorVersion": {
+              "type": "string"
+            },
+            "MinorVersion": {
+              "type": "string"
             }
           },
-          "required": ["MetadataPackage", "MetadataPackageId", "Name"],
+          "required": ["MetadataPackage", "MetadataPackageId", "Name", "MajorVersion", "MinorVersion"],
           "additionalProperties": false
         },
         "Id": {

@@ -94,6 +94,11 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
         value: record.PackageVersion.Name,
       },
       {
+        name: 'Package Version',
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+        value: record.PackageVersion.MajorVersion + '.' + record.PackageVersion.MinorVersion,
+      },
+      {
         name: 'Namespace',
         value: record.PackageVersion.MetadataPackage.NamespacePrefix,
       },
