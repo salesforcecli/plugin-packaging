@@ -20,6 +20,8 @@ const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
       },
       MetadataPackageId: '0330M000000Axuq',
       Name: 'VersionName',
+      MajorVersion: '1',
+      MinorVersion: '1',
     },
     PackageVersionId: '04t0M000000AxuqSAC',
     Id: '0DVxx0000004CCG',
