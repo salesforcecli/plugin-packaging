@@ -1,26 +1,27 @@
 # summary
 
-Schedule package push upgrades.
+Schedules a package push upgrade request.
 
 # description
 
-Shows the details of each request to create a push upgrade in the Dev Hub org.
+Represents a push upgrade request for upgrading a package in one or many orgs from one version to another version.
+To initiate a push upgrade for an unlocked or second-generation managed package, the Create and Update Second-Generation Packages user permission is required.
+The push upgrade feature is only available second-generation managed packages that have passed AppExchange security review. To enable push upgrades for your managed package, log a support case in the Salesforce Partner Community.
+For unlocked packages, push upgrades are enabled by default.
 
-All filter parameters are applied using the AND logical operator (not OR).
-
-To get information about a specific request, run "<%= config.bin %> package pushupgrade report" and supply the request ID.
+When the –migrate-to-2GP flag is used, this command lets you push a package migration for a first-generation managed package that has been converted to second-generation managed package. This push migration is used to update orgs that have the first-generation managed package installed.
 
 # flags.package-version-id.summary
 
-Package version id to push upgrade.
+ID (starts with 04t) of the package version that the package is be upgraded to. The package version must be an active, non-beta package version.
 
 # flags.scheduled-start-time.summary
 
-Set schedule start time for push upgrade request.
+Specify the date and time (UTC) when the push upgrade is processed. Set this value to the earliest time that you want Salesforce to attempt to start the upgrade.
 
 # flags.org-list.summary
 
-List of eligible subscriber orgs.
+The filename of the .csv file that contains the list of orgs that need the package upgrade.
 
 # error.invalid-package-version
 
@@ -36,21 +37,11 @@ Org list file is invalid.
 
 # examples
 
-- List all package push upgrade requests in your default Dev Hub org:
+sf package pushupgrade schedule --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub
 
-  <%= config.bin %> <%= command.id %>
+sf package pushupgrade schedule --package-version 04txyz --org-list upgrade-orgs.csv --target-dev-hub myHub
 
-- List package push upgrade requests scheduled from the last 3 days in the Dev Hub org with username devhub@example.com:
-
-  <%= config.bin %> <%= command.id %> --scheduled-last-days 3 --target-dev-hub
-
-- List package push upgrade requests with status Error:
-
-  <%= config.bin %> <%= command.id %> --status Error
-
-- List package push upgrade requests with status Success:
-
-  <%= config.bin %> <%= command.id %> --status Success
+sf package pushupgrade schedule --migrate-to-2gp --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub
 
 # id
 
