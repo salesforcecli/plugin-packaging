@@ -58,3 +58,7 @@ Package Id
 # packageVersionId
 
 Package Version Id
+
+# output
+
+Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either sf package pushupgrade list or sf package pushupgrade report.

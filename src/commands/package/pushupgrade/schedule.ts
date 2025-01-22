@@ -63,6 +63,8 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       orgList
     );
 
+    this.log(messages.getMessage('output', [result?.PushRequestId]));
+
     return result;
   }
 }
