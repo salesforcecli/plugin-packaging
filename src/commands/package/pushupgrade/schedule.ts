@@ -13,7 +13,7 @@ import { requiredHubFlag } from '../../../utils/hubFlag.js';
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_schedule');
 
-export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleResult> {
+export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleResult | SfError> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -41,7 +41,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     }),
   };
 
-  public async run(): Promise<PackagePushScheduleResult> {
+  public async run(): Promise<PackagePushScheduleResult | SfError> {
     const { flags } = await this.parse(PackagePushScheduleCommand);
 
     // Validate package version
@@ -63,7 +63,11 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       orgList
     );
 
-    this.log(messages.getMessage('output', [result?.PushRequestId]));
+    if (result instanceof PackagePushScheduleCommand && !(result instanceof SfError)) {
+      this.log(messages.getMessage('output', [result?.PushRequestId]));
+    } else {
+      throw result;
+    }
 
     return result;
   }
