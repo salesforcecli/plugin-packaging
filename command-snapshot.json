@@ -180,9 +180,9 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:pushupgrade:schedule"],
+    "alias": [],
     "command": "package:pushupgrade:schedule",
-    "flagAliases": ["apiversion", "scheduledstarttime", "target-hub-org", "targetdevhubusername"],
+    "flagAliases": ["target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "t", "v"],
     "flags": [
       "api-version",
