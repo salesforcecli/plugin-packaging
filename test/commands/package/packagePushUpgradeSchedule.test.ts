@@ -8,13 +8,13 @@ import fs from 'node:fs';
 import { expect } from 'chai';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
-import { PackagePushUpgrade, PackagePushScheduleResult } from '@salesforce/packaging';
-import { PackagePushScheduleCommand } from '../../../src/commands/package/pushupgrade/schedule.js';
+import { PackagePushUpgrade } from '@salesforce/packaging';
+import { PackagePushScheduleCommand, PushScheduleResult } from '../../../src/commands/package/pushupgrade/schedule.js';
 
 describe('package:pushupgrade:schedule - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  const createStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
+  const scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
   const config = new Config({ root: import.meta.url });
 
   const stubSpinner = (cmd: PackagePushScheduleCommand) => {
@@ -22,37 +22,33 @@ describe('package:pushupgrade:schedule - tests', () => {
     $$.SANDBOX.stub(cmd.spinner, 'stop');
   };
 
-  before(async () => {
+  beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
 
     // Create actual file
-    fs.writeFileSync('valid-orgs.csv', '00D00000000000100D000000000002');
+    fs.writeFileSync('valid-orgs.csv', '00D000000000001');
   });
 
   afterEach(() => {
-    // Clean up file
     $$.restore();
+    if (fs.existsSync('valid-orgs.csv')) {
+      fs.unlinkSync('valid-orgs.csv');
+    }
   });
 
   it('should successfully schedule a push upgrade', async () => {
-    const mockResult: PackagePushScheduleResult = {
+    const mockResult: PushScheduleResult = {
       PushRequestId: 'mockPushJobId',
       ScheduledStartTime: '2023-01-01T00:00:00Z',
       Status: 'Scheduled',
     };
 
-    createStub.resolves(mockResult);
-
-    // Mock the file system
-    const mockOrgIds = ['00D000000000001', '00D000000000002'];
-    const mockFileContent = mockOrgIds.join('');
-    $$.SANDBOX.stub(fs, 'readFileSync').returns(mockFileContent);
-    $$.SANDBOX.stub(fs, 'existsSync').returns(true);
+    scheduleStub.resolves(mockResult);
 
     const cmd = new PackagePushScheduleCommand(
       [
-        '-i',
+        '-p',
         '04tXXXXXXXXXXXXXXX',
         '-v',
         'test@hub.org',
@@ -66,24 +62,15 @@ describe('package:pushupgrade:schedule - tests', () => {
 
     stubSpinner(cmd);
 
-    try {
-      const res = await cmd.run();
-      expect(res).to.eql(mockResult);
-      expect(createStub.calledOnce).to.be.true;
-    } catch (error) {
-      expect.fail(`Test should not throw an error: ${(error as Error).message}`);
-    }
-    // Clean up file
-    fs.unlinkSync('valid-orgs.csv');
+    const res = await cmd.run();
+    expect(res).to.eql(mockResult);
+    expect(scheduleStub.calledOnce).to.be.true;
   });
 
   it('should fail to schedule push upgrade', async () => {
-    const errorMessage = 'Failed to schedule push upgrade';
-    createStub.rejects(new Error(errorMessage));
-
     const cmd = new PackagePushScheduleCommand(
       [
-        '-i',
+        '-p',
         '04tXXXXXXXXXXXXXXX',
         '-v',
         'test@hub.org',
@@ -99,7 +86,6 @@ describe('package:pushupgrade:schedule - tests', () => {
 
     try {
       await cmd.run();
-      // If the command runs successfully, fail the test
       expect.fail('Expected an error to be thrown');
     } catch (error) {
       expect(error).to.be.instanceOf(Error);
