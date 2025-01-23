@@ -10,6 +10,7 @@
     "@salesforce/kit": "^3.2.3",
     "@salesforce/packaging": "^4.2.15",
     "@salesforce/sf-plugins-core": "^12.1.1",
+    "@salesforce/source-deploy-retrieve": "^12.10.3",
     "chalk": "^5.3.0"
   },
   "devDependencies": {
