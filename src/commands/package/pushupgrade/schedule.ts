@@ -60,7 +60,7 @@ export class PackagePushScheduleCommand extends SfCommand<PushScheduleResult> {
       orgList
     );
 
-    if (result instanceof PackagePushScheduleCommand && !(result instanceof SfError)) {
+    if ((result as PushScheduleResult) && !(result instanceof SfError)) {
       this.log(messages.getMessage('output', [result?.PushRequestId]));
     } else {
       throw result;
