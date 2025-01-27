@@ -8,8 +8,8 @@ import fs from 'node:fs';
 import { expect } from 'chai';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
-import { PackagePushUpgrade } from '@salesforce/packaging';
-import { PackagePushScheduleCommand, PushScheduleResult } from '../../../src/commands/package/pushupgrade/schedule.js';
+import { PackagePushUpgrade, PackagePushScheduleResult } from '@salesforce/packaging';
+import { PackagePushScheduleCommand } from '../../../src/commands/package/pushupgrade/schedule.js';
 
 describe('package:pushupgrade:schedule - tests', () => {
   const $$ = new TestContext();
@@ -38,7 +38,7 @@ describe('package:pushupgrade:schedule - tests', () => {
   });
 
   it('should successfully schedule a push upgrade', async () => {
-    const mockResult: PushScheduleResult = {
+    const mockResult: PackagePushScheduleResult = {
       PushRequestId: 'mockPushJobId',
       ScheduledStartTime: '2023-01-01T00:00:00Z',
       Status: 'Scheduled',
