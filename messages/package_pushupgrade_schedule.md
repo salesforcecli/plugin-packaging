@@ -11,6 +11,14 @@ For unlocked packages, push upgrades are enabled by default.
 
 When the –migrate-to-2GP flag is used, this command lets you push a package migration for a first-generation managed package that has been converted to second-generation managed package. This push migration is used to update orgs that have the first-generation managed package installed.
 
+# flags.target-dev-hub.summary
+
+Username or alias of the Dev Hub org.
+
+# flags.target-dev-hub.description
+
+Overrides the value of the target-dev-hub configuration variable, if set.
+
 # flags.package-version-id.summary
 
 ID (starts with 04t) of the package version that the package is be upgraded to. The package version must be an active, non-beta package version.

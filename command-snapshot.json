@@ -198,7 +198,7 @@
   {
     "alias": [],
     "command": "package:pushupgrade:schedule",
-    "flagAliases": ["targetdevhubusername"],
+    "flagAliases": [],
     "flagChars": ["l", "p", "t", "v"],
     "flags": [
       "api-version",

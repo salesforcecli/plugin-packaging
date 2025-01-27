@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import fs from 'node:fs/promises';
-import { Flags, SfCommand, requiredHubFlagWithDeprecations } from '@salesforce/sf-plugins-core';
+import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
 
@@ -19,7 +19,12 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   public static readonly hidden = true;
   public static state = 'beta';
   public static readonly flags = {
-    'target-dev-hub': requiredHubFlagWithDeprecations,
+    'target-dev-hub': Flags.requiredHub({
+      char: 'v',
+      summary: messages.getMessage('flags.target-dev-hub.summary'),
+      description: messages.getMessage('flags.target-dev-hub.description'),
+      required: true,
+    }),
     'api-version': Flags.orgApiVersion(),
     'package-version-id': Flags.salesforceId({
       length: 'both',
