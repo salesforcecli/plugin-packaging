@@ -1,17 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/PushScheduleResult",
+  "$ref": "#/definitions/PackagePushScheduleResult",
   "definitions": {
-    "PushScheduleResult": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/PackagePushScheduleResult"
-        },
-        {
-          "$ref": "#/definitions/SfError"
-        }
-      ]
-    },
     "PackagePushScheduleResult": {
       "type": "object",
       "properties": {
@@ -27,93 +17,6 @@
       },
       "required": ["PushRequestId", "ScheduledStartTime", "Status"],
       "additionalProperties": false
-    },
-    "SfError": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "stack": {
-          "type": "string"
-        },
-        "actions": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "description": "Action messages. Hints to the users regarding what can be done to fix related issues."
-        },
-        "exitCode": {
-          "type": "number",
-          "description": "SfdxCommand can return this process exit code."
-        },
-        "context": {
-          "type": "string",
-          "description": "The related context for this error."
-        },
-        "data": {
-          "$ref": "#/definitions/AnyJson"
-        }
-      },
-      "required": ["exitCode", "message", "name"],
-      "additionalProperties": false,
-      "description": "A generalized sfdx error which also contains an action. The action is used in the CLI to help guide users past the error.\n\nTo throw an error in a synchronous function you must either pass the error message and actions directly to the constructor, e.g.\n\n``` // To load a message bundle (Note that __dirname should contain a messages folder) Messages.importMessagesDirectory(__dirname); const messages = Messages.load('myPackageName', 'myBundleName');\n\n// To throw a non-bundle based error: throw new SfError(message.getMessage('myError'), 'MyErrorName'); ```"
-    },
-    "AnyJson": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/JsonPrimitive"
-        },
-        {
-          "$ref": "#/definitions/JsonCollection"
-        }
-      ],
-      "description": "Any valid JSON value."
-    },
-    "JsonPrimitive": {
-      "type": ["null", "boolean", "number", "string"],
-      "description": "Any valid JSON primitive value."
-    },
-    "JsonCollection": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/JsonMap"
-        },
-        {
-          "$ref": "#/definitions/JsonArray"
-        }
-      ],
-      "description": "Any valid JSON collection value."
-    },
-    "JsonMap": {
-      "type": "object",
-      "additionalProperties": {
-        "$ref": "#/definitions/Optional%3CAnyJson%3E"
-      },
-      "properties": {},
-      "description": "Any JSON-compatible object."
-    },
-    "Optional<AnyJson>": {
-      "anyOf": [
-        {
-          "$ref": "#/definitions/AnyJson"
-        },
-        {
-          "not": {}
-        }
-      ],
-      "description": "A union type for either the parameterized type `T` or `undefined` -- the opposite of  {@link  NonOptional  } ."
-    },
-    "JsonArray": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/AnyJson"
-      },
-      "description": "Any JSON-compatible array."
     }
   }
 }
