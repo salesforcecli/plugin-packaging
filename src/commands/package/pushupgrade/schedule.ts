@@ -5,24 +5,21 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import fs from 'node:fs/promises';
-import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
+import { Flags, SfCommand, requiredHubFlagWithDeprecations } from '@salesforce/sf-plugins-core';
 import { Messages, SfError } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
-import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_schedule');
 
-export type PushScheduleResult = PackagePushScheduleResult | SfError;
-
-export class PackagePushScheduleCommand extends SfCommand<PushScheduleResult> {
+export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly hidden = true;
   public static state = 'beta';
   public static readonly flags = {
-    'target-dev-hub': requiredHubFlag,
+    'target-dev-hub': requiredHubFlagWithDeprecations,
     'api-version': Flags.orgApiVersion(),
     'package-version-id': Flags.salesforceId({
       length: 'both',
@@ -43,7 +40,7 @@ export class PackagePushScheduleCommand extends SfCommand<PushScheduleResult> {
     }),
   };
 
-  public async run(): Promise<PushScheduleResult> {
+  public async run(): Promise<PackagePushScheduleResult> {
     const { flags } = await this.parse(PackagePushScheduleCommand);
 
     // Read and validate org list
@@ -60,11 +57,7 @@ export class PackagePushScheduleCommand extends SfCommand<PushScheduleResult> {
       orgList
     );
 
-    if ((result as PushScheduleResult) && !(result instanceof SfError)) {
-      this.log(messages.getMessage('output', [result?.PushRequestId]));
-    } else {
-      throw result;
-    }
+    this.log(messages.getMessage('output', [result?.PushRequestId]));
 
     return result;
   }
