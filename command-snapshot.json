@@ -185,6 +185,7 @@
     "flagAliases": ["apiversion", "scheduledlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "s", "v"],
     "flags": ["api-version", "flags-dir", "json", "packageid", "scheduled-last-days", "status", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
   },
   {
     "alias": ["force:package:pushupgrade:report"],
@@ -192,6 +193,22 @@
     "flagAliases": ["apiversion", "pushrequestid", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["i", "v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:pushupgrade:schedule",
+    "flagAliases": [],
+    "flagChars": ["l", "p", "t", "v"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "org-list",
+      "package-version-id",
+      "scheduled-start-time",
+      "target-dev-hub"
+    ],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
