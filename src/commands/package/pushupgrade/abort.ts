@@ -4,10 +4,10 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import fs from 'node:fs/promises';
-import * as csv from 'csv-parse/sync';
+// import fs from 'node:fs/promises';
+// import * as csv from 'csv-parse/sync';
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages, SfError } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { PackagePushUpgrade, PackagePushUpgradeAbortResult } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
@@ -20,8 +20,6 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgrade
   public static readonly examples = messages.getMessages('examples');
   // public static readonly hidden = true;
   // public static state = 'beta';
-  public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:pushupgrade:abort'];
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -29,11 +27,10 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgrade
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-push-request-id': Flags.salesforceId({
       length: 'both',
-      deprecateAliases: true,
-      aliases: ['packagepushrequestid'],
       char: 'i',
       summary: messages.getMessage('flags.package-push-request-id.summary'),
       required: true,
+      startsWith: '0DV',
     }),
   };
 
