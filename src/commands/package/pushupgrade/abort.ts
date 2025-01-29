@@ -18,12 +18,7 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
   public static readonly hidden = true;
   public static state = 'beta';
   public static readonly flags = {
-    'target-dev-hub': Flags.requiredHub({
-      char: 'v',
-      summary: messages.getMessage('flags.target-dev-hub.summary'),
-      description: messages.getMessage('flags.target-dev-hub.description'),
-      required: true,
-    }),
+    'target-dev-hub': Flags.requiredHub(),
     'api-version': Flags.orgApiVersion(),
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'push-request-id': Flags.salesforceId({
