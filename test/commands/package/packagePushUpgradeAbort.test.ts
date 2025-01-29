@@ -1,108 +1,120 @@
-// /*
-//  * Copyright (c) 2024, salesforce.com, inc.
-//  * All rights reserved.
-//  * Licensed under the BSD 3-Clause license.
-//  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
-//  */
-// import fs from 'node:fs';
-// import { expect } from 'chai';
-// import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
-// import { Config } from '@oclif/core';
-// import { PackagePushUpgrade, PackagePushUpgradeAbortResult } from '@salesforce/packaging';
-// import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/pushupgrade/abort.js';
+/*
+ * Copyright (c) 2024, salesforce.com, inc.
+ * All rights reserved.
+ * Licensed under the BSD 3-Clause license.
+ * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ */
 
-// describe('package:pushupgrade:abort - tests', () => {
-//   const $$ = new TestContext();
-//   const testOrg = new MockTestOrgData();
-//   const createStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
-//   const config = new Config({ root: import.meta.url });
+import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
+import { Config } from '@oclif/core';
+import { expect } from 'chai';
+import { PackagePushUpgrade } from '@salesforce/packaging';
+import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/pushupgrade/abort.js';
 
-//   const stubSpinner = (cmd: PackagePushUpgradeAbortCommand) => {
-//     $$.SANDBOX.stub(cmd.spinner, 'start');
-//     $$.SANDBOX.stub(cmd.spinner, 'stop');
-//   };
+describe('PackagePushUpgradeAbortCommand', () => {
+  const $$ = new TestContext();
+  const testOrg = new MockTestOrgData();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
+  const config = new Config({ root: import.meta.url });
 
-//   before(async () => {
-//     await $$.stubAuths(testOrg);
-//     await config.load();
+  const stubSpinner = (cmd: PackagePushUpgradeAbortCommand) => {
+    $$.SANDBOX.stub(cmd.spinner, 'start');
+    $$.SANDBOX.stub(cmd.spinner, 'stop');
+  };
 
-//     // Create actual file
-//     fs.writeFileSync('valid-orgs.csv', '00D00000000000100D000000000002');
-//   });
+  before(async () => {
+    await $$.stubAuths(testOrg);
+    await config.load();
+  });
 
-//   afterEach(() => {
-//     // Clean up file
-//     $$.restore();
-//   });
+  afterEach(() => {
+    $$.restore();
+  });
 
-//   it('should successfully schedule a push upgrade', async () => {
-//     const mockResult: PackagePushScheduleResult = {
-//       PushRequestId: 'mockPushJobId',
-//       ScheduledStartTime: '2023-01-01T00:00:00Z',
-//       Status: 'Scheduled',
-//     };
+  it('should successfully abort a push request', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    const cmd = new PackagePushUpgradeAbortCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
+    stubSpinner(cmd);
+    const res = await cmd.run();
 
-//     createStub.resolves(mockResult);
+    expect(res).to.be.false;
+    expect(abortStub.calledOnce).to.be.true;
+  });
 
-//     // Mock the file system
-//     const mockOrgIds = ['00D000000000001', '00D000000000002'];
-//     const mockFileContent = mockOrgIds.join('');
-//     $$.SANDBOX.stub(fs, 'readFileSync').returns(mockFileContent);
-//     $$.SANDBOX.stub(fs, 'existsSync').returns(true);
+  // it('should handle API failure gracefully', async () => {
+  //   parseStub.resolves({
+  //     flags: {
+  //       'target-dev-hub': { getConnection: () => mockConnection },
+  //       'push-request-id': '0DV123456789012345',
+  //     },
+  //   });
 
-//     const cmd = new PackagePushScheduleCommand(
-//       [
-//         '-i',
-//         '04tXXXXXXXXXXXXXXX',
-//         '-v',
-//         'test@hub.org',
-//         '--scheduled-start-time',
-//         '2023-01-01T00:00:00Z',
-//         '--org-list',
-//         'valid-orgs.csv',
-//       ],
-//       config
-//     );
+  //   abortStub.rejects(new Error('API Error: Failed to abort'));
 
-//     stubSpinner(cmd);
+  //   command = new PackagePushUpgradeAbortCommand([], {} as any);
 
-//     try {
-//       const res = await cmd.run();
-//       expect(res).to.eql(mockResult);
-//       expect(createStub.calledOnce).to.be.true;
-//     } catch (error) {
-//       expect.fail(`Test should not throw an error: ${(error as Error).message}`);
-//     }
-//     // Clean up file
-//     fs.unlinkSync('valid-orgs.csv');
-//   });
+  //   try {
+  //     await command.run();
+  //   } catch (error) {
+  //     expect(error.message).to.equal('API Error: Failed to abort');
+  //   }
 
-//   it('should fail to schedule push upgrade', async () => {
-//     const errorMessage = 'Failed to schedule push upgrade';
-//     createStub.rejects(new Error(errorMessage));
+  //   expect(abortStub.calledOnce).to.be.true;
+  // });
 
-//     const cmd = new PackagePushScheduleCommand(
-//       [
-//         '-i',
-//         '04tXXXXXXXXXXXXXXX',
-//         '-v',
-//         'test@hub.org',
-//         '--scheduled-start-time',
-//         '2023-01-01T00:00:00Z',
-//         '--org-list',
-//         'valid-orgs.csv',
-//       ],
-//       config
-//     );
+  // it('should throw an error if push-request-id is missing', async () => {
+  //   parseStub.resolves({
+  //     flags: {
+  //       'target-dev-hub': { getConnection: () => mockConnection },
+  //     },
+  //   });
 
-//     stubSpinner(cmd);
+  //   command = new PackagePushUpgradeAbortCommand([], {} as any);
 
-//     try {
-//       await cmd.run();
-//       // If the command runs successfully, fail the test
-//       expect.fail('Expected an error to be thrown');
-//     } catch (error) {
-//       expect(error).to.be.instanceOf(Error);
-//     }
-//   });
-// });
+  //   try {
+  //     await command.run();
+  //   } catch (error) {
+  //     expect(error.message).to.include("Missing required flag 'push-request-id'");
+  //   }
+  // });
+
+  // it('should validate that the correct API call is made', async () => {
+  //   parseStub.resolves({
+  //     flags: {
+  //       'target-dev-hub': { getConnection: () => mockConnection },
+  //       'push-request-id': '0DV123456789012345',
+  //     },
+  //   });
+
+  //   abortStub.resolves({
+  //     Id: '0DV123456789012345',
+  //     Status: 'Canceled',
+  //   });
+
+  //   command = new PackagePushUpgradeAbortCommand([], {} as any);
+  //   await command.run();
+
+  //   expect(abortStub.calledOnceWith(mockConnection, { packagePushRequestId: '0DV123456789012345' })).to.be.true;
+  // });
+
+  // it('should handle already canceled push requests', async () => {
+  //   parseStub.resolves({
+  //     flags: {
+  //       'target-dev-hub': { getConnection: () => mockConnection },
+  //       'push-request-id': '0DV123456789012345',
+  //     },
+  //   });
+
+  //   abortStub.resolves({
+  //     Id: '0DV123456789012345',
+  //     Status: 'Canceled',
+  //   });
+
+  //   command = new PackagePushUpgradeAbortCommand([], {} as any);
+  //   const result = await command.run();
+
+  //   expect(result).to.be.false;
+  //   expect(logStub.calledWithMatch('Push request 0DV123456789012345 has already been canceled.')).to.be.true;
+  // });
+});
