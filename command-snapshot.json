@@ -182,9 +182,9 @@
   {
     "alias": ["force:package:pushupgrade:abort"],
     "command": "package:pushupgrade:abort",
-    "flagAliases": ["apiversion", "pushrequestid", "target-hub-org", "targetdevhubusername"],
+    "flagAliases": [],
     "flagChars": ["i", "v"],
-    "flags": ["api-version", "flags-dir", "json", "loglevel", "push-request-id", "target-dev-hub"],
+    "flags": ["api-version", "flags-dir", "json", "push-request-id", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
