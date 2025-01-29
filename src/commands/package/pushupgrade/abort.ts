@@ -41,6 +41,6 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
 
     if (result) this.log(messages.getMessage('output', [flags['push-request-id']]));
 
-    return false;
+    return result;
   }
 }
