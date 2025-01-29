@@ -71,7 +71,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
 async function readOrgListFile(filePath: string): Promise<string[]> {
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
-    const orgIds = fileContent.split(/\s+/).filter((id) => id.length > 0);
+    const orgIds = fileContent.split(/\r?\n/).filter((id) => id.trim().length > 0);
 
     return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
   } catch (error) {
