@@ -5,14 +5,14 @@
     "PackagePushUpgradeAbortResult": {
       "type": "object",
       "properties": {
-        "PushUpgradeRequestId": {
+        "PushRequestId": {
           "type": "string"
         },
         "Status": {
           "type": "string"
         }
       },
-      "required": ["PushUpgradeRequestId", "Status"],
+      "required": ["PushRequestId", "Status"],
       "additionalProperties": false
     }
   }
