@@ -39,7 +39,9 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
     // Schedule the push upgrade
     const result = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
 
-    if (result) this.log(messages.getMessage('output', [flags['push-request-id']]));
+    if (result) {
+      this.log(messages.getMessage('output', [flags['push-request-id']]));
+    }
 
     return result;
   }
