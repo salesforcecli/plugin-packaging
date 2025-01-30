@@ -210,6 +210,14 @@
       "target-dev-hub"
     ],
     "plugin": "@salesforce/plugin-packaging"
+  }
+  {
+    "alias": ["force:package:pushupgrade:abort"],
+    "command": "package:pushupgrade:abort",
+    "flagAliases": [],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
   },
   {
     "alias": ["force:package:uninstall"],
