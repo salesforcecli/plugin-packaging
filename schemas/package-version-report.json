@@ -194,6 +194,9 @@
         },
         "EndToEndBuildDurationInSeconds": {
           "type": "number"
+        },
+        "TotalNumberOfMetadataFiles": {
+          "type": "number"
         }
       },
       "required": ["HasMetadataRemoved", "Package2", "Version"]
