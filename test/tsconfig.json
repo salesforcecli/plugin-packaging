@@ -1,7 +1,7 @@
 {
   "baseUrl": "..",
   "paths": {
-    "@salesforce/core": ["node_modules/@salesforce/core"]
+    "@salesforce/core": ["node_modules/@salesforce/source-deploy-retrieve"]
   },
   "extends": "@salesforce/dev-config/tsconfig-test-strict-esm",
   "include": ["./**/*.ts"],
