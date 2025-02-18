@@ -36,6 +36,7 @@ const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   CodeCoverage: null,
   VersionNumber: null,
   ConvertedFromVersionId: null,
+  TotalNumberOfMetadataFiles: null,
 };
 
 const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
