@@ -55,6 +55,7 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   CodeCoverage: null,
   VersionNumber: null,
   ConvertedFromVersionId: null,
+  TotalNumberOfMetadataFiles: null,
 };
 
 describe('package:version:create - tests', () => {
