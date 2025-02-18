@@ -42,6 +42,7 @@ const expectedPVCRkeys = [
   'ConvertedFromVersionId',
   'CodeCoverage',
   'VersionNumber',
+  'TotalNumberOfMetadataFiles',
 ];
 
 describe('package:version:*', () => {

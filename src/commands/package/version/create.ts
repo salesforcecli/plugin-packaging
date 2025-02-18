@@ -22,7 +22,8 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
-
+const fileCountThreshold = 7000;
+const maxFileCountLimit = 10000;
 export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;
 
 export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
@@ -284,6 +285,15 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
             this.config.bin,
           ])
         );
+        if ((result.TotalNumberOfMetadataFiles ?? 0) > fileCountThreshold) {
+          this.warn(
+            'This package contains more than ${fileCountThreshold} metadata files.' +
+              'The maximum number of metadata files in a package is ' +
+              maxFileCountLimit +
+              'If you reach the file limit, you won’t be able to create new package versions. ' +
+              'To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.'
+          );
+        }
         break;
       default:
         this.log(
