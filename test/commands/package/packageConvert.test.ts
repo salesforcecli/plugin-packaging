@@ -101,6 +101,7 @@ describe('package:convert', () => {
       Tag: '',
       CodeCoverage: null,
       VersionNumber: null,
+      TotalNumberOfMetadataFiles: null,
     };
 
     convertStub.restore();
