@@ -5,7 +5,7 @@
     "skipLibCheck": true,
     "baseUrl": "..",
     "paths": {
-      "@salesforce/core": ["node_modules/@salesforce/source-deploy-retrieve"]
+      "@salesforce/source-deploy-retrieve": ["node_modules/@salesforce/source-deploy-retrieve"]
     }
   }
 }
