@@ -48,3 +48,5 @@ node_modules
 .DS_Store
 .idea
 .iml
+plugin-packaging.iml
+.codegenie
