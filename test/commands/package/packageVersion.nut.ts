@@ -46,7 +46,7 @@ const expectedPVCRkeys = [
 ];
 
 // Keys expected for Package version create list.
-//TotalNumberOfMetadataFiles is not included.
+// TotalNumberOfMetadataFiles is not included.
 const expectedPVCLkeys = [
   'Id',
   'Status',
