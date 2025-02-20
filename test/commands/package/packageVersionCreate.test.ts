@@ -134,6 +134,7 @@ describe('package:version:create - tests', () => {
         CodeCoverage: null,
         VersionNumber: null,
         ConvertedFromVersionId: null,
+        TotalNumberOfMetadataFiles: null,
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
@@ -171,6 +172,7 @@ describe('package:version:create - tests', () => {
         CodeCoverage: null,
         VersionNumber: null,
         ConvertedFromVersionId: null,
+        TotalNumberOfMetadataFiles: null,
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
@@ -210,13 +212,9 @@ describe('package:version:create - tests', () => {
         ConvertedFromVersionId: null,
         TotalNumberOfMetadataFiles: 8000,
       });
-      expect(warnStub.callCount).to.equal(0);
+      expect(warnStub.callCount).to.equal(1);
       expect(warnStub.args[0]).to.deep.equal([
-        'This package contains more than 7000 metadata files.' +
-          'The maximum number of metadata files in a package is ' +
-          10000 +
-          'If you reach the file limit, you won’t be able to create new package versions. ' +
-          'To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.',
+        'This package contains more than 7000 metadata files. The maximum number of metadata files in a package is 10000. If you reach the file limit, you won’t be able to create new package versions. To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.',
       ]);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([

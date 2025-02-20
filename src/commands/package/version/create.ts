@@ -287,11 +287,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
         );
         if ((result.TotalNumberOfMetadataFiles ?? 0) > fileCountThreshold) {
           this.warn(
-            'This package contains more than ${fileCountThreshold} metadata files.' +
-              'The maximum number of metadata files in a package is ' +
-              maxFileCountLimit +
-              'If you reach the file limit, you won’t be able to create new package versions. ' +
-              'To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.'
+            messages.getMessage('warnOnTotalFileCountExceedingThreshold', [fileCountThreshold, maxFileCountLimit])
           );
         }
         break;
