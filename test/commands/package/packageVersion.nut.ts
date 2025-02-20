@@ -45,6 +45,27 @@ const expectedPVCRkeys = [
   'TotalNumberOfMetadataFiles',
 ];
 
+// Keys expected for Package version create list.
+//TotalNumberOfMetadataFiles is not included.
+const expectedPVCLkeys = [
+  'Id',
+  'Status',
+  'Package2Id',
+  'Package2Name',
+  'Package2VersionId',
+  'SubscriberPackageVersionId',
+  'Tag',
+  'Branch',
+  'Error',
+  'CreatedDate',
+  'HasMetadataRemoved',
+  'HasPassedCodeCoverageCheck',
+  'CreatedBy',
+  'ConvertedFromVersionId',
+  'CodeCoverage',
+  'VersionNumber',
+];
+
 describe('package:version:*', () => {
   let session: TestSession;
   let packageId: string | undefined;
@@ -216,7 +237,7 @@ describe('package:version:*', () => {
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
-      expect(output?.result[0]).to.have.keys(expectedPVCRkeys);
+      expect(output?.result[0]).to.have.keys(expectedPVCLkeys);
       const current = Date.now();
       // @ts-ignore
       const created = Date.parse(output?.result?.at(0).CreatedDate);
@@ -235,7 +256,7 @@ describe('package:version:*', () => {
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
-      expect(output?.result[0]).to.have.keys(expectedPVCRkeys);
+      expect(output?.result[0]).to.have.keys(expectedPVCLkeys);
     });
 
     it('should list the package versions created as part of package conversion from 1GP --show-conversions-only flag (human)', async () => {
@@ -249,7 +270,7 @@ describe('package:version:*', () => {
     it('should list the package versions created --verbose (json)', async () => {
       const command = `package:version:create:list --status Success --created-last-days 10 -v ${session.hubOrg.username} --json --verbose`;
       const output = execCmd<CreateListCommandResult>(command, { ensureExitCode: 0 }).jsonOutput;
-      const expectedVerboseKeys = [...expectedPVCRkeys, 'VersionName'];
+      const expectedVerboseKeys = [...expectedPVCLkeys, 'VersionName'];
       expect(output).to.be.ok;
       expect(output?.status).to.equal(0);
       expect(output?.result).to.have.length.greaterThan(0);
