@@ -566,20 +566,12 @@
     "@smithy/types" "^4.1.0"
     tslib "^2.6.2"
 
-"@aws-sdk/types@3.734.0":
+"@aws-sdk/types@3.734.0", "@aws-sdk/types@^3.222.0":
   version "3.734.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.734.0.tgz#af5e620b0e761918282aa1c8e53cac6091d169a2"
   integrity sha512-o11tSPTT70nAkGV1fN9wm/hAIiLPyWX6SuGf+9JyTp7S/rC2cFWhR26MvA69nplcjNaXVzB0f+QFrLXXjOqCrg==
   dependencies:
     "@smithy/types" "^4.1.0"
-    tslib "^2.6.2"
-
-"@aws-sdk/types@^3.222.0":
-  version "3.686.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.686.0.tgz#01aa5307c727de9e69969c538f99ae8b53f1074f"
-  integrity sha512-xFnrb3wxOoJcW2Xrh63ZgFo5buIu9DF7bOHnwoUxHdNpUXicUh0AHw85TjXxyxIAd0d1psY/DU7QHoNI3OswgQ==
-  dependencies:
-    "@smithy/types" "^3.6.0"
     tslib "^2.6.2"
 
 "@aws-sdk/util-arn-parser@3.723.0":
@@ -1094,12 +1086,7 @@
     "@inquirer/type" "^3.0.2"
     yoctocolors-cjs "^2.1.2"
 
-"@inquirer/figures@^1.0.5":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@inquirer/figures/-/figures-1.0.7.tgz#d050ccc0eabfacc0248c4ff647a9dfba1b01594b"
-  integrity sha512-m+Trk77mp54Zma6xLkLuY+mvanPxlE4A7yNKs2HBiyZ4UkVs28Mv5c/pgWrHeInx+USHeX/WEPzjrWrcJiQgjw==
-
-"@inquirer/figures@^1.0.9":
+"@inquirer/figures@^1.0.5", "@inquirer/figures@^1.0.9":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@inquirer/figures/-/figures-1.0.9.tgz#9d8128f8274cde4ca009ca8547337cab3f37a4a3"
   integrity sha512-BXvGj0ehzrngHTPTDqUoDT3NXL8U0RxUk2zJm2A66RhCEIWdtU1v6GuUqNAgArW4PQ9CinqIWyHdQgdwOj06zQ==
@@ -2023,13 +2010,6 @@
     "@smithy/protocol-http" "^5.0.1"
     "@smithy/types" "^4.1.0"
     "@smithy/util-stream" "^4.1.1"
-    tslib "^2.6.2"
-
-"@smithy/types@^3.6.0":
-  version "3.6.0"
-  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-3.6.0.tgz#03a52bfd62ee4b7b2a1842c8ae3ada7a0a5ff3a4"
-  integrity sha512-8VXK/KzOHefoC65yRgCn5vG1cysPJjHnOVt9d0ybFQSmJgQj152vMn4EkYhGuaOmnnZvCPav/KnYyE6/KsNZ2w==
-  dependencies:
     tslib "^2.6.2"
 
 "@smithy/types@^4.1.0":

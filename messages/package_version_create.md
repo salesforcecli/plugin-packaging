@@ -228,3 +228,7 @@ Create version status: %s
 # unknownError
 
 An unknown error occurred.
+
+# warnOnTotalFileCountExceedingThreshold
+
+This package contains more than %s metadata files. The maximum number of metadata files in a package is %s. If you reach the file limit, you won’t be able to create new package versions. To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.

@@ -173,6 +173,12 @@
         "Language": {
           "type": "string"
         },
+        "EndToEndBuildDurationInSeconds": {
+          "type": "number"
+        },
+        "TotalNumberOfMetadataFiles": {
+          "type": "number"
+        },
         "SubscriberPackageVersion": {
           "type": "object",
           "properties": {
@@ -191,9 +197,6 @@
         },
         "AncestorId": {
           "type": ["string", "null"]
-        },
-        "EndToEndBuildDurationInSeconds": {
-          "type": "number"
         }
       },
       "required": ["HasMetadataRemoved", "Package2", "Version"]

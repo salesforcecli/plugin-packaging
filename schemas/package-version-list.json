@@ -55,6 +55,9 @@
         "CreatedBy": {
           "type": "string"
         },
+        "ValidatedAsync": {
+          "type": "boolean"
+        },
         "Id": {
           "type": "string"
         },
@@ -98,9 +101,6 @@
           "type": "string"
         },
         "ValidationSkipped": {
-          "type": "boolean"
-        },
-        "ValidatedAsync": {
           "type": "boolean"
         },
         "ConvertedFromVersionId": {

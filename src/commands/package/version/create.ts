@@ -22,7 +22,8 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
-
+const fileCountThreshold = 7000;
+const maxFileCountLimit = 10000;
 export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;
 
 export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
@@ -284,6 +285,11 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
             this.config.bin,
           ])
         );
+        if ((result.TotalNumberOfMetadataFiles ?? 0) > fileCountThreshold) {
+          this.warn(
+            messages.getMessage('warnOnTotalFileCountExceedingThreshold', [fileCountThreshold, maxFileCountLimit])
+          );
+        }
         break;
       default:
         this.log(

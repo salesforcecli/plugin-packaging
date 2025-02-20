@@ -53,6 +53,9 @@
         },
         "ConvertedFromVersionId": {
           "type": ["string", "null"]
+        },
+        "TotalNumberOfMetadataFiles": {
+          "type": ["number", "null"]
         }
       },
       "required": [
@@ -71,7 +74,8 @@
         "CodeCoverage",
         "VersionNumber",
         "CreatedBy",
-        "ConvertedFromVersionId"
+        "ConvertedFromVersionId",
+        "TotalNumberOfMetadataFiles"
       ],
       "additionalProperties": false
     },

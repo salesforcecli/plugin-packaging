@@ -59,6 +59,9 @@
           },
           "ConvertedFromVersionId": {
             "type": ["string", "null"]
+          },
+          "TotalNumberOfMetadataFiles": {
+            "type": ["number", "null"]
           }
         },
         "required": [
@@ -77,6 +80,7 @@
           "Status",
           "SubscriberPackageVersionId",
           "Tag",
+          "TotalNumberOfMetadataFiles",
           "VersionNumber"
         ]
       }
