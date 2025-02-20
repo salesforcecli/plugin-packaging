@@ -1,3 +1,28 @@
+# [2.10.0](https://github.com/salesforcecli/plugin-packaging/compare/2.9.18...2.10.0) (2025-02-20)
+
+### Bug Fixes
+
+- add tests ([8132814](https://github.com/salesforcecli/plugin-packaging/commit/81328148a5d62f8e2e3587429a74c389d6e87f45))
+- add TotalNumberOfMetadataFiles to PVR schema ([77e4b1b](https://github.com/salesforcecli/plugin-packaging/commit/77e4b1b2c4d85cab2a8dd2468c624ff0e6a221eb))
+- fix SDR lib path ([67ec39f](https://github.com/salesforcecli/plugin-packaging/commit/67ec39f7d36ebcade6980ec320980a7fbf93d5a7))
+- fix tests ([8d818d6](https://github.com/salesforcecli/plugin-packaging/commit/8d818d6f2ec1ff7234fa15f6361bd46d82a43da2))
+- fix tests ([70b7785](https://github.com/salesforcecli/plugin-packaging/commit/70b778554aaeb9bec3b53a1ba55066a245aa702d))
+- fix tests ([5202018](https://github.com/salesforcecli/plugin-packaging/commit/520201801b076341448de51653d74c125128ccf6))
+- fix tests ([991df2a](https://github.com/salesforcecli/plugin-packaging/commit/991df2a33aac4831abb5a2205f9ec7f1dbb85b92))
+- fix tests and refactor warn message ([5275b4f](https://github.com/salesforcecli/plugin-packaging/commit/5275b4fb9c47585666c1321237eb9c035b76c2f7))
+- generate schemas ([76c3664](https://github.com/salesforcecli/plugin-packaging/commit/76c36644bf78fe08578032168196d3684dda9ec8))
+- resolve SDR version ([593c284](https://github.com/salesforcecli/plugin-packaging/commit/593c2846dd18b0335d94c113e57d1e16ca8550d1))
+- resolve SDR version ([bee35b2](https://github.com/salesforcecli/plugin-packaging/commit/bee35b2c76ae8a6bd22bf29edf8646cc6357fb8c))
+- resolve SDR version ([a3180c2](https://github.com/salesforcecli/plugin-packaging/commit/a3180c2fbf231cf9e54e8e757129f2a93fd914ad))
+- update compiler options ([00bc6aa](https://github.com/salesforcecli/plugin-packaging/commit/00bc6aa762ac489e70156612274df2aa7b7bcf46))
+- update expected result for version list command ([99e9daa](https://github.com/salesforcecli/plugin-packaging/commit/99e9daa8b72cff40058ad7b276c80f6489d13387))
+- update packaging library version ([4824f1e](https://github.com/salesforcecli/plugin-packaging/commit/4824f1e81d60750d8091db60b5d991129ef6b7ec))
+- update yarn.lock ([8348148](https://github.com/salesforcecli/plugin-packaging/commit/834814801fa8b58863a965161ebc841b9b226a5e))
+
+### Features
+
+- add warning message if TotalNumberOfMetadataFiles exceeds 7000 ([076d43d](https://github.com/salesforcecli/plugin-packaging/commit/076d43d638bd6079765c67694c58da5e1dc98bec))
+
 ## [2.9.18](https://github.com/salesforcecli/plugin-packaging/compare/2.9.17...2.9.18) (2025-02-18)
 
 ### Bug Fixes
