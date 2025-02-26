@@ -8,7 +8,7 @@ The package convert creates a new package in the Dev Hub if one does not already
 
 It then creates a new package version in the Dev Hub with contents based on the specified first-generation package.
 
-The latest released non-patch package version from the specified first-generation package will be converted.
+By default, the latest released non-patch version from the specified first-generation package will be converted. Use --patch-version to override the default. Read more about --patch-version option in help
 
 To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
@@ -77,3 +77,11 @@ Directory containing metadata to be deployed prior to conversion.
 # flags.seed-metadata.description
 
 The directory containing metadata that will be deployed on the build org prior to attempting conversion.
+
+# flags.patch-version.summary
+
+Specific released patch version to convert
+
+# flags.patch-version.description
+
+Specify a rleased patch version as major.minor.patch.build to convert to second generation package
