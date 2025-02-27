@@ -23,7 +23,7 @@ import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 const fileCountThreshold = 7000;
-const maxFileCountLimit = 10000;
+const maxFileCountLimit = 10_000;
 export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;
 
 export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
