@@ -38,7 +38,7 @@ Don't prompt to confirm setting the package version as released.
 
 # humanSuccess
 
-Successfully promoted the package version, ID: %s, to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.
+Successfully promoted the package version, ID: %s, to released.
 
 # previouslyReleasedMessage
 
