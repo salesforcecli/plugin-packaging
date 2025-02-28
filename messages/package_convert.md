@@ -84,4 +84,4 @@ Specific released patch version to convert
 
 # flags.patch-version.description
 
-Specify a rleased patch version as major.minor.patch.build to convert to second generation package
+Specify a released patch version as major.minor.patch.build to convert to second generation package version

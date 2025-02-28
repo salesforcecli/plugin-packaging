@@ -90,6 +90,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       char: 'a',
       deprecateAliases: true,
       aliases: ['patchversion'],
+      hidden: true,
     }),
   };
 
