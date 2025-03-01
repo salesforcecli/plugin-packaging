@@ -1520,10 +1520,10 @@
     jszip "^3.10.1"
     object-treeify "^2"
 
-"@salesforce/plugin-command-reference@^3.1.43":
-  version "3.1.43"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.43.tgz#1c96655e2ecd7ccfe95fa759285eb2362612857a"
-  integrity sha512-o6dmCawHc0d1FotyuFdPiAMV6WxwhJ7vX/q/oFBsn8ui1fy25vvJXP5C0ZFdIBYLZPmKFROGhAdGk7D9An5O/g==
+"@salesforce/plugin-command-reference@^3.1.44":
+  version "3.1.44"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.44.tgz#3adab9c652c222e2b0542be468ce4c8c7106d687"
+  integrity sha512-6Fr9lDc/mR1Sq3HloSamc8/jH+25iD73bM3ZUgpqUyx5zLUhdVuAJJlBb7Ye0LpPXn062NLDDxcy6cpQdAQNiA==
   dependencies:
     "@oclif/core" "^4"
     "@salesforce/core" "^8.8.2"
