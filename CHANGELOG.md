@@ -1,3 +1,15 @@
+# [2.11.0](https://github.com/salesforcecli/plugin-packaging/compare/2.10.3...2.11.0) (2025-03-18)
+
+### Bug Fixes
+
+- bump packaging library and core version ([0dd5415](https://github.com/salesforcecli/plugin-packaging/commit/0dd5415cbebbe4919170f795774533eaf20d2cc6))
+- fix missed invoking warn method ([c2ed8d0](https://github.com/salesforcecli/plugin-packaging/commit/c2ed8d0c4da0e3f3f7a6d93f4a4d53504ef83411))
+- update warning message ([01c067b](https://github.com/salesforcecli/plugin-packaging/commit/01c067bd552ba80d089173825e2db857e74b8e06))
+
+### Features
+
+- add warning message if TotalSizeOfMetadataFiles exceeds 420MB ([29d9c08](https://github.com/salesforcecli/plugin-packaging/commit/29d9c08609bcadb37dc738e87f798a595f72c7dc))
+
 ## [2.10.3](https://github.com/salesforcecli/plugin-packaging/compare/2.10.2...2.10.3) (2025-03-01)
 
 ### Bug Fixes
