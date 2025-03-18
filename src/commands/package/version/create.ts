@@ -24,6 +24,8 @@ Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_create');
 const fileCountThreshold = 7000;
 const maxFileCountLimit = 10_000;
+const fileSizeThreshold = 420; // 420MB
+const maxFileSizeLimit = 600; // 600MB
 export type PackageVersionCommandResult = Partial<PackageVersionCreateRequestResult>;
 
 export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommandResult> {
@@ -289,6 +291,13 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
           this.warn(
             messages.getMessage('warnOnTotalFileCountExceedingThreshold', [fileCountThreshold, maxFileCountLimit])
           );
+        }
+        if (
+          result.TotalSizeOfMetadataFiles !== null &&
+          result.TotalSizeOfMetadataFiles !== undefined &&
+          result.TotalSizeOfMetadataFiles / (1024 * 1024) > fileSizeThreshold
+        ) {
+          messages.getMessage('warnOnTotalFileSizeExceedingThreshold', [maxFileSizeLimit]);
         }
         break;
       default:

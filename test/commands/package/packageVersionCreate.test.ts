@@ -37,6 +37,7 @@ const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   VersionNumber: null,
   ConvertedFromVersionId: null,
   TotalNumberOfMetadataFiles: null,
+  TotalSizeOfMetadataFiles: null,
 };
 
 const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
@@ -57,6 +58,7 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   VersionNumber: null,
   ConvertedFromVersionId: null,
   TotalNumberOfMetadataFiles: null,
+  TotalSizeOfMetadataFiles: null,
 };
 
 const pkgVersionCreateSuccessResultExceedsFileCount: PackageVersionCreateRequestResult = {
@@ -77,6 +79,7 @@ const pkgVersionCreateSuccessResultExceedsFileCount: PackageVersionCreateRequest
   VersionNumber: null,
   ConvertedFromVersionId: null,
   TotalNumberOfMetadataFiles: 8000,
+  TotalSizeOfMetadataFiles: 500 * 1024 * 1024,
 };
 
 describe('package:version:create - tests', () => {
@@ -135,6 +138,7 @@ describe('package:version:create - tests', () => {
         VersionNumber: null,
         ConvertedFromVersionId: null,
         TotalNumberOfMetadataFiles: null,
+        TotalSizeOfMetadataFiles: null,
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
@@ -173,6 +177,7 @@ describe('package:version:create - tests', () => {
         VersionNumber: null,
         ConvertedFromVersionId: null,
         TotalNumberOfMetadataFiles: null,
+        TotalSizeOfMetadataFiles: null,
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
@@ -211,10 +216,14 @@ describe('package:version:create - tests', () => {
         VersionNumber: null,
         ConvertedFromVersionId: null,
         TotalNumberOfMetadataFiles: 8000,
+        TotalSizeOfMetadataFiles: 500 * 1024 * 1024,
       });
-      expect(warnStub.callCount).to.equal(1);
+      expect(warnStub.callCount).to.equal(2);
       expect(warnStub.args[0]).to.deep.equal([
         'This package contains more than 7000 metadata files. The maximum number of metadata files in a package is 10000. If you reach the file limit, you won’t be able to create new package versions. To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.',
+      ]);
+      expect(warnStub.args[1]).to.deep.equal([
+        'The maximum size of all the metadata files size in a single package is  600 MB. The package version you’re creating exceeds 70% of the metadata file size limit.  If you reach the file size limit, you won’t be able to create new package versions. To confirm the exact file size for this package, run sf package version report and review the “Metadata File Size” column.',
       ]);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
