@@ -2,10 +2,6 @@
   "extends": "@salesforce/dev-config/tsconfig-test-strict-esm",
   "include": ["./**/*.ts"],
   "compilerOptions": {
-    "skipLibCheck": true,
-    "baseUrl": "..",
-    "paths": {
-      "@salesforce/source-deploy-retrieve": ["node_modules/@salesforce/source-deploy-retrieve"]
-    }
+    "skipLibCheck": true
   }
 }
