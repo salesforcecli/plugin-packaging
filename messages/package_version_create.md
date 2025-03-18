@@ -235,4 +235,4 @@ This package contains more than %s metadata files. The maximum number of metadat
 
 # warnOnTotalFileSizeExceedingThreshold
 
-The maximum size of all the metadata files size in a single package is %s MB. The package version you’re creating exceeds 70% of the metadata file size limit. If you reach the file size limit, you won’t be able to create new package versions. To confirm the exact file size for this package, run sf package version report and review the “Metadata File Size” column.
+The maximum size of all the metadata files size in a single package is %s MB. The package version you’re creating exceeds 70% of the metadata file size limit. If you reach the file size limit, you won’t be able to create new package versions. To confirm the exact file size for this package, run "sf package version report" and review the “Metadata File Size” column.
