@@ -15,6 +15,7 @@ import {
   PackagingSObjects,
 } from '@salesforce/packaging';
 import chalk from 'chalk';
+import { Connection } from '@salesforce/core';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 import { maybeGetProject } from '../../../utils/getProject.js';
 
@@ -57,18 +58,19 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
 
   public async run(): Promise<PackageVersionReportResultModified> {
     const { flags } = await this.parse(PackageVersionReportCommand);
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const packageVersion = new PackageVersion({
-      connection: flags['target-dev-hub'].getConnection(flags['api-version']),
+      connection,
       project: await maybeGetProject(),
       idOrAlias: flags.package,
     });
     const results = await packageVersion.report(flags.verbose);
     const massagedResults = this.massageResultsForDisplay(results);
-    this.display(massagedResults, flags.verbose);
+    this.display(massagedResults, flags.verbose, connection);
     return massagedResults;
   }
 
-  private display(record: PackageVersionReportResultModified, verbose: boolean): void {
+  private display(record: PackageVersionReportResultModified, verbose: boolean, connection: Connection): void {
     if (this.jsonEnabled()) {
       return;
     }
@@ -166,6 +168,21 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         value: record.CreatedById,
       },
     ];
+
+    if (Number(connection.version) > 63) {
+      displayRecords.push(
+        {
+          key: '# MetadataFiles',
+          value: record.TotalNumberOfMetadataFiles?.toString() ?? '',
+        },
+        {
+          key: 'Metadata File Size',
+          value: record.TotalSizeOfMetadataFiles
+            ? Math.floor(record.TotalSizeOfMetadataFiles / (1024 * 1024)).toString()
+            : '',
+        }
+      );
+    }
     const maximumNumClasses = 15; // Number of least code covered classes displayed on the cli output for better UX.
     let codeCovStr = ''; // String to display when code coverage data is empty or null
     let displayCoverageRecords: Array<{ value: string; key: string }> = [];
@@ -197,6 +214,22 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
       key: messages.getMessage('codeCoveragePercentages'),
       value: this.haveCodeCoverageData ? '...' : codeCovStr,
     });
+
+    this.filterVerboseRecords(record, displayRecords, displayCoverageRecords, verbose);
+
+    this.table({ data: displayRecords, title: chalk.blue('Package Version') });
+    if (displayCoverageRecords.length > 0) {
+      this.table({ data: displayCoverageRecords });
+    }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  private filterVerboseRecords(
+    record: PackageVersionReportResultModified,
+    displayRecords: Array<Record<string, unknown>>,
+    displayCoverageRecords: Array<{ value: string; key: string }>,
+    verbose: boolean
+  ): void {
     if (!verbose) {
       displayRecords.splice(displayRecords.map((e) => e.key).indexOf('Id'), 1);
       if (!record.ConvertedFromVersionId?.trim()) {
@@ -211,10 +244,6 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         1
       );
       displayCoverageRecords.splice(0, displayCoverageRecords.length);
-    }
-    this.table({ data: displayRecords, title: chalk.blue('Package Version') });
-    if (displayCoverageRecords.length > 0) {
-      this.table({ data: displayCoverageRecords });
     }
   }
 

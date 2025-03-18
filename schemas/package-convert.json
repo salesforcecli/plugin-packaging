@@ -56,6 +56,9 @@
         },
         "TotalNumberOfMetadataFiles": {
           "type": ["number", "null"]
+        },
+        "TotalSizeOfMetadataFiles": {
+          "type": ["number", "null"]
         }
       },
       "required": [
@@ -75,7 +78,8 @@
         "VersionNumber",
         "CreatedBy",
         "ConvertedFromVersionId",
-        "TotalNumberOfMetadataFiles"
+        "TotalNumberOfMetadataFiles",
+        "TotalSizeOfMetadataFiles"
       ],
       "additionalProperties": false
     },

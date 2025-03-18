@@ -62,6 +62,9 @@
           },
           "TotalNumberOfMetadataFiles": {
             "type": ["number", "null"]
+          },
+          "TotalSizeOfMetadataFiles": {
+            "type": ["number", "null"]
           }
         },
         "required": [
@@ -81,6 +84,7 @@
           "SubscriberPackageVersionId",
           "Tag",
           "TotalNumberOfMetadataFiles",
+          "TotalSizeOfMetadataFiles",
           "VersionNumber"
         ]
       }

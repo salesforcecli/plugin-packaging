@@ -43,6 +43,7 @@ const expectedPVCRkeys = [
   'CodeCoverage',
   'VersionNumber',
   'TotalNumberOfMetadataFiles',
+  'TotalSizeOfMetadataFiles',
 ];
 
 // Keys expected for Package version create list.
