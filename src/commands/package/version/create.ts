@@ -297,7 +297,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
           result.TotalSizeOfMetadataFiles !== undefined &&
           result.TotalSizeOfMetadataFiles / (1024 * 1024) > fileSizeThreshold
         ) {
-          messages.getMessage('warnOnTotalFileSizeExceedingThreshold', [maxFileSizeLimit]);
+          this.warn(messages.getMessage('warnOnTotalFileSizeExceedingThreshold', [maxFileSizeLimit]));
         }
         break;
       default:
