@@ -1,3 +1,9 @@
+## [2.11.1](https://github.com/salesforcecli/plugin-packaging/compare/2.11.0...2.11.1) (2025-03-20)
+
+### Bug Fixes
+
+- round up TotalSizeOfMetadataFiles to the next whole number ([68fd48f](https://github.com/salesforcecli/plugin-packaging/commit/68fd48f3319970affbecde79d60a68ffb27fa8cb))
+
 # [2.11.0](https://github.com/salesforcecli/plugin-packaging/compare/2.10.3...2.11.0) (2025-03-18)
 
 ### Bug Fixes
