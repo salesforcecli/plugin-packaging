@@ -1,3 +1,9 @@
+# [2.12.0](https://github.com/salesforcecli/plugin-packaging/compare/2.11.1...2.12.0) (2025-03-21)
+
+### Features
+
+- remove outdated version create message ([0b7f946](https://github.com/salesforcecli/plugin-packaging/commit/0b7f94663cbe1c2badaa4053dcffe67a3b2878ad))
+
 ## [2.11.1](https://github.com/salesforcecli/plugin-packaging/compare/2.11.0...2.11.1) (2025-03-20)
 
 ### Bug Fixes
