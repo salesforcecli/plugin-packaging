@@ -19,17 +19,21 @@ Username or alias of the Dev Hub org.
 
 Overrides the value of the target-dev-hub configuration variable, if set.
 
-# flags.package-version-id.summary
+# flags.package.summary
 
 ID (starts with 04t) of the package version that the package is be upgraded to. The package version must be an active, non-beta package version.
 
-# flags.scheduled-start-time.summary
+# flags.start-time.summary
 
 Specify the date and time (UTC) when the push upgrade is processed. Set this value to the earliest time that you want Salesforce to attempt to start the upgrade.
 
-# flags.org-list.summary
+# flags.org-file.summary
 
 The filename of the .csv file that contains the list of orgs that need the package upgrade.
+
+# flags.org-list.summary
+
+Supply subscriber organization ids that can be pushed upgrade.
 
 # error.invalid-package-version
 
