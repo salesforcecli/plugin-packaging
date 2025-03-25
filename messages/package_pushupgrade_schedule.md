@@ -47,6 +47,10 @@ Org list file is empty.
 
 Org list file is invalid.
 
+# error.invalid-org-list
+
+Org list has invalid org/orgs.
+
 # examples
 
 sf package pushupgrade schedule --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub
