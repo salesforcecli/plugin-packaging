@@ -86,11 +86,15 @@ async function readOrgListFile(filePath: string): Promise<string[]> {
 }
 
 function getOrgListFromInput(orgInput: string): string[] {
-  if (!orgInput) {
-    throw new Error('Org input is required');
+  try {
+    if (!orgInput) {
+      throw new Error('Org input is required');
+    }
+
+    const orgList = orgInput.split(',').map((org) => org.trim());
+
+    return orgList.filter((org) => org.length > 0);
+  } catch (error) {
+    throw new SfError(messages.getMessage('error.invalid-org-list'), error as string | undefined);
   }
-
-  const orgList = orgInput.split(',').map((org) => org.trim());
-
-  return orgList.filter((org) => org.length > 0);
 }
