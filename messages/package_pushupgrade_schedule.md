@@ -43,11 +43,15 @@ Invalid package version.
 
 Org list file is empty.
 
+# error.empty-org-input
+
+Org list input is empty.
+
 # error.invalid-org-list-file
 
 Org list file is invalid.
 
-# error.invalid-org-list
+# error.invalid-org-input
 
 Org list has invalid org IDs.
 
