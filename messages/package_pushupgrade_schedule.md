@@ -33,7 +33,7 @@ The filename of the .csv file that contains the list of orgs that need the packa
 
 # flags.org-list.summary
 
-List of subscriber org IDs that can be push upgraded.
+Comma-separated list of subscriber org IDs that need the package upgrade.
 
 # error.invalid-package-version
 
