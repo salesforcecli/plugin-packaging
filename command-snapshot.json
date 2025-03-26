@@ -192,7 +192,7 @@
     "command": "package:pushupgrade:list",
     "flagAliases": ["apiversion", "scheduledlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "s", "v"],
-    "flags": ["api-version", "flags-dir", "json", "packageid", "scheduled-last-days", "status", "target-dev-hub"],
+    "flags": ["api-version", "flags-dir", "json", "package", "scheduled-last-days", "status", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
