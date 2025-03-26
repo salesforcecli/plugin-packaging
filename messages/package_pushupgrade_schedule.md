@@ -51,6 +51,10 @@ Org list file is invalid.
 
 Org list has invalid org/orgs.
 
+# error.no-org-list-file-or-org-list-input
+
+Either org list file or org list input must be supplied.
+
 # examples
 
 sf package pushupgrade schedule --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub

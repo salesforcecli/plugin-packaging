@@ -59,6 +59,8 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       orgList = await readOrgListFile(flags['org-file']);
     } else if (flags['org-list']) {
       orgList = getOrgListFromInput(flags['org-list']);
+    } else {
+      throw new SfError(messages.getMessage('error.no-org-list-file-or-org-list-input'));
     }
 
     // Connect to the Dev Hub
