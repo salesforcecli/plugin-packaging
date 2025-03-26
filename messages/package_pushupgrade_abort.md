@@ -1,6 +1,6 @@
 # summary
 
-Aborts a package push upgrade that has been scheduled. Only push upgrade requests with a Status of Created or Pending can be aborted.
+Abort a package push upgrade that has been scheduled. Only push upgrade requests with a status of Created or Pending can be aborted.
 
 # description
 
@@ -20,7 +20,7 @@ To show all requests in the org, run "<%= config.bin %> package pushupgrade list
 
 # flags.push-request-id.summary
 
-The ID of the package push request (starts with 0DV). This ID is returned after the package pushupgrade schedule command is run.
+ID of the package push request (starts with 0DV). This ID is returned after the package push-upgrade schedule command completes successfully.
 
 # flags.target-dev-hub.summary
 
@@ -32,15 +32,15 @@ Overrides the value of the target-dev-hub configuration variable, if set.
 
 # error.invalid-push-request-id-owner
 
---push-request-id 0DV... is not owned by the org from where the CLI command is run.
+Can’t abort package push upgrade request. The specified push upgrade ID is associated with a package in a different Dev Hub org. Retry this command in the context of the Dev Hub org that owns the package.
 
 # error.invalid-push-request-id
 
-Package push upgrade request id is invalid. Please use valid ID (starts with 0DV).
+Can’t abort package push upgrade request. The specified push upgrade ID isn’t valid. Check the ID (starts with 0DV) and retry the command.
 
 # error.invalid-push-request-status
 
-The status of the push request is one of the following: In Progress, Succeeded, Failed, Canceled. Only push requests in Created or Pending statuses can be aborted.
+Can’t abort package push upgrade request with status '${pushRequest.Status}'. Only push upgrade requests with a status of 'Created' or 'Pending' can be cancelled.
 
 # status
 
