@@ -1,15 +1,15 @@
 # summary
 
-Schedules a package push upgrade request.
+Schedule a package push upgrade.
 
 # description
 
 Represents a push upgrade request for upgrading a package in one or many orgs from one version to another version.
 To initiate a push upgrade for an unlocked or second-generation managed package, the Create and Update Second-Generation Packages user permission is required.
-The push upgrade feature is only available second-generation managed packages that have passed AppExchange security review. To enable push upgrades for your managed package, log a support case in the Salesforce Partner Community.
+For second-generation managed packages, the push upgrade feature is available only for packages that have passed AppExchange security review. To enable push upgrades for your managed package, log a support case in the Salesforce Partner Community.
 For unlocked packages, push upgrades are enabled by default.
 
-When the –migrate-to-2GP flag is used, this command lets you push a package migration for a first-generation managed package that has been converted to second-generation managed package. This push migration is used to update orgs that have the first-generation managed package installed.
+Use the –migrate-to-2GP flag to indicate you’re installing a converted second-generation managed package into an org that has the first-generation managed package version of that package installed.
 
 # flags.target-dev-hub.summary
 
@@ -21,11 +21,11 @@ Overrides the value of the target-dev-hub configuration variable, if set.
 
 # flags.package.summary
 
-ID (starts with 04t) of the package version that the package is be upgraded to. The package version must be an active, non-beta package version.
+ID (starts with 04t) of the package version that the package is being upgraded to. The package version must be an active, non-beta package version.
 
 # flags.start-time.summary
 
-Specify the date and time (UTC) when the push upgrade is processed. Set this value to the earliest time that you want Salesforce to attempt to start the upgrade.
+Date and time (UTC) when the push upgrade is processed. Set to the earliest time that you want Salesforce to attempt to start the upgrade.
 
 # flags.org-file.summary
 
@@ -33,7 +33,7 @@ The filename of the .csv file that contains the list of orgs that need the packa
 
 # flags.org-list.summary
 
-Supply subscriber organization ids that can be pushed upgrade.
+List of subscriber org IDs that can be push upgraded.
 
 # error.invalid-package-version
 
@@ -49,7 +49,7 @@ Org list file is invalid.
 
 # error.invalid-org-list
 
-Org list has invalid org/orgs.
+Org list has invalid org IDs.
 
 # error.no-org-list-file-or-org-list-input
 
@@ -57,11 +57,11 @@ Either org list file or org list input must be supplied.
 
 # examples
 
-sf package pushupgrade schedule --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub
+Schedule a push upgrade that initiates at a specified time:
+<%= config.bin %> <%= command.id %> --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv
 
-sf package pushupgrade schedule --package-version 04txyz --org-list upgrade-orgs.csv --target-dev-hub myHub
-
-sf package pushupgrade schedule --migrate-to-2gp --package-version 04txyz --scheduled-start-time "2024-12-06T21:00:00" --org-list upgrade-orgs.csv --target-dev-hub myHub
+Schedule a push upgrade that initiates as soon as possible:
+<%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv
 
 # id
 
@@ -81,4 +81,4 @@ Package Version Id
 
 # output
 
-Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either sf package pushupgrade list or sf package pushupgrade report.
+Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either “package push-upgrade list” or “package push-upgrade report”.
