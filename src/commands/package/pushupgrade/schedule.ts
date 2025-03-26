@@ -55,7 +55,6 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     const { flags } = await this.parse(PackagePushScheduleCommand);
     let orgList: string[] = [];
 
-    // Read and validate org list
     if (flags['org-file']) {
       orgList = await readOrgListFile(flags['org-file']);
     } else if (flags['org-list']) {
@@ -87,7 +86,7 @@ async function readOrgListFile(filePath: string): Promise<string[]> {
 
 function getOrgListFromInput(orgInput: string): string[] {
   try {
-    if (!orgInput) {
+    if (orgInput.length === 0) {
       throw new Error('Org input is required');
     }
 
