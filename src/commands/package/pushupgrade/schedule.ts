@@ -82,7 +82,7 @@ async function readOrgListFile(filePath: string): Promise<string[]> {
 
     return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
   } catch (error) {
-    throw new SfError(messages.getMessage('error.invalid-org-list-file'), error as string | undefined);
+    throw new SfError(messages.getMessage('error.invalid-org-list-file'));
   }
 }
 
@@ -96,6 +96,6 @@ function getOrgListFromInput(orgInput: string): string[] {
 
     return orgList.filter((org) => org.length > 0);
   } catch (error) {
-    throw new SfError(messages.getMessage('error.invalid-org-list'), error as string | undefined);
+    throw new SfError(messages.getMessage('error.invalid-org-list'));
   }
 }
