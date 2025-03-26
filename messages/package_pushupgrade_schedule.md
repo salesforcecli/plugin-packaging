@@ -57,11 +57,11 @@ Either org list file or org list input must be supplied.
 
 # examples
 
-Schedule a push upgrade that initiates at a specified time:
-<%= config.bin %> <%= command.id %> --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv
+- Schedule a push upgrade that initiates at a specified time:
+  <%= config.bin %> <%= command.id %> --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv
 
-Schedule a push upgrade that initiates as soon as possible:
-<%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv
+- Schedule a push upgrade that initiates as soon as possible:
+  <%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv
 
 # id
 
