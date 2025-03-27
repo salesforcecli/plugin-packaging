@@ -26,41 +26,48 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       required: true,
     }),
     'api-version': Flags.orgApiVersion(),
-    'package-version-id': Flags.salesforceId({
+    package: Flags.salesforceId({
       length: 'both',
       char: 'p',
-      summary: messages.getMessage('flags.package-version-id.summary'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
       startsWith: '04t',
     }),
-    'scheduled-start-time': Flags.string({
+    'start-time': Flags.string({
       char: 't',
-      summary: messages.getMessage('flags.scheduled-start-time.summary'),
+      summary: messages.getMessage('flags.start-time.summary'),
     }),
-    'org-list': Flags.file({
+    'org-file': Flags.file({
+      char: 'f',
+      summary: messages.getMessage('flags.org-file.summary'),
+      exactlyOne: ['org-list', 'org-file'],
+      exists: true,
+    }),
+    'org-list': Flags.string({
       char: 'l',
       summary: messages.getMessage('flags.org-list.summary'),
-      required: true,
-      exists: true,
+      allowStdin: true,
+      exactlyOne: ['org-list', 'org-file'],
     }),
   };
 
   public async run(): Promise<PackagePushScheduleResult> {
     const { flags } = await this.parse(PackagePushScheduleCommand);
+    let orgList: string[] = [];
 
-    // Read and validate org list
-    const orgList = await readOrgListFile(flags['org-list']);
+    if (flags['org-file']) {
+      orgList = await readOrgListFile(flags['org-file']);
+    } else if (flags['org-list']) {
+      orgList = getOrgListFromInput(flags['org-list']);
+    } else {
+      throw new SfError(messages.getMessage('error.no-org-list-file-or-org-list-input'));
+    }
 
     // Connect to the Dev Hub
     const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
 
     // Schedule the push upgrade
-    const result = await PackagePushUpgrade.schedule(
-      conn,
-      flags['package-version-id'],
-      flags['scheduled-start-time']!,
-      orgList
-    );
+    const result = await PackagePushUpgrade.schedule(conn, flags['package'], flags['start-time']!, orgList);
 
     this.log(messages.getMessage('output', [result?.PushRequestId]));
 
@@ -75,6 +82,20 @@ async function readOrgListFile(filePath: string): Promise<string[]> {
 
     return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
   } catch (error) {
-    throw new SfError(messages.getMessage('error.invalid-org-list-file'), error as string | undefined);
+    throw new SfError(messages.getMessage('error.invalid-org-list-file'));
+  }
+}
+
+function getOrgListFromInput(orgInput: string): string[] {
+  try {
+    if (orgInput.length === 0) {
+      throw new SfError(messages.getMessage('error.empty-org-input'));
+    }
+
+    const orgList = orgInput.split(',').map((org) => org.trim());
+
+    return orgList.filter((org) => org.length > 0);
+  } catch (error) {
+    throw new SfError(messages.getMessage('error.invalid-org-input'));
   }
 }

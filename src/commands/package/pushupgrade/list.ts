@@ -28,9 +28,9 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
-    packageid: Flags.string({
+    package: Flags.string({
       char: 'p',
-      summary: messages.getMessage('flags.package-id.summary'),
+      summary: messages.getMessage('flags.package.summary'),
       required: true,
     }),
     'scheduled-last-days': Flags.integer({
@@ -63,7 +63,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // Use const since we will add verbose later
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
     const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(connection, {
-      packageId: flags.packageid,
+      packageId: flags.package,
       status: flags.status,
       scheduledLastDays,
     });
