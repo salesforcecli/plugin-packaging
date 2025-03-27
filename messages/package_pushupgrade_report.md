@@ -20,7 +20,7 @@ To show all requests in the org, run "<%= config.bin %> package pushupgrade list
 
 # flags.push-request-id.summary
 
-The ID of the package push request (starts with 0DV). This ID is returned after the package pushupgrade schedule command is run.
+ID of the package push request (starts with 0DV). This ID is returned after the package push-upgrade schedule command completes successfully.
 
 # truncatedErrors
 
