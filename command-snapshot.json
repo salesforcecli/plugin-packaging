@@ -65,9 +65,10 @@
       "installationkey",
       "installationkeybypass",
       "target-hub-org",
-      "targetdevhubusername"
+      "targetdevhubusername",
+      "patchversion"
     ],
-    "flagChars": ["f", "k", "m", "p", "s", "v", "w", "x"],
+    "flagChars": ["f", "k", "m", "p", "s", "v", "w", "x", "a"],
     "flags": [
       "api-version",
       "build-instance",
@@ -81,7 +82,8 @@
       "seed-metadata",
       "target-dev-hub",
       "verbose",
-      "wait"
+      "wait",
+      "patch-version"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
