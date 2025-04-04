@@ -1,26 +1,26 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SF plugin that support Salesforce Packaging Platform",
-  "version": "2.10.1",
+  "version": "2.12.3",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^4",
-    "@salesforce/core": "^8.8.3",
+    "@salesforce/core": "^8.8.6",
     "@salesforce/kit": "^3.2.3",
-    "@salesforce/packaging": "^4.3.0",
-    "@salesforce/sf-plugins-core": "^12.1.4",
+    "@salesforce/packaging": "^4.4.0",
+    "@salesforce/sf-plugins-core": "^12.2.1",
     "chalk": "^5.4.1"
   },
   "devDependencies": {
-    "@oclif/plugin-command-snapshot": "^5.2.33",
+    "@oclif/plugin-command-snapshot": "^5.2.36",
     "@salesforce/cli-plugins-testkit": "^5.3.39",
-    "@salesforce/dev-scripts": "^10.2.11",
-    "@salesforce/plugin-command-reference": "^3.1.43",
-    "eslint-plugin-sf-plugin": "^1.20.14",
-    "oclif": "^4.17.27",
+    "@salesforce/dev-scripts": "^10.2.12",
+    "@salesforce/plugin-command-reference": "^3.1.49",
+    "eslint-plugin-sf-plugin": "^1.20.16",
+    "oclif": "^4.17.37",
     "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "typescript": "^5.8.2"
   },
   "config": {},
   "engines": {
@@ -234,7 +234,7 @@
       "output": []
     },
     "link-check": {
-      "command": "node -e \"process.exit(process.env.CI ? 0 : 1)\" || linkinator \"**/*.md\" --skip \"CHANGELOG.md|node_modules|test/|confluence.internal.salesforce.com|my.salesforce.com|%s\" --markdown --retry --directory-listing --verbosity error",
+      "command": "node -e \"process.exit(process.env.CI ? 0 : 1)\" || linkinator \"**/*.md\" --skip \"CHANGELOG.md|node_modules|test/|confluence.internal.salesforce.com|my.salesforce.com|localhost|%s\" --markdown --retry --directory-listing --verbosity error",
       "files": [
         "./*.md",
         "./!(CHANGELOG).md",

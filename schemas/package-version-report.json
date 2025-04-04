@@ -179,6 +179,9 @@
         "TotalNumberOfMetadataFiles": {
           "type": "number"
         },
+        "TotalSizeOfMetadataFiles": {
+          "type": "number"
+        },
         "SubscriberPackageVersion": {
           "type": "object",
           "properties": {

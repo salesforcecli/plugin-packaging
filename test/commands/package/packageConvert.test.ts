@@ -70,6 +70,7 @@ describe('package:convert', () => {
       CodeCoverage: null,
       VersionNumber: null,
       TotalNumberOfMetadataFiles: null,
+      TotalSizeOfMetadataFiles: null,
     } satisfies PackageVersionCreateRequestResult;
 
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
@@ -102,6 +103,7 @@ describe('package:convert', () => {
       CodeCoverage: null,
       VersionNumber: null,
       TotalNumberOfMetadataFiles: null,
+      TotalSizeOfMetadataFiles: null,
     };
 
     convertStub.restore();
@@ -133,6 +135,7 @@ describe('package:convert', () => {
       CodeCoverage: null,
       VersionNumber: null,
       TotalNumberOfMetadataFiles: null,
+      TotalSizeOfMetadataFiles: null,
     };
 
     convertStub.restore();

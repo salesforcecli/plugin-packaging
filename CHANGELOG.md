@@ -1,3 +1,57 @@
+## [2.12.3](https://github.com/salesforcecli/plugin-packaging/compare/2.12.2...2.12.3) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.8.5 to 8.8.6 ([413aa40](https://github.com/salesforcecli/plugin-packaging/commit/413aa40f90cc2ee71634253095b8c4b645ee47c7))
+
+## [2.12.2](https://github.com/salesforcecli/plugin-packaging/compare/2.12.1...2.12.2) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.0 to 12.2.1 ([6c22d57](https://github.com/salesforcecli/plugin-packaging/commit/6c22d57e2dfbb0654223aad4f016c4e918f44349))
+
+## [2.12.1](https://github.com/salesforcecli/plugin-packaging/compare/2.12.0...2.12.1) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.8 to 4.2.10 ([9e8033d](https://github.com/salesforcecli/plugin-packaging/commit/9e8033d898548d145d1fa3eb7999200cc8eeaaee))
+
+# [2.12.0](https://github.com/salesforcecli/plugin-packaging/compare/2.11.1...2.12.0) (2025-03-21)
+
+### Features
+
+- remove outdated version create message ([0b7f946](https://github.com/salesforcecli/plugin-packaging/commit/0b7f94663cbe1c2badaa4053dcffe67a3b2878ad))
+
+## [2.11.1](https://github.com/salesforcecli/plugin-packaging/compare/2.11.0...2.11.1) (2025-03-20)
+
+### Bug Fixes
+
+- round up TotalSizeOfMetadataFiles to the next whole number ([68fd48f](https://github.com/salesforcecli/plugin-packaging/commit/68fd48f3319970affbecde79d60a68ffb27fa8cb))
+
+# [2.11.0](https://github.com/salesforcecli/plugin-packaging/compare/2.10.3...2.11.0) (2025-03-18)
+
+### Bug Fixes
+
+- bump packaging library and core version ([0dd5415](https://github.com/salesforcecli/plugin-packaging/commit/0dd5415cbebbe4919170f795774533eaf20d2cc6))
+- fix missed invoking warn method ([c2ed8d0](https://github.com/salesforcecli/plugin-packaging/commit/c2ed8d0c4da0e3f3f7a6d93f4a4d53504ef83411))
+- update warning message ([01c067b](https://github.com/salesforcecli/plugin-packaging/commit/01c067bd552ba80d089173825e2db857e74b8e06))
+
+### Features
+
+- add warning message if TotalSizeOfMetadataFiles exceeds 420MB ([29d9c08](https://github.com/salesforcecli/plugin-packaging/commit/29d9c08609bcadb37dc738e87f798a595f72c7dc))
+
+## [2.10.3](https://github.com/salesforcecli/plugin-packaging/compare/2.10.2...2.10.3) (2025-03-01)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.1.4 to 12.2.0 ([06e4e64](https://github.com/salesforcecli/plugin-packaging/commit/06e4e64e22f69fe777e67ea05ddcec5fdd197f60))
+
+## [2.10.2](https://github.com/salesforcecli/plugin-packaging/compare/2.10.1...2.10.2) (2025-02-28)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.6 to 4.2.8 ([860398f](https://github.com/salesforcecli/plugin-packaging/commit/860398feef6cb5d53f85a30877839e174a5c288c))
+
 ## [2.10.1](https://github.com/salesforcecli/plugin-packaging/compare/2.10.0...2.10.1) (2025-02-22)
 
 ### Bug Fixes
