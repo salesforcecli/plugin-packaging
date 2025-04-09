@@ -84,6 +84,14 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     verbose: Flags.boolean({
       summary: messages.getMessage('flags.verbose.summary'),
     }),
+    'patch-version': Flags.string({
+      summary: messages.getMessage('flags.patch-version.summary'),
+      description: messages.getMessage('flags.patch-version.description'),
+      char: 'a',
+      deprecateAliases: true,
+      aliases: ['patchversion'],
+      hidden: true,
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
@@ -124,6 +132,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         installationKeyBypass: flags['installation-key-bypass'],
         buildInstance: flags['build-instance'] as string,
         seedMetadata: flags['seed-metadata'] as string,
+        patchversion: flags['patch-version'] as string,
       },
       project
     );
