@@ -1,3 +1,13 @@
+# [2.13.0](https://github.com/salesforcecli/plugin-packaging/compare/2.12.3...2.13.0) (2025-04-09)
+
+### Bug Fixes
+
+- typo and hide patch-version parameter ([c08f5de](https://github.com/salesforcecli/plugin-packaging/commit/c08f5de941eb1c33dea8d28765ced593ab937f2f))
+
+### Features
+
+- adding new patch version conversion parameter ([0451aa6](https://github.com/salesforcecli/plugin-packaging/commit/0451aa6dd6246a040b3c2af6619c883721b3a16d))
+
 ## [2.12.3](https://github.com/salesforcecli/plugin-packaging/compare/2.12.2...2.12.3) (2025-03-22)
 
 ### Bug Fixes
