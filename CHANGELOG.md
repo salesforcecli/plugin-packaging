@@ -1,3 +1,176 @@
+## [2.13.2](https://github.com/salesforcecli/plugin-packaging/compare/2.13.1...2.13.2) (2025-04-26)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.9.1 to 8.10.0 ([c35fba9](https://github.com/salesforcecli/plugin-packaging/commit/c35fba9d01147e7ea865d0f26c209804ccd0a01e))
+
+## [2.13.1](https://github.com/salesforcecli/plugin-packaging/compare/2.13.0...2.13.1) (2025-04-19)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.9.0 to 8.9.1 ([d1eb843](https://github.com/salesforcecli/plugin-packaging/commit/d1eb8433fbf3cb16f914e5fc02194bd29afc2371))
+
+# [2.13.0](https://github.com/salesforcecli/plugin-packaging/compare/2.12.3...2.13.0) (2025-04-09)
+
+### Bug Fixes
+
+- typo and hide patch-version parameter ([c08f5de](https://github.com/salesforcecli/plugin-packaging/commit/c08f5de941eb1c33dea8d28765ced593ab937f2f))
+
+### Features
+
+- adding new patch version conversion parameter ([0451aa6](https://github.com/salesforcecli/plugin-packaging/commit/0451aa6dd6246a040b3c2af6619c883721b3a16d))
+
+## [2.12.3](https://github.com/salesforcecli/plugin-packaging/compare/2.12.2...2.12.3) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.8.5 to 8.8.6 ([413aa40](https://github.com/salesforcecli/plugin-packaging/commit/413aa40f90cc2ee71634253095b8c4b645ee47c7))
+
+## [2.12.2](https://github.com/salesforcecli/plugin-packaging/compare/2.12.1...2.12.2) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.0 to 12.2.1 ([6c22d57](https://github.com/salesforcecli/plugin-packaging/commit/6c22d57e2dfbb0654223aad4f016c4e918f44349))
+
+## [2.12.1](https://github.com/salesforcecli/plugin-packaging/compare/2.12.0...2.12.1) (2025-03-22)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.8 to 4.2.10 ([9e8033d](https://github.com/salesforcecli/plugin-packaging/commit/9e8033d898548d145d1fa3eb7999200cc8eeaaee))
+
+# [2.12.0](https://github.com/salesforcecli/plugin-packaging/compare/2.11.1...2.12.0) (2025-03-21)
+
+### Features
+
+- remove outdated version create message ([0b7f946](https://github.com/salesforcecli/plugin-packaging/commit/0b7f94663cbe1c2badaa4053dcffe67a3b2878ad))
+
+## [2.11.1](https://github.com/salesforcecli/plugin-packaging/compare/2.11.0...2.11.1) (2025-03-20)
+
+### Bug Fixes
+
+- round up TotalSizeOfMetadataFiles to the next whole number ([68fd48f](https://github.com/salesforcecli/plugin-packaging/commit/68fd48f3319970affbecde79d60a68ffb27fa8cb))
+
+# [2.11.0](https://github.com/salesforcecli/plugin-packaging/compare/2.10.3...2.11.0) (2025-03-18)
+
+### Bug Fixes
+
+- bump packaging library and core version ([0dd5415](https://github.com/salesforcecli/plugin-packaging/commit/0dd5415cbebbe4919170f795774533eaf20d2cc6))
+- fix missed invoking warn method ([c2ed8d0](https://github.com/salesforcecli/plugin-packaging/commit/c2ed8d0c4da0e3f3f7a6d93f4a4d53504ef83411))
+- update warning message ([01c067b](https://github.com/salesforcecli/plugin-packaging/commit/01c067bd552ba80d089173825e2db857e74b8e06))
+
+### Features
+
+- add warning message if TotalSizeOfMetadataFiles exceeds 420MB ([29d9c08](https://github.com/salesforcecli/plugin-packaging/commit/29d9c08609bcadb37dc738e87f798a595f72c7dc))
+
+## [2.10.3](https://github.com/salesforcecli/plugin-packaging/compare/2.10.2...2.10.3) (2025-03-01)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.1.4 to 12.2.0 ([06e4e64](https://github.com/salesforcecli/plugin-packaging/commit/06e4e64e22f69fe777e67ea05ddcec5fdd197f60))
+
+## [2.10.2](https://github.com/salesforcecli/plugin-packaging/compare/2.10.1...2.10.2) (2025-02-28)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.6 to 4.2.8 ([860398f](https://github.com/salesforcecli/plugin-packaging/commit/860398feef6cb5d53f85a30877839e174a5c288c))
+
+## [2.10.1](https://github.com/salesforcecli/plugin-packaging/compare/2.10.0...2.10.1) (2025-02-22)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.8.2 to 8.8.3 ([470ef74](https://github.com/salesforcecli/plugin-packaging/commit/470ef74b4f881fb7de3e6a900dbc63d10ef046b3))
+
+# [2.10.0](https://github.com/salesforcecli/plugin-packaging/compare/2.9.18...2.10.0) (2025-02-20)
+
+### Bug Fixes
+
+- add tests ([8132814](https://github.com/salesforcecli/plugin-packaging/commit/81328148a5d62f8e2e3587429a74c389d6e87f45))
+- add TotalNumberOfMetadataFiles to PVR schema ([77e4b1b](https://github.com/salesforcecli/plugin-packaging/commit/77e4b1b2c4d85cab2a8dd2468c624ff0e6a221eb))
+- fix SDR lib path ([67ec39f](https://github.com/salesforcecli/plugin-packaging/commit/67ec39f7d36ebcade6980ec320980a7fbf93d5a7))
+- fix tests ([8d818d6](https://github.com/salesforcecli/plugin-packaging/commit/8d818d6f2ec1ff7234fa15f6361bd46d82a43da2))
+- fix tests ([70b7785](https://github.com/salesforcecli/plugin-packaging/commit/70b778554aaeb9bec3b53a1ba55066a245aa702d))
+- fix tests ([5202018](https://github.com/salesforcecli/plugin-packaging/commit/520201801b076341448de51653d74c125128ccf6))
+- fix tests ([991df2a](https://github.com/salesforcecli/plugin-packaging/commit/991df2a33aac4831abb5a2205f9ec7f1dbb85b92))
+- fix tests and refactor warn message ([5275b4f](https://github.com/salesforcecli/plugin-packaging/commit/5275b4fb9c47585666c1321237eb9c035b76c2f7))
+- generate schemas ([76c3664](https://github.com/salesforcecli/plugin-packaging/commit/76c36644bf78fe08578032168196d3684dda9ec8))
+- resolve SDR version ([593c284](https://github.com/salesforcecli/plugin-packaging/commit/593c2846dd18b0335d94c113e57d1e16ca8550d1))
+- resolve SDR version ([bee35b2](https://github.com/salesforcecli/plugin-packaging/commit/bee35b2c76ae8a6bd22bf29edf8646cc6357fb8c))
+- resolve SDR version ([a3180c2](https://github.com/salesforcecli/plugin-packaging/commit/a3180c2fbf231cf9e54e8e757129f2a93fd914ad))
+- update compiler options ([00bc6aa](https://github.com/salesforcecli/plugin-packaging/commit/00bc6aa762ac489e70156612274df2aa7b7bcf46))
+- update expected result for version list command ([99e9daa](https://github.com/salesforcecli/plugin-packaging/commit/99e9daa8b72cff40058ad7b276c80f6489d13387))
+- update packaging library version ([4824f1e](https://github.com/salesforcecli/plugin-packaging/commit/4824f1e81d60750d8091db60b5d991129ef6b7ec))
+- update yarn.lock ([8348148](https://github.com/salesforcecli/plugin-packaging/commit/834814801fa8b58863a965161ebc841b9b226a5e))
+
+### Features
+
+- add warning message if TotalNumberOfMetadataFiles exceeds 7000 ([076d43d](https://github.com/salesforcecli/plugin-packaging/commit/076d43d638bd6079765c67694c58da5e1dc98bec))
+
+## [2.9.18](https://github.com/salesforcecli/plugin-packaging/compare/2.9.17...2.9.18) (2025-02-18)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.5 to 4.2.6 ([a992833](https://github.com/salesforcecli/plugin-packaging/commit/a992833f447684e6b48c1b94ec47b89f8e50571a))
+
+## [2.9.17](https://github.com/salesforcecli/plugin-packaging/compare/2.9.16...2.9.17) (2025-02-15)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.1.3 to 12.1.4 ([4b0322f](https://github.com/salesforcecli/plugin-packaging/commit/4b0322f4b9973457c9a8de79d7968591f3b1c1bf))
+
+## [2.9.16](https://github.com/salesforcecli/plugin-packaging/compare/2.9.15...2.9.16) (2025-02-02)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.1.2 to 12.1.3 ([d8bd875](https://github.com/salesforcecli/plugin-packaging/commit/d8bd875168bfeb4b192ea4e7725f7466c730775f))
+
+## [2.9.15](https://github.com/salesforcecli/plugin-packaging/compare/2.9.14...2.9.15) (2025-02-01)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.4 to 4.2.5 ([ddae04d](https://github.com/salesforcecli/plugin-packaging/commit/ddae04d73d82aa67257204dabd56c9c1be8c13f7))
+
+## [2.9.14](https://github.com/salesforcecli/plugin-packaging/compare/2.9.13...2.9.14) (2025-01-18)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.8.0 to 8.8.2 ([3aeee1d](https://github.com/salesforcecli/plugin-packaging/commit/3aeee1dba0d4459c1d316715f19132be66d6883d))
+
+## [2.9.13](https://github.com/salesforcecli/plugin-packaging/compare/2.9.12...2.9.13) (2025-01-18)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.2 to 4.2.3 ([853f8a5](https://github.com/salesforcecli/plugin-packaging/commit/853f8a5c8a17c22bd22153d0ec5eb678b7a2313b))
+
+## [2.9.12](https://github.com/salesforcecli/plugin-packaging/compare/2.9.11...2.9.12) (2025-01-12)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.2.0 to 4.2.2 ([46b2492](https://github.com/salesforcecli/plugin-packaging/commit/46b2492b8e3704c7f02d131a5540854a457070e7))
+
+## [2.9.11](https://github.com/salesforcecli/plugin-packaging/compare/2.9.10...2.9.11) (2025-01-11)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.1.1 to 12.1.2 ([05ef976](https://github.com/salesforcecli/plugin-packaging/commit/05ef976bbaaa89c5a15fcb444f3560198623a3a8))
+
+## [2.9.10](https://github.com/salesforcecli/plugin-packaging/compare/2.9.9...2.9.10) (2024-12-28)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.4.0 to 5.4.1 ([2e5a68a](https://github.com/salesforcecli/plugin-packaging/commit/2e5a68aa5cb813f4d6a36c930e7798f692c7fc52))
+
+## [2.9.9](https://github.com/salesforcecli/plugin-packaging/compare/2.9.8...2.9.9) (2024-12-21)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.3.0 to 5.4.0 ([2314da4](https://github.com/salesforcecli/plugin-packaging/commit/2314da468d4ec015f05585eb4ac8452e64daf4dd))
+
+## [2.9.8](https://github.com/salesforcecli/plugin-packaging/compare/2.9.7...2.9.8) (2024-12-21)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.0.37 to 4.2.0 ([b3e8118](https://github.com/salesforcecli/plugin-packaging/commit/b3e811810161f7fb68dd9b42d5eb921579a88a49))
+
 ## [2.9.7](https://github.com/salesforcecli/plugin-packaging/compare/2.9.6...2.9.7) (2024-12-15)
 
 ### Bug Fixes

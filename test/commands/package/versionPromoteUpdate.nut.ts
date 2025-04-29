@@ -80,9 +80,7 @@ describe('package:version:promote / package:version:update', () => {
     }).shellOutput.stdout;
     expect(result).to.contain('Successfully promoted the package version');
     expect(result).to.contain('04t', result);
-    expect(result).to.contain(
-      'to released. Starting in Winter ‘21, only unlocked package versions that have met the minimum 75% code coverage requirement can be promoted. Code coverage minimums aren’t enforced on org-dependent unlocked packages.'
-    );
+    expect(result).to.contain('to released.');
   });
 
   it('should promote a package (--json)', () => {

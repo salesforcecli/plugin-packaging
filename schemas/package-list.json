@@ -10,14 +10,9 @@
     },
     "Package2Result": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
-        "Id": {
-          "type": "string"
-        },
         "SubscriberPackageId": {
-          "type": "string"
-        },
-        "Name": {
           "type": "string"
         },
         "Description": {
@@ -46,9 +41,14 @@
         },
         "IsOrgDependent": {
           "type": "string"
+        },
+        "Id": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
         }
-      },
-      "additionalProperties": false
+      }
     },
     "PackageType": {
       "type": "string",

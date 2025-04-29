@@ -36,6 +36,8 @@ const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   CodeCoverage: null,
   VersionNumber: null,
   ConvertedFromVersionId: null,
+  TotalNumberOfMetadataFiles: null,
+  TotalSizeOfMetadataFiles: null,
 };
 
 const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
@@ -55,6 +57,29 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   CodeCoverage: null,
   VersionNumber: null,
   ConvertedFromVersionId: null,
+  TotalNumberOfMetadataFiles: null,
+  TotalSizeOfMetadataFiles: null,
+};
+
+const pkgVersionCreateSuccessResultExceedsFileCount: PackageVersionCreateRequestResult = {
+  Id: '08c3i000000fylgAAA',
+  Status: Package2VersionStatus.success,
+  Package2Id: '0Ho3i000000TNHYCA4',
+  Package2VersionId: '05i3i000000fxw1AAA',
+  SubscriberPackageVersionId: '04t3i000002eya2AAA',
+  Tag: '',
+  Branch: '',
+  Error: [],
+  CreatedDate: '2022-11-03 09:46',
+  HasMetadataRemoved: false,
+  CreatedBy: '0053i000001ZIyGAAW',
+  Package2Name: null,
+  HasPassedCodeCoverageCheck: null,
+  CodeCoverage: null,
+  VersionNumber: null,
+  ConvertedFromVersionId: null,
+  TotalNumberOfMetadataFiles: 8000,
+  TotalSizeOfMetadataFiles: 500 * 1024 * 1024,
 };
 
 describe('package:version:create - tests', () => {
@@ -65,6 +90,7 @@ describe('package:version:create - tests', () => {
 
   // stubs
   let logStub: sinon.SinonStub;
+  let warnStub: sinon.SinonStub;
 
   const stubSpinner = (cmd: PackageVersionCreateCommand) => {
     $$.SANDBOX.stub(cmd.spinner, 'start');
@@ -78,6 +104,7 @@ describe('package:version:create - tests', () => {
 
   beforeEach(async () => {
     logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    warnStub = $$.SANDBOX.stub(SfCommand.prototype, 'warn');
   });
 
   afterEach(() => {
@@ -110,7 +137,10 @@ describe('package:version:create - tests', () => {
         CodeCoverage: null,
         VersionNumber: null,
         ConvertedFromVersionId: null,
+        TotalNumberOfMetadataFiles: null,
+        TotalSizeOfMetadataFiles: null,
       });
+      expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
         `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
@@ -146,7 +176,55 @@ describe('package:version:create - tests', () => {
         CodeCoverage: null,
         VersionNumber: null,
         ConvertedFromVersionId: null,
+        TotalNumberOfMetadataFiles: null,
+        TotalSizeOfMetadataFiles: null,
       });
+      expect(warnStub.callCount).to.equal(0);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal([
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
+      ]);
+    });
+
+    it('should create a new package version with total file-count exceeding threshold', async () => {
+      createStub = $$.SANDBOX.stub(PackageVersion, 'create');
+      createStub.resolves(pkgVersionCreateSuccessResultExceedsFileCount);
+      const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+
+      const cmd = new PackageVersionCreateCommand(
+        ['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org', '-x', '--async-validation'],
+        config
+      );
+      stubSpinner(cmd);
+      const res = await cmd.run();
+      expect(envSpy.calledOnce).to.equal(true);
+      expect(res).to.deep.equal({
+        Branch: '',
+        CreatedBy: '0053i000001ZIyGAAW',
+        CreatedDate: '2022-11-03 09:46',
+        Error: [],
+        HasMetadataRemoved: false,
+        Id: '08c3i000000fylgAAA',
+        Package2Id: '0Ho3i000000TNHYCA4',
+        Package2VersionId: '05i3i000000fxw1AAA',
+        Status: 'Success',
+        SubscriberPackageVersionId: '04t3i000002eya2AAA',
+        Tag: '',
+        Package2Name: null,
+        HasPassedCodeCoverageCheck: null,
+        CodeCoverage: null,
+        VersionNumber: null,
+        ConvertedFromVersionId: null,
+        TotalNumberOfMetadataFiles: 8000,
+        TotalSizeOfMetadataFiles: 500 * 1024 * 1024,
+      });
+      expect(warnStub.callCount).to.equal(2);
+      expect(warnStub.args[0]).to.deep.equal([
+        'This package contains more than 7000 metadata files. The maximum number of metadata files in a package is 10000. If you reach the file limit, you won’t be able to create new package versions. To confirm the exact file count for this package, run sf package version report and review the “# Metadata Files” column.',
+      ]);
+      expect(warnStub.args[1]).to.deep.equal([
+        'The maximum size of all the metadata files size in a single package is 600 MB. The package version you’re creating exceeds 70% of the metadata file size limit. If you reach the file size limit, you won’t be able to create new package versions. To confirm the exact file size for this package, run "sf package version report" and review the “Metadata File Size” column.',
+      ]);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
         `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
