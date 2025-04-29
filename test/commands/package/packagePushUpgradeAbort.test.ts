@@ -24,6 +24,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
     await config.load();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
   });
 

@@ -20,6 +20,7 @@ Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_report');
 const ERROR_LIMIT = 12;
 
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export type ReportCommandResult = PackagePushRequestReportResult | null;
 
 export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResult> {
