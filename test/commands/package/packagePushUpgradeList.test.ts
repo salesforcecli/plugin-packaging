@@ -61,9 +61,13 @@ describe('package:pushupgrade:list - tests', () => {
 
   it('should list the push upgrade requests', async () => {
     const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     listStub.resolves(pushUpgradeListSuccess);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getTotalJobsStub.resolves(3);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getFailedJobsStub.resolves(1);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getSucceededJobsStub.resolves(2);
 
     const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
@@ -71,23 +75,29 @@ describe('package:pushupgrade:list - tests', () => {
     await cmd.run();
 
     expect(envSpy.calledOnce).to.equal(false);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.table.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 
   it('should handle no results found', async () => {
     const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     listStub.resolves([]);
 
     await cmd.run();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
   });
 
   it('should handle errors during list', async () => {
     const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     listStub.rejects(new Error('List error'));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     await expect(cmd.run()).to.be.rejectedWith('List error');
   });
 });

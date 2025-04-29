@@ -64,30 +64,41 @@ describe('package:pushupgrade:report - tests', () => {
 
   it('should report the push upgrade request', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     reportStub.resolves(pushUpgradeReportSuccess);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getTotalJobsStub.resolves(3);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getFailedJobsStub.resolves(1);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getSucceededJobsStub.resolves(2);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     getJobFailureReasonsStub.resolves([]);
 
     await cmd.run();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.table.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 
   it('should handle no results found', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     reportStub.resolves([]);
 
     await cmd.run();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
   });
 
   it('should handle errors during report', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     reportStub.rejects(new Error('Report error'));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     await expect(cmd.run()).to.be.rejectedWith('Report error');
   });
 });

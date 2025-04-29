@@ -6,7 +6,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages, Org, Logger } from '@salesforce/core';
+import { Messages, Logger } from '@salesforce/core';
 import chalk from 'chalk';
 
 import {

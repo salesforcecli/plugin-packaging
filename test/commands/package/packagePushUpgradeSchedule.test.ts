@@ -51,11 +51,14 @@ describe('package:pushupgrade:schedule - tests', () => {
     ];
     const cmd = new PackagePushScheduleCommand(cmdArgsFile, config);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     scheduleStub.resolves(pushReq);
     const result = await cmd.run();
     expect(result).to.deep.equal(pushReq);
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.log.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(scheduleStub.calledOnce).to.be.true;
   });
 
@@ -71,10 +74,13 @@ describe('package:pushupgrade:schedule - tests', () => {
       '00Dxx0000001gEREAY,00Dxx0000001gFAEA0',
     ];
     const cmd = new PackagePushScheduleCommand(cmdArgsOrg, config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     scheduleStub.resolves(pushReq);
     await cmd.run();
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.log.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(scheduleStub.calledOnce).to.be.true;
   });
 });

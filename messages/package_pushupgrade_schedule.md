@@ -47,7 +47,7 @@ Org list file is empty.
 
 Org list input is empty.
 
-# error.invalid-org-list-file
+# error.invalid-org-file
 
 Org list file is invalid.
 
@@ -55,7 +55,7 @@ Org list file is invalid.
 
 Org list has invalid org IDs.
 
-# error.no-org-list-file-or-org-list-input
+# error.no-org-file-or-org-list-input
 
 Either org list file or org list input must be supplied.
 

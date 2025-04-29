@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages, Org } from '@salesforce/core';
+import { Messages } from '@salesforce/core';
 import { PackagePushUpgrade } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
