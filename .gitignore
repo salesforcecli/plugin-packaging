@@ -48,5 +48,5 @@ node_modules
 .DS_Store
 .idea
 .iml
-
-.sfdx
+plugin-packaging.iml
+.codegenie

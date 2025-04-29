@@ -53,6 +53,12 @@
         },
         "ConvertedFromVersionId": {
           "type": ["string", "null"]
+        },
+        "TotalNumberOfMetadataFiles": {
+          "type": ["number", "null"]
+        },
+        "TotalSizeOfMetadataFiles": {
+          "type": ["number", "null"]
         }
       },
       "additionalProperties": false
