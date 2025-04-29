@@ -12,7 +12,6 @@ import {
   PackagePushRequestReportResult,
 } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import { createSfCommandStubs } from '@salesforce/core/testSetup';
 import { PackagePushUpgradeReportCommand } from '../../../src/commands/package/pushupgrade/report.js';
 
 const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
@@ -39,7 +38,7 @@ const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
 
 describe('package:pushupgrade:report - tests', () => {
   const $$ = new TestContext();
-  let sfCommandStubs: ReturnType<typeof createSfCommandStubs>;
+  let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
   let reportStub: sinon.SinonStub;
   let getTotalJobsStub: sinon.SinonStub;
   let getFailedJobsStub: sinon.SinonStub;
@@ -50,11 +49,17 @@ describe('package:pushupgrade:report - tests', () => {
   beforeEach(async () => {
     await $$.stubAuths();
     await config.load();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     reportStub = $$.SANDBOX.stub(PackagePushUpgrade, 'report');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     getTotalJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     getFailedJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     getSucceededJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     getJobFailureReasonsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getJobFailureReasons');
   });
 
