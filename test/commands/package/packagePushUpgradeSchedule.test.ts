@@ -56,6 +56,7 @@ describe('package:pushupgrade:schedule - tests', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     scheduleStub.resolves(pushReq);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const result = await cmd.run();
     expect(result).to.deep.equal(pushReq);
 
