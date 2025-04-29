@@ -35,6 +35,14 @@ The filename of the .csv file that contains the list of orgs that need the packa
 
 Comma-separated list of subscriber org IDs that need the package upgrade.
 
+# flags.migrate-to-2gp.summary
+
+Indicates the push upgrade request is a migration from 1GP to 2GP.
+
+# flags.migrate-to-2gp.description
+
+Include this flag to specify that the push upgrade request represents a migration from a 1GP package to a 2GP package. The command must be run against the Dev Hub that owns the 2GP package.
+
 # error.invalid-package-version
 
 Invalid package version.
@@ -67,6 +75,9 @@ Either org list file or org list input must be supplied.
 - Schedule a push upgrade that initiates as soon as possible:
   <%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv
 
+- Schedule a push migration from a 1GP package to a 2GP package:
+  <%= config.bin %> <%= command.id %> --migrate-to-2gp --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv --target-dev-hub myHub
+
 # id
 
 ID
@@ -85,4 +96,4 @@ Package Version Id
 
 # output
 
-Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either “package push-upgrade list” or “package push-upgrade report”.
+Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either "package push-upgrade list" or "package push-upgrade report".
