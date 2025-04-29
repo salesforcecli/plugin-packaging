@@ -5,8 +5,8 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
-import { Messages, Org, Logger } from '@salesforce/core';
+import { Flags, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
+import { Messages, Logger } from '@salesforce/core';
 import {
   PackagePushRequestListResult,
   PackagePushUpgrade,
@@ -16,7 +16,7 @@ import { requiredHubFlag } from '../../../utils/hubFlag.js';
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_list');
 
-type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
+// type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 export type PackagePushRequestListResultArr = PackagePushRequestListResult[];
 
 export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestListResultArr> {
@@ -64,7 +64,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     logger.debug(`Querying PackagePushRequest records from org ${hubOrg.getOrgId()}`);
     const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
       packageId: flags.package,
-      status: flags.status,
+      status: flags.status as 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded' | undefined,
       scheduledLastDays,
     });
 

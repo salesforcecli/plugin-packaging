@@ -9,8 +9,7 @@ import { Config } from '@oclif/core';
 import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import { PackagePushUpgrade } from '@salesforce/packaging';
-import { stubSfCommandUx, SfCommand } from '@salesforce/sf-plugins-core';
-import { createSfCommandStubs } from '@salesforce/core/testSetup';
+import { SfCommand } from '@salesforce/sf-plugins-core';
 import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/pushupgrade/abort.js';
 
 describe('PackagePushUpgradeAbortCommand', () => {
@@ -34,12 +33,16 @@ describe('PackagePushUpgradeAbortCommand', () => {
   it('should pass the right parameters to the library', async () => {
     const pushRequestId = '0DVxx0000004CCG';
     const cmd = new PackagePushUpgradeAbortCommand(['-i', pushRequestId, '-v', testOrg.username], config);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     abortStub.resolves(true);
     const res = await cmd.run();
 
     expect(res).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(abortStub.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(logStub.callCount).to.equal(1);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(logStub.args[0]).to.deep.equal([`Scheduled push upgrade ID ${pushRequestId} was canceled.`]);
   });
 
@@ -55,6 +58,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
   });
 
   it('should throw an error if push-request status is not "Created" or "Pending" or  is missing', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     abortStub.rejects(new Error('Abortion is only allowed for "Created" or "Pending" statuses.'));
     const cmd = new PackagePushUpgradeAbortCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
 

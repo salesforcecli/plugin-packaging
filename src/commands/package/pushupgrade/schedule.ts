@@ -6,7 +6,7 @@
  */
 import * as fs from 'node:fs/promises';
 import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
-import { Messages, SfError, Org, Logger } from '@salesforce/core';
+import { Messages, SfError, Logger } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -40,11 +40,11 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     'org-list': Flags.string({
       char: 'l',
       summary: messages.getMessage('flags.org-list.summary'),
-      exclusive: ['org-list-file'],
+      exclusive: ['org-file'],
     }),
-    'org-list-file': Flags.file({
+    'org-file': Flags.file({
       char: 'f',
-      summary: messages.getMessage('flags.org-list-file.summary'),
+      summary: messages.getMessage('flags.org-file.summary'),
       exists: true,
       exclusive: ['org-list'],
     }),
@@ -55,14 +55,14 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     const logger = await Logger.child(this.constructor.name);
     let orgList: string[] = [];
 
-    if (flags['org-list-file']) {
-      logger.debug(`Reading org list from file: ${flags['org-list-file']}`);
-      orgList = await readOrgListFile(flags['org-list-file']);
+    if (flags['org-file']) {
+      logger.debug(`Reading org list from file: ${flags['org-file']}`);
+      orgList = await readOrgFile(flags['org-file']);
     } else if (flags['org-list']) {
       logger.debug('Using org list from input flag.');
       orgList = getOrgListFromInput(flags['org-list']);
     } else {
-      throw new SfError(messages.getMessage('error.no-org-list-file-or-org-list-input'));
+      throw new SfError(messages.getMessage('error.no-org-file-or-org-list-input'));
     }
 
     const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
@@ -89,14 +89,14 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   }
 }
 
-async function readOrgListFile(filePath: string): Promise<string[]> {
+async function readOrgFile(filePath: string): Promise<string[]> {
   try {
     const fileContent = await fs.readFile(filePath, 'utf-8');
     const orgIds = fileContent.split(/\r?\n/).filter((id) => id.trim().length > 0);
 
     return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
   } catch (error) {
-    throw new SfError(messages.getMessage('error.invalid-org-list-file'));
+    throw new SfError(messages.getMessage('error.invalid-org-file'));
   }
 }
 
