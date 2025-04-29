@@ -65,7 +65,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       throw new SfError(messages.getMessage('error.no-org-list-file-or-org-list-input'));
     }
 
-    const conn = (flags['target-dev-hub'] as Org).getConnection(flags['api-version']);
+    const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
 
     const startTime = flags['start-time'];
     if (!startTime) {
@@ -78,7 +78,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
 
     const result: PackagePushScheduleResult = await PackagePushUpgrade.schedule(
       conn,
-      flags.package as string,
+      flags.package,
       startTime,
       orgList
     );

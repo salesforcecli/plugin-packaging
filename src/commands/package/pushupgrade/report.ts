@@ -47,10 +47,10 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
   public async run(): Promise<ReportCommandResult> {
     const { flags } = await this.parse(PackagePushUpgradeReportCommand);
     const logger = await Logger.child(this.constructor.name);
-    const hubOrg = flags['target-dev-hub'] as Org;
+    const hubOrg = flags['target-dev-hub'];
     const connection = hubOrg.getConnection(flags['api-version']);
 
-    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] as string };
+    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
 
     logger.debug(
       `Querying PackagePushRequestReport records from org ${hubOrg?.getOrgId()} using PackagePushRequest ID: ${packagePushRequestOptions.packagePushRequestId}`
@@ -70,8 +70,8 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
 
       if (record?.Status === 'Succeeded' || record?.Status === 'Failed' || record?.Status === 'In Progress') {
         logger.debug(`PushRequest Status is ${record.Status}, getting job details.`);
-        failedJobs = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions) as number;
-        succeededJobs = await PackagePushUpgrade.getSucceededJobs(connection, packagePushRequestOptions) as number;
+        failedJobs = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
+        succeededJobs = await PackagePushUpgrade.getSucceededJobs(connection, packagePushRequestOptions);
         jobFailureReasons = await PackagePushUpgrade.getJobFailureReasons(connection, packagePushRequestOptions);
       }
       this.display(record, totalJobs, succeededJobs, failedJobs, jobFailureReasons);
