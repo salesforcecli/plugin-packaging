@@ -6,16 +6,17 @@
  */
 
 import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
-import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
-import chalk from 'chalk';
+import { Messages, Org, Logger } from '@salesforce/core';
+import {
+  PackagePushRequestListResult,
+  PackagePushUpgrade,
+} from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_list');
 
-type Status = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
-
+type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 export type PackagePushRequestListResultArr = PackagePushRequestListResult[];
 
 export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestListResultArr> {
@@ -39,7 +40,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
       aliases: ['scheduledlastdays'],
       summary: messages.getMessage('flags.scheduled-last-days.summary'),
     }),
-    status: Flags.custom<Status>({
+    status: Flags.custom<string>({
       options: ['Created', 'Cancelled', 'Pending', 'In Progress', 'Failed', 'Succeeded'],
     })({
       char: 's',
@@ -49,22 +50,21 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
   public async run(): Promise<PackagePushRequestListResultArr> {
     const { flags } = await this.parse(PackagePushRequestListCommand);
-    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const logger = await Logger.child(this.constructor.name);
+    const hubOrg = flags['target-dev-hub'] as Org;
+    const connection = hubOrg.getConnection(flags['api-version']);
     const scheduledLastDays = flags['scheduled-last-days'];
 
-    // Check if scheduledLastDays is valid
-    if (flags['scheduled-last-days'] !== undefined) {
-      if (isNaN(scheduledLastDays!) || scheduledLastDays! <= 0) {
+    if (scheduledLastDays !== undefined) {
+      if (isNaN(scheduledLastDays) || scheduledLastDays <= 0) {
         throw new Error('Invalid value for --scheduled-last-days. It must be a positive integer.');
       }
     }
 
-    // Get results of query here
-    // Use const since we will add verbose later
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
-    const results: PackagePushRequestListResult[] = await PackagePushUpgrade.list(connection, {
-      packageId: flags.package,
-      status: flags.status,
+    logger.debug(`Querying PackagePushRequest records from org ${hubOrg.getOrgId()}`);
+    const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
+      packageId: flags.package as string,
+      status: flags.status as PackagePushStatus | undefined,
       scheduledLastDays,
     });
 
@@ -73,23 +73,24 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     } else {
       const data = await Promise.all(
         results.map(async (record: PackagePushRequestListResult) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const packagePushRequestOptions = { packagePushRequestId: record?.Id };
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
-          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
+          const packagePushRequestId = record?.Id;
+          const packagePushRequestOptions = { packagePushRequestId };
+
+          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions) as number;
+          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions) as number;
           const numOrgsUpgradedSuccess = await PackagePushUpgrade.getSucceededJobs(
             connection,
             packagePushRequestOptions
-          );
+          ) as number;
+          
+          const pv = record?.PackageVersion;
+          const packageVersionNumber = pv?.MajorVersion != null && pv?.MinorVersion != null ? `${pv.MajorVersion}.${pv.MinorVersion}` : undefined;
 
           return {
             Id: record?.Id,
             PackageVersionId: record?.PackageVersionId,
-            PackageVersionName: record?.PackageVersion?.Name,
-            PackageVersionNumber: record?.PackageVersion?.MajorVersion + '.' + record?.PackageVersion?.MinorVersion,
+            PackageVersionName: pv?.Name,
+            PackageVersionNumber: packageVersionNumber,
             Status: record?.Status,
             ScheduledStartTime: record?.ScheduledStartTime,
             StartTime: record?.StartTime,
@@ -101,9 +102,8 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
         })
       );
 
-      this.table({ data, overflow: 'wrap', title: chalk.blue(`Push Upgrade Request List:  [${results.length}]`) });
+      this.table({ data });
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return results;
   }
 }

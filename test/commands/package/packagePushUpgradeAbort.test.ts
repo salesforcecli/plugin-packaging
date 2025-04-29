@@ -5,59 +5,46 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
-import { SfCommand } from '@salesforce/sf-plugins-core';
 import { Config } from '@oclif/core';
+import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { PackagePushUpgrade } from '@salesforce/packaging';
+import { stubSfCommandUx, SfCommand } from '@salesforce/sf-plugins-core';
+import { createSfCommandStubs } from '@salesforce/core/testSetup';
 import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/pushupgrade/abort.js';
 
 describe('PackagePushUpgradeAbortCommand', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
+  let logStub: sinon.SinonStub;
+  let abortStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
-  // stubs
-  let logStub: sinon.SinonStub;
-
-  const stubSpinner = (cmd: PackagePushUpgradeAbortCommand) => {
-    $$.SANDBOX.stub(cmd.spinner, 'start');
-    $$.SANDBOX.stub(cmd.spinner, 'stop');
-  };
-
-  before(async () => {
+  beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-  });
-
-  beforeEach(async () => {
     logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
   });
 
   afterEach(() => {
     $$.restore();
   });
 
-  it('should successfully abort a push request', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const cmd = new PackagePushUpgradeAbortCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
+  it('should pass the right parameters to the library', async () => {
+    const pushRequestId = '0DVxx0000004CCG';
+    const cmd = new PackagePushUpgradeAbortCommand(['-i', pushRequestId, '-v', testOrg.username], config);
+    abortStub.resolves(true);
     const res = await cmd.run();
 
     expect(res).to.be.true;
     expect(abortStub.calledOnce).to.be.true;
     expect(logStub.callCount).to.equal(1);
-    expect(logStub.args[0]).to.deep.equal(['Scheduled push upgrade ID 0DVxx0000004CCG was canceled.']);
+    expect(logStub.args[0]).to.deep.equal([`Scheduled push upgrade ID ${pushRequestId} was canceled.`]);
   });
 
   it('should throw an error if push-request-id is missing', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const cmd = new PackagePushUpgradeAbortCommand(['-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
-
     try {
       await cmd.run();
     } catch (err) {
@@ -68,10 +55,8 @@ describe('PackagePushUpgradeAbortCommand', () => {
   });
 
   it('should throw an error if push-request status is not "Created" or "Pending" or  is missing', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     abortStub.rejects(new Error('Abortion is only allowed for "Created" or "Pending" statuses.'));
     const cmd = new PackagePushUpgradeAbortCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
 
     try {
       await cmd.run();

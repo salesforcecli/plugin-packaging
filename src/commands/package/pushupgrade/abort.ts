@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
+import { Messages, Org } from '@salesforce/core';
 import { PackagePushUpgrade } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -32,15 +32,14 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
 
   public async run(): Promise<boolean> {
     const { flags } = await this.parse(PackagePushUpgradeAbortCommand);
-    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const connection = (flags['target-dev-hub'] as Org).getConnection(flags['api-version']);
 
-    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
+    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] as string };
 
-    // Schedule the push upgrade
-    const result = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
+    const result: boolean = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
 
     if (result) {
-      this.log(messages.getMessage('output', [flags['push-request-id']]));
+      this.log(messages.getMessage('output', [flags['push-request-id'] as string]));
     }
 
     return result;

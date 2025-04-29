@@ -4,11 +4,15 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
+import { TestContext, sinon } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
-import { PackagePushRequestReportResult, PackagePushUpgrade } from '@salesforce/packaging';
-import { env } from '@salesforce/kit';
+import {
+  PackagePushUpgrade,
+  PackagePushRequestReportResult,
+} from '@salesforce/packaging';
+import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
+import { createSfCommandStubs } from '@salesforce/core/testSetup';
 import { PackagePushUpgradeReportCommand } from '../../../src/commands/package/pushupgrade/report.js';
 
 const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
@@ -35,57 +39,55 @@ const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
 
 describe('package:pushupgrade:report - tests', () => {
   const $$ = new TestContext();
-  const testOrg = new MockTestOrgData();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const createStub = $$.SANDBOX.stub(PackagePushUpgrade, 'report');
-  const createTotalJobs = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
-  const createFailedJobs = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
-  const createSucceededJobs = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
+  let sfCommandStubs: ReturnType<typeof createSfCommandStubs>;
+  let reportStub: sinon.SinonStub;
+  let getTotalJobsStub: sinon.SinonStub;
+  let getFailedJobsStub: sinon.SinonStub;
+  let getSucceededJobsStub: sinon.SinonStub;
+  let getJobFailureReasonsStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
-  const stubSpinner = (cmd: PackagePushUpgradeReportCommand) => {
-    $$.SANDBOX.stub(cmd.spinner, 'start');
-    $$.SANDBOX.stub(cmd.spinner, 'stop');
-  };
-
-  before(async () => {
-    await $$.stubAuths(testOrg);
+  beforeEach(async () => {
+    await $$.stubAuths();
     await config.load();
+    sfCommandStubs = stubSfCommandUx($$.SANDBOX);
+    reportStub = $$.SANDBOX.stub(PackagePushUpgrade, 'report');
+    getTotalJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
+    getFailedJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
+    getSucceededJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
+    getJobFailureReasonsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getJobFailureReasons');
   });
 
   afterEach(() => {
     $$.restore();
   });
 
-  it('should report push upgrade request', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    createStub.resolves(pushUpgradeReportSuccess);
-    createTotalJobs.resolves(1);
-    createFailedJobs.resolves(0);
-    createSucceededJobs.resolves(1);
+  it('should report the push upgrade request', async () => {
+    const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    reportStub.resolves(pushUpgradeReportSuccess);
+    getTotalJobsStub.resolves(3);
+    getFailedJobsStub.resolves(1);
+    getSucceededJobsStub.resolves(2);
+    getJobFailureReasonsStub.resolves([]);
 
-    const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+    await cmd.run();
 
-    const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
-    const res = await cmd.run();
-    expect(envSpy.calledOnce).to.equal(false);
-    expect(res).to.eq(pushUpgradeReportSuccess[0]);
+    expect(sfCommandStubs.table.calledOnce).to.be.true;
+    expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 
-  it('should fail to report push upgrade', async () => {
-    createStub.rejects(new Error('Failed to report push upgrade'));
-    const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+  it('should handle no results found', async () => {
+    const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    reportStub.resolves([]);
 
-    const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
+    await cmd.run();
 
-    try {
-      await cmd.run();
-      throw new Error('Failed to report push upgrade');
-    } catch (error) {
-      expect((error as Error).message).to.equal('Failed to report push upgrade');
-      expect(envSpy.calledOnce).to.equal(false);
-    }
+    expect(sfCommandStubs.warn.calledOnce).to.be.true;
+  });
+
+  it('should handle errors during report', async () => {
+    const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
+    reportStub.rejects(new Error('Report error'));
+    await expect(cmd.run()).to.be.rejectedWith('Report error');
   });
 });

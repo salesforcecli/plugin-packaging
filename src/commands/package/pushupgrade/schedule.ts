@@ -4,9 +4,9 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import fs from 'node:fs/promises';
-import { Flags, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages, SfError } from '@salesforce/core';
+import * as fs from 'node:fs/promises';
+import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
+import { Messages, SfError, Org, Logger } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -25,49 +25,63 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       description: messages.getMessage('flags.target-dev-hub.description'),
       required: true,
     }),
-    'api-version': Flags.orgApiVersion(),
+    'api-version': orgApiVersionFlagWithDeprecations,
     package: Flags.salesforceId({
-      length: 'both',
       char: 'p',
+      length: 'both',
+      startsWith: '04t',
       summary: messages.getMessage('flags.package.summary'),
       required: true,
-      startsWith: '04t',
     }),
     'start-time': Flags.string({
       char: 't',
       summary: messages.getMessage('flags.start-time.summary'),
     }),
-    'org-file': Flags.file({
-      char: 'f',
-      summary: messages.getMessage('flags.org-file.summary'),
-      exactlyOne: ['org-list', 'org-file'],
-      exists: true,
-    }),
     'org-list': Flags.string({
       char: 'l',
       summary: messages.getMessage('flags.org-list.summary'),
-      allowStdin: true,
-      exactlyOne: ['org-list', 'org-file'],
+      exclusive: ['org-list-file'],
+    }),
+    'org-list-file': Flags.file({
+      char: 'f',
+      summary: messages.getMessage('flags.org-list-file.summary'),
+      exists: true,
+      exclusive: ['org-list'],
     }),
   };
 
   public async run(): Promise<PackagePushScheduleResult> {
     const { flags } = await this.parse(PackagePushScheduleCommand);
+    const logger = await Logger.child(this.constructor.name);
     let orgList: string[] = [];
 
-    if (flags['org-file']) {
-      orgList = await readOrgListFile(flags['org-file']);
+    if (flags['org-list-file']) {
+      logger.debug(`Reading org list from file: ${flags['org-list-file']}`);
+      orgList = await readOrgListFile(flags['org-list-file']);
     } else if (flags['org-list']) {
+      logger.debug('Using org list from input flag.');
       orgList = getOrgListFromInput(flags['org-list']);
     } else {
       throw new SfError(messages.getMessage('error.no-org-list-file-or-org-list-input'));
     }
 
-    // Connect to the Dev Hub
-    const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const conn = (flags['target-dev-hub'] as Org).getConnection(flags['api-version']);
 
-    // Schedule the push upgrade
-    const result = await PackagePushUpgrade.schedule(conn, flags['package'], flags['start-time']!, orgList);
+    const startTime = flags['start-time'];
+    if (!startTime) {
+      throw new SfError('Missing required flag: --start-time');
+    }
+    
+    logger.debug(
+      `Scheduling push upgrade for package ${flags.package} with ${orgList.length} orgs, starting at ${startTime}.`
+    );
+
+    const result: PackagePushScheduleResult = await PackagePushUpgrade.schedule(
+      conn,
+      flags.package as string,
+      startTime,
+      orgList
+    );
 
     this.log(messages.getMessage('output', [result?.PushRequestId]));
 
