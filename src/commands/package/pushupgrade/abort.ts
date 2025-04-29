@@ -36,6 +36,7 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
 
     const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: boolean = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
 
     if (result) {

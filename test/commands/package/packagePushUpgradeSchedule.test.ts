@@ -6,11 +6,11 @@
  */
 import * as fs from 'node:fs/promises';
 import { Config } from '@oclif/core';
-import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup';
+import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
+import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { PackagePushUpgrade, PackagePushScheduleResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import type { createSfCommandStubs } from '@salesforce/core/testSetup';
 import { PackagePushScheduleCommand } from '../../../src/commands/package/pushupgrade/schedule.js';
 
 const pushReq: PackagePushScheduleResult = {
@@ -22,13 +22,14 @@ const pushReq: PackagePushScheduleResult = {
 describe('package:pushupgrade:schedule - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  let sfCommandStubs: ReturnType<typeof createSfCommandStubs>;
+  let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
   let scheduleStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
   beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
     scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
     $$.SANDBOX.stub(fs, 'readFile').resolves('00Dxx0000001gEREAY\n00Dxx0000001gFAEA0');
@@ -49,6 +50,7 @@ describe('package:pushupgrade:schedule - tests', () => {
       '--org-list-file',
       'valid-orgs.csv',
     ];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const cmd = new PackagePushScheduleCommand(cmdArgsFile, config);
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access

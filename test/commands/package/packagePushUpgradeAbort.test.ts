@@ -22,6 +22,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
   beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
     abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
   });

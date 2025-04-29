@@ -76,6 +76,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       `Scheduling push upgrade for package ${flags.package} with ${orgList.length} orgs, starting at ${startTime}.`
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: PackagePushScheduleResult = await PackagePushUpgrade.schedule(
       conn,
       flags.package,
@@ -83,8 +84,10 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       orgList
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     this.log(messages.getMessage('output', [result?.PushRequestId]));
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
   }
 }
