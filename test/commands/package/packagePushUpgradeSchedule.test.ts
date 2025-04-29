@@ -31,6 +31,7 @@ describe('package:pushupgrade:schedule - tests', () => {
     await config.load();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
     $$.SANDBOX.stub(fs, 'readFile').resolves('00Dxx0000001gEREAY\n00Dxx0000001gFAEA0');
   });
