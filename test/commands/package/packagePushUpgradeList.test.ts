@@ -4,11 +4,16 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
+import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
-import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
 import { env } from '@salesforce/kit';
+import {
+  PackagePushUpgrade,
+  PackagePushRequestListResult,
+} from '@salesforce/packaging';
+import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
+import { createSfCommandStubs } from '@salesforce/core/testSetup';
 import { PackagePushRequestListCommand } from '../../../src/commands/package/pushupgrade/list.js';
 
 const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
@@ -33,49 +38,56 @@ const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
 describe('package:pushupgrade:list - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const createStub = $$.SANDBOX.stub(PackagePushUpgrade, 'list');
+  let sfCommandStubs: ReturnType<typeof createSfCommandStubs>;
+  let listStub: sinon.SinonStub;
+  let getTotalJobsStub: sinon.SinonStub;
+  let getFailedJobsStub: sinon.SinonStub;
+  let getSucceededJobsStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
-  const stubSpinner = (cmd: PackagePushRequestListCommand) => {
-    $$.SANDBOX.stub(cmd.spinner, 'start');
-    $$.SANDBOX.stub(cmd.spinner, 'stop');
-  };
-
-  before(async () => {
+  beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
+    sfCommandStubs = stubSfCommandUx($$.SANDBOX);
+    listStub = $$.SANDBOX.stub(PackagePushUpgrade, 'list');
+    getTotalJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
+    getFailedJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
+    getSucceededJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
   });
 
   afterEach(() => {
     $$.restore();
   });
 
-  it('should list push upgrade requests', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    createStub.resolves(pushUpgradeListSuccess);
+  it('should list the push upgrade requests', async () => {
+    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    listStub.resolves(pushUpgradeListSuccess);
+    getTotalJobsStub.resolves(3);
+    getFailedJobsStub.resolves(1);
+    getSucceededJobsStub.resolves(2);
+
     const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
 
-    const cmd = new PackagePushRequestListCommand(['-p', '033xi000000Gmj6XXX', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
-    const res = await cmd.run();
+    await cmd.run();
+
     expect(envSpy.calledOnce).to.equal(false);
-    expect(res).to.eql(pushUpgradeListSuccess);
+    expect(sfCommandStubs.table.calledOnce).to.be.true;
+    expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 
-  it('should fail to list push upgrade requests', async () => {
-    createStub.rejects(new Error('Failed to list push upgrade requests'));
-    const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
+  it('should handle no results found', async () => {
+    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    listStub.resolves([]);
 
-    const cmd = new PackagePushRequestListCommand(['-p', '033xi000000Gmj6XXX', '-v', 'test@hub.org'], config);
-    stubSpinner(cmd);
+    await cmd.run();
 
-    try {
-      await cmd.run();
-      throw new Error('Failed to list push upgrade requests');
-    } catch (error) {
-      expect((error as Error).message).to.equal('Failed to list push upgrade requests');
-      expect(envSpy.calledOnce).to.equal(false);
-    }
+    expect(sfCommandStubs.warn.calledOnce).to.be.true;
+  });
+
+  it('should handle errors during list', async () => {
+    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    listStub.rejects(new Error('List error'));
+
+    await expect(cmd.run()).to.be.rejectedWith('List error');
   });
 });

@@ -6,21 +6,21 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Messages } from '@salesforce/core';
+import { Messages, Org, Logger } from '@salesforce/core';
+import chalk from 'chalk';
 
 import {
   PackagePushUpgrade,
   PackagePushRequestReportResult,
   PackagePushRequestReportJobFailuresResult,
 } from '@salesforce/packaging';
-import chalk from 'chalk';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_report');
 const ERROR_LIMIT = 12;
 
-export type ReportCommandResult = null | PackagePushRequestReportResult;
+export type ReportCommandResult = PackagePushRequestReportResult | null;
 
 export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResult> {
   public static readonly summary = messages.getMessage('summary');
@@ -29,12 +29,11 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:pushupgrade:report'];
   public static readonly hidden = true;
-  public static state = 'beta';
+  public static readonly state = 'beta';
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'push-request-id': Flags.salesforceId({
       length: 'both',
       deprecateAliases: true,
@@ -47,34 +46,41 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
 
   public async run(): Promise<ReportCommandResult> {
     const { flags } = await this.parse(PackagePushUpgradeReportCommand);
-    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
+    const logger = await Logger.child(this.constructor.name);
+    const hubOrg = flags['target-dev-hub'] as Org;
+    const connection = hubOrg.getConnection(flags['api-version']);
 
-    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
+    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] as string };
 
-    const records = await PackagePushUpgrade.report(connection, packagePushRequestOptions);
+    logger.debug(
+      `Querying PackagePushRequestReport records from org ${hubOrg?.getOrgId()} using PackagePushRequest ID: ${packagePushRequestOptions.packagePushRequestId}`
+    );
+    const records: PackagePushRequestReportResult[] = await PackagePushUpgrade.report(connection, packagePushRequestOptions);
+
     if (records?.length === 1) {
-      const record = records[0];
+      const record: PackagePushRequestReportResult = records[0];
+      
+      logger.debug(`Found PackagePushRequestReport record: ${record?.Id}`);
 
-      const totalJobs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
+      const totalJobs: number = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
 
       let failedJobs = 0;
       let succeededJobs = 0;
-      let jobFailureReasons;
+      let jobFailureReasons: PackagePushRequestReportJobFailuresResult[] | undefined;
 
       if (record?.Status === 'Succeeded' || record?.Status === 'Failed' || record?.Status === 'In Progress') {
-        failedJobs = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
-        succeededJobs = await PackagePushUpgrade.getSucceededJobs(connection, packagePushRequestOptions);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+        logger.debug(`PushRequest Status is ${record.Status}, getting job details.`);
+        failedJobs = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions) as number;
+        succeededJobs = await PackagePushUpgrade.getSucceededJobs(connection, packagePushRequestOptions) as number;
         jobFailureReasons = await PackagePushUpgrade.getJobFailureReasons(connection, packagePushRequestOptions);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
-      this.display(records[0], totalJobs, succeededJobs, failedJobs, jobFailureReasons);
+      this.display(record, totalJobs, succeededJobs, failedJobs, jobFailureReasons);
       return record;
     }
+    this.warn('No results found');
     return null;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
   private display(
     record: PackagePushRequestReportResult,
     totalJobs: number,
@@ -85,17 +91,14 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
     const data = [
       {
         name: 'Package Name',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         value: record.PackageVersion.MetadataPackage.Name,
       },
       {
         name: 'Package Version Name',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         value: record.PackageVersion.Name,
       },
       {
         name: 'Package Version',
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
         value: record.PackageVersion.MajorVersion + '.' + record.PackageVersion.MinorVersion,
       },
       {
@@ -148,20 +151,17 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
       },
     ];
 
-    this.table({ data, title: chalk.blue('Push Upgrade Request') });
+    this.table({ data });
 
     if (jobFailureReasons?.length) {
       this.log('');
       const errors: string[] = [];
       jobFailureReasons.slice(0, ERROR_LIMIT).forEach((error: PackagePushRequestReportJobFailuresResult) => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         errors.push(`(${errors.length + 1}) ${error.ErrorMessage}`);
       });
       this.styledHeader(chalk.red('Errors'));
       this.warn(errors.join('\n'));
 
-      // Check if errors were truncated.  If so, inform the user with
-      // instructions on how to retrieve the remaining errors.
       if (jobFailureReasons?.length > ERROR_LIMIT) {
         this.warn(messages.getMessage('truncatedErrors', [this.config.bin, record.Id]));
       }
