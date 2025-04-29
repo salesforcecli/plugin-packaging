@@ -32,14 +32,14 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
 
   public async run(): Promise<boolean> {
     const { flags } = await this.parse(PackagePushUpgradeAbortCommand);
-    const connection = (flags['target-dev-hub'] as Org).getConnection(flags['api-version']);
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
 
-    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] as string };
+    const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
 
     const result: boolean = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
 
     if (result) {
-      this.log(messages.getMessage('output', [flags['push-request-id'] as string]));
+      this.log(messages.getMessage('output', [flags['push-request-id']]));
     }
 
     return result;

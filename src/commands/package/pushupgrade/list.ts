@@ -51,7 +51,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public async run(): Promise<PackagePushRequestListResultArr> {
     const { flags } = await this.parse(PackagePushRequestListCommand);
     const logger = await Logger.child(this.constructor.name);
-    const hubOrg = flags['target-dev-hub'] as Org;
+    const hubOrg = flags['target-dev-hub'];
     const connection = hubOrg.getConnection(flags['api-version']);
     const scheduledLastDays = flags['scheduled-last-days'];
 
@@ -63,8 +63,8 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
     logger.debug(`Querying PackagePushRequest records from org ${hubOrg.getOrgId()}`);
     const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
-      packageId: flags.package as string,
-      status: flags.status as PackagePushStatus | undefined,
+      packageId: flags.package,
+      status: flags.status,
       scheduledLastDays,
     });
 
@@ -76,12 +76,12 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
           const packagePushRequestId = record?.Id;
           const packagePushRequestOptions = { packagePushRequestId };
 
-          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions) as number;
-          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions) as number;
+          const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
+          const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
           const numOrgsUpgradedSuccess = await PackagePushUpgrade.getSucceededJobs(
             connection,
             packagePushRequestOptions
-          ) as number;
+          );
           
           const pv = record?.PackageVersion;
           const packageVersionNumber = pv?.MajorVersion != null && pv?.MinorVersion != null ? `${pv.MajorVersion}.${pv.MinorVersion}` : undefined;
