@@ -87,4 +87,37 @@ describe('package:pushupgrade:schedule - tests', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(scheduleStub.calledOnce).to.be.true;
   });
+
+  it('should schedule the push migration with --migrate-to-2gp flag', async () => {
+    const packageId = '04tXXXXXXXXXXXXXXX';
+    const startTime = '2024-01-01T00:00:00Z';
+    const orgList = ['00Dxx0000001gEREAY', '00Dxx0000001gFAEA0'];
+    const cmdArgs = [
+      '--package',
+      packageId,
+      '--target-dev-hub',
+      testOrg.username,
+      '--start-time',
+      startTime,
+      '--org-list',
+      orgList.join(','),
+      '--migrate-to-2gp', // Add the migration flag
+    ];
+    const cmd = new PackagePushScheduleCommand(cmdArgs, config);
+
+    scheduleStub.resolves(pushReq);
+    const result = await cmd.run();
+    expect(result).to.deep.equal(pushReq);
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(sfCommandStubs.log.calledOnce).to.be.true;
+    expect(scheduleStub.calledOnce).to.be.true;
+
+    // Verify the arguments passed to the schedule function
+    const scheduleArgs = scheduleStub.firstCall.args;
+    expect(scheduleArgs[1]).to.equal(packageId); // 2nd arg: packageId
+    expect(scheduleArgs[2]).to.equal(startTime); // 3rd arg: startTime
+    expect(scheduleArgs[3]).to.deep.equal(orgList); // 4th arg: orgList
+    expect(scheduleArgs[4]).to.equal(true); // 5th arg: isMigration
+  });
 });
