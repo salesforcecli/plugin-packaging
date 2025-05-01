@@ -37,11 +37,7 @@ Comma-separated list of subscriber org IDs that need the package upgrade.
 
 # flags.migrate-to-2gp.summary
 
-Indicates the push upgrade request is a migration from 1GP to 2GP.
-
-# flags.migrate-to-2gp.description
-
-Include this flag to specify that the push upgrade request represents a migration from a 1GP package to a 2GP package. The command must be run against the Dev Hub that owns the 2GP package.
+Upgrade from a first-generation managed package (1GP) to a second-generation managed package (2GP). Required when you’re pushing a 2GP package to orgs with the 1GP version installed.
 
 # error.invalid-package-version
 
