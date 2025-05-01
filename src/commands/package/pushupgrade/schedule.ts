@@ -50,7 +50,6 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     }),
     'migrate-to-2gp': Flags.boolean({
       summary: messages.getMessage('flags.migrate-to-2gp.summary'),
-      description: messages.getMessage('flags.migrate-to-2gp.description'),
     }),
   };
 
