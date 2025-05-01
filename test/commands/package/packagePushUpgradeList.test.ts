@@ -9,10 +9,7 @@ import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { env } from '@salesforce/kit';
-import {
-  PackagePushUpgrade,
-  PackagePushRequestListResult,
-} from '@salesforce/packaging';
+import { PackagePushUpgrade, PackagePushRequestListResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { PackagePushRequestListCommand } from '../../../src/commands/package/pushupgrade/list.js';
 
@@ -94,5 +91,31 @@ describe('package:pushupgrade:list - tests', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
+  });
+
+  it('should filter by is-migration flag', async () => {
+    const packageId = '033XXXXXXXXXXXXXXX';
+    const cmdArgs = ['--target-dev-hub', testOrg.username, '--package', packageId, '--is-migration'];
+    const cmd = new PackagePushRequestListCommand(cmdArgs, config);
+
+    listStub.resolves(pushUpgradeListSuccess);
+    getTotalJobsStub.resolves(2);
+    getFailedJobsStub.resolves(0);
+    getSucceededJobsStub.resolves(2);
+
+    await cmd.run();
+
+    expect(listStub.calledOnce).to.be.true;
+
+    const listArgs = listStub.firstCall.args;
+    expect(listArgs[1]).to.deep.include({
+      packageId,
+      isMigration: true,
+      status: undefined,
+      scheduledLastDays: undefined,
+    });
+
+    expect(sfCommandStubs.table.calledOnce).to.be.true;
+    expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 });

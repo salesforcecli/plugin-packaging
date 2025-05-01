@@ -64,11 +64,11 @@
       "definitionfile",
       "installationkey",
       "installationkeybypass",
+      "patchversion",
       "target-hub-org",
-      "targetdevhubusername",
-      "patchversion"
+      "targetdevhubusername"
     ],
-    "flagChars": ["f", "k", "m", "p", "s", "v", "w", "x", "a"],
+    "flagChars": ["a", "f", "k", "m", "p", "s", "v", "w", "x"],
     "flags": [
       "api-version",
       "build-instance",
@@ -79,11 +79,11 @@
       "json",
       "loglevel",
       "package",
+      "patch-version",
       "seed-metadata",
       "target-dev-hub",
       "verbose",
-      "wait",
-      "patch-version"
+      "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
@@ -194,7 +194,16 @@
     "command": "package:pushupgrade:list",
     "flagAliases": ["apiversion", "scheduledlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "s", "v"],
-    "flags": ["api-version", "flags-dir", "json", "package", "scheduled-last-days", "status", "target-dev-hub"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "is-migration",
+      "json",
+      "package",
+      "scheduled-last-days",
+      "status",
+      "target-dev-hub"
+    ],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
@@ -208,9 +217,19 @@
   {
     "alias": [],
     "command": "package:pushupgrade:schedule",
-    "flagAliases": [],
+    "flagAliases": ["apiversion"],
     "flagChars": ["f", "l", "p", "t", "v"],
-    "flags": ["api-version", "flags-dir", "json", "org-file", "org-list", "package", "start-time", "target-dev-hub"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "migrate-to-2gp",
+      "org-file",
+      "org-list",
+      "package",
+      "start-time",
+      "target-dev-hub"
+    ],
     "plugin": "@salesforce/plugin-packaging"
   },
   {

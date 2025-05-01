@@ -7,10 +7,7 @@
 
 import { Flags, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, Logger } from '@salesforce/core';
-import {
-  PackagePushRequestListResult,
-  PackagePushUpgrade,
-} from '@salesforce/packaging';
+import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -45,6 +42,9 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     })({
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
+    }),
+    'is-migration': Flags.boolean({
+      summary: messages.getMessage('flags.is-migration.summary'),
     }),
   };
 
@@ -88,17 +88,17 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
             connection,
             packagePushRequestOptions
           );
-          
+
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           const pv = record?.PackageVersion;
-          const packageVersionNumber = 
+          const packageVersionNumber =
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MajorVersion != null && 
+            pv?.MajorVersion != null &&
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MinorVersion != null ? 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access
-            `${pv.MajorVersion}.${pv.MinorVersion}` : 
-            undefined;
+            pv?.MinorVersion != null
+              ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access
+                `${pv.MajorVersion}.${pv.MinorVersion}`
+              : undefined;
 
           return {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
