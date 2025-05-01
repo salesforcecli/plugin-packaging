@@ -7,16 +7,13 @@
 
 import { Flags, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages, Logger } from '@salesforce/core';
-import {
-  PackagePushRequestListResult,
-  PackagePushUpgrade,
-} from '@salesforce/packaging';
+import { PackagePushRequestListResult, PackagePushUpgrade } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_list');
 
-// type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
+type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 export type PackagePushRequestListResultArr = PackagePushRequestListResult[];
 
 export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestListResultArr> {
@@ -65,7 +62,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
       packageId: flags.package,
-      status: flags.status as 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded' | undefined,
+      status: flags.status as PackagePushStatus | undefined,
       scheduledLastDays,
     });
 
@@ -88,17 +85,17 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
             connection,
             packagePushRequestOptions
           );
-          
+
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           const pv = record?.PackageVersion;
-          const packageVersionNumber = 
+          const packageVersionNumber =
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MajorVersion != null && 
+            pv?.MajorVersion != null &&
             // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MinorVersion != null ? 
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access
-            `${pv.MajorVersion}.${pv.MinorVersion}` : 
-            undefined;
+            pv?.MinorVersion != null
+              ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access
+                `${pv.MajorVersion}.${pv.MinorVersion}`
+              : undefined;
 
           return {
             // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
