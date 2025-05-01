@@ -140,14 +140,15 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         const aliases = ids.map((id) => (project ? project.getAliasesFromPackageId(id) : id)).flat();
         const AliasStr = project ? (aliases.length > 0 ? aliases.join() : '') : '';
 
-        // set Ancestor display values
-        let ancestorVersion: string | undefined;
+        // Calculate AncestorId value without modifying record
+        let computedAncestorId = record.AncestorId;
+        let computedAncestorVersion: string | undefined;
         if (record.AncestorId) {
-          ancestorVersion = ancestorVersionsMap?.get(record.AncestorId);
+          computedAncestorVersion = ancestorVersionsMap?.get(record.AncestorId);
         } else if (containerOptionsMap.get(record.Package2Id) !== 'Managed') {
           // display N/A if package is unlocked
-          ancestorVersion = 'N/A';
-          record.AncestorId = 'N/A';
+          computedAncestorVersion = 'N/A';
+          computedAncestorId = 'N/A'; // Use computed variable
         }
 
         function getCodeCoverage(): string {
@@ -203,8 +204,8 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,
           ValidatedAsync: record.ValidatedAsync,
-          AncestorId: record.AncestorId,
-          AncestorVersion: ancestorVersion as string,
+          AncestorId: computedAncestorId,
+          AncestorVersion: computedAncestorVersion as string,
           Alias: AliasStr,
           IsOrgDependent: isOrgDependent,
           ReleaseVersion: record.ReleaseVersion == null ? '' : Number.parseFloat(record.ReleaseVersion).toFixed(1),
