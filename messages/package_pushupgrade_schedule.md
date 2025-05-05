@@ -29,7 +29,7 @@ Date and time (UTC) when the push upgrade is processed. Set to the earliest time
 
 # flags.org-file.summary
 
-The filename of the .csv file that contains the list of orgs that need the package upgrade.
+Filename of the CSV file that contains the list of orgs that need the package upgrade.
 
 # flags.org-list.summary
 
@@ -41,23 +41,24 @@ Invalid package version.
 
 # error.empty-org-list
 
-Org list file is empty.
+Can’t schedule the package push upgrade. The
+org file you specified is empty. Review the file you specified, and retry this command.
 
 # error.empty-org-input
 
-Org list input is empty.
+There are no org Ids.
 
 # error.invalid-org-file
 
-Org list file is invalid.
+Can’t schedule the package push upgrade. The org file you specified is invalid. The org file must be a CSV file, and each row can contain only one org ID. Review and update your org file and retry this command.
 
 # error.invalid-org-input
 
-Org list has invalid org IDs.
+Can’t schedule the package push upgrade. One or more of the orgs IDs you specified in the org list is an invalid org ID. Review the list of orgs you specified, and retry this command
 
 # error.no-org-file-or-org-list-input
 
-Either org list file or org list input must be supplied.
+Can’t schedule the package push upgrade. You must specify either a list of orgs, or a file containing the list of orgs to be upgraded. Retry this command using either --org-list or --org-file flag and include the required details.
 
 # examples
 
