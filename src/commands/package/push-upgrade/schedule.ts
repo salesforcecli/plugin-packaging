@@ -71,7 +71,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     if (!startTime) {
       throw new SfError('Missing required flag: --start-time');
     }
-    
+
     logger.debug(
       `Scheduling push upgrade for package ${flags.package} with ${orgList.length} orgs, starting at ${startTime}.`
     );
