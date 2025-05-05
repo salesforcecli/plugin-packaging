@@ -13,7 +13,7 @@ import { requiredHubFlag } from '../../../utils/hubFlag.js';
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_list');
 
-// type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
+type PackagePushStatus = 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded';
 export type PackagePushRequestListResultArr = PackagePushRequestListResult[];
 
 export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestListResultArr> {
@@ -22,7 +22,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public static readonly examples = messages.getMessages('examples');
   public static readonly hidden = true;
   public static state = 'beta';
-  public static readonly aliases = ['force:package:pushupgrade:list'];
+  public static readonly aliases = ['force:package:push-upgrade:list'];
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
@@ -65,7 +65,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
       packageId: flags.package,
-      status: flags.status as 'Created' | 'Cancelled' | 'Pending' | 'In Progress' | 'Failed' | 'Succeeded' | undefined,
+      status: flags.status as PackagePushStatus | undefined,
       scheduledLastDays,
     });
 

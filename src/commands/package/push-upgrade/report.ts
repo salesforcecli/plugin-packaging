@@ -28,7 +28,7 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:pushupgrade:report'];
+  public static readonly aliases = ['force:package:push-upgrade:report'];
   public static readonly hidden = true;
   public static readonly state = 'beta';
   public static readonly flags = {
@@ -54,15 +54,20 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
     const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
 
     logger.debug(
-      `Querying PackagePushRequestReport records from org ${hubOrg?.getOrgId()} using PackagePushRequest ID: ${packagePushRequestOptions.packagePushRequestId}`
+      `Querying PackagePushRequestReport records from org ${hubOrg?.getOrgId()} using PackagePushRequest ID: ${
+        packagePushRequestOptions.packagePushRequestId
+      }`
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    const records: PackagePushRequestReportResult[] = await PackagePushUpgrade.report(connection, packagePushRequestOptions);
+    const records: PackagePushRequestReportResult[] = await PackagePushUpgrade.report(
+      connection,
+      packagePushRequestOptions
+    );
 
     if (records?.length === 1) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const record: PackagePushRequestReportResult = records[0];
-      
+
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       logger.debug(`Found PackagePushRequestReport record: ${record?.Id}`);
 
