@@ -22,6 +22,10 @@ Number of days in the past for which to display the list of push upgrade request
 
 Status used to filter the list output Valid values are: Created, Canceled, Pending, In Progress, Failed, or Succeeded
 
+# flags.show-push-migrations-only.summary
+
+Display only push upgrade requests for package migrations.
+
 # flags.verbose.summary
 
 Displays additional information such as number of orgs scheduled for push upgrade, orgs successfully upgraded, etc.
