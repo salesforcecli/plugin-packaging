@@ -48,6 +48,9 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       exists: true,
       exclusive: ['org-list'],
     }),
+    'migrate-to-2gp': Flags.boolean({
+      summary: messages.getMessage('flags.migrate-to-2gp.summary'),
+    }),
   };
 
   public async run(): Promise<PackagePushScheduleResult> {
@@ -71,9 +74,12 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     if (!startTime) {
       throw new SfError('Missing required flag: --start-time');
     }
+    const isMigration = flags['migrate-to-2gp'];
 
     logger.debug(
-      `Scheduling push upgrade for package ${flags.package} with ${orgList.length} orgs, starting at ${startTime}.`
+      `Scheduling push ${isMigration ? 'migration' : 'upgrade'} for package ${flags.package} with ${
+        orgList.length
+      } orgs, starting at ${startTime}.`
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
@@ -81,7 +87,8 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       conn,
       flags.package,
       startTime,
-      orgList
+      orgList,
+      isMigration
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
