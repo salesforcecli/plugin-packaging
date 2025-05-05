@@ -43,8 +43,8 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
-    'is-migration': Flags.boolean({
-      summary: messages.getMessage('flags.is-migration.summary'),
+    'show-push-migrations-only': Flags.boolean({
+      summary: messages.getMessage('flags.show-push-migrations-only.summary'),
     }),
   };
 
@@ -67,6 +67,7 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
       packageId: flags.package,
       status: flags.status as PackagePushStatus | undefined,
       scheduledLastDays,
+      isMigration: flags['show-push-migrations-only']
     });
 
     if (results.length === 0) {

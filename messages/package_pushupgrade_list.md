@@ -22,9 +22,9 @@ Number of days in the past for which to display the list of push upgrade request
 
 Status used to filter the list output Valid values are: Created, Canceled, Pending, In Progress, Failed, or Succeeded
 
-# flags.is-migration.summary
+# flags.show-push-migrations-only.summary
 
-Filter the list to show only push requests that were migrations (used the --migrate-to-2gp flag during scheduling).
+Display only push upgrade requests for package migrations.
 
 # flags.verbose.summary
 
