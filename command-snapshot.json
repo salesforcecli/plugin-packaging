@@ -183,15 +183,15 @@
   },
   {
     "alias": [],
-    "command": "package:pushupgrade:abort",
+    "command": "package:push-upgrade:abort",
     "flagAliases": [],
     "flagChars": ["i", "v"],
     "flags": ["api-version", "flags-dir", "json", "push-request-id", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:pushupgrade:list"],
-    "command": "package:pushupgrade:list",
+    "alias": ["force:package:push-upgrade:list"],
+    "command": "package:push-upgrade:list",
     "flagAliases": ["apiversion", "scheduledlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["l", "p", "s", "v"],
     "flags": [
@@ -207,8 +207,8 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:pushupgrade:report"],
-    "command": "package:pushupgrade:report",
+    "alias": ["force:package:push-upgrade:report"],
+    "command": "package:push-upgrade:report",
     "flagAliases": ["apiversion", "pushrequestid", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["i", "v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "push-request-id", "target-dev-hub"],
@@ -216,7 +216,7 @@
   },
   {
     "alias": [],
-    "command": "package:pushupgrade:schedule",
+    "command": "package:push-upgrade:schedule",
     "flagAliases": ["apiversion"],
     "flagChars": ["f", "l", "p", "t", "v"],
     "flags": [
