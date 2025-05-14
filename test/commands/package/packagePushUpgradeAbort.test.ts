@@ -10,7 +10,7 @@ import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup'
 import { expect } from 'chai';
 import { PackagePushUpgrade } from '@salesforce/packaging';
 import { SfCommand } from '@salesforce/sf-plugins-core';
-import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/pushupgrade/abort.js';
+import { PackagePushUpgradeAbortCommand } from '../../../src/commands/package/push-upgrade/abort.js';
 
 describe('PackagePushUpgradeAbortCommand', () => {
   const $$ = new TestContext();

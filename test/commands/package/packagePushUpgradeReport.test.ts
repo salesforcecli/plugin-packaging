@@ -12,7 +12,7 @@ import {
   PackagePushRequestReportResult,
 } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import { PackagePushUpgradeReportCommand } from '../../../src/commands/package/pushupgrade/report.js';
+import { PackagePushUpgradeReportCommand } from '../../../src/commands/package/push-upgrade/report.js';
 
 const pushUpgradeReportSuccess: PackagePushRequestReportResult[] = [
   {
