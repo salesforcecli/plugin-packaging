@@ -11,7 +11,7 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { PackagePushUpgrade, PackagePushScheduleResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import { PackagePushScheduleCommand } from '../../../src/commands/package/pushupgrade/schedule.js';
+import { PackagePushScheduleCommand } from '../../../src/commands/package/push-upgrade/schedule.js';
 
 const pushReq: PackagePushScheduleResult = {
   PushRequestId: 'mockPushJobId',
