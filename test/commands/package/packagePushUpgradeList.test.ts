@@ -11,7 +11,7 @@ import { expect } from 'chai';
 import { env } from '@salesforce/kit';
 import { PackagePushUpgrade, PackagePushRequestListResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import { PackagePushRequestListCommand } from '../../../src/commands/package/pushupgrade/list.js';
+import { PackagePushRequestListCommand } from '../../../src/commands/package/push-upgrade/list.js';
 
 const pushUpgradeListSuccess: PackagePushRequestListResult[] = [
   {
