@@ -1,3 +1,9 @@
+## [2.13.6](https://github.com/salesforcecli/plugin-packaging/compare/2.13.5...2.13.6) (2025-05-24)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.11.0 to 8.11.1 ([17751ae](https://github.com/salesforcecli/plugin-packaging/commit/17751ae4a2d03d1cef267f46dd5dbce71261e423))
+
 ## [2.13.5](https://github.com/salesforcecli/plugin-packaging/compare/2.13.4...2.13.5) (2025-05-24)
 
 ### Bug Fixes
