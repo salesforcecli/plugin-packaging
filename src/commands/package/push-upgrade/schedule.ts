@@ -71,16 +71,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     const conn = flags['target-dev-hub'].getConnection(flags['api-version']);
 
     const startTime = flags['start-time'];
-    if (!startTime) {
-      throw new SfError('Missing required flag: --start-time');
-    }
     const isMigration = flags['migrate-to-2gp'];
-
-    logger.debug(
-      `Scheduling push ${isMigration ? 'migration' : 'upgrade'} for package ${flags.package} with ${
-        orgList.length
-      } orgs, starting at ${startTime}.`
-    );
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: PackagePushScheduleResult = await PackagePushUpgrade.schedule(
