@@ -9,7 +9,7 @@ To initiate a push upgrade for an unlocked or second-generation managed package,
 For second-generation managed packages, the push upgrade feature is available only for packages that have passed AppExchange security review. To enable push upgrades for your managed package, log a support case in the Salesforce Partner Community.
 For unlocked packages, push upgrades are enabled by default.
 
-Use the –migrate-to-2GP flag to indicate you’re installing a converted second-generation managed package into an org that has the first-generation managed package version of that package installed.
+Use the -–migrate-to-2GP flag to indicate you’re installing a converted second-generation managed package into an org that has the first-generation managed package version of that package installed.
 
 # flags.target-dev-hub.summary
 
