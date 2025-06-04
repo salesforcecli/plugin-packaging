@@ -1,3 +1,9 @@
+# [2.14.0](https://github.com/salesforcecli/plugin-packaging/compare/2.13.6...2.14.0) (2025-06-03)
+
+### Features
+
+- expose package convert command for ga ([188a700](https://github.com/salesforcecli/plugin-packaging/commit/188a7001c3a3dcf1a1f11e724b0b94586a009e5b))
+
 ## [2.13.6](https://github.com/salesforcecli/plugin-packaging/compare/2.13.5...2.13.6) (2025-05-24)
 
 ### Bug Fixes
