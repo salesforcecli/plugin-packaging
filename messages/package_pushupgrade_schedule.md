@@ -32,7 +32,7 @@ Date and time (UTC) when the push upgrade is processed. Set to the earliest time
 Scheduled push upgrades begin as soon as resources are available on the Salesforce instance, which is either at or after the start time you specify. In certain scenarios, the push upgrade starts a few hours after the scheduled start time.
 
 As a best practice, schedule push upgrades at off-peak hours like 1:00 AM Saturday.  
-If the flag isn’t specified, the push upgrade is scheduled to run as soon as resources are available on the Salesforce instance.
+If you don't specify this flag, the push upgrade is scheduled to run as soon as resources are available on the Salesforce instance.
 
 # flags.org-file.summary
 
