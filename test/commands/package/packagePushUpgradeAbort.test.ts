@@ -6,7 +6,7 @@
  */
 
 import { Config } from '@oclif/core';
-import { TestContext, MockTestOrgData, sinon } from '@salesforce/core/testSetup';
+import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import { PackagePushUpgrade } from '@salesforce/packaging';
 import { SfCommand } from '@salesforce/sf-plugins-core';
@@ -45,7 +45,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(logStub.callCount).to.equal(1);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    expect(logStub.args[0]).to.deep.equal([`Scheduled push upgrade ID ${pushRequestId} was canceled.`]);
+    expect(logStub.args[0]).to.deep.equal([`Scheduled push upgrade ID [${pushRequestId}] was cancelled.`]);
   });
 
   it('should throw an error if push-request-id is missing', async () => {
