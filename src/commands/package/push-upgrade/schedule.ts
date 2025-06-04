@@ -16,8 +16,6 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly hidden = true;
-  public static state = 'beta';
   public static readonly flags = {
     'target-dev-hub': Flags.requiredHub({
       char: 'v',
