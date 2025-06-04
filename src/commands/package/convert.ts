@@ -28,7 +28,6 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:convert'];
-  public static readonly hidden = true;
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -90,7 +89,6 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       char: 'a',
       deprecateAliases: true,
       aliases: ['patchversion'],
-      hidden: true,
     }),
   };
 
