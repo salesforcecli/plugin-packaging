@@ -26,10 +26,6 @@ Status used to filter the list output Valid values are: Created, Canceled, Pendi
 
 Display only push upgrade requests for package migrations.
 
-# flags.verbose.summary
-
-Displays additional information such as number of orgs scheduled for push upgrade, orgs successfully upgraded, etc.
-
 # examples
 
 - List all package push upgrade requests in the specified Dev Hub org:
@@ -40,13 +36,13 @@ Displays additional information such as number of orgs scheduled for push upgrad
 
   <%= config.bin %> <%= command.id %> --package 033xyz --scheduled-last-days 30 --target-dev-hub myHub
 
-- List all package push upgrade with a status Success:
+- List all package push upgrade with a status Succeeded:
 
-  <%= config.bin %> <%= command.id %> --package 033xyz –-Status=Success
+  <%= config.bin %> <%= command.id %> --package 033xyz –-status Succeeded
 
-- List all package push upgrade with a status Error:
+- List all package push upgrade with a status Failed:
 
-  <%= config.bin %> <%= command.id %> --package 033xyz –-Status=Error
+  <%= config.bin %> <%= command.id %> --package 033xyz –-status Failed
 
 # id
 

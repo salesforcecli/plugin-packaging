@@ -9,7 +9,7 @@ To initiate a push upgrade for an unlocked or second-generation managed package,
 For second-generation managed packages, the push upgrade feature is available only for packages that have passed AppExchange security review. To enable push upgrades for your managed package, log a support case in the Salesforce Partner Community.
 For unlocked packages, push upgrades are enabled by default.
 
-Use the –migrate-to-2GP flag to indicate you’re installing a converted second-generation managed package into an org that has the first-generation managed package version of that package installed.
+Use the -–migrate-to-2GP flag to indicate you’re installing a converted second-generation managed package into an org that has the first-generation managed package version of that package installed.
 
 # flags.target-dev-hub.summary
 
@@ -27,9 +27,21 @@ ID (starts with 04t) of the package version that the package is being upgraded t
 
 Date and time (UTC) when the push upgrade is processed. Set to the earliest time that you want Salesforce to attempt to start the upgrade.
 
+# flags.start-time.description
+
+Scheduled push upgrades begin as soon as resources are available on the Salesforce instance, which is either at or after the start time you specify. In certain scenarios, the push upgrade starts a few hours after the scheduled start time.
+
+As a best practice, schedule push upgrades at off-peak hours like 1:00 AM Saturday.  
+If you don't specify this flag, the push upgrade is scheduled to run as soon as resources are available on the Salesforce instance.
+
 # flags.org-file.summary
 
 Filename of the CSV file that contains the list of orgs that need the package upgrade.
+
+# flags.org-file.description
+
+The file must contain one org per line. The org ID must be the only value in each row. 
+All listed orgs must have a package version installed in their org that is lower than the package version you specified for the --package-version flag.
 
 # flags.org-list.summary
 
@@ -94,3 +106,4 @@ Package Version Id
 # output
 
 Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either "package push-upgrade list" or "package push-upgrade report".
+Orgs scheduled for push upgrade: {%s}
