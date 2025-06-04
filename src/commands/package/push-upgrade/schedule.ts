@@ -36,6 +36,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     'start-time': Flags.string({
       char: 't',
       summary: messages.getMessage('flags.start-time.summary'),
+      description: messages.getMessage('flags.start-time.description'),
     }),
     'org-list': Flags.string({
       char: 'l',
@@ -45,6 +46,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     'org-file': Flags.file({
       char: 'f',
       summary: messages.getMessage('flags.org-file.summary'),
+      description: messages.getMessage('flags.org-file.description'),
       exists: true,
       exclusive: ['org-list'],
     }),
@@ -83,7 +85,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     );
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    this.log(messages.getMessage('output', [result?.PushRequestId]));
+    this.log(messages.getMessage('output', [result?.PushRequestId, orgList.join(', ')]));
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
