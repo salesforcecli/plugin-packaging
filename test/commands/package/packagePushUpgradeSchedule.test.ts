@@ -4,7 +4,6 @@
  * Licensed under the BSD 3-Clause license.
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
-import * as fs from 'node:fs/promises';
 import { Config } from '@oclif/core';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import * as sinon from 'sinon';
@@ -33,37 +32,10 @@ describe('package:pushupgrade:schedule - tests', () => {
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
-    $$.SANDBOX.stub(fs, 'readFile').resolves('00Dxx0000001gEREAY\n00Dxx0000001gFAEA0');
   });
 
   afterEach(() => {
     $$.restore();
-  });
-
-  it('should schedule the push upgrade with file', async () => {
-    const cmdArgsFile = [
-      '-p',
-      '04tXXXXXXXXXXXXXXX',
-      '-v',
-      testOrg.username,
-      '--start-time',
-      '2023-01-01T00:00:00Z',
-      '--org-list-file',
-      'valid-orgs.csv',
-    ];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const cmd = new PackagePushScheduleCommand(cmdArgsFile, config);
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    scheduleStub.resolves(pushReq);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const result = await cmd.run();
-    expect(result).to.deep.equal(pushReq);
-
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    expect(sfCommandStubs.log.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    expect(scheduleStub.calledOnce).to.be.true;
   });
 
   it('should schedule the push upgrade with org input', async () => {

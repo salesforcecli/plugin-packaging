@@ -5,7 +5,7 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 import { Config } from '@oclif/core';
-import { TestContext, sinon } from '@salesforce/core/testSetup';
+import { TestContext } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
 import {
   PackagePushUpgrade,
@@ -103,7 +103,15 @@ describe('package:pushupgrade:report - tests', () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     reportStub.rejects(new Error('Report error'));
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    await expect(cmd.run()).to.be.rejectedWith('Report error');
+    try {
+      await cmd.run();
+      // If cmd.run() resolves, this line will be reached, and the test should fail.
+      expect.fail('Expected cmd.run() to reject, but it resolved.');
+    } catch (err) {
+      // Assert that an error was indeed thrown
+      expect(err).to.be.an.instanceof(Error);
+      // Assert the error message matches
+      expect((err as Error).message).to.equal('Report error');
+    }
   });
 });

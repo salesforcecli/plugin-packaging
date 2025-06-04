@@ -61,7 +61,8 @@ describe('package:pushupgrade:list - tests', () => {
   });
 
   it('should list the push upgrade requests', async () => {
-    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    const packageId = 'dummyPackageId';
+    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username, '--package', packageId], config);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     listStub.resolves(pushUpgradeListSuccess);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
@@ -83,7 +84,8 @@ describe('package:pushupgrade:list - tests', () => {
   });
 
   it('should handle no results found', async () => {
-    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username], config);
+    const packageId = 'dummyPackageId';
+    const cmd = new PackagePushRequestListCommand(['-v', testOrg.username, '--package', packageId], config);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     listStub.resolves([]);
 
@@ -95,7 +97,7 @@ describe('package:pushupgrade:list - tests', () => {
 
   it('should filter by is-migration flag', async () => {
     const packageId = '033XXXXXXXXXXXXXXX';
-    const cmdArgs = ['--target-dev-hub', testOrg.username, '--package', packageId, '--is-migration'];
+    const cmdArgs = ['--target-dev-hub', testOrg.username, '--package', packageId, '--show-push-migrations-only'];
     const cmd = new PackagePushRequestListCommand(cmdArgs, config);
 
     listStub.resolves(pushUpgradeListSuccess);
