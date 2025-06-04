@@ -4,7 +4,7 @@ Abort a package push upgrade that has been scheduled. Only push upgrade requests
 
 # description
 
-Specify the request ID for which you want abort the request. If applicable, the command displays errors related to the request. Only package push requests in Created or Pending statuses can be aborted.
+Specify the request ID for which you want abort the request. If applicable, the command displays errors related to the request.
 
 To show all requests in the org, run "<%= config.bin %> package pushupgrade list --package 033...".
 
