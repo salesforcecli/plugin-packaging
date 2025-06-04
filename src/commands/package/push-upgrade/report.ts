@@ -29,8 +29,6 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:push-upgrade:report'];
-  public static readonly hidden = true;
-  public static readonly state = 'beta';
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,

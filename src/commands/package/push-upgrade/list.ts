@@ -20,8 +20,6 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly hidden = true;
-  public static state = 'beta';
   public static readonly aliases = ['force:package:push-upgrade:list'];
   public static readonly flags = {
     'target-dev-hub': requiredHubFlag,

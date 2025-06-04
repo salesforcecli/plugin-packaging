@@ -10,7 +10,7 @@ To show all requests in the org, run "<%= config.bin %> package pushupgrade list
 
 # examples
 
-- Retrieve details about the package push updgrade with the specified ID; uses your default Dev Hub org:
+- Retrieve details about the package push upgrade with the specified ID; uses your default Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --push-request-id 0DV...
 
