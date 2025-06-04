@@ -99,7 +99,7 @@ describe('package:version:*', () => {
         { ensureExitCode: 0 }
       ).shellOutput.stdout;
       expect(result).to.include("Package version creation request status is '");
-      expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
+      expect(result).to.match(/Run "sfd?x? package version create report -i 08c.{15}" to query for status\./);
     });
 
     it('should create a new package version with async-validation', () => {
@@ -110,7 +110,7 @@ describe('package:version:*', () => {
       // eslint-disable-next-line no-console
       console.log(result);
       expect(result).to.include("Package version creation request status is '");
-      expect(result).to.match(/Run "sfd?x? package:version:create:report -i 08c.{15}" to query for status\./);
+      expect(result).to.match(/Run "sfd?x? package version create report -i 08c.{15}" to query for status\./);
     });
 
     // package:version:create --wait --json is tested in versionPromoteUpdate.nut.ts
