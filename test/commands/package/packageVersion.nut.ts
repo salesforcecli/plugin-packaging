@@ -124,7 +124,7 @@ describe('package:version:*', () => {
       expect(result).to.match(
         /Package Installation URL: https:\/\/login.salesforce.com\/packaging\/installPackage\.apexp\?p0=04t.{15}/
       );
-      expect(result).to.match(/As an alternative, you can use the "sfd?x? package:install" command\./);
+      expect(result).to.match(/As an alternative, you can use the "sfd?x? package install" command\./);
     });
 
     it('should create a new package version (json)', () => {

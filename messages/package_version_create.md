@@ -191,13 +191,13 @@ Display verbose command output. When polling for the status of the creation, thi
 
 # InProgress
 
-Package version creation request status is '%s'. Run "%s package:version:create:report -i %s" to query for status.
+Package version creation request status is '%s'. Run "%s package version create report -i %s" to query for status.
 
 # Success
 
 Successfully created the package version [%s]. Subscriber Package Version Id: %s
 Package Installation URL: %s%s
-As an alternative, you can use the "%s package:install" command.
+As an alternative, you can use the "%s package install" command.
 
 # errorPathNotFound
 
