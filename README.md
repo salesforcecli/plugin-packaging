@@ -30,6 +30,7 @@ See [DEVELOPING.md](DEVELOPING.md)
 
 <!-- commands -->
 
+- [`sf package convert`](#sf-package-convert)
 - [`sf package create`](#sf-package-create)
 - [`sf package delete`](#sf-package-delete)
 - [`sf package install`](#sf-package-install)
@@ -52,6 +53,93 @@ See [DEVELOPING.md](DEVELOPING.md)
 - [`sf package1 version create get`](#sf-package1-version-create-get)
 - [`sf package1 version display`](#sf-package1-version-display)
 - [`sf package1 version list`](#sf-package1-version-list)
+
+## `sf package convert`
+
+Create a second-generation package version from a first-generation package.
+
+```
+USAGE
+  $ sf package convert -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-k <value>] [-f
+    <value>] [-x] [-w <value>] [-m <value>] [--verbose] [-a <value>]
+
+FLAGS
+  -a, --patch-version=<value>     Specific released patch version to convert
+  -f, --definition-file=<value>   Path to a definition file that contains features and org preferences that the metadata
+                                  of the package version depends on.
+  -k, --installation-key=<value>  Installation key for key-protected package.
+  -m, --seed-metadata=<value>     Directory containing metadata to be deployed prior to conversion.
+  -p, --package=<value>           (required) ID (starts with 033) of the first-generation package to convert.
+  -v, --target-dev-hub=<value>    (required) Username or alias of the Dev Hub org. Not required if the `target-dev-hub`
+                                  configuration variable is already set.
+  -w, --wait=<value>              Minutes to wait for the package version to be created.
+  -x, --installation-key-bypass   Bypass the installation key requirement.
+      --api-version=<value>       Override the api version used for api requests made by this command
+      --verbose                   Display verbose command output.
+
+GLOBAL FLAGS
+  --flags-dir=<value>  Import flag values from a directory.
+  --json               Format output as json.
+
+DESCRIPTION
+  Create a second-generation package version from a first-generation package.
+
+  The package convert creates a new package in the Dev Hub if one does not already exist for the specified
+  first-generation package.
+
+  It then creates a new package version in the Dev Hub with contents based on the specified first-generation package.
+
+  By default, the latest released non-patch version from the specified first-generation package will be converted. Use
+  --patch-version to override the default. Read more about --patch-version option in help
+
+  To retrieve details about a package version create request, including status and package version ID (04t), run "sf
+  package version create report -i 08c...".
+
+  We recommend specifying the --installation-key to protect the contents of your package and to prevent unauthorized
+  installation of your package.
+
+  To list package version creation requests in the org, run "sf package version create list".
+
+ALIASES
+  $ sf force package convert
+
+EXAMPLES
+  Create a second-generation package version from the first-generation package with the specified ID and give it the
+  installation key "password123"; uses your default Dev Hub org:
+
+    $ sf package convert --package 033... --installation-key password123
+
+  Similar to previous example, but uses the specified Dev Hub org:
+
+    $ sf package convert --package 033... --installation-key password123 --target-dev-hub devhuborg@example.com
+
+FLAG DESCRIPTIONS
+  -a, --patch-version=<value>  Specific released patch version to convert
+
+    Specify a released patch version as major.minor.patch.build to convert to second generation package version
+
+  -f, --definition-file=<value>
+
+    Path to a definition file that contains features and org preferences that the metadata of the package version
+    depends on.
+
+    This definition file is similar to the scratch org definition file.
+
+  -k, --installation-key=<value>  Installation key for key-protected package.
+
+    Either an --installation-key value or the --installation-key-bypass flag is required.
+
+  -m, --seed-metadata=<value>  Directory containing metadata to be deployed prior to conversion.
+
+    The directory containing metadata that will be deployed on the build org prior to attempting conversion.
+
+  -x, --installation-key-bypass  Bypass the installation key requirement.
+
+    If you bypass this requirement, anyone can install your package. Either an --installation-key value or the
+    --installation-key-bypass flag is required.
+```
+
+_See code: [src/commands/package/convert.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/convert.ts)_
 
 ## `sf package create`
 
@@ -130,7 +218,7 @@ FLAG DESCRIPTIONS
     Org-Dependent Unlocked Packages" in the Salesforce DX Developer Guide.
 ```
 
-_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/create.ts)_
+_See code: [src/commands/package/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/create.ts)_
 
 ## `sf package delete`
 
@@ -172,7 +260,7 @@ EXAMPLES
     $ sf package delete --package 0Ho... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/delete.ts)_
+_See code: [src/commands/package/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/delete.ts)_
 
 ## `sf package install`
 
@@ -271,7 +359,7 @@ FLAG DESCRIPTIONS
     - Delete: Delete all removed components that can be safely deleted, and deprecate the other components.
 ```
 
-_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/install.ts)_
+_See code: [src/commands/package/install.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/install.ts)_
 
 ## `sf package install report`
 
@@ -304,7 +392,7 @@ EXAMPLES
     $ sf package install report --request-id 0Hf... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/install/report.ts)_
+_See code: [src/commands/package/install/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/install/report.ts)_
 
 ## `sf package installed list`
 
@@ -336,7 +424,7 @@ EXAMPLES
     $ sf package installed list --target-org me@example.com
 ```
 
-_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/installed/list.ts)_
+_See code: [src/commands/package/installed/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/installed/list.ts)_
 
 ## `sf package list`
 
@@ -374,7 +462,7 @@ EXAMPLES
     $ sf package list --target-dev-hub devhub@example.com --verbose
 ```
 
-_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/list.ts)_
+_See code: [src/commands/package/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/list.ts)_
 
 ## `sf package uninstall`
 
@@ -422,7 +510,7 @@ EXAMPLES
     $ sf package uninstall --package "Undesirable Package Alias"
 ```
 
-_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/uninstall.ts)_
+_See code: [src/commands/package/uninstall.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/uninstall.ts)_
 
 ## `sf package uninstall report`
 
@@ -455,7 +543,7 @@ EXAMPLES
     $ sf package uninstall report --request-id 06y... --target-org me@example.com
 ```
 
-_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/uninstall/report.ts)_
+_See code: [src/commands/package/uninstall/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/uninstall/report.ts)_
 
 ## `sf package update`
 
@@ -510,7 +598,7 @@ FLAG DESCRIPTIONS
     associated with your package.
 ```
 
-_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/update.ts)_
+_See code: [src/commands/package/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/update.ts)_
 
 ## `sf package version create`
 
@@ -685,7 +773,7 @@ FLAG DESCRIPTIONS
     periods of no output from commands.
 ```
 
-_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/create.ts)_
+_See code: [src/commands/package/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/create.ts)_
 
 ## `sf package version create list`
 
@@ -746,7 +834,7 @@ EXAMPLES
     $ sf package version create list --created-last-days 0 --status Success
 ```
 
-_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/create/list.ts)_
+_See code: [src/commands/package/version/create/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/create/list.ts)_
 
 ## `sf package version create report`
 
@@ -789,7 +877,7 @@ EXAMPLES
     $ sf package version create report --package-create-request-id 08c... --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/create/report.ts)_
+_See code: [src/commands/package/version/create/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/create/report.ts)_
 
 ## `sf package version delete`
 
@@ -830,7 +918,7 @@ EXAMPLES
     $ sf package version delete --package 04t... --target-org devhub@example.com
 ```
 
-_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/delete.ts)_
+_See code: [src/commands/package/version/delete.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/delete.ts)_
 
 ## `sf package version displayancestry`
 
@@ -890,7 +978,7 @@ FLAG DESCRIPTIONS
     You can use the DOT code output in graph visualization software to create tree visualizations.
 ```
 
-_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/displayancestry.ts)_
+_See code: [src/commands/package/version/displayancestry.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/displayancestry.ts)_
 
 ## `sf package version list`
 
@@ -966,7 +1054,7 @@ EXAMPLES
     $ sf package version list --packages exp-mgr,exp-mgr-util --released --modified-last-days 0
 ```
 
-_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/list.ts)_
+_See code: [src/commands/package/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/list.ts)_
 
 ## `sf package version promote`
 
@@ -1010,7 +1098,7 @@ EXAMPLES
     $ sf package version promote --package "Awesome Package Alias"
 ```
 
-_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/promote.ts)_
+_See code: [src/commands/package/version/promote.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/promote.ts)_
 
 ## `sf package version report`
 
@@ -1050,7 +1138,7 @@ EXAMPLES
     $ sf package version report --package "Your Package Alias" --target-dev-hub devhub@example.com
 ```
 
-_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/report.ts)_
+_See code: [src/commands/package/version/report.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/report.ts)_
 
 ## `sf package version update`
 
@@ -1103,7 +1191,7 @@ EXAMPLES
     $ sf package version update --package 04t... --version-description "New Package Version Description"
 ```
 
-_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package/version/update.ts)_
+_See code: [src/commands/package/version/update.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package/version/update.ts)_
 
 ## `sf package1 version create`
 
@@ -1170,7 +1258,7 @@ FLAG DESCRIPTIONS
     subscribers.
 ```
 
-_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package1/version/create.ts)_
+_See code: [src/commands/package1/version/create.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package1/version/create.ts)_
 
 ## `sf package1 version create get`
 
@@ -1203,7 +1291,7 @@ EXAMPLES
     $ sf package1 version create get --request-id 0HD... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package1/version/create/get.ts)_
+_See code: [src/commands/package1/version/create/get.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package1/version/create/get.ts)_
 
 ## `sf package1 version display`
 
@@ -1237,7 +1325,7 @@ EXAMPLES
     $ sf package1 version display --package-version-id 04t... --target-org myorg@example.com
 ```
 
-_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package1/version/display.ts)_
+_See code: [src/commands/package1/version/display.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package1/version/display.ts)_
 
 ## `sf package1 version list`
 
@@ -1275,6 +1363,6 @@ FLAG DESCRIPTIONS
     If not specified, shows all versions for all packages (managed and unmanaged) in the org.
 ```
 
-_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.13.2/src/commands/package1/version/list.ts)_
+_See code: [src/commands/package1/version/list.ts](https://github.com/salesforcecli/plugin-packaging/blob/2.14.0/src/commands/package1/version/list.ts)_
 
 <!-- commandsstop -->
