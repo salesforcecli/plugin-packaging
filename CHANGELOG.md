@@ -1,3 +1,33 @@
+# [2.14.0](https://github.com/salesforcecli/plugin-packaging/compare/2.13.6...2.14.0) (2025-06-03)
+
+### Features
+
+- expose package convert command for ga ([188a700](https://github.com/salesforcecli/plugin-packaging/commit/188a7001c3a3dcf1a1f11e724b0b94586a009e5b))
+
+## [2.13.6](https://github.com/salesforcecli/plugin-packaging/compare/2.13.5...2.13.6) (2025-05-24)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.11.0 to 8.11.1 ([17751ae](https://github.com/salesforcecli/plugin-packaging/commit/17751ae4a2d03d1cef267f46dd5dbce71261e423))
+
+## [2.13.5](https://github.com/salesforcecli/plugin-packaging/compare/2.13.4...2.13.5) (2025-05-24)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.1 to 12.2.2 ([77ef028](https://github.com/salesforcecli/plugin-packaging/commit/77ef028e739726c1d6d8733f00cb5a75efeec1fa))
+
+## [2.13.4](https://github.com/salesforcecli/plugin-packaging/compare/2.13.3...2.13.4) (2025-05-17)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.10.3 to 8.11.0 ([4ee1caf](https://github.com/salesforcecli/plugin-packaging/commit/4ee1cafb58e8e9dba2fc9e77a0722e970bc2da6f))
+
+## [2.13.3](https://github.com/salesforcecli/plugin-packaging/compare/2.13.2...2.13.3) (2025-05-10)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.10.0 to 8.10.3 ([82077b3](https://github.com/salesforcecli/plugin-packaging/commit/82077b374fd8a51ff631eeda27880bb68bc9fe21))
+
 ## [2.13.2](https://github.com/salesforcecli/plugin-packaging/compare/2.13.1...2.13.2) (2025-04-26)
 
 ### Bug Fixes
