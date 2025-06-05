@@ -28,9 +28,8 @@ describe('package:pushupgrade:schedule - tests', () => {
   beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
   });
 
@@ -50,7 +49,7 @@ describe('package:pushupgrade:schedule - tests', () => {
       '00Dxx0000001gEREAY,00Dxx0000001gFAEA0',
     ];
     const cmd = new PackagePushScheduleCommand(cmdArgsOrg, config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     scheduleStub.resolves(pushReq);
     await cmd.run();
 

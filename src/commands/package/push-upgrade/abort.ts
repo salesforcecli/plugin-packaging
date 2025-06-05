@@ -11,9 +11,9 @@ import { PackagePushUpgrade } from '@salesforce/packaging';
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_abort');
 
-export interface PackagePushUpgradeAbortResult {
+export type PackagePushUpgradeAbortResult = {
   success: boolean;
-}
+};
 
 export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgradeAbortResult> {
   public static readonly summary = messages.getMessage('summary');
@@ -22,7 +22,6 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgrade
   public static readonly flags = {
     'target-dev-hub': Flags.requiredHub(),
     'api-version': Flags.orgApiVersion(),
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'push-request-id': Flags.salesforceId({
       length: 'both',
       char: 'i',
@@ -38,7 +37,6 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgrade
 
     const packagePushRequestOptions = { packagePushRequestId: flags['push-request-id'] };
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: boolean = await PackagePushUpgrade.abort(connection, packagePushRequestOptions);
 
     if (result) {

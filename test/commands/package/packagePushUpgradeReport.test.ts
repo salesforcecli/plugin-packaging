@@ -7,10 +7,7 @@
 import { Config } from '@oclif/core';
 import { TestContext } from '@salesforce/core/testSetup';
 import { expect } from 'chai';
-import {
-  PackagePushUpgrade,
-  PackagePushRequestReportResult,
-} from '@salesforce/packaging';
+import { PackagePushUpgrade, PackagePushRequestReportResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { PackagePushUpgradeReportCommand } from '../../../src/commands/package/push-upgrade/report.js';
 
@@ -49,17 +46,15 @@ describe('package:pushupgrade:report - tests', () => {
   beforeEach(async () => {
     await $$.stubAuths();
     await config.load();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     reportStub = $$.SANDBOX.stub(PackagePushUpgrade, 'report');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getTotalJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getFailedJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getSucceededJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getJobFailureReasonsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getJobFailureReasons');
   });
 
@@ -69,15 +64,15 @@ describe('package:pushupgrade:report - tests', () => {
 
   it('should report the push upgrade request', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     reportStub.resolves(pushUpgradeReportSuccess);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getTotalJobsStub.resolves(3);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getFailedJobsStub.resolves(1);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getSucceededJobsStub.resolves(2);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getJobFailureReasonsStub.resolves([]);
 
     await cmd.run();
@@ -90,7 +85,7 @@ describe('package:pushupgrade:report - tests', () => {
 
   it('should handle no results found', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     reportStub.resolves([]);
 
     await cmd.run();
@@ -101,7 +96,7 @@ describe('package:pushupgrade:report - tests', () => {
 
   it('should handle errors during report', async () => {
     const cmd = new PackagePushUpgradeReportCommand(['-i', '0DVxx0000004EXTGA2', '-v', 'test@hub.org'], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     reportStub.rejects(new Error('Report error'));
     try {
       await cmd.run();
