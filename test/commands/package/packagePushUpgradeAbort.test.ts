@@ -39,7 +39,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
     abortStub.resolves(true);
     const res = await cmd.run();
 
-    expect(res).to.be.true;
+    expect(res.success).to.be.true;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(abortStub.calledOnce).to.be.true;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

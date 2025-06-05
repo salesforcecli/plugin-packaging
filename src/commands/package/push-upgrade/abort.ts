@@ -11,7 +11,11 @@ import { PackagePushUpgrade } from '@salesforce/packaging';
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_abort');
 
-export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
+export interface PackagePushUpgradeAbortResult {
+  success: boolean;
+}
+
+export class PackagePushUpgradeAbortCommand extends SfCommand<PackagePushUpgradeAbortResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -28,7 +32,7 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
     }),
   };
 
-  public async run(): Promise<boolean> {
+  public async run(): Promise<PackagePushUpgradeAbortResult> {
     const { flags } = await this.parse(PackagePushUpgradeAbortCommand);
     const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
 
@@ -41,6 +45,6 @@ export class PackagePushUpgradeAbortCommand extends SfCommand<boolean> {
       this.log(messages.getMessage('output', [flags['push-request-id']]));
     }
 
-    return result;
+    return { success: result };
   }
 }

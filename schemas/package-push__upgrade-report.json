@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ReportCommandResult",
+  "definitions": {
+    "ReportCommandResult": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PackagePushRequestReportResult"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "PackagePushRequestReportResult": {
+      "type": "object",
+      "properties": {
+        "PackageVersion": {
+          "type": "object",
+          "properties": {
+            "MetadataPackage": {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "type": "string"
+                },
+                "NamespacePrefix": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "Name",
+                "NamespacePrefix"
+              ],
+              "additionalProperties": false
+            },
+            "MetadataPackageId": {
+              "type": "string"
+            },
+            "Name": {
+              "type": "string"
+            },
+            "MajorVersion": {
+              "type": "string"
+            },
+            "MinorVersion": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "MetadataPackage",
+            "MetadataPackageId",
+            "Name",
+            "MajorVersion",
+            "MinorVersion"
+          ],
+          "additionalProperties": false
+        },
+        "Id": {
+          "type": "string"
+        },
+        "PackageVersionId": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        },
+        "ScheduledStartTime": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "StartTime": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "EndTime": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "DurationSeconds": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "PackageVersion",
+        "Id",
+        "PackageVersionId",
+        "Status",
+        "ScheduledStartTime",
+        "StartTime",
+        "EndTime",
+        "DurationSeconds"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

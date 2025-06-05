@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackagePushScheduleResult",
+  "definitions": {
+    "PackagePushScheduleResult": {
+      "type": "object",
+      "properties": {
+        "PushRequestId": {
+          "type": "string"
+        },
+        "ScheduledStartTime": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "PushRequestId",
+        "Status"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
