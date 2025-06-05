@@ -512,14 +512,14 @@ describe('package:version:*', () => {
       pkg.versionNumber = sortedVersions[0].toString();
       pkg.versionName = 'v1';
       pjson.set('packageDirectories', [pkg]);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       aliases = Object.fromEntries([
         ...pvRecords.map((pv: PackageVersionQueryResult, index) => [
           `${pv.Package2.Name}@${versions[index].toString()}`,
           pv.SubscriberPackageVersionId,
         ]),
         [ancestryPkgName, pvRecords[0].Package2Id],
-      ]);
+      ]) as { [alias: string]: string };
       pjson.set('packageAliases', aliases);
       pjson.set('namespace', pvRecords[0].Package2.NamespacePrefix);
       pjson.writeSync();
