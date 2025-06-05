@@ -22,9 +22,9 @@ describe('PackagePushUpgradeAbortCommand', () => {
   beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     logStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     abortStub = $$.SANDBOX.stub(PackagePushUpgrade, 'abort');
   });
 
@@ -35,7 +35,7 @@ describe('PackagePushUpgradeAbortCommand', () => {
   it('should pass the right parameters to the library', async () => {
     const pushRequestId = '0DVxx0000004CCG';
     const cmd = new PackagePushUpgradeAbortCommand(['-i', pushRequestId, '-v', testOrg.username], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     abortStub.resolves(true);
     const res = await cmd.run();
 
@@ -60,7 +60,6 @@ describe('PackagePushUpgradeAbortCommand', () => {
   });
 
   it('should throw an error if push-request status is not "Created" or "Pending" or  is missing', async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     abortStub.rejects(new Error('Abortion is only allowed for "Created" or "Pending" statuses.'));
     const cmd = new PackagePushUpgradeAbortCommand(['-i', '0DVxx0000004CCG', '-v', 'test@hub.org'], config);
 

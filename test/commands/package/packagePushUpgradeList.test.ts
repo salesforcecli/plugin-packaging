@@ -46,13 +46,13 @@ describe('package:pushupgrade:list - tests', () => {
     await $$.stubAuths(testOrg);
     await config.load();
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     listStub = $$.SANDBOX.stub(PackagePushUpgrade, 'list');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getTotalJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getTotalJobs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getFailedJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getFailedJobs');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
     getSucceededJobsStub = $$.SANDBOX.stub(PackagePushUpgrade, 'getSucceededJobs');
   });
 
@@ -63,13 +63,13 @@ describe('package:pushupgrade:list - tests', () => {
   it('should list the push upgrade requests', async () => {
     const packageId = 'dummyPackageId';
     const cmd = new PackagePushRequestListCommand(['-v', testOrg.username, '--package', packageId], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     listStub.resolves(pushUpgradeListSuccess);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getTotalJobsStub.resolves(3);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getFailedJobsStub.resolves(1);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     getSucceededJobsStub.resolves(2);
 
     const envSpy = $$.SANDBOX.spy(env, 'setBoolean').withArgs('SF_APPLY_REPLACEMENTS_ON_CONVERT', true);
@@ -86,7 +86,7 @@ describe('package:pushupgrade:list - tests', () => {
   it('should handle no results found', async () => {
     const packageId = 'dummyPackageId';
     const cmd = new PackagePushRequestListCommand(['-v', testOrg.username, '--package', packageId], config);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     listStub.resolves([]);
 
     await cmd.run();

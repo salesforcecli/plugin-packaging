@@ -73,7 +73,6 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
     const startTime = flags['start-time'];
     const isMigration = flags['migrate-to-2gp'];
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     const result: PackagePushScheduleResult = await PackagePushUpgrade.schedule(
       conn,
       flags.package,
@@ -82,10 +81,8 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
       isMigration
     );
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     this.log(messages.getMessage('output', [result?.PushRequestId, orgList.join(', ')]));
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
   }
 }

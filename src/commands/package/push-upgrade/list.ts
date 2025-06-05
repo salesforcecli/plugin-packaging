@@ -60,12 +60,12 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     }
 
     logger.debug(`Querying PackagePushRequest records from org ${hubOrg.getOrgId()}`);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
     const results: PackagePushRequestListResultArr = await PackagePushUpgrade.list(connection, {
       packageId: flags.package,
       status: flags.status as PackagePushStatus | undefined,
       scheduledLastDays,
-      isMigration: flags['show-push-migrations-only']
+      isMigration: flags['show-push-migrations-only'],
     });
 
     if (results.length === 0) {
@@ -73,53 +73,41 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
     } else {
       const data = await Promise.all(
         results.map(async (record: PackagePushRequestListResult) => {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           const packagePushRequestId = record?.Id;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
           const packagePushRequestOptions = { packagePushRequestId };
 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
           const totalNumOrgs = await PackagePushUpgrade.getTotalJobs(connection, packagePushRequestOptions);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
           const numOrgsUpgradedFail = await PackagePushUpgrade.getFailedJobs(connection, packagePushRequestOptions);
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+
           const numOrgsUpgradedSuccess = await PackagePushUpgrade.getSucceededJobs(
             connection,
             packagePushRequestOptions
           );
 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
           const pv = record?.PackageVersion;
           const packageVersionNumber =
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MajorVersion != null &&
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            pv?.MinorVersion != null
-              ? // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-member-access
-                `${pv.MajorVersion}.${pv.MinorVersion}`
-              : undefined;
+            pv?.MajorVersion != null && pv?.MinorVersion != null ? `${pv.MajorVersion}.${pv.MinorVersion}` : undefined;
 
           return {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             Id: record?.Id,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             PackageVersionId: record?.PackageVersionId,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             PackageVersionName: pv?.Name,
             PackageVersionNumber: packageVersionNumber,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+
             Status: record?.Status,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+
             ScheduledStartTime: record?.ScheduledStartTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+
             StartTime: record?.StartTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+
             EndTime: record?.EndTime,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
             NumOrgsScheduled: totalNumOrgs,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
             NumOrgsUpgradedFail: numOrgsUpgradedFail,
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
             NumOrgsUpgradedSuccess: numOrgsUpgradedSuccess,
           };
         })
@@ -127,7 +115,6 @@ export class PackagePushRequestListCommand extends SfCommand<PackagePushRequestL
 
       this.table({ data });
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return results;
   }
 }
