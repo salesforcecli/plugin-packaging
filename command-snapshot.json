@@ -64,11 +64,11 @@
       "definitionfile",
       "installationkey",
       "installationkeybypass",
+      "patchversion",
       "target-hub-org",
-      "targetdevhubusername",
-      "patchversion"
+      "targetdevhubusername"
     ],
-    "flagChars": ["f", "k", "m", "p", "s", "v", "w", "x", "a"],
+    "flagChars": ["a", "f", "k", "m", "p", "s", "v", "w", "x"],
     "flags": [
       "api-version",
       "build-instance",
@@ -79,11 +79,11 @@
       "json",
       "loglevel",
       "package",
+      "patch-version",
       "seed-metadata",
       "target-dev-hub",
       "verbose",
-      "wait",
-      "patch-version"
+      "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
@@ -182,6 +182,57 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:push-upgrade:abort",
+    "flagAliases": [],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:push-upgrade:list"],
+    "command": "package:push-upgrade:list",
+    "flagAliases": ["apiversion", "scheduledlastdays", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["l", "p", "s", "v"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "package",
+      "scheduled-last-days",
+      "show-push-migrations-only",
+      "status",
+      "target-dev-hub"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:push-upgrade:report"],
+    "command": "package:push-upgrade:report",
+    "flagAliases": ["apiversion", "pushrequestid", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "push-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:push-upgrade:schedule",
+    "flagAliases": ["apiversion"],
+    "flagChars": ["f", "l", "p", "t", "v"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "migrate-to-2gp",
+      "org-file",
+      "org-list",
+      "package",
+      "start-time",
+      "target-dev-hub"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:uninstall"],
     "command": "package:uninstall",
     "flagAliases": ["apiversion", "targetusername", "u"],
@@ -231,7 +282,6 @@
       "releasenotesurl",
       "skipancestorcheck",
       "skipvalidation",
-      "asyncvalidation",
       "target-hub-org",
       "targetdevhubusername",
       "uninstallscript",
@@ -243,6 +293,7 @@
     "flagChars": ["a", "b", "c", "d", "e", "f", "j", "k", "n", "p", "r", "s", "t", "v", "w", "x"],
     "flags": [
       "api-version",
+      "async-validation",
       "branch",
       "build-instance",
       "code-coverage",
@@ -261,7 +312,6 @@
       "releasenotes-url",
       "skip-ancestor-check",
       "skip-validation",
-      "async-validation",
       "tag",
       "target-dev-hub",
       "uninstall-script",
