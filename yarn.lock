@@ -2871,7 +2871,7 @@ ansi-styles@^6.0.0, ansi-styles@^6.1.0, ansi-styles@^6.2.1:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-ansis@^3.17.0, ansis@^3.3.2:
+ansis@^3.16.0, ansis@^3.17.0, ansis@^3.3.2:
   version "3.17.0"
   resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.17.0.tgz#fa8d9c2a93fe7d1177e0c17f9eeb562a58a832d7"
   integrity sha512-0qWUglt9JEqLFr3w1I1pbrChn1grhaiAR2ocX1PP/flRmxgtwTzPFFFnfIlD6aMOLQZgSuCRlidD70lvx8yhzg==
@@ -3270,7 +3270,7 @@ chalk@^2.4.2:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
-chalk@^4, chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0:
+chalk@^4.0.0, chalk@^4.0.2, chalk@^4.1.0:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-4.1.2.tgz#aac4e2b7734a740867aeb16bf02aad556a1e7a01"
   integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
@@ -6364,10 +6364,10 @@ obliterator@^2.0.1, obliterator@^2.0.2:
   resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.4.tgz#fa650e019b2d075d745e44f1effeb13a2adbe816"
   integrity sha512-lgHwxlxV1qIg1Eap7LgIeoBWIMFibOjbrYPIPJZcI1mmGAI2m3lNYpK12Y+GBdPQ0U1hRwSord7GIaawz962qQ==
 
-oclif@^4.17.46:
-  version "4.17.46"
-  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.17.46.tgz#c7bd4315ae4903ad5f9893f6d6e7b3b78c4209fb"
-  integrity sha512-huMvamv0zzIXrCbW5sgy40P1L6fJjPe4IfZKSmkmuPNGSpTy+fcNZ0gYwIuMlxiT3RarLYxYie+RVTyJLE3zXw==
+oclif@^4.18.0:
+  version "4.18.0"
+  resolved "https://registry.yarnpkg.com/oclif/-/oclif-4.18.0.tgz#4216a87ae947ae233a92f94448e970fce621b11a"
+  integrity sha512-w5b35fT1tIZhJUv+GZLdEo4ZwF/wDeuNVL1cbOcgrQebcg0RMJE0ykFymVlfIPtOZqJzwfO6xeNEwqMy5fVtOw==
   dependencies:
     "@aws-sdk/client-cloudfront" "^3.787.0"
     "@aws-sdk/client-s3" "^3.787.0"
@@ -6378,8 +6378,8 @@ oclif@^4.17.46:
     "@oclif/plugin-help" "^6.2.27"
     "@oclif/plugin-not-found" "^3.2.48"
     "@oclif/plugin-warn-if-update-available" "^3.1.38"
+    ansis "^3.16.0"
     async-retry "^1.3.3"
-    chalk "^4"
     change-case "^4"
     debug "^4.4.0"
     ejs "^3.1.10"
