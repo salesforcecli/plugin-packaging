@@ -1,3 +1,10 @@
+## [2.15.3](https://github.com/salesforcecli/plugin-packaging/compare/2.15.2...2.15.3) (2025-06-09)
+
+### Bug Fixes
+
+- changed messages to match new command names ([7c62ed2](https://github.com/salesforcecli/plugin-packaging/commit/7c62ed200f4f437533c98f7fc04cd172594414d3))
+- empty commit to rerun failed test ([dae7762](https://github.com/salesforcecli/plugin-packaging/commit/dae7762292c6871354ae1dbc0620ef3eed1fe88d))
+
 ## [2.15.2](https://github.com/salesforcecli/plugin-packaging/compare/2.15.1...2.15.2) (2025-06-07)
 
 ### Bug Fixes
