@@ -143,7 +143,7 @@ describe('package:version:create - tests', () => {
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package install" command.`,
       ]);
     });
 
@@ -182,7 +182,7 @@ describe('package:version:create - tests', () => {
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package install" command.`,
       ]);
     });
 
@@ -227,7 +227,7 @@ describe('package:version:create - tests', () => {
       ]);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package:install" command.`,
+        `Successfully created the package version [08c3i000000fylgAAA]. Subscriber Package Version Id: 04t3i000002eya2AAA${os.EOL}Package Installation URL: https://login.salesforce.com/packaging/installPackage.apexp?p0=04t3i000002eya2AAA${os.EOL}As an alternative, you can use the "sf package install" command.`,
       ]);
     });
 
