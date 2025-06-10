@@ -1,6 +1,6 @@
 # summary
 
-Convert a managed-release first-generation managed package into a second-generation managed package.
+Convert a managed-released first-generation managed package into a second-generation managed package.
 
 # description
 
