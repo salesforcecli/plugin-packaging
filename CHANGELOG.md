@@ -1,3 +1,9 @@
+## [2.15.4](https://github.com/salesforcecli/plugin-packaging/compare/2.15.3...2.15.4) (2025-06-10)
+
+### Bug Fixes
+
+- edits ([6088dc0](https://github.com/salesforcecli/plugin-packaging/commit/6088dc01f2febad3597b0ff26826f04083e9f506))
+
 ## [2.15.3](https://github.com/salesforcecli/plugin-packaging/compare/2.15.2...2.15.3) (2025-06-09)
 
 ### Bug Fixes
