@@ -56,6 +56,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": ["force:bundle:create"],
+    "command": "package:bundles:create",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["d", "n", "v"],
+    "flags": ["api-version", "description", "flags-dir", "json", "loglevel", "name", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:convert"],
     "command": "package:convert",
     "flagAliases": [
