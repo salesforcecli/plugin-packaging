@@ -1,24 +1,22 @@
 # summary
 
-Create a second-generation package version from a first-generation package.
+Convert a managed-release first-generation managed package into a second-generation managed package.
 
 # description
 
-The package convert creates a new package in the Dev Hub if one does not already exist for the specified first-generation package.
+The package conversion command automatically selects the latest released major.minor first-generation managed package version, and converts it into a second-generation managed package version.
 
-It then creates a new package version in the Dev Hub with contents based on the specified first-generation package.
-
-By default, the latest released non-patch version from the specified first-generation package will be converted. Use --patch-version to override the default. Read more about --patch-version option in help
+Use --patch-version to specify a released patch version.
 
 To retrieve details about a package version create request, including status and package version ID (04t), run "<%= config.bin %> package version create report -i 08c...".
 
-We recommend specifying the --installation-key to protect the contents of your package and to prevent unauthorized installation of your package.
+To protect the contents of your package and to prevent unauthorized installation of your package, specify the --installation-key flag.
 
 To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
 
-- Create a second-generation package version from the first-generation package with the specified ID and give it the installation key "password123"; uses your default Dev Hub org:
+- Create a second-generation managed package version from the first-generation managed package with the specified ID and give it the installation key "password123"; uses your default Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --package 033... --installation-key password123
 
@@ -28,7 +26,7 @@ To list package version creation requests in the org, run "<%= config.bin %> pac
 
 # flags.package.summary
 
-ID (starts with 033) of the first-generation package to convert.
+ID (starts with 033) of the first-generation managed package to convert.
 
 # flags.installation-key.summary
 
@@ -76,12 +74,12 @@ Directory containing metadata to be deployed prior to conversion.
 
 # flags.seed-metadata.description
 
-The directory containing metadata that will be deployed on the build org prior to attempting conversion.
+The directory containing metadata that will be deployed on the build org prior to attempting package conversion.
 
 # flags.patch-version.summary
 
-Specific released patch version to convert
+Specific released patch version to be converted.
 
 # flags.patch-version.description
 
-Specify a released patch version as major.minor.patch.build to convert to second generation package version
+Specify a released patch version as major.minor.patch to convert to a second-generation managed package version.
