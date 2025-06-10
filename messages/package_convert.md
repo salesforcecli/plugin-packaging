@@ -66,7 +66,7 @@ Display verbose command output.
 
 # in-progress
 
-Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'
+Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'. 
 
 # flags.seed-metadata.summary
 
