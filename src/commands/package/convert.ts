@@ -90,6 +90,14 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       deprecateAliases: true,
       aliases: ['patchversion'],
     }),
+    'code-coverage': Flags.boolean({
+      deprecateAliases: true,
+      aliases: ['codecoverage'],
+      char: 'c',
+      summary: messages.getMessage('flags.code-coverage.summary'),
+      description: messages.getMessage('flags.code-coverage.description'),
+      default: false,
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
@@ -131,6 +139,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         buildInstance: flags['build-instance'] as string,
         seedMetadata: flags['seed-metadata'] as string,
         patchversion: flags['patch-version'] as string,
+        codecoverage: flags['code-coverage'] as boolean,
       },
       project
     );

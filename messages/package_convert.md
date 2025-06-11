@@ -66,7 +66,7 @@ Display verbose command output.
 
 # in-progress
 
-Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'. 
+Request in progress. Will wait a total of %s more seconds before timing out. Current Status='%s'.
 
 # flags.seed-metadata.summary
 
@@ -83,3 +83,11 @@ Specific released patch version to be converted.
 # flags.patch-version.description
 
 Specify a released patch version as major.minor.patch to convert to a second-generation managed package version.
+
+# flags.code-coverage.summary
+
+Calculate and store the code coverage percentage by running the packaged Apex tests included in this package version.
+
+# flags.code-coverage.description
+
+Before you can promote and release a managed package version, the Apex code must meet a minimum 75% code coverage requirement.
