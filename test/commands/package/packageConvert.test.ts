@@ -86,7 +86,7 @@ describe('package:convert', () => {
     stubSpinner(cmd);
     const result = await cmd.run();
     expect(spinnerStartStub.called).to.be.true;
-    // Check that codecoverage was passed as true
+    // Check that codecoverage was passed as false
     const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
     expect(callArgs.codecoverage).to.equal(false);
     expect(result).to.deep.equal(pvc);
