@@ -91,8 +91,6 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       aliases: ['patchversion'],
     }),
     'code-coverage': Flags.boolean({
-      deprecateAliases: true,
-      aliases: ['codecoverage'],
       char: 'c',
       summary: messages.getMessage('flags.code-coverage.summary'),
       description: messages.getMessage('flags.code-coverage.description'),
