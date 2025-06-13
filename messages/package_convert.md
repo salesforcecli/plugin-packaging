@@ -12,6 +12,8 @@ To retrieve details about a package version create request, including status and
 
 To protect the contents of your package and to prevent unauthorized installation of your package, specify the --installation-key flag.
 
+To promote a package version to released, you must use the --code-coverage parameter. The package must also meet the code coverage requirements.
+
 To list package version creation requests in the org, run "<%= config.bin %> package version create list".
 
 # examples
