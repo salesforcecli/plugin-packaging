@@ -7,7 +7,12 @@
 import { expect } from 'chai';
 import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
-import { Package, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
+import {
+  Package,
+  PackageVersionCreateRequestResult,
+  PackagingSObjects,
+  type ConvertPackageOptions,
+} from '@salesforce/packaging';
 import sinon from 'sinon';
 import { PackageConvert } from '../../../src/commands/package/convert.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -80,8 +85,10 @@ describe('package:convert', () => {
     );
     stubSpinner(cmd);
     const result = await cmd.run();
-
     expect(spinnerStartStub.called).to.be.true;
+    // Check that codecoverage was passed as false
+    const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
+    expect(callArgs.codecoverage).to.equal(false);
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (success)', async () => {
@@ -109,11 +116,14 @@ describe('package:convert', () => {
     convertStub.restore();
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const cmd = new PackageConvert(
-      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
+      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com', '-c'],
       config
     );
     stubSpinner(cmd);
     const result = await cmd.run();
+    // Check that codecoverage was passed as true
+    const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
+    expect(callArgs.codecoverage).to.equal(true);
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (error)', async () => {

@@ -8,7 +8,7 @@
     "@oclif/core": "^4",
     "@salesforce/core": "^8.12.0",
     "@salesforce/kit": "^3.2.3",
-    "@salesforce/packaging": "^4.6.0",
+    "@salesforce/packaging": "^4.7.0",
     "@salesforce/sf-plugins-core": "^12.2.2",
     "chalk": "^5.4.1"
   },
