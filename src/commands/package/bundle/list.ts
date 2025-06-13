@@ -21,7 +21,6 @@ export type BundleListCommandResults = BundleListCommandResult[];
 
 export class BundleListCommand extends SfCommand<BundleListCommandResults> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:bundle:list'];
@@ -44,7 +43,7 @@ export class BundleListCommand extends SfCommand<BundleListCommandResults> {
 
   private displayResults(results: BundleListCommandResults, verbose = false): void {
     const data = results.map((r) => ({
-      'Bundle Name': r.BundleName,
+      'Package Bundle Name': r.BundleName,
       Id: r.Id,
       Description: r.Description,
       ...(verbose
