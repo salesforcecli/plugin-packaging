@@ -10,7 +10,7 @@ import { expect } from 'chai';
 import { PackageBundle } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import sinon from 'sinon';
-import { BundleListCommand } from '../../../src/commands/package/bundles/list.js';
+import { BundleListCommand } from '../../../src/commands/package/bundle/list.js';
 describe('force:bundle:list - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
