@@ -11,7 +11,7 @@ import { expect } from 'chai';
 import { BundleCreateOptions, PackageBundle } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { Connection, SfProject } from '@salesforce/core';
-import { PackageBundlesCreate } from '../../../src/commands/package/bundles/create.js';
+import { PackageBundlesCreate } from '../../../src/commands/package/bundle/create.js';
 
 describe('force:bundle:create - tests', () => {
   const $$ = new TestContext();

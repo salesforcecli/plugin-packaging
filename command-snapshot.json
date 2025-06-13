@@ -56,16 +56,16 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:bundle:create"],
-    "command": "package:bundles:create",
+    "alias": ["force:package:bundle:create"],
+    "command": "package:bundle:create",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["d", "n", "v"],
     "flags": ["api-version", "description", "flags-dir", "json", "loglevel", "name", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:bundle:list"],
-    "command": "package:bundles:list",
+    "alias": ["force:package:bundle:list"],
+    "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],

@@ -44,14 +44,6 @@ Description
 
 Display extended bundle detail.
 
-# convertedFrombundleId
-
-Converted From bundle Id
-
-# isOrgDependent
-
-Org-Dependent Unlocked bundle
-
 # error-notification-username
 
 Error Notification Username
