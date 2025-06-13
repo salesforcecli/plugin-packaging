@@ -1,20 +1,12 @@
 # summary
 
-List all bundles in the Dev Hub org.
-
-# description
-
-You can view the namespace, IDs, and other details for each bundle.
+List all package bundles in the Dev Hub org.
 
 # examples
 
-- List all bundles in the specified Dev Hub org:
+List all package bundles in the specified Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com
-
-- List all bundles details in the specified Dev Hub org, and show extended details about each bundle:
-
-  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com --verbose
+sf package bundle list --target-dev-hub <dev_hub_alias>
 
 # namespace
 
@@ -30,7 +22,7 @@ Id
 
 # bundle-id
 
-Subscriber bundle Id
+Package Bundle Id
 
 # alias
 
