@@ -10,7 +10,7 @@ import {
   Flags,
   loglevel,
   orgApiVersionFlagWithDeprecations,
-  requiredOrgFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
@@ -36,7 +36,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
   public static readonly flags = {
     loglevel,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'target-org': requiredOrgFlagWithDeprecations,
+    'target-dev-hub': requiredHubFlagWithDeprecations,
     package: Flags.string({
       char: 'p',
       summary: messages.getMessage('flags.package.summary'),
@@ -51,7 +51,7 @@ export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetri
 
   public async run(): Promise<PackageVersionRetrieveCommandResult> {
     const { flags } = await this.parse(PackageVersionRetrieveCommand);
-    const connection = flags['target-org'].getConnection(flags['api-version']);
+    const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const options = {
       subscriberPackageVersionId: flags.package ?? '',
       destinationFolder: flags['output-dir'],

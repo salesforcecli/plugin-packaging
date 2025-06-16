@@ -6,7 +6,7 @@ Retrieve package metadata for a specified package version.
 
 Retrieving a package version downloads the metadata into the directory you specify.
 
-You can retrieve metadata for a second- or first-generation managed package, or an unlocked package.
+You can retrieve metadata for a second-generation managed package or an unlocked package.
 
 Specify the subscriber package version ID (starts with 04t) and the path to an empty directory when you run this command.
 

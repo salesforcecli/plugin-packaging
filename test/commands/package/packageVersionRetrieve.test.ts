@@ -67,7 +67,7 @@ describe('package:version:retrieve - tests', () => {
   describe('package:version:retrieve', () => {
     it('should display retrieved files', async () => {
       downloadStub.resolves(pkgVersionRetrieveSuccessResult);
-      const cmd = new PackageVersionRetrieveCommand(['-p', myPackageVersion04t, '-o', 'test@dev.org'], config);
+      const cmd = new PackageVersionRetrieveCommand(['-p', myPackageVersion04t, '-v', 'test@dev.org'], config);
       const res = await cmd.run();
       expect(res).to.deep.equal(expectedRetrievedComponents);
     });
