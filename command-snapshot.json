@@ -72,6 +72,50 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": ["force:package:bundle:version:create"],
+    "command": "package:bundle:version:create",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["b", "p", "v", "w"],
+    "flags": [
+      "api-version",
+      "bundle",
+      "definition-file",
+      "flags-dir",
+      "json",
+      "loglevel",
+      "target-dev-hub",
+      "verbose",
+      "wait"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:bundle:version:create:list"],
+    "command": "package:bundle:version:create:list",
+    "flagAliases": ["apiversion", "createdlastdays", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["c", "s", "v"],
+    "flags": [
+      "api-version",
+      "created-last-days",
+      "flags-dir",
+      "json",
+      "loglevel",
+      "show-conversions-only",
+      "status",
+      "target-dev-hub",
+      "verbose"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:bundle:version:create:report"],
+    "command": "package:bundle:version:create:report",
+    "flagAliases": ["apiversion", "packagecreaterequestid", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["i", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "package-create-request-id", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:convert"],
     "command": "package:convert",
     "flagAliases": [

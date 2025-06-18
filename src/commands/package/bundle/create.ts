@@ -42,6 +42,7 @@ export class PackageBundlesCreate extends SfCommand<BundleCreate> {
       Description: flags.description ?? '',
       BundleName: flags.name,
     };
+
     this.spinner.start(`Creating Bundle with name ${options.BundleName}`);
     const result = await PackageBundle.create(
       flags['target-dev-hub'].getConnection(flags['api-version']),
