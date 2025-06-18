@@ -1,13 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/PackageBundleVersionCreateRequestResults",
+  "$ref": "#/definitions/BundleSObjects.PackageBundleVersionCreateRequestResult",
   "definitions": {
-    "PackageBundleVersionCreateRequestResults": {
-      "type": "array",
-      "items": {
-        "$ref": "#/definitions/BundleSObjects.PackageBundleVersionCreateRequestResult"
-      }
-    },
     "BundleSObjects.PackageBundleVersionCreateRequestResult": {
       "type": "object",
       "additionalProperties": false,
