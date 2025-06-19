@@ -17,7 +17,7 @@ import chalk from 'chalk';
 import { requiredHubFlag } from '../../../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_bundle_version_create_list');
+const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_version_create_list');
 
 type Status = BundleSObjects.PkgBundleVersionCreateReqStatus;
 export type PackageBundleVersionCreateRequestResults = BundleSObjects.PackageBundleVersionCreateRequestResult[];
