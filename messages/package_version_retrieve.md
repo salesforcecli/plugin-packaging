@@ -1,22 +1,18 @@
 # summary
 
-Retrieve package metadata for a specified package version.
+Retrieve package metadata for a specified package version. Package metadata can be retrieved for converted second-generation managed package versions only.
 
 # description
 
 Retrieving a package version downloads the metadata into the directory you specify.
 
-You can retrieve metadata for a second-generation managed package or an unlocked package.
-
 Specify the subscriber package version ID (starts with 04t) and the path to an empty directory when you run this command.
 
 # examples
 
-- Retrieve package metadata for a subscriber package version ID (starts with 04t) into my-folder/ within your Salesforce DX project directory:
+- Retrieve package metadata for a converted subscriber package version ID (starts with 04t) into my-folder/ within your Salesforce DX project directory:
 
-  <%= config.bin %> <%= command.id %> --package 04t... --output-dir my-folder –-target-org my-scratch
-
-  If you omit --target-org, this command runs against your default org.
+  <%= config.bin %> <%= command.id %> --package 04t... --output-dir my-folder –-target-dev-hub my-devhub
 
 # flags.package.summary
 
