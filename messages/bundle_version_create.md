@@ -38,7 +38,7 @@ Waiting for bundle version creation to complete. %s minutes remaining. Current s
 
 # bundleVersionCreateFinalStatus
 
-Bundle version creation completed with status: %s
+Package Bundle version creation completed with status: %s
 
 # multipleErrors
 
@@ -54,11 +54,11 @@ Creating bundle version...
 
 # packageVersionCreateFinalStatus
 
-Package version creation completed with status: %s
+Package Bundle version creation completed with status: %s
 
 # packageVersionCreatePerformingValidations
 
-Performing validations on the package version...
+Performing validations on the package bundle version...
 
 # bundleVersionCreateSuccess
 

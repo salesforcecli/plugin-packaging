@@ -22,7 +22,7 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_v
 type Status = BundleSObjects.PkgBundleVersionCreateReqStatus;
 export type PackageBundleVersionCreateRequestResults = BundleSObjects.PackageBundleVersionCreateRequestResult[];
 
-export class PackageVersionCreateListCommand extends SfCommand<PackageBundleVersionCreateRequestResults> {
+export class PackageBundleVersionCreateListCommand extends SfCommand<PackageBundleVersionCreateRequestResults> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
@@ -59,7 +59,7 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageBundleVers
   private connection!: Connection;
 
   public async run(): Promise<PackageBundleVersionCreateRequestResults> {
-    const { flags } = await this.parse(PackageVersionCreateListCommand);
+    const { flags } = await this.parse(PackageBundleVersionCreateListCommand);
     this.connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     let results = await PackageBundleVersionCreate.getCreateStatuses(
       this.connection,
@@ -95,7 +95,11 @@ export class PackageVersionCreateListCommand extends SfCommand<PackageBundleVers
           : {}),
       }));
 
-      this.table({ data, overflow: 'wrap', title: chalk.blue(`Package Version Create Requests  [${results.length}]`) });
+      this.table({
+        data,
+        overflow: 'wrap',
+        title: chalk.blue(`Package Bundle Version Create Requests  [${results.length}]`),
+      });
     }
 
     return results;
