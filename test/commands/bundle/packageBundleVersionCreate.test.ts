@@ -174,7 +174,7 @@ describe('package:bundle:version:create - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(2);
-      expect(logStub.args[0]).to.deep.equal(['Bundle version creation completed with status: Success']);
+      expect(logStub.args[0]).to.deep.equal(['Package Bundle version creation completed with status: Success']);
       expect(logStub.args[1]).to.deep.equal(['Successfully created bundle version for bundle 08c3i000000fylgAAA']);
     });
 

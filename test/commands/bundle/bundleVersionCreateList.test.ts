@@ -10,7 +10,7 @@ import { expect } from 'chai';
 import { PackageBundleVersionCreate } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import sinon from 'sinon';
-import { PackageVersionCreateListCommand } from '../../../src/commands/package/bundle/version/create/list.js';
+import { PackageBundleVersionCreateListCommand } from '../../../src/commands/package/bundle/version/create/list.js';
 
 describe('bundle:version:create:list - tests', () => {
   const $$ = new TestContext();
@@ -32,7 +32,7 @@ describe('bundle:version:create:list - tests', () => {
   });
 
   it('should list bundle version create requests', async () => {
-    const cmd = new PackageVersionCreateListCommand(['--target-dev-hub', testOrg.username], config);
+    const cmd = new PackageBundleVersionCreateListCommand(['--target-dev-hub', testOrg.username], config);
 
     const mockResults = [
       {
@@ -55,7 +55,7 @@ describe('bundle:version:create:list - tests', () => {
   });
 
   it('should show warning when no results found', async () => {
-    const cmd = new PackageVersionCreateListCommand(['--target-dev-hub', testOrg.username], config);
+    const cmd = new PackageBundleVersionCreateListCommand(['--target-dev-hub', testOrg.username], config);
 
     getCreateStatusesStub.resolves([]);
 
@@ -67,7 +67,7 @@ describe('bundle:version:create:list - tests', () => {
   });
 
   it('should throw error when target-dev-hub flag is missing', async () => {
-    const cmd = new PackageVersionCreateListCommand([], config);
+    const cmd = new PackageBundleVersionCreateListCommand([], config);
 
     try {
       await cmd.run();
