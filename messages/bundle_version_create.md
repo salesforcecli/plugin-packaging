@@ -32,6 +32,10 @@ Show verbose output of the command execution.
 
 Show detailed information about the bundle version creation process.
 
+# flags.description.summary
+
+Description of the package bundle version.
+
 # bundleVersionCreateWaitingStatus
 
 Waiting for bundle version creation to complete. %s minutes remaining. Current status: %s

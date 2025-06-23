@@ -34,6 +34,10 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       summary: messages.getMessage('flags.bundle.summary'),
       required: true,
     }),
+    description: Flags.string({
+      char: 'd',
+      summary: messages.getMessage('flags.description.summary'),
+    }),
     'definition-file': Flags.string({
       char: 'p',
       summary: messages.getMessage('flags.definition-file.summary'),
@@ -58,6 +62,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       project: this.project!,
       PackageBundle: flags.bundle,
       BundleVersionComponentsPath: flags['definition-file'],
+      Description: flags.description,
       MajorVersion: '',
       MinorVersion: '',
       Ancestor: '',
