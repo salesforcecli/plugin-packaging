@@ -51,23 +51,22 @@ export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVers
       }
 
       const data = results.map((r) => ({
-        'Bundle Name': r.PackageBundle.BundleName ?? 'N/A',
-        'Bundle Id': r.PackageBundle.Id ?? 'N/A',
-        'Bundle Version Number': String(r.MajorVersion ?? 'N/A') + '.' + String(r.MinorVersion ?? 'N/A'),
-        'Bundle Version Id': r.Id ?? 'N/A',
-        'Bundle Version Name': r.VersionName ?? 'N/A',
-        'Bundle Version Description': r.PackageBundle.Description ?? 'N/A',
+        'Bundle Name': r.PackageBundle.BundleName,
+        'Bundle Id': r.PackageBundle.Id,
+        'Bundle Version Number': String(r.MajorVersion) + '.' + String(r.MinorVersion),
+        'Bundle Version Id': r.Id,
+        'Bundle Version Name': r.VersionName,
+        'Bundle Version Description': r.PackageBundle.Description,
         ...(flags.verbose
           ? {
-              'Ancestor Id': r.Ancestor?.Id ?? 'N/A',
-              'Ancestor Name': r.Ancestor?.PackageBundle.BundleName ?? 'N/A',
-              'Ancestor Version Name': r.Ancestor?.VersionName ?? 'N/A',
-              'Ancestor Version':
-                String(r.Ancestor?.MajorVersion ?? 'N/A') + '.' + String(r.Ancestor?.MinorVersion ?? 'N/A'),
-              'Created Date': r.CreatedDate ?? 'N/A',
-              'Created By': r.CreatedById ?? 'N/A',
-              'Last Modified Date': r.LastModifiedDate ?? 'N/A',
-              'Last Modified By': r.LastModifiedById ?? 'N/A',
+              'Ancestor Id': r.Ancestor?.Id,
+              'Ancestor Name': r.Ancestor?.PackageBundle.BundleName,
+              'Ancestor Version Name': r.Ancestor?.VersionName,
+              'Ancestor Version': String(r.Ancestor?.MajorVersion) + '.' + String(r.Ancestor?.MinorVersion),
+              'Created Date': r.CreatedDate,
+              'Created By': r.CreatedById,
+              'Last Modified Date': r.LastModifiedDate,
+              'Last Modified By': r.LastModifiedById,
             }
           : {}),
       }));
