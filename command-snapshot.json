@@ -117,7 +117,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:version:list"],
+    "alias": [],
     "command": "package:bundle:version:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],

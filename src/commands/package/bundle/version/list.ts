@@ -7,7 +7,7 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Connection, Messages } from '@salesforce/core';
-import { PackageVersion, getPackageVersionNumber, BundleSObjects, PackageBundleVersion } from '@salesforce/packaging';
+import { BundleSObjects, PackageBundleVersion } from '@salesforce/packaging';
 import chalk from 'chalk';
 import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
@@ -20,8 +20,6 @@ export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVers
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly deprecateAliases = true;
-  public static readonly aliases = ['force:package:bundle:version:list'];
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -36,20 +34,11 @@ export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVers
   public async run(): Promise<PackageBundleVersionResults> {
     const { flags } = await this.parse(PackageBundleVersionListCommand);
     this.connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    let results = await PackageBundleVersion.list(this.connection);
+    const results = await PackageBundleVersion.list(this.connection);
 
     if (results.length === 0) {
       this.warn('No results found');
     } else {
-      if (flags.verbose) {
-        try {
-          results = await this.fetchVerboseData(results);
-        } catch (err) {
-          const errMsg = typeof err === 'string' ? err : err instanceof Error ? err.message : 'unknown error';
-          this.warn(`error when retrieving verbose data (package name and version) due to: ${errMsg}`);
-        }
-      }
-
       const data = results.map((r) => ({
         'Bundle Name': r.PackageBundle.BundleName,
         'Bundle Id': r.PackageBundle.Id,
@@ -79,59 +68,5 @@ export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVers
     }
 
     return results;
-  }
-
-  // Queries Package2Version for the name and version number of the packages and adds that data
-  // to the results.
-  private async fetchVerboseData(results: PackageBundleVersionResults): Promise<PackageBundleVersionResults> {
-    type VersionDataMap = {
-      [id: string]: { name: string; version: string };
-    };
-
-    // Filter out any results without a valid PackageBundleVersionId
-    const validResults = results.filter((r) => r?.Id);
-    if (validResults.length === 0) {
-      return results;
-    }
-
-    // Query for the version name and number data
-    const versionData = await PackageVersion.queryPackage2Version(this.connection, {
-      fields: [
-        'Id',
-        'Name',
-        'MajorVersion',
-        'MinorVersion',
-        'PatchVersion',
-        'BuildNumber',
-        'CreatedDate',
-        'CreatedById',
-        'LastModifiedDate',
-        'LastModifiedById',
-        'SystemModstamp',
-      ],
-      whereClause: "WHERE Id IN ('%IDS%')",
-      whereClauseItems: validResults.map((pvcrr) => pvcrr.Id),
-    });
-
-    const vDataMap: VersionDataMap = {};
-    versionData.forEach((vData) => {
-      if (vData?.Id) {
-        const version = getPackageVersionNumber(vData, true);
-        vDataMap[vData.Id] = { name: vData.Name, version };
-      }
-    });
-
-    return results.map((pvcrr) => {
-      if (pvcrr?.Id && vDataMap[pvcrr.Id]) {
-        return {
-          ...pvcrr,
-          ...{
-            VersionName: vDataMap[pvcrr.Id].name,
-            VersionNumber: vDataMap[pvcrr.Id].version,
-          },
-        };
-      }
-      return pvcrr;
-    });
   }
 }
