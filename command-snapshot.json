@@ -125,6 +125,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:bundle:version:report",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["p", "v"],
+    "flags": ["api-version", "bundle-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:convert"],
     "command": "package:convert",
     "flagAliases": [
