@@ -26,7 +26,7 @@ describe('package:bundle:version:report - tests', () => {
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
 
     reportStub = $$.SANDBOX.stub(PackageBundleVersion, 'report');
-    componentPackagesStub = $$.SANDBOX.stub(PackageBundleVersion, 'componentPackages');
+    componentPackagesStub = $$.SANDBOX.stub(PackageBundleVersion, 'getComponentPackages');
   });
 
   afterEach(() => {

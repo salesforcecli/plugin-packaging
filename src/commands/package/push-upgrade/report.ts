@@ -39,7 +39,6 @@ export class PackagePushUpgradeReportCommand extends SfCommand<ReportCommandResu
       char: 'i',
       summary: messages.getMessage('flags.push-request-id.summary'),
       required: true,
-      startsWith: '0DV',
     }),
   };
 
