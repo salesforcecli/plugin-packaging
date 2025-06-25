@@ -18,7 +18,6 @@ export class PackageBundlesCreate extends SfCommand<BundleCreate> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
-  public static readonly aliases = ['force:package:bundle:create'];
   public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,

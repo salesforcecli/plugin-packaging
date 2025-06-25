@@ -268,7 +268,7 @@ export class Install extends SfCommand<PackageInstallRequest> {
         enableRss = await this.confirm({ message: promptMsg });
       }
       if (enableRss) {
-        request.EnableRss = enableRss;
+        Object.assign(request, { EnableRss: enableRss });
       }
     }
   }

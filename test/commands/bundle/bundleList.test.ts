@@ -11,7 +11,7 @@ import { PackageBundle } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import sinon from 'sinon';
 import { BundleListCommand } from '../../../src/commands/package/bundle/list.js';
-describe('force:bundle:list - tests', () => {
+describe('package:bundle:list - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;

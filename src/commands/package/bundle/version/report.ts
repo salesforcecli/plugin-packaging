@@ -16,7 +16,6 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_v
 
 export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.BundleVersion> {
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly flags = {
     loglevel,
@@ -24,7 +23,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
     'api-version': orgApiVersionFlagWithDeprecations,
     'bundle-version': Flags.string({
       char: 'p',
-      summary: messages.getMessage('flags.bundleVersion.summary'),
+      summary: messages.getMessage('flags.bundle-version.summary'),
       required: true,
     }),
     verbose: Flags.boolean({
@@ -36,7 +35,6 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
     const { flags } = await this.parse(PackageBundleVersionReportCommand);
     const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const results = await PackageBundleVersion.report(connection, flags['bundle-version']);
-    const componentPackages = await PackageBundleVersion.componentPackages(connection, flags['bundle-version']);
 
     if (!results) {
       throw new Error(`No bundle version found with ID: ${flags['bundle-version']}`);
@@ -44,6 +42,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
 
     const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults, flags.verbose);
+    const componentPackages = await PackageBundleVersion.componentPackages(connection, flags['bundle-version']);
     this.displayComponentPackages(componentPackages);
     return massagedResults;
   }

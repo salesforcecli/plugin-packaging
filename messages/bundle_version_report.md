@@ -2,21 +2,13 @@
 
 Retrieve details about a package bundle version in the Dev Hub org.
 
-# description
-
-Use this command to retrieve detailed information about a package bundle version, including its bundle information, version details, and ancestor information if available.
-
 # examples
 
-- Retrieve details about the package bundle version with the specified ID from your default Dev Hub org:
+Retrieve details about the package bundle version; uses the Dev Hub org with the username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --bundle-version 0Ho0x0000000000000
+sf package bundle version report --bundle-version "Your bundle version name or ID" --target-dev-hub devhub@example.com
 
-- Retrieve details about the package bundle version with verbose output:
-
-  <%= config.bin %> <%= command.id %> --bundle-version 0Ho0x0000000000000 --verbose
-
-# flags.bundleVersion.summary
+# flags.bundle-version.summary
 
 ID of the package bundle version to retrieve details for.
 
