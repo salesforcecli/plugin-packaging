@@ -42,7 +42,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
 
     const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults, flags.verbose);
-    const componentPackages = await PackageBundleVersion.componentPackages(connection, flags['bundle-version']);
+    const componentPackages = await PackageBundleVersion.getComponentPackages(connection, flags['bundle-version']);
     this.displayComponentPackages(componentPackages);
     return massagedResults;
   }
