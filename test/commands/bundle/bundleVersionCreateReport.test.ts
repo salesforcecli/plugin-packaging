@@ -12,7 +12,7 @@ import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import sinon from 'sinon';
 import { PackageBundleVersionCreateReportCommand } from '../../../src/commands/package/bundle/version/create/report.js';
 
-describe('force:package:bundle:version:create:report - tests', () => {
+describe('package:bundle:version:create:report - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
