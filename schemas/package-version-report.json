@@ -182,6 +182,9 @@
         "TotalSizeOfMetadataFiles": {
           "type": "number"
         },
+        "DeveloperUsePkgZip": {
+          "type": "string"
+        },
         "SubscriberPackageVersion": {
           "type": "object",
           "properties": {
