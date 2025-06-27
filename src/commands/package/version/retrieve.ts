@@ -28,7 +28,6 @@ export type FileDownloadEntry = {
 export type PackageVersionRetrieveCommandResult = FileDownloadEntry[];
 
 export class PackageVersionRetrieveCommand extends SfCommand<PackageVersionRetrieveCommandResult> {
-  public static readonly hidden = false;
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
