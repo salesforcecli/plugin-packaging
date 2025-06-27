@@ -13,7 +13,7 @@ import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { Connection, SfProject } from '@salesforce/core';
 import { PackageBundlesCreate } from '../../../src/commands/package/bundle/create.js';
 
-describe('force:bundle:create - tests', () => {
+describe('package:bundle:create - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;

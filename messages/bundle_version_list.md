@@ -4,9 +4,9 @@ List all package bundle versions in the Dev Hub org.
 
 # examples
 
-List all package bundle versions in the specified Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
+List package bundle versions in the Dev Hub org with the username devhub@example.com:
 
-sf package bundle version list --target-dev-hub <dev_hub_alias>
+sf package bundle version list --bundle “Your bundle name or ID” --target-dev-hub devhub@example.com
 
 # namespace
 

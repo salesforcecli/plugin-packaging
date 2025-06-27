@@ -56,7 +56,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:create"],
+    "alias": [],
     "command": "package:bundle:create",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["d", "n", "v"],
@@ -64,7 +64,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:list"],
+    "alias": [],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
@@ -72,7 +72,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:version:create"],
+    "alias": [],
     "command": "package:bundle:version:create",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["b", "d", "p", "v", "w"],
@@ -91,7 +91,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:version:create:list"],
+    "alias": [],
     "command": "package:bundle:version:create:list",
     "flagAliases": ["apiversion", "createdlastdays", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["c", "s", "v"],
@@ -109,7 +109,7 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-    "alias": ["force:package:bundle:version:create:report"],
+    "alias": [],
     "command": "package:bundle:version:create:report",
     "flagAliases": ["apiversion", "packagecreaterequestid", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["i", "v"],
@@ -122,6 +122,14 @@
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:bundle:version:report",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["p", "v"],
+    "flags": ["api-version", "bundle-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
