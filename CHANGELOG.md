@@ -1,3 +1,13 @@
+# [2.16.0](https://github.com/salesforcecli/plugin-packaging/compare/2.15.4...2.16.0) (2025-06-13)
+
+### Features
+
+- adding code coverage option description to the convert command ([ebd51da](https://github.com/salesforcecli/plugin-packaging/commit/ebd51da9d6607d0bbbe10edcf37fec5924f7b7f8))
+- adding code coverage option linking with packaging ([542cc69](https://github.com/salesforcecli/plugin-packaging/commit/542cc694738f62f89939d156654d5dcffe7b4937))
+- adding code coverage option to the convert command ([0574be5](https://github.com/salesforcecli/plugin-packaging/commit/0574be591647c9fa8da31d44a734f41a3396fbaa))
+- adding code coverage option to the convert command with snapshot ([07959d1](https://github.com/salesforcecli/plugin-packaging/commit/07959d18345974793d6dd4e6287c80511d337fb3))
+- adding code coverage option to the convert command with snapshot and tests ([a6cb4d4](https://github.com/salesforcecli/plugin-packaging/commit/a6cb4d4370f64cfeb110c17f8b4fecc146b47298))
+
 ## [2.15.4](https://github.com/salesforcecli/plugin-packaging/compare/2.15.3...2.15.4) (2025-06-10)
 
 ### Bug Fixes
