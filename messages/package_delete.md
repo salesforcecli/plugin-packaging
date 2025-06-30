@@ -22,10 +22,6 @@ Delete unlocked and second-generation managed packages. Before you delete a pack
 
 ID (starts with 0Ho) or alias of the package to delete.
 
-# flags.undelete.summary
-
-Undelete a deleted package.
-
 # flags.no-prompt.summary
 
 Don’t prompt before deleting the package.
