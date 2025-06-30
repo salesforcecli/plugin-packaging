@@ -22,10 +22,6 @@ Delete package bundles. Before you delete a package bundle, first delete all ass
 
 ID (starts with 1Fl) or alias of the package bundle to delete.
 
-# flags.undelete.summary
-
-Undelete a deleted package bundle.
-
 # flags.no-prompt.summary
 
 Don't prompt before deleting the package bundle.
@@ -33,12 +29,6 @@ Don't prompt before deleting the package bundle.
 # prompt-delete
 
 Deleted package bundles can't be recovered.
-
-Do you want to continue? (y/n)
-
-# prompt-undelete
-
-This will undelete the package bundle, which may result in unintended consequences for customers. Proceed with caution.
 
 Do you want to continue? (y/n)
 

@@ -33,16 +33,11 @@ export class PackageBundleDeleteCommand extends SfCommand<BundleSaveResult> {
       summary: messages.getMessage('flags.bundle.summary'),
       required: true,
     }),
-    undelete: Flags.boolean({
-      summary: messages.getMessage('flags.undelete.summary'),
-      hidden: true,
-      default: false,
-    }),
   };
 
   public async run(): Promise<BundleSaveResult> {
     const { flags } = await this.parse(PackageBundleDeleteCommand);
-    const message = messages.getMessage(flags.undelete ? 'prompt-undelete' : 'prompt-delete');
+    const message = messages.getMessage('prompt-delete');
     const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm({ message });
     if (!accepted) {
       throw messages.createError('prompt-delete-deny');

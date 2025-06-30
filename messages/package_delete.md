@@ -24,11 +24,15 @@ ID (starts with 0Ho) or alias of the package to delete.
 
 # flags.no-prompt.summary
 
-Don’t prompt before deleting the package.
+Don't prompt before deleting the package.
+
+# flags.undelete.summary
+
+Undelete a deleted package.
 
 # prompt-delete
 
-Deleted packages can’t be recovered.
+Deleted packages can't be recovered.
 
 Do you want to continue? (y/n)
 
