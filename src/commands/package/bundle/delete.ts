@@ -7,16 +7,17 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
-import { PackageBundle } from '@salesforce/packaging';
+import { PackageBundle, BundleSaveResult } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_bundle_delete');
 
-export class PackageBundleDeleteCommand extends SfCommand<void> {
+export class PackageBundleDeleteCommand extends SfCommand<BundleSaveResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
+  public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -28,7 +29,7 @@ export class PackageBundleDeleteCommand extends SfCommand<void> {
       summary: messages.getMessage('flags.no-prompt.summary'),
     }),
     bundle: Flags.string({
-      char: 'p',
+      char: 'b',
       summary: messages.getMessage('flags.bundle.summary'),
       required: true,
     }),
@@ -39,7 +40,7 @@ export class PackageBundleDeleteCommand extends SfCommand<void> {
     }),
   };
 
-  public async run(): Promise<void> {
+  public async run(): Promise<BundleSaveResult> {
     const { flags } = await this.parse(PackageBundleDeleteCommand);
     const message = messages.getMessage(flags.undelete ? 'prompt-undelete' : 'prompt-delete');
     const accepted = flags['no-prompt'] || flags.json ? true : await this.confirm({ message });
@@ -48,12 +49,17 @@ export class PackageBundleDeleteCommand extends SfCommand<void> {
     }
 
     const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
-    await PackageBundle.delete(connection, flags.bundle);
-    this.display();
+    const result = await PackageBundle.delete(connection, this.project!, flags.bundle);
+    this.display(result);
+    return result;
   }
 
-  private display(): void {
+  private display(result: BundleSaveResult): void {
     this.log();
-    this.logSuccess(messages.getMessage('humanSuccess'));
+    if ((result as { success: boolean }).success) {
+      this.logSuccess(messages.getMessage('humanSuccess', [(result as { id: string }).id]));
+    } else {
+      this.error(messages.getMessage('humanError'));
+    }
   }
 }

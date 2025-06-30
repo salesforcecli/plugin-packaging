@@ -51,7 +51,7 @@ describe('package:bundle:version:create:report - tests', () => {
     getCreateStatusStub.resolves(mockResult);
 
     const cmd = new PackageBundleVersionCreateReportCommand(
-      ['--package-create-request-id', requestId, '--target-dev-hub', testOrg.username],
+      ['--bundle-version-create-request-id', requestId, '--target-dev-hub', testOrg.username],
       config
     );
 
@@ -83,7 +83,7 @@ describe('package:bundle:version:create:report - tests', () => {
     getCreateStatusStub.resolves(mockResult);
 
     const cmd = new PackageBundleVersionCreateReportCommand(
-      ['-i', requestId, '--target-dev-hub', testOrg.username],
+      ['--bundle-version-create-request-id', requestId, '--target-dev-hub', testOrg.username],
       config
     );
 
@@ -108,7 +108,7 @@ describe('package:bundle:version:create:report - tests', () => {
 
   it('should throw error when target-dev-hub flag is missing', async () => {
     const requestId = '0Ho0x0000000000000';
-    const cmd = new PackageBundleVersionCreateReportCommand(['--package-create-request-id', requestId], config);
+    const cmd = new PackageBundleVersionCreateReportCommand(['--bundle-version-create-request-id', requestId], config);
 
     try {
       await cmd.run();
@@ -125,7 +125,7 @@ describe('package:bundle:version:create:report - tests', () => {
     getCreateStatusStub.rejects(new Error(errorMessage));
 
     const cmd = new PackageBundleVersionCreateReportCommand(
-      ['--package-create-request-id', requestId, '--target-dev-hub', testOrg.username],
+      ['--bundle-version-create-request-id', requestId, '--target-dev-hub', testOrg.username],
       config
     );
 

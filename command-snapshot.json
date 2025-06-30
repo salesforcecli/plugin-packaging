@@ -99,6 +99,14 @@
   },
   {
     "alias": [],
+    "command": "package:bundle:delete",
+    "flagAliases": ["apiversion", "noprompt", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["b", "n", "v"],
+    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "no-prompt", "target-dev-hub", "undelete"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:bundle:list"],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
@@ -145,9 +153,9 @@
   {
     "alias": [],
     "command": "package:bundle:version:create:report",
-    "flagAliases": ["apiversion", "packagecreaterequestid", "target-hub-org", "targetdevhubusername"],
+    "flagAliases": ["apiversion", "bundleversioncreaterequestid", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["i", "v"],
-    "flags": ["api-version", "flags-dir", "json", "loglevel", "package-create-request-id", "target-dev-hub"],
+    "flags": ["api-version", "bundle-version-create-request-id", "flags-dir", "json", "loglevel", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
