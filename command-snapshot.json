@@ -102,7 +102,7 @@
     "command": "package:bundle:delete",
     "flagAliases": ["apiversion", "noprompt", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["b", "n", "v"],
-    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "no-prompt", "target-dev-hub", "undelete"],
+    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "no-prompt", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
@@ -235,6 +235,14 @@
       "path",
       "target-dev-hub"
     ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": ["force:package:delete"],
+    "command": "package:delete",
+    "flagAliases": ["apiversion", "noprompt", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["n", "p", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "no-prompt", "package", "target-dev-hub", "undelete"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
