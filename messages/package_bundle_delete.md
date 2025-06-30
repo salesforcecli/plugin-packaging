@@ -48,4 +48,8 @@ The request to delete this package bundle was canceled
 
 # humanSuccess
 
-Successfully deleted the package bundle.
+Successfully deleted the package bundle %s.
+
+# humanError
+
+Failed to delete the package bundle.
