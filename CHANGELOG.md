@@ -1,3 +1,9 @@
+# [2.17.0](https://github.com/salesforcecli/plugin-packaging/compare/2.16.0...2.17.0) (2025-07-01)
+
+### Features
+
+- **W-17369132:** reflect feat change to use Package2Version instead of MetadataP… ([#984](https://github.com/salesforcecli/plugin-packaging/issues/984)) ([31d12db](https://github.com/salesforcecli/plugin-packaging/commit/31d12dbd42ac6721483599a29067994073108358))
+
 # [2.16.0](https://github.com/salesforcecli/plugin-packaging/compare/2.15.4...2.16.0) (2025-06-13)
 
 ### Features
