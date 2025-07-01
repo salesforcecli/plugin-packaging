@@ -417,9 +417,9 @@
   {
     "alias": [],
     "command": "package:version:retrieve",
-    "flagAliases": ["apiversion", "targetusername", "u"],
-    "flagChars": ["d", "o", "p"],
-    "flags": ["api-version", "flags-dir", "json", "loglevel", "output-dir", "package", "target-org"],
+    "flagAliases": ["apiversion", "targetdevhubusername"],
+    "flagChars": ["d", "p", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "output-dir", "package", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {

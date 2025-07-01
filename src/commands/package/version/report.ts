@@ -24,7 +24,13 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_
 const pvlMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_list');
 const plMessages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_list');
 
-const omissions = ['CodeCoverage', 'HasPassedCodeCoverageCheck', 'Package2', 'HasMetadataRemoved'] as const;
+const omissions = [
+  'CodeCoverage',
+  'HasPassedCodeCoverageCheck',
+  'Package2',
+  'HasMetadataRemoved',
+  'DeveloperUsePkgZip',
+] as const;
 type Omission = (typeof omissions)[number];
 
 export type PackageVersionReportResultModified = Omit<PackageVersionReportResult, Omission> & {

@@ -40,7 +40,7 @@ Filename of the CSV file that contains the list of subscriber org IDs that need 
 
 # flags.org-file.description
 
-The file must contain one org per line. The org ID must be the only value in each row. 
+The file must contain one org per line. The org ID must be the only value in each row.
 All listed orgs must have a package version installed in their org that is lower than the package version you specified for the --package flag.
 
 # flags.org-list.summary
