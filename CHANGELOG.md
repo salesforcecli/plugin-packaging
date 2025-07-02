@@ -1,3 +1,9 @@
+# [2.18.0](https://github.com/salesforcecli/plugin-packaging/compare/2.17.0...2.18.0) (2025-07-02)
+
+### Features
+
+- @W-17369132 keep retrieve command hidden ([#996](https://github.com/salesforcecli/plugin-packaging/issues/996)) ([91cebec](https://github.com/salesforcecli/plugin-packaging/commit/91cebec9e81ecc41806a5a1cb1c4ae956f9ffe82))
+
 # [2.17.0](https://github.com/salesforcecli/plugin-packaging/compare/2.16.0...2.17.0) (2025-07-01)
 
 ### Features
