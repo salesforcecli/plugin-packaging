@@ -13,8 +13,11 @@ import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_version_report');
+export type BundleVersionReportResult = BundleSObjects.BundleVersion & {
+  componentPackages: PackagingSObjects.SubscriberPackageVersion[];
+};
 
-export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.BundleVersion> {
+export class PackageBundleVersionReportCommand extends SfCommand<BundleVersionReportResult> {
   public static readonly summary = messages.getMessage('summary');
   public static readonly examples = messages.getMessages('examples');
   public static readonly flags = {
@@ -22,7 +25,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     'bundle-version': Flags.string({
-      char: 'p',
+      char: 'b',
       summary: messages.getMessage('flags.bundle-version.summary'),
       required: true,
     }),
@@ -31,7 +34,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
     }),
   };
 
-  public async run(): Promise<BundleSObjects.BundleVersion> {
+  public async run(): Promise<BundleVersionReportResult> {
     const { flags } = await this.parse(PackageBundleVersionReportCommand);
     const connection = flags['target-dev-hub'].getConnection(flags['api-version']);
     const results = await PackageBundleVersion.report(connection, flags['bundle-version']);
@@ -43,8 +46,13 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleSObjects.
     const massagedResults = this.massageResultsForDisplay(results);
     this.display(massagedResults, flags.verbose);
     const componentPackages = await PackageBundleVersion.getComponentPackages(connection, flags['bundle-version']);
+    const massagedResultsWithComponentPackages = {
+      ...massagedResults,
+      componentPackages,
+    };
+
     this.displayComponentPackages(componentPackages);
-    return massagedResults;
+    return massagedResultsWithComponentPackages;
   }
 
   private display(record: BundleSObjects.BundleVersion, verbose: boolean): void {
