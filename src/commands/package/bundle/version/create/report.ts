@@ -26,12 +26,12 @@ export class PackageBundleVersionCreateReportCommand extends SfCommand<ReportCom
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
-    'package-create-request-id': Flags.salesforceId({
+    'bundle-version-create-request-id': Flags.salesforceId({
       length: 'both',
       deprecateAliases: true,
-      aliases: ['packagecreaterequestid'],
+      aliases: ['bundleversioncreaterequestid'],
       char: 'i',
-      summary: messages.getMessage('flags.package-create-request-id.summary'),
+      summary: messages.getMessage('flags.bundle-version-create-request-id.summary'),
       required: true,
     }),
   };
@@ -39,7 +39,7 @@ export class PackageBundleVersionCreateReportCommand extends SfCommand<ReportCom
   public async run(): Promise<ReportCommandResult> {
     const { flags } = await this.parse(PackageBundleVersionCreateReportCommand);
     const result = await PackageBundleVersionCreate.getCreateStatus(
-      flags['package-create-request-id'],
+      flags['bundle-version-create-request-id'],
       flags['target-dev-hub'].getConnection(flags['api-version'])
     );
     this.display(result);
@@ -57,11 +57,11 @@ export class PackageBundleVersionCreateReportCommand extends SfCommand<ReportCom
         value: camelCaseToTitleCase(record.RequestStatus),
       },
       {
-        name: messages.getMessage('package-bundle-id'),
+        name: messages.getMessage('bundle-id'),
         value: record.PackageBundleId,
       },
       {
-        name: messages.getMessage('package-bundle-version-id'),
+        name: messages.getMessage('bundle-version-id'),
         value: record.PackageBundleVersionId,
       },
       {
