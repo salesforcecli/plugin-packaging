@@ -16,7 +16,7 @@ Use this command to check the status of a package bundle version creation reques
 
   <%= config.bin %> force:package:bundle:version:create:report -i 0Ho0x0000000000000
 
-# flags.package-create-request-id.summary
+# flags.bundle-version-create-request-id.summary
 
 The ID of the package bundle version creation request to report on.
 
@@ -28,11 +28,11 @@ ID
 
 Status
 
-# package-bundle-id
+# bundle-id
 
 Package Bundle ID
 
-# package-bundle-version-id
+# bundle-version-id
 
 Package Bundle Version ID
 
