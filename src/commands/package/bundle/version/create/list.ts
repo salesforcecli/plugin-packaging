@@ -23,6 +23,8 @@ type Status = BundleSObjects.PkgBundleVersionCreateReqStatus;
 export type PackageBundleVersionCreateRequestResults = BundleSObjects.PackageBundleVersionCreateRequestResult[];
 
 export class PackageBundleVersionCreateListCommand extends SfCommand<PackageBundleVersionCreateRequestResults> {
+  public static readonly hidden = true;
+  public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
