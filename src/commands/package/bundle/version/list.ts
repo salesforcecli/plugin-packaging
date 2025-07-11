@@ -17,6 +17,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_v
 export type PackageBundleVersionResults = BundleSObjects.BundleVersion[];
 
 export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVersionResults> {
+  public static readonly hidden = true;
+  public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');

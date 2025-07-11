@@ -14,6 +14,8 @@ Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_bundle_delete');
 
 export class PackageBundleDeleteCommand extends SfCommand<BundleSaveResult> {
+  public static readonly hidden = true;
+  public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
