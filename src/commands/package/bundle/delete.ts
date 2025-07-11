@@ -53,8 +53,8 @@ export class PackageBundleDeleteCommand extends SfCommand<BundleSaveResult> {
 
   private display(result: BundleSaveResult): void {
     this.log();
-    if (result.success) {
-      this.logSuccess(messages.getMessage('humanSuccess', [result.id]));
+    if ((result as { success: boolean }).success) {
+      this.logSuccess(messages.getMessage('humanSuccess', [(result as { id: string }).id]));
     } else {
       this.error(messages.getMessage('humanError'));
     }
