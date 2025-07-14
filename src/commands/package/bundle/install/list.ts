@@ -18,6 +18,8 @@ type Status = BundleSObjects.PkgBundleVersionInstallReqStatus;
 export type PackageBundleInstallRequestResults = BundleSObjects.PkgBundleVersionInstallReqResult[];
 
 export class PackageBundleInstallListCommand extends SfCommand<PackageBundleInstallRequestResults> {
+  public static readonly hidden = true;
+  public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
