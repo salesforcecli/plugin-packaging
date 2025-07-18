@@ -81,8 +81,8 @@ Upgrade type for the package installation; available only for unlocked packages.
 For unlocked package upgrades, set this flag to one of these values:
 
 - DeprecateOnly: Mark all removed components as deprecated.
-- Mixed: Delete removed components, except for custom objects and custom fields, that don't have dependencies.
-- Delete: Delete all removed components that can be safely deleted, and deprecate the other components.
+- Mixed: Delete all removed components that can be safely deleted and deprecate the other components.
+- Delete: Delete removed components, except for custom objects and custom fields, that don't have dependencies.
 
 # flags.apex-compile.summary
 
