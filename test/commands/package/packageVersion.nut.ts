@@ -470,6 +470,94 @@ describe('package:version:*', () => {
     });
   });
 
+  describe('package:version:displaydependencies', () => {
+    type PackageVersionCreateRequestResult = {
+      Id: string;
+      Package2Version: {
+        SubscriberPackageVersionId: string;
+      };
+    };
+    let devHubOrg: Org;
+    let configAggregator: ConfigAggregator;
+    let testPackageRequestId: string; // 08c ID
+    let testSubscriberPackageVersionId: string; // 04t ID
+
+    before('dependencies project setup', async () => {
+      const query = 'SELECT Id, Package2Version.SubscriberPackageVersionId FROM Package2VersionCreateRequest LIMIT 10';
+      configAggregator = await ConfigAggregator.create();
+      devHubOrg = await Org.create({ aliasOrUsername: configAggregator.getPropertyValue<string>('target-dev-hub') });
+      const pvRecords = (await devHubOrg.getConnection().tooling.query<PackageVersionCreateRequestResult>(query))
+        .records;
+
+      if (!pvRecords || pvRecords.length === 0) {
+        throw new Error('No package version create requests found with dependency graph json');
+      }
+      const pv = pvRecords[0];
+      testPackageRequestId = pv.Id;
+      testSubscriberPackageVersionId = pv.Package2Version.SubscriberPackageVersionId;
+    });
+    it('should print the correct DOT code output (default)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId}`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasValidNode = result.includes('node_');
+      expect(hasValidNode).to.be.true;
+      expect(result).to.match(/label="[^"]*@\d\.\d\.\d\.\d"/);
+      const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
+      if (hasMultipleNodes) {
+        expect(result).to.contain('->');
+      }
+    });
+    it('should print the correct DOT code output  (verbose)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId} --verbose`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasSubscriberPackageVersionId = /\(04t.{15}\)/.test(result);
+      const hasVersionBeingBuilt = result.includes('(VERSION_BEING_BUILT)');
+      expect(hasSubscriberPackageVersionId || hasVersionBeingBuilt).to.be.true;
+    });
+    it('should print the correct DOT code output (json)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId} --json`;
+      const result = execCmd<string>(command, { ensureExitCode: 0 });
+      const dotCode = result.jsonOutput?.result;
+      expect(dotCode).to.be.a('string');
+      expect(dotCode).to.contain('strict digraph G {');
+    });
+    it('should print the correct DOT code output  (root-last)', () => {
+      const commandRootFirst = `package:version:displaydependencies -p ${testPackageRequestId} --edge-direction root-first`;
+      const resultRootFirst = execCmd(commandRootFirst, { ensureExitCode: 0 }).shellOutput.stdout;
+      const commandRootLast = `package:version:displaydependencies -p ${testPackageRequestId} --edge-direction root-last`;
+      const resultRootLast = execCmd(commandRootLast, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(resultRootFirst).to.contain('strict digraph G {');
+      expect(resultRootLast).to.contain('strict digraph G {');
+      const hasMultipleNodes = ((resultRootFirst.match(/node_/g) && resultRootLast.match(/node_/g)) || []).length > 1;
+      if (hasMultipleNodes) {
+        const edgeLinesFirst = resultRootFirst.match(/\t node_\w+ -> node_\w+/g) || [];
+        const edgeLinesLast = resultRootLast.match(/\t node_\w+ -> node_\w+/g) || [];
+        expect(edgeLinesFirst.length).to.equal(edgeLinesLast.length);
+        expect(resultRootFirst).to.not.equal(resultRootLast);
+      } else {
+        expect(resultRootFirst).to.contain('node_');
+        expect(resultRootLast).to.contain('node_');
+      }
+    });
+    it('should work with 04t package version ID if available', function () {
+      if (!testSubscriberPackageVersionId) {
+        this.skip();
+      }
+      const command = `package:version:displaydependencies -p ${testSubscriberPackageVersionId}`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasValidNode = result.includes('node_');
+      expect(hasValidNode).to.be.true;
+      expect(result).to.match(/label="[^"]*@\d\.\d\.\d\.\d"/);
+      const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
+      if (hasMultipleNodes) {
+        expect(result).to.contain('->');
+      }
+    });
+  });
+
   describe('package:version:ancestrydisplay', () => {
     type PackageVersionQueryResult = PackagingSObjects.Package2Version & {
       Package2: {
