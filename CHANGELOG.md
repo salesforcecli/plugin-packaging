@@ -1,3 +1,9 @@
+## [2.18.1](https://github.com/salesforcecli/plugin-packaging/compare/2.18.0...2.18.1) (2025-07-24)
+
+### Bug Fixes
+
+- Update package_install.md ([5ad2bc8](https://github.com/salesforcecli/plugin-packaging/commit/5ad2bc8d2e4ef1de589d92fe557fe25c22a4374a))
+
 # [2.18.0](https://github.com/salesforcecli/plugin-packaging/compare/2.17.0...2.18.0) (2025-07-02)
 
 ### Features
