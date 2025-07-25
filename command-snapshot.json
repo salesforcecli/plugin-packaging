@@ -369,6 +369,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:version:displaydependencies",
+    "flagAliases": [],
+    "flagChars": ["p", "v"],
+    "flags": ["api-version", "package", "target-dev-hub", "verbose", "edge-direction"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:version:list"],
     "command": "package:version:list",
     "flagAliases": [
