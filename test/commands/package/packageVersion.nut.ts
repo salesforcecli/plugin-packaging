@@ -481,6 +481,8 @@ describe('package:version:*', () => {
     let configAggregator: ConfigAggregator;
     let testPackageRequestId: string; // 08c ID
     let testSubscriberPackageVersionId: string; // 04t ID
+    const NODE_LABEL_REGEX = /label="[^"]*@\d+\.\d+\.\d+\.\d+"/;
+    const EDGE_REGEX = /\t node_\w+ -> node_\w+/g;
 
     before('dependencies project setup', async () => {
       const query = 'SELECT Id, Package2Version.SubscriberPackageVersionId FROM Package2VersionCreateRequest LIMIT 10';
@@ -502,7 +504,7 @@ describe('package:version:*', () => {
       expect(result).to.contain('strict digraph G {');
       const hasValidNode = result.includes('node_');
       expect(hasValidNode).to.be.true;
-      expect(result).to.match(/label="[^"]*@\d\.\d\.\d\.\d"/);
+      expect(result).to.match(NODE_LABEL_REGEX);
       const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
       if (hasMultipleNodes) {
         expect(result).to.contain('->');
@@ -532,8 +534,8 @@ describe('package:version:*', () => {
       expect(resultRootLast).to.contain('strict digraph G {');
       const hasMultipleNodes = ((resultRootFirst.match(/node_/g) && resultRootLast.match(/node_/g)) || []).length > 1;
       if (hasMultipleNodes) {
-        const edgeLinesFirst = resultRootFirst.match(/\t node_\w+ -> node_\w+/g) || [];
-        const edgeLinesLast = resultRootLast.match(/\t node_\w+ -> node_\w+/g) || [];
+        const edgeLinesFirst = resultRootFirst.match(EDGE_REGEX) || [];
+        const edgeLinesLast = resultRootLast.match(EDGE_REGEX) || [];
         expect(edgeLinesFirst.length).to.equal(edgeLinesLast.length);
         expect(resultRootFirst).to.not.equal(resultRootLast);
       } else {
@@ -550,7 +552,7 @@ describe('package:version:*', () => {
       expect(result).to.contain('strict digraph G {');
       const hasValidNode = result.includes('node_');
       expect(hasValidNode).to.be.true;
-      expect(result).to.match(/label="[^"]*@\d\.\d\.\d\.\d"/);
+      expect(result).to.match(NODE_LABEL_REGEX);
       const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
       if (hasMultipleNodes) {
         expect(result).to.contain('->');

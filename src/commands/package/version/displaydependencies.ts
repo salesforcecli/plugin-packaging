@@ -10,7 +10,6 @@ import { Package } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../../utils/hubFlag.js';
 import { maybeGetProject } from '../../../utils/getProject.js';
 
-// Import i18n messages
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_version_displaydependencies');
 export type DisplayDependenciesCommandResult = string | void;
