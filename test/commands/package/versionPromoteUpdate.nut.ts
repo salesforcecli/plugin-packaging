@@ -57,7 +57,9 @@ describe('package:version:promote / package:version:update', () => {
       'CreatedBy',
       'ConvertedFromVersionId',
       'CodeCoverage',
-      'VersionNumber'
+      'VersionNumber',
+      'TotalNumberOfMetadataFiles',
+      'TotalSizeOfMetadataFiles'
     );
     expect(result?.Id).to.match(/08c.{15}/);
     expect(result?.Package2Id).to.match(/0Ho.{15}/);
