@@ -94,7 +94,15 @@ export class PackageVersionCreateListCommand extends SfCommand<CreateListCommand
       this.table({ data, overflow: 'wrap', title: chalk.blue(`Package Version Create Requests  [${results.length}]`) });
     }
 
-    return results;
+    // Filter out unwanted fields from JSON output
+    // TotalNumberOfMetadataFiles and TotalSizeOfMetadataFiles are intentionally excluded from display
+    const filteredResults = results.map((r) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { TotalNumberOfMetadataFiles, TotalSizeOfMetadataFiles, ...filteredResult } = r;
+      return filteredResult;
+    });
+
+    return filteredResults as CreateListCommandResult;
   }
 
   // Queries Package2Version for the name and version number of the packages and adds that data
