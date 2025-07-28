@@ -1,3 +1,10 @@
+## [2.18.2](https://github.com/salesforcecli/plugin-packaging/compare/2.18.1...2.18.2) (2025-07-28)
+
+### Bug Fixes
+
+- filter displayRecord ([d145365](https://github.com/salesforcecli/plugin-packaging/commit/d1453652a6e6e5e9815d2e510afb10c4a30ce4bb))
+- fix test ([c127d22](https://github.com/salesforcecli/plugin-packaging/commit/c127d2272bc08ad00df6a05ae1c5803a14e0309b))
+
 ## [2.18.1](https://github.com/salesforcecli/plugin-packaging/compare/2.18.0...2.18.1) (2025-07-24)
 
 ### Bug Fixes
