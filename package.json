@@ -1,14 +1,14 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SF plugin that support Salesforce Packaging Platform",
-  "version": "2.18.2",
+  "version": "2.18.4",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^4",
     "@salesforce/core": "^8.18.5",
     "@salesforce/kit": "^3.2.3",
-    "@salesforce/packaging": "^4.9.0",
+    "@salesforce/packaging": "^4.11.0",
     "@salesforce/sf-plugins-core": "^12.2.3",
     "chalk": "^5.4.1"
   },
