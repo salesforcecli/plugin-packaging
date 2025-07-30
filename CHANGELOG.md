@@ -1,3 +1,10 @@
+# [2.19.0](https://github.com/salesforcecli/plugin-packaging/compare/2.18.4...2.19.0) (2025-07-30)
+
+### Features
+
+- added all features with gpg signing ([338c2d2](https://github.com/salesforcecli/plugin-packaging/commit/338c2d201dc7416afd4c5efc499309b8bd6b14be))
+- skips NUTs for displaydependencies if api version is less than 65 ([37559dd](https://github.com/salesforcecli/plugin-packaging/commit/37559ddebf22f5d17c966ae331d860f5796e3d0f))
+
 ## [2.18.4](https://github.com/salesforcecli/plugin-packaging/compare/2.18.3...2.18.4) (2025-07-29)
 
 ### Bug Fixes
