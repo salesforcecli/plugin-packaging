@@ -106,7 +106,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
 
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
-        throw messages.createError('multipleErrors', ['Unknown error']);
+        throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
         this.log(messages.getMessage('bundleVersionCreateSuccess', [result.Id]));
         break;
