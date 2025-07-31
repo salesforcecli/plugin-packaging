@@ -15,7 +15,6 @@ import {
 import { BundleSObjects, BundleInstallOptions, PackageBundleInstall } from '@salesforce/packaging';
 import { Messages, Lifecycle } from '@salesforce/core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
-import { requiredHubFlag } from '../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_install');
@@ -37,7 +36,11 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     }),
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'target-dev-hub': requiredHubFlag,
+    'target-dev-hub': Flags.string({
+      char: 'v',
+      summary: messages.getMessage('flags.target-dev-hub.summary'),
+      required: true,
+    }),
     wait: Flags.integer({
       char: 'w',
       summary: messages.getMessage('flags.wait.summary'),
@@ -58,8 +61,17 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     // Check if targetDevHub is already a valid org ID (starts with 00D and is 18 characters)
     const orgIdRegex = /^00D[a-zA-Z0-9]{15}$/;
-    const targetDevHubString = targetDevHubFlag.getUsername() ?? '';
-    const targetDevHub = orgIdRegex.test(targetDevHubString) ? targetDevHubString : targetDevHubFlag.getOrgId() ?? '';
+    let targetDevHub: string;
+
+    if (orgIdRegex.test(targetDevHubFlag)) {
+      // It's already an org ID, use it directly
+      targetDevHub = targetDevHubFlag;
+    } else {
+      // It's a username/alias, resolve it to an org and get the org ID
+      const { Org } = await import('@salesforce/core');
+      const devHubOrg = await Org.create({ aliasOrUsername: targetDevHubFlag, isDevHub: true });
+      targetDevHub = devHubOrg.getOrgId();
+    }
 
     const options: BundleInstallOptions = {
       connection,
