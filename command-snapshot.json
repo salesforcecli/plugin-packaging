@@ -65,8 +65,16 @@
   },
   {
     "alias": [],
+    "command": "package:bundle:delete",
+    "flagAliases": ["apiversion", "noprompt", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["b", "n", "v"],
+    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "no-prompt", "target-dev-hub"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:bundle:install",
-    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername", "targetusername", "u"],
+    "flagAliases": ["apiversion", "targetusername", "u"],
     "flagChars": ["b", "o", "v", "w"],
     "flags": [
       "api-version",
@@ -99,14 +107,6 @@
   },
   {
     "alias": [],
-    "command": "package:bundle:delete",
-    "flagAliases": ["apiversion", "noprompt", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["b", "n", "v"],
-    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "no-prompt", "target-dev-hub"],
-    "plugin": "@salesforce/plugin-packaging"
-  },
-  {
-    "alias": [],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
@@ -116,8 +116,8 @@
   {
     "alias": [],
     "command": "package:bundle:version:create",
-    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["b", "d", "p", "v", "w"],
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername", "versionnumber"],
+    "flagChars": ["b", "d", "n", "p", "v", "w"],
     "flags": [
       "api-version",
       "bundle",
@@ -128,6 +128,7 @@
       "loglevel",
       "target-dev-hub",
       "verbose",
+      "version-number",
       "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
