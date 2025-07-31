@@ -92,16 +92,16 @@
   {
     "alias": [],
     "command": "package:bundle:install:list",
-    "flagAliases": ["apiversion", "createdlastdays", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["c", "s", "v"],
+    "flagAliases": ["apiversion", "createdlastdays", "targetusername", "u"],
+    "flagChars": ["c", "o", "s"],
     "flags": ["api-version", "created-last-days", "flags-dir", "json", "loglevel", "status", "target-org", "verbose"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
     "alias": [],
     "command": "package:bundle:install:report",
-    "flagAliases": ["apiversion", "packageinstallrequestid", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["i", "v"],
+    "flagAliases": ["apiversion", "packageinstallrequestid", "targetusername", "u"],
+    "flagChars": ["i", "o"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "package-install-request-id", "target-org", "verbose"],
     "plugin": "@salesforce/plugin-packaging"
   },
