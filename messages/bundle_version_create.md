@@ -50,7 +50,8 @@ Package Bundle version creation completed with status: %s
 
 # multipleErrors
 
-The following errors occurred during bundle version creation:%s
+The following errors occurred during bundle version creation:
+%s
 
 # InProgress
 
