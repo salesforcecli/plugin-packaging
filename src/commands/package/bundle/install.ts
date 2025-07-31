@@ -53,14 +53,19 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     // Get the target org connection
     const targetOrg = flags['target-org'];
-    const targetDevHub = flags['target-dev-hub'];
+    const targetDevHubFlag = flags['target-dev-hub'];
     const connection = targetOrg.getConnection(flags['api-version']);
+
+    // Check if targetDevHub is already a valid org ID (starts with 00D and is 18 characters)
+    const orgIdRegex = /^00D[a-zA-Z0-9]{15}$/;
+    const targetDevHubString = targetDevHubFlag.getUsername() ?? '';
+    const targetDevHub = orgIdRegex.test(targetDevHubString) ? targetDevHubString : targetDevHubFlag.getOrgId() ?? '';
 
     const options: BundleInstallOptions = {
       connection,
       project: this.project!,
       PackageBundleVersion: flags.bundle,
-      DevelopmentOrganization: targetDevHub.getOrgId() ?? '',
+      DevelopmentOrganization: targetDevHub,
     };
 
     // Set up lifecycle events for progress tracking
