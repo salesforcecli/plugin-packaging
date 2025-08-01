@@ -32,6 +32,10 @@ Show verbose output of the command execution.
 
 Show detailed information about the bundle version creation process.
 
+# flags.version-number.summary
+
+Version number of the package bundle version to be created; overrides the sfdx-project.json value.
+
 # flags.description.summary
 
 Description of the package bundle version.
@@ -46,7 +50,8 @@ Package Bundle version creation completed with status: %s
 
 # multipleErrors
 
-The following errors occurred during bundle version creation:%s
+The following errors occurred during bundle version creation:
+%s
 
 # InProgress
 

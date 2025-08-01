@@ -20,6 +20,10 @@ Package bundle version to install (format: BundleName@Version).
 
 Target org for the bundle installation.
 
+# flags.target-dev-hub.summary
+
+Username, alias, or org ID of the target dev hub org.
+
 # flags.wait.summary
 
 Number of minutes to wait for the installation to complete.

@@ -104,7 +104,7 @@ describe('package:bundle:install:report - tests', () => {
       await cmd.run();
       expect.fail('Expected error was not thrown');
     } catch (error) {
-      expect((error as Error).message).to.include('No default dev hub found');
+      expect((error as Error).message).to.include('No default environment found');
     }
   });
 
