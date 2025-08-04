@@ -54,18 +54,34 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     verbose: Flags.boolean({
       summary: messages.getMessage('flags.verbose.summary'),
     }),
+    'version-number': Flags.string({
+      deprecateAliases: true,
+      aliases: ['versionnumber'],
+      char: 'n',
+      summary: messages.getMessage('flags.version-number.summary'),
+    }),
   };
 
   public async run(): Promise<BundleSObjects.PackageBundleVersionCreateRequestResult> {
     const { flags } = await this.parse(PackageBundlesCreate);
+
+    // Parse version number if provided
+    let majorVersion = '';
+    let minorVersion = '';
+    if (flags['version-number']) {
+      const versionParts = flags['version-number'].split('.');
+      majorVersion = versionParts[0] || '';
+      minorVersion = versionParts[1] || '';
+    }
+
     const options: BundleVersionCreateOptions = {
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
       project: this.project!,
       PackageBundle: flags.bundle,
       BundleVersionComponentsPath: flags['definition-file'],
       Description: flags.description,
-      MajorVersion: '',
-      MinorVersion: '',
+      MajorVersion: majorVersion,
+      MinorVersion: minorVersion,
       Ancestor: '',
     };
     Lifecycle.getInstance().on(
@@ -106,7 +122,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
 
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
-        throw messages.createError('multipleErrors', ['Unknown error']);
+        throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
         this.log(messages.getMessage('bundleVersionCreateSuccess', [result.Id]));
         break;

@@ -194,7 +194,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleVersionRe
       'Package Name': component.Name,
       'Package Version Number': `${component.MajorVersion}.${component.MinorVersion}.${component.PatchVersion}.${component.BuildNumber}`,
       'Package Version Id': component.Id,
-      'Package Subscriber Id': component.SubscriberPackageId,
+      'Package Id': component.SubscriberPackageId,
     }));
 
     this.table({ data: displayRecords, title: chalk.blue('Component Packages') });

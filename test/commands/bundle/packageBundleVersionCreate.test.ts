@@ -222,7 +222,7 @@ describe('package:bundle:version:create - tests', () => {
         assert.fail('the above should throw multiple errors');
       } catch (e) {
         expect((e as Error).message).to.equal(
-          'The following errors occurred during bundle version creation:Unknown error'
+          'The following errors occurred during bundle version creation:\nPropertyController: Invalid type: Schema.Property__c\nSampleDataController: Invalid type: Schema.Property__c\nSampleDataController: Invalid type: Schema.Broker__c'
         );
       }
     });

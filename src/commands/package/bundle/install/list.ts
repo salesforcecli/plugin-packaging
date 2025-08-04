@@ -5,11 +5,16 @@
  * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
  */
 
-import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
+import {
+  Flags,
+  loglevel,
+  orgApiVersionFlagWithDeprecations,
+  requiredOrgFlagWithDeprecations,
+  SfCommand,
+} from '@salesforce/sf-plugins-core';
 import { Connection, Messages } from '@salesforce/core';
 import { BundleSObjects, PackageBundleInstall } from '@salesforce/packaging';
 import chalk from 'chalk';
-import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_install_list');
@@ -25,7 +30,7 @@ export class PackageBundleInstallListCommand extends SfCommand<PackageBundleInst
   public static readonly examples = messages.getMessages('examples');
   public static readonly flags = {
     loglevel,
-    'target-org': requiredHubFlag,
+    'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
