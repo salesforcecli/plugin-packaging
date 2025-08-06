@@ -9,7 +9,7 @@ import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { PackagePushUpgrade, PackagePushScheduleResult } from '@salesforce/packaging';
-import { SfCommand } from '@salesforce/sf-plugins-core';
+import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { PackagePushScheduleCommand } from '../../../src/commands/package/push-upgrade/schedule.js';
 
 const pushReq: PackagePushScheduleResult = {
@@ -21,14 +21,14 @@ const pushReq: PackagePushScheduleResult = {
 describe('package:pushupgrade:schedule - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  let uxLogStub: sinon.SinonStub;
+  let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
   let scheduleStub: sinon.SinonStub;
   const config = new Config({ root: import.meta.url });
 
   beforeEach(async () => {
     await $$.stubAuths(testOrg);
     await config.load();
-    uxLogStub = $$.SANDBOX.stub(SfCommand.prototype, 'log');
+    sfCommandStubs = stubSfCommandUx($$.SANDBOX);
 
     scheduleStub = $$.SANDBOX.stub(PackagePushUpgrade, 'schedule');
   });
@@ -53,8 +53,9 @@ describe('package:pushupgrade:schedule - tests', () => {
     scheduleStub.resolves(pushReq);
     await cmd.run();
 
-    expect(uxLogStub.called).to.be.true;
-    expect(uxLogStub.callCount).to.be.at.least(1);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(sfCommandStubs.log.calledOnce).to.be.true;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(scheduleStub.calledOnce).to.be.true;
   });
 
@@ -79,8 +80,8 @@ describe('package:pushupgrade:schedule - tests', () => {
     const result = await cmd.run();
     expect(result).to.deep.equal(pushReq);
 
-    expect(uxLogStub.called).to.be.true;
-    expect(uxLogStub.callCount).to.be.at.least(1);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    expect(sfCommandStubs.log.calledOnce).to.be.true;
     expect(scheduleStub.calledOnce).to.be.true;
 
     // Verify the arguments passed to the schedule function
