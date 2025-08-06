@@ -8,6 +8,11 @@ import * as fs from 'node:fs/promises';
 import { Flags, SfCommand, orgApiVersionFlagWithDeprecations } from '@salesforce/sf-plugins-core';
 import { Messages, SfError, Logger } from '@salesforce/core';
 import { PackagePushScheduleResult, PackagePushUpgrade } from '@salesforce/packaging';
+import {
+  predictPackageUpgradeRunTime,
+  predictPackageUpgradeRunTimeLower,
+  predictPackageUpgradeRunTimeUpper,
+} from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_pushupgrade_schedule');
@@ -83,6 +88,21 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
 
     this.log(messages.getMessage('output', [result?.PushRequestId, orgList.join(', ')]));
 
+    try {
+      const runtimeSeconds: number = await predictPackageUpgradeRunTime(conn, flags.package);
+      const lowerBound: number = await predictPackageUpgradeRunTimeLower(conn, flags.package);
+      const upperBound: number = await predictPackageUpgradeRunTimeUpper(conn, flags.package);
+
+      // Convert to human readable format
+      const avgTime = formatDuration(runtimeSeconds);
+      const lowerTime = formatDuration(lowerBound);
+      const upperTime = formatDuration(upperBound);
+
+      this.log(messages.getMessage('prediction.success', [avgTime, lowerTime, upperTime]));
+    } catch (error) {
+      this.log(messages.getMessage('prediction.failure'));
+    }
+
     return result;
   }
 }
@@ -109,5 +129,39 @@ function getOrgListFromInput(orgInput: string): string[] {
     return orgList.filter((org) => org.length > 0);
   } catch (error) {
     throw new SfError(messages.getMessage('error.invalid-org-input'));
+  }
+}
+
+function formatDuration(seconds: number): string {
+  if (seconds <= 0) {
+    return '0 seconds';
+  }
+  const totalSeconds = Math.round(seconds);
+  const days = Math.floor(totalSeconds / 86400);
+  const hours = Math.floor((totalSeconds % 86400) / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const remainingSeconds = totalSeconds % 60;
+
+  const parts: string[] = [];
+
+  if (days > 0) {
+    parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+  }
+  if (hours > 0) {
+    parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+  }
+  if (minutes > 0) {
+    parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+  }
+  if (remainingSeconds > 0 || parts.length === 0) {
+    parts.push(`${remainingSeconds} second${remainingSeconds !== 1 ? 's' : ''}`);
+  }
+
+  if (parts.length === 1) {
+    return parts[0];
+  } else if (parts.length === 2) {
+    return `${parts[0]} and ${parts[1]}`;
+  } else {
+    return `${parts.slice(0, -1).join(', ')}, and ${parts[parts.length - 1]}`;
   }
 }

@@ -107,3 +107,11 @@ Package Version Id
 
 Push upgrade has been scheduled. To check the status of this push upgrade, use push upgrade request ID [%s] with either "package push-upgrade list" or "package push-upgrade report".
 Orgs scheduled for push upgrade: {%s}
+
+# prediction.success
+
+We predict that it will take %s with a 95% prediction interval from %s to %s.
+
+# prediction.failure
+
+We were unable to make a prediction for the upgrade runtime.
