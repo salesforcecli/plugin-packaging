@@ -66,13 +66,13 @@
       "installationkeybypass",
       "patchversion",
       "target-hub-org",
-      "targetdevhubusername",
-      "codecoverage"
+      "targetdevhubusername"
     ],
-    "flagChars": ["a", "f", "k", "m", "p", "s", "v", "w", "x", "c"],
+    "flagChars": ["a", "c", "f", "k", "m", "p", "s", "v", "w", "x"],
     "flags": [
       "api-version",
       "build-instance",
+      "code-coverage",
       "definition-file",
       "flags-dir",
       "installation-key",
@@ -84,8 +84,7 @@
       "seed-metadata",
       "target-dev-hub",
       "verbose",
-      "wait",
-      "code-coverage"
+      "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
@@ -206,6 +205,14 @@
       "status",
       "target-dev-hub"
     ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:push-upgrade:predict",
+    "flagAliases": ["apiversion"],
+    "flagChars": ["p", "v"],
+    "flags": ["api-version", "flags-dir", "json", "package", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {

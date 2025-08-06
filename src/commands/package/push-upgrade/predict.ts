@@ -12,7 +12,7 @@ import {
   predictPackageUpgradeRunTimeUpper,
 } from '@salesforce/packaging';
 
-type PackagePushPredictResult = {
+export type PackagePushPredictResult = {
   avgTime: string;
   lowerTime: string;
   upperTime: string;
