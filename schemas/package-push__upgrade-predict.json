@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackagePushPredictResult",
+  "definitions": {
+    "PackagePushPredictResult": {
+      "type": "object",
+      "properties": {
+        "avgTime": {
+          "type": "string"
+        },
+        "lowerTime": {
+          "type": "string"
+        },
+        "upperTime": {
+          "type": "string"
+        }
+      },
+      "required": ["avgTime", "lowerTime", "upperTime"],
+      "additionalProperties": false
+    }
+  }
+}
