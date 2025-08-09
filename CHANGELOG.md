@@ -1,3 +1,9 @@
+## [2.19.2](https://github.com/salesforcecli/plugin-packaging/compare/2.19.1...2.19.2) (2025-08-09)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.4.1 to 5.5.0 ([427f041](https://github.com/salesforcecli/plugin-packaging/commit/427f04119cdf9fe543e9bde9ef0309facb3cd852))
+
 ## [2.19.1](https://github.com/salesforcecli/plugin-packaging/compare/2.19.0...2.19.1) (2025-08-03)
 
 ### Bug Fixes
