@@ -17,6 +17,8 @@ const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'bundle_i
 export type BundleInstalledListResults = InstalledBundleStatus[];
 
 export class PackageBundleInstalledListCommand extends SfCommand<BundleInstalledListResults> {
+  public static readonly hidden = true;
+  public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
   public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
