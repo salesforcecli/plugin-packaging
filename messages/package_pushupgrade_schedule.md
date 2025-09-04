@@ -13,7 +13,7 @@ Use the -–migrate-to-2GP flag to indicate you’re installing a converted seco
 
 # flags.target-dev-hub.summary
 
-Username or alias of the Dev Hub org.
+Username or alias of the Dev Hub org that owns the package.
 
 # flags.target-dev-hub.description
 
@@ -36,16 +36,16 @@ If you don't specify this flag, the push upgrade is scheduled to run as soon as 
 
 # flags.org-file.summary
 
-Filename of the CSV file that contains the list of orgs that need the package upgrade.
+Filename of the CSV file that contains the list of subscriber org IDs that need the package upgrade. Either --org-list or --org-file must be specified.
 
 # flags.org-file.description
 
-The file must contain one org per line. The org ID must be the only value in each row. 
-All listed orgs must have a package version installed in their org that is lower than the package version you specified for the --package-version flag.
+The file must contain one org per line. The org ID must be the only value in each row.
+All listed orgs must have a package version installed in their org that is lower than the package version you specified for the --package flag.
 
 # flags.org-list.summary
 
-Comma-separated list of subscriber org IDs that need the package upgrade.
+Comma-separated list of subscriber org IDs that need the package upgrade. Either --org-list or --org-file must be specified.
 
 # flags.migrate-to-2gp.summary
 
@@ -79,10 +79,10 @@ Can’t schedule the package push upgrade. You must specify either a list of org
 # examples
 
 - Schedule a push upgrade that initiates at a specified time:
-  <%= config.bin %> <%= command.id %> --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv
+  <%= config.bin %> <%= command.id %> --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv --target-dev-hub myHub
 
 - Schedule a push upgrade that initiates as soon as possible:
-  <%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv
+  <%= config.bin %> <%= command.id %> --package 04txyz --org-file upgrade-orgs.csv --target-dev-hub myHub
 
 - Schedule a push migration from a 1GP package to a 2GP package:
   <%= config.bin %> <%= command.id %> --migrate-to-2gp --package 04txyz --start-time "2024-12-06T21:00:00" --org-file upgrade-orgs.csv --target-dev-hub myHub

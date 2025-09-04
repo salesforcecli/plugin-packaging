@@ -1,8 +1,17 @@
 /*
- * Copyright (c) 2022, salesforce.com, inc.
- * All rights reserved.
- * Licensed under the BSD 3-Clause license.
- * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ * Copyright 2025, Salesforce, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 import { execCmd, genUniqueString, TestSession } from '@salesforce/cli-plugins-testkit';
@@ -467,6 +476,105 @@ describe('package:version:*', () => {
       const command = `package:version:delete -p ${id} --noprompt`;
       const result = execCmd<[PackageSaveResult]>(command, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(result).to.contain(`Successfully deleted the package version with ID: ${id}`);
+    });
+  });
+
+  describe('package:version:displaydependencies', () => {
+    type PackageVersionCreateRequestResult = {
+      Id: string;
+      Package2Version: {
+        SubscriberPackageVersionId: string;
+      };
+    };
+    let devHubOrg: Org;
+    let configAggregator: ConfigAggregator;
+    let testPackageRequestId: string; // 08c ID
+    let testSubscriberPackageVersionId: string; // 04t ID
+    const NODE_LABEL_REGEX = /label="[^"]*@\d+\.\d+\.\d+\.\d+"/;
+    const EDGE_REGEX = /\t node_\w+ -> node_\w+/g;
+
+    before('dependencies project setup', async function () {
+      const query = 'SELECT Id, Package2Version.SubscriberPackageVersionId FROM Package2VersionCreateRequest LIMIT 10';
+      configAggregator = await ConfigAggregator.create();
+      devHubOrg = await Org.create({ aliasOrUsername: configAggregator.getPropertyValue<string>('target-dev-hub') });
+      // Check API version before proceeding
+      const apiVersion = parseFloat(devHubOrg.getConnection().getApiVersion());
+      if (apiVersion < 65.0) {
+        // eslint-disable-next-line no-console
+        console.log(
+          `Skipping package:version:displaydependencies tests - API version ${apiVersion} is below required version 65.0 for displaydependencies command.`
+        );
+        this.skip();
+      }
+      const pvRecords = (await devHubOrg.getConnection().tooling.query<PackageVersionCreateRequestResult>(query))
+        .records;
+
+      if (!pvRecords || pvRecords.length === 0) {
+        throw new Error('No package version create requests found with dependency graph json');
+      }
+      const pv = pvRecords[0];
+      testPackageRequestId = pv.Id;
+      testSubscriberPackageVersionId = pv.Package2Version.SubscriberPackageVersionId;
+    });
+    it('should print the correct DOT code output (default)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId}`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasValidNode = result.includes('node_');
+      expect(hasValidNode).to.be.true;
+      expect(result).to.match(NODE_LABEL_REGEX);
+      const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
+      if (hasMultipleNodes) {
+        expect(result).to.contain('->');
+      }
+    });
+    it('should print the correct DOT code output  (verbose)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId} --verbose`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasSubscriberPackageVersionId = /\(04t.{15}\)/.test(result);
+      const hasVersionBeingBuilt = result.includes('(VERSION_BEING_BUILT)');
+      expect(hasSubscriberPackageVersionId || hasVersionBeingBuilt).to.be.true;
+    });
+    it('should print the correct DOT code output (json)', () => {
+      const command = `package:version:displaydependencies -p ${testPackageRequestId} --json`;
+      const result = execCmd<string>(command, { ensureExitCode: 0 });
+      const dotCode = result.jsonOutput?.result;
+      expect(dotCode).to.be.a('string');
+      expect(dotCode).to.contain('strict digraph G {');
+    });
+    it('should print the correct DOT code output  (root-last)', () => {
+      const commandRootFirst = `package:version:displaydependencies -p ${testPackageRequestId} --edge-direction root-first`;
+      const resultRootFirst = execCmd(commandRootFirst, { ensureExitCode: 0 }).shellOutput.stdout;
+      const commandRootLast = `package:version:displaydependencies -p ${testPackageRequestId} --edge-direction root-last`;
+      const resultRootLast = execCmd(commandRootLast, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(resultRootFirst).to.contain('strict digraph G {');
+      expect(resultRootLast).to.contain('strict digraph G {');
+      const hasMultipleNodes = ((resultRootFirst.match(/node_/g) && resultRootLast.match(/node_/g)) || []).length > 1;
+      if (hasMultipleNodes) {
+        const edgeLinesFirst = resultRootFirst.match(EDGE_REGEX) || [];
+        const edgeLinesLast = resultRootLast.match(EDGE_REGEX) || [];
+        expect(edgeLinesFirst.length).to.equal(edgeLinesLast.length);
+        expect(resultRootFirst).to.not.equal(resultRootLast);
+      } else {
+        expect(resultRootFirst).to.contain('node_');
+        expect(resultRootLast).to.contain('node_');
+      }
+    });
+    it('should work with 04t package version ID if available', function () {
+      if (!testSubscriberPackageVersionId) {
+        this.skip();
+      }
+      const command = `package:version:displaydependencies -p ${testSubscriberPackageVersionId}`;
+      const result = execCmd(command, { ensureExitCode: 0 }).shellOutput.stdout;
+      expect(result).to.contain('strict digraph G {');
+      const hasValidNode = result.includes('node_');
+      expect(hasValidNode).to.be.true;
+      expect(result).to.match(NODE_LABEL_REGEX);
+      const hasMultipleNodes = result.split('\n').filter((line) => line.includes('node_')).length > 1;
+      if (hasMultipleNodes) {
+        expect(result).to.contain('->');
+      }
     });
   });
 

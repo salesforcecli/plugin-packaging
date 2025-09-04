@@ -1,3 +1,105 @@
+## [2.19.8](https://github.com/salesforcecli/plugin-packaging/compare/2.19.7...2.19.8) (2025-08-30)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.21.2 to 8.22.0 ([6c1d28a](https://github.com/salesforcecli/plugin-packaging/commit/6c1d28a8261d951f3685f26260f46c85a74dce16))
+
+## [2.19.7](https://github.com/salesforcecli/plugin-packaging/compare/2.19.6...2.19.7) (2025-08-24)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.5.0 to 5.6.0 ([aba89ef](https://github.com/salesforcecli/plugin-packaging/commit/aba89ef3e3dedd11af60d74a8a3367eaea9544d3))
+
+## [2.19.6](https://github.com/salesforcecli/plugin-packaging/compare/2.19.5...2.19.6) (2025-08-23)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.19.1 to 8.21.2 ([55b0ff8](https://github.com/salesforcecli/plugin-packaging/commit/55b0ff836893ed26ecbae4073a0c334d97db13bf))
+
+## [2.19.5](https://github.com/salesforcecli/plugin-packaging/compare/2.19.4...2.19.5) (2025-08-10)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 4.11.0 to 4.12.0 ([1dcaa92](https://github.com/salesforcecli/plugin-packaging/commit/1dcaa92071428d32d9bdd7f347681d3827f4639a))
+
+## [2.19.4](https://github.com/salesforcecli/plugin-packaging/compare/2.19.3...2.19.4) (2025-08-10)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.3 to 12.2.4 ([c68dd94](https://github.com/salesforcecli/plugin-packaging/commit/c68dd94b1597a17ebd7faca453b756812f8edb2f))
+
+## [2.19.3](https://github.com/salesforcecli/plugin-packaging/compare/2.19.2...2.19.3) (2025-08-09)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.18.7 to 8.19.1 ([619ca4b](https://github.com/salesforcecli/plugin-packaging/commit/619ca4b90432b44b4472e841643af614624e9eaa))
+
+## [2.19.2](https://github.com/salesforcecli/plugin-packaging/compare/2.19.1...2.19.2) (2025-08-09)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.4.1 to 5.5.0 ([427f041](https://github.com/salesforcecli/plugin-packaging/commit/427f04119cdf9fe543e9bde9ef0309facb3cd852))
+
+## [2.19.1](https://github.com/salesforcecli/plugin-packaging/compare/2.19.0...2.19.1) (2025-08-03)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.18.5 to 8.18.7 ([0cf56a1](https://github.com/salesforcecli/plugin-packaging/commit/0cf56a1d164a85d81354219b69d122757d103177))
+
+# [2.19.0](https://github.com/salesforcecli/plugin-packaging/compare/2.18.4...2.19.0) (2025-07-30)
+
+### Features
+
+- added all features with gpg signing ([338c2d2](https://github.com/salesforcecli/plugin-packaging/commit/338c2d201dc7416afd4c5efc499309b8bd6b14be))
+- skips NUTs for displaydependencies if api version is less than 65 ([37559dd](https://github.com/salesforcecli/plugin-packaging/commit/37559ddebf22f5d17c966ae331d860f5796e3d0f))
+
+## [2.18.4](https://github.com/salesforcecli/plugin-packaging/compare/2.18.3...2.18.4) (2025-07-29)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 4.9.0 to 4.10.0 ([d2954cd](https://github.com/salesforcecli/plugin-packaging/commit/d2954cd5b7cd4716db76e289a49270b4d907c3d8))
+
+## [2.18.3](https://github.com/salesforcecli/plugin-packaging/compare/2.18.2...2.18.3) (2025-07-29)
+
+### Bug Fixes
+
+- **deps:** bump form-data from 4.0.3 to 4.0.4 ([bb32a73](https://github.com/salesforcecli/plugin-packaging/commit/bb32a73471266a0a2043af76921f0823021a09bd))
+
+## [2.18.2](https://github.com/salesforcecli/plugin-packaging/compare/2.18.1...2.18.2) (2025-07-28)
+
+### Bug Fixes
+
+- filter displayRecord ([d145365](https://github.com/salesforcecli/plugin-packaging/commit/d1453652a6e6e5e9815d2e510afb10c4a30ce4bb))
+- fix test ([c127d22](https://github.com/salesforcecli/plugin-packaging/commit/c127d2272bc08ad00df6a05ae1c5803a14e0309b))
+
+## [2.18.1](https://github.com/salesforcecli/plugin-packaging/compare/2.18.0...2.18.1) (2025-07-24)
+
+### Bug Fixes
+
+- Update package_install.md ([5ad2bc8](https://github.com/salesforcecli/plugin-packaging/commit/5ad2bc8d2e4ef1de589d92fe557fe25c22a4374a))
+
+# [2.18.0](https://github.com/salesforcecli/plugin-packaging/compare/2.17.0...2.18.0) (2025-07-02)
+
+### Features
+
+- @W-17369132 keep retrieve command hidden ([#996](https://github.com/salesforcecli/plugin-packaging/issues/996)) ([91cebec](https://github.com/salesforcecli/plugin-packaging/commit/91cebec9e81ecc41806a5a1cb1c4ae956f9ffe82))
+
+# [2.17.0](https://github.com/salesforcecli/plugin-packaging/compare/2.16.0...2.17.0) (2025-07-01)
+
+### Features
+
+- **W-17369132:** reflect feat change to use Package2Version instead of MetadataP… ([#984](https://github.com/salesforcecli/plugin-packaging/issues/984)) ([31d12db](https://github.com/salesforcecli/plugin-packaging/commit/31d12dbd42ac6721483599a29067994073108358))
+
+# [2.16.0](https://github.com/salesforcecli/plugin-packaging/compare/2.15.4...2.16.0) (2025-06-13)
+
+### Features
+
+- adding code coverage option description to the convert command ([ebd51da](https://github.com/salesforcecli/plugin-packaging/commit/ebd51da9d6607d0bbbe10edcf37fec5924f7b7f8))
+- adding code coverage option linking with packaging ([542cc69](https://github.com/salesforcecli/plugin-packaging/commit/542cc694738f62f89939d156654d5dcffe7b4937))
+- adding code coverage option to the convert command ([0574be5](https://github.com/salesforcecli/plugin-packaging/commit/0574be591647c9fa8da31d44a734f41a3396fbaa))
+- adding code coverage option to the convert command with snapshot ([07959d1](https://github.com/salesforcecli/plugin-packaging/commit/07959d18345974793d6dd4e6287c80511d337fb3))
+- adding code coverage option to the convert command with snapshot and tests ([a6cb4d4](https://github.com/salesforcecli/plugin-packaging/commit/a6cb4d4370f64cfeb110c17f8b4fecc146b47298))
+
 ## [2.15.4](https://github.com/salesforcecli/plugin-packaging/compare/2.15.3...2.15.4) (2025-06-10)
 
 ### Bug Fixes

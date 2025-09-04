@@ -1,13 +1,27 @@
 /*
- * Copyright (c) 2020, salesforce.com, inc.
- * All rights reserved.
- * Licensed under the BSD 3-Clause license.
- * For full license text, see LICENSE.txt file in the repo root or https://opensource.org/licenses/BSD-3-Clause
+ * Copyright 2025, Salesforce, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 import { expect } from 'chai';
 import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
-import { Package, PackageVersionCreateRequestResult, PackagingSObjects } from '@salesforce/packaging';
+import {
+  Package,
+  PackageVersionCreateRequestResult,
+  PackagingSObjects,
+  type ConvertPackageOptions,
+} from '@salesforce/packaging';
 import sinon from 'sinon';
 import { PackageConvert } from '../../../src/commands/package/convert.js';
 import Package2VersionStatus = PackagingSObjects.Package2VersionStatus;
@@ -80,8 +94,10 @@ describe('package:convert', () => {
     );
     stubSpinner(cmd);
     const result = await cmd.run();
-
     expect(spinnerStartStub.called).to.be.true;
+    // Check that codecoverage was passed as false
+    const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
+    expect(callArgs.codecoverage).to.equal(false);
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (success)', async () => {
@@ -109,11 +125,14 @@ describe('package:convert', () => {
     convertStub.restore();
     convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
     const cmd = new PackageConvert(
-      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com'],
+      ['-p', CONVERTED_FROM_PACKAGE_ID, '--installation-key', INSTALL_KEY, '-v', 'test@user.com', '-c'],
       config
     );
     stubSpinner(cmd);
     const result = await cmd.run();
+    // Check that codecoverage was passed as true
+    const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
+    expect(callArgs.codecoverage).to.equal(true);
     expect(result).to.deep.equal(pvc);
   });
   it('starts package version create request (error)', async () => {

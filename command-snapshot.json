@@ -186,9 +186,10 @@
       "installationkeybypass",
       "patchversion",
       "target-hub-org",
-      "targetdevhubusername"
+      "targetdevhubusername",
+      "codecoverage"
     ],
-    "flagChars": ["a", "f", "k", "m", "p", "s", "v", "w", "x"],
+    "flagChars": ["a", "f", "k", "m", "p", "s", "v", "w", "x", "c"],
     "flags": [
       "api-version",
       "build-instance",
@@ -203,7 +204,8 @@
       "seed-metadata",
       "target-dev-hub",
       "verbose",
-      "wait"
+      "wait",
+      "code-coverage"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
@@ -487,6 +489,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:version:displaydependencies",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
+    "flagChars": ["p", "v"],
+    "flags": ["api-version", "edge-direction", "flags-dir", "json", "loglevel", "package", "target-dev-hub", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:version:list"],
     "command": "package:version:list",
     "flagAliases": [
@@ -535,9 +545,9 @@
   {
     "alias": [],
     "command": "package:version:retrieve",
-    "flagAliases": ["apiversion", "targetusername", "u"],
-    "flagChars": ["d", "o", "p"],
-    "flags": ["api-version", "flags-dir", "json", "loglevel", "output-dir", "package", "target-org"],
+    "flagAliases": ["apiversion", "targetdevhubusername"],
+    "flagChars": ["d", "p", "v"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "output-dir", "package", "target-dev-hub"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
