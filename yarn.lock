@@ -1621,7 +1621,7 @@
     string-width "^7.2.0"
     terminal-link "^3.0.0"
 
-"@salesforce/sf-plugins-core@^12.2.4":
+"@salesforce/sf-plugins-core@^12.2.2":
   version "12.2.4"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.4.tgz#a89ddcbac6520870eb2e0aad2a2e78738441cedf"
   integrity sha512-AwfhPxIJfzQUSZH8kiQOjRPOsfhO3CL+PKq0lfX+chdqwLOnXWviYCA1Z815MGG0ot/XMlsyj7CS+JxQ19Tn4A==
