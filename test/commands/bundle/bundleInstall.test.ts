@@ -187,9 +187,11 @@ describe('package:bundle:install - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal([
-        'Bundle installation is currently Queued. You can continue to query the status using\nsf package bundle install:report -i 08c3i000000fylgBBB -o test@org.org',
-      ]);
+      // Normalize CRLF to LF to make assertion OS-agnostic
+      const queuedMsg = String(logStub.args[0][0]).replace(/\r\n/g, '\n');
+      expect(queuedMsg).to.equal(
+        'Bundle installation is currently Queued. You can continue to query the status using\nsf package bundle install:report -i 08c3i000000fylgBBB -o test@org.org'
+      );
     });
 
     it('should handle error status', async () => {

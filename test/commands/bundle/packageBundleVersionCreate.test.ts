@@ -230,8 +230,12 @@ describe('package:bundle:version:create - tests', () => {
         await cmd.run();
         assert.fail('the above should throw multiple errors');
       } catch (e) {
-        expect((e as Error).message).to.equal(
-          'The following errors occurred during bundle version creation:\nPropertyController: Invalid type: Schema.Property__c\nSampleDataController: Invalid type: Schema.Property__c\nSampleDataController: Invalid type: Schema.Broker__c'
+        const msg = (e as Error).message.replace(/\r\n/g, '\n');
+        expect(msg).to.equal(
+          'The following errors occurred during bundle version creation:\n' +
+            'PropertyController: Invalid type: Schema.Property__c\n' +
+            'SampleDataController: Invalid type: Schema.Property__c\n' +
+            'SampleDataController: Invalid type: Schema.Broker__c'
         );
       }
     });
