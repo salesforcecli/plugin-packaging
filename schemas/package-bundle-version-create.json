@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/BundleSObjects.PackageBundleVersionCreateRequestResult",
+  "definitions": {
+    "BundleSObjects.PackageBundleVersionCreateRequestResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "PackageBundleVersionId": {
+          "type": "string"
+        },
+        "RequestStatus": {
+          "$ref": "#/definitions/BundleSObjects.PkgBundleVersionCreateReqStatus"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "Error": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PackageBundleId": {
+          "type": "string"
+        },
+        "VersionName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "string"
+        },
+        "MinorVersion": {
+          "type": "string"
+        },
+        "BundleVersionComponents": {
+          "type": "string"
+        },
+        "Ancestor": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "BundleVersionComponents",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "MajorVersion",
+        "MinorVersion",
+        "PackageBundleId",
+        "PackageBundleVersionId",
+        "RequestStatus",
+        "VersionName"
+      ]
+    },
+    "BundleSObjects.PkgBundleVersionCreateReqStatus": {
+      "type": "string",
+      "enum": ["Queued", "Success", "Error"]
+    }
+  }
+}

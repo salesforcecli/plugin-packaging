@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/ReportCommandResult",
+  "definitions": {
+    "ReportCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BundleSObjects.PkgBundleVersionInstallReqResult"
+      }
+    },
+    "BundleSObjects.PkgBundleVersionInstallReqResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "InstallStatus": {
+          "$ref": "#/definitions/BundleSObjects.PkgBundleVersionInstallReqStatus"
+        },
+        "ValidationError": {
+          "type": "string"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "Error": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PackageBundleVersionID": {
+          "type": "string"
+        },
+        "DevelopmentOrganization": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "CreatedById",
+        "CreatedDate",
+        "DevelopmentOrganization",
+        "Id",
+        "InstallStatus",
+        "PackageBundleVersionID",
+        "ValidationError"
+      ]
+    },
+    "BundleSObjects.PkgBundleVersionInstallReqStatus": {
+      "type": "string",
+      "enum": ["Queued", "Success", "Error"]
+    }
+  }
+}

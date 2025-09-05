@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageBundleVersionResults",
+  "definitions": {
+    "PackageBundleVersionResults": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BundleSObjects.BundleVersion"
+      }
+    },
+    "BundleSObjects.BundleVersion": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "PackageBundle": {
+          "$ref": "#/definitions/BundleSObjects.Bundle"
+        },
+        "VersionName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "string"
+        },
+        "MinorVersion": {
+          "type": "string"
+        },
+        "Ancestor": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BundleSObjects.BundleVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "IsReleased": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Id",
+        "PackageBundle",
+        "VersionName",
+        "MajorVersion",
+        "MinorVersion",
+        "IsReleased",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById"
+      ],
+      "additionalProperties": false
+    },
+    "BundleSObjects.Bundle": {
+      "type": "object",
+      "properties": {
+        "BundleName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BundleName",
+        "Id",
+        "IsDeleted",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById",
+        "SystemModstamp"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
