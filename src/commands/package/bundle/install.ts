@@ -18,6 +18,7 @@ import {
   Flags,
   loglevel,
   orgApiVersionFlagWithDeprecations,
+  requiredHubFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
@@ -45,11 +46,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     }),
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'target-dev-hub': Flags.string({
-      char: 'v',
-      summary: messages.getMessage('flags.target-dev-hub.summary'),
-      required: true,
-    }),
+    'target-dev-hub': requiredHubFlagWithDeprecations,
     wait: Flags.integer({
       char: 'w',
       summary: messages.getMessage('flags.wait.summary'),
@@ -65,28 +62,15 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     // Get the target org connection
     const targetOrg = flags['target-org'];
-    const targetDevHubFlag = flags['target-dev-hub'];
+    const targetDevHub = flags['target-dev-hub'];
     const connection = targetOrg.getConnection(flags['api-version']);
-
-    // Check if targetDevHub is already a valid org ID (starts with 00D and is 18 characters)
-    const orgIdRegex = /^00D[a-zA-Z0-9]{15}$/;
-    let targetDevHub: string;
-
-    if (orgIdRegex.test(targetDevHubFlag)) {
-      // It's already an org ID, use it directly
-      targetDevHub = targetDevHubFlag;
-    } else {
-      // It's a username/alias, resolve it to an org and get the org ID
-      const { Org } = await import('@salesforce/core');
-      const devHubOrg = await Org.create({ aliasOrUsername: targetDevHubFlag, isDevHub: true });
-      targetDevHub = devHubOrg.getOrgId();
-    }
+    const devHubOrgId = targetDevHub.getOrgId();
 
     const options: BundleInstallOptions = {
       connection,
       project: this.project!,
       PackageBundleVersion: flags.bundle,
-      DevelopmentOrganization: targetDevHub,
+      DevelopmentOrganization: devHubOrgId,
     };
 
     // Set up lifecycle events for progress tracking
@@ -114,10 +98,9 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     const result = await PackageBundleInstall.installBundle(connection, this.project!, {
       ...options,
-      polling: {
-        timeout: Duration.minutes(flags.wait),
-        frequency: Duration.seconds(5),
-      },
+      ...(flags.wait && flags.wait > 0
+        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
+        : undefined),
     });
 
     const finalStatusMsg = messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]);

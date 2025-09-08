@@ -54,16 +54,10 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleVersionRe
       throw new Error(`No bundle version found with ID: ${flags['bundle-version']}`);
     }
 
-    const massagedResults = this.massageResultsForDisplay(results);
-    this.display(massagedResults, flags.verbose);
+    this.display(results, flags.verbose);
     const componentPackages = await PackageBundleVersion.getComponentPackages(connection, flags['bundle-version']);
-    const massagedResultsWithComponentPackages = {
-      ...massagedResults,
-      componentPackages,
-    };
-
     this.displayComponentPackages(componentPackages);
-    return massagedResultsWithComponentPackages;
+    return { ...results, componentPackages };
   }
 
   private display(record: BundleSObjects.BundleVersion, verbose: boolean): void {
@@ -182,12 +176,7 @@ export class PackageBundleVersionReportCommand extends SfCommand<BundleVersionRe
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  private massageResultsForDisplay(results: BundleSObjects.BundleVersion): BundleSObjects.BundleVersion {
-    // For bundle versions, the data is already in the correct format
-    // Just return the results as they are
-    return results;
-  }
+  
 
   private displayComponentPackages(componentPackages: PackagingSObjects.SubscriberPackageVersion[]): void {
     if (this.jsonEnabled()) {

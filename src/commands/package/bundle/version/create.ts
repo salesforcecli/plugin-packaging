@@ -117,10 +117,9 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
 
     const result = await PackageBundleVersion.create({
       ...options,
-      polling: {
-        timeout: Duration.minutes(flags.wait),
-        frequency: Duration.seconds(5),
-      },
+      ...(flags.wait && flags.wait > 0
+        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
+        : undefined),
     });
     const finalStatusMsg = messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]);
     if (flags.verbose) {

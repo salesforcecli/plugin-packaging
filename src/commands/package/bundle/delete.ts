@@ -35,8 +35,6 @@ export class PackageBundleDeleteCommand extends SfCommand<BundleSaveResult> {
     'api-version': orgApiVersionFlagWithDeprecations,
     'no-prompt': Flags.boolean({
       char: 'n',
-      deprecateAliases: true,
-      aliases: ['noprompt'],
       summary: messages.getMessage('flags.no-prompt.summary'),
     }),
     bundle: Flags.string({
