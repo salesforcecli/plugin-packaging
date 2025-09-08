@@ -43,8 +43,6 @@ export class PackageBundleInstallListCommand extends SfCommand<PackageBundleInst
     'api-version': orgApiVersionFlagWithDeprecations,
     'created-last-days': Flags.integer({
       char: 'c',
-      deprecateAliases: true,
-      aliases: ['createdlastdays'],
       summary: messages.getMessage('flags.created-last-days.summary'),
     }),
     status: Flags.custom<Status>({

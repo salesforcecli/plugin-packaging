@@ -64,8 +64,6 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       summary: messages.getMessage('flags.verbose.summary'),
     }),
     'version-number': Flags.string({
-      deprecateAliases: true,
-      aliases: ['versionnumber'],
       char: 'n',
       summary: messages.getMessage('flags.version-number.summary'),
     }),

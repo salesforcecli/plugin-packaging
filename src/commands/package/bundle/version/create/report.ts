@@ -39,8 +39,6 @@ export class PackageBundleVersionCreateReportCommand extends SfCommand<ReportCom
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'bundle-version-create-request-id': Flags.salesforceId({
       length: 'both',
-      deprecateAliases: true,
-      aliases: ['bundleversioncreaterequestid'],
       char: 'i',
       summary: messages.getMessage('flags.bundle-version-create-request-id.summary'),
       required: true,

@@ -44,8 +44,6 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
     // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-install-request-id': Flags.salesforceId({
       length: 'both',
-      deprecateAliases: true,
-      aliases: ['packageinstallrequestid'],
       char: 'i',
       summary: messages.getMessage('flags.package-install-request-id.summary'),
       required: true,
