@@ -1,3 +1,15 @@
+## [2.19.10](https://github.com/salesforcecli/plugin-packaging/compare/2.19.9...2.19.10) (2025-09-06)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/kit from 3.2.3 to 3.2.4 ([54c9605](https://github.com/salesforcecli/plugin-packaging/commit/54c9605699fa433f724d462164216460d2b3d650))
+
+## [2.19.9](https://github.com/salesforcecli/plugin-packaging/compare/2.19.8...2.19.9) (2025-09-06)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 4.12.0 to 4.13.1 ([98efe11](https://github.com/salesforcecli/plugin-packaging/commit/98efe110bbabbf9e9c2253e439f66d5fc19c07ae))
+
 ## [2.19.8](https://github.com/salesforcecli/plugin-packaging/compare/2.19.7...2.19.8) (2025-08-30)
 
 ### Bug Fixes
