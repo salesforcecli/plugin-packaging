@@ -1,0 +1,446 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/BundleVersionReportResult",
+  "definitions": {
+    "BundleVersionReportResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "componentPackages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageVersion"
+          }
+        },
+        "Id": {
+          "type": "string"
+        },
+        "PackageBundle": {
+          "$ref": "#/definitions/BundleSObjects.Bundle"
+        },
+        "VersionName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "string"
+        },
+        "MinorVersion": {
+          "type": "string"
+        },
+        "Ancestor": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BundleSObjects.BundleVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "IsReleased": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "IsReleased",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "MajorVersion",
+        "MinorVersion",
+        "PackageBundle",
+        "VersionName",
+        "componentPackages"
+      ]
+    },
+    "PackagingSObjects.SubscriberPackageVersion": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "SubscriberPackageId": {
+          "type": "string"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "PublisherName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "number"
+        },
+        "MinorVersion": {
+          "type": "number"
+        },
+        "PatchVersion": {
+          "type": "number"
+        },
+        "BuildNumber": {
+          "type": "number"
+        },
+        "ReleaseState": {
+          "type": "string"
+        },
+        "IsManaged": {
+          "type": "boolean"
+        },
+        "IsDeprecated": {
+          "type": "boolean"
+        },
+        "IsPasswordProtected": {
+          "type": "boolean"
+        },
+        "IsBeta": {
+          "type": "boolean"
+        },
+        "Package2ContainerOptions": {
+          "$ref": "#/definitions/PackageType"
+        },
+        "IsSecurityReviewed": {
+          "type": "boolean"
+        },
+        "IsOrgDependent": {
+          "type": "boolean"
+        },
+        "AppExchangePackageName": {
+          "type": "string"
+        },
+        "AppExchangeDescription": {
+          "type": "string"
+        },
+        "AppExchangePublisherName": {
+          "type": "string"
+        },
+        "AppExchangeLogoUrl": {
+          "type": "string"
+        },
+        "ReleaseNotesUrl": {
+          "type": "string"
+        },
+        "PostInstallUrl": {
+          "type": "string"
+        },
+        "RemoteSiteSettings": {
+          "$ref": "#/definitions/PackagingSObjects.SubscriberPackageRemoteSiteSettings"
+        },
+        "CspTrustedSites": {
+          "$ref": "#/definitions/PackagingSObjects.SubscriberPackageCspTrustedSites"
+        },
+        "Profiles": {
+          "$ref": "#/definitions/PackagingSObjects.SubscriberPackageProfiles"
+        },
+        "Dependencies": {
+          "$ref": "#/definitions/PackagingSObjects.SubscriberPackageDependencies"
+        },
+        "InstallValidationStatus": {
+          "$ref": "#/definitions/PackagingSObjects.InstallValidationStatus"
+        }
+      },
+      "required": [
+        "Id",
+        "SubscriberPackageId",
+        "Name",
+        "Description",
+        "PublisherName",
+        "MajorVersion",
+        "MinorVersion",
+        "PatchVersion",
+        "BuildNumber",
+        "ReleaseState",
+        "IsManaged",
+        "IsDeprecated",
+        "IsPasswordProtected",
+        "IsBeta",
+        "Package2ContainerOptions",
+        "IsSecurityReviewed",
+        "IsOrgDependent",
+        "AppExchangePackageName",
+        "AppExchangeDescription",
+        "AppExchangePublisherName",
+        "AppExchangeLogoUrl",
+        "ReleaseNotesUrl",
+        "PostInstallUrl",
+        "RemoteSiteSettings",
+        "CspTrustedSites",
+        "Profiles",
+        "Dependencies",
+        "InstallValidationStatus"
+      ],
+      "additionalProperties": false
+    },
+    "PackageType": {
+      "type": "string",
+      "enum": ["Managed", "Unlocked"]
+    },
+    "PackagingSObjects.SubscriberPackageRemoteSiteSettings": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageRemoteSiteSetting"
+          }
+        }
+      },
+      "required": ["settings"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageRemoteSiteSetting": {
+      "type": "object",
+      "properties": {
+        "secure": {
+          "type": "boolean"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": ["secure", "url"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageCspTrustedSites": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageCspTrustedSite"
+          }
+        }
+      },
+      "required": ["settings"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageCspTrustedSite": {
+      "type": "object",
+      "properties": {
+        "endpointUrl": {
+          "type": "string"
+        }
+      },
+      "required": ["endpointUrl"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageProfiles": {
+      "type": "object",
+      "properties": {
+        "destinationProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageDestinationProfile"
+          }
+        },
+        "sourceProfiles": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PackagingSObjects.SubscriberPackageSourceProfile"
+          }
+        }
+      },
+      "required": ["destinationProfiles", "sourceProfiles"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageDestinationProfile": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "noAccess": {
+          "type": "boolean"
+        },
+        "profileId": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "required": ["description", "displayName", "name", "noAccess", "profileId", "type"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageSourceProfile": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": ["label", "value"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.SubscriberPackageDependencies": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "subscriberPackageVersionId": {
+                "type": "string"
+              }
+            },
+            "required": ["subscriberPackageVersionId"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["ids"],
+      "additionalProperties": false
+    },
+    "PackagingSObjects.InstallValidationStatus": {
+      "type": "string",
+      "enum": [
+        "NO_ERRORS_DETECTED",
+        "BETA_INSTALL_INTO_PRODUCTION_ORG",
+        "CANNOT_INSTALL_EARLIER_VERSION",
+        "CANNOT_UPGRADE_BETA",
+        "CANNOT_UPGRADE_UNMANAGED",
+        "DEPRECATED_INSTALL_PACKAGE",
+        "EXTENSIONS_ON_LOCAL_PACKAGES",
+        "PACKAGE_NOT_INSTALLED",
+        "PACKAGE_HAS_IN_DEV_EXTENSIONS",
+        "INSTALL_INTO_DEV_ORG",
+        "NO_ACCESS",
+        "PACKAGING_DISABLED",
+        "PACKAGING_NO_ACCESS",
+        "PACKAGE_UNAVAILABLE",
+        "PACKAGE_UNAVAILABLE_CRC",
+        "PACKAGE_UNAVAILABLE_ZIP",
+        "UNINSTALL_IN_PROGRESS",
+        "UNKNOWN_ERROR",
+        "NAMESPACE_COLLISION"
+      ]
+    },
+    "BundleSObjects.Bundle": {
+      "type": "object",
+      "properties": {
+        "BundleName": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Id": {
+          "type": "string"
+        },
+        "IsDeleted": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        },
+        "SystemModstamp": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "BundleName",
+        "Id",
+        "IsDeleted",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById",
+        "SystemModstamp"
+      ],
+      "additionalProperties": false
+    },
+    "BundleSObjects.BundleVersion": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "PackageBundle": {
+          "$ref": "#/definitions/BundleSObjects.Bundle"
+        },
+        "VersionName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "string"
+        },
+        "MinorVersion": {
+          "type": "string"
+        },
+        "Ancestor": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/BundleSObjects.BundleVersion"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "IsReleased": {
+          "type": "boolean"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "LastModifiedDate": {
+          "type": "string"
+        },
+        "LastModifiedById": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Id",
+        "PackageBundle",
+        "VersionName",
+        "MajorVersion",
+        "MinorVersion",
+        "IsReleased",
+        "CreatedDate",
+        "CreatedById",
+        "LastModifiedDate",
+        "LastModifiedById"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
