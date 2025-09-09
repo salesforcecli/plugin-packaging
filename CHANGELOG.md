@@ -1,3 +1,5 @@
+## [2.20.1](https://github.com/salesforcecli/plugin-packaging/compare/2.20.0...2.20.1) (2025-09-09)
+
 # [2.20.0](https://github.com/salesforcecli/plugin-packaging/compare/2.19.10...2.20.0) (2025-09-09)
 
 ### Bug Fixes
