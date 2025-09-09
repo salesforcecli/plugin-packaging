@@ -1,3 +1,36 @@
+# [2.20.0](https://github.com/salesforcecli/plugin-packaging/compare/2.19.10...2.20.0) (2025-09-09)
+
+### Bug Fixes
+
+- address comments ([a36c691](https://github.com/salesforcecli/plugin-packaging/commit/a36c69157c7cd316f190fe61d05c08286bb558ac))
+- allos for all orgs not just devhub install list report ([6b4e89a](https://github.com/salesforcecli/plugin-packaging/commit/6b4e89a7754b35bd17b00e89f86dd4a205bad57b))
+- allows for devhub id for bundle install ([e62a5ef](https://github.com/salesforcecli/plugin-packaging/commit/e62a5ef4ba3b766bb521b923ab8f56bcbe31465d))
+- changed wording on bundle version report ([8d8b525](https://github.com/salesforcecli/plugin-packaging/commit/8d8b52588d3a31786504ce10016cbffb5f3d488c))
+- deleted message from wrong file ([f46d1ca](https://github.com/salesforcecli/plugin-packaging/commit/f46d1cab792f6bce1c24166387668f8c50ba8c7f))
+- devhub is now handled as a string ([9b706aa](https://github.com/salesforcecli/plugin-packaging/commit/9b706aa677fa60eccacbdd762f07e7f2d21e11ec))
+- fixed up test that relied on Unkonw error ([fa1f5d7](https://github.com/salesforcecli/plugin-packaging/commit/fa1f5d7940e0e678869bafdd08bf0a7d05f249b8))
+- generated new schemas ([21892c4](https://github.com/salesforcecli/plugin-packaging/commit/21892c485dfddeeedd80298090ee9f6ad46a123b))
+- hide bundles and state beta ([69f1a38](https://github.com/salesforcecli/plugin-packaging/commit/69f1a389a83b21f57cebb06450d0124cb0341b98))
+- removed force alias ([b01ef19](https://github.com/salesforcecli/plugin-packaging/commit/b01ef19b91292ea90a0b89676998c633d9980285))
+- removed N/A injection from plugin ([667ecc9](https://github.com/salesforcecli/plugin-packaging/commit/667ecc959e6e8236c8f6903887b45598184b36e3))
+- removed undelete ([51e4187](https://github.com/salesforcecli/plugin-packaging/commit/51e4187e3177971f603fa44db56fea1d89076048))
+- should now pass through errors ([fb6447d](https://github.com/salesforcecli/plugin-packaging/commit/fb6447d14080424b2fd1e843f7479b6d4ef9ae91))
+- to the test for using org flag ([8f69046](https://github.com/salesforcecli/plugin-packaging/commit/8f69046f0124f5f75f0aa01b4b2e7ebf5e984d57))
+
+### Features
+
+- added bundle create ([11e8f7e](https://github.com/salesforcecli/plugin-packaging/commit/11e8f7ef3f8a97b4f7cbbe783fc21f15da123da7))
+- added package version list ([da05b38](https://github.com/salesforcecli/plugin-packaging/commit/da05b38d7cec3d39e41934cca6aeff347392ae1a))
+- bare bones package bundle delete ([c414fae](https://github.com/salesforcecli/plugin-packaging/commit/c414faedefb177676c66f96afaf5442c05c84f9d))
+- created bundle list command ([7d09db0](https://github.com/salesforcecli/plugin-packaging/commit/7d09db0abb1ed370993f770f1f70d2625eca7f92))
+- created bundle version create ([17592a6](https://github.com/salesforcecli/plugin-packaging/commit/17592a61cfbab098857bea8a0db8463c74f8b5d7))
+- created package bundle delete ([55df236](https://github.com/salesforcecli/plugin-packaging/commit/55df236643369ea1e71a0ac7e0efb6185a5b284a))
+- created package bundle version report ([17ee964](https://github.com/salesforcecli/plugin-packaging/commit/17ee964814a776d408f8922d58f1e610c58475ef))
+- created pakcage bundle install command ([38f6500](https://github.com/salesforcecli/plugin-packaging/commit/38f65006f18aa5d164a5f9b8d094b268aa0dca5a))
+- non tested implementation of package bundle version report ([721b2d0](https://github.com/salesforcecli/plugin-packaging/commit/721b2d073c143c59c3147505517141af7f8fbdb9))
+- test for bundle create ([f4061d3](https://github.com/salesforcecli/plugin-packaging/commit/f4061d3649275829ee6074c469659647e12be5a2))
+- version ovveride ([da560c7](https://github.com/salesforcecli/plugin-packaging/commit/da560c7d55984b5766e8670a5cd15cb0db7dc299))
+
 ## [2.19.10](https://github.com/salesforcecli/plugin-packaging/compare/2.19.9...2.19.10) (2025-09-06)
 
 ### Bug Fixes
