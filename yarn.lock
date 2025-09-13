@@ -1484,7 +1484,7 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.12.0", "@salesforce/core@^8.18.7", "@salesforce/core@^8.19.1", "@salesforce/core@^8.22.0", "@salesforce/core@^8.23.0", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.0":
+"@salesforce/core@^8.12.0", "@salesforce/core@^8.18.7", "@salesforce/core@^8.22.0", "@salesforce/core@^8.23.0", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.0":
   version "8.23.0"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.0.tgz#19e9effb2175507538157255d969e08925f91f76"
   integrity sha512-njdJlo+SYtmuCBE1p8lwbcQF6oRsE1ZkcEQUElpu4WhB+DT/0mv7oN3eeYfh9Ss9Px95sSgzPJhEFLsZLwGJ4w==
@@ -1994,13 +1994,6 @@
   dependencies:
     tslib "^2.6.2"
 
-"@smithy/is-array-buffer@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/is-array-buffer/-/is-array-buffer-4.1.0.tgz#d18a2f22280e7173633cb91a9bdb6f3d8a6560b8"
-  integrity sha512-ePTYUOV54wMogio+he4pBybe8fwg4sDvEVDBU8ZlHOZXbXK3/C0XfJgUCu6qAZcawv05ZhZzODGUerFBPsPUDQ==
-  dependencies:
-    tslib "^2.6.2"
-
 "@smithy/md5-js@^4.0.5":
   version "4.0.5"
   resolved "https://registry.yarnpkg.com/@smithy/md5-js/-/md5-js-4.0.5.tgz#77216159386050dbcf6b58f16f4ac14ac5183474"
@@ -2280,7 +2273,7 @@
     "@smithy/types" "^4.4.0"
     tslib "^2.6.2"
 
-"@smithy/util-base64@^4.0.0":
+"@smithy/util-base64@^4.0.0", "@smithy/util-base64@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-base64/-/util-base64-4.1.0.tgz#5965026081d9aef4a8246f5702807570abe538b2"
   integrity sha512-RUGd4wNb8GeW7xk+AY5ghGnIwM96V0l2uzvs/uVHf+tIuVX2WSvynk5CxNoBCsM2rQRSZElAo9rt3G5mJ/gktQ==
@@ -2289,23 +2282,7 @@
     "@smithy/util-utf8" "^4.1.0"
     tslib "^2.6.2"
 
-"@smithy/util-base64@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-base64/-/util-base64-4.1.0.tgz#5965026081d9aef4a8246f5702807570abe538b2"
-  integrity sha512-RUGd4wNb8GeW7xk+AY5ghGnIwM96V0l2uzvs/uVHf+tIuVX2WSvynk5CxNoBCsM2rQRSZElAo9rt3G5mJ/gktQ==
-  dependencies:
-    "@smithy/util-buffer-from" "^4.1.0"
-    "@smithy/util-utf8" "^4.1.0"
-    tslib "^2.6.2"
-
-"@smithy/util-body-length-browser@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-body-length-browser/-/util-body-length-browser-4.1.0.tgz#636bdf4bc878c546627dab4b9b0e4db31b475be7"
-  integrity sha512-V2E2Iez+bo6bUMOTENPr6eEmepdY8Hbs+Uc1vkDKgKNA/brTJqOW/ai3JO1BGj9GbCeLqw90pbbH7HFQyFotGQ==
-  dependencies:
-    tslib "^2.6.2"
-
-"@smithy/util-body-length-browser@^4.1.0":
+"@smithy/util-body-length-browser@^4.0.0", "@smithy/util-body-length-browser@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-body-length-browser/-/util-body-length-browser-4.1.0.tgz#636bdf4bc878c546627dab4b9b0e4db31b475be7"
   integrity sha512-V2E2Iez+bo6bUMOTENPr6eEmepdY8Hbs+Uc1vkDKgKNA/brTJqOW/ai3JO1BGj9GbCeLqw90pbbH7HFQyFotGQ==
@@ -2335,22 +2312,7 @@
     "@smithy/is-array-buffer" "^4.1.0"
     tslib "^2.6.2"
 
-"@smithy/util-buffer-from@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-buffer-from/-/util-buffer-from-4.1.0.tgz#21f9e644a0eb41226d92e4eff763f76a7db7e9cc"
-  integrity sha512-N6yXcjfe/E+xKEccWEKzK6M+crMrlwaCepKja0pNnlSkm6SjAeLKKA++er5Ba0I17gvKfN/ThV+ZOx/CntKTVw==
-  dependencies:
-    "@smithy/is-array-buffer" "^4.1.0"
-    tslib "^2.6.2"
-
-"@smithy/util-config-provider@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-config-provider/-/util-config-provider-4.1.0.tgz#6a07d73446c1e9a46d7a3c125f2a9301060bc957"
-  integrity sha512-swXz2vMjrP1ZusZWVTB/ai5gK+J8U0BWvP10v9fpcFvg+Xi/87LHvHfst2IgCs1i0v4qFZfGwCmeD/KNCdJZbQ==
-  dependencies:
-    tslib "^2.6.2"
-
-"@smithy/util-config-provider@^4.1.0":
+"@smithy/util-config-provider@^4.0.0", "@smithy/util-config-provider@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-config-provider/-/util-config-provider-4.1.0.tgz#6a07d73446c1e9a46d7a3c125f2a9301060bc957"
   integrity sha512-swXz2vMjrP1ZusZWVTB/ai5gK+J8U0BWvP10v9fpcFvg+Xi/87LHvHfst2IgCs1i0v4qFZfGwCmeD/KNCdJZbQ==
@@ -2390,14 +2352,7 @@
     "@smithy/types" "^4.3.2"
     tslib "^2.6.2"
 
-"@smithy/util-hex-encoding@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-hex-encoding/-/util-hex-encoding-4.1.0.tgz#9b27cf0c25d0de2c8ebfe75cc20df84e5014ccc9"
-  integrity sha512-1LcueNN5GYC4tr8mo14yVYbh/Ur8jHhWOxniZXii+1+ePiIbsLZ5fEI0QQGtbRRP5mOhmooos+rLmVASGGoq5w==
-  dependencies:
-    tslib "^2.6.2"
-
-"@smithy/util-hex-encoding@^4.1.0":
+"@smithy/util-hex-encoding@^4.0.0", "@smithy/util-hex-encoding@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-hex-encoding/-/util-hex-encoding-4.1.0.tgz#9b27cf0c25d0de2c8ebfe75cc20df84e5014ccc9"
   integrity sha512-1LcueNN5GYC4tr8mo14yVYbh/Ur8jHhWOxniZXii+1+ePiIbsLZ5fEI0QQGtbRRP5mOhmooos+rLmVASGGoq5w==
@@ -2466,14 +2421,7 @@
     "@smithy/util-utf8" "^4.1.0"
     tslib "^2.6.2"
 
-"@smithy/util-uri-escape@^4.0.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-uri-escape/-/util-uri-escape-4.1.0.tgz#ed4a5c498f1da07122ca1e3df4ca3e2c67c6c18a"
-  integrity sha512-b0EFQkq35K5NHUYxU72JuoheM6+pytEVUGlTwiFxWFpmddA+Bpz3LgsPRIpBk8lnPE47yT7AF2Egc3jVnKLuPg==
-  dependencies:
-    tslib "^2.6.2"
-
-"@smithy/util-uri-escape@^4.1.0":
+"@smithy/util-uri-escape@^4.0.0", "@smithy/util-uri-escape@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-uri-escape/-/util-uri-escape-4.1.0.tgz#ed4a5c498f1da07122ca1e3df4ca3e2c67c6c18a"
   integrity sha512-b0EFQkq35K5NHUYxU72JuoheM6+pytEVUGlTwiFxWFpmddA+Bpz3LgsPRIpBk8lnPE47yT7AF2Egc3jVnKLuPg==
@@ -2489,14 +2437,6 @@
     tslib "^2.6.2"
 
 "@smithy/util-utf8@^4.0.0", "@smithy/util-utf8@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@smithy/util-utf8/-/util-utf8-4.1.0.tgz#912c33c1a06913f39daa53da79cb8f7ab740d97b"
-  integrity sha512-mEu1/UIXAdNYuBcyEPbjScKi/+MQVXNIuY/7Cm5XLIWe319kDrT5SizBE95jqtmEXoDbGoZxKLCMttdZdqTZKQ==
-  dependencies:
-    "@smithy/util-buffer-from" "^4.1.0"
-    tslib "^2.6.2"
-
-"@smithy/util-utf8@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@smithy/util-utf8/-/util-utf8-4.1.0.tgz#912c33c1a06913f39daa53da79cb8f7ab740d97b"
   integrity sha512-mEu1/UIXAdNYuBcyEPbjScKi/+MQVXNIuY/7Cm5XLIWe319kDrT5SizBE95jqtmEXoDbGoZxKLCMttdZdqTZKQ==
@@ -4310,12 +4250,12 @@ eslint-plugin-jsdoc@^46.10.1:
     semver "^7.5.4"
     spdx-expression-parse "^4.0.0"
 
-eslint-plugin-sf-plugin@^1.20.31:
-  version "1.20.31"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.20.31.tgz#d655ea3bf2f41376021d93612ee1e99c28415b3d"
-  integrity sha512-vFVhmiUVbiqvbD6wa/+O0xNHNhP+zlNMlDEHDNelKwNzEKnI8lrL5CzJKsKOw1r9aa0iEEUuaaHplRUeanflGQ==
+eslint-plugin-sf-plugin@^1.20.32:
+  version "1.20.32"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-sf-plugin/-/eslint-plugin-sf-plugin-1.20.32.tgz#9a3c1c84295090088addcf801abc082bb4980e35"
+  integrity sha512-laSlqqFgJEbffPw5XOxIgIdswsM7JxHqI0F7azKVmezIC0+ceEw0fkbIY1cI9cE/Ihu57/46GM5+fXRUYrodzw==
   dependencies:
-    "@salesforce/core" "^8.19.1"
+    "@salesforce/core" "^8.23.0"
     "@typescript-eslint/utils" "^7.18.0"
 
 eslint-plugin-unicorn@^50.0.1:
