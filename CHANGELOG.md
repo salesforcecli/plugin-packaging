@@ -1,3 +1,9 @@
+## [2.20.3](https://github.com/salesforcecli/plugin-packaging/compare/2.20.2...2.20.3) (2025-09-14)
+
+### Bug Fixes
+
+- **deps:** bump chalk from 5.6.0 to 5.6.2 ([35c3a15](https://github.com/salesforcecli/plugin-packaging/commit/35c3a1550a3e9d6011625623cbb4bae504fe7db6))
+
 ## [2.20.2](https://github.com/salesforcecli/plugin-packaging/compare/2.20.1...2.20.2) (2025-09-13)
 
 ### Bug Fixes
