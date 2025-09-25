@@ -107,6 +107,14 @@
   },
   {
     "alias": [],
+    "command": "package:bundle:installed:list",
+    "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername", "targetusername", "u"],
+    "flagChars": ["b", "o", "v"],
+    "flags": ["api-version", "bundles", "flags-dir", "json", "loglevel", "target-dev-hub", "target-org", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
