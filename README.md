@@ -794,7 +794,7 @@ Update package details.
 ```
 USAGE
   $ sf package update -v <value> -p <value> [--json] [--flags-dir <value>] [--api-version <value>] [-n <value>] [-d
-    <value>] [-o <value>] [--enable-app-analytics]
+    <value>] [-o <value>] [-r <value>] [--enable-app-analytics]
 
 FLAGS
   -d, --description=<value>                  New description of the package.
@@ -804,6 +804,7 @@ FLAGS
   -p, --package=<value>                      (required) ID (starts with 0Ho) or alias of the package to update.
   -v, --target-dev-hub=<value>               (required) Username or alias of the Dev Hub org. Not required if the
                                              `target-dev-hub` configuration variable is already set.
+  -r, --recommended-version-id               ID (starts with 04t) that users will be notified to upgrade/install
       --api-version=<value>                  Override the api version used for api requests made by this command
       --[no-]enable-app-analytics            Enable AppExchange App Analytics usage data collection on this managed
                                              package and its components.
