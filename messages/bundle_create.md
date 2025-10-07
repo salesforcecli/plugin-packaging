@@ -5,7 +5,7 @@ Create a package bundle in the Dev Hub org.
 # description
 
 A package bundle is an artifact that contains one or more 2GP managed packages.
-A bundle can be installed, or upgraded as a single artifact.
+A bundle can be installed or upgraded as a single artifact.
 
 # examples
 
