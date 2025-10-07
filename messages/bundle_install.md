@@ -26,7 +26,7 @@ Target org for the bundle installation.
 
 # flags.dev-hub-org.summary
 
-Org ID of the dev hub org where the bundle was created.
+Org ID of the Dev Hub org where the bundle was created.
 
 # flags.dev-hub-org.description
 
