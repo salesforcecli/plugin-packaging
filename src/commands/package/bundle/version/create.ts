@@ -130,7 +130,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
         throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
-        this.log(messages.getMessage('bundleVersionCreateSuccess', [result.Id]));
+        this.log(`Successfully created bundle version ${result.PackageBundleVersionId}`);
         break;
       default:
         this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));

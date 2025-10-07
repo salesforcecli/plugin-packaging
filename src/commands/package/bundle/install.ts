@@ -18,7 +18,6 @@ import {
   Flags,
   loglevel,
   orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
@@ -46,7 +45,14 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     }),
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'target-dev-hub': requiredHubFlagWithDeprecations,
+    'dev-hub-org': Flags.salesforceId({
+      length: 'both',
+      char: 'd',
+      summary: messages.getMessage('flags.dev-hub-org.summary'),
+      description: messages.getMessage('flags.dev-hub-org.description'),
+      startsWith: '00D',
+      required: true,
+    }),
     wait: Flags.integer({
       char: 'w',
       summary: messages.getMessage('flags.wait.summary'),
@@ -62,15 +68,13 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     // Get the target org connection
     const targetOrg = flags['target-org'];
-    const targetDevHub = flags['target-dev-hub'];
     const connection = targetOrg.getConnection(flags['api-version']);
-    const devHubOrgId = targetDevHub.getOrgId();
 
     const options: BundleInstallOptions = {
       connection,
       project: this.project!,
       PackageBundleVersion: flags.bundle,
-      DevelopmentOrganization: devHubOrgId,
+      DevelopmentOrganization: flags['dev-hub-org'],
     };
 
     // Set up lifecycle events for progress tracking
