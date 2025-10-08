@@ -17,9 +17,9 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import {
   BundleVersionCreateOptions,
-  PackageVersionEvents,
   BundleSObjects,
   PackageBundleVersion,
+  BundleVersionEvents,
 } from '@salesforce/packaging';
 import { Messages, Lifecycle } from '@salesforce/core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
@@ -92,7 +92,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       Ancestor: '',
     };
     Lifecycle.getInstance().on(
-      PackageVersionEvents.create.progress,
+      BundleVersionEvents.create.progress,
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: BundleSObjects.PackageBundleVersionCreateRequestResult & { remainingWaitTime: Duration }) => {
