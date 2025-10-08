@@ -19,10 +19,9 @@ import {
   BundleVersionCreateOptions,
   BundleSObjects,
   PackageBundleVersion,
-  BundleVersionEvents,
 } from '@salesforce/packaging';
-import { Messages, Lifecycle } from '@salesforce/core';
-import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
+import { Messages } from '@salesforce/core';
+import { Duration } from '@salesforce/kit';
 import { requiredHubFlag } from '../../../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -69,6 +68,10 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }),
   };
 
+  private static camelCaseToTitleCase(str: string): string {
+    return str.replace(/([A-Z])/g, ' $1').replace(/^./, (s) => s.toUpperCase()).trim();
+  }
+
   public async run(): Promise<BundleSObjects.PackageBundleVersionCreateRequestResult> {
     const { flags } = await this.parse(PackageBundlesCreate);
 
@@ -91,34 +94,13 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       MinorVersion: minorVersion,
       Ancestor: '',
     };
-    Lifecycle.getInstance().on(
-      BundleVersionEvents.create.progress,
-      // no async methods
-      // eslint-disable-next-line @typescript-eslint/require-await
-      async (data: BundleSObjects.PackageBundleVersionCreateRequestResult & { remainingWaitTime: Duration }) => {
-        if (
-          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success &&
-          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error
-        ) {
-          const status = messages.getMessage('bundleVersionCreateWaitingStatus', [
-            data.remainingWaitTime.minutes,
-            data.RequestStatus,
-          ]);
-          if (flags.verbose) {
-            this.log(status);
-          } else {
-            this.spinner.status = status;
-          }
-        }
-      }
+    const result = await PackageBundleVersion.create(
+      options,
+      flags.wait ? { 
+        timeout: Duration.minutes(flags.wait), 
+        frequency: Duration.seconds(5) 
+      } : undefined
     );
-
-    const result = await PackageBundleVersion.create({
-      ...options,
-      ...(flags.wait && flags.wait > 0
-        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
-        : undefined),
-    });
     const finalStatusMsg = messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]);
     if (flags.verbose) {
       this.log(finalStatusMsg);
@@ -128,29 +110,19 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
 
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
-        let errorDetails = 'No specific error details available';
-        const errors = [];
-        
-        if (result.Error?.length) {
-          errors.push(...result.Error);
-        }
-        
-        if (result.ValidationError) {
-          errors.push(result.ValidationError);
-        }
-        
-        if (errors.length > 0) {
-          errorDetails = errors.join('\n');
-        }
-        
+        const errorDetails = result.ValidationError || 'No specific error details available';
         throw messages.createError('multipleErrors', [errorDetails]);
       }
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
-        this.log(`Successfully created bundle version ${result.PackageBundleVersionId}`);
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.success: {
+        // Only show the ID if it's a valid bundle version ID (1Q8...), otherwise show empty
+        const bundleVersionId = result.PackageBundleVersionId?.startsWith('1Q8') ? result.PackageBundleVersionId : '';
+        this.log(`Successfully created bundle version ${bundleVersionId}`);
         break;
+      }
       default:
-        this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
+        this.log(messages.getMessage('InProgress', [PackageBundlesCreate.camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
     }
     return result;
   }
+
 }
