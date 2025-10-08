@@ -127,8 +127,24 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }
 
     switch (result.RequestStatus) {
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
-        throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
+        let errorDetails = 'No specific error details available';
+        const errors = [];
+        
+        if (result.Error?.length) {
+          errors.push(...result.Error);
+        }
+        
+        if (result.ValidationError) {
+          errors.push(result.ValidationError);
+        }
+        
+        if (errors.length > 0) {
+          errorDetails = errors.join('\n');
+        }
+        
+        throw messages.createError('multipleErrors', [errorDetails]);
+      }
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
         this.log(`Successfully created bundle version ${result.PackageBundleVersionId}`);
         break;

@@ -33,6 +33,9 @@
             "type": "string"
           }
         },
+        "ValidationError": {
+          "type": "string"
+        },
         "PackageBundleId": {
           "type": "string"
         },
@@ -49,7 +52,10 @@
           "type": "string"
         },
         "Ancestor": {
-          "type": ["string", "null"]
+          "type": [
+            "string",
+            "null"
+          ]
         }
       },
       "required": [
@@ -67,7 +73,11 @@
     },
     "BundleSObjects.PkgBundleVersionCreateReqStatus": {
       "type": "string",
-      "enum": ["Queued", "Success", "Error"]
+      "enum": [
+        "Queued",
+        "Success",
+        "Error"
+      ]
     }
   }
 }
