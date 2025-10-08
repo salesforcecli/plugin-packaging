@@ -65,6 +65,14 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
   }
 
   private display(record: BundleSObjects.PkgBundleVersionInstallReqResult, verbose: boolean): void {
+    // Determine the error message to display
+    let errorMessage = 'N/A';
+    if (record.Error && record.Error.length > 0) {
+      errorMessage = record.Error.join('\n');
+    } else if (record.ValidationError) {
+      errorMessage = record.ValidationError;
+    }
+
     const data = [
       {
         name: messages.getMessage('id'),
@@ -84,7 +92,7 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
       },
       {
         name: messages.getMessage('validation-error'),
-        value: record.ValidationError ?? 'N/A',
+        value: errorMessage,
       },
       {
         name: messages.getMessage('created-date'),
