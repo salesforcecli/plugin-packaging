@@ -98,14 +98,17 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: BundleSObjects.PackageBundleVersionCreateRequestResult & { remainingWaitTime: Duration }) => {
-        if (data.RequestStatus === BundleSObjects.PkgBundleVersionCreateReqStatus.success || data.RequestStatus === BundleSObjects.PkgBundleVersionCreateReqStatus.error) {
-          return;
+        if (data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success && data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error) {
+          const status = messages.getMessage('bundleVersionCreateWaitingStatus', [
+            data.remainingWaitTime.minutes,
+            data.RequestStatus,
+          ]);
+          if (flags.verbose) {
+            this.log(status);
+          } else {
+            this.spinner.status = status;
+          }
         }
-        const status = messages.getMessage('bundleVersionCreateWaitingStatus', [
-          data.remainingWaitTime.minutes,
-          data.RequestStatus,
-        ]);
-        this.spinner.status = status;
       }
     );
 
@@ -119,7 +122,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     if (flags.verbose) {
       this.log(finalStatusMsg);
     } else {
-      this.spinner.status = finalStatusMsg;
+      this.spinner.stop(finalStatusMsg);
     }
 
     switch (result.RequestStatus) {
