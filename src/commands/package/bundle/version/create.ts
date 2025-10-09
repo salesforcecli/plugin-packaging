@@ -129,29 +129,39 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     } catch (error) {
       // Stop spinner on error
       if (isSpinnerRunning) {
-        this.spinner.stop('Error creating bundle version');
+        this.spinner.stop();
       }
       throw error;
     }
 
-    // Stop spinner only if it was started
+    // Stop spinner only if it was started - stop it cleanly without a message
     if (isSpinnerRunning) {
-      const finalStatusMsg = messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]);
-      this.spinner.stop(finalStatusMsg);
-    } else if (flags.verbose) {
-      this.log(messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]));
+      this.spinner.stop();
     }
 
     switch (result.RequestStatus) {
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
-        throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
+        // Collect all error messages from both Error array and ValidationError
+        const errorMessages: string[] = [];
+
+        if (result.Error && result.Error.length > 0) {
+          errorMessages.push(...result.Error);
+        }
+
+        if (result.ValidationError) {
+          errorMessages.push(result.ValidationError);
+        }
+
+        const errorText = errorMessages.length > 0
+          ? errorMessages.join('\n')
+          : 'Unknown error occurred during bundle version creation';
+
+        throw messages.createError('multipleErrors', [errorText]);
+      }
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success: {
         // Show the PackageBundleVersionId (1Q8) if available, otherwise show the request ID
         const displayId = result.PackageBundleVersionId || result.Id;
-        this.log(messages.getMessage('bundleVersionCreateSuccess', [displayId]));
-        if (result.PackageBundleVersionId) {
-          this.log(`Package Bundle Version ID: ${result.PackageBundleVersionId}`);
-        }
+        this.log(`Successfully created bundle version with ID ${displayId}`);
         break;
       }
       default:
