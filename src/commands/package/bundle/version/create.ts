@@ -114,9 +114,9 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
 
     const result = await PackageBundleVersion.create({
       ...options,
-      ...(flags.wait && flags.wait > 0
-        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5)}}
-        : undefined),
+      polling: flags.wait && flags.wait > 0
+        ? { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5)}
+        : undefined,
     });
     const finalStatusMsg = messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]);
     if (flags.verbose) {
@@ -129,7 +129,12 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
         throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
-        this.log(messages.getMessage('bundleVersionCreateSuccess', [result.Id]));
+        // Show the PackageBundleVersionId (1Q8) if available, otherwise show the request ID
+        const displayId = result.PackageBundleVersionId || result.Id;
+        this.log(messages.getMessage('bundleVersionCreateSuccess', [displayId]));
+        if (result.PackageBundleVersionId) {
+          this.log(`Package Bundle Version ID: ${result.PackageBundleVersionId}`);
+        }
         break;
       default:
         this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
