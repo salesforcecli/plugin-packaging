@@ -145,7 +145,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
         throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.success: {
         // Show the PackageBundleVersionId (1Q8) if available, otherwise show the request ID
         const displayId = result.PackageBundleVersionId || result.Id;
         this.log(messages.getMessage('bundleVersionCreateSuccess', [displayId]));
@@ -153,6 +153,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
           this.log(`Package Bundle Version ID: ${result.PackageBundleVersionId}`);
         }
         break;
+      }
       default:
         this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
     }

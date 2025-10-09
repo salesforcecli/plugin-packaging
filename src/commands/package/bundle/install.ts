@@ -100,18 +100,34 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       }
     );
 
-    const result = await PackageBundleInstall.installBundle(connection, this.project!, {
-      ...options,
-      ...(flags.wait && flags.wait > 0
-        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
-        : undefined),
-    });
+    // Start spinner if polling is enabled and not in verbose mode
+    const isSpinnerRunning = flags.wait && flags.wait > 0 && !flags.verbose;
+    if (isSpinnerRunning) {
+      this.spinner.start('Installing bundle...');
+    }
 
-    const finalStatusMsg = messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]);
-    if (flags.verbose) {
-      this.log(finalStatusMsg);
-    } else {
+    let result: BundleSObjects.PkgBundleVersionInstallReqResult;
+    try {
+      result = await PackageBundleInstall.installBundle(connection, this.project!, {
+        ...options,
+        ...(flags.wait && flags.wait > 0
+          ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
+          : undefined),
+      });
+    } catch (error) {
+      // Stop spinner on error
+      if (isSpinnerRunning) {
+        this.spinner.stop('Error installing bundle');
+      }
+      throw error;
+    }
+
+    // Stop spinner only if it was started
+    if (isSpinnerRunning) {
+      const finalStatusMsg = messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]);
       this.spinner.stop(finalStatusMsg);
+    } else if (flags.verbose) {
+      this.log(messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]));
     }
 
     switch (result.InstallStatus) {

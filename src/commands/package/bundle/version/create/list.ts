@@ -48,6 +48,7 @@ export class PackageBundleVersionCreateListCommand extends SfCommand<PackageBund
     status: Flags.custom<Status>({
       options: [
         BundleSObjects.PkgBundleVersionCreateReqStatus.queued,
+        BundleSObjects.PkgBundleVersionCreateReqStatus.inProgress,
         BundleSObjects.PkgBundleVersionCreateReqStatus.success,
         BundleSObjects.PkgBundleVersionCreateReqStatus.error,
       ],
