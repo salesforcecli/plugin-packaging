@@ -1897,10 +1897,10 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.14.1":
-  version "4.14.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.14.1.tgz#4f573b8a101942eb38c134157e92233ae8b5d712"
-  integrity sha512-WsKEFMAS76+tIGYKQZqma8ZsHMR77XmzuQobawCgpXtOiF5SWkVsztfdpfaCiVrh+2Mf/8mZ+TTh4/pbax0Qhg==
+"@salesforce/packaging@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.15.0.tgz#4ce94329499925d99c8e6f0b62fea2561cf13201"
+  integrity sha512-KXkIxMrr7faE29o1dQJST0t7btNYf0iTBvaP/CthbzFHPL+8Sxa4Zv0Jn4QIBvYWT+EK0+GYQK30BHe/fmFVIQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.4"
     "@salesforce/core" "^8.23.0"
