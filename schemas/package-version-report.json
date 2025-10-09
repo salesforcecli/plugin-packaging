@@ -72,6 +72,9 @@
             },
             "IsOrgDependent": {
               "type": "string"
+            },
+            "RecommendedVersionId": {
+              "type": "string"
             }
           },
           "additionalProperties": false

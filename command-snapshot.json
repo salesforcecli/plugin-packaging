@@ -373,7 +373,7 @@
     "alias": ["force:package:update"],
     "command": "package:update",
     "flagAliases": ["apiversion", "errornotificationusername", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["d", "n", "o", "p", "v"],
+    "flagChars": ["d", "n", "o", "p", "v", "r"],
     "flags": [
       "api-version",
       "description",
@@ -384,7 +384,8 @@
       "loglevel",
       "name",
       "package",
-      "target-dev-hub"
+      "target-dev-hub",
+      "recommended-version-id"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
