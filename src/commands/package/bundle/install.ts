@@ -117,25 +117,27 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     } catch (error) {
       // Stop spinner on error
       if (isSpinnerRunning) {
-        this.spinner.stop('Error installing bundle');
+        this.spinner.stop();
       }
       throw error;
     }
 
-    // Stop spinner only if it was started
+    // Stop spinner only if it was started - stop it cleanly without a message
     if (isSpinnerRunning) {
-      const finalStatusMsg = messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]);
-      this.spinner.stop(finalStatusMsg);
-    } else if (flags.verbose) {
-      this.log(messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]));
+      this.spinner.stop();
     }
 
     switch (result.InstallStatus) {
-      case BundleSObjects.PkgBundleVersionInstallReqStatus.error:
-        throw messages.createError('bundleInstallError', [result.ValidationError || 'Unknown error']);
-      case BundleSObjects.PkgBundleVersionInstallReqStatus.success:
-        this.log(messages.getMessage('bundleInstallSuccess', [result.Id]));
+      case BundleSObjects.PkgBundleVersionInstallReqStatus.error: {
+        const errorText = result.ValidationError
+          || `Bundle installation failed. Run 'sf package bundle install report -i ${result.Id} -o ${targetOrg.getUsername() ?? 'targetOrg'}' for more details.`;
+        throw messages.createError('bundleInstallError', [errorText]);
+      }
+      case BundleSObjects.PkgBundleVersionInstallReqStatus.success: {
+        const bundleVersionId = result.PackageBundleVersionID || flags.bundle;
+        this.log(`Successfully installed bundle version ${bundleVersionId} to ${targetOrg.getUsername() ?? 'target org'}`);
         break;
+      }
       default:
         this.log(
           messages.getMessage('bundleInstallInProgress', [
