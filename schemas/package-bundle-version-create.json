@@ -69,6 +69,7 @@
       "type": "string",
       "enum": [
         "Queued",
+        "InProgress",
         "Success",
         "Error"
       ]
