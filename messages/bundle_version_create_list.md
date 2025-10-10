@@ -1,6 +1,6 @@
 # summary
 
-List package version creation requests.
+List package bundle version creation requests.
 
 # description
 

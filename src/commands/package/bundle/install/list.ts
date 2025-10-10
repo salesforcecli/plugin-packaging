@@ -48,6 +48,7 @@ export class PackageBundleInstallListCommand extends SfCommand<PackageBundleInst
     status: Flags.custom<Status>({
       options: [
         BundleSObjects.PkgBundleVersionInstallReqStatus.queued,
+        BundleSObjects.PkgBundleVersionInstallReqStatus.inProgress,
         BundleSObjects.PkgBundleVersionInstallReqStatus.success,
         BundleSObjects.PkgBundleVersionInstallReqStatus.error,
       ],

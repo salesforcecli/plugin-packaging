@@ -52,7 +52,12 @@
     },
     "BundleSObjects.PkgBundleVersionInstallReqStatus": {
       "type": "string",
-      "enum": ["Queued", "Success", "Error"]
+      "enum": [
+        "Queued",
+        "InProgress",
+        "Success",
+        "Error"
+      ]
     }
   }
 }

@@ -8,21 +8,29 @@ Install a specific version of a package bundle in the target org. During develop
 
 # examples
 
-Install a package bundle version in a scratch org:
+- Install a package bundle version in a scratch org:
 
-sf package bundle install --bundle MyPkgBundle1@0.1 --target-org my-scratch-org --wait 10
+  <%= config.bin %> <%= command.id %> --bundle MyPkgBundle1@0.1 --target-org my-scratch-org --dev-hub-org 00Dxx0000000000 --wait 10
+
+- Install using a bundle version ID:
+
+  <%= config.bin %> <%= command.id %> --bundle 1Q8Wt0000000q1pKAA --target-org my-scratch-org --dev-hub-org 00Dxx0000000000 --wait 10
 
 # flags.bundle.summary
 
-Package bundle version to install (format: BundleName@Version).
+Package bundle version to install (format: BundleName@Version or bundle version ID).
 
 # flags.target-org.summary
 
 Target org for the bundle installation.
 
-# flags.target-dev-hub.summary
+# flags.dev-hub-org.summary
 
-Username, alias, or org ID of the target dev hub org.
+Org ID of the Dev Hub org where the bundle was created.
+
+# flags.dev-hub-org.description
+
+Specify the Dev Hub org ID directly (such as 00Dxx0000000000). 
 
 # flags.wait.summary
 
@@ -55,4 +63,4 @@ Encountered errors installing the bundle! %s
 # bundleInstallInProgress
 
 Bundle installation is currently %s. You can continue to query the status using
-sf package bundle install:report -i %s -o %s
+sf package bundle install report -i %s -o %s

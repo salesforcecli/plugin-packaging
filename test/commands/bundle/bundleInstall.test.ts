@@ -60,7 +60,6 @@ const pkgBundleInstallQueuedResult: BundleSObjects.PkgBundleVersionInstallReqRes
 describe('package:bundle:install - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
-  const testHubOrg = new MockTestOrgData();
   let installStub = $$.SANDBOX.stub(PackageBundleInstall, 'installBundle');
   const config = new Config({ root: import.meta.url });
 
@@ -75,7 +74,7 @@ describe('package:bundle:install - tests', () => {
   };
 
   before(async () => {
-    await $$.stubAuths(testOrg, testHubOrg);
+    await $$.stubAuths(testOrg);
     await config.load();
   });
 
@@ -93,7 +92,7 @@ describe('package:bundle:install - tests', () => {
       installStub.resolves(pkgBundleInstallSuccessResult);
 
       const cmd = new PackageBundlesInstall(
-        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org'],
+        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4'],
         config
       );
       stubSpinner(cmd);
@@ -110,7 +109,7 @@ describe('package:bundle:install - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     it('should install a package bundle version with wait option', async () => {
@@ -118,7 +117,7 @@ describe('package:bundle:install - tests', () => {
       installStub.resolves(pkgBundleInstallSuccessResult);
 
       const cmd = new PackageBundlesInstall(
-        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org', '-w', '10'],
+        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4', '-w', '10'],
         config
       );
       stubSpinner(cmd);
@@ -135,7 +134,7 @@ describe('package:bundle:install - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     // This test does very little to test the verbose command except make sure that it is there.
@@ -144,7 +143,7 @@ describe('package:bundle:install - tests', () => {
       installStub.resolves(pkgBundleInstallSuccessResult);
 
       const cmd = new PackageBundlesInstall(
-        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org', '--verbose'],
+        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4', '--verbose'],
         config
       );
       stubSpinner(cmd);
@@ -160,9 +159,8 @@ describe('package:bundle:install - tests', () => {
         Error: [],
       });
       expect(warnStub.callCount).to.equal(0);
-      expect(logStub.callCount).to.equal(2);
-      expect(logStub.args[0]).to.deep.equal(['Install status: Success']);
-      expect(logStub.args[1]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     it('should handle queued status', async () => {
@@ -170,7 +168,7 @@ describe('package:bundle:install - tests', () => {
       installStub.resolves(pkgBundleInstallQueuedResult);
 
       const cmd = new PackageBundlesInstall(
-        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org'],
+        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4'],
         config
       );
       stubSpinner(cmd);
@@ -190,7 +188,7 @@ describe('package:bundle:install - tests', () => {
       // Normalize CRLF to LF to make assertion OS-agnostic
       const queuedMsg = String(logStub.args[0][0]).replace(/\r\n/g, '\n');
       expect(queuedMsg).to.equal(
-        'Bundle installation is currently Queued. You can continue to query the status using\nsf package bundle install:report -i 08c3i000000fylgBBB -o test@org.org'
+        'Bundle installation is currently Queued. You can continue to query the status using\nsf package bundle install report -i 08c3i000000fylgBBB -o test@org.org'
       );
     });
 
@@ -200,7 +198,7 @@ describe('package:bundle:install - tests', () => {
 
       try {
         const cmd = new PackageBundlesInstall(
-          ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org'],
+          ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4'],
           config
         );
         stubSpinner(cmd);
@@ -220,14 +218,14 @@ describe('package:bundle:install - tests', () => {
 
       try {
         const cmd = new PackageBundlesInstall(
-          ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--target-dev-hub', 'test@hub.org'],
+          ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4'],
           config
         );
         stubSpinner(cmd);
         await cmd.run();
         assert.fail('the above should throw an error');
       } catch (e) {
-        expect((e as Error).message).to.equal('Encountered errors installing the bundle! Unknown error');
+        expect((e as Error).message).to.equal('Encountered errors installing the bundle! Bundle installation failed. Run \'sf package bundle install report -i 08c3i000000fylXXXX -o test@org.org\' for more details.');
       }
     });
   });

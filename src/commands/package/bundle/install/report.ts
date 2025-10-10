@@ -60,11 +60,11 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
       flags['package-install-request-id'],
       flags['target-org'].getConnection(flags['api-version'])
     );
-    this.display(result, flags.verbose);
+    this.display(result);
     return [result];
   }
 
-  private display(record: BundleSObjects.PkgBundleVersionInstallReqResult, verbose: boolean): void {
+  private display(record: BundleSObjects.PkgBundleVersionInstallReqResult): void {
     const data = [
       {
         name: messages.getMessage('id'),
@@ -76,15 +76,11 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
       },
       {
         name: messages.getMessage('package-bundle-version-id'),
-        value: record.PackageBundleVersionID ?? 'N/A',
+        value: record.PackageBundleVersionID || 'N/A',
       },
       {
         name: messages.getMessage('development-organization'),
-        value: record.DevelopmentOrganization,
-      },
-      {
-        name: messages.getMessage('validation-error'),
-        value: record.ValidationError ?? 'N/A',
+        value: record.DevelopmentOrganization || 'N/A',
       },
       {
         name: messages.getMessage('created-date'),
@@ -94,14 +90,10 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
         name: messages.getMessage('created-by'),
         value: record.CreatedById,
       },
-      ...(verbose
-        ? [
-            {
-              name: 'ValidationError',
-              value: record.ValidationError ?? 'N/A',
-            },
-          ]
-        : []),
+      {
+        name: messages.getMessage('validation-error'),
+        value: record.ValidationError || 'N/A',
+      },
     ];
 
     this.table({ data, title: chalk.blue('Package Bundle Install Request') });

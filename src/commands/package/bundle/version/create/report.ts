@@ -87,6 +87,14 @@ export class PackageBundleVersionCreateReportCommand extends SfCommand<ReportCom
       },
     ];
 
+    // Add ValidationError if it exists
+    if (record.ValidationError) {
+      data.push({
+        name: messages.getMessage('validation-error'),
+        value: record.ValidationError,
+      });
+    }
+
     this.table({ data, title: chalk.blue('Package Bundle Version Create Request') });
   }
 }
