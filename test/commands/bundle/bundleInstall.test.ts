@@ -109,7 +109,7 @@ describe('package:bundle:install - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     it('should install a package bundle version with wait option', async () => {
@@ -134,7 +134,7 @@ describe('package:bundle:install - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     // This test does very little to test the verbose command except make sure that it is there.
@@ -159,9 +159,8 @@ describe('package:bundle:install - tests', () => {
         Error: [],
       });
       expect(warnStub.callCount).to.equal(0);
-      expect(logStub.callCount).to.equal(2);
-      expect(logStub.args[0]).to.deep.equal(['Install status: Success']);
-      expect(logStub.args[1]).to.deep.equal(['Successfully installed bundle [08c3i000000fylgAAA]']);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
     it('should handle queued status', async () => {
@@ -226,7 +225,7 @@ describe('package:bundle:install - tests', () => {
         await cmd.run();
         assert.fail('the above should throw an error');
       } catch (e) {
-        expect((e as Error).message).to.equal('Encountered errors installing the bundle! Unknown error');
+        expect((e as Error).message).to.equal('Encountered errors installing the bundle! Bundle installation failed. Run \'sf package bundle install report -i 08c3i000000fylXXXX -o test@org.org\' for more details.');
       }
     });
   });
