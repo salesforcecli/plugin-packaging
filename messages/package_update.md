@@ -40,7 +40,7 @@ Successfully updated the package. %s
 
 # flags.recommended-version-id.summary
 
-Updated Recommended Version ID
+Package version ID that subscribers are notified to install or upgrade to
 
 # flags.recommended-version-id.description
 
