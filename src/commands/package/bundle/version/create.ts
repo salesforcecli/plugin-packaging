@@ -17,9 +17,9 @@
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import {
   BundleVersionCreateOptions,
-  PackageVersionEvents,
   BundleSObjects,
   PackageBundleVersion,
+  PackageVersionEvents,
 } from '@salesforce/packaging';
 import { Messages, Lifecycle } from '@salesforce/core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
@@ -69,6 +69,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }),
   };
 
+
   public async run(): Promise<BundleSObjects.PackageBundleVersionCreateRequestResult> {
     const { flags } = await this.parse(PackageBundlesCreate);
 
@@ -91,15 +92,13 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       MinorVersion: minorVersion,
       Ancestor: '',
     };
+
     Lifecycle.getInstance().on(
       PackageVersionEvents.create.progress,
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: BundleSObjects.PackageBundleVersionCreateRequestResult & { remainingWaitTime: Duration }) => {
-        if (
-          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success &&
-          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error
-        ) {
+        if (data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success && data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error) {
           const status = messages.getMessage('bundleVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.RequestStatus,
@@ -113,28 +112,62 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       }
     );
 
-    const result = await PackageBundleVersion.create({
-      ...options,
-      ...(flags.wait && flags.wait > 0
-        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
-        : undefined),
-    });
-    const finalStatusMsg = messages.getMessage('bundleVersionCreateFinalStatus', [result.RequestStatus]);
-    if (flags.verbose) {
-      this.log(finalStatusMsg);
-    } else {
-      this.spinner.stop(finalStatusMsg);
+    // Start spinner if polling is enabled and not in verbose mode
+    const isSpinnerRunning = flags.wait && flags.wait > 0 && !flags.verbose;
+    if (isSpinnerRunning) {
+      this.spinner.start('Creating bundle version...');
+    }
+
+    let result: BundleSObjects.PackageBundleVersionCreateRequestResult;
+    try {
+      result = await PackageBundleVersion.create({
+        ...options,
+        ...(flags.wait && flags.wait > 0
+          ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5)}}
+          : undefined),
+      });
+    } catch (error) {
+      // Stop spinner on error
+      if (isSpinnerRunning) {
+        this.spinner.stop();
+      }
+      throw error;
+    }
+
+    // Stop spinner only if it was started - stop it cleanly without a message
+    if (isSpinnerRunning) {
+      this.spinner.stop();
     }
 
     switch (result.RequestStatus) {
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.error:
-        throw messages.createError('multipleErrors', [result.Error?.join('\n') ?? 'Unknown error']);
-      case BundleSObjects.PkgBundleVersionCreateReqStatus.success:
-        this.log(messages.getMessage('bundleVersionCreateSuccess', [result.Id]));
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
+        // Collect all error messages from both Error array and ValidationError
+        const errorMessages: string[] = [];
+
+        if (result.Error && result.Error.length > 0) {
+          errorMessages.push(...result.Error);
+        }
+
+        if (result.ValidationError) {
+          errorMessages.push(result.ValidationError);
+        }
+
+        const errorText = errorMessages.length > 0
+          ? errorMessages.join('\n')
+          : 'Unknown error occurred during bundle version creation';
+
+        throw messages.createError('multipleErrors', [errorText]);
+      }
+      case BundleSObjects.PkgBundleVersionCreateReqStatus.success: {
+        // Show the PackageBundleVersionId (1Q8) if available, otherwise show the request ID
+        const displayId = result.PackageBundleVersionId || result.Id;
+        this.log(`Successfully created bundle version with ID ${displayId}`);
         break;
+      }
       default:
         this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
     }
     return result;
   }
+
 }

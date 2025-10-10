@@ -125,7 +125,7 @@ describe('package:bundle:version:create - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version for bundle 08c3i000000fylgAAA']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version with ID 05i3i000000fxw1AAA']);
     });
 
     it('should create a new package bundle version with wait option', async () => {
@@ -154,7 +154,7 @@ describe('package:bundle:version:create - tests', () => {
       });
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
-      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version for bundle 08c3i000000fylgAAA']);
+      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version with ID 05i3i000000fxw1AAA']);
     });
 
     it('should create a new package bundle version with verbose option', async () => {
@@ -182,9 +182,8 @@ describe('package:bundle:version:create - tests', () => {
         Ancestor: null,
       });
       expect(warnStub.callCount).to.equal(0);
-      expect(logStub.callCount).to.equal(2);
-      expect(logStub.args[0]).to.deep.equal(['Package Bundle version creation completed with status: Success']);
-      expect(logStub.args[1]).to.deep.equal(['Successfully created bundle version for bundle 08c3i000000fylgAAA']);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version with ID 05i3i000000fxw1AAA']);
     });
 
     it('should handle queued status', async () => {

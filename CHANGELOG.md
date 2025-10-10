@@ -1,3 +1,23 @@
+## [2.20.6](https://github.com/salesforcecli/plugin-packaging/compare/2.20.5...2.20.6) (2025-10-10)
+
+### Bug Fixes
+
+- add spanner to install ([cc9fb55](https://github.com/salesforcecli/plugin-packaging/commit/cc9fb5584a4d8182298b3572c16682a2b05236e6))
+- finish create and display error correctly for install ([f10528b](https://github.com/salesforcecli/plugin-packaging/commit/f10528be746a437616e4645b9ff7a49986a41978))
+- fix all tests error regarding create error ([e65614b](https://github.com/salesforcecli/plugin-packaging/commit/e65614b414f4231a67c6f20d980e5e09a08f526f))
+- fix all tests error regarding create error ([2b3c7ee](https://github.com/salesforcecli/plugin-packaging/commit/2b3c7ee57e5053469459fda3e70f0150b763d101))
+- fix bundle cli issues dev preview ([a064fb4](https://github.com/salesforcecli/plugin-packaging/commit/a064fb45e7d849591dc8ecdd91060f017440d592))
+- fix polling issue ([6651065](https://github.com/salesforcecli/plugin-packaging/commit/6651065fbbf53abf3fb3779c853ec9f8fb2220de))
+- fix polling issue ([afef736](https://github.com/salesforcecli/plugin-packaging/commit/afef7368c8a694865234e7fef88dc6f9c446b8ee))
+- fix polling issue ([0cd595f](https://github.com/salesforcecli/plugin-packaging/commit/0cd595f7533384c71212f3ebf1505dca4c76a577))
+- fix test ([73eba87](https://github.com/salesforcecli/plugin-packaging/commit/73eba873da52ab7c2d6e7048f8fd85c0e5470166))
+- revert create ([e346f77](https://github.com/salesforcecli/plugin-packaging/commit/e346f77089e0a9d43004883fb4ffad39f55c4ccd))
+- revert create ([50c64e1](https://github.com/salesforcecli/plugin-packaging/commit/50c64e1d5ee64986f6a6907990e1d5f0920d1806))
+- surface bundle install error ([8ef2251](https://github.com/salesforcecli/plugin-packaging/commit/8ef2251dbb234108c7ca3601f9e57c62c4387f48))
+- surface bundle install error ([3aca14e](https://github.com/salesforcecli/plugin-packaging/commit/3aca14efbd1193d3a950a9628ad14a1cac27d842))
+- surface validation error in create correctly ([65dd822](https://github.com/salesforcecli/plugin-packaging/commit/65dd82227e06e3dd6e8bceae2be0831d0143a3a6))
+- use separate bundle version lifecycle event ([0136cec](https://github.com/salesforcecli/plugin-packaging/commit/0136cec4dc170721d796c4d8b9bfec1b318eccea))
+
 ## [2.20.5](https://github.com/salesforcecli/plugin-packaging/compare/2.20.4...2.20.5) (2025-09-23)
 
 ### Bug Fixes

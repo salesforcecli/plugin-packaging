@@ -74,19 +74,9 @@
   {
     "alias": [],
     "command": "package:bundle:install",
-    "flagAliases": ["apiversion", "targetdevhubusername", "targetusername", "u"],
-    "flagChars": ["b", "o", "v", "w"],
-    "flags": [
-      "api-version",
-      "bundle",
-      "flags-dir",
-      "json",
-      "loglevel",
-      "target-dev-hub",
-      "target-org",
-      "verbose",
-      "wait"
-    ],
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["b", "d", "o", "w"],
+    "flags": ["api-version", "bundle", "dev-hub-org", "flags-dir", "json", "loglevel", "target-org", "verbose", "wait"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {

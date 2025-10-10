@@ -18,7 +18,6 @@ import {
   Flags,
   loglevel,
   orgApiVersionFlagWithDeprecations,
-  requiredHubFlagWithDeprecations,
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
@@ -46,7 +45,14 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     }),
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'target-dev-hub': requiredHubFlagWithDeprecations,
+    'dev-hub-org': Flags.salesforceId({
+      length: 'both',
+      char: 'd',
+      summary: messages.getMessage('flags.dev-hub-org.summary'),
+      description: messages.getMessage('flags.dev-hub-org.description'),
+      startsWith: '00D',
+      required: true,
+    }),
     wait: Flags.integer({
       char: 'w',
       summary: messages.getMessage('flags.wait.summary'),
@@ -62,15 +68,13 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     // Get the target org connection
     const targetOrg = flags['target-org'];
-    const targetDevHub = flags['target-dev-hub'];
     const connection = targetOrg.getConnection(flags['api-version']);
-    const devHubOrgId = targetDevHub.getOrgId();
 
     const options: BundleInstallOptions = {
       connection,
       project: this.project!,
       PackageBundleVersion: flags.bundle,
-      DevelopmentOrganization: devHubOrgId,
+      DevelopmentOrganization: flags['dev-hub-org'],
     };
 
     // Set up lifecycle events for progress tracking
@@ -96,26 +100,44 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       }
     );
 
-    const result = await PackageBundleInstall.installBundle(connection, this.project!, {
-      ...options,
-      ...(flags.wait && flags.wait > 0
-        ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
-        : undefined),
-    });
+    // Start spinner if polling is enabled and not in verbose mode
+    const isSpinnerRunning = flags.wait && flags.wait > 0 && !flags.verbose;
+    if (isSpinnerRunning) {
+      this.spinner.start('Installing bundle...');
+    }
 
-    const finalStatusMsg = messages.getMessage('bundleInstallFinalStatus', [result.InstallStatus]);
-    if (flags.verbose) {
-      this.log(finalStatusMsg);
-    } else {
-      this.spinner.stop(finalStatusMsg);
+    let result: BundleSObjects.PkgBundleVersionInstallReqResult;
+    try {
+      result = await PackageBundleInstall.installBundle(connection, this.project!, {
+        ...options,
+        ...(flags.wait && flags.wait > 0
+          ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
+          : undefined),
+      });
+    } catch (error) {
+      // Stop spinner on error
+      if (isSpinnerRunning) {
+        this.spinner.stop();
+      }
+      throw error;
+    }
+
+    // Stop spinner only if it was started - stop it cleanly without a message
+    if (isSpinnerRunning) {
+      this.spinner.stop();
     }
 
     switch (result.InstallStatus) {
-      case BundleSObjects.PkgBundleVersionInstallReqStatus.error:
-        throw messages.createError('bundleInstallError', [result.ValidationError || 'Unknown error']);
-      case BundleSObjects.PkgBundleVersionInstallReqStatus.success:
-        this.log(messages.getMessage('bundleInstallSuccess', [result.Id]));
+      case BundleSObjects.PkgBundleVersionInstallReqStatus.error: {
+        const errorText = result.ValidationError
+          || `Bundle installation failed. Run 'sf package bundle install report -i ${result.Id} -o ${targetOrg.getUsername() ?? 'targetOrg'}' for more details.`;
+        throw messages.createError('bundleInstallError', [errorText]);
+      }
+      case BundleSObjects.PkgBundleVersionInstallReqStatus.success: {
+        const bundleVersionId = result.PackageBundleVersionID || flags.bundle;
+        this.log(`Successfully installed bundle version ${bundleVersionId} to ${targetOrg.getUsername() ?? 'target org'}`);
         break;
+      }
       default:
         this.log(
           messages.getMessage('bundleInstallInProgress', [
