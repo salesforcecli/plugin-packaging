@@ -59,6 +59,11 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       summary: messages.getMessage('flags.enable-app-analytics.summary'),
       allowNo: true,
     }),
+    'recommended-version-id': Flags.string({
+      char: 'r',
+      summary: messages.getMessage('flags.recommended-version-id.summary'),
+      description: messages.getMessage('flags.recommended-version-id.description'),
+    }),
   };
 
   public async run(): Promise<PackageSaveResult> {
@@ -76,6 +81,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       Description: flags.description,
       PackageErrorUsername: flags['error-notification-username'],
       AppAnalyticsEnabled: flags['enable-app-analytics'],
+      RecommendedVersionId: flags['recommended-version-id'],
     });
 
     this.logSuccess(messages.getMessage('success', [pkg.getId()]));
