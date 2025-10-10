@@ -40,8 +40,8 @@ Successfully updated the package. %s
 
 # flags.recommended-version-id.summary
 
-Package version ID that subscribers are notified to install or upgrade to
+Package version ID that subscribers are notified to install or upgrade to.
 
 # flags.recommended-version-id.description
 
-Specify the package version subscribers should install. If already installed, subscribers are notified to upgrade to this version.
+Specify the recommended package version for subscribers to install. Subscribers are notified to install the package version ID that you enter. If the subscribers have a different version of the same package installed, they are notified to upgrade to the recommended version.notified to upgrade to this version.

@@ -804,7 +804,7 @@ FLAGS
   -p, --package=<value>                      (required) ID (starts with 0Ho) or alias of the package to update.
   -v, --target-dev-hub=<value>               (required) Username or alias of the Dev Hub org. Not required if the
                                              `target-dev-hub` configuration variable is already set.
-  -r, --recommended-version-id               Package version ID (starts with 04t) that subscribers are notified to install or upgrade to upgrade/install
+  -r, --recommended-version-id               Package version ID (starts with 04t) that subscribers are notified to install or upgrade to
       --api-version=<value>                  Override the api version used for api requests made by this command
       --[no-]enable-app-analytics            Enable AppExchange App Analytics usage data collection on this managed
                                              package and its components.
