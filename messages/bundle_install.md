@@ -30,7 +30,7 @@ Org ID of the Dev Hub org where the bundle was created.
 
 # flags.dev-hub-org.description
 
-Specify the dev hub org ID directly (e.g., 00Dxx0000000000). This is the org where the bundle was originally created.
+Specify the Dev Hub org ID directly (such as 00Dxx0000000000). 
 
 # flags.wait.summary
 
