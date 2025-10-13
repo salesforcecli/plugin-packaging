@@ -1,3 +1,12 @@
+# [2.21.0](https://github.com/salesforcecli/plugin-packaging/compare/2.20.6...2.21.0) (2025-10-13)
+
+### Features
+
+- add recommended-version-id to package update ([2ef182c](https://github.com/salesforcecli/plugin-packaging/commit/2ef182c03de7f662fdd14fccfe85414b564bfd2e))
+- implement additional label feedback ([bb70b3b](https://github.com/salesforcecli/plugin-packaging/commit/bb70b3ba19fd0a486e91db4e0552e5d6856290a3))
+- update messages for recommended version flag ([d9290a9](https://github.com/salesforcecli/plugin-packaging/commit/d9290a9aa5f99d64e1adaf84f49ca8d2dd33ae94))
+- update README with new package update flag ([320439d](https://github.com/salesforcecli/plugin-packaging/commit/320439db7eb8a3cb302d0ad34311fd4a204345e0))
+
 ## [2.20.6](https://github.com/salesforcecli/plugin-packaging/compare/2.20.5...2.20.6) (2025-10-10)
 
 ### Bug Fixes
