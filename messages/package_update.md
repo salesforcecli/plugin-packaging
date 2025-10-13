@@ -37,3 +37,11 @@ Enable AppExchange App Analytics usage data collection on this managed package a
 # success
 
 Successfully updated the package. %s
+
+# flags.recommended-version-id.summary
+
+Package version ID that subscribers are notified to install or upgrade to.
+
+# flags.recommended-version-id.description
+
+Specify the recommended package version for subscribers to install. Subscribers are notified to install the package version ID that you specify. If the subscribers have a different version of the same package installed, they're notified to upgrade to the recommended version.
