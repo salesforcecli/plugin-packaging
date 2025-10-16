@@ -496,7 +496,7 @@ describe('package:version:*', () => {
     before('dependencies project setup', async function () {
       // Query for Package2VersionCreateRequest records that have CalcTransitiveDependencies set to true
       // This ensures the dependency graph data is available for the displaydependencies command
-      const query = 'SELECT Id, Package2Version.SubscriberPackageVersionId FROM Package2VersionCreateRequest WHERE DependencyGraphJson != null LIMIT 10';
+      const query = 'SELECT Id, Package2Version.SubscriberPackageVersionId FROM Package2VersionCreateRequest WHERE CalcTransitiveDependencies = true LIMIT 10';
       configAggregator = await ConfigAggregator.create();
       devHubOrg = await Org.create({ aliasOrUsername: configAggregator.getPropertyValue<string>('target-dev-hub') });
       // Check API version before proceeding
