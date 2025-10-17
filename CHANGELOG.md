@@ -1,3 +1,10 @@
+## [2.21.1](https://github.com/salesforcecli/plugin-packaging/compare/2.21.0...2.21.1) (2025-10-16)
+
+### Bug Fixes
+
+- fix package verion nut test ([fd1ec80](https://github.com/salesforcecli/plugin-packaging/commit/fd1ec80bd01f8fbe5aef7fad494727f734abe487))
+- fix package verion nut test ([80116f7](https://github.com/salesforcecli/plugin-packaging/commit/80116f73da61a596a97d93d180f3121dd9428c73))
+
 # [2.21.0](https://github.com/salesforcecli/plugin-packaging/compare/2.20.6...2.21.0) (2025-10-13)
 
 ### Features
