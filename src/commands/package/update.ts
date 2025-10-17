@@ -64,6 +64,9 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       summary: messages.getMessage('flags.recommended-version-id.summary'),
       description: messages.getMessage('flags.recommended-version-id.description'),
     }),
+    'skip-ancestor-check': Flags.boolean({
+      summary: messages.getMessage('flags.skip-ancestor-check.summary'),
+    }),
   };
 
   public async run(): Promise<PackageSaveResult> {
