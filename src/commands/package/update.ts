@@ -78,14 +78,17 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
       project: await maybeGetProject(),
     });
 
-    const result = await pkg.update({
-      Id: pkg.getId(),
-      Name: flags.name,
-      Description: flags.description,
-      PackageErrorUsername: flags['error-notification-username'],
-      AppAnalyticsEnabled: flags['enable-app-analytics'],
-      RecommendedVersionId: flags['recommended-version-id'],
-    });
+    const result = await pkg.update(
+      {
+        Id: pkg.getId(),
+        Name: flags.name,
+        Description: flags.description,
+        PackageErrorUsername: flags['error-notification-username'],
+        AppAnalyticsEnabled: flags['enable-app-analytics'],
+        RecommendedVersionId: flags['recommended-version-id'],
+      },
+      flags['skip-ancestor-check']
+    );
 
     this.logSuccess(messages.getMessage('success', [pkg.getId()]));
 
