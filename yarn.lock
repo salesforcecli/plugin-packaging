@@ -1616,7 +1616,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@jsforce/jsforce-node@^3.10.4", "@jsforce/jsforce-node@^3.10.8":
+"@jsforce/jsforce-node@^3.10.8":
   version "3.10.8"
   resolved "https://registry.yarnpkg.com/@jsforce/jsforce-node/-/jsforce-node-3.10.8.tgz#f13903a0885fa3501a513512984cf9a717aebb9a"
   integrity sha512-XGD/ivZz+htN5SgctFyEZ+JNG6C8FXzaEwvPbRSdsIy/hpWlexY38XtTpdT5xX3KnYSnOE4zA1M/oIbTm7RD/Q==
@@ -1827,7 +1827,7 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.18.7", "@salesforce/core@^8.23.0", "@salesforce/core@^8.23.1", "@salesforce/core@^8.23.2", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.0":
+"@salesforce/core@^8.18.7", "@salesforce/core@^8.23.1", "@salesforce/core@^8.23.2", "@salesforce/core@^8.5.1", "@salesforce/core@^8.8.0":
   version "8.23.2"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.23.2.tgz#218152b97e05745cd0499ad2594df4443fa8aa18"
   integrity sha512-9XUlaI0orvdjDJZsgjt0lVLa5wrFWNaorRbshT/EJ6fIiqcAehOV2bR62NJtRhrOrgu1h34bTmUqMo+yUEES9w==
@@ -1896,16 +1896,16 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.16.0":
-  version "4.16.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.16.0.tgz#e7ba298a7e00c5dc72a21b6764ff2c9a8a5e82fc"
-  integrity sha512-B9pNih9LpISVqKJWQ/dN9SKsppqrOXMECiGxEq+x4NZPV9Rgf9HJEpJL17LkI2KGynKwL+Hpflo9zMeiZ6JzJQ==
+"@salesforce/packaging@^4.17.0":
+  version "4.17.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.17.0.tgz#809491060b26a71c4a736879154d20215c216796"
+  integrity sha512-3RA14IxY3RsCHLdEgLAdUTdwEzllcowRuVGWOSFw6XrpEJ779vZl+JfEVAklPwQWZGrEsNzhUf34FFrewtbchw==
   dependencies:
-    "@jsforce/jsforce-node" "^3.10.4"
-    "@salesforce/core" "^8.23.0"
+    "@jsforce/jsforce-node" "^3.10.8"
+    "@salesforce/core" "^8.23.2"
     "@salesforce/kit" "^3.2.3"
     "@salesforce/schemas" "^1.10.3"
-    "@salesforce/source-deploy-retrieve" "^12.16.9"
+    "@salesforce/source-deploy-retrieve" "^12.24.0"
     "@salesforce/ts-types" "^2.0.11"
     "@salesforce/types" "^1.2.0"
     fast-xml-parser "^4.5.0"
@@ -1974,15 +1974,15 @@
     cli-progress "^3.12.0"
     terminal-link "^3.0.0"
 
-"@salesforce/source-deploy-retrieve@^12.16.9":
-  version "12.24.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.24.0.tgz#cc4e38175436aeb6c9c22ee795924c96d7ef87c8"
-  integrity sha512-gjS6whT1575UGxwR2foDILlsbDQPwng0rNyXsk39hwg+bRsbHABZGzxU5EeUIzpKqv4bf6C9z/BLYiHMcZocoQ==
+"@salesforce/source-deploy-retrieve@^12.24.0":
+  version "12.24.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.24.3.tgz#125be3a3e6d0d0f21068648ce4a2e4bb49ea57b6"
+  integrity sha512-MTpilWa+1mOqZUEmbE7K/vgHAT0FjGDv9L6vn7Cof3kRhk3RZprIjR6Sd9/x1WteI+hR5JAMCDbKT/WiWJcKYw==
   dependencies:
-    "@salesforce/core" "^8.23.1"
-    "@salesforce/kit" "^3.2.3"
+    "@salesforce/core" "^8.23.2"
+    "@salesforce/kit" "^3.2.4"
     "@salesforce/ts-types" "^2.0.12"
-    "@salesforce/types" "^1.4.0"
+    "@salesforce/types" "^1.5.0"
     fast-levenshtein "^3.0.0"
     fast-xml-parser "^4.5.3"
     got "^11.8.6"
@@ -1999,10 +1999,15 @@
   resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-2.0.12.tgz#60420622812a7ec7e46d220667bc29b42dc247ff"
   integrity sha512-BIJyduJC18Kc8z+arUm5AZ9VkPRyw1KKAm+Tk+9LT99eOzhNilyfKzhZ4t+tG2lIGgnJpmytZfVDZ0e2kFul8g==
 
-"@salesforce/types@^1.2.0", "@salesforce/types@^1.4.0":
+"@salesforce/types@^1.2.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@salesforce/types/-/types-1.4.0.tgz#a8b8baa0b7cc9cb6718379464d9bc9e4ab834e9e"
   integrity sha512-WpXzQd+JglQrwUs05ePGa1/vFFn1s7rymw2ltBbFj2Z0p/ez1ft6J39ILVlteS/mGca47Ce8JN+u3USVxfxkKA==
+
+"@salesforce/types@^1.5.0":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/types/-/types-1.5.0.tgz#dd1db8651ae9729c133ee5224ec7fbf50b1087ad"
+  integrity sha512-zBihdJ6WwE0JP6BVCXhm7guMQlj4/7nCYqtrkozgxgeKLJq+zKrTRwILeRQbbeqVP4nKjUz/AJr0zCDjrA2IVg==
 
 "@shikijs/core@1.29.2":
   version "1.29.2"

@@ -808,6 +808,8 @@ FLAGS
       --api-version=<value>                  Override the api version used for api requests made by this command
       --[no-]enable-app-analytics            Enable AppExchange App Analytics usage data collection on this managed
                                              package and its components.
+      --skip-ancestor-check                  Bypass checking that the new recommended version is an ancestor of the
+                                             previous recommended version.
 
 GLOBAL FLAGS
   --flags-dir=<value>  Import flag values from a directory.
