@@ -1,3 +1,9 @@
+# [2.22.0](https://github.com/salesforcecli/plugin-packaging/compare/2.21.2...2.22.0) (2025-10-22)
+
+### Features
+
+- introduce skip-ancestor-check for recommended version ID ([0ec8041](https://github.com/salesforcecli/plugin-packaging/commit/0ec80419b9a3d326c82f7f19f6caae3dd482cc67))
+
 ## [2.21.2](https://github.com/salesforcecli/plugin-packaging/compare/2.21.1...2.21.2) (2025-10-20)
 
 ## [2.21.1](https://github.com/salesforcecli/plugin-packaging/compare/2.21.0...2.21.1) (2025-10-16)
