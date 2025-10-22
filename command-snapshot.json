@@ -375,7 +375,8 @@
       "name",
       "package",
       "target-dev-hub",
-      "recommended-version-id"
+      "recommended-version-id",
+      "skip-ancestor-check"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
