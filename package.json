@@ -9,7 +9,7 @@
     "@salesforce/core": "^8.23.2",
     "@salesforce/kit": "^3.2.4",
     "@salesforce/packaging": "^4.17.1",
-    "@salesforce/sf-plugins-core": "^12.2.4",
+    "@salesforce/sf-plugins-core": "^12.2.5",
     "chalk": "^5.6.2"
   },
   "devDependencies": {
