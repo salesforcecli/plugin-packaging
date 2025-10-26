@@ -1,3 +1,9 @@
+## [2.22.4](https://github.com/salesforcecli/plugin-packaging/compare/2.22.3...2.22.4) (2025-10-26)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.23.2 to 8.23.3 ([9e64a77](https://github.com/salesforcecli/plugin-packaging/commit/9e64a77dac01c9ad08ee3956b447ad1e04137c2d))
+
 ## [2.22.3](https://github.com/salesforcecli/plugin-packaging/compare/2.22.2...2.22.3) (2025-10-26)
 
 ### Bug Fixes
