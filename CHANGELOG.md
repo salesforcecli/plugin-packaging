@@ -1,3 +1,9 @@
+# [2.23.0](https://github.com/salesforcecli/plugin-packaging/compare/2.22.4...2.23.0) (2025-10-30)
+
+### Features
+
+- unhide package version retrieve command ([ac81bb8](https://github.com/salesforcecli/plugin-packaging/commit/ac81bb8358c84d19af8316dd138a633330974ad1))
+
 ## [2.22.4](https://github.com/salesforcecli/plugin-packaging/compare/2.22.3...2.22.4) (2025-10-26)
 
 ### Bug Fixes
