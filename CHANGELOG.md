@@ -1,3 +1,9 @@
+## [2.23.1](https://github.com/salesforcecli/plugin-packaging/compare/2.23.0...2.23.1) (2025-11-05)
+
+### Bug Fixes
+
+- small edits to messages file for new "package version retrieve" command ([5f8b42d](https://github.com/salesforcecli/plugin-packaging/commit/5f8b42d7a52eef16337bc1876d0abab605d73837))
+
 # [2.23.0](https://github.com/salesforcecli/plugin-packaging/compare/2.22.4...2.23.0) (2025-10-30)
 
 ### Features
