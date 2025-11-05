@@ -1,6 +1,6 @@
 # summary
 
-Retrieve package metadata for a specified package version. Package metadata can be retrieved for second-generation managed package versions or unlocked packages only.
+Retrieve package metadata for a specified package version. Package metadata can be retrieved for only second-generation managed package versions or unlocked packages.
 
 # description
 
@@ -12,7 +12,7 @@ By default, the package version retrieve command is available to 2GP managed pac
 
 # examples
 
-Retrieve package metadata for a converted subscriber package version ID (starts with 04t) into my-directory/ within your Salesforce DX project directory:
+- Retrieve package metadata for a converted subscriber package version ID (starts with 04t) into my-directory/ within your Salesforce DX project directory:
 
   <%= config.bin %> <%= command.id %> --package 04tXXX --output-dir my-directory/ --target-dev-hub devhub@example.com
 
