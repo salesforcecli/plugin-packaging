@@ -1,6 +1,6 @@
 # summary
 
-Retrieve package metadata for a specified package version. Package metadata can be retrieved for second-generation managed package versions or unlocked packages only.
+Retrieve package metadata for a specified package version. Package metadata can be retrieved for only second-generation managed package versions or unlocked packages.
 
 # description
 
