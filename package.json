@@ -19,7 +19,7 @@
     "@salesforce/plugin-command-reference": "^3.1.78",
     "eslint-plugin-sf-plugin": "^1.20.32",
     "minimatch": "^10.1.1",
-    "oclif": "^4.22.41",
+    "oclif": "^4.22.44",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
