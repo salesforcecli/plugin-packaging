@@ -78,7 +78,7 @@ export class PackageBundleInstallListCommand extends SfCommand<PackageBundleInst
       const data = results.map((r) => ({
         Id: r.Id ?? 'N/A',
         Status: r.InstallStatus ?? 'Unknown',
-        'Package Bundle Version Id': r.PackageBundleVersionID ?? 'N/A',
+        'Package Bundle Version Id': r.PackageBundleVersionId ?? 'N/A',
         'Development Organization': r.DevelopmentOrganization ?? 'N/A',
         'Created Date': r.CreatedDate ?? 'N/A',
         'Created By': r.CreatedById ?? 'N/A',

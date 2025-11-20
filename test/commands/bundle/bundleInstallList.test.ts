@@ -47,7 +47,7 @@ describe('package:bundle:install:list - tests', () => {
       {
         Id: 'test-id-1',
         InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.success,
-        PackageBundleVersionID: 'bundle-version-id-1',
+        PackageBundleVersionId: 'bundle-version-id-1',
         DevelopmentOrganization: 'dev-org-1',
         CreatedDate: '2023-01-01T00:00:00Z',
         CreatedById: 'user-id-1',
@@ -85,7 +85,7 @@ describe('package:bundle:install:list - tests', () => {
       {
         Id: 'test-id-1',
         InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.error,
-        PackageBundleVersionID: 'bundle-version-id-1',
+        PackageBundleVersionId: 'bundle-version-id-1',
         DevelopmentOrganization: 'dev-org-1',
         CreatedDate: '2023-01-01T00:00:00Z',
         CreatedById: 'user-id-1',
