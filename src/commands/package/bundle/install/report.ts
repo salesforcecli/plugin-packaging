@@ -76,7 +76,7 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
       },
       {
         name: messages.getMessage('package-bundle-version-id'),
-        value: record.PackageBundleVersionID || 'N/A',
+        value: record.PackageBundleVersionId || 'N/A',
       },
       {
         name: messages.getMessage('development-organization'),
