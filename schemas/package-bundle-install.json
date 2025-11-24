@@ -27,7 +27,7 @@
             "type": "string"
           }
         },
-        "PackageBundleVersionID": {
+        "PackageBundleVersionId": {
           "type": "string"
         },
         "DevelopmentOrganization": {
@@ -40,7 +40,7 @@
         "DevelopmentOrganization",
         "Id",
         "InstallStatus",
-        "PackageBundleVersionID",
+        "PackageBundleVersionId",
         "ValidationError"
       ]
     },
