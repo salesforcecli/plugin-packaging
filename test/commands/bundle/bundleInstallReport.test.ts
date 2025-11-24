@@ -45,7 +45,7 @@ describe('package:bundle:install:report - tests', () => {
     const mockResult: BundleSObjects.PkgBundleVersionInstallReqResult = {
       Id: requestId,
       InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.queued,
-      PackageBundleVersionID: '0Ho0x0000000000001',
+      PackageBundleVersionId: '0Ho0x0000000000001',
       DevelopmentOrganization: 'test-org@example.com',
       ValidationError: '',
       CreatedDate: '2025-01-01T00:00:00.000+0000',
@@ -73,7 +73,7 @@ describe('package:bundle:install:report - tests', () => {
     const mockResult: BundleSObjects.PkgBundleVersionInstallReqResult = {
       Id: requestId,
       InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.success,
-      PackageBundleVersionID: '0Ho0x0000000000001',
+      PackageBundleVersionId: '0Ho0x0000000000001',
       DevelopmentOrganization: 'test-org@example.com',
       ValidationError: '',
       CreatedDate: '2025-01-01T00:00:00.000+0000',

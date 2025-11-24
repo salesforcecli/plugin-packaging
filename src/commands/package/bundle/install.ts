@@ -134,7 +134,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
         throw messages.createError('bundleInstallError', [errorText]);
       }
       case BundleSObjects.PkgBundleVersionInstallReqStatus.success: {
-        const bundleVersionId = result.PackageBundleVersionID || flags.bundle;
+        const bundleVersionId = result.PackageBundleVersionId || flags.bundle;
         this.log(`Successfully installed bundle version ${bundleVersionId} to ${targetOrg.getUsername() ?? 'target org'}`);
         break;
       }

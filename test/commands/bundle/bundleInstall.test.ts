@@ -24,7 +24,7 @@ import { PackageBundlesInstall } from '../../../src/commands/package/bundle/inst
 const pkgBundleInstallErrorResult: BundleSObjects.PkgBundleVersionInstallReqResult = {
   Id: '08c3i000000fylXXXX',
   InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.error,
-  PackageBundleVersionID: '1Q83i000000fxw1AAA',
+  PackageBundleVersionId: '1Q83i000000fxw1AAA',
   DevelopmentOrganization: '00D3i000000TNHXXXX',
   ValidationError: 'Installation failed due to validation errors',
   CreatedDate: '2022-11-03 09:21',
@@ -38,7 +38,7 @@ const pkgBundleInstallErrorResult: BundleSObjects.PkgBundleVersionInstallReqResu
 const pkgBundleInstallSuccessResult: BundleSObjects.PkgBundleVersionInstallReqResult = {
   Id: '08c3i000000fylgAAA',
   InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.success,
-  PackageBundleVersionID: '1Q83i000000fxw1AAA',
+  PackageBundleVersionId: '1Q83i000000fxw1AAA',
   DevelopmentOrganization: '00D3i000000TNHYCA4',
   ValidationError: '',
   CreatedDate: '2022-11-03 09:46',
@@ -49,7 +49,7 @@ const pkgBundleInstallSuccessResult: BundleSObjects.PkgBundleVersionInstallReqRe
 const pkgBundleInstallQueuedResult: BundleSObjects.PkgBundleVersionInstallReqResult = {
   Id: '08c3i000000fylgBBB',
   InstallStatus: BundleSObjects.PkgBundleVersionInstallReqStatus.queued,
-  PackageBundleVersionID: '1Q83i000000fxw1AAA',
+  PackageBundleVersionId: '1Q83i000000fxw1AAA',
   DevelopmentOrganization: '00D3i000000TNHYCA4',
   ValidationError: '',
   CreatedDate: '2022-11-03 10:00',
@@ -100,7 +100,7 @@ describe('package:bundle:install - tests', () => {
       expect(res).to.deep.equal({
         Id: '08c3i000000fylgAAA',
         InstallStatus: 'Success',
-        PackageBundleVersionID: '1Q83i000000fxw1AAA',
+        PackageBundleVersionId: '1Q83i000000fxw1AAA',
         DevelopmentOrganization: '00D3i000000TNHYCA4',
         ValidationError: '',
         CreatedDate: '2022-11-03 09:46',
@@ -125,7 +125,7 @@ describe('package:bundle:install - tests', () => {
       expect(res).to.deep.equal({
         Id: '08c3i000000fylgAAA',
         InstallStatus: 'Success',
-        PackageBundleVersionID: '1Q83i000000fxw1AAA',
+        PackageBundleVersionId: '1Q83i000000fxw1AAA',
         DevelopmentOrganization: '00D3i000000TNHYCA4',
         ValidationError: '',
         CreatedDate: '2022-11-03 09:46',
@@ -151,7 +151,7 @@ describe('package:bundle:install - tests', () => {
       expect(res).to.deep.equal({
         Id: '08c3i000000fylgAAA',
         InstallStatus: 'Success',
-        PackageBundleVersionID: '1Q83i000000fxw1AAA',
+        PackageBundleVersionId: '1Q83i000000fxw1AAA',
         DevelopmentOrganization: '00D3i000000TNHYCA4',
         ValidationError: '',
         CreatedDate: '2022-11-03 09:46',
@@ -176,7 +176,7 @@ describe('package:bundle:install - tests', () => {
       expect(res).to.deep.equal({
         Id: '08c3i000000fylgBBB',
         InstallStatus: 'Queued',
-        PackageBundleVersionID: '1Q83i000000fxw1AAA',
+        PackageBundleVersionId: '1Q83i000000fxw1AAA',
         DevelopmentOrganization: '00D3i000000TNHYCA4',
         ValidationError: '',
         CreatedDate: '2022-11-03 10:00',
