@@ -1,3 +1,10 @@
+## [2.23.4](https://github.com/salesforcecli/plugin-packaging/compare/2.23.3...2.23.4) (2025-11-24)
+
+### Bug Fixes
+
+- fix package bundle version id not showing bundle install list command ([b409f70](https://github.com/salesforcecli/plugin-packaging/commit/b409f701cc66e0f636546c858c36debfd4b6ea61))
+- test fix ([6b5e8e7](https://github.com/salesforcecli/plugin-packaging/commit/6b5e8e729309212a20c63a9779a07f87dbbf8506))
+
 ## [2.23.3](https://github.com/salesforcecli/plugin-packaging/compare/2.23.2...2.23.3) (2025-11-08)
 
 ### Bug Fixes
