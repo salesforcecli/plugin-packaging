@@ -1,11 +1,10 @@
 # summary
 
-Create a package bundle in the Dev Hub org.
+Create a package bundle in the Dev Hub org. 
 
 # description
 
-A package bundle is an artifact that contains one or more 2GP managed packages.
-A bundle can be installed or upgraded as a single artifact.
+A package bundle is an artifact composed of one or more 2GP managed packages. With a package bundle, you can develop, install, upgrade, and manage multiple packages as a single unit.
 
 # examples
 
@@ -23,7 +22,7 @@ Description of the package bundle.
 
 # flags.wait.summary
 
-Number of minutes to wait for the bundle creation to complete.
+Number of minutes to wait for the package bundle to be created.
 
 # flags.verbose.summary
 
