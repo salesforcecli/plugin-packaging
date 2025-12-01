@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageBundleInstalledListResults",
+  "definitions": {
+    "PackageBundleInstalledListResults": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BundleSObjects.InstalledPackageBundleVersion"
+      }
+    },
+    "BundleSObjects.InstalledPackageBundleVersion": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "BundleName": {
+          "type": "string"
+        },
+        "BundleId": {
+          "type": "string"
+        },
+        "BundleVersionId": {
+          "type": "string"
+        },
+        "BundleVersionName": {
+          "type": "string"
+        },
+        "MajorVersion": {
+          "type": "number"
+        },
+        "MinorVersion": {
+          "type": "number"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "InstalledDate": {
+          "type": "string"
+        },
+        "LastUpgradedDate": {
+          "type": "string"
+        },
+        "Components": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BundleSObjects.InstalledPackageBundleVersionComponent"
+          }
+        }
+      },
+      "required": [
+        "Id",
+        "BundleName",
+        "BundleId",
+        "BundleVersionId",
+        "BundleVersionName",
+        "MajorVersion",
+        "MinorVersion",
+        "Description",
+        "InstalledDate",
+        "LastUpgradedDate",
+        "Components"
+      ],
+      "additionalProperties": false
+    },
+    "BundleSObjects.InstalledPackageBundleVersionComponent": {
+      "type": "object",
+      "properties": {
+        "ExpectedPackageName": {
+          "type": "string"
+        },
+        "ExpectedPackageVersionNumber": {
+          "type": "string"
+        },
+        "ActualPackageName": {
+          "type": "string"
+        },
+        "ActualPackageVersionNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ExpectedPackageName",
+        "ExpectedPackageVersionNumber",
+        "ActualPackageName",
+        "ActualPackageVersionNumber"
+      ],
+      "additionalProperties": false
+    }
+  }
+}
