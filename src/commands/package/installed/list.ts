@@ -72,11 +72,13 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
         // If IsManaged is true AND Package2ContainerOptions is blank, use "namespace"; otherwise use "packageId"
         if (isManaged && !package2ContainerOptions) {
           transformed.VersionSettings = 'namespace';
-        } else {
+        } else if (package2ContainerOptions === 'Managed') {
           transformed.VersionSettings = 'packageId';
+        } else {
+          transformed.VersionSettings = '';
         }
       } else {
-        transformed.VersionSettings = 'packageId';
+        transformed.VersionSettings = '';
       }
 
       return transformed;
