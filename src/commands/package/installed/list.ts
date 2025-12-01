@@ -31,6 +31,7 @@ export type PackageInstalledListResult = {
   SubscriberPackageId?: string;
   SubscriberPackageName?: string;
   SubscriberPackageNamespace?: string;
+  VersionSettings?: string;
   SubscriberPackageVersionId?: string;
   SubscriberPackageVersionName?: string;
   SubscriberPackageVersionNumber?: string;
@@ -54,7 +55,32 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
     const { flags } = await this.parse(PackageInstalledListCommand);
     const records = (
       await SubscriberPackageVersion.installedList(flags['target-org'].getConnection(flags['api-version']))
-    ).map(transformRow);
+    ).map((r) => {
+      const transformed = transformRow(r);
+
+      // Calculate Version Settings from the data already in the result
+      if (r.SubscriberPackageVersion) {
+        // Access fields that are now included in the query but may not be in the type definition yet
+        const subPkgVersion = r.SubscriberPackageVersion as {
+          IsManaged?: boolean;
+          Package2ContainerOptions?: string;
+        };
+        const isManaged = subPkgVersion.IsManaged;
+        const package2ContainerOptions = subPkgVersion.Package2ContainerOptions;
+
+        // What does UI do for non-managed packages? Follow the same pattern. Then can probably simplify this logic
+        // If IsManaged is true AND Package2ContainerOptions is blank, use "namespace"; otherwise use "packageId"
+        if (isManaged && !package2ContainerOptions) {
+          transformed.VersionSettings = 'namespace';
+        } else {
+          transformed.VersionSettings = 'packageId';
+        }
+      } else {
+        transformed.VersionSettings = 'packageId';
+      }
+
+      return transformed;
+    });
 
     this.table({
       data: records,
@@ -63,6 +89,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
         { key: 'SubscriberPackageId', name: 'Package ID' },
         { key: 'SubscriberPackageName', name: 'Package Name' },
         { key: 'SubscriberPackageNamespace', name: 'Namespace' },
+        { key: 'VersionSettings', name: 'Version Settings' },
         { key: 'SubscriberPackageVersionId', name: 'Package Version ID' },
         { key: 'SubscriberPackageVersionName', name: 'Version Name' },
         { key: 'SubscriberPackageVersionNumber', name: 'Version' },
