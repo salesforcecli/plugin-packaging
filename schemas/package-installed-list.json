@@ -23,6 +23,9 @@
         "SubscriberPackageNamespace": {
           "type": "string"
         },
+        "VersionSettings": {
+          "type": "string"
+        },
         "SubscriberPackageVersionId": {
           "type": "string"
         },
