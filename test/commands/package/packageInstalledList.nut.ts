@@ -47,6 +47,7 @@ describe('package:installed:list', () => {
       'SubscriberPackageId',
       'SubscriberPackageName',
       'SubscriberPackageNamespace',
+      'VersionSettings',
       'SubscriberPackageVersionId',
       'SubscriberPackageVersionName',
       'SubscriberPackageVersionNumber'
@@ -55,6 +56,7 @@ describe('package:installed:list', () => {
     expect(output?.SubscriberPackageId).to.be.a('string');
     expect(output?.SubscriberPackageName).to.be.a('string');
     expect(output?.SubscriberPackageNamespace).to.be.a('string');
+    expect(output?.VersionSettings).to.be.a('string');
     expect(output?.SubscriberPackageVersionId).to.be.a('string');
     expect(output?.SubscriberPackageVersionName).to.be.a('string');
     expect(output?.SubscriberPackageVersionNumber).to.be.a('string');
