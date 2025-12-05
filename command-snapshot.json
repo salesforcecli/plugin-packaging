@@ -97,6 +97,14 @@
   },
   {
     "alias": [],
+    "command": "package:bundle:installed:list",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
@@ -363,7 +371,7 @@
     "alias": ["force:package:update"],
     "command": "package:update",
     "flagAliases": ["apiversion", "errornotificationusername", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["d", "n", "o", "p", "v", "r"],
+    "flagChars": ["d", "n", "o", "p", "r", "v"],
     "flags": [
       "api-version",
       "description",
@@ -374,9 +382,9 @@
       "loglevel",
       "name",
       "package",
-      "target-dev-hub",
       "recommended-version-id",
-      "skip-ancestor-check"
+      "skip-ancestor-check",
+      "target-dev-hub"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
