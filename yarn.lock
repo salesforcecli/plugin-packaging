@@ -1300,7 +1300,7 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
-"@jsforce/jsforce-node@^3.10.10", "@jsforce/jsforce-node@^3.10.8":
+"@jsforce/jsforce-node@^3.10.10":
   version "3.10.10"
   resolved "https://registry.yarnpkg.com/@jsforce/jsforce-node/-/jsforce-node-3.10.10.tgz#2d7bb77d1d739712733a30de7e9c941d2127bc4a"
   integrity sha512-/zUOX9kapwk8lyjmTYgXlBF+GbqcEpb0zrkDfX9i94xu5cvzERZxRHqSSaS/IImoDmvoSbatFSVfB7Y4lmANOw==
@@ -1586,17 +1586,17 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.18.1":
-  version "4.18.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.18.1.tgz#3a845d0cc688acd0bebc901d280c295f81d30a65"
-  integrity sha512-8h6t+wK4YrdKzyIUYvjI0C4Pr6mUsJJiAy80KD1A/cQvn++34I6/AJu7/2tTtcvp3RHa7wQX3SS5M/C1obrwUg==
+"@salesforce/packaging@^4.18.2":
+  version "4.18.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.18.2.tgz#36561207fe02f56e0451e2e925258445d11f02c8"
+  integrity sha512-/xOhDU9UvHwcz3C1EbLZ8KuZuYD6EJ2SiKLEZJjztTQpSMmq1sTW3Q3i2RwzuWVK0IZ1u2BU8Ck9zK66Vwrscw==
   dependencies:
-    "@jsforce/jsforce-node" "^3.10.8"
-    "@salesforce/core" "^8.23.3"
+    "@jsforce/jsforce-node" "^3.10.10"
+    "@salesforce/core" "^8.24.0"
     "@salesforce/kit" "^3.2.4"
     "@salesforce/schemas" "^1.10.3"
-    "@salesforce/source-deploy-retrieve" "^12.24.0"
-    "@salesforce/ts-types" "^2.0.11"
+    "@salesforce/source-deploy-retrieve" "^12.30.2"
+    "@salesforce/ts-types" "^2.0.12"
     "@salesforce/types" "^1.2.0"
     fast-xml-parser "^4.5.0"
     globby "^11"
@@ -1664,10 +1664,10 @@
     cli-progress "^3.12.0"
     terminal-link "^3.0.0"
 
-"@salesforce/source-deploy-retrieve@^12.24.0":
-  version "12.30.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.30.0.tgz#cae4e00b5f9f301f28d9224997f63bfa5a7ede1b"
-  integrity sha512-elfNE4NRw2JNRsYoS/e9Gi2KdaFg7c2JVdRY6ZT20vpxV3z81SvvbYhauiKOYkVvsP3Y+FBEzWiG6AwdF0fSWA==
+"@salesforce/source-deploy-retrieve@^12.30.2":
+  version "12.30.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.30.2.tgz#4ea3c62ad04d31ccbb1d6b95853eec2b529e03bb"
+  integrity sha512-hR682AqqLX40ie2GZmRjN+yeg4S6x5rAxhu1fOHbbsxwfOFJjhi40SJR8pgNb1uxbL+P8EWsIauzTLpp6qbcBA==
   dependencies:
     "@salesforce/core" "^8.23.4"
     "@salesforce/kit" "^3.2.4"
