@@ -60,16 +60,11 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
 
       // Calculate Version Settings from the data already in the result
       if (r.SubscriberPackageVersion) {
-        // Access fields that are now included in the query but may not be in the type definition yet
-        const subPkgVersion = r.SubscriberPackageVersion as {
-          IsManaged?: boolean;
-          Package2ContainerOptions?: string;
-        };
-        const isManaged = subPkgVersion.IsManaged;
-        const package2ContainerOptions = subPkgVersion.Package2ContainerOptions;
+        const isManaged = r.SubscriberPackageVersion.IsManaged;
+        const package2ContainerOptions = r.SubscriberPackageVersion.Package2ContainerOptions;
 
-        // What does UI do for non-managed packages? Follow the same pattern. Then can probably simplify this logic
-        // If IsManaged is true AND Package2ContainerOptions is blank, use "namespace"; otherwise use "packageId"
+        // Use namespace for 1GP managed packages. For 2GP managed packages use packageId. For anything else,
+        // Version Settings is not applicable, so leave it empty.
         if (isManaged && !package2ContainerOptions) {
           transformed.VersionSettings = 'namespace';
         } else if (package2ContainerOptions === 'Managed') {
