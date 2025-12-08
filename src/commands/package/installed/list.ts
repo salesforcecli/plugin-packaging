@@ -31,6 +31,7 @@ export type PackageInstalledListResult = {
   SubscriberPackageId?: string;
   SubscriberPackageName?: string;
   SubscriberPackageNamespace?: string;
+  VersionSettings?: string;
   SubscriberPackageVersionId?: string;
   SubscriberPackageVersionName?: string;
   SubscriberPackageVersionNumber?: string;
@@ -54,7 +55,29 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
     const { flags } = await this.parse(PackageInstalledListCommand);
     const records = (
       await SubscriberPackageVersion.installedList(flags['target-org'].getConnection(flags['api-version']))
-    ).map(transformRow);
+    ).map((r) => {
+      const transformed = transformRow(r);
+
+      // Calculate Version Settings from the data already in the result
+      if (r.SubscriberPackageVersion) {
+        const isManaged = r.SubscriberPackageVersion.IsManaged;
+        const package2ContainerOptions = r.SubscriberPackageVersion.Package2ContainerOptions;
+
+        // Use namespace for 1GP managed packages. For 2GP managed packages use packageId. For anything else,
+        // Version Settings is not applicable, so leave it empty.
+        if (isManaged && !package2ContainerOptions) {
+          transformed.VersionSettings = 'namespace';
+        } else if (package2ContainerOptions === 'Managed') {
+          transformed.VersionSettings = 'packageId';
+        } else {
+          transformed.VersionSettings = '';
+        }
+      } else {
+        transformed.VersionSettings = '';
+      }
+
+      return transformed;
+    });
 
     this.table({
       data: records,
@@ -63,6 +86,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
         { key: 'SubscriberPackageId', name: 'Package ID' },
         { key: 'SubscriberPackageName', name: 'Package Name' },
         { key: 'SubscriberPackageNamespace', name: 'Namespace' },
+        { key: 'VersionSettings', name: 'Version Settings' },
         { key: 'SubscriberPackageVersionId', name: 'Package Version ID' },
         { key: 'SubscriberPackageVersionName', name: 'Version Name' },
         { key: 'SubscriberPackageVersionNumber', name: 'Version' },
