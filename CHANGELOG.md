@@ -1,3 +1,16 @@
+# [2.24.0](https://github.com/salesforcecli/plugin-packaging/compare/2.23.7...2.24.0) (2025-12-08)
+
+### Bug Fixes
+
+- bump libs ([58375a0](https://github.com/salesforcecli/plugin-packaging/commit/58375a0702743eb35e405768df27e865b67b1b3d))
+
+### Features
+
+- add version settings column to package installed list ([abb82e0](https://github.com/salesforcecli/plugin-packaging/commit/abb82e06c2dcf8e48390666bf0edf1c458f3f130))
+- add version settings column to package installed list ([9d7034a](https://github.com/salesforcecli/plugin-packaging/commit/9d7034a18f464c785a3e9f09aca2f299fd16d823))
+- add version settings column to package installed list ([306b333](https://github.com/salesforcecli/plugin-packaging/commit/306b333ca696b9f07a75f7f29221eb1814bd7c95))
+- update for InstalledPackages type change ([976986b](https://github.com/salesforcecli/plugin-packaging/commit/976986bb7cfb1dbfd558addfd4eb2fb89ab9faa1))
+
 ## [2.23.7](https://github.com/salesforcecli/plugin-packaging/compare/2.23.6...2.23.7) (2025-12-06)
 
 ### Bug Fixes
