@@ -1,3 +1,15 @@
+## [2.23.7](https://github.com/salesforcecli/plugin-packaging/compare/2.23.6...2.23.7) (2025-12-06)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.23.4 to 8.24.0 ([9ea962d](https://github.com/salesforcecli/plugin-packaging/commit/9ea962d9bdced6269e668acb40e7a03538088be8))
+
+## [2.23.6](https://github.com/salesforcecli/plugin-packaging/compare/2.23.5...2.23.6) (2025-12-05)
+
+### Bug Fixes
+
+- **deps:** bump jws from 3.2.2 to 3.2.3 ([7e910bb](https://github.com/salesforcecli/plugin-packaging/commit/7e910bbcd073c01c7806ae3bf1c7e41678143594))
+
 ## [2.23.5](https://github.com/salesforcecli/plugin-packaging/compare/2.23.4...2.23.5) (2025-11-29)
 
 ### Bug Fixes
