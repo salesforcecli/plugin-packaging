@@ -4,17 +4,15 @@ Delete a package bundle.
 
 # description
 
-Specify the ID or alias of the package bundle you want to delete.
-
-Delete package bundles. Before you delete a package bundle, first delete all associated package bundle versions.
+Specify the ID or alias of the package bundle you want to delete. Before you delete a package bundle, first delete all associated package bundle versions.
 
 # examples
 
-- Delete a package bundle using its alias from your default Dev Hub org:
+Delete a package bundle using its alias from your default Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --bundle "Your Bundle Alias"
 
-- Delete a package bundle using its ID from the specified Dev Hub org:
+Delete a package bundle using its ID from the specified Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --bundle 1Fl... --target-dev-hub devhub@example.com
 
