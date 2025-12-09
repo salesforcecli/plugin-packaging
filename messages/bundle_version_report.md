@@ -1,6 +1,6 @@
 # summary
 
-Retrieve details about a package bundle version in the Dev Hub org.
+Retrieve details about a specific package bundle version.
 
 # examples
 
@@ -10,8 +10,8 @@ sf package bundle version report --bundle-version "Your bundle version name or I
 
 # flags.bundle-version.summary
 
-ID of the package bundle version to retrieve details for.
+Name or ID of the package bundle version to retrieve details about.
 
 # flags.verbose.summary
 
-Display extended package bundle version details.
+Display verbose package bundle version details.
