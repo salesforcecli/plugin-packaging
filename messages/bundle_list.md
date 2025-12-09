@@ -4,9 +4,9 @@ List all package bundles in the Dev Hub org.
 
 # examples
 
-List all package bundles in the specified Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
+List all package bundles in the Dev Hub org with the username `devhub@example.com`:
 
-sf package bundle list --target-dev-hub <dev_hub_alias>
+`sf package bundle list --target-dev-hub devhub@example.com`
 
 # namespace
 
@@ -34,7 +34,7 @@ Description
 
 # flags.verbose.summary
 
-Display extended bundle detail.
+Display verbose package bundle details.
 
 # error-notification-username
 
