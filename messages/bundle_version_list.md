@@ -34,7 +34,7 @@ Description
 
 # flags.verbose.summary
 
-Display extended bundle detail.
+Display verbose bundle details.
 
 # error-notification-username
 
