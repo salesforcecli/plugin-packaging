@@ -8,11 +8,11 @@ Specify the ID or alias of the package bundle you want to delete. Before you del
 
 # examples
 
-Delete a package bundle using its alias from your default Dev Hub org:
+- Delete a package bundle using its alias from your default Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --bundle "Your Bundle Alias"
 
-Delete a package bundle using its ID from the specified Dev Hub org:
+- Delete a package bundle using its ID from the specified Dev Hub org:
 
   <%= config.bin %> <%= command.id %> --bundle 1Fl... --target-dev-hub devhub@example.com
 
@@ -32,7 +32,7 @@ Do you want to continue? (y/n)
 
 # prompt-delete-deny
 
-The request to delete this package bundle was canceled
+The request to delete this package bundle was canceled.
 
 # humanSuccess
 
