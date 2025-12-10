@@ -12,15 +12,15 @@ To get information about a specific request, run "<%= config.bin %> package bund
 
 # flags.status.summary
 
-Filter the list by the status of the package bundle version create request. Valid values are Queued, Success, or Error. 
+Filter the list by the status of the bundle version creation request. Valid values are Queued, Success, or Error. 
 
 # flags.show-conversions-only.summary
 
-Filter the list output to display only converted package bundle version.
+Filter the list to display only converted package bundle versions.
 
 # flags.verbose.summary
 
-Displays additional information at a slight performance cost, such as the version name and number for each package version create request.
+Display additional information at a slight performance cost. Additional information includes the version name and number for each package bundle version creation request.
 
 # flags.created-last-days.summary
 
@@ -28,23 +28,23 @@ Filter the list by the number of days since the request was created, starting at
 
 # examples
 
-List all package bundle version create requests in your default Dev Hub org:
+- List all package bundle version creation requests in your default Dev Hub org:
 
   <%= config.bin %> <%= command.id %>
 
-List package bundle version create requests from the last three days in the Dev Hub org with the username devhub@example.com:
+- List package bundle version creation requests from the last three days in the Dev Hub org with the username devhub@example.com:
 
   <%= config.bin %> <%= command.id %> --created-last-days 3 --target-dev-hub devhub@example.com
 
-List package bundle version create requests with the Error status:
+- List package bundle version creation requests with the Error status:
 
   <%= config.bin %> <%= command.id %> --status Error
 
-List package bundle version create requests with the Queued status:
+- List package bundle version creation requests with the Queued status:
 
   <%= config.bin %> <%= command.id %> --status Queued
 
-List package bundle version create requests from today with the Success status:
+- List package bundle version creation requests from today with the Success status:
 
   <%= config.bin %> <%= command.id %> --created-last-days 0 --status Success
 
@@ -58,11 +58,11 @@ Status
 
 # package-id
 
-Package Bundle Id
+Package Bundle ID
 
 # packageVersionId
 
-Package Bundle Version Id
+Package Bundle Version ID
 
 # createdBy
 
@@ -70,4 +70,4 @@ Created By
 
 # convertedFromVersionId
 
-Converted From Version Id
+Converted From Version ID
