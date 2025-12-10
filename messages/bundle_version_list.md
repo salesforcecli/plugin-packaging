@@ -4,9 +4,9 @@ List all package bundle versions in the Dev Hub org.
 
 # examples
 
-List package bundle versions in the Dev Hub org with the username devhub@example.com:
+- List package bundle versions in the Dev Hub org with the username devhub@example.com:
 
-sf package bundle version list --bundle “Your bundle name or ID” --target-dev-hub devhub@example.com
+<%= config.bin %> <%= command.id %> --bundle “Your bundle name or ID” --target-dev-hub devhub@example.com
 
 # namespace
 
@@ -18,23 +18,19 @@ Name
 
 # id
 
-Id
+ID
 
 # bundle-id
 
-Package Bundle Id
+Package Bundle ID
 
 # alias
 
 Alias
 
-# description
-
-Description
-
 # flags.verbose.summary
 
-Display verbose bundle details.
+Display extended details about the package bundle versions. 
 
 # error-notification-username
 
