@@ -1,24 +1,24 @@
 # summary
 
-Report on the status of a package bundle version create request.
+Report on the status of a package bundle version creation request.
 
 # description
 
-Use this command to check the status of a package bundle version create request. The command returns information about the request, including its current status and details about the package bundle version being created.
+Use this command to check the status of a package bundle version creation request. The command returns information about the request, including its current status and details about the package bundle version being created.
 
 # examples
 
-Report on a package bundle version creation request:
+- Report on a package bundle version creation request:
 
   <%= config.bin %> <%= command.id %> --package-create-request-id 0Ho0x0000000000000
 
-Report on a package bundle version creation request using an alias:
+- Report on a package bundle version creation request using an alias:
 
   <%= config.bin %> force:package:bundle:version:create:report -i 0Ho0x0000000000000
 
 # flags.bundle-version-create-request-id.summary
 
-The ID of the package bundle version creation request to report on.
+ID of the package bundle version creation request to report on.
 
 # id
 
