@@ -8,13 +8,13 @@ Before you create a new bundle version, create a definition file (similar to a s
 
 After the first bundle version that you create, make sure to update the version number in the sfdx-project.json file for subsequent bundle versions.
 
-To retrieve details about a package bundle version create request, including status and package bundle version ID (04t), run `sf package version create report -i 08c...`.
+To retrieve details about a package bundle version create request, including status and package bundle version ID (04t), run "sf package version create report -i 08c...".
 
 # examples
 
-Create a package bundle version in the Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
+- Create a package bundle version in the Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
 
-`sf package bundle version create --bundle “Your bundle name” --definition-file resources/definition.json --target-dev-hub devhub@example.com`
+<%= config.bin %> <%= command.id %> --bundle “Your bundle name” --definition-file resources/definition.json --target-dev-hub devhub@example.com
 
 # flags.bundle.summary
 
@@ -26,7 +26,7 @@ Path to a definition file, similar to a scratch org definition file, that contai
 
 # flags.wait.summary
 
-Number of minutes to wait for the package bundle to be created.
+Number of minutes to wait for the package bundle version to be created.
 
 # flags.verbose.summary
 
@@ -50,24 +50,24 @@ Waiting for bundle version creation to complete. %s minutes remaining. Current s
 
 # bundleVersionCreateFinalStatus
 
-Package Bundle version creation completed with status: %s
+Package bundle version creation completed with status: %s
 
 # multipleErrors
 
-The following errors occurred during bundle version creation:
+The following errors occurred during package bundle version creation:
 %s
 
 # InProgress
 
-Bundle version creation is %s. Use 'sf package bundle version create report -i %s' to check the status later.
+Package bundle version creation is %s. Use "sf package bundle version create report -i %s" to check the status later.
 
 # requestInProgress
 
-Creating bundle version...
+Creating package bundle version...
 
 # packageVersionCreateFinalStatus
 
-Package Bundle version creation completed with status: %s
+Package bundle version creation completed with status: %s
 
 # packageVersionCreatePerformingValidations
 
@@ -75,4 +75,4 @@ Performing validations on the package bundle version...
 
 # bundleVersionCreateSuccess
 
-Successfully created bundle version for bundle %s
+Successfully created package bundle version for bundle %s
