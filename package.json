@@ -1,25 +1,25 @@
 {
   "name": "@salesforce/plugin-packaging",
   "description": "SF plugin that support Salesforce Packaging Platform",
-  "version": "2.23.4",
+  "version": "2.24.0",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
   "dependencies": {
     "@oclif/core": "^4",
-    "@salesforce/core": "^8.23.4",
+    "@salesforce/core": "^8.24.0",
     "@salesforce/kit": "^3.2.4",
-    "@salesforce/packaging": "^4.18.1",
-    "@salesforce/sf-plugins-core": "^12.2.5",
+    "@salesforce/packaging": "^4.18.2",
+    "@salesforce/sf-plugins-core": "^12.2.6",
     "chalk": "^5.6.2"
   },
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^5.3.8",
     "@salesforce/cli-plugins-testkit": "^5.3.41",
     "@salesforce/dev-scripts": "^11.0.4",
-    "@salesforce/plugin-command-reference": "^3.1.78",
+    "@salesforce/plugin-command-reference": "^3.1.79",
     "eslint-plugin-sf-plugin": "^1.20.32",
     "minimatch": "^10.1.1",
-    "oclif": "^4.22.47",
+    "oclif": "^4.22.52",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },

@@ -1,3 +1,34 @@
+# [2.24.0](https://github.com/salesforcecli/plugin-packaging/compare/2.23.7...2.24.0) (2025-12-08)
+
+### Bug Fixes
+
+- bump libs ([58375a0](https://github.com/salesforcecli/plugin-packaging/commit/58375a0702743eb35e405768df27e865b67b1b3d))
+
+### Features
+
+- add version settings column to package installed list ([abb82e0](https://github.com/salesforcecli/plugin-packaging/commit/abb82e06c2dcf8e48390666bf0edf1c458f3f130))
+- add version settings column to package installed list ([9d7034a](https://github.com/salesforcecli/plugin-packaging/commit/9d7034a18f464c785a3e9f09aca2f299fd16d823))
+- add version settings column to package installed list ([306b333](https://github.com/salesforcecli/plugin-packaging/commit/306b333ca696b9f07a75f7f29221eb1814bd7c95))
+- update for InstalledPackages type change ([976986b](https://github.com/salesforcecli/plugin-packaging/commit/976986bb7cfb1dbfd558addfd4eb2fb89ab9faa1))
+
+## [2.23.7](https://github.com/salesforcecli/plugin-packaging/compare/2.23.6...2.23.7) (2025-12-06)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.23.4 to 8.24.0 ([9ea962d](https://github.com/salesforcecli/plugin-packaging/commit/9ea962d9bdced6269e668acb40e7a03538088be8))
+
+## [2.23.6](https://github.com/salesforcecli/plugin-packaging/compare/2.23.5...2.23.6) (2025-12-05)
+
+### Bug Fixes
+
+- **deps:** bump jws from 3.2.2 to 3.2.3 ([7e910bb](https://github.com/salesforcecli/plugin-packaging/commit/7e910bbcd073c01c7806ae3bf1c7e41678143594))
+
+## [2.23.5](https://github.com/salesforcecli/plugin-packaging/compare/2.23.4...2.23.5) (2025-11-29)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.5 to 12.2.6 ([c7dcb01](https://github.com/salesforcecli/plugin-packaging/commit/c7dcb01aa6340c1bab7146f6f42aec4fc385bc1a))
+
 ## [2.23.4](https://github.com/salesforcecli/plugin-packaging/compare/2.23.3...2.23.4) (2025-11-24)
 
 ### Bug Fixes
