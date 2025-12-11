@@ -20,7 +20,7 @@ Filter the list to display only converted package bundle versions.
 
 # flags.verbose.summary
 
-Display additional information at a slight performance cost. Additional information includes the version name and number for each package bundle version creation request.
+Display additional information, such as the version name and number for each package bundle version creation request.
 
 # flags.created-last-days.summary
 
