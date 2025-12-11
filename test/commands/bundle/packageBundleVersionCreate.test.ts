@@ -213,7 +213,7 @@ describe('package:bundle:version:create - tests', () => {
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        "Package bundle version creation is Queued. Use \"sf package bundle version create report -i 08c3i000000fylgBBB\" to check the status later.",
+        'Package bundle version creation is Queued. Use "sf package bundle version create report -i 08c3i000000fylgBBB" to check the status later.',
       ]);
     });
 
