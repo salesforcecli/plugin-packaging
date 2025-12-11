@@ -16,7 +16,7 @@ Filter the list by the status of the installation request. Valid values are: Que
 
 # flags.verbose.summary
 
-Displays additional information at a slight performance cost. Additional information includes validation text for each package bundle installation request.
+Display additional information, such as the validation text for each package bundle installation request.
 
 # flags.created-last-days.summary
 
