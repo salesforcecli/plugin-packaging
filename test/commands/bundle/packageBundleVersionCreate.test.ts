@@ -213,7 +213,7 @@ describe('package:bundle:version:create - tests', () => {
       expect(warnStub.callCount).to.equal(0);
       expect(logStub.callCount).to.equal(1);
       expect(logStub.args[0]).to.deep.equal([
-        "Bundle version creation is Queued. Use 'sf package bundle version create report -i 08c3i000000fylgBBB' to check the status later.",
+        "Package bundle version creation is Queued. Use \"sf package bundle version create report -i 08c3i000000fylgBBB\" to check the status later.",
       ]);
     });
 
@@ -231,7 +231,7 @@ describe('package:bundle:version:create - tests', () => {
       } catch (e) {
         const msg = (e as Error).message.replace(/\r\n/g, '\n');
         expect(msg).to.equal(
-          'The following errors occurred during bundle version creation:\n' +
+          'The following errors occurred during package bundle version creation:\n' +
             'PropertyController: Invalid type: Schema.Property__c\n' +
             'SampleDataController: Invalid type: Schema.Property__c\n' +
             'SampleDataController: Invalid type: Schema.Broker__c'
