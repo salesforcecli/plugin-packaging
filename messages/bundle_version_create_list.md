@@ -8,23 +8,23 @@ Shows the details of each request to create a package bundle version in the Dev 
 
 All filter parameters are applied using the AND logical operator (not OR).
 
-To get information about a specific request, run "<%= config.bin %> package bundle version create report" and supply the request ID.
+To get information about a specific request, run "<%= config.bin %> package bundle version create report" and enter the request ID.
 
 # flags.status.summary
 
-Status of the version creation request, used to filter the list.
+Status of the installation request, used to filter the list.
 
 # flags.show-conversions-only.summary
 
-Filter the list output to display only converted package bundle version.
+Filter the list to display only converted package bundle versions.
 
 # flags.verbose.summary
 
-Displays additional information at a slight performance cost, such as the version name and number for each package version create request.
+Display additional information, such as the version name and number for each package bundle version creation request.
 
 # flags.created-last-days.summary
 
-Number of days since the request was created, starting at 00:00:00 of first day to now. Use 0 for today.
+Number of days since the request was created, starting at 0. Use 0 for today.
 
 # examples
 
@@ -32,19 +32,19 @@ Number of days since the request was created, starting at 00:00:00 of first day 
 
   <%= config.bin %> <%= command.id %>
 
-- List package bundle version creation requests from the last 3 days in the Dev Hub org with username devhub@example.com:
+- List package bundle version creation requests from the last three days in the Dev Hub org with the username devhub@example.com:
 
-  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-dev-hub
+  <%= config.bin %> <%= command.id %> --created-last-days 3 --target-dev-hub devhub@example.com
 
-- List package bundle version creation requests with status Error:
+- List package bundle version creation requests with the Error status:
 
   <%= config.bin %> <%= command.id %> --status Error
 
-- List package bundle version creation requests with status Queued:
+- List package bundle version creation requests with the Queued status:
 
   <%= config.bin %> <%= command.id %> --status Queued
 
-- List package bundle version creation requests with status Success that were created today:
+- List package bundle version creation requests from today with the Success status:
 
   <%= config.bin %> <%= command.id %> --created-last-days 0 --status Success
 
@@ -58,11 +58,11 @@ Status
 
 # package-id
 
-Package Bundle Id
+Package Bundle ID
 
 # packageVersionId
 
-Package Bundle Version Id
+Package Bundle Version ID
 
 # createdBy
 
@@ -70,4 +70,4 @@ Created By
 
 # convertedFromVersionId
 
-Converted From Version Id
+Converted From Version ID

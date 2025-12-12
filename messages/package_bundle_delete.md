@@ -4,9 +4,7 @@ Delete a package bundle.
 
 # description
 
-Specify the ID or alias of the package bundle you want to delete.
-
-Delete package bundles. Before you delete a package bundle, first delete all associated package bundle versions.
+Specify the ID or alias of the package bundle you want to delete. Before you delete a package bundle, first delete all associated package bundle versions.
 
 # examples
 
@@ -34,7 +32,7 @@ Do you want to continue? (y/n)
 
 # prompt-delete-deny
 
-The request to delete this package bundle was canceled
+The request to delete this package bundle was canceled.
 
 # humanSuccess
 
