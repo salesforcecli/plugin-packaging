@@ -4,17 +4,17 @@ Create a new package bundle version.
 
 # description
 
-Before you create a new bundle version, create a definition file (similar to a scratch org definition file) that contains the list of package versions to include in the bundle. The definition file must be JSON and you must specify the package versions in the correct order of installation. The package bundle version is based on package versions listed in the definition file. 
+Before you create a new bundle version, create a definition file (similar to a scratch org definition file) that contains the list of package versions to include in the bundle. The definition file must be JSON and you must specify the package versions in the correct order of installation. The package bundle version is based on package versions listed in the definition file.
 
 After the first bundle version that you create, make sure to update the version number in the sfdx-project.json file for subsequent bundle versions.
 
 To retrieve details about a package bundle version create request, including status and package bundle version ID (04t), run "sf package version create report -i 08c...".
-
+  
 # examples
 
 - Create a package bundle version in the Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
 
-<%= config.bin %> <%= command.id %> --bundle “Your bundle name” --definition-file resources/definition.json --target-dev-hub devhub@example.com
+  <%= config.bin %> <%= command.id %> --bundle “Your bundle name” --definition-file resources/definition.json --target-dev-hub devhub@example.com
 
 # flags.bundle.summary
 
@@ -22,7 +22,7 @@ Name or ID of the package bundle to create a version for.
 
 # flags.definition-file.summary
 
-Path to a definition file, similar to a scratch org definition file, that contains the list of package versions to include in the bundle. 
+Path to a definition file, similar to a scratch org definition file, that contains the list of package versions to include in the bundle.
 
 # flags.wait.summary
 

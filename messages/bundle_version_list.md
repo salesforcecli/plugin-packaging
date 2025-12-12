@@ -6,7 +6,7 @@ List all package bundle versions in the Dev Hub org.
 
 - List package bundle versions in the Dev Hub org with the username devhub@example.com:
 
-<%= config.bin %> <%= command.id %> --bundle “Your bundle name or ID” --target-dev-hub devhub@example.com
+  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com
 
 # namespace
 
@@ -15,7 +15,7 @@ Namespace Prefix
 # name
 
 Name
-
+  
 # id
 
 ID
@@ -34,7 +34,7 @@ Description
 
 # flags.verbose.summary
 
-Display extended details about the package bundle versions. 
+Display extended details about the package bundle versions.
 
 # error-notification-username
 

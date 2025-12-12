@@ -10,7 +10,7 @@ A package bundle is an artifact composed of one or more 2GP managed packages. Wi
 
 - Create a package bundle in the Dev Hub org; uses the Dev Hub org with the username devhub@example.com:
 
-<%= config.bin %> <%= command.id %> --name "Your bundle name" --description "Your bundle description" --target-dev-hub devhub@example.com
+  <%= config.bin %> <%= command.id %> --name "Your bundle name" --description "Your bundle description" --target-dev-hub devhub@example.com
 
 # flags.name.summary
 
