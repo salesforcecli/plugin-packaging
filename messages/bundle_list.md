@@ -6,11 +6,11 @@ List all package bundles in the Dev Hub org.
 
 - List all package bundles in the Dev Hub org with the username `devhub@example.com`:
 
-`sf package bundle list --target-dev-hub devhub@example.com`
+  <%= config.bin %> <%= command.id %> --target-dev-hub devhub@example.com
 
-# namespace
+# namespace 
 
-Namespace Prefix
+Namespace Prefix 
 
 # name
 
@@ -22,11 +22,11 @@ ID
 
 # bundle-id
 
-Package Bundle ID
+Package Bundle ID 
 
 # alias
 
-Alias
+Alias 
 
 # description
 
@@ -34,7 +34,7 @@ Description
 
 # flags.verbose.summary
 
-Display extended details about the package bundles. 
+Display extended details about the package bundles.
 
 # error-notification-username
 
@@ -42,4 +42,4 @@ Error Notification Username
 
 # createdBy
 
-Created By
+Created By 
