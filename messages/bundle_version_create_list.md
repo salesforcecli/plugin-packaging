@@ -12,7 +12,7 @@ To get information about a specific request, run "<%= config.bin %> package bund
 
 # flags.status.summary
 
-Filter the list by the status of the bundle version creation request. Valid values are Queued, Success, or Error. 
+Status of the installation request, used to filter the list.
 
 # flags.show-conversions-only.summary
 
@@ -24,7 +24,7 @@ Display additional information, such as the version name and number for each pac
 
 # flags.created-last-days.summary
 
-Filter the list by the number of days since the request was created, starting at 0. Use 0 for today.
+Number of days since the request was created, starting at 0. Use 0 for today.
 
 # examples
 
