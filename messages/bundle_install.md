@@ -1,20 +1,20 @@
 # summary
 
-Install a package bundle version in the target org.
+Install a specific version of a package bundle in the target org.
 
 # description
 
-Install a specific version of a package bundle in the target org. During developer preview, package bundles can be installed only in scratch orgs. To install a package bundle in a scratch org, add the PackageBundles feature to the scratch org definition file. 
+During developer preview, package bundles can be installed only in scratch orgs. To install a package bundle in a scratch org, add the PackageBundles feature to the scratch org definition file.
 
-# examples
+# examples 
 
 - Install a package bundle version in a scratch org and wait 10 minutes for the installation to complete:
 
-  <%= config.bin %> <%= command.id %> --bundle MyPkgBundle1@0.1 --target-org my-scratch-org --target-dev-hub devhub@example.com --wait 10
+  <%= config.bin %> <%= command.id %> --bundle MyPkgBundle1@0.1 --target-org my-scratch-org --dev-hub-org devhub@example.com --wait 10
 
 # flags.bundle.summary
 
-Package bundle version to install. The valid format is BundleName@VersionNumber, such as "MyPkgBundle@0.1". 
+Package bundle version to install. The valid format is BundleName@VersionNumber, such as "MyPkgBundle@0.1".
 
 # flags.target-org.summary
 
@@ -26,7 +26,7 @@ Org ID of the Dev Hub org where the bundle was created.
 
 # flags.dev-hub-org.description
 
-Enter the Dev Hub org ID, such as 00Dxx0000000000. 
+Enter the Dev Hub org ID, such as 00Dxx0000000000.
 
 # flags.wait.summary
 
