@@ -81,14 +81,6 @@
   },
   {
     "alias": [],
-    "command": "package:bundle:install:list",
-    "flagAliases": ["apiversion", "targetusername", "u"],
-    "flagChars": ["c", "o", "s"],
-    "flags": ["api-version", "created-last-days", "flags-dir", "json", "loglevel", "status", "target-org", "verbose"],
-    "plugin": "@salesforce/plugin-packaging"
-  },
-  {
-    "alias": [],
     "command": "package:bundle:install:report",
     "flagAliases": ["apiversion", "targetusername", "u"],
     "flagChars": ["i", "o"],
@@ -109,6 +101,14 @@
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:bundle:uninstall",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["b", "o", "w"],
+    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "target-org", "verbose", "wait"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
