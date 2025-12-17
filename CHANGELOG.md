@@ -1,3 +1,9 @@
+## [2.24.3](https://github.com/salesforcecli/plugin-packaging/compare/2.24.2...2.24.3) (2025-12-17)
+
+### Bug Fixes
+
+- edit ([3f2894e](https://github.com/salesforcecli/plugin-packaging/commit/3f2894efc0e8a076b65621d88e537f37fad87f85))
+
 ## [2.24.2](https://github.com/salesforcecli/plugin-packaging/compare/2.24.1...2.24.2) (2025-12-15)
 
 ### Bug Fixes
