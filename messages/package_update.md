@@ -44,7 +44,7 @@ ID of the package version that's installed when subscribers click the Upgrade to
 
 # flags.recommended-version-id.description
 
-Specify the recommended package version for subscribers to install. If a subscriber has a package version installed in their org that is lower than the version you set, the subscriber sees the Upgrade to Recommended Version option on the Installed Package page. Only released package versions can be set as the recommended version.
+Specify the recommended package version for subscribers to install. If a subscriber has a package version installed in their org that's lower than the version you set, the subscriber sees the Upgrade to Recommended Version option on the Installed Package page. Only released package versions can be set as the recommended version.
 
 
 # flags.skip-ancestor-check.summary
