@@ -40,7 +40,7 @@ Successfully updated the package. %s
 
 # flags.recommended-version-id.summary
 
-ID of the package version that is installed when subscribers click the Upgrade to Recommended Version option on the Installed Package page of their org.
+ID of the package version that's installed when subscribers click the Upgrade to Recommended Version option on the Installed Package page of their org.
 
 # flags.recommended-version-id.description
 
