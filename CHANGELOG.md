@@ -1,3 +1,9 @@
+## [2.24.4](https://github.com/salesforcecli/plugin-packaging/compare/2.24.3...2.24.4) (2025-12-17)
+
+### Bug Fixes
+
+- slight formatting fix ([365f937](https://github.com/salesforcecli/plugin-packaging/commit/365f9370d0d34b81a3c9789c4b10328542a65db4))
+
 ## [2.24.3](https://github.com/salesforcecli/plugin-packaging/compare/2.24.2...2.24.3) (2025-12-17)
 
 ### Bug Fixes
