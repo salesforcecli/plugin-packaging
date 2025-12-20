@@ -1586,21 +1586,21 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.18.3":
-  version "4.18.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.18.3.tgz#e50d40105a298500b8af71d699826be6284aed97"
-  integrity sha512-+JgDv5RMC5LeqPamBjvFyaRyvoYDqV2IgihalXsjPcFH+Kqf2NJxnfAA5lpy5bp9syRbHobBRo0W5DAIRXHzfQ==
+"@salesforce/packaging@^4.18.7":
+  version "4.18.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.18.7.tgz#38b184e941c1983f4165cf4cbb6904a76e0e2c14"
+  integrity sha512-zUvE6L3wnJwoP3WKyALNjVlr5vinPvHSxmou3p1MiqhVn6p6J07qxOyV53jcNZzaY+zKKDTT6gGFEbzVVuAk+A==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.10"
     "@salesforce/core" "^8.24.0"
     "@salesforce/kit" "^3.2.4"
     "@salesforce/schemas" "^1.10.3"
-    "@salesforce/source-deploy-retrieve" "^12.30.2"
+    "@salesforce/source-deploy-retrieve" "^12.31.0"
     "@salesforce/ts-types" "^2.0.12"
-    "@salesforce/types" "^1.2.0"
+    "@salesforce/types" "^1.6.0"
     fast-xml-parser "^4.5.0"
     globby "^11"
-    graphology "^0.25.4"
+    graphology "^0.26.0"
     graphology-traversal "^0.3.1"
     graphology-types "^0.24.7"
     jszip "^3.10.1"
@@ -1664,10 +1664,10 @@
     cli-progress "^3.12.0"
     terminal-link "^3.0.0"
 
-"@salesforce/source-deploy-retrieve@^12.30.2":
-  version "12.30.2"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.30.2.tgz#4ea3c62ad04d31ccbb1d6b95853eec2b529e03bb"
-  integrity sha512-hR682AqqLX40ie2GZmRjN+yeg4S6x5rAxhu1fOHbbsxwfOFJjhi40SJR8pgNb1uxbL+P8EWsIauzTLpp6qbcBA==
+"@salesforce/source-deploy-retrieve@^12.31.0":
+  version "12.31.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.31.0.tgz#aed7aac22831b802c44069bdbb50c4f22883cef0"
+  integrity sha512-imRP5qo+7NT0/UVQcGAJQPWdmD9wlBWQL4Q+rgQvFhea0nGi+ER13cPIwvr8eGTN+wwgWoMeLSfekC3kGVTDfQ==
   dependencies:
     "@salesforce/core" "^8.23.4"
     "@salesforce/kit" "^3.2.4"
@@ -1689,10 +1689,10 @@
   resolved "https://registry.yarnpkg.com/@salesforce/ts-types/-/ts-types-2.0.12.tgz#60420622812a7ec7e46d220667bc29b42dc247ff"
   integrity sha512-BIJyduJC18Kc8z+arUm5AZ9VkPRyw1KKAm+Tk+9LT99eOzhNilyfKzhZ4t+tG2lIGgnJpmytZfVDZ0e2kFul8g==
 
-"@salesforce/types@^1.2.0", "@salesforce/types@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/types/-/types-1.5.0.tgz#dd1db8651ae9729c133ee5224ec7fbf50b1087ad"
-  integrity sha512-zBihdJ6WwE0JP6BVCXhm7guMQlj4/7nCYqtrkozgxgeKLJq+zKrTRwILeRQbbeqVP4nKjUz/AJr0zCDjrA2IVg==
+"@salesforce/types@^1.5.0", "@salesforce/types@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/types/-/types-1.6.0.tgz#926515ce3f6b16c8efe2afcc86475001d419c6cc"
+  integrity sha512-UHk1L3QRaa3WfIqQn5RLmcZmxErXvpFPUteLLgIxlFLrxhcKevvEwkMJF2xNIHpfT4Xj7PcYvqtrRYapX4Pp+A==
 
 "@shikijs/core@1.29.2":
   version "1.29.2"
@@ -4850,13 +4850,12 @@ graphology-utils@^2.0.0, graphology-utils@^2.4.2:
   resolved "https://registry.yarnpkg.com/graphology-utils/-/graphology-utils-2.5.2.tgz#4d30d6e567d27c01f105e1494af816742e8d2440"
   integrity sha512-ckHg8MXrXJkOARk56ZaSCM1g1Wihe2d6iTmz1enGOz4W/l831MBCKSayeFQfowgF8wd+PQ4rlch/56Vs/VZLDQ==
 
-graphology@^0.25.4:
-  version "0.25.4"
-  resolved "https://registry.yarnpkg.com/graphology/-/graphology-0.25.4.tgz#e528a64555ac1f392a9d965321ada5b2b843efe1"
-  integrity sha512-33g0Ol9nkWdD6ulw687viS8YJQBxqG5LWII6FI6nul0pq6iM2t5EKquOTFDbyTblRB3O9I+7KX4xI8u5ffekAQ==
+graphology@^0.26.0:
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/graphology/-/graphology-0.26.0.tgz#7f866a831feaa364af750f141a7bf40489533336"
+  integrity sha512-8SSImzgUUYC89Z042s+0r/vMibY7GX/Emz4LDO5e7jYXhuoWfHISPFJYjpRLUSJGq6UQ6xlenvX1p/hJdfXuXg==
   dependencies:
     events "^3.3.0"
-    obliterator "^2.0.2"
 
 handlebars@^4.7.8:
   version "4.7.8"
@@ -6561,7 +6560,7 @@ object.values@^1.2.1:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-obliterator@^2.0.1, obliterator@^2.0.2:
+obliterator@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/obliterator/-/obliterator-2.0.5.tgz#031e0145354b0c18840336ae51d41e7d6d2c76aa"
   integrity sha512-42CPE9AhahZRsMNslczq0ctAEtqk8Eka26QofnqC346BZdHDySk3LWka23LI7ULIw11NmltpiLagIq8gBozxTw==
