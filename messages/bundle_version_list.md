@@ -28,10 +28,6 @@ Package Bundle ID
 
 Alias
 
-# description
-
-Description
-
 # flags.verbose.summary
 
 Display extended details about the package bundle versions.

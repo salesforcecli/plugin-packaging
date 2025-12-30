@@ -29,7 +29,6 @@ export class PackageBundleVersionListCommand extends SfCommand<PackageBundleVers
   public static readonly hidden = true;
   public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
-  public static readonly description = messages.getMessage('description');
   public static readonly examples = messages.getMessages('examples');
   public static readonly flags = {
     loglevel,

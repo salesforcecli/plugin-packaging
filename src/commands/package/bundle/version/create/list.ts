@@ -56,9 +56,6 @@ export class PackageBundleVersionCreateListCommand extends SfCommand<PackageBund
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
     }),
-    'show-conversions-only': Flags.boolean({
-      summary: messages.getMessage('flags.show-conversions-only.summary'),
-    }),
     verbose: Flags.boolean({
       summary: messages.getMessage('flags.verbose.summary'),
     }),
