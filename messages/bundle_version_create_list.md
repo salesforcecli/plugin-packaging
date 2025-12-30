@@ -14,10 +14,6 @@ To get information about a specific request, run "<%= config.bin %> package bund
 
 Status of the installation request, used to filter the list.
 
-# flags.show-conversions-only.summary
-
-Filter the list to display only converted package bundle versions.
-
 # flags.verbose.summary
 
 Display additional information, such as the version name and number for each package bundle version creation request.
