@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, Salesforce, Inc.
+ * Copyright 2026, Salesforce, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,6 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }),
   };
 
-
   public async run(): Promise<BundleSObjects.PackageBundleVersionCreateRequestResult> {
     const { flags } = await this.parse(PackageBundlesCreate);
 
@@ -98,7 +97,10 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       // no async methods
       // eslint-disable-next-line @typescript-eslint/require-await
       async (data: BundleSObjects.PackageBundleVersionCreateRequestResult & { remainingWaitTime: Duration }) => {
-        if (data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success && data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error) {
+        if (
+          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.success &&
+          data.RequestStatus !== BundleSObjects.PkgBundleVersionCreateReqStatus.error
+        ) {
           const status = messages.getMessage('bundleVersionCreateWaitingStatus', [
             data.remainingWaitTime.minutes,
             data.RequestStatus,
@@ -123,7 +125,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       result = await PackageBundleVersion.create({
         ...options,
         ...(flags.wait && flags.wait > 0
-          ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5)}}
+          ? { polling: { timeout: Duration.minutes(flags.wait), frequency: Duration.seconds(5) } }
           : undefined),
       });
     } catch (error) {
@@ -152,9 +154,8 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
           errorMessages.push(result.ValidationError);
         }
 
-        const errorText = errorMessages.length > 0
-          ? errorMessages.join('\n')
-          : 'Unknown error occurred during bundle version creation';
+        const errorText =
+          errorMessages.length > 0 ? errorMessages.join('\n') : 'Unknown error occurred during bundle version creation';
 
         throw messages.createError('multipleErrors', [errorText]);
       }
@@ -169,5 +170,4 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }
     return result;
   }
-
 }
