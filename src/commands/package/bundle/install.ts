@@ -1,5 +1,5 @@
 /*
- * Copyright 2025, Salesforce, Inc.
+ * Copyright 2026, Salesforce, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -129,13 +129,18 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
 
     switch (result.InstallStatus) {
       case BundleSObjects.PkgBundleVersionInstallReqStatus.error: {
-        const errorText = result.ValidationError
-          || `Bundle installation failed. Run 'sf package bundle install report -i ${result.Id} -o ${targetOrg.getUsername() ?? 'targetOrg'}' for more details.`;
+        const errorText =
+          result.ValidationError ||
+          `Bundle installation failed. Run 'sf package bundle install report -i ${result.Id} -o ${
+            targetOrg.getUsername() ?? 'targetOrg'
+          }' for more details.`;
         throw messages.createError('bundleInstallError', [errorText]);
       }
       case BundleSObjects.PkgBundleVersionInstallReqStatus.success: {
         const bundleVersionId = result.PackageBundleVersionId || flags.bundle;
-        this.log(`Successfully installed bundle version ${bundleVersionId} to ${targetOrg.getUsername() ?? 'target org'}`);
+        this.log(
+          `Successfully installed bundle version ${bundleVersionId} to ${targetOrg.getUsername() ?? 'target org'}`
+        );
         break;
       }
       default:
