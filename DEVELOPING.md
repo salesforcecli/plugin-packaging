@@ -81,7 +81,7 @@ sf package create --help
 
 ## When you are ready to commit
 
-If you want your changes to be published to npmjs your commit messages must follow the [conventional commit spec](https://www.conventionalcommits.org/en/v1.0.0/).
+If you want your changes to be published to npmjs, your commit messages must follow the [conventional commit spec](https://www.conventionalcommits.org/en/v1.0.0/).
 
 - To increase the patch version, make sure that at least 1 commit message starts with "fix:"
 - To increase the minor version, make sure that at least 1 commit message starts with "feat:"
