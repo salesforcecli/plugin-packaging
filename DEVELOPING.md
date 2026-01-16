@@ -86,7 +86,7 @@ If you want your changes to be published to npmjs, your commit messages must fol
 - To increase the patch version, make sure that at least 1 commit message starts with "fix:"
 - To increase the minor version, make sure that at least 1 commit message starts with "feat:"
 - To bump the major version, please work with the CLI team.
-  If you'd like a review from a CLI developer please tag us in slack or in the PR.
+  If you'd like a review from a CLI developer, please tag us in Slack or in the PR.
 
 ## Useful yarn commands
 
