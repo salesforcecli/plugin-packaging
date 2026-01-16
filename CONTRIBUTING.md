@@ -11,7 +11,10 @@
 1. Sign CLA (see [CLA](#cla) below).
 1. Send us a pull request when you are done. We'll review your code, suggest any
    needed changes, and merge it in.
-1. Upon merge, a new release of the `@salesforce/plugin-packaging` plugin will be published to npmjs with a version bump corresponding to commitizen rules.
+1. Upon merge, a new release of the `@salesforce/plugin-packaging` plugin will be published to npmjs with a version bump corresponding to the [conventional commit spec](https://www.conventionalcommits.org/en/v1.0.0/).
+   - To increase the patch version, ensure at least 1 commit message starts with "fix:"
+   - To increase the minor version, ensure at least 1 commit message starts with "feat:"
+   - To bump the major version, please work with the CLI team.
 
 ### CLA
 

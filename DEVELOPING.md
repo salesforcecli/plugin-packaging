@@ -8,6 +8,7 @@
 [Debugging](#debugging)</br>
 [Linking the Packaging Library](#linking-the-packaging-library)</br>
 [Running Commands](#running-commands)</br>
+[When you are ready to commit](#When-you-are-ready-to-commit)</br>
 [Useful Yarn Commands](#useful-yarn-commands)</br>
 
 <hr>
@@ -33,7 +34,8 @@
 1.  Write tests and run: `yarn test` (unit) and/or `yarn test:nuts` (NUTs)
 1.  Show all changed files: `git status`
 1.  Add all files to staging: `git add .`
-1.  Commit staged files with helpful commit message: `git commit`
+1.  Commit staged files with helpful commit message following the [conventional commit spec](https://www.conventionalcommits.org/en/v1.0.0/).: `git commit`
+    - See [When you are ready to commit](#When-you-are-ready-to-commit)
 1.  Push commit(s) to remote: `git push -u origin <branch_name>`
 1.  Create a pull request (PR) using the GitHub UI [here](https://github.com/salesforcecli/plugin-packaging).
 
@@ -76,6 +78,15 @@ sf plugins
 # To run
 sf package create --help
 ```
+
+## When you are ready to commit
+
+If you want your changes to be published to npmjs your commit messages must follow the [conventional commit spec](https://www.conventionalcommits.org/en/v1.0.0/).
+
+- To increase the patch version, ensure at least 1 commit message starts with "fix:"
+- To increase the minor version, ensure at least 1 commit message starts with "feat:"
+- To bump the major version, please work with the CLI team.
+  If you'd like a review from a CLI developer please tag us in slack or in the PR.
 
 ## Useful yarn commands
 
