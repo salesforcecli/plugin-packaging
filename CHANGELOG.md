@@ -1,3 +1,9 @@
+## [2.24.8](https://github.com/salesforcecli/plugin-packaging/compare/2.24.7...2.24.8) (2026-01-22)
+
+### Bug Fixes
+
+- **deps:** bump lodash from 4.17.21 to 4.17.23 ([7b5ee01](https://github.com/salesforcecli/plugin-packaging/commit/7b5ee01b99f47e56d2f1735d8023ffe440487251))
+
 ## [2.24.7](https://github.com/salesforcecli/plugin-packaging/compare/2.24.6...2.24.7) (2026-01-17)
 
 ### Bug Fixes
