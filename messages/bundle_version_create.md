@@ -40,6 +40,10 @@ Version number of the package bundle version to be created; overrides the sfdx-p
 
 Description of the package bundle version.
 
+# flags.installation-key.summary
+
+Installation key for key-protected bundle.
+
 # bundleVersionCreateWaitingStatus
 
 Waiting for bundle version creation to complete. %s minutes remaining. Current status: %s

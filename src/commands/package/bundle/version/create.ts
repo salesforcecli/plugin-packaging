@@ -53,6 +53,10 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       summary: messages.getMessage('flags.definition-file.summary'),
       required: true,
     }),
+    'installation-key': Flags.string({
+      char: 'k',
+      summary: messages.getMessage('flags.installation-key.summary'),
+    }),
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
     wait: Flags.integer({
@@ -91,6 +95,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       MajorVersion: majorVersion,
       MinorVersion: minorVersion,
       Ancestor: '',
+      InstallationKey: flags['installation-key'],
     };
 
     Lifecycle.getInstance().on(

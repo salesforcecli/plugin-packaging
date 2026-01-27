@@ -163,6 +163,33 @@ describe('package:bundle:install - tests', () => {
       expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
     });
 
+    it('should install a package bundle version with installation key', async () => {
+      installStub = $$.SANDBOX.stub(PackageBundleInstall, 'installBundle');
+      installStub.resolves(pkgBundleInstallSuccessResult);
+
+      const cmd = new PackageBundlesInstall(
+        ['-b', 'TestBundle@1.0', '--target-org', 'test@org.org', '--dev-hub-org', '00D3i000000TNHYCA4', '-k', 'mySecretKey123'],
+        config
+      );
+      stubSpinner(cmd);
+      const res = await cmd.run();
+      expect(res).to.deep.equal({
+        Id: '08c3i000000fylgAAA',
+        InstallStatus: 'Success',
+        PackageBundleVersionId: '1Q83i000000fxw1AAA',
+        DevelopmentOrganization: '00D3i000000TNHYCA4',
+        ValidationError: '',
+        CreatedDate: '2022-11-03 09:46',
+        CreatedById: '0053i000001ZIyGAAW',
+        Error: [],
+      });
+      expect(warnStub.callCount).to.equal(0);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal(['Successfully installed bundle version 1Q83i000000fxw1AAA to test@org.org']);
+      // Verify that the installBundle function was called with the installation key
+      expect(installStub.firstCall.args[2]).to.have.property('InstallationKey', 'mySecretKey123');
+    });
+
     it('should handle queued status', async () => {
       installStub = $$.SANDBOX.stub(PackageBundleInstall, 'installBundle');
       installStub.resolves(pkgBundleInstallQueuedResult);
