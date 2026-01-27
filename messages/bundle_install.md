@@ -40,6 +40,10 @@ Number of minutes to wait for the installation to complete.
 
 Display extended installation detail.
 
+# flags.installation-key.summary
+
+Installation key for key-protected bundle.
+
 # requestInProgress
 
 Installing bundle.

@@ -186,6 +186,37 @@ describe('package:bundle:version:create - tests', () => {
       expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version with ID 05i3i000000fxw1AAA']);
     });
 
+    it('should create a new package bundle version with installation key', async () => {
+      createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create');
+      createStub.resolves(pkgBundleVersionCreateSuccessResult);
+
+      const cmd = new PackageBundlesCreate(
+        ['-b', 'TestBundle', '-p', 'path/to/definition.json', '-k', 'mySecretKey123', '--target-dev-hub', 'test@hub.org'],
+        config
+      );
+      stubSpinner(cmd);
+      const res = await cmd.run();
+      expect(res).to.deep.equal({
+        Id: '08c3i000000fylgAAA',
+        RequestStatus: 'Success',
+        PackageBundleId: '0Ho3i000000TNHYCA4',
+        PackageBundleVersionId: '05i3i000000fxw1AAA',
+        VersionName: 'TestBundle@1.0',
+        MajorVersion: '1',
+        MinorVersion: '0',
+        BundleVersionComponents: '[{"packageId": "0Ho3i000000TNHYCA4", "versionNumber": "1.0.0"}]',
+        Error: [],
+        CreatedDate: '2022-11-03 09:46',
+        CreatedById: '0053i000001ZIyGAAW',
+        Ancestor: null,
+      });
+      expect(warnStub.callCount).to.equal(0);
+      expect(logStub.callCount).to.equal(1);
+      expect(logStub.args[0]).to.deep.equal(['Successfully created bundle version with ID 05i3i000000fxw1AAA']);
+      // Verify that the create function was called with the installation key
+      expect(createStub.firstCall.args[0]).to.have.property('InstallationKey', 'mySecretKey123');
+    });
+
     it('should handle queued status', async () => {
       createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create');
       createStub.resolves(pkgBundleVersionCreateQueuedResult);

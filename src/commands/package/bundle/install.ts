@@ -53,6 +53,10 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       startsWith: '00D',
       required: true,
     }),
+    'installation-key': Flags.string({
+      char: 'k',
+      summary: messages.getMessage('flags.installation-key.summary'),
+    }),
     wait: Flags.integer({
       char: 'w',
       summary: messages.getMessage('flags.wait.summary'),
@@ -75,6 +79,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       project: this.project!,
       PackageBundleVersion: flags.bundle,
       DevelopmentOrganization: flags['dev-hub-org'],
+      InstallationKey: flags['installation-key'],
     };
 
     // Set up lifecycle events for progress tracking
