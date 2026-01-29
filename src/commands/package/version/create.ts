@@ -144,7 +144,6 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
     }),
     'generate-pkg-zip': Flags.boolean({
       summary: messages.getMessage('flags.generate-pkg-zip.summary'),
-      description: messages.getMessage('flags.generate-pkg-zip.description'),
       default: false,
     }),
     tag: Flags.string({

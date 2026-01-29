@@ -147,15 +147,11 @@ Specifying async validation returns the package version earlier in the process, 
 
 # flags.generate-pkg-zip.summary
 
-Request the package zip file for development use.
-
-# flags.generate-pkg-zip.description
-
-When set to true, generates a package zip file for development use. This file can be used for debugging or examining the package contents.
+Generate a package ZIP file that you can use for debugging or to examine the package contents.
 
 # flags.skip-ancestor-check.summary
 
-Overrides ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
+Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
 
 # flags.post-install-url.summary
 
