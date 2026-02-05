@@ -30,6 +30,8 @@ describe('package:version:create with managed package (--generate-pkg-zip)', () 
   let managedPackageId: string;
 
   before('setup managed package', async function () {
+    // TODO: Remove once 260 is released to instance the CI dev hub is running on
+    this.skip();
     this.timeout(Duration.minutes(5).milliseconds);
 
     session = await TestSession.create({
