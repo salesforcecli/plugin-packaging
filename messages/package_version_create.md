@@ -145,9 +145,13 @@ Return a new package version before completing package validations.
 
 Specifying async validation returns the package version earlier in the process, allowing you to install and test the new version right away. If your development team is using continuous integration (CI) scripts, async validation can reduce your overall CI run time.
 
+# flags.generate-pkg-zip.summary
+
+Generate a package ZIP file that you can use for debugging or to examine the package contents.
+
 # flags.skip-ancestor-check.summary
 
-Overrides ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
+Override ancestry requirements, which allows you to specify a package ancestor that isn’t the highest released package version.
 
 # flags.post-install-url.summary
 

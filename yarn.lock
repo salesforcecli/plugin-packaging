@@ -879,15 +879,7 @@
     "@smithy/types" "^4.12.0"
     tslib "^2.6.2"
 
-"@aws-sdk/types@^3.222.0":
-  version "3.957.0"
-  resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.957.0.tgz#06e899503028bdb8c655aa11a9a01f562882f361"
-  integrity sha512-wzWC2Nrt859ABk6UCAVY/WYEbAd7FjkdrQL6m24+tfmWYDNRByTJ9uOgU/kw9zqLCAwb//CPvrJdhqjTznWXAg==
-  dependencies:
-    "@smithy/types" "^4.11.0"
-    tslib "^2.6.2"
-
-"@aws-sdk/types@^3.973.0":
+"@aws-sdk/types@^3.222.0", "@aws-sdk/types@^3.973.0":
   version "3.973.0"
   resolved "https://registry.yarnpkg.com/@aws-sdk/types/-/types-3.973.0.tgz#4e7428dbaac37797a81339f646f40f41cc22a1fe"
   integrity sha512-jYIdB7a7jhRTvyb378nsjyvJh1Si+zVduJ6urMNGpz8RjkmHZ+9vM2H07XaIB2Cfq0GhJRZYOfUCH8uqQhqBkQ==
@@ -2031,16 +2023,16 @@
     terminal-link "^3.0.0"
 
 "@salesforce/source-deploy-retrieve@^12.31.9":
-  version "12.31.10"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.31.10.tgz#612886356d81c87eb9053bbc9173546556fd5f36"
-  integrity sha512-kUdJicJUd3/lzNQOvDW1Sc5iBl8PVv2Tz7L59YA/Le0fzZCYM72oyKwdbl/f6kc+MzJpMVia2+AxrvVZir8oJw==
+  version "12.31.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.31.9.tgz#69592e0b1564157fce8b7c66b33412460fa62b6e"
+  integrity sha512-UVRmLVl+Es1jLGnSx4G2xxTNHR7L6v5uzOpBFbg1ADMOQ4b1v8cDwZO9noJa9xAG+MLJJ7zDkcqywgFxU/3mmQ==
   dependencies:
     "@salesforce/core" "^8.24.0"
     "@salesforce/kit" "^3.2.4"
     "@salesforce/ts-types" "^2.0.12"
     "@salesforce/types" "^1.6.0"
     fast-levenshtein "^3.0.0"
-    fast-xml-parser "^5.3.4"
+    fast-xml-parser "^4.5.3"
     got "^11.8.6"
     graceful-fs "^4.2.11"
     ignore "^5.3.2"
@@ -2566,13 +2558,6 @@
     "@smithy/protocol-http" "^5.3.8"
     "@smithy/types" "^4.12.0"
     "@smithy/util-stream" "^4.5.10"
-    tslib "^2.6.2"
-
-"@smithy/types@^4.11.0":
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/@smithy/types/-/types-4.11.0.tgz#c02f6184dcb47c4f0b387a32a7eca47956cc09f1"
-  integrity sha512-mlrmL0DRDVe3mNrjTcVcZEgkFmufITfUAPBEA+AHYiIeYyJebso/He1qLbP3PssRe22KUzLRpQSdBPbXdgZ2VA==
-  dependencies:
     tslib "^2.6.2"
 
 "@smithy/types@^4.12.0":
@@ -4781,6 +4766,13 @@ fast-xml-parser@5.2.5:
   integrity sha512-pfX9uG9Ki0yekDHx2SiuRIyFdyAr1kMIMitPvb0YBo8SUfKvia7w7FIyd/l6av85pFYRhZscS75MwMnbvY+hcQ==
   dependencies:
     strnum "^2.1.0"
+
+fast-xml-parser@^4.5.3:
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.3.tgz#c54d6b35aa0f23dc1ea60b6c884340c006dc6efb"
+  integrity sha512-RKihhV+SHsIUGXObeVy9AXiBbFwkVk7Syp8XgwN5U3JV416+Gwp/GO9i0JYKmikykgz/UHRrrV4ROuZEo/T0ig==
+  dependencies:
+    strnum "^1.1.1"
 
 fast-xml-parser@^5.3.4:
   version "5.3.4"
@@ -8375,6 +8367,11 @@ strip-json-comments@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
+
+strnum@^1.1.1:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/strnum/-/strnum-1.1.2.tgz#57bca4fbaa6f271081715dbc9ed7cee5493e28e4"
+  integrity sha512-vrN+B7DBIoTTZjnPNewwhx6cBA/H+IS7rfW68n7XxC1y7uoiGQBxaKzqucGUgavX15dJgiGztLJ8vxuEzwqBdA==
 
 strnum@^2.1.0:
   version "2.1.1"

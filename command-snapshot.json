@@ -432,7 +432,8 @@
       "version-description",
       "version-name",
       "version-number",
-      "wait"
+      "wait",
+      "generate-pkg-zip"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
