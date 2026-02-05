@@ -1,3 +1,9 @@
+# [2.25.0](https://github.com/salesforcecli/plugin-packaging/compare/2.24.11...2.25.0) (2026-02-05)
+
+### Features
+
+- add --generate-dev-zip flag to version create ([78d6158](https://github.com/salesforcecli/plugin-packaging/commit/78d6158b7772b029a486a40be4e56673aa56fcb3))
+
 ## [2.24.11](https://github.com/salesforcecli/plugin-packaging/compare/2.24.10...2.24.11) (2026-01-31)
 
 ### Bug Fixes
