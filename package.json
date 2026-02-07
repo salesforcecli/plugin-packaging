@@ -18,7 +18,7 @@
     "@salesforce/dev-scripts": "^11.0.4",
     "@salesforce/plugin-command-reference": "^3.1.79",
     "eslint-plugin-sf-plugin": "^1.20.32",
-    "minimatch": "^10.1.1",
+    "minimatch": "^10.1.2",
     "oclif": "^4.22.70",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
