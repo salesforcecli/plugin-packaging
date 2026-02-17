@@ -4,6 +4,8 @@
   "version": "2.25.3",
   "author": "Salesforce",
   "bugs": "https://github.com/forcedotcom/cli/issues",
+  "enableO11y": true,
+  "o11yUploadEndpoint": "https://794testsite.my.site.com/byolwr/webruntime/log/metrics",
   "dependencies": {
     "@oclif/core": "^4",
     "@salesforce/core": "^8.26.0",
