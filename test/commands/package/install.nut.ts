@@ -23,6 +23,8 @@ import { Duration } from '@salesforce/kit';
 type PackageInstallRequest = PackagingSObjects.PackageInstallRequest;
 type PackageUninstallRequest = PackagingSObjects.SubscriberPackageVersionUninstallRequest;
 
+const DREAMHOUSE = { id: '04tKY000000MF7uYAG', name: 'DreamHouseLWC' };
+
 describe('package install', () => {
   let session: TestSession;
   before(async () => {
@@ -43,14 +45,14 @@ describe('package install', () => {
   });
 
   it('should install ElectronBranding package with polling', () => {
-    const command = 'package:install -p 04t6A000002zgKSQAY -w 20';
+    const command = `package:install -p ${DREAMHOUSE.id} -w 20`;
     const output = execCmd(command, { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }).shellOutput
       .stdout;
     expect(output).to.contain('Successfully installed package');
   });
 
   it('should install DFXP Escape Room package (async) and report', () => {
-    const installCommand = 'package:install -p 04t6A000002zgKSQAY --json';
+    const installCommand = `package:install -p ${DREAMHOUSE.id} --json`;
     const installJson = execCmd<PackageInstallRequest>(installCommand, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(installJson).to.have.property('Status', 'IN_PROGRESS');
 
@@ -61,7 +63,7 @@ describe('package install', () => {
   });
 
   it('should start an uninstall request, and report on it', () => {
-    const uninstallCommand = 'package:uninstall -p 04t6A000002zgKSQAY --json -w 0';
+    const uninstallCommand = `package:uninstall -p ${DREAMHOUSE.id} --json -w 0`;
     const uninstallRequest = execCmd<PackageUninstallRequest>(uninstallCommand, {
       ensureExitCode: 0,
     }).jsonOutput?.result;
