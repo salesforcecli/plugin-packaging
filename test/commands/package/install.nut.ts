@@ -44,14 +44,14 @@ describe('package install', () => {
     await session?.clean();
   });
 
-  it('should install ElectronBranding package with polling', () => {
+  it('should install DreamHouseLWC package with polling', () => {
     const command = `package:install -p ${DREAMHOUSE.id} -w 20`;
     const output = execCmd(command, { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }).shellOutput
       .stdout;
     expect(output).to.contain('Successfully installed package');
   });
 
-  it('should install DFXP Escape Room package (async) and report', () => {
+  it('should install DreamHouseLWC package (async) and report', () => {
     const installCommand = `package:install -p ${DREAMHOUSE.id} --json`;
     const installJson = execCmd<PackageInstallRequest>(installCommand, { ensureExitCode: 0 }).jsonOutput?.result;
     expect(installJson).to.have.property('Status', 'IN_PROGRESS');
