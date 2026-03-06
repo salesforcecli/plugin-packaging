@@ -1,3 +1,11 @@
+## [2.25.6](https://github.com/salesforcecli/plugin-packaging/compare/2.25.5...2.25.6) (2026-03-06)
+
+### Bug Fixes
+
+- update name from Electron to DreamHouseLWC ([fc4c8a1](https://github.com/salesforcecli/plugin-packaging/commit/fc4c8a1ef47dc0b0029f5674deeac7883351d4db))
+- update package id ([c7bb0f6](https://github.com/salesforcecli/plugin-packaging/commit/c7bb0f664d8bc0c18c7a1b9297bf31f8e873f1e7))
+- update test for new package ([6027a54](https://github.com/salesforcecli/plugin-packaging/commit/6027a549c51be39b69d690d6fbc71552236c3f1e))
+
 ## [2.25.5](https://github.com/salesforcecli/plugin-packaging/compare/2.25.4...2.25.5) (2026-02-21)
 
 ### Bug Fixes
