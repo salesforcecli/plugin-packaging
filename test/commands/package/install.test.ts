@@ -24,7 +24,7 @@ import { SfCommand, stubPrompter } from '@salesforce/sf-plugins-core';
 import { Install } from '../../../src/commands/package/install.js';
 import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
-const myPackageVersion04t = '04t6A000002zgKSQAY';
+const myPackageVersion04t = '04tKY000000MF7uYAG';
 
 const pkgInstallRequest = {
   attributes: {
@@ -225,7 +225,7 @@ describe('package:install', () => {
       const result = await cmd.run();
 
       expect(uxLogStub.calledOnce).to.be.true;
-      const msg = 'Successfully installed package [04t6A000002zgKSQAY]';
+      const msg = 'Successfully installed package [04tKY000000MF7uYAG]';
       expect(uxLogStub.args[0][0]).to.equal(msg);
       expect(result).to.deep.equal(request);
       expect(installStub.args[0][0]).to.deep.equal(pkgInstallCreateRequest);

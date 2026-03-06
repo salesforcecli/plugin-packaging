@@ -34,7 +34,7 @@ const pkgInstallRequest = {
   LastModifiedDate: '2022-08-09T05:13:14.000+0000',
   LastModifiedById: '0051h000009NugzAAC',
   SystemModstamp: '2022-08-09T05:13:14.000+0000',
-  SubscriberPackageVersionKey: '04t6A000002zgKSQAY',
+  SubscriberPackageVersionKey: '04tKY000000MF7uYAG',
   NameConflictResolution: 'Block',
   SecurityType: 'None',
   PackageInstallSource: 'U',
@@ -89,7 +89,7 @@ describe('package:install:report', () => {
     const result = await new Report(['-i', pkgInstallRequest.Id, '--target-org', testOrg.username], config).run();
     expect(result).to.deep.equal(request);
     expect(uxLogStub.calledOnce).to.be.true;
-    expect(uxLogStub.args[0][0]).to.equal('Successfully installed package [04t6A000002zgKSQAY]');
+    expect(uxLogStub.args[0][0]).to.equal('Successfully installed package [04tKY000000MF7uYAG]');
   });
 
   it('should report IN_PROGRESS status', async () => {

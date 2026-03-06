@@ -95,7 +95,7 @@ describe('package:version:delete', () => {
     } as PackageSaveResult);
     uxConfirmStub.resolves(true);
 
-    const command = new PackageVersionDeleteCommand(['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org'], config);
+    const command = new PackageVersionDeleteCommand(['-p', '04tKY000000MF7uYAG', '-v', 'foor@bar.org'], config);
     command.project = SfProject.getInstance();
     const results: PackageSaveResult = await command.run();
     expect(results.id).to.equal('testId');
@@ -112,7 +112,7 @@ describe('package:version:delete', () => {
     } as PackageSaveResult);
     uxConfirmStub.resolves(true);
     const command = new PackageVersionDeleteCommand(
-      ['-p', '04t6A000002zgKSQAY', '-v', 'foor@bar.org', '--undelete'],
+      ['-p', '04tKY000000MF7uYAG', '-v', 'foor@bar.org', '--undelete'],
       config
     );
     command.project = SfProject.getInstance();
