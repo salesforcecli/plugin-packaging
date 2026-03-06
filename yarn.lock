@@ -1603,13 +1603,13 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.21.0":
-  version "4.21.0"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.21.0.tgz#babd3e88580ecde65dfc0aed2740582672e2c351"
-  integrity sha512-iokdKA16LcSqet85siWqqO3uNrbdLcWuFbasCOxyd5upExovd5aOS/q2R+l53K+uiT5kRpwUNPREeGGbCMqhCg==
+"@salesforce/packaging@^4.21.1":
+  version "4.21.1"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.21.1.tgz#e55f76107ffe63b688a23f3cf2760e0773fe45ac"
+  integrity sha512-kUMFnAivuf6OZ2LeIs5dXbSATRaR2oljxN84muNluLGBOhbD2PhIK19V8mpAVhOzeuseOpQkTTfGIPKcMfZ8ew==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.14"
-    "@salesforce/core" "^8.26.0"
+    "@salesforce/core" "^8.26.2"
     "@salesforce/kit" "^3.2.4"
     "@salesforce/schemas" "^1.10.3"
     "@salesforce/source-deploy-retrieve" "^12.31.11"
