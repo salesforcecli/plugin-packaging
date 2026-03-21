@@ -1,3 +1,9 @@
+## [2.25.11](https://github.com/salesforcecli/plugin-packaging/compare/2.25.10...2.25.11) (2026-03-21)
+
+### Bug Fixes
+
+- **deps:** bump flatted from 3.3.3 to 3.4.2 ([897117d](https://github.com/salesforcecli/plugin-packaging/commit/897117dffae99a8e608fe04ea961e383ff23abf3))
+
 ## [2.25.10](https://github.com/salesforcecli/plugin-packaging/compare/2.25.9...2.25.10) (2026-03-15)
 
 ### Bug Fixes
