@@ -81,6 +81,14 @@
   },
   {
     "alias": [],
+    "command": "package:bundle:install:list",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["c", "o", "s"],
+    "flags": ["api-version", "created-last-days", "flags-dir", "json", "loglevel", "status", "target-org", "verbose"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:bundle:install:report",
     "flagAliases": ["apiversion", "targetusername", "u"],
     "flagChars": ["i", "o"],
@@ -89,26 +97,10 @@
   },
   {
     "alias": [],
-    "command": "package:bundle:installed:list",
-    "flagAliases": ["apiversion", "targetusername", "u"],
-    "flagChars": ["o"],
-    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org"],
-    "plugin": "@salesforce/plugin-packaging"
-  },
-  {
-    "alias": [],
     "command": "package:bundle:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["v"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "target-dev-hub", "verbose"],
-    "plugin": "@salesforce/plugin-packaging"
-  },
-  {
-    "alias": [],
-    "command": "package:bundle:uninstall",
-    "flagAliases": ["apiversion", "targetusername", "u"],
-    "flagChars": ["b", "o", "w"],
-    "flags": ["api-version", "bundle", "flags-dir", "json", "loglevel", "target-org", "verbose", "wait"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
@@ -371,7 +363,7 @@
     "alias": ["force:package:update"],
     "command": "package:update",
     "flagAliases": ["apiversion", "errornotificationusername", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["d", "n", "o", "p", "r", "v"],
+    "flagChars": ["d", "n", "o", "p", "v", "r"],
     "flags": [
       "api-version",
       "description",
@@ -382,9 +374,9 @@
       "loglevel",
       "name",
       "package",
+      "target-dev-hub",
       "recommended-version-id",
-      "skip-ancestor-check",
-      "target-dev-hub"
+      "skip-ancestor-check"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
