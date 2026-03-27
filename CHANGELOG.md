@@ -1,3 +1,9 @@
+## [2.25.13](https://github.com/salesforcecli/plugin-packaging/compare/2.25.12...2.25.13) (2026-03-27)
+
+### Bug Fixes
+
+- **deps:** bump yaml from 2.8.1 to 2.8.3 ([a560e8d](https://github.com/salesforcecli/plugin-packaging/commit/a560e8d645450ca6db1ec57144bc9eb42297d6d0))
+
 ## [2.25.12](https://github.com/salesforcecli/plugin-packaging/compare/2.25.11...2.25.12) (2026-03-21)
 
 ### Bug Fixes
