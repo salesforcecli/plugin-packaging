@@ -21,7 +21,7 @@ import {
   requiredOrgFlagWithDeprecations,
   SfCommand,
 } from '@salesforce/sf-plugins-core';
-import { Connection, Lifecycle, Messages, SfError } from '@salesforce/core';
+import { Connection, Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
 import { Duration } from '@salesforce/kit';
 import {
   PackageEvents,
@@ -135,9 +135,17 @@ export class Install extends SfCommand<PackageInstallRequest> {
       throw messages.createError('apiVersionTooLow');
     }
 
+    let packageId = flags.package;
+    try {
+      const project = SfProject.getInstance();
+      packageId = project.getPackageIdFromAlias(flags.package) ?? flags.package;
+    } catch {
+      // not in a project directory; use the value as-is
+    }
+
     this.subscriberPackageVersion = new SubscriberPackageVersion({
       connection: this.connection,
-      aliasOrId: flags.package,
+      aliasOrId: packageId,
       password: flags['installation-key'],
     });
 
