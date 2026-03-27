@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/BundleUninstallResult",
+  "definitions": {
+    "BundleUninstallResult": {
+      "$ref": "#/definitions/BundleSObjects.PkgBundleVerUninstallReqResult"
+    },
+    "BundleSObjects.PkgBundleVerUninstallReqResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "UninstallStatus": {
+          "$ref": "#/definitions/BundleSObjects.PkgBundleVersionUninstallReqStatus"
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "Error": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "PackageBundleVersionId": {
+          "type": "string"
+        },
+        "InstalledPkgBundleVersionId": {
+          "type": "string"
+        },
+        "ValidationError": {
+          "type": "string"
+        }
+      },
+      "required": ["CreatedById", "CreatedDate", "Id", "PackageBundleVersionId", "UninstallStatus"]
+    },
+    "BundleSObjects.PkgBundleVersionUninstallReqStatus": {
+      "type": "string",
+      "enum": ["Queued", "InProgress", "Success", "Error"]
+    }
+  }
+}
