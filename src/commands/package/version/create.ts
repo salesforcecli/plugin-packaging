@@ -284,7 +284,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
           messages.getMessage(Package2VersionStatus.success, [
             result.Id,
             result.SubscriberPackageVersionId,
-            INSTALL_URL_BASE.toString(),
+            INSTALL_URL_BASE.href,
             result.SubscriberPackageVersionId,
             this.config.bin,
           ])
@@ -295,7 +295,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
           messages.getMessage(result.Status, [
             result.Id,
             result.SubscriberPackageVersionId,
-            INSTALL_URL_BASE.toString(),
+            INSTALL_URL_BASE.href,
             result.SubscriberPackageVersionId,
             this.config.bin,
           ])
