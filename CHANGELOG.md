@@ -1,3 +1,16 @@
+# [2.26.0](https://github.com/salesforcecli/plugin-packaging/compare/2.25.17...2.26.0) (2026-03-30)
+
+### Bug Fixes
+
+- tf fix ([4c6e168](https://github.com/salesforcecli/plugin-packaging/commit/4c6e1686a11066919811f78e637f8e89aaba8289))
+- update schema ([9437504](https://github.com/salesforcecli/plugin-packaging/commit/943750447ff23f338b3c7ab6c5e10025b52585ff))
+- update schema ([9b11e55](https://github.com/salesforcecli/plugin-packaging/commit/9b11e55380c75a0b45aab4a3c980a7d3c07e8cdc))
+
+### Features
+
+- add bundle uninstall command ([72e25f8](https://github.com/salesforcecli/plugin-packaging/commit/72e25f83c1c3f64e609576f0c0e966e0c8d3b413))
+- add command to list installed package bundles ([c9f2c01](https://github.com/salesforcecli/plugin-packaging/commit/c9f2c01e34b4debfb56b0ab860abfac945df1398))
+
 ## [2.25.17](https://github.com/salesforcecli/plugin-packaging/compare/2.25.16...2.25.17) (2026-03-28)
 
 ### Bug Fixes
