@@ -37,6 +37,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
   public static readonly examples = messages.getMessages('examples');
   public static readonly deprecateAliases = true;
   public static readonly aliases = ['force:package:convert'];
+  public static readonly requiresProject = true;
   public static readonly flags = {
     loglevel,
     'target-dev-hub': requiredHubFlag,
@@ -128,13 +129,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
     } else {
       this.spinner.start('Converting Package', 'Initializing');
     }
-    // initialize the project instance if in a project
-    let project: SfProject | undefined;
-    try {
-      project = await SfProject.resolve();
-    } catch (err) {
-      // ignore project is optional
-    }
+
     const result = await Package.convert(
       flags.package,
       flags['target-dev-hub'].getConnection(flags['api-version']),
@@ -148,7 +143,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         patchversion: flags['patch-version'] as string,
         codecoverage: flags['code-coverage'] as boolean,
       },
-      project
+      this.project as SfProject
     );
 
     switch (result.Status) {
