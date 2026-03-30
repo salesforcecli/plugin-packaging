@@ -15,7 +15,7 @@
  */
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
-import { Lifecycle, Messages, SfError, SfProject } from '@salesforce/core';
+import { Lifecycle, Messages, SfError } from '@salesforce/core';
 import {
   INSTALL_URL_BASE,
   Package,
@@ -143,7 +143,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         patchversion: flags['patch-version'] as string,
         codecoverage: flags['code-coverage'] as boolean,
       },
-      this.project as SfProject
+      this.project
     );
 
     switch (result.Status) {
