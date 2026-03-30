@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { EOL } from 'node:os';
-import { Connection, Lifecycle, SfProject, SfError, SfProjectJson } from '@salesforce/core';
+import { Connection, Lifecycle, SfProject, SfError } from '@salesforce/core';
 import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
 import { expect } from 'chai';
@@ -283,27 +283,11 @@ describe('package:install', () => {
       }
     });
 
-    // TODO: It seems that while linking @salesforce/packaging into the plugin
-    // we cannot stub the library calls of `SfProject.getInstance` e.g. "SfProject, 'getInstance'"
-    // once the library has been published, the stubs resume to work and this test will pass
     it('should print SUCCESS status correctly for package alias', async () => {
-      // Stubs SfProject.getInstance, SfProject.getSfProjectJson, and SfProjectJson.getContents
-      // in a way that makes TS happy... all to test package aliases.
-      const getContentsStub = $$.SANDBOX.stub(SfProjectJson.prototype, 'getContents').returns({
-        packageAliases: { ['my_package_alias']: myPackageVersion04t },
-        packageDirectories: [],
-      });
-      // @ts-expect-error stubbing only 1 method
-      const getSfProjectJsonStub = $$.SANDBOX.stub(SfProject.prototype, 'getSfProjectJson').callsFake(() => ({
-        getContents: getContentsStub,
-      }));
-      const getPackageIdFromAliasStub = $$.SANDBOX.stub(SfProject.prototype, 'getPackageIdFromAlias').returns(
-        myPackageVersion04t
-      );
+      $$.SANDBOX.stub(SfProject.prototype, 'getPackageIdFromAlias').returns(myPackageVersion04t);
       // @ts-expect-error stubbing only a subset of methods
       $$.SANDBOX.stub(SfProject, 'getInstance').callsFake(() => ({
-        getSfProjectJson: getSfProjectJsonStub,
-        getPackageIdFromAlias: getPackageIdFromAliasStub,
+        getPackageIdFromAlias: $$.SANDBOX.stub().returns(myPackageVersion04t),
       }));
 
       const request = Object.assign({}, pkgInstallRequest, { Status: 'SUCCESS' });

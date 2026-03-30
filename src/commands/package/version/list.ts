@@ -208,7 +208,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           IsReleased: flags.json ? record.IsReleased : record.IsReleased.toString(),
           CreatedDate: new Date(record.CreatedDate).toISOString().replace('T', ' ').substring(0, 16),
           LastModifiedDate: new Date(record.LastModifiedDate).toISOString().replace('T', ' ').substring(0, 16),
-          InstallUrl: INSTALL_URL_BASE.toString() + record.SubscriberPackageVersionId,
+          InstallUrl: INSTALL_URL_BASE.href + record.SubscriberPackageVersionId,
           CodeCoverage: getCodeCoverage(),
           HasPassedCodeCoverageCheck: hasPassedCodeCoverageCheck as string | boolean,
           ValidationSkipped: record.ValidationSkipped,

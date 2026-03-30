@@ -159,7 +159,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         const successMessage = pvcMessages.getMessage(result.Status, [
           result.Id,
           result.SubscriberPackageVersionId,
-          INSTALL_URL_BASE.toString(),
+          INSTALL_URL_BASE.href,
           result.SubscriberPackageVersionId,
           this.config.bin,
         ]);
