@@ -1929,19 +1929,19 @@
     jszip "^3.10.1"
     object-treeify "^2"
 
-"@salesforce/plugin-command-reference@^3.1.82":
-  version "3.1.82"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.82.tgz#45e439760b05b4b7232763172426ad22b90e52da"
-  integrity sha512-4aBLoT5r+gdWypIfEcfkvIZsyog91n+OpmmSY2yYUCr/zjT1HDUOqR4vTctIiz2pbsEe/La0bYxNJfcGePvIUg==
+"@salesforce/plugin-command-reference@^3.1.86":
+  version "3.1.86"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.86.tgz#960f7ad4cb5082b00ced4545e00c9158be4b7bfa"
+  integrity sha512-MxkdeHJxZJe7ouehfGo8/A6RVcZnilH/Hz6cXIIXYH1u5vjHkwMr6zdCuVbMed7QMXazkiczMwr86e6dkTb67Q==
   dependencies:
     "@oclif/core" "^4"
     "@salesforce/core" "^8.23.3"
-    "@salesforce/kit" "^3.2.4"
+    "@salesforce/kit" "^3.2.6"
     "@salesforce/sf-plugins-core" "^11.3.12"
     "@salesforce/ts-types" "^2.0.11"
     chalk "^5.6.2"
     debug "^4.4.3"
-    handlebars "^4.7.8"
+    handlebars "^4.7.9"
 
 "@salesforce/prettier-config@^0.0.3":
   version "0.0.3"
@@ -5347,7 +5347,7 @@ graphology@^0.26.0:
   dependencies:
     events "^3.3.0"
 
-handlebars@^4.7.8:
+handlebars@^4.7.9:
   version "4.7.9"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.7.9.tgz#6f139082ab58dc4e5a0e51efe7db5ae890d56a0f"
   integrity sha512-4E71E0rpOaQuJR2A3xDZ+GM1HyWYv1clR58tC8emQNeQe3RH7MAzSbat+V0wG78LQBo6m6bzSG/L4pBuCsgnUQ==
