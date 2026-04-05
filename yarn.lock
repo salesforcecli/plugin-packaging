@@ -1729,10 +1729,10 @@
     wordwrap "^1.0.0"
     wrap-ansi "^7.0.0"
 
-"@oclif/plugin-command-snapshot@^5.3.13":
-  version "5.3.13"
-  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.3.13.tgz#b63e9572091795c5659e61956c04a07bc956c5d2"
-  integrity sha512-sT6ty30VM23zCou7YokdTTj1/pedL5TcBqDCG/FzoFwY3NUHaiwuiCyMsYnsSTOBEkdW5TW7afRTPaU53NCsjQ==
+"@oclif/plugin-command-snapshot@^5.3.15":
+  version "5.3.15"
+  resolved "https://registry.yarnpkg.com/@oclif/plugin-command-snapshot/-/plugin-command-snapshot-5.3.15.tgz#8fca90454c80990b37a179330371357621c1514e"
+  integrity sha512-J9mNzaKG1wtOy5Yp9Orz25zwVC/eTtveDTS2P1kFdNSGv7y1NKPpUL7ZKynf4bDGm2aJloXvdlLur7rQtixLzg==
   dependencies:
     "@oclif/core" "^4"
     ansis "^3.17.0"
