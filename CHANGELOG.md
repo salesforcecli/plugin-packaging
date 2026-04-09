@@ -1,3 +1,9 @@
+# [2.27.0](https://github.com/salesforcecli/plugin-packaging/compare/2.26.4...2.27.0) (2026-04-09)
+
+### Features
+
+- fail fast logic for convert commands not run in project dir ([17fce00](https://github.com/salesforcecli/plugin-packaging/commit/17fce00e4d4eaeefb16f806149ff372bfb2c5256))
+
 ## [2.26.4](https://github.com/salesforcecli/plugin-packaging/compare/2.26.3...2.26.4) (2026-04-09)
 
 ### Bug Fixes
