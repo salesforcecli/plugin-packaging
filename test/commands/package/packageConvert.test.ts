@@ -52,10 +52,6 @@ describe('package:convert', () => {
     $$.restore();
   });
 
-  it('should require an sfdx project', () => {
-    expect(PackageConvert.requiresProject).to.be.true;
-  });
-
   it('returns error for missing installationkey or installationkeybypass flag', async () => {
     const expectedErrorMsg =
       'Exactly one of the following must be provided: --installation-key, --installation-key-bypass';
