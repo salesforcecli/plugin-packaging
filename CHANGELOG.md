@@ -1,3 +1,9 @@
+## [2.27.1](https://github.com/salesforcecli/plugin-packaging/compare/2.27.0...2.27.1) (2026-04-11)
+
+### Bug Fixes
+
+- **deps:** bump basic-ftp from 5.2.1 to 5.2.2 ([bfb731e](https://github.com/salesforcecli/plugin-packaging/commit/bfb731e40afc3e9007010eb0bb81756535608026))
+
 # [2.27.0](https://github.com/salesforcecli/plugin-packaging/compare/2.26.4...2.27.0) (2026-04-09)
 
 ### Features
