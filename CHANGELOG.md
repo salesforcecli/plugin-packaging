@@ -1,3 +1,9 @@
+## [2.27.2](https://github.com/salesforcecli/plugin-packaging/compare/2.27.1...2.27.2) (2026-04-11)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 4.22.0 to 4.22.6 ([014b435](https://github.com/salesforcecli/plugin-packaging/commit/014b435864f2ef48b52f07408c1c414394d02de6))
+
 ## [2.27.1](https://github.com/salesforcecli/plugin-packaging/compare/2.27.0...2.27.1) (2026-04-11)
 
 ### Bug Fixes
