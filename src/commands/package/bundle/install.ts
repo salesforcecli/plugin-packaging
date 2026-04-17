@@ -22,7 +22,7 @@ import {
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { BundleSObjects, BundleInstallOptions, PackageBundleInstall } from '@salesforce/packaging';
-import { Messages, Lifecycle } from '@salesforce/core';
+import { Messages, Lifecycle, Org } from '@salesforce/core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -45,12 +45,10 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     }),
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    'dev-hub-org': Flags.salesforceId({
-      length: 'both',
+    'dev-hub-org': Flags.string({
       char: 'd',
       summary: messages.getMessage('flags.dev-hub-org.summary'),
       description: messages.getMessage('flags.dev-hub-org.description'),
-      startsWith: '00D',
       required: true,
     }),
     wait: Flags.integer({
@@ -70,11 +68,22 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     const targetOrg = flags['target-org'];
     const connection = targetOrg.getConnection(flags['api-version']);
 
+    const devHubInput = flags['dev-hub-org'];
+    let devHubOrgId: string;
+    // If the input already looks like a 15/18-char org ID starting with 00D, use it directly.
+    // Otherwise resolve the alias or username through the auth store.
+    if (/^00D[a-zA-Z0-9]{12,15}$/.test(devHubInput)) {
+      devHubOrgId = devHubInput;
+    } else {
+      const devHubOrg = await Org.create({ aliasOrUsername: devHubInput });
+      devHubOrgId = devHubOrg.getOrgId();
+    }
+
     const options: BundleInstallOptions = {
       connection,
       project: this.project!,
       PackageBundleVersion: flags.bundle,
-      DevelopmentOrganization: flags['dev-hub-org'],
+      DevelopmentOrganization: devHubOrgId,
     };
 
     // Set up lifecycle events for progress tracking
