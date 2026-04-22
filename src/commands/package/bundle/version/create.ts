@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import {
   BundleVersionCreateOptions,
@@ -24,9 +27,6 @@ import {
 import { Messages, Lifecycle } from '@salesforce/core';
 import { camelCaseToTitleCase, Duration } from '@salesforce/kit';
 import { requiredHubFlag } from '../../../../utils/hubFlag.js';
-import fs from 'node:fs';
-import path from 'node:path';
-import os from 'node:os';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 // TODO: Update messages
@@ -148,31 +148,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
     }
 
     // Read and normalize the definition file to handle 15-char package version IDs
-    let definitionFilePath = flags['definition-file'];
-    let tempFilePath: string | undefined;
-
-    try {
-      // Read the definition file
-      const definitionContent = await fs.promises.readFile(definitionFilePath, 'utf8');
-      const definitionJson = JSON.parse(definitionContent) as unknown;
-
-      // Normalize any 15-character package version IDs to 18-character format
-      const normalizedJson = normalizePackageVersionIds(definitionJson);
-
-      // Check if any normalization occurred by comparing stringified versions
-      if (JSON.stringify(definitionJson) !== JSON.stringify(normalizedJson)) {
-        // Create a temporary file with normalized content
-        const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'sf-bundle-'));
-        tempFilePath = path.join(tempDir, 'normalized-definition.json');
-        await fs.promises.writeFile(tempFilePath, JSON.stringify(normalizedJson, null, 2), 'utf8');
-        definitionFilePath = tempFilePath;
-        this.debug(`Normalized package version IDs in definition file. Using temporary file: ${tempFilePath}`);
-      }
-    } catch (error) {
-      // If reading/parsing fails, let the packaging library handle the error
-      // This preserves the original error messages for invalid JSON, missing files, etc.
-      this.debug(`Could not normalize definition file: ${error instanceof Error ? error.message : String(error)}`);
-    }
+    const { definitionFilePath, tempFilePath } = await this.normalizeDefinitionFile(flags['definition-file']);
 
     const options: BundleVersionCreateOptions = {
       connection: flags['target-dev-hub'].getConnection(flags['api-version']),
@@ -228,29 +204,57 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       }
       throw error;
     } finally {
-      // Clean up temporary file if it was created
-      if (tempFilePath) {
-        try {
-          const tempDir = path.dirname(tempFilePath);
-          await fs.promises.rm(tempDir, { recursive: true, force: true });
-          this.debug(`Cleaned up temporary definition file: ${tempFilePath}`);
-        } catch (cleanupError) {
-          // Log but don't fail if cleanup fails
-          this.debug(
-            `Failed to clean up temporary file: ${cleanupError instanceof Error ? cleanupError.message : String(cleanupError)}`
-          );
-        }
-      }
+      await this.cleanupTempFile(tempFilePath);
     }
 
-    // Stop spinner only if it was started - stop it cleanly without a message
     if (isSpinnerRunning) {
       this.spinner.stop();
     }
 
+    this.handleResult(result);
+    return result;
+  }
+
+  private async normalizeDefinitionFile(
+    definitionFilePath: string
+  ): Promise<{ definitionFilePath: string; tempFilePath?: string }> {
+    try {
+      const definitionContent = await fs.promises.readFile(definitionFilePath, 'utf8');
+      const definitionJson = JSON.parse(definitionContent) as unknown;
+      const normalizedJson = normalizePackageVersionIds(definitionJson);
+
+      if (JSON.stringify(definitionJson) !== JSON.stringify(normalizedJson)) {
+        const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'sf-bundle-'));
+        const tempFilePath = path.join(tempDir, 'normalized-definition.json');
+        await fs.promises.writeFile(tempFilePath, JSON.stringify(normalizedJson, null, 2), 'utf8');
+        this.debug(`Normalized package version IDs in definition file. Using temporary file: ${tempFilePath}`);
+        return { definitionFilePath: tempFilePath, tempFilePath };
+      }
+    } catch (error) {
+      this.debug(`Could not normalize definition file: ${error instanceof Error ? error.message : String(error)}`);
+    }
+    return { definitionFilePath };
+  }
+
+  private async cleanupTempFile(tempFilePath: string | undefined): Promise<void> {
+    if (tempFilePath) {
+      try {
+        const tempDir = path.dirname(tempFilePath);
+        await fs.promises.rm(tempDir, { recursive: true, force: true });
+        this.debug(`Cleaned up temporary definition file: ${tempFilePath}`);
+      } catch (cleanupError) {
+        this.debug(
+          `Failed to clean up temporary file: ${
+            cleanupError instanceof Error ? cleanupError.message : String(cleanupError)
+          }`
+        );
+      }
+    }
+  }
+
+  private handleResult(result: BundleSObjects.PackageBundleVersionCreateRequestResult): void {
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
-        // Collect all error messages from both Error array and ValidationError
         const errorMessages: string[] = [];
 
         if (result.Error && result.Error.length > 0) {
@@ -267,7 +271,6 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
         throw messages.createError('multipleErrors', [errorText]);
       }
       case BundleSObjects.PkgBundleVersionCreateReqStatus.success: {
-        // Show the PackageBundleVersionId (1Q8) if available, otherwise show the request ID
         const displayId = result.PackageBundleVersionId || result.Id;
         this.log(`Successfully created bundle version with ID ${displayId}`);
         break;
@@ -275,6 +278,5 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       default:
         this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
     }
-    return result;
   }
 }

@@ -13,6 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
 import { MockTestOrgData, TestContext } from '@salesforce/core/testSetup';
 import { Config } from '@oclif/core';
 import { assert, expect } from 'chai';
@@ -20,9 +23,6 @@ import { PackageBundleVersion, BundleSObjects } from '@salesforce/packaging';
 import sinon from 'sinon';
 import { SfCommand } from '@salesforce/sf-plugins-core';
 import { PackageBundlesCreate } from '../../../src/commands/package/bundle/version/create.js';
-import fs from 'node:fs';
-import path from 'node:path';
-import os from 'node:os';
 
 const pkgBundleVersionCreateErrorResult: BundleSObjects.PackageBundleVersionCreateRequestResult = {
   Id: '08c3i000000fylXXXX',
@@ -243,8 +243,14 @@ describe('package:bundle:version:create - tests', () => {
     });
 
     it('should normalize 15-character package version IDs to 18-character format', async () => {
-      createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create');
-      createStub.resolves(pkgBundleVersionCreateSuccessResult);
+      // Capture the file content inside the stub, before the command cleans up temp files
+      let capturedContent: string | undefined;
+      createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create').callsFake(
+        async (opts: { BundleVersionComponentsPath: string }) => {
+          capturedContent = await fs.promises.readFile(opts.BundleVersionComponentsPath, 'utf8');
+          return pkgBundleVersionCreateSuccessResult;
+        }
+      );
 
       // Create a temporary definition file with 15-char IDs
       const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'test-bundle-'));
@@ -265,16 +271,9 @@ describe('package:bundle:version:create - tests', () => {
         stubSpinner(cmd);
         await cmd.run();
 
-        // Verify that PackageBundleVersion.create was called
         expect(createStub.callCount).to.equal(1);
-
-        // Get the options passed to create
-        const createOptions = createStub.firstCall.args[0] as { BundleVersionComponentsPath: string };
-        const usedDefinitionPath = createOptions.BundleVersionComponentsPath;
-
-        // Read the file that was passed to the create method
-        const usedContent = await fs.promises.readFile(usedDefinitionPath, 'utf8');
-        const usedJson = JSON.parse(usedContent) as typeof definitionContent;
+        assert(capturedContent, 'Expected file content to be captured');
+        const usedJson = JSON.parse(capturedContent) as typeof definitionContent;
 
         // Verify that the 15-char ID was converted to 18-char
         expect(usedJson.components[0].packageVersion).to.equal('04t5f000000WM9yAAG');
@@ -287,8 +286,14 @@ describe('package:bundle:version:create - tests', () => {
     });
 
     it('should handle nested packageVersion fields in definition file', async () => {
-      createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create');
-      createStub.resolves(pkgBundleVersionCreateSuccessResult);
+      // Capture the file content inside the stub, before the command cleans up temp files
+      let capturedContent: string | undefined;
+      createStub = $$.SANDBOX.stub(PackageBundleVersion, 'create').callsFake(
+        async (opts: { BundleVersionComponentsPath: string }) => {
+          capturedContent = await fs.promises.readFile(opts.BundleVersionComponentsPath, 'utf8');
+          return pkgBundleVersionCreateSuccessResult;
+        }
+      );
 
       // Create a temporary definition file with nested structure
       const tempDir = await fs.promises.mkdtemp(path.join(os.tmpdir(), 'test-bundle-'));
@@ -311,17 +316,12 @@ describe('package:bundle:version:create - tests', () => {
         stubSpinner(cmd);
         await cmd.run();
 
-        // Get the options passed to create
-        const createOptions = createStub.firstCall.args[0] as { BundleVersionComponentsPath: string };
-        const usedDefinitionPath = createOptions.BundleVersionComponentsPath;
-
-        // Read the file that was passed to the create method
-        const usedContent = await fs.promises.readFile(usedDefinitionPath, 'utf8');
-        const usedJson = JSON.parse(usedContent) as typeof definitionContent;
+        assert(capturedContent, 'Expected file content to be captured');
+        const usedJson = JSON.parse(capturedContent) as typeof definitionContent;
 
         // Verify that both 15-char IDs were converted
         expect(usedJson.bundle.components[0].packageVersion).to.equal('04t5f000000WM9yAAG');
-        expect(usedJson.bundle.components[1].nested.packageVersion).to.equal('04t5f000000WM9zAAG');
+        expect(usedJson.bundle.components[1].nested!.packageVersion).to.equal('04t5f000000WM9zAAG');
       } finally {
         // Clean up
         await fs.promises.rm(tempDir, { recursive: true, force: true });
