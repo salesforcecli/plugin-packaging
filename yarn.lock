@@ -1660,6 +1660,11 @@
     "@jsonjoy.com/buffers" "^1.0.0"
     "@jsonjoy.com/codegen" "^1.0.0"
 
+"@nodable/entities@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@nodable/entities/-/entities-2.1.0.tgz#f543e5c6446720d4cf9e498a83019dd159973bc2"
+  integrity sha512-nyT7T3nbMyBI/lvr6L5TyWbFJAI9FTgVRakNoBqCD+PmID8DzFrrNdLLtHMwMszOtqZa8PAOV24ZqDnQrhQINA==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1840,10 +1845,10 @@
     strip-ansi "6.0.1"
     ts-retry-promise "^0.8.1"
 
-"@salesforce/core@^8.18.7", "@salesforce/core@^8.23.1", "@salesforce/core@^8.27.1", "@salesforce/core@^8.28.1", "@salesforce/core@^8.5.1":
-  version "8.28.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.28.1.tgz#d83f8d0a8a83057c5a363aa6b5211b583fb9206b"
-  integrity sha512-k9lPsULo+lOEZvpm1J1nJOFwKp5O5IfNqya7pw627QdKGcsWZm6v9caVHKUX9IjyB+S3dasNqaZT5O7l76C4oQ==
+"@salesforce/core@^8.18.7", "@salesforce/core@^8.23.1", "@salesforce/core@^8.27.1", "@salesforce/core@^8.28.1", "@salesforce/core@^8.28.3", "@salesforce/core@^8.5.1":
+  version "8.28.3"
+  resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-8.28.3.tgz#1344dc408833fb2a6ac19e6c4c09f846b6593ce3"
+  integrity sha512-DDAeHVwDO8wUlqEGwfp8Vuu7Vp7K+hpubKu6baWkHAXiO1u7ZbQkvwCbpPz9JiYEXVUBvP11JtBQ7zOUIPShlQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.13"
     "@salesforce/kit" "^3.2.4"
@@ -1909,19 +1914,19 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.22.6":
-  version "4.22.6"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.22.6.tgz#3cbbf64829cd4d86f902e30262e01b5d68fdccf5"
-  integrity sha512-Ph9GdbTGD8+pFNH2RiCOxbFkff4X5l7sLCFXTOE/s0avcm+RWdJ3Yhe1dEX+swQ5ea5pAYkJa9VzjjfH73bGDw==
+"@salesforce/packaging@^4.22.8":
+  version "4.22.8"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.22.8.tgz#906a93260455b690302f937e4729e98c9ec95edd"
+  integrity sha512-43s4Ya00KRzhWvm9IbqM19DkQGPZxwMOxG443s7tWdhxedz61M7myHYbJ+X58EdJW5qzM1ems+TdGC4W89TXzg==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.14"
     "@salesforce/core" "^8.28.1"
     "@salesforce/kit" "^3.2.6"
     "@salesforce/schemas" "^1.10.3"
-    "@salesforce/source-deploy-retrieve" "^12.32.1"
+    "@salesforce/source-deploy-retrieve" "^12.32.3"
     "@salesforce/ts-types" "^2.0.12"
     "@salesforce/types" "^1.7.1"
-    fast-xml-parser "^5.5.10"
+    fast-xml-parser "^5.5.11"
     globby "^11"
     graphology "^0.26.0"
     graphology-traversal "^0.3.1"
@@ -1987,23 +1992,23 @@
     cli-progress "^3.12.0"
     terminal-link "^3.0.0"
 
-"@salesforce/source-deploy-retrieve@^12.32.1":
-  version "12.32.4"
-  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.32.4.tgz#d9dc6653b31b2e60b0b6411cc0619da7c9fb8fbe"
-  integrity sha512-Eqo+OkbHkJWrgp9lRiz0l1NmJZ/N6SQdFcY+EtdA0wqKABtmV05BSvkgOA1Iab4e/fjcQCoi01v+oozPHat1Ag==
+"@salesforce/source-deploy-retrieve@^12.32.3":
+  version "12.32.8"
+  resolved "https://registry.yarnpkg.com/@salesforce/source-deploy-retrieve/-/source-deploy-retrieve-12.32.8.tgz#8103036aee22f56275db64203ff4845eed0b4e1b"
+  integrity sha512-1vTWVGmrrDZSixJjDOb2NfrIsbio9xuUaVcGZpxCfTgcEnggekxMkzq0vSqebgbi9cibLn/3BUkSSuEhsDK8Rw==
   dependencies:
     "@salesforce/core" "^8.27.1"
     "@salesforce/kit" "^3.2.4"
     "@salesforce/ts-types" "^2.0.12"
     "@salesforce/types" "^1.6.0"
     fast-levenshtein "^3.0.0"
-    fast-xml-parser "^5.5.9"
+    fast-xml-parser "^5.5.11"
     got "^11.8.6"
     graceful-fs "^4.2.11"
     ignore "^5.3.2"
     jszip "^3.10.1"
     mime "2.6.0"
-    minimatch "^9.0.7"
+    minimatch "^9.0.9"
     proxy-agent "^6.5.0"
     yaml "^2.8.3"
 
@@ -4804,6 +4809,13 @@ fast-xml-builder@^1.1.4:
   dependencies:
     path-expression-matcher "^1.1.3"
 
+fast-xml-builder@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/fast-xml-builder/-/fast-xml-builder-1.1.5.tgz#50188e1452a5fa095f415d3e63dcac0a1dbcbf11"
+  integrity sha512-4TJn/8FKLeslLAH3dnohXqE3QSoxkhvaMzepOIZytwJXZO69Bfz0HBdDHzOTOon6G59Zrk6VQ2bEiv1t61rfkA==
+  dependencies:
+    path-expression-matcher "^1.1.3"
+
 fast-xml-parser@5.4.1:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.4.1.tgz#0c81b8ecfb3021e5ad83aa3df904af19a05bc601"
@@ -4821,13 +4833,14 @@ fast-xml-parser@5.5.8:
     path-expression-matcher "^1.2.0"
     strnum "^2.2.0"
 
-fast-xml-parser@^5.5.10, fast-xml-parser@^5.5.9:
-  version "5.5.11"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.5.11.tgz#406a888587aed0ba6b3e60382dfbb3b1f80692ad"
-  integrity sha512-QL0eb0YbSTVWF6tTf1+LEMSgtCEjBYPpnAjoLC8SscESlAjXEIRJ7cHtLG0pLeDFaZLa4VKZLArtA/60ZS7vyA==
+fast-xml-parser@^5.5.11:
+  version "5.7.1"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.7.1.tgz#17697550bdd2a0a0d47cdc4b456c009c4cbe8a06"
+  integrity sha512-8Cc3f8GUGUULg34pBch/KGyPLglS+OFs05deyOlY7fL2MTagYPKrVQNmR1fLF/yJ9PH5ZSTd3YDF6pnmeZU+zA==
   dependencies:
-    fast-xml-builder "^1.1.4"
-    path-expression-matcher "^1.4.0"
+    "@nodable/entities" "^2.1.0"
+    fast-xml-builder "^1.1.5"
+    path-expression-matcher "^1.5.0"
     strnum "^2.2.3"
 
 fastest-levenshtein@^1.0.7:
@@ -6730,7 +6743,7 @@ minimatch@^5.0.1, minimatch@^5.1.6:
   dependencies:
     brace-expansion "^2.0.1"
 
-minimatch@^9.0.4, minimatch@^9.0.5, minimatch@^9.0.7:
+minimatch@^9.0.4, minimatch@^9.0.5, minimatch@^9.0.9:
   version "9.0.9"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-9.0.9.tgz#9b0cb9fcb78087f6fd7eababe2511c4d3d60574e"
   integrity sha512-OBwBN9AL4dqmETlpS2zasx+vTeWclWzkblfZk7KTA5j3jeOONz/tRCnZomUyvNg83wL5Zv9Ss6HMJXAgL8R2Yg==
@@ -7271,7 +7284,7 @@ path-expression-matcher@^1.1.3, path-expression-matcher@^1.2.0:
   resolved "https://registry.yarnpkg.com/path-expression-matcher/-/path-expression-matcher-1.2.0.tgz#9bdae3787f43b0857b0269e9caaa586c12c8abee"
   integrity sha512-DwmPWeFn+tq7TiyJ2CxezCAirXjFxvaiD03npak3cRjlP9+OjTmSy1EpIrEbh+l6JgUundniloMLDQ/6VTdhLQ==
 
-path-expression-matcher@^1.4.0:
+path-expression-matcher@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/path-expression-matcher/-/path-expression-matcher-1.5.0.tgz#3b98545dc88ffebb593e2d8458d0929da9275f4a"
   integrity sha512-cbrerZV+6rvdQrrD+iGMcZFEiiSrbv9Tfdkvnusy6y0x0GKBXREFg/Y65GhIfm0tnLntThhzCnfKwp1WRjeCyQ==
