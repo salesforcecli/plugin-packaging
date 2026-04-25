@@ -1914,13 +1914,13 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.22.8":
-  version "4.22.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.22.8.tgz#906a93260455b690302f937e4729e98c9ec95edd"
-  integrity sha512-43s4Ya00KRzhWvm9IbqM19DkQGPZxwMOxG443s7tWdhxedz61M7myHYbJ+X58EdJW5qzM1ems+TdGC4W89TXzg==
+"@salesforce/packaging@^4.22.9":
+  version "4.22.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.22.9.tgz#a40c47b164f6517045f50a65bc5de98b31dd58b8"
+  integrity sha512-PQOwkiEWjljceA6TFp8dGpib2qNHGQI5MIjERODe3QeiehnFu4T4FrPUtXai1Gv1DndoGzzZLL9ZiptvWqGYsQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.14"
-    "@salesforce/core" "^8.28.1"
+    "@salesforce/core" "^8.28.3"
     "@salesforce/kit" "^3.2.6"
     "@salesforce/schemas" "^1.10.3"
     "@salesforce/source-deploy-retrieve" "^12.32.3"
