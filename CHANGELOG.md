@@ -1,3 +1,9 @@
+## [2.27.13](https://github.com/salesforcecli/plugin-packaging/compare/2.27.12...2.27.13) (2026-05-07)
+
+### Bug Fixes
+
+- add no-prompt flag ([4637f28](https://github.com/salesforcecli/plugin-packaging/commit/4637f28ed07686edfa6d030b303cf78ba0e54b65))
+
 ## [2.27.12](https://github.com/salesforcecli/plugin-packaging/compare/2.27.11...2.27.12) (2026-05-07)
 
 ### Bug Fixes
