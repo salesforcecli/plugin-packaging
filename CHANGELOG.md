@@ -1,3 +1,9 @@
+## [2.27.17](https://github.com/salesforcecli/plugin-packaging/compare/2.27.16...2.27.17) (2026-05-10)
+
+### Bug Fixes
+
+- **deps:** bump fast-xml-builder from 1.0.0 to 1.2.0 ([ae7bad4](https://github.com/salesforcecli/plugin-packaging/commit/ae7bad43cd2650ebcbff46f4c4f8a88437e95232))
+
 ## [2.27.16](https://github.com/salesforcecli/plugin-packaging/compare/2.27.15...2.27.16) (2026-05-09)
 
 ### Bug Fixes
