@@ -6,7 +6,7 @@ Install a specific version of a package bundle in the target org.
 
 During developer preview, package bundles can be installed only in scratch orgs. To install a package bundle in a scratch org, add the PackageBundles feature to the scratch org definition file.
 
-# examples 
+# examples
 
 - Install a package bundle version in a scratch org and wait 10 minutes for the installation to complete:
 
@@ -22,11 +22,11 @@ Username or alias of the org in which to install the package bundle version. Not
 
 # flags.dev-hub-org.summary
 
-Org ID of the Dev Hub org where the bundle was created.
+Username, alias, or ID of the Dev Hub org where the bundle was created.
 
 # flags.dev-hub-org.description
 
-Enter the Dev Hub org ID, such as 00Dxx0000000000.
+Enter the username, alias, or ID of the Dev Hub org, such as "admin@example.com", "myDevHub", or "00Dxx0000000000".
 
 # flags.wait.summary
 
