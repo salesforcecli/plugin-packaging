@@ -72,7 +72,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
     let devHubOrgId: string;
     // If the input already looks like a 15/18-char org ID starting with 00D, use it directly.
     // Otherwise resolve the alias or username through the auth store.
-    if (/^00D[a-zA-Z0-9]{12,15}$/.test(devHubInput)) {
+    if (/^00D[a-zA-Z0-9]{12}([a-zA-Z0-9]{3})?$/.test(devHubInput)) {
       devHubOrgId = devHubInput;
     } else {
       const devHubOrg = await Org.create({ aliasOrUsername: devHubInput });
