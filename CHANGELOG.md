@@ -1,3 +1,14 @@
+# [2.28.0](https://github.com/salesforcecli/plugin-packaging/compare/2.27.17...2.28.0) (2026-05-19)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging to ^4.23.0 and align @salesforce/core ([cb075ef](https://github.com/salesforcecli/plugin-packaging/commit/cb075efd8057c078ab9d52b9bb8f31c8cf4c9d49))
+- tighten org ID regex to match only valid 15 or 18-char IDs ([bbefc30](https://github.com/salesforcecli/plugin-packaging/commit/bbefc30144b5c42e02342bf523574b3ad42dfe1c))
+
+### Features
+
+- accept devhub alias and 00D char ([6c25047](https://github.com/salesforcecli/plugin-packaging/commit/6c250478ae80eb55aa3cf08ce255856d49471612))
+
 ## [2.27.17](https://github.com/salesforcecli/plugin-packaging/compare/2.27.16...2.27.17) (2026-05-10)
 
 ### Bug Fixes
