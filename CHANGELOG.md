@@ -1,3 +1,71 @@
+## [2.27.17](https://github.com/salesforcecli/plugin-packaging/compare/2.27.16...2.27.17) (2026-05-10)
+
+### Bug Fixes
+
+- **deps:** bump fast-xml-builder from 1.0.0 to 1.2.0 ([ae7bad4](https://github.com/salesforcecli/plugin-packaging/commit/ae7bad43cd2650ebcbff46f4c4f8a88437e95232))
+
+## [2.27.16](https://github.com/salesforcecli/plugin-packaging/compare/2.27.15...2.27.16) (2026-05-09)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/sf-plugins-core from 12.2.6 to 12.2.14 ([0adf458](https://github.com/salesforcecli/plugin-packaging/commit/0adf45825097d800e84af388b2c43f4e13df213a))
+
+## [2.27.15](https://github.com/salesforcecli/plugin-packaging/compare/2.27.14...2.27.15) (2026-05-09)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.11.0 to 4.11.1 ([e4b26cb](https://github.com/salesforcecli/plugin-packaging/commit/e4b26cb03ee3fa45ce4ea4957b87c1cb054b8e35))
+
+## [2.27.14](https://github.com/salesforcecli/plugin-packaging/compare/2.27.13...2.27.14) (2026-05-09)
+
+### Bug Fixes
+
+- **deps:** bump fast-uri from 3.1.0 to 3.1.2 ([d30f5a4](https://github.com/salesforcecli/plugin-packaging/commit/d30f5a4ad2a449a046eb91a8e92c066b5aaadedd))
+
+## [2.27.13](https://github.com/salesforcecli/plugin-packaging/compare/2.27.12...2.27.13) (2026-05-07)
+
+### Bug Fixes
+
+- add no-prompt flag ([4637f28](https://github.com/salesforcecli/plugin-packaging/commit/4637f28ed07686edfa6d030b303cf78ba0e54b65))
+
+## [2.27.12](https://github.com/salesforcecli/plugin-packaging/compare/2.27.11...2.27.12) (2026-05-07)
+
+### Bug Fixes
+
+- **deps:** bump basic-ftp from 5.3.0 to 5.3.1 ([14a0655](https://github.com/salesforcecli/plugin-packaging/commit/14a06559e0cb3078cc3e3d49f4b795066603a359))
+
+## [2.27.11](https://github.com/salesforcecli/plugin-packaging/compare/2.27.10...2.27.11) (2026-05-07)
+
+### Bug Fixes
+
+- **deps:** bump ip-address from 10.1.0 to 10.2.0 ([90f6e6f](https://github.com/salesforcecli/plugin-packaging/commit/90f6e6fab79c3178ea431db5941468744cf2444a))
+
+## [2.27.10](https://github.com/salesforcecli/plugin-packaging/compare/2.27.9...2.27.10) (2026-05-03)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.28.4 to 8.29.0 ([c777cc7](https://github.com/salesforcecli/plugin-packaging/commit/c777cc76ee0c8db52eba1162051a85234e1fec2c))
+
+## [2.27.9](https://github.com/salesforcecli/plugin-packaging/compare/2.27.8...2.27.9) (2026-05-02)
+
+### Bug Fixes
+
+- **deps:** bump @oclif/core from 4.10.5 to 4.11.0 ([887030e](https://github.com/salesforcecli/plugin-packaging/commit/887030e378f4a8cd191c5d820b792b128da1b992))
+
+## [2.27.8](https://github.com/salesforcecli/plugin-packaging/compare/2.27.7...2.27.8) (2026-05-01)
+
+## [2.27.7](https://github.com/salesforcecli/plugin-packaging/compare/2.27.6...2.27.7) (2026-04-25)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/core from 8.28.3 to 8.28.4 ([dff265f](https://github.com/salesforcecli/plugin-packaging/commit/dff265ff7eebfb71acc306a15cbe9180cc367567))
+
+## [2.27.6](https://github.com/salesforcecli/plugin-packaging/compare/2.27.5...2.27.6) (2026-04-25)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 4.22.8 to 4.22.9 ([c6a05e9](https://github.com/salesforcecli/plugin-packaging/commit/c6a05e903cff719de23be481d17ef5970451ac50))
+
 ## [2.27.5](https://github.com/salesforcecli/plugin-packaging/compare/2.27.4...2.27.5) (2026-04-18)
 
 ### Bug Fixes

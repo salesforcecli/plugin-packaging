@@ -42,7 +42,7 @@ describe('package install', () => {
   });
 
   it('should install DreamhouseLWC package with polling', () => {
-    const command = 'package:install -p 04tKY000000MF7uYAG -w 20';
+    const command = 'package:install -p 04tKY000000MF7uYAG -w 20 --no-prompt';
     const output = execCmd(command, { ensureExitCode: 0, timeout: Duration.minutes(20).milliseconds }).shellOutput
       .stdout;
     expect(output).to.contain('Successfully installed package');
