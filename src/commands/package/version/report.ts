@@ -308,7 +308,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
 
     if (results.HasVpi !== undefined) {
-      record.HasVpi = results.PackageType !== 'Managed' ? 'N/A' : results.HasVpi ? 'Yes' : 'No';
+      record.HasVpi = results.PackageType !== 'Managed' ? 'N/A' : String(results.HasVpi);
     }
 
     record.ConvertedFromVersionId ??= ' ';

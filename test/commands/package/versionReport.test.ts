@@ -200,7 +200,7 @@ describe('package:version:report - tests', () => {
       pvrrm.Package2.IsOrgDependent = 'N/A';
       pvrrm.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrrm.HasMetadataRemoved = 'Yes';
-      pvrrm.HasVpi = 'Yes';
+      pvrrm.HasVpi = 'true';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
 
       const result = cmd['massageResultsForDisplay'](pvrr);
