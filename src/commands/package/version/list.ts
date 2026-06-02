@@ -41,6 +41,7 @@ export type PackageVersionListDetails = Omit<
   | 'BuildDurationInSeconds'
   | 'CodeCoverage'
   | 'Package2'
+  | 'HasVpi'
 > & {
   HasMetadataRemoved: string;
   IsPasswordProtected: string | boolean;
@@ -57,6 +58,7 @@ export type PackageVersionListDetails = Omit<
   IsOrgDependent: 'N/A' | 'Yes' | 'No';
   CreatedBy: string;
   ValidatedAsync?: boolean;
+  HasVpi?: string | boolean;
 };
 
 export type PackageVersionListCommandResult = PackageVersionListDetails[];
@@ -187,6 +189,13 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
         const hasMetadataRemoved =
           containerOptionsMap.get(record.Package2Id) !== 'Managed' ? 'N/A' : record.HasMetadataRemoved ? 'Yes' : 'No';
 
+        const hasVpi =
+          record.HasVpi === undefined
+            ? undefined
+            : containerOptionsMap.get(record.Package2Id) !== 'Managed'
+            ? 'N/A'
+            : String(record.HasVpi); // displays 'true'/'false'
+
         results.push({
           Package2Id: record.Package2Id,
           Branch: record.Branch,
@@ -222,6 +231,7 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
           HasMetadataRemoved: hasMetadataRemoved,
           CreatedBy: record.CreatedById,
           Language: record.Language,
+          HasVpi: hasVpi,
         });
       });
       this.table({
@@ -287,6 +297,7 @@ const getColumnData = (
       { key: 'Description', name: messages.getMessage('description') },
       { key: 'CodeCoverage', name: messages.getMessage('codeCoverage') },
       { key: 'HasPassedCodeCoverageCheck', name: messages.getMessage('hasPassedCodeCoverageCheck') },
+      { key: 'HasVpi', name: messages.getMessage('hasVpi') },
       { key: 'ConvertedFromVersionId', name: messages.getMessage('convertedFromVersionId') },
       { key: 'IsOrgDependent', name: messages.getMessage('isOrgDependent') },
       { key: 'ReleaseVersion', name: messages.getMessage('releaseVersion') },

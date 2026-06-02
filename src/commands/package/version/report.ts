@@ -39,6 +39,7 @@ const omissions = [
   'Package2',
   'HasMetadataRemoved',
   'DeveloperUsePkgZip',
+  'HasVpi',
 ] as const;
 type Omission = (typeof omissions)[number];
 
@@ -48,6 +49,7 @@ export type PackageVersionReportResultModified = Omit<PackageVersionReportResult
   Package2: Partial<Omit<PackagingSObjects.Package2, 'IsOrgDependent'> & { IsOrgDependent: string }>;
   PackageType?: PackageType;
   HasMetadataRemoved: boolean | string;
+  HasVpi?: boolean | string;
 };
 
 export class PackageVersionReportCommand extends SfCommand<PackageVersionReportResultModified> {
@@ -85,6 +87,7 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
     return massagedResults;
   }
 
+  // eslint-disable-next-line complexity
   private display(record: PackageVersionReportResultModified, verbose: boolean, connection: Connection): void {
     if (this.jsonEnabled()) {
       return;
@@ -197,6 +200,12 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
             : '') as unknown as string,
         }
       );
+      if (Number(connection.version) >= 67) {
+        displayRecords.push({
+          key: pvlMessages.getMessage('hasVpi'),
+          value: record.HasVpi,
+        });
+      }
     }
     const maximumNumClasses = 15; // Number of least code covered classes displayed on the cli output for better UX.
     let codeCovStr = ''; // String to display when code coverage data is empty or null
@@ -297,6 +306,10 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
 
     // set HasMetadataRemoved to N/A for Unlocked, and No when value is false or absent (pre-230)
     record.HasMetadataRemoved = results.PackageType !== 'Managed' ? 'N/A' : results.HasMetadataRemoved ? 'Yes' : 'No';
+
+    if (results.HasVpi !== undefined) {
+      record.HasVpi = results.PackageType !== 'Managed' ? 'N/A' : results.HasVpi ? 'Yes' : 'No';
+    }
 
     record.ConvertedFromVersionId ??= ' ';
 

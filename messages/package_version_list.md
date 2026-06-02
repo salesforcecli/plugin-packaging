@@ -157,3 +157,7 @@ Language
 # endToEndBuildDurationInSeconds
 
 End To End Build Duration In Seconds
+
+# hasVpi
+
+Has Version Settings
