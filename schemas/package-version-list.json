@@ -111,6 +111,9 @@
         },
         "Language": {
           "type": "string"
+        },
+        "HasVpi": {
+          "type": ["string", "boolean"]
         }
       },
       "required": [

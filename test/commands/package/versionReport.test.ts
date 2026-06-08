@@ -46,6 +46,7 @@ const pkgVersionReportResultModified: PackageVersionReportResultModified = {
   Description: '',
   HasMetadataRemoved: 'N/A',
   HasPassedCodeCoverageCheck: false,
+  HasVpi: 'N/A',
   Id: '05i3i000000Gmj6XXX',
   InstallKey: '',
   IsDeleted: false,
@@ -93,6 +94,7 @@ const pkgVersionReportResult: PackageVersionReportResult = {
   Description: '',
   HasMetadataRemoved: false,
   HasPassedCodeCoverageCheck: false,
+  HasVpi: false,
   Id: '05i3i000000Gmj6XXX',
   InstallKey: '',
   IsDeleted: false,
@@ -189,6 +191,7 @@ describe('package:version:report - tests', () => {
       pvrr.PackageType = 'Managed';
       pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrr.HasMetadataRemoved = true;
+      pvrr.HasVpi = true;
       pvrr.Description = 'test description';
       const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
       pvrrm.Version = '0.0.6.0';
@@ -197,6 +200,7 @@ describe('package:version:report - tests', () => {
       pvrrm.Package2.IsOrgDependent = 'N/A';
       pvrrm.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrrm.HasMetadataRemoved = 'Yes';
+      pvrrm.HasVpi = 'true';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
 
       const result = cmd['massageResultsForDisplay'](pvrr);
@@ -208,6 +212,7 @@ describe('package:version:report - tests', () => {
       pvrr.PackageType = undefined;
       pvrr.CodeCoverage = { apexCodeCoveragePercentage: 33 };
       pvrr.HasMetadataRemoved = true;
+      pvrr.HasVpi = false;
       pvrr.Package2.IsOrgDependent = true;
       pvrr.ValidationSkipped = true;
       const pvrrm = Object.assign({} as PackageVersionReportResultModified, pvrr) as PackageVersionReportResultModified;
@@ -217,10 +222,18 @@ describe('package:version:report - tests', () => {
       pvrrm.Package2.IsOrgDependent = 'No';
       pvrrm.CodeCoverage = 'N/A';
       pvrrm.HasMetadataRemoved = 'N/A';
+      pvrrm.HasVpi = 'N/A';
       pvrrm.HasPassedCodeCoverageCheck = 'N/A';
 
       const result = cmd['massageResultsForDisplay'](pvrr);
       expect(result).to.deep.equal(pvrrm);
+    });
+    it('should not transform HasVpi when undefined (api < 67)', () => {
+      const pvrr = Object.assign({}, pkgVersionReportResult);
+      delete (pvrr as Partial<PackageVersionReportResult>).HasVpi;
+
+      const result = cmd['massageResultsForDisplay'](pvrr);
+      expect(result.HasVpi).to.be.undefined;
     });
   });
 });

@@ -418,6 +418,10 @@ describe('package:version:*', () => {
         'HasMetadataRemoved',
         'CreatedBy',
       ];
+      // HasVpi is only present at API v67+ (app version 262)
+      if (Number((session.hubOrg as { apiVersion?: string }).apiVersion) >= 67) {
+        keys.push('HasVpi');
+      }
 
       expect(output).to.have.length.greaterThan(0);
       expect(output[0]).to.have.keys(keys);

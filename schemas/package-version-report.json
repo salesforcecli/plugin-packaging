@@ -17,10 +17,7 @@
           ]
         },
         "HasPassedCodeCoverageCheck": {
-          "type": [
-            "boolean",
-            "string"
-          ]
+          "type": ["boolean", "string"]
         },
         "Package2": {
           "type": "object",
@@ -96,10 +93,7 @@
           ]
         },
         "HasMetadataRemoved": {
-          "type": [
-            "boolean",
-            "string"
-          ]
+          "type": ["boolean", "string"]
         },
         "Id": {
           "type": "string"
@@ -201,32 +195,23 @@
               "$ref": "#/definitions/PackagingSObjects.SubscriberPackageDependencies"
             }
           },
-          "required": [
-            "Dependencies"
-          ],
+          "required": ["Dependencies"],
           "additionalProperties": false
         },
         "Version": {
           "type": "string"
         },
         "AncestorVersion": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
         },
         "AncestorId": {
-          "type": [
-            "string",
-            "null"
-          ]
+          "type": ["string", "null"]
+        },
+        "HasVpi": {
+          "type": ["boolean", "string"]
         }
       },
-      "required": [
-        "HasMetadataRemoved",
-        "Package2",
-        "Version"
-      ]
+      "required": ["HasMetadataRemoved", "Package2", "Version"]
     },
     "CodeCoverage": {
       "anyOf": [
@@ -240,19 +225,14 @@
               "type": "number"
             }
           },
-          "required": [
-            "apexCodeCoveragePercentage"
-          ],
+          "required": ["apexCodeCoveragePercentage"],
           "additionalProperties": false
         }
       ]
     },
     "PackageType": {
       "type": "string",
-      "enum": [
-        "Managed",
-        "Unlocked"
-      ]
+      "enum": ["Managed", "Unlocked"]
     },
     "CodeCoveragePercentages": {
       "anyOf": [
@@ -274,19 +254,14 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "className",
-                  "codeCoveragePercentage"
-                ],
+                "required": ["className", "codeCoveragePercentage"],
                 "additionalProperties": false
               },
               "minItems": 1,
               "maxItems": 1
             }
           },
-          "required": [
-            "codeCovPercentages"
-          ],
+          "required": ["codeCovPercentages"],
           "additionalProperties": false
         }
       ]
@@ -303,16 +278,12 @@
                 "type": "string"
               }
             },
-            "required": [
-              "subscriberPackageVersionId"
-            ],
+            "required": ["subscriberPackageVersionId"],
             "additionalProperties": false
           }
         }
       },
-      "required": [
-        "ids"
-      ],
+      "required": ["ids"],
       "additionalProperties": false
     }
   }

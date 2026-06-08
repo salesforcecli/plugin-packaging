@@ -1574,10 +1574,10 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.24.3":
-  version "4.24.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.24.3.tgz#e148fd73e20f264f9d04f796c1a1809c9453a706"
-  integrity sha512-PqLpjyYId1Fjbpl6I6gvvDwRuvgXLVtWMvUDE8a1lYhAi7OhqRaxw0o5NZ/wAp/DyqG02j3q4kwlw1iMFyzt/Q==
+"@salesforce/packaging@^4.25.0":
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.25.0.tgz#e9f65226368ed9dd03c884417c06f1fa50b6e010"
+  integrity sha512-3yAC34sCm699FROy7Ijt7FEC4uuHZFHPdWazDeBgmPGVMY57AEBrNCBEP1L23uI1LfzjjpA0xXQf2D/Bdv5WQw==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.15"
     "@salesforce/core" "^8.31.0"
