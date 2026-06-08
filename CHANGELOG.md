@@ -1,3 +1,13 @@
+# [2.29.0](https://github.com/salesforcecli/plugin-packaging/compare/2.28.6...2.29.0) (2026-06-08)
+
+### Bug Fixes
+
+- align HasVpi display to true/false in report (consistent with list) ([67cc863](https://github.com/salesforcecli/plugin-packaging/commit/67cc863ba8f95a38d898447361c600858fc2d7a7))
+
+### Features
+
+- display HasVpi in package version list and report commands ([fff56fb](https://github.com/salesforcecli/plugin-packaging/commit/fff56fb970a054b22ecdfaef66829a53e2c2e101))
+
 ## [2.28.6](https://github.com/salesforcecli/plugin-packaging/compare/2.28.5...2.28.6) (2026-05-31)
 
 ### Bug Fixes
