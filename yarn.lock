@@ -1522,15 +1522,15 @@
     jszip "^3.10.1"
     object-treeify "^2"
 
-"@salesforce/plugin-command-reference@^3.1.108":
-  version "3.1.108"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.108.tgz#868132b651a113f3abcb280f8b7d606c41be18ef"
-  integrity sha512-xS88Z14vzX7MEvbaz/CjI3Lo7WCpG2sv2uyMpGf7VVW4d3hMrSMcMza3ozz3Woi+inVVxVlTGL4viZ8adcowuw==
+"@salesforce/plugin-command-reference@^3.1.109":
+  version "3.1.109"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-command-reference/-/plugin-command-reference-3.1.109.tgz#5bf0903f6bb2f0cfbeab100f126cf31ed11ef0cd"
+  integrity sha512-K+s9blZsoSA3JbJDLLgeI/bfRohdW/rYmqxMFRkrJAaAdA4doZZ8TTuiPLGeferuyD0XH3H6WIrgjRxpI+BAbQ==
   dependencies:
     "@oclif/core" "^4"
     "@salesforce/core" "^8.31.0"
     "@salesforce/kit" "^3.2.6"
-    "@salesforce/sf-plugins-core" "^12.2.22"
+    "@salesforce/sf-plugins-core" "^12.2.24"
     "@salesforce/ts-types" "^2.0.11"
     chalk "^5.6.2"
     debug "^4.4.3"
@@ -1546,7 +1546,7 @@
   resolved "https://registry.yarnpkg.com/@salesforce/schemas/-/schemas-1.10.3.tgz#52c867fdd60679cf216110aa49542b7ad391f5d1"
   integrity sha512-FKfvtrYTcvTXE9advzS25/DEY9yJhEyLvStm++eQFtnAaX1pe4G3oGHgiQ0q55BM5+0AlCh0+0CVtQv1t4oJRA==
 
-"@salesforce/sf-plugins-core@^12.2.22", "@salesforce/sf-plugins-core@^12.2.24":
+"@salesforce/sf-plugins-core@^12.2.24":
   version "12.2.24"
   resolved "https://registry.yarnpkg.com/@salesforce/sf-plugins-core/-/sf-plugins-core-12.2.24.tgz#ead41c7e4b49a60bc72a52737a2eaacc686ec35c"
   integrity sha512-+lc7QMRz19Uk9f3lJO442LrUMvrRrfX6+xe1w42PihWjjoXpF9fZfZ7zk7H2WDF56PTo5SMJMrb5PjneiIrH3Q==
