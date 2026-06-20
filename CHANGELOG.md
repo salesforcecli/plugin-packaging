@@ -1,3 +1,9 @@
+## [2.29.5](https://github.com/salesforcecli/plugin-packaging/compare/2.29.4...2.29.5) (2026-06-20)
+
+### Bug Fixes
+
+- **deps:** bump @babel/core from 7.28.5 to 7.29.7 ([5decb64](https://github.com/salesforcecli/plugin-packaging/commit/5decb64441c5c8133634496a0705ad1af1915d49))
+
 ## [2.29.4](https://github.com/salesforcecli/plugin-packaging/compare/2.29.3...2.29.4) (2026-06-17)
 
 ### Bug Fixes
