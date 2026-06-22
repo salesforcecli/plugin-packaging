@@ -16,6 +16,10 @@ Display the dependency graph for an unlocked or 2GP managed package version.
 
   <%= config.bin %> <%= command.id %> --package 08c...
 
+- Display the dependency graph for a key-protected package version:
+
+  <%= config.bin %> <%= command.id %> --package 04t... --installation-key "my installation key"
+
 # flags.package.summary
 
 ID or alias of the package version (starts with 04t) or the package version create request (starts with 08c) to display the dependency graph for.
@@ -31,6 +35,10 @@ Order (root-first or root-last) in which the dependencies are displayed.
 # flags.edge-direction.description
 
 A root-first graph declares the root as the package that must be installed last. A root-last graph is the reverse order of root-first. If you specify "--edge-direction root-last", the graph displays the packages in the order they must be installed. The root starts with the farthest leaf of the package dependencies and ends with the base package, which must be installed last.
+
+# flags.installation-key.summary
+
+Installation key for a key-protected package version (starts with 04t).
 
 # flags.verbose.summary
 
