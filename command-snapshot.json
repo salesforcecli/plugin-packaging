@@ -187,6 +187,7 @@
     ],
     "flagChars": ["a", "c", "f", "k", "m", "p", "s", "v", "w", "x"],
     "flags": [
+      "additional-base-packages",
       "api-version",
       "build-instance",
       "code-coverage",
@@ -419,6 +420,7 @@
       "code-coverage",
       "definition-file",
       "flags-dir",
+      "generate-pkg-zip",
       "installation-key",
       "installation-key-bypass",
       "json",
@@ -440,8 +442,7 @@
       "version-description",
       "version-name",
       "version-number",
-      "wait",
-      "generate-pkg-zip"
+      "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },

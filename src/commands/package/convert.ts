@@ -106,6 +106,13 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       description: messages.getMessage('flags.code-coverage.description'),
       default: false,
     }),
+    // Narrow flag for 1GP-extends-2GP conversions where the 2GP base package can't be
+    // auto-discovered. Hidden until the core side (W-22946445) honors it.
+    'additional-base-packages': Flags.string({
+      summary: messages.getMessage('flags.additional-base-packages.summary'),
+      description: messages.getMessage('flags.additional-base-packages.description'),
+      hidden: true,
+    }),
   };
 
   public async run(): Promise<PackageVersionCreateRequestResult> {
@@ -142,6 +149,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
         seedMetadata: flags['seed-metadata'] as string,
         patchversion: flags['patch-version'] as string,
         codecoverage: flags['code-coverage'] as boolean,
+        additionalBasePackages: parseAdditionalBasePackages(flags['additional-base-packages']),
       },
       this.project
     );
@@ -186,4 +194,19 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       this.spinner.status = message;
     }
   }
+}
+
+/**
+ * Parse the comma-separated --additional-base-packages flag into a list of subscriber package
+ * version IDs. Existence and validity checks are owned by the server.
+ */
+function parseAdditionalBasePackages(value: string | undefined): string[] | undefined {
+  if (!value) {
+    return undefined;
+  }
+  const ids = value
+    .split(',')
+    .map((id) => id.trim())
+    .filter((id) => id.length > 0);
+  return ids.length > 0 ? ids : undefined;
 }

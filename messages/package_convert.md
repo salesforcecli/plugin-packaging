@@ -93,3 +93,11 @@ Calculate and store the code coverage percentage by running the packaged Apex te
 # flags.code-coverage.description
 
 Before you can promote and release a managed package version, the Apex code must meet a minimum 75% code coverage requirement.
+
+# flags.additional-base-packages.summary
+
+Comma-separated list of second-generation base package version IDs (starts with 04t) that the package being converted extends.
+
+# flags.additional-base-packages.description
+
+Specify this flag when you convert a first-generation managed package that extends a second-generation base package. List the subscriber package version IDs (starts with 04t) of the base packages; they're installed before the converted package version. Most conversions don't need this flag because dependencies are detected automatically.

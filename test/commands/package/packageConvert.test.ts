@@ -135,6 +135,48 @@ describe('package:convert', () => {
     expect(callArgs.codecoverage).to.equal(true);
     expect(result).to.deep.equal(pvc);
   });
+  it('parses comma-separated --additional-base-packages into an array of 04t ids', async () => {
+    const pvc = {
+      Branch: 'main',
+      ConvertedFromVersionId: null,
+      CreatedBy: '133',
+      CreatedDate: '2022-08-31 11:48',
+      Error: [],
+      HasMetadataRemoved: false,
+      HasPassedCodeCoverageCheck: false,
+      Id: '08c3i000000bmf6AAA',
+      Package2Id: '0Ho3i000000Gmj6CAC',
+      Package2Name: 'MyTestPackage',
+      Package2VersionId: '05i3i000000bllhAAA',
+      Status: Package2VersionStatus.inProgress,
+      SubscriberPackageVersionId: '04t3i000002OUEkAAO',
+      Tag: '',
+      CodeCoverage: null,
+      VersionNumber: null,
+      TotalNumberOfMetadataFiles: null,
+      TotalSizeOfMetadataFiles: null,
+    } satisfies PackageVersionCreateRequestResult;
+
+    convertStub.restore();
+    convertStub = $$.SANDBOX.stub(Package, 'convert').resolves(pvc);
+    const cmd = new PackageConvert(
+      [
+        '-p',
+        CONVERTED_FROM_PACKAGE_ID,
+        '--installation-key',
+        INSTALL_KEY,
+        '-v',
+        'test@user.com',
+        '--additional-base-packages',
+        '04t3i000002OUEkAAO, 04t3i000002OUElAAO',
+      ],
+      config
+    );
+    stubSpinner(cmd);
+    await cmd.run();
+    const callArgs = convertStub.getCall(0).args[2] as ConvertPackageOptions;
+    expect(callArgs.additionalBasePackages).to.deep.equal(['04t3i000002OUEkAAO', '04t3i000002OUElAAO']);
+  });
   it('starts package version create request (error)', async () => {
     const pvc = {
       Branch: 'main',
