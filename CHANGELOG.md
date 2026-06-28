@@ -1,3 +1,9 @@
+## [2.29.8](https://github.com/salesforcecli/plugin-packaging/compare/2.29.7...2.29.8) (2026-06-28)
+
+### Bug Fixes
+
+- **deps:** bump ws from 8.20.1 to 8.21.0 ([370eecd](https://github.com/salesforcecli/plugin-packaging/commit/370eecd17152bd8a17a39a3db9e799471c57eb4d))
+
 ## [2.29.7](https://github.com/salesforcecli/plugin-packaging/compare/2.29.6...2.29.7) (2026-06-27)
 
 ### Bug Fixes
