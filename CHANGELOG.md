@@ -1,3 +1,9 @@
+# [2.30.0](https://github.com/salesforcecli/plugin-packaging/compare/2.29.8...2.30.0) (2026-06-30)
+
+### Features
+
+- add --installation-key flag to package version displaydependencies @W-20525733@ ([8ecd559](https://github.com/salesforcecli/plugin-packaging/commit/8ecd5597c33b8561231e641de33eee23ff5eddd7))
+
 ## [2.29.8](https://github.com/salesforcecli/plugin-packaging/compare/2.29.7...2.29.8) (2026-06-28)
 
 ### Bug Fixes
