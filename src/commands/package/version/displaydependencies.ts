@@ -38,6 +38,10 @@ export class PackageVersionDisplayDependenciesCommand extends SfCommand<DisplayD
       description: messages.getMessage('flags.package.description'),
       required: true,
     }),
+    'installation-key': Flags.string({
+      char: 'k',
+      summary: messages.getMessage('flags.installation-key.summary'),
+    }),
     'edge-direction': Flags.custom<'root-first' | 'root-last'>({
       options: ['root-first', 'root-last'],
     })({
@@ -60,6 +64,7 @@ export class PackageVersionDisplayDependenciesCommand extends SfCommand<DisplayD
       {
         verbose: flags['verbose'],
         edgeDirection: flags['edge-direction'],
+        installationKey: flags['installation-key'],
       }
     );
 

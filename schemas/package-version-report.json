@@ -75,9 +75,6 @@
             },
             "IsOrgDependent": {
               "type": "string"
-            },
-            "RecommendedVersionId": {
-              "type": "string"
             }
           },
           "additionalProperties": false
@@ -93,6 +90,9 @@
           ]
         },
         "HasMetadataRemoved": {
+          "type": ["boolean", "string"]
+        },
+        "HasVpi": {
           "type": ["boolean", "string"]
         },
         "Id": {
@@ -206,9 +206,6 @@
         },
         "AncestorId": {
           "type": ["string", "null"]
-        },
-        "HasVpi": {
-          "type": ["boolean", "string"]
         }
       },
       "required": ["HasMetadataRemoved", "Package2", "Version"]

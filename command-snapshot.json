@@ -419,6 +419,7 @@
       "code-coverage",
       "definition-file",
       "flags-dir",
+      "generate-pkg-zip",
       "installation-key",
       "installation-key-bypass",
       "json",
@@ -440,8 +441,7 @@
       "version-description",
       "version-name",
       "version-number",
-      "wait",
-      "generate-pkg-zip"
+      "wait"
     ],
     "plugin": "@salesforce/plugin-packaging"
   },
@@ -491,8 +491,18 @@
     "alias": [],
     "command": "package:version:displaydependencies",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
-    "flagChars": ["p", "v"],
-    "flags": ["api-version", "edge-direction", "flags-dir", "json", "loglevel", "package", "target-dev-hub", "verbose"],
+    "flagChars": ["k", "p", "v"],
+    "flags": [
+      "api-version",
+      "edge-direction",
+      "flags-dir",
+      "installation-key",
+      "json",
+      "loglevel",
+      "package",
+      "target-dev-hub",
+      "verbose"
+    ],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
