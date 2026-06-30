@@ -1,3 +1,9 @@
+## [2.30.1](https://github.com/salesforcecli/plugin-packaging/compare/2.30.0...2.30.1) (2026-06-30)
+
+### Bug Fixes
+
+- allow node version override in npm publish ([b2d7236](https://github.com/salesforcecli/plugin-packaging/commit/b2d7236f0096febbd2b28a067360399d84ddb93c))
+
 # [2.30.0](https://github.com/salesforcecli/plugin-packaging/compare/2.29.8...2.30.0) (2026-06-30)
 
 ### Features
