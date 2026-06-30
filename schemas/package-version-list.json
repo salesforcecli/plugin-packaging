@@ -58,6 +58,9 @@
         "ValidatedAsync": {
           "type": "boolean"
         },
+        "HasVpi": {
+          "type": ["string", "boolean"]
+        },
         "Id": {
           "type": "string"
         },
@@ -111,9 +114,6 @@
         },
         "Language": {
           "type": "string"
-        },
-        "HasVpi": {
-          "type": ["string", "boolean"]
         }
       },
       "required": [
