@@ -1220,10 +1220,10 @@
   dependencies:
     "@salesforce/ts-types" "^2.0.12"
 
-"@salesforce/packaging@^4.27.3":
-  version "4.27.3"
-  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.27.3.tgz#86ed41d06a4e57c2ead81de5a4f0fd09eab28511"
-  integrity sha512-PMuf76c7l2dw+L+eb4FB4Ff0uMT8+BHre8aRVSBE+TUn/A0x6ZbaHWmY50SDO9GwO9alteJz5KhpaqgzomcnCQ==
+"@salesforce/packaging@^4.27.6":
+  version "4.27.6"
+  resolved "https://registry.yarnpkg.com/@salesforce/packaging/-/packaging-4.27.6.tgz#91b32efc09b25bec7247d06b6120b86dbf962726"
+  integrity sha512-aHP693EUikBB1ZpSWTa/gMVgGe/it0ekNn3ne2chXcWs8gpSu7u70mlMPqlXZ5+HOhK/uC9aZYJFcx7mi9PQTQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.18"
     "@salesforce/core" "^8.31.4"
@@ -1232,7 +1232,7 @@
     "@salesforce/source-deploy-retrieve" "^12.36.7"
     "@salesforce/ts-types" "^2.0.12"
     "@salesforce/types" "^1.8.0"
-    fast-xml-parser "^5.9.3"
+    fast-xml-parser "^5.10.1"
     globby "^11"
     graphology "^0.26.0"
     graphology-traversal "^0.3.1"
@@ -3515,7 +3515,7 @@ fast-xml-builder@^1.2.0:
     path-expression-matcher "^1.5.0"
     xml-naming "^0.1.0"
 
-fast-xml-parser@^5.7.3, fast-xml-parser@^5.9.3:
+fast-xml-parser@^5.10.1, fast-xml-parser@^5.7.3:
   version "5.10.1"
   resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-5.10.1.tgz#19313f7c9386c47fa4a1de527547b73ed2cfcede"
   integrity sha512-IEMIf7298kXuZSRFoGfMYrl7is8LpavODgbNz1cwIudv7KwVFnuU+UsMporfq6PD6aXSlawZlARiA3UywCTfMw==
