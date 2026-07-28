@@ -8,10 +8,10 @@
   "o11yUploadEndpoint": "https://794testsite.my.site.com/byolwr/webruntime/log/metrics",
   "dependencies": {
     "@oclif/core": "^4",
-    "@salesforce/core": "^8.32.4",
+    "@salesforce/core": "^8.32.6",
     "@salesforce/kit": "^3.2.6",
-    "@salesforce/packaging": "^4.27.3",
-    "@salesforce/sf-plugins-core": "^12.2.25",
+    "@salesforce/packaging": "^4.27.8",
+    "@salesforce/sf-plugins-core": "^12.2.28",
     "chalk": "^5.6.2"
   },
   "devDependencies": {
