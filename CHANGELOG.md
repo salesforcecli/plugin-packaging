@@ -1,3 +1,9 @@
+## [3.0.1](https://github.com/salesforcecli/plugin-packaging/compare/3.0.0...3.0.1) (2026-08-06)
+
+### Bug Fixes
+
+- **deps:** bump fast-uri from 3.1.4 to 3.1.5 ([ee53b59](https://github.com/salesforcecli/plugin-packaging/commit/ee53b59582700ad1feb5af42089b9b1ee454a93e))
+
 # [3.0.0](https://github.com/salesforcecli/plugin-packaging/compare/2.30.6...3.0.0) (2026-07-30)
 
 - feat!: require Node >=22, drop EOL Node versions @W-23480655@ ([dfc1e1d](https://github.com/salesforcecli/plugin-packaging/commit/dfc1e1daabe044695ad2c90864898c67fda265d8))
