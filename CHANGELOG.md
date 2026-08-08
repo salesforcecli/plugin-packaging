@@ -1,3 +1,9 @@
+## [3.0.4](https://github.com/salesforcecli/plugin-packaging/compare/3.0.3...3.0.4) (2026-08-08)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/ts-types from 3.0.0 to 3.0.1 ([cba5ff6](https://github.com/salesforcecli/plugin-packaging/commit/cba5ff6b9eb0a2fc58276bd398efa1819dcefba8))
+
 ## [3.0.3](https://github.com/salesforcecli/plugin-packaging/compare/3.0.2...3.0.3) (2026-08-08)
 
 ### Bug Fixes
