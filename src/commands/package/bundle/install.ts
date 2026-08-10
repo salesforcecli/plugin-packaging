@@ -155,7 +155,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       default:
         this.log(
           messages.getMessage('bundleInstallInProgress', [
-            camelCaseToTitleCase(result.InstallStatus as string),
+            camelCaseToTitleCase(result.InstallStatus),
             result.Id,
             targetOrg.getUsername() ?? '',
           ])

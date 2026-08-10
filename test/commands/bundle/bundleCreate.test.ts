@@ -49,7 +49,7 @@ describe('package:bundle:create - tests', () => {
 
     await cmd.run();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 
