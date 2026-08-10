@@ -73,7 +73,7 @@ export class PackageVersionPromoteCommand extends SfCommand<PackageSaveResult> {
       this.log(messages.getMessage('humanSuccess', [result.id]));
       return result;
     } catch (e) {
-      const err = SfError.wrap(e as Error);
+      const err = SfError.wrap(e);
       if (err.name === 'DUPLICATE_VALUE' && err.message.includes('previously released')) {
         err.message = messages.getMessage('previouslyReleasedMessage');
         err.actions = [messages.getMessage('previouslyReleasedAction', [this.config.bin, this.config.bin])];

@@ -111,7 +111,7 @@ describe('package:install:report', () => {
     });
     getInstallRequestStub.restore();
     getInstallRequestStub = $$.SANDBOXES.DEFAULT.stub(SubscriberPackageVersion, 'getInstallRequest').resolves(
-      request as PackagingSObjects.PackageInstallRequest
+      request
     );
 
     getInstallRequestStub.resolves(request);

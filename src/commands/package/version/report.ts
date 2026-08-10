@@ -195,9 +195,9 @@ export class PackageVersionReportCommand extends SfCommand<PackageVersionReportR
         },
         {
           key: 'Metadata File Size',
-          value: (record.TotalSizeOfMetadataFiles
+          value: record.TotalSizeOfMetadataFiles
             ? `${Math.ceil(record.TotalSizeOfMetadataFiles / (1024 * 1024))} MB`
-            : '') as unknown as string,
+            : '',
         }
       );
       if (Number(connection.version) >= 67) {

@@ -135,13 +135,13 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       flags['target-dev-hub'].getConnection(flags['api-version']),
       {
         wait: flags.wait,
-        installationKey: flags['installation-key'] as string,
-        definitionfile: flags['definition-file'] as string,
+        installationKey: flags['installation-key'],
+        definitionfile: flags['definition-file'],
         installationKeyBypass: flags['installation-key-bypass'],
-        buildInstance: flags['build-instance'] as string,
-        seedMetadata: flags['seed-metadata'] as string,
-        patchversion: flags['patch-version'] as string,
-        codecoverage: flags['code-coverage'] as boolean,
+        buildInstance: flags['build-instance'],
+        seedMetadata: flags['seed-metadata'],
+        patchversion: flags['patch-version'],
+        codecoverage: flags['code-coverage'],
       },
       this.project
     );

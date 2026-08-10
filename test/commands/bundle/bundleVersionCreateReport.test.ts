@@ -68,7 +68,7 @@ describe('package:bundle:version:create:report - tests', () => {
 
     expect(getCreateStatusStub.calledOnce).to.be.true;
     expect(getCreateStatusStub.firstCall.args[0]).to.equal(requestId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 
@@ -100,7 +100,7 @@ describe('package:bundle:version:create:report - tests', () => {
 
     expect(getCreateStatusStub.calledOnce).to.be.true;
     expect(getCreateStatusStub.firstCall.args[0]).to.equal(requestId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 

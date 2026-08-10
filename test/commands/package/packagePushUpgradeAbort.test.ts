@@ -49,11 +49,11 @@ describe('PackagePushUpgradeAbortCommand', () => {
     const res = await cmd.run();
 
     expect(res.success).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(abortStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(logStub.callCount).to.equal(1);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(logStub.args[0]).to.deep.equal([`Scheduled push upgrade ID [${pushRequestId}] was cancelled.`]);
   });
 
