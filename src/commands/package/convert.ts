@@ -146,6 +146,7 @@ export class PackageConvert extends SfCommand<PackageVersionCreateRequestResult>
       this.project
     );
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.Status) {
       case PackagingSObjects['Package2VersionStatus'].error:
         this.spinner.stop();

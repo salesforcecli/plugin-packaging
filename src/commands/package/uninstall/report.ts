@@ -36,7 +36,6 @@ export class PackageUninstallReportCommand extends SfCommand<PackagingSObjects.S
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'request-id': Flags.salesforceId({
       length: 'both',
       deprecateAliases: true,
