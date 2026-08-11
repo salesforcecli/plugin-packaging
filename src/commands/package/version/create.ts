@@ -315,7 +315,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
         break;
       default:
         this.log(
-          messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status as string), this.config.bin, result.Id])
+          messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), this.config.bin, result.Id])
         );
     }
     return result;

@@ -129,7 +129,7 @@ export class PackageBundleUninstallCommand extends SfCommand<BundleUninstallResu
       default:
         this.log(
           messages.getMessage('bundleUninstallInProgress', [
-            camelCaseToTitleCase(result.UninstallStatus as string),
+            camelCaseToTitleCase(result.UninstallStatus),
             result.Id,
             targetOrg.getUsername() ?? '',
           ])

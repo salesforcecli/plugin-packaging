@@ -150,7 +150,7 @@ describe('package:version:report - tests', () => {
     it('should produce package version report', async () => {
       const reportResult = Object.assign({}, pkgVersionReportResult);
       $$.SANDBOX.stub(PackageVersion.prototype, 'report').callsFake(
-        (): Promise<PackageVersionReportResult> => Promise.resolve(reportResult as PackageVersionReportResult)
+        (): Promise<PackageVersionReportResult> => Promise.resolve(reportResult)
       );
       const command = new PackageVersionReportCommand(['-p', '05i3i000000Gmj6XXX', '-v', 'test@hub.org'], config);
       command.project = SfProject.getInstance();

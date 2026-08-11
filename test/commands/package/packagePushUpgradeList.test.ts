@@ -86,9 +86,9 @@ describe('package:pushupgrade:list - tests', () => {
     await cmd.run();
 
     expect(envSpy.calledOnce).to.equal(false);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.warn.calledOnce).to.be.false;
   });
 
@@ -100,7 +100,7 @@ describe('package:pushupgrade:list - tests', () => {
 
     await cmd.run();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
   });
 

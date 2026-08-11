@@ -425,7 +425,7 @@ describe('package:version:*', () => {
 
       expect(output).to.have.length.greaterThan(0);
       expect(output[0]).to.have.keys(keys);
-      (output as PackageVersionListDetails[])
+      (output)
         .filter((f: { CodeCoverage: string | boolean }) => f.CodeCoverage)
         .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
     });

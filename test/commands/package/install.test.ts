@@ -395,11 +395,11 @@ describe('package:install', () => {
       installStub = $$.SANDBOX.stub(SubscriberPackageVersion.prototype, 'install').callsFake(async () => {
         await Lifecycle.getInstance().emit(
           PackageEvents.install['subscriber-status'],
-          'PACKAGE_UNAVAILABLE' as InstallValidationStatus
+          'PACKAGE_UNAVAILABLE'
         );
         await Lifecycle.getInstance().emit(
           PackageEvents.install['subscriber-status'],
-          'NO_ERRORS_DETECTED' as InstallValidationStatus
+          'NO_ERRORS_DETECTED'
         );
         await Lifecycle.getInstance().emit(PackageEvents.install.status, pkgInstallRequest);
         await Lifecycle.getInstance().emit(PackageEvents.install.status, successRequest);

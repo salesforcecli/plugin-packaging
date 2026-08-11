@@ -60,7 +60,7 @@ export class PackageInstalledListCommand extends SfCommand<PackageInstalledComma
 
       // Calculate Version Settings from the data already in the result
       if (r.SubscriberPackageVersion) {
-        const isManaged = r.SubscriberPackageVersion.IsManaged as boolean;
+        const isManaged = r.SubscriberPackageVersion.IsManaged;
         const package2ContainerOptions = r.SubscriberPackageVersion.Package2ContainerOptions as string;
 
         // Use namespace for 1GP managed packages. For 2GP managed packages use packageId. For anything else,
