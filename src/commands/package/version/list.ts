@@ -104,7 +104,6 @@ export class PackageVersionListCommand extends SfCommand<PackageVersionListComma
       summary: messages.getMessage('flags.branch.summary'),
     }),
     'order-by': Flags.string({
-      // eslint-disable-next-line sf-plugin/dash-o
       char: 'o',
       deprecateAliases: true,
       aliases: ['orderby'],

@@ -22,7 +22,6 @@ import { PackageEvents, PackagingSObjects, SubscriberPackageVersion } from '@sal
 import sinon from 'sinon';
 import { SfCommand, stubPrompter } from '@salesforce/sf-plugins-core';
 import { Install } from '../../../src/commands/package/install.js';
-import InstallValidationStatus = PackagingSObjects.InstallValidationStatus;
 
 const myPackageVersion04t = '04tKY000000MF7uYAG';
 
@@ -67,9 +66,9 @@ const subscriberPackageVersion: PackagingSObjects.SubscriberPackageVersion = {
   AppExchangePackageName: '',
   AppExchangePublisherName: '',
   BuildNumber: 0,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   CspTrustedSites: undefined,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Dependencies: undefined,
   Description: '',
   Id: myPackageVersion04t,
@@ -83,16 +82,16 @@ const subscriberPackageVersion: PackagingSObjects.SubscriberPackageVersion = {
   MajorVersion: 0,
   MinorVersion: 0,
   Name: '',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Package2ContainerOptions: undefined,
   PatchVersion: 0,
   PostInstallUrl: '',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Profiles: undefined,
   PublisherName: '',
   ReleaseNotesUrl: '',
   ReleaseState: '',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   RemoteSiteSettings: undefined,
   SubscriberPackageId: '',
 };

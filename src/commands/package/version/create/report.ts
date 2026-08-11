@@ -41,7 +41,6 @@ export class PackageVersionCreateReportCommand extends SfCommand<ReportCommandRe
     loglevel,
     'target-dev-hub': requiredHubFlag,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-create-request-id': Flags.salesforceId({
       length: 'both',
       deprecateAliases: true,

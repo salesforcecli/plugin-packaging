@@ -141,6 +141,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       this.spinner.stop();
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
         // Collect all error messages from both Error array and ValidationError

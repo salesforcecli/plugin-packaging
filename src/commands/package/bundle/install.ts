@@ -136,6 +136,7 @@ export class PackageBundlesInstall extends SfCommand<BundleSObjects.PkgBundleVer
       this.spinner.stop();
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.InstallStatus) {
       case BundleSObjects.PkgBundleVersionInstallReqStatus.error: {
         const errorText =

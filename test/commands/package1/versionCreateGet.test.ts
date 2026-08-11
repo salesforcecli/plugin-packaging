@@ -48,7 +48,7 @@ describe('package1:version:create:get', () => {
       CreatedById: '',
       CreatedDate: 0,
       Description: '',
-      // @ts-ignore
+      // @ts-expect-error testing invalid input
       Errors: errors,
       IsDeleted: false,
       IsReleaseVersion: false,

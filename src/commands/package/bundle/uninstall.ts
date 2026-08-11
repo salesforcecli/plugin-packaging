@@ -114,6 +114,7 @@ export class PackageBundleUninstallCommand extends SfCommand<BundleUninstallResu
       this.spinner.stop();
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.UninstallStatus) {
       case BundleSObjects.PkgBundleVersionUninstallReqStatus.error: {
         const errorText =
