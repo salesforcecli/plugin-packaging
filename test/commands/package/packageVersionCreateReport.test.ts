@@ -28,12 +28,12 @@ const pkgVersionCreateErrorResult: PackageVersionCreateRequestResult = {
   Id: '08c3i000000fylXXXX',
   Status: Package2VersionStatus.error,
   Package2Id: '0Ho3i000000TNHXXXX',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Package2VersionId: null,
   SubscriberPackageVersionId: null,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Tag: null,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Branch: null,
   Error: [
     'PropertyController: Invalid type: Schema.Property__c',
@@ -62,9 +62,9 @@ const pkgVersionCreateSuccessResult: PackageVersionCreateRequestResult = {
   Package2Id: '0Ho3i000000TNHYCA4',
   Package2VersionId: '05i3i000000fxw1AAA',
   SubscriberPackageVersionId: '04t3i000002eya2AAA',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Tag: null,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Branch: null,
   Error: [],
   CreatedDate: '2022-11-03 09:46',
@@ -78,9 +78,9 @@ const pkgVersionCreateSuccessResultAsyncValidation: PackageVersionCreateRequestR
   Package2Id: '0Ho3i000000TNHYCA4',
   Package2VersionId: '05i3i000000fxw1AAA',
   SubscriberPackageVersionId: '04t3i000002eya2AAA',
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Tag: null,
-  // @ts-ignore
+  // @ts-expect-error testing invalid input
   Branch: null,
   Error: [],
   CreatedDate: '2022-11-03 09:46',

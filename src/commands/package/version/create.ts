@@ -273,6 +273,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
       this.spinner.stop(finalStatusMsg);
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.Status) {
       case Package2VersionStatus.error:
         throw messages.createError('multipleErrors', [
@@ -315,7 +316,7 @@ export class PackageVersionCreateCommand extends SfCommand<PackageVersionCommand
         break;
       default:
         this.log(
-          messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status as string), this.config.bin, result.Id])
+          messages.getMessage('InProgress', [camelCaseToTitleCase(result.Status), this.config.bin, result.Id])
         );
     }
     return result;

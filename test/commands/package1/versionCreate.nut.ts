@@ -26,7 +26,7 @@ chaiConfig.truncateThreshold = 0;
 
 type PackageUploadRequest = PackagingSObjects.PackageUploadRequest;
 
-// @ts-ignore
+// @ts-expect-error testing invalid input
 const pollUntilComplete = async (id: string): Promise<PackageUploadRequest> => {
   const result = execCmd<PackageUploadRequest>(`package1:version:create:get -i ${id} -o 1gp --json`, {
     ensureExitCode: 0,
@@ -96,7 +96,7 @@ describe('package1:version:create', () => {
       expect(output).to.match(/PackageUploadRequest has been enqueued\./);
       expect(output).to.match(/package1:version:create:get -i 0HD.{15} -o/);
       // ensure the package has uploaded by waiting for the package report to be done
-      // @ts-ignore
+      // @ts-expect-error testing invalid input
       uploadRequestId = /0HD\w*/.exec(output)?.at(0);
       await pollUntilComplete(uploadRequestId);
     }
@@ -116,7 +116,7 @@ describe('package1:version:create', () => {
       expect(output?.MetadataPackageVersionId.startsWith('04t')).to.be.true;
       expect(output?.MetadataPackageId.startsWith('033')).to.be.true;
       // ensure the package has uploaded by waiting for the package report to be done
-      // @ts-ignore
+      // @ts-expect-error testing invalid input
       await pollUntilComplete(output?.Id);
     }
     // Use this test's 0Hd if it wasn't already set by the previous test so that

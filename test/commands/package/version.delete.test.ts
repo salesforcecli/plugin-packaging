@@ -92,7 +92,7 @@ describe('package:version:delete', () => {
       errors: [],
       id: 'testId',
       success: true,
-    } as PackageSaveResult);
+    });
     uxConfirmStub.resolves(true);
 
     const command = new PackageVersionDeleteCommand(['-p', '04tKY000000MF7uYAG', '-v', 'foor@bar.org'], config);
@@ -109,7 +109,7 @@ describe('package:version:delete', () => {
       errors: [],
       id: 'testId',
       success: true,
-    } as PackageSaveResult);
+    });
     uxConfirmStub.resolves(true);
     const command = new PackageVersionDeleteCommand(
       ['-p', '04tKY000000MF7uYAG', '-v', 'foor@bar.org', '--undelete'],

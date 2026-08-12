@@ -41,7 +41,6 @@ export class PackageBundleInstallReportCommand extends SfCommand<ReportCommandRe
     loglevel,
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
-    // eslint-disable-next-line sf-plugin/id-flag-suggestions
     'package-install-request-id': Flags.salesforceId({
       length: 'both',
       char: 'i',
