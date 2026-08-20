@@ -1,3 +1,9 @@
+## [3.0.6](https://github.com/salesforcecli/plugin-packaging/compare/3.0.5...3.0.6) (2026-08-20)
+
+### Bug Fixes
+
+- rejigger eslint.config.mjs (W-23928423) ([64eaa4c](https://github.com/salesforcecli/plugin-packaging/commit/64eaa4cb72f16f659504bbc3ffc4018a4a808fbf))
+
 ## [3.0.5](https://github.com/salesforcecli/plugin-packaging/compare/3.0.4...3.0.5) (2026-08-09)
 
 ### Bug Fixes
