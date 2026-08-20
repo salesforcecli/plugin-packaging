@@ -28,7 +28,7 @@
     "eslint-config-salesforce-typescript": "^6.0.0",
     "eslint-plugin-sf-plugin": "^3.0.0",
     "minimatch": "^10.2.5",
-    "oclif": "^4.23.27",
+    "oclif": "^4.23.30",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   },
