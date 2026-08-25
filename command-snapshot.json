@@ -292,6 +292,14 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:link:request",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["i", "o"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org", "verified-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:list"],
     "command": "package:list",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
