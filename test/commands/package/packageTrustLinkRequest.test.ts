@@ -70,6 +70,34 @@ describe('package:trust:link:request - tests', () => {
     expect(requestArgs[1]).to.deep.equal({ verifiedOrgId });
   });
 
+  it('logs the output message with the verified org ID and trust link ID', async () => {
+    const cmdArgs = ['--verified-org', verifiedOrgId, '--target-org', testOrg.username];
+    const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
+
+    requestStub.resolves(linkResult);
+    await cmd.run();
+
+    expect(sfCommandStubs.log.calledOnce).to.be.true;
+    const logged = sfCommandStubs.log.firstCall.args[0];
+    expect(logged).to.contain(linkResult.VerifiedOrgId);
+    expect(logged).to.contain(linkResult.LinkRequestId);
+  });
+
+  it('surfaces errors thrown by the library', async () => {
+    const cmdArgs = ['--verified-org', verifiedOrgId, '--target-org', testOrg.username];
+    const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
+
+    requestStub.rejects(new Error('This org already has a trust link'));
+
+    try {
+      await cmd.run();
+      expect.fail('expected the library error to propagate');
+    } catch (err) {
+      expect((err as Error).message).to.contain('already has a trust link');
+    }
+    expect(sfCommandStubs.log.called).to.be.false;
+  });
+
   it('fails when --verified-org is not a valid org ID', async () => {
     const cmdArgs = ['--verified-org', 'not-an-org', '--target-org', testOrg.username];
     const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
