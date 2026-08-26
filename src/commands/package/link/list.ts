@@ -22,7 +22,12 @@ import {
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
-import { PackageLink, PackageLinkListStatusFilter, PackageLinkRecord } from '@salesforce/packaging';
+import {
+  PACKAGE_LINK_LIST_STATUS_OPTIONS,
+  PackageLinkListStatusFilter,
+  PackageLinkRecord,
+  PackageLinkService,
+} from '../../../utils/packageLink.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
 const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_link_list');
@@ -38,7 +43,7 @@ export class PackageLinkListCommand extends SfCommand<PackageLinkListCommandResu
     'target-org': requiredOrgFlagWithDeprecations,
     'api-version': orgApiVersionFlagWithDeprecations,
     status: Flags.custom<PackageLinkListStatusFilter>({
-      options: ['pending', 'approved', 'declined', 'revoked'],
+      options: PACKAGE_LINK_LIST_STATUS_OPTIONS,
     })({
       char: 's',
       summary: messages.getMessage('flags.status.summary'),
@@ -49,7 +54,7 @@ export class PackageLinkListCommand extends SfCommand<PackageLinkListCommandResu
   public async run(): Promise<PackageLinkListCommandResult> {
     const { flags } = await this.parse(PackageLinkListCommand);
     const connection = flags['target-org'].getConnection(flags['api-version']);
-    const results = await new PackageLink({ connection }).list(flags.status);
+    const results = await new PackageLinkService(connection).list(flags.status);
 
     if (results.length === 0) {
       this.warn('No results found');

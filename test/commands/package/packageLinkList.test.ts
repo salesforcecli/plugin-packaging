@@ -17,9 +17,9 @@ import { Config } from '@oclif/core';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
-import { PackageLink, PackageLinkRecord } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { PackageLinkListCommand } from '../../../src/commands/package/link/list.js';
+import { PackageLinkRecord, PackageLinkService } from '../../../src/utils/packageLink.js';
 
 const linkListSuccess: PackageLinkRecord[] = [
   {
@@ -45,7 +45,7 @@ describe('package:link:list - tests', () => {
     await $$.stubAuths(testOrg);
     await config.load();
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    listStub = $$.SANDBOX.stub(PackageLink.prototype, 'list').resolves(linkListSuccess);
+    listStub = $$.SANDBOX.stub(PackageLinkService.prototype, 'list').resolves(linkListSuccess);
   });
 
   afterEach(() => {
