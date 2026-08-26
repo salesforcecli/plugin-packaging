@@ -1,14 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$ref": "#/definitions/PackageLinkListCommandResult",
+  "$ref": "#/definitions/PackageTrustLinkListCommandResult",
   "definitions": {
-    "PackageLinkListCommandResult": {
+    "PackageTrustLinkListCommandResult": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/PackageLinkRecord"
+        "$ref": "#/definitions/PackageTrustLinkRecord"
       }
     },
-    "PackageLinkRecord": {
+    "PackageTrustLinkRecord": {
       "type": "object",
       "properties": {
         "Id": {
@@ -21,7 +21,7 @@
           "type": "string"
         },
         "Status": {
-          "$ref": "#/definitions/PackageLinkStatus"
+          "$ref": "#/definitions/PackageTrustLinkStatus"
         },
         "RequestedBy": {
           "type": ["string", "null"]
@@ -48,7 +48,7 @@
       ],
       "additionalProperties": false
     },
-    "PackageLinkStatus": {
+    "PackageTrustLinkStatus": {
       "type": "string",
       "enum": ["Pending", "Accepted", "Declined", "Revoked", "Failed"]
     }

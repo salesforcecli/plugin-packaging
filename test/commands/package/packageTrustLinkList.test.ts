@@ -19,9 +19,9 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
 import { PackageTrustLink, PackageTrustLinkRecord } from '@salesforce/packaging';
-import { PackageLinkListCommand } from '../../../src/commands/package/link/list.js';
+import { PackageTrustLinkListCommand } from '../../../src/commands/package/trust/link/list.js';
 
-const linkListSuccess: PackageTrustLinkRecord[] = [
+const trustLinkListSuccess: PackageTrustLinkRecord[] = [
   {
     Id: '2vt000000000001AAA',
     AuthoringOrg: '00D000000000002',
@@ -34,7 +34,7 @@ const linkListSuccess: PackageTrustLinkRecord[] = [
   },
 ];
 
-describe('package:link:list - tests', () => {
+describe('package:trust:link:list - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
@@ -45,25 +45,25 @@ describe('package:link:list - tests', () => {
     await $$.stubAuths(testOrg);
     await config.load();
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    listStub = $$.SANDBOX.stub(PackageTrustLink, 'list').resolves(linkListSuccess);
+    listStub = $$.SANDBOX.stub(PackageTrustLink, 'list').resolves(trustLinkListSuccess);
   });
 
   afterEach(() => {
     $$.restore();
   });
 
-  it('lists inbound Public Secure link requests', async () => {
-    const cmd = new PackageLinkListCommand(['-o', testOrg.username, '--api-version', '68.0'], config);
+  it('lists inbound Public Secure trust link requests', async () => {
+    const cmd = new PackageTrustLinkListCommand(['-o', testOrg.username, '--api-version', '68.0'], config);
     const result = await cmd.run();
 
-    expect(result).to.deep.equal(linkListSuccess);
+    expect(result).to.deep.equal(trustLinkListSuccess);
     expect(listStub.calledOnce).to.equal(true);
     expect(listStub.firstCall.args[1]).to.equal(undefined);
     expect(sfCommandStubs.table.called).to.equal(true);
   });
 
   it('passes the status filter to PackageTrustLink.list', async () => {
-    const cmd = new PackageLinkListCommand(
+    const cmd = new PackageTrustLinkListCommand(
       ['-o', testOrg.username, '--api-version', '68.0', '--status', 'pending'],
       config
     );
@@ -74,7 +74,7 @@ describe('package:link:list - tests', () => {
 
   it('warns when there are no results', async () => {
     listStub.resolves([]);
-    const cmd = new PackageLinkListCommand(['-o', testOrg.username, '--api-version', '68.0'], config);
+    const cmd = new PackageTrustLinkListCommand(['-o', testOrg.username, '--api-version', '68.0'], config);
     const result = await cmd.run();
     expect(result).to.deep.equal([]);
     expect(sfCommandStubs.warn.called).to.equal(true);

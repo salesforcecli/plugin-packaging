@@ -12,7 +12,7 @@ Authoring org name and that org's packages are not returned by the Tooling API f
 
 # examples
 
-- List all inbound Public Secure link requests in the target verified org:
+- List all inbound Public Secure trust link requests in the target verified org:
 
   <%= config.bin %> <%= command.id %> --target-org pbo@example.com
 

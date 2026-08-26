@@ -109,9 +109,6 @@
           },
           "installed": {
             "description": "Command to list installed packages."
-          },
-          "link": {
-            "description": "Commands to manage Public Secure (VerifiedDev) package trust links."
           }
         }
       }
