@@ -22,12 +22,12 @@ import {
   SfCommand,
 } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core';
-import { PackageLink, PackageLinkRequestResult } from '@salesforce/packaging';
+import { PackageTrustLink, PackageTrustLinkRequestResult } from '@salesforce/packaging';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
-const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_link_request');
+const messages = Messages.loadMessages('@salesforce/plugin-packaging', 'package_trust_link_request');
 
-export class PackageLinkRequestCommand extends SfCommand<PackageLinkRequestResult> {
+export class PackageTrustLinkRequestCommand extends SfCommand<PackageTrustLinkRequestResult> {
   public static readonly hidden = true;
   public static state = 'beta';
   public static readonly summary = messages.getMessage('summary');
@@ -46,11 +46,11 @@ export class PackageLinkRequestCommand extends SfCommand<PackageLinkRequestResul
     }),
   };
 
-  public async run(): Promise<PackageLinkRequestResult> {
-    const { flags } = await this.parse(PackageLinkRequestCommand);
+  public async run(): Promise<PackageTrustLinkRequestResult> {
+    const { flags } = await this.parse(PackageTrustLinkRequestCommand);
     const connection = flags['target-org'].getConnection(flags['api-version']);
 
-    const result = await PackageLink.request(connection, { verifiedOrgId: flags['verified-org'] });
+    const result = await PackageTrustLink.request(connection, { verifiedOrgId: flags['verified-org'] });
 
     this.log(messages.getMessage('output', [result.VerifiedOrgId, result.LinkRequestId]));
 

@@ -17,18 +17,18 @@ import { Config } from '@oclif/core';
 import { TestContext, MockTestOrgData } from '@salesforce/core/testSetup';
 import * as sinon from 'sinon';
 import { expect } from 'chai';
-import { PackageLink, PackageLinkRequestResult } from '@salesforce/packaging';
+import { PackageTrustLink, PackageTrustLinkRequestResult } from '@salesforce/packaging';
 import { stubSfCommandUx } from '@salesforce/sf-plugins-core';
-import { PackageLinkRequestCommand } from '../../../src/commands/package/link/request.js';
+import { PackageTrustLinkRequestCommand } from '../../../src/commands/package/trust/link/request.js';
 
 const verifiedOrgId = '00Dxx0000001gPLEAY';
-const linkResult: PackageLinkRequestResult = {
-  LinkRequestId: '0Lkxx0000000001CAA',
+const linkResult: PackageTrustLinkRequestResult = {
+  LinkRequestId: '2vtxx0000000001AAA',
   VerifiedOrgId: verifiedOrgId,
   Status: 'Pending',
 };
 
-describe('package:link:request - tests', () => {
+describe('package:trust:link:request - tests', () => {
   const $$ = new TestContext();
   const testOrg = new MockTestOrgData();
   let sfCommandStubs: ReturnType<typeof stubSfCommandUx>;
@@ -39,16 +39,16 @@ describe('package:link:request - tests', () => {
     await $$.stubAuths(testOrg);
     await config.load();
     sfCommandStubs = stubSfCommandUx($$.SANDBOX);
-    requestStub = $$.SANDBOX.stub(PackageLink, 'request');
+    requestStub = $$.SANDBOX.stub(PackageTrustLink, 'request');
   });
 
   afterEach(() => {
     $$.restore();
   });
 
-  it('requests a link and returns the result', async () => {
+  it('requests a trust link and returns the result', async () => {
     const cmdArgs = ['--verified-org', verifiedOrgId, '--target-org', testOrg.username];
-    const cmd = new PackageLinkRequestCommand(cmdArgs, config);
+    const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
 
     requestStub.resolves(linkResult);
     const result = await cmd.run();
@@ -60,7 +60,7 @@ describe('package:link:request - tests', () => {
 
   it('passes the verified org ID through to the library', async () => {
     const cmdArgs = ['-i', verifiedOrgId, '-o', testOrg.username];
-    const cmd = new PackageLinkRequestCommand(cmdArgs, config);
+    const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
 
     requestStub.resolves(linkResult);
     await cmd.run();
@@ -72,7 +72,7 @@ describe('package:link:request - tests', () => {
 
   it('fails when --verified-org is not a valid org ID', async () => {
     const cmdArgs = ['--verified-org', 'not-an-org', '--target-org', testOrg.username];
-    const cmd = new PackageLinkRequestCommand(cmdArgs, config);
+    const cmd = new PackageTrustLinkRequestCommand(cmdArgs, config);
 
     try {
       await cmd.run();
