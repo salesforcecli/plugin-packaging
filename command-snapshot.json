@@ -301,6 +301,14 @@
   },
   {
     "alias": [],
+    "command": "package:link:list",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o", "s"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "status", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:push-upgrade:abort",
     "flagAliases": [],
     "flagChars": ["i", "v"],
