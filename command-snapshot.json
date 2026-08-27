@@ -120,6 +120,14 @@
         "plugin": "@salesforce/plugin-packaging"
     },
     {
+      "alias": [],
+      "command": "package:authorize:list",
+      "flagAliases": ["apiversion", "targetusername", "u"],
+      "flagChars": ["o", "p"],
+      "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "target-org"],
+      "plugin": "@salesforce/plugin-packaging"
+    },
+    {
         "alias": [],
         "command": "package:bundle:create",
         "flagAliases": [
