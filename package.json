@@ -10,7 +10,7 @@
     "@oclif/core": "^4",
     "@salesforce/core": "^9.1.0",
     "@salesforce/kit": "^4.0.0",
-    "@salesforce/packaging": "^5.0.4",
+    "@salesforce/packaging": "5.0.9-spi-dev.0",
     "@salesforce/sf-plugins-core": "^13.0.0",
     "@salesforce/ts-types": "^3.0.1",
     "chalk": "^5.6.2"
@@ -109,6 +109,9 @@
           },
           "installed": {
             "description": "Command to list installed packages."
+          },
+          "authorize": {
+            "description": "Commands to manage authorized subscriber orgs for a package."
           }
         }
       }
