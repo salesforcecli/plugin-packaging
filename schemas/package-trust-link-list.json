@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageTrustLinkListCommandResult",
+  "definitions": {
+    "PackageTrustLinkListCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageTrustLinkRecord"
+      }
+    },
+    "PackageTrustLinkRecord": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "AuthoringOrg": {
+          "type": "string"
+        },
+        "VerifiedOrg": {
+          "type": "string"
+        },
+        "Status": {
+          "$ref": "#/definitions/PackageTrustLinkStatus"
+        },
+        "RequestedBy": {
+          "type": ["string", "null"]
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "EstablishedDate": {
+          "type": ["string", "null"]
+        },
+        "RevokedDate": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "Id",
+        "AuthoringOrg",
+        "VerifiedOrg",
+        "Status",
+        "RequestedBy",
+        "CreatedDate",
+        "EstablishedDate",
+        "RevokedDate"
+      ],
+      "additionalProperties": false
+    },
+    "PackageTrustLinkStatus": {
+      "type": "string",
+      "enum": ["Pending", "Accepted", "Declined", "Revoked", "Failed"],
+      "description": "Tooling API values for PkgVrfyAuthOrgTrustRela.Status"
+    }
+  }
+}
