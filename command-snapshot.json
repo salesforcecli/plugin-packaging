@@ -56,28 +56,36 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
-      "alias": [],
-      "command": "package:authorize:add",
-      "flagAliases": ["apiversion", "targetusername", "u"],
-      "flagChars": ["o", "p"],
-      "flags": [
-        "api-version",
-        "flags-dir",
-        "json",
-        "loglevel",
-        "package",
-        "subscriber-org",
-        "subscriber-org-file-list",
-        "target-org"
-      ],
-      "plugin": "@salesforce/plugin-packaging"
-    },
+    "alias": [],
+    "command": "package:authorize:add",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o", "p"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "loglevel",
+      "package",
+      "subscriber-org",
+      "subscriber-org-file-list",
+      "target-org"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
   {
     "alias": [],
     "command": "package:authorize:list",
     "flagAliases": ["apiversion", "targetusername", "u"],
     "flagChars": ["o", "p"],
     "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:authorize:remove",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["i", "o", "p"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "subscriber-org", "target-org"],
     "plugin": "@salesforce/plugin-packaging"
   },
   {
