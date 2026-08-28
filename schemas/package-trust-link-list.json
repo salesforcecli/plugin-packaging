@@ -50,7 +50,8 @@
     },
     "PackageTrustLinkStatus": {
       "type": "string",
-      "enum": ["Pending", "Accepted", "Declined", "Revoked", "Failed"]
+      "enum": ["Pending", "Accepted", "Declined", "Revoked", "Failed"],
+      "description": "Tooling API values for PkgVrfyAuthOrgTrustRela.Status"
     }
   }
 }
