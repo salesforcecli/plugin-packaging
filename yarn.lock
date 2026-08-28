@@ -1368,10 +1368,10 @@
   dependencies:
     "@salesforce/ts-types" "^3.0.0"
 
-"@salesforce/packaging@5.0.9-spi.2":
-  version "5.0.9-spi.2"
-  resolved "https://registry.npmjs.org/@salesforce/packaging/-/packaging-5.0.9-spi.2.tgz#48325e5dbf1c50920c82678fb87d49612cd98097"
-  integrity sha512-M4nN04XGIoFGNn4V5vlm/MLU3YF1+kZfEqjEPNOO7WwiqtgM9zRFCG7zZrCwgenJ3stLMrZbumUjM3GbPdZ99w==
+"@salesforce/packaging@5.0.9-spi.3":
+  version "5.0.9-spi.3"
+  resolved "https://registry.npmjs.org/@salesforce/packaging/-/packaging-5.0.9-spi.3.tgz#1bb93927b9466a181d81d6c859faa748bc6871ea"
+  integrity sha512-gREgMZTb5vcvp2ygIDXCCvNlxUQSHhMWdGcSsALH2V7DLVrn9rWxOSLIXp3YEROe/42fe2q2aZ6OVaAxccwKVQ==
   dependencies:
     "@jsforce/jsforce-node" "^3.10.19"
     "@salesforce/core" "^9.0.0"
