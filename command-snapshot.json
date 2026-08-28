@@ -120,6 +120,14 @@
         "plugin": "@salesforce/plugin-packaging"
     },
     {
+      "alias": [],
+      "command": "package:authorize:list",
+      "flagAliases": ["apiversion", "targetusername", "u"],
+      "flagChars": ["o", "p"],
+      "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "target-org"],
+      "plugin": "@salesforce/plugin-packaging"
+    },
+    {
         "alias": [],
         "command": "package:bundle:create",
         "flagAliases": [
@@ -756,6 +764,26 @@
     {
         "alias": [],
         "command": "package:trust:link:status",
+        "flagAliases": [
+            "apiversion",
+            "targetusername",
+            "u"
+        ],
+        "flagChars": [
+            "o"
+        ],
+        "flags": [
+            "api-version",
+            "flags-dir",
+            "json",
+            "loglevel",
+            "target-org"
+        ],
+        "plugin": "@salesforce/plugin-packaging"
+    },
+    {
+        "alias": [],
+        "command": "package:trust:link:unlink",
         "flagAliases": [
             "apiversion",
             "targetusername",

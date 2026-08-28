@@ -109,6 +109,9 @@
           },
           "installed": {
             "description": "Command to list installed packages."
+          },
+          "authorize": {
+            "description": "Commands to manage authorized subscriber orgs for a package."
           }
         }
       }
