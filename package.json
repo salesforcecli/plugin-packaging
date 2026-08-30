@@ -18,7 +18,7 @@
   "devDependencies": {
     "@oclif/plugin-command-snapshot": "^5.3.34",
     "@salesforce/cli-plugins-testkit": "^5.3.62",
-    "@salesforce/dev-scripts": "^13.0.2",
+    "@salesforce/dev-scripts": "^14.0.0",
     "@salesforce/plugin-command-reference": "^3.1.122",
     "@types/chai": "^4.3.17",
     "@types/mocha": "^10.0.10",
@@ -30,7 +30,7 @@
     "minimatch": "^10.2.5",
     "oclif": "^4.23.27",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.0"
   },
   "config": {},
   "engines": {
