@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageAuthorizeRemoveCommandResult",
+  "definitions": {
+    "PackageAuthorizeRemoveCommandResult": {
+      "$ref": "#/definitions/PackageAuthorizationRemoveResult"
+    },
+    "PackageAuthorizationRemoveResult": {
+      "type": "object",
+      "properties": {
+        "SubscriberOrg": {
+          "type": "string"
+        },
+        "removed": {
+          "type": "boolean"
+        }
+      },
+      "required": ["SubscriberOrg", "removed"],
+      "additionalProperties": false
+    }
+  }
+}
