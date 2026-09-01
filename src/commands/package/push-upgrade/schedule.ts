@@ -65,7 +65,7 @@ export class PackagePushScheduleCommand extends SfCommand<PackagePushScheduleRes
   public async run(): Promise<PackagePushScheduleResult> {
     const { flags } = await this.parse(PackagePushScheduleCommand);
     const logger = await Logger.child(this.constructor.name);
-    let orgList: string[] = [];
+    let orgList: string[];
 
     if (flags['org-file']) {
       logger.debug(`Reading org list from file: ${flags['org-file']}`);
@@ -102,7 +102,7 @@ async function readOrgFile(filePath: string): Promise<string[]> {
     const orgIds = fileContent.split(/\r?\n/).filter((id) => id.trim().length > 0);
 
     return orgIds.filter((id: string) => /^00D[a-zA-Z0-9]{12}$/.test(id));
-  } catch (error) {
+  } catch {
     throw new SfError(messages.getMessage('error.invalid-org-file'));
   }
 }
@@ -116,7 +116,7 @@ function getOrgListFromInput(orgInput: string): string[] {
     const orgList = orgInput.split(',').map((org) => org.trim());
 
     return orgList.filter((org) => org.length > 0);
-  } catch (error) {
+  } catch {
     throw new SfError(messages.getMessage('error.invalid-org-input'));
   }
 }

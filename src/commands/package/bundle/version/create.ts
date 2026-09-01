@@ -141,6 +141,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
       this.spinner.stop();
     }
 
+    // eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check
     switch (result.RequestStatus) {
       case BundleSObjects.PkgBundleVersionCreateReqStatus.error: {
         // Collect all error messages from both Error array and ValidationError
@@ -166,7 +167,7 @@ export class PackageBundlesCreate extends SfCommand<BundleSObjects.PackageBundle
         break;
       }
       default:
-        this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus as string), result.Id]));
+        this.log(messages.getMessage('InProgress', [camelCaseToTitleCase(result.RequestStatus), result.Id]));
     }
     return result;
   }

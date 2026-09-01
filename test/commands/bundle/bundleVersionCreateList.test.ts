@@ -58,7 +58,7 @@ describe('package:bundle:version:create:list - tests', () => {
 
     await cmd.run();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
     expect(getCreateStatusesStub.calledOnce).to.be.true;
   });
@@ -70,7 +70,7 @@ describe('package:bundle:version:create:list - tests', () => {
 
     await cmd.run();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
     expect(sfCommandStubs.warn.firstCall.args[0]).to.equal('No results found');
   });

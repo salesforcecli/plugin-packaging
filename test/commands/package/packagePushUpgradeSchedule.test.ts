@@ -62,9 +62,9 @@ describe('package:pushupgrade:schedule - tests', () => {
     scheduleStub.resolves(pushReq);
     await cmd.run();
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.log.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(scheduleStub.calledOnce).to.be.true;
   });
 
@@ -89,7 +89,7 @@ describe('package:pushupgrade:schedule - tests', () => {
     const result = await cmd.run();
     expect(result).to.deep.equal(pushReq);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.log.calledOnce).to.be.true;
     expect(scheduleStub.calledOnce).to.be.true;
 

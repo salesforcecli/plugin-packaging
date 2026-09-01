@@ -71,9 +71,9 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.called).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.callCount).to.equal(2); // One for bundle info, one for components
   });
 
@@ -128,9 +128,9 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.called).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.callCount).to.equal(4); // Two bundles × (info + components)
   });
 
@@ -165,7 +165,7 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.called).to.be.true;
   });
 
@@ -200,7 +200,7 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.called).to.be.true;
   });
 
@@ -212,9 +212,9 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.warn.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.warn.firstCall.args[0]).to.include('No installed package bundles found');
   });
 
@@ -242,9 +242,9 @@ describe('package:bundle:installed:list - tests', () => {
     await cmd.run();
 
     expect(getInstalledBundlesStub.calledOnce).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.called).to.be.true;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.callCount).to.equal(1); // Only bundle info, no components table
   });
 

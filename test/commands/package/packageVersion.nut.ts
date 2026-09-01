@@ -247,7 +247,7 @@ describe('package:version:*', () => {
       expect(output?.result).to.have.length.greaterThan(0);
       expect(output?.result[0]).to.have.keys(expectedPVCLkeys);
       const current = Date.now();
-      // @ts-ignore
+      // @ts-expect-error testing invalid input
       const created = Date.parse(output?.result?.at(0).CreatedDate);
       // eslint-disable-next-line no-console
       console.log(`CreatedDate: ${output?.result[0].CreatedDate} current: ${current}, created: ${created}`);
@@ -425,7 +425,7 @@ describe('package:version:*', () => {
 
       expect(output).to.have.length.greaterThan(0);
       expect(output[0]).to.have.keys(keys);
-      (output as PackageVersionListDetails[])
+      (output)
         .filter((f: { CodeCoverage: string | boolean }) => f.CodeCoverage)
         .map((v: { SubscriberPackageVersionId: string }) => packageVersionIds.push(v.SubscriberPackageVersionId));
     });
@@ -551,10 +551,10 @@ describe('package:version:*', () => {
       const resultRootLast = execCmd(commandRootLast, { ensureExitCode: 0 }).shellOutput.stdout;
       expect(resultRootFirst).to.contain('strict digraph G {');
       expect(resultRootLast).to.contain('strict digraph G {');
-      const hasMultipleNodes = ((resultRootFirst.match(/node_/g) && resultRootLast.match(/node_/g)) || []).length > 1;
+      const hasMultipleNodes = ((resultRootFirst.match(/node_/g) && resultRootLast.match(/node_/g)) ?? []).length > 1;
       if (hasMultipleNodes) {
-        const edgeLinesFirst = resultRootFirst.match(EDGE_REGEX) || [];
-        const edgeLinesLast = resultRootLast.match(EDGE_REGEX) || [];
+        const edgeLinesFirst = resultRootFirst.match(EDGE_REGEX) ?? [];
+        const edgeLinesLast = resultRootLast.match(EDGE_REGEX) ?? [];
         expect(edgeLinesFirst.length).to.equal(edgeLinesLast.length);
         expect(resultRootFirst).to.not.equal(resultRootLast);
       } else {

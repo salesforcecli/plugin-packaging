@@ -145,7 +145,7 @@ describe('package:bundle:version:report - tests', () => {
     expect(reportStub.firstCall.args[1]).to.equal(bundleVersionId);
     expect(componentPackagesStub.calledOnce).to.be.true;
     expect(componentPackagesStub.firstCall.args[1]).to.equal(bundleVersionId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledTwice).to.be.true;
   });
 
@@ -244,7 +244,7 @@ describe('package:bundle:version:report - tests', () => {
     expect(reportStub.firstCall.args[1]).to.equal(bundleVersionId);
     expect(componentPackagesStub.calledOnce).to.be.true;
     expect(componentPackagesStub.firstCall.args[1]).to.equal(bundleVersionId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledTwice).to.be.true;
   });
 
@@ -350,7 +350,7 @@ describe('package:bundle:version:report - tests', () => {
     expect(reportStub.firstCall.args[1]).to.equal(bundleVersionId);
     expect(componentPackagesStub.calledOnce).to.be.true;
     expect(componentPackagesStub.firstCall.args[1]).to.equal(bundleVersionId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 });

@@ -64,7 +64,7 @@ describe('package:bundle:install:report - tests', () => {
 
     expect(getInstallStatusStub.calledOnce).to.be.true;
     expect(getInstallStatusStub.firstCall.args[0]).to.equal(requestId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 
@@ -89,7 +89,7 @@ describe('package:bundle:install:report - tests', () => {
 
     expect(getInstallStatusStub.calledOnce).to.be.true;
     expect(getInstallStatusStub.firstCall.args[0]).to.equal(requestId);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+     
     expect(sfCommandStubs.table.calledOnce).to.be.true;
   });
 
