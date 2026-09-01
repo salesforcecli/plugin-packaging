@@ -1,3 +1,9 @@
+## [3.0.7](https://github.com/salesforcecli/plugin-packaging/compare/3.0.6...3.0.7) (2026-09-01)
+
+### Bug Fixes
+
+- bump oclif to V5 ([b151dfe](https://github.com/salesforcecli/plugin-packaging/commit/b151dfe10c9ee15294f61b650998128bba4feaa4))
+
 ## [3.0.6](https://github.com/salesforcecli/plugin-packaging/compare/3.0.5...3.0.6) (2026-08-20)
 
 ### Bug Fixes
