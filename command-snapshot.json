@@ -393,6 +393,14 @@
   },
   {
     "alias": [],
+    "command": "package:trust:link:deny",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["a", "o", "r"],
+    "flags": ["api-version", "authoring-org", "flags-dir", "json", "loglevel", "request", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:trust:link:list",
     "flagAliases": ["apiversion", "targetusername", "u"],
     "flagChars": ["o", "s"],
