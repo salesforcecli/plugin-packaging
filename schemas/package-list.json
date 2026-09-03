@@ -59,8 +59,8 @@
     },
     "DistributionType": {
       "type": "string",
-      "enum": ["Public", "PublicSecure", "Limited", "Private"],
-      "description": "The distribution type of a package, controlling install-time security.\n\nThe Tooling API `Package2.DistributionType` field can hold any of these values, but only `PublicSecure` and `Limited` may be set from the CLI on create/update — `Public` and `Private` are backend-only states (`Public` is the legacy default the backend assigns; `Private` is not yet selectable). See  {@link  SettableDistributionType }  for the CLI-settable subset."
+      "enum": ["Public", "PublicSecure", "Limited"],
+      "description": "The distribution type of a package, controlling install-time security.\n\nThe Tooling API `Package2.DistributionType` field can hold any of these values, but only `PublicSecure` and `Limited` may be set from the CLI on create/update — `Public` is a backend-only state (the legacy default the backend assigns). See  {@link  SettableDistributionType }  for the CLI-settable subset."
     }
   }
 }
