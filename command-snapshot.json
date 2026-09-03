@@ -254,6 +254,7 @@
     "flags": [
       "api-version",
       "description",
+      "distribution-type",
       "error-notification-username",
       "flags-dir",
       "json",
@@ -463,6 +464,7 @@
     "flags": [
       "api-version",
       "description",
+      "distribution-type",
       "enable-app-analytics",
       "error-notification-username",
       "flags-dir",

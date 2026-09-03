@@ -16,7 +16,7 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
-import { Package, PackageSaveResult } from '@salesforce/packaging';
+import { Package, PackageSaveResult, SettableDistributionType } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../utils/hubFlag.js';
 import { maybeGetProject } from '../../utils/getProject.js';
 
@@ -66,6 +66,12 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
     'skip-ancestor-check': Flags.boolean({
       summary: messages.getMessage('flags.skip-ancestor-check.summary'),
     }),
+    'distribution-type': Flags.custom<SettableDistributionType>({
+      options: ['PublicSecure', 'Limited'],
+    })({
+      summary: messages.getMessage('flags.distribution-type.summary'),
+      description: messages.getMessage('flags.distribution-type.description'),
+    }),
   };
 
   public async run(): Promise<PackageSaveResult> {
@@ -85,6 +91,7 @@ export class PackageUpdateCommand extends SfCommand<PackageSaveResult> {
         PackageErrorUsername: flags['error-notification-username'],
         AppAnalyticsEnabled: flags['enable-app-analytics'],
         RecommendedVersionId: flags['recommended-version-id'],
+        DistributionType: flags['distribution-type'],
       },
       flags['skip-ancestor-check']
     );
