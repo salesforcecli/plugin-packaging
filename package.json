@@ -112,6 +112,14 @@
           },
           "authorize": {
             "description": "Commands to manage authorized subscriber orgs for a package."
+          },
+          "trust": {
+            "description": "Commands to manage Public Secure trust links.",
+            "subtopics": {
+              "link": {
+                "description": "Commands to manage Public Secure trust links."
+              }
+            }
           }
         }
       }
