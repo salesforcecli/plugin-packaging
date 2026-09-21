@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageTrustLinkUnlinkResult",
+  "definitions": {
+    "PackageTrustLinkUnlinkResult": {
+      "type": "object",
+      "properties": {
+        "removed": {
+          "type": "boolean"
+        },
+        "LinkRequestId": {
+          "type": "string"
+        },
+        "VerifiedOrgId": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        }
+      },
+      "required": ["removed"],
+      "additionalProperties": false
+    }
+  }
+}

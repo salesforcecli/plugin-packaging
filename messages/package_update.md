@@ -49,3 +49,11 @@ Specify the recommended package version for subscribers to install. If a subscri
 # flags.skip-ancestor-check.summary
 
 Bypass the ancestry check for setting a recommended version.
+
+# flags.distribution-type.summary
+
+New distribution type of the package.
+
+# flags.distribution-type.description
+
+Controls how the package is distributed. Valid values from the CLI are PublicSecure and Limited. Available in API version 68.0 and later.

@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageAuthorizeAddCommandResult",
+  "definitions": {
+    "PackageAuthorizeAddCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageAuthorizationAddResult"
+      }
+    },
+    "PackageAuthorizationAddResult": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "SubscriberOrg": {
+          "type": "string"
+        }
+      },
+      "required": ["Id", "SubscriberOrg"],
+      "additionalProperties": false
+    }
+  }
+}
