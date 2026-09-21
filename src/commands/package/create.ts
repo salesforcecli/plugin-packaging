@@ -16,7 +16,7 @@
 
 import { Flags, loglevel, orgApiVersionFlagWithDeprecations, SfCommand } from '@salesforce/sf-plugins-core';
 import { Messages } from '@salesforce/core/messages';
-import { Package, PackageCreateOptions, PackageType } from '@salesforce/packaging';
+import { Package, PackageCreateOptions, PackageType, SettableDistributionType } from '@salesforce/packaging';
 import { requiredHubFlag } from '../../utils/hubFlag.js';
 
 Messages.importMessagesDirectoryFromMetaUrl(import.meta.url);
@@ -78,6 +78,12 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       summary: messages.getMessage('flags.error-notification-username.summary'),
       description: messages.getMessage('flags.error-notification-username.description'),
     }),
+    'distribution-type': Flags.custom<SettableDistributionType>({
+      options: ['PublicSecure', 'Limited'],
+    })({
+      summary: messages.getMessage('flags.distribution-type.summary'),
+      description: messages.getMessage('flags.distribution-type.description'),
+    }),
   };
 
   public async run(): Promise<PackageCreate> {
@@ -90,6 +96,7 @@ export class PackageCreateCommand extends SfCommand<PackageCreate> {
       orgDependent: flags['org-dependent'],
       packageType: flags['package-type'],
       path: flags.path,
+      distributionType: flags['distribution-type'],
     };
     const result: PackageCreate = await Package.create(
       flags['target-dev-hub'].getConnection(flags['api-version']),
