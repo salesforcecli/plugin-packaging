@@ -1,3 +1,9 @@
+## [3.0.8](https://github.com/salesforcecli/plugin-packaging/compare/3.0.7...3.0.8) (2026-09-30)
+
+### Bug Fixes
+
+- **deps:** bump ip-address from 10.3.1 to 10.7.2 ([8025c5d](https://github.com/salesforcecli/plugin-packaging/commit/8025c5da0bbdc3ed9d409a3e327283a6db2e77ab))
+
 ## [3.0.7](https://github.com/salesforcecli/plugin-packaging/compare/3.0.6...3.0.7) (2026-09-01)
 
 ### Bug Fixes
