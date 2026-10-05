@@ -72,4 +72,4 @@ Distribution type of the package.
 
 # flags.distribution-type.description
 
-Controls how the package is distributed. Valid values from the CLI are PublicSecure and Limited. If you don't specify a distribution type, the server defaults it based on the package type. Available in API version 68.0 and later.
+Controls how the package is distributed. Valid values from the CLI are PublicSecure and Limited. Use the PublicSecure distribution type to distribute on AgentExchange. Use the Limited distribution type to distribute to subscriber orgs that you authorize. If you don't specify a distribution type, the server defaults it based on the package type. Available in API version 68.0 and later.

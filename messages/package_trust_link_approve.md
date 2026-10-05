@@ -1,18 +1,20 @@
 # summary
 
-Approve a Public Secure trust link request.
+Approve a request to establish a trust link between an authoring org and a Verified Partner Business Org (PBO).
 
 # description
 
-Run this command against a verified packaging org (PBO) to accept a pending VerifiedDev trust request from an authoring org. Identify the request with either --request or --authoring-org.
+When a Verified PBO approves a trust link request from an authoring org, the authoring org can distribute packages on AgentExchange.
+
+To approve a trust link request, run this command against a Verified PBO. Identify the request with either --request or --authoring-org.
 
 # examples
 
-- Approve a trust request by the request ID returned from package trust link list:
+- Approve a trust link by the request ID returned from package trust link list:
 
   <%= config.bin %> <%= command.id %> --request 2vtxx0000000001AAA --target-org myPbo
 
-- Approve a trust request by its authoring org ID:
+- Approve a trust link request by its authoring org ID:
 
   <%= config.bin %> <%= command.id %> --authoring-org 00Dxx0000009zZZEAY --target-org myPbo
 
@@ -26,4 +28,4 @@ Authoring org ID of the pending trust link request to approve.
 
 # output
 
-Approved trust link request %s from Authoring Org %s.
+Approved trust link request %s from the authoring org %s.
