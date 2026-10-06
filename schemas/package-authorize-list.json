@@ -1,0 +1,49 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/PackageAuthorizeListCommandResult",
+  "definitions": {
+    "PackageAuthorizeListCommandResult": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageAuthorizationRecord"
+      }
+    },
+    "PackageAuthorizationRecord": {
+      "type": "object",
+      "properties": {
+        "Id": {
+          "type": "string"
+        },
+        "SubscriberOrg": {
+          "type": "string"
+        },
+        "SubscriberPackageId": {
+          "type": ["string", "null"]
+        },
+        "Status": {
+          "type": "string",
+          "enum": ["Active", "Revoked"]
+        },
+        "CreatedDate": {
+          "type": "string"
+        },
+        "CreatedById": {
+          "type": "string"
+        },
+        "CreatedByUsername": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Id",
+        "SubscriberOrg",
+        "SubscriberPackageId",
+        "Status",
+        "CreatedDate",
+        "CreatedById",
+        "CreatedByUsername"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

@@ -35,6 +35,7 @@ export type Package2Result = Required<Pick<PackagingSObjects.Package2, 'Id' | 'N
       | 'ConvertedFromPackageId'
       | 'PackageErrorUsername'
       | 'AppAnalyticsEnabled'
+      | 'DistributionType'
     > & {
       Alias: string;
       CreatedBy: string;
@@ -84,6 +85,7 @@ export class PackageListCommand extends SfCommand<PackageListCommandResult> {
             'Error Notification Username': r.PackageErrorUsername,
             'Created By': r.CreatedBy,
             ...(parseInt(apiVersion, 10) >= 59 ? { 'App Analytics Enabled': r.AppAnalyticsEnabled } : {}),
+            ...(parseInt(apiVersion, 10) >= 68 ? { 'Distribution Type': r.DistributionType } : {}),
           }
         : {}),
     }));
@@ -106,6 +108,7 @@ const mapRecordsToResults = (records: PackagingSObjects.Package2[], project?: Sf
         IsOrgDependent,
         PackageErrorUsername,
         AppAnalyticsEnabled,
+        DistributionType,
         CreatedById,
       }) => ({
         Id,
@@ -119,6 +122,7 @@ const mapRecordsToResults = (records: PackagingSObjects.Package2[], project?: Sf
         IsOrgDependent: ContainerOptions === 'Managed' ? 'N/A' : IsOrgDependent ? 'Yes' : 'No',
         PackageErrorUsername,
         AppAnalyticsEnabled,
+        DistributionType,
         CreatedBy: CreatedById,
       })
     );

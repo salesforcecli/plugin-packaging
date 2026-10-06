@@ -57,6 +57,39 @@
   },
   {
     "alias": [],
+    "command": "package:authorize:add",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o", "p"],
+    "flags": [
+      "api-version",
+      "flags-dir",
+      "json",
+      "loglevel",
+      "package",
+      "subscriber-org",
+      "subscriber-org-file-list",
+      "target-org"
+    ],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:authorize:list",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o", "p"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:authorize:remove",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["i", "o", "p"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "package", "subscriber-org", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
     "command": "package:bundle:create",
     "flagAliases": ["apiversion", "target-hub-org", "targetdevhubusername"],
     "flagChars": ["d", "n", "v"],
@@ -221,6 +254,7 @@
     "flags": [
       "api-version",
       "description",
+      "distribution-type",
       "error-notification-username",
       "flags-dir",
       "json",
@@ -351,6 +385,62 @@
     "plugin": "@salesforce/plugin-packaging"
   },
   {
+    "alias": [],
+    "command": "package:trust:link:approve",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["a", "o", "r"],
+    "flags": ["api-version", "authoring-org", "flags-dir", "json", "loglevel", "request", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:deny",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["a", "o", "r"],
+    "flags": ["api-version", "authoring-org", "flags-dir", "json", "loglevel", "request", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:list",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o", "s"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "status", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:request",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["i", "o"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org", "verified-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:revoke",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["a", "o", "r"],
+    "flags": ["api-version", "authoring-org", "flags-dir", "json", "loglevel", "request", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:status",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
+    "alias": [],
+    "command": "package:trust:link:unlink",
+    "flagAliases": ["apiversion", "targetusername", "u"],
+    "flagChars": ["o"],
+    "flags": ["api-version", "flags-dir", "json", "loglevel", "target-org"],
+    "plugin": "@salesforce/plugin-packaging"
+  },
+  {
     "alias": ["force:package:uninstall"],
     "command": "package:uninstall",
     "flagAliases": ["apiversion", "targetusername", "u"],
@@ -374,6 +464,7 @@
     "flags": [
       "api-version",
       "description",
+      "distribution-type",
       "enable-app-analytics",
       "error-notification-username",
       "flags-dir",
