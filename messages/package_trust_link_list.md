@@ -1,6 +1,6 @@
 # summary
 
-List the request to establish a trust link between an authoring org and a Verified Partner Business Org (PBO).
+List the requests to establish trust links between authoring orgs and a Verified Partner Business Org (PBO).
 
 # description
 
