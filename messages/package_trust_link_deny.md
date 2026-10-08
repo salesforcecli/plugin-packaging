@@ -1,6 +1,6 @@
 # summary
 
-Deny a request to establish a trust link between an authoring org and a Verified Partner Business Org (PBO)..
+Deny a request to establish a trust link between an authoring org and a Verified Partner Business Org (PBO).
 
 # description
 
