@@ -1,14 +1,14 @@
 # summary
 
-List package authorization records.
+List records for subscriber orgs that are authorized to install packages with the Limited distribution type.
 
 # description
 
-Display subscriber org authorization records. Optionally specify --package to filter the results by package.
+Display subscriber org authorization records for installing packages with the Limited distribution type. Optionally specify --package to filter the results by package.
 
 # examples
 
-- List all subscriber org authorizations:
+- List all subscriber org authorizations for the example AuthoringOrg:
 
   <%= config.bin %> <%= command.id %> --target-org AuthoringOrg
 

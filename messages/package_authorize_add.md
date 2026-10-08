@@ -1,14 +1,14 @@
 # summary
 
-Authorize subscriber orgs to install a package.
+Authorize subscriber orgs to install packages with the Limited distribution type.
 
 # description
 
-Add subscriber org IDs to the authorization list. Optionally specify a package with --package to scope the authorization to that package.
+Add subscriber org IDs to the authorization list that allows those orgs to install packages with the Limited distribution type. By default, this command authorizes subscriber orgs to install all of your org’s Limited-distribution packages. To authorize subscriber orgs to install a specific package, optionally use the --package flag.
 
 # examples
 
-- Authorize one subscriber org for a package:
+- Authorize a subscriber org (00D5e000001CUST) to install one package (MyPackage) from a target org (AuthoringOrg):
 
   <%= config.bin %> <%= command.id %> --package MyPackage --subscriber-org 00D5e000001CUST --target-org AuthoringOrg
 

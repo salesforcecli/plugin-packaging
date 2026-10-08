@@ -1,10 +1,10 @@
 # summary
 
-Remove a subscriber org authorization.
+Remove a subscriber org’s authorization to install a package with the Limited distribution type.
 
 # description
 
-Remove one authorization matching the subscriber org ID. Without --package, the command removes the authorization that isn't scoped to a package; specify --package to remove a package-scoped authorization.
+By default, this command removes the subscriber org’s authorization to install all Limited-distribution packages owned by your org. If the subscriber org’s initial authorization was scoped to a specific package (using the --package flag), then you must use the --package flag to remove the package-scoped authorization.
 
 # examples
 
@@ -18,11 +18,11 @@ Remove one authorization matching the subscriber org ID. Without --package, the 
 
 # flags.package.summary
 
-Optional ID or alias of the package used to narrow the authorization record match.
+Optional ID or alias of the package used to filter the authorization record match.
 
 # flags.subscriber-org.summary
 
-Subscriber org ID to remove.
+Subscriber org ID to remove from the authorization list.
 
 # success
 
