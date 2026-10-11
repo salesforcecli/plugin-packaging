@@ -1,3 +1,9 @@
+## [3.0.14](https://github.com/salesforcecli/plugin-packaging/compare/3.0.13...3.0.14) (2026-10-11)
+
+### Bug Fixes
+
+- **deps:** bump @salesforce/packaging from 5.0.12 to 5.0.14 ([ea42f00](https://github.com/salesforcecli/plugin-packaging/commit/ea42f00a49c72c67cd62cbc4769937c669a2f3ad))
+
 ## [3.0.13](https://github.com/salesforcecli/plugin-packaging/compare/3.0.12...3.0.13) (2026-10-09)
 
 ### Bug Fixes
