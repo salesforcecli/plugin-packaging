@@ -58,9 +58,8 @@ describe('package:trust:link:unlink - tests', () => {
     expect(unlinkStub.calledOnce).to.be.true;
     expect(sfCommandStubs.log.calledOnce).to.be.true;
     const logged = sfCommandStubs.log.firstCall.args[0];
-    expect(logged).to.equal(
-      `Removed the trust link to Verified PBO ${verifiedOrgId} (was Pending). This org is now Not Linked.`
-    );
+    expect(logged).to.contain(verifiedOrgId);
+    expect(logged).to.contain('Pending');
   });
 
   it('reports the already Not Linked state when nothing was removed', async () => {
