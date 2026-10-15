@@ -57,6 +57,9 @@ describe('package list', () => {
     if (apiVersion < 59) {
       keys.splice(keys.indexOf('AppAnalyticsEnabled'), 1);
     }
+    if (apiVersion >= 68) {
+      keys.push('DistributionType');
+    }
     const deprecatedPackages = packages.filter((pkg) => pkg.IsDeprecated);
     const notDeprecatedCount = packages.length - deprecatedPackages.length;
     expect(output).to.be.ok;
