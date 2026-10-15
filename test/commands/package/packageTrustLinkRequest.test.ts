@@ -79,8 +79,9 @@ describe('package:trust:link:request - tests', () => {
 
     expect(sfCommandStubs.log.calledOnce).to.be.true;
     const logged = sfCommandStubs.log.firstCall.args[0];
-    expect(logged).to.contain(linkResult.VerifiedOrgId);
-    expect(logged).to.contain(linkResult.LinkRequestId);
+    expect(logged).to.equal(
+      `Requested a trust link to Verified PBO ${verifiedOrgId}. The request is pending approval by a Verified PBO admin. [Trust link ID: ${linkResult.LinkRequestId}]`
+    );
   });
 
   it('surfaces errors thrown by the library', async () => {

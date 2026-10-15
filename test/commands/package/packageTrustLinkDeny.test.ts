@@ -58,7 +58,9 @@ describe('package:trust:link:deny - tests', () => {
 
     expect(result).to.deep.equal(denyResult);
     expect(denyStub.firstCall.args[1]).to.deep.equal({ requestId });
-    expect(sfCommandStubs.log.firstCall.args[0]).to.contain(requestId);
+    expect(sfCommandStubs.log.firstCall.args[0]).to.equal(
+      `Denied trust link request ${requestId} from authoring org ${authoringOrgId}.`
+    );
   });
 
   it('denies a trust link selected by authoring org', async () => {

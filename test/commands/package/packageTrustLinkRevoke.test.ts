@@ -58,7 +58,9 @@ describe('package:trust:link:revoke - tests', () => {
 
     expect(result).to.deep.equal(revokeResult);
     expect(revokeStub.firstCall.args[1]).to.deep.equal({ requestId });
-    expect(sfCommandStubs.log.firstCall.args[0]).to.contain(requestId);
+    expect(sfCommandStubs.log.firstCall.args[0]).to.equal(
+      `Revoked trust link ${requestId} from authoring org ${authoringOrgId}.`
+    );
   });
 
   it('revokes a trust link selected by authoring org', async () => {

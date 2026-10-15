@@ -58,7 +58,9 @@ describe('package:trust:link:approve - tests', () => {
 
     expect(result).to.deep.equal(approveResult);
     expect(approveStub.firstCall.args[1]).to.deep.equal({ requestId });
-    expect(sfCommandStubs.log.firstCall.args[0]).to.contain(requestId);
+    expect(sfCommandStubs.log.firstCall.args[0]).to.equal(
+      `Approved trust link request ${requestId} from the authoring org ${authoringOrgId}.`
+    );
   });
 
   it('approves a trust link selected by authoring org', async () => {
