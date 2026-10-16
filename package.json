@@ -125,7 +125,11 @@
       }
     },
     "flexibleTaxonomy": true,
-    "topicSeparator": " "
+    "topicSeparator": " ",
+    "hooks": {
+      "prerun": "./lib/hooks/prerun",
+      "finally": "./lib/hooks/finally"
+    }
   },
   "repository": "salesforcecli/plugin-packaging",
   "scripts": {
