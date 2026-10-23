@@ -49,7 +49,7 @@ function fakeOrg(orgId = ORG_ID): Org {
 
 /** Records requests. `reply` returns a Response, throws, or never settles when `hang` is set. */
 function fakeFetch(reply: () => Response | Promise<Response>, hang = false) {
-  const calls: { url: string; init: RequestInit }[] = [];
+  const calls: Array<{ url: string; init: RequestInit }> = [];
   const fetcher = ((url: string, init: RequestInit) => {
     calls.push({ url, init });
     if (hang) {
@@ -190,10 +190,14 @@ describe('packaging enforcement notice utility', () => {
     });
 
     it('fails open on non-200 responses and does not cache them', async () => {
-      for (const status of [401, 404, 500]) {
-        const f = fakeFetch(() => new Response(null, { status, headers: { 'sforce-packaging-enforcement': header('E1', 'x') } }));
-        expect(await lookupNotice([], deps({ fetch: f.fetch })), `status ${status}`).to.equal(undefined);
-      }
+      const statuses = [401, 404, 500];
+      const notices = await Promise.all(
+        statuses.map((status) => {
+          const f = fakeFetch(() => new Response(null, { status, headers: { 'sforce-packaging-enforcement': header('E1', 'x') } }));
+          return lookupNotice([], deps({ fetch: f.fetch }));
+        })
+      );
+      statuses.forEach((status, i) => expect(notices[i], `status ${status}`).to.equal(undefined));
       const retry = fakeFetch(() => new Response(null, { status: 200 }));
       await lookupNotice([], deps({ fetch: retry.fetch }));
       expect(retry.calls, 'failures must not be cached').to.have.length(1);

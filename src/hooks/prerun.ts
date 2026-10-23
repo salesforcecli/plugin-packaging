@@ -17,6 +17,7 @@ import type { Hook } from '@oclif/core';
 import { startNoticeLookup } from '../utils/packagingEnforcement.js';
 
 /** Starts the packaging enforcement lookup in the background so the command body is not delayed. */
+// eslint-disable-next-line @typescript-eslint/require-await
 export const hook: Hook<'prerun'> = async function (options) {
   startNoticeLookup(options.argv);
 };
