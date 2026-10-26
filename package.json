@@ -12,7 +12,7 @@
     "@salesforce/kit": "^4.0.0",
     "@salesforce/packaging": "^5.0.21",
     "@salesforce/sf-plugins-core": "^13.0.4",
-    "@salesforce/ts-types": "^3.2.0",
+    "@salesforce/ts-types": "^3.2.3",
     "chalk": "^5.6.2"
   },
   "devDependencies": {
