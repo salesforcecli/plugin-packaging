@@ -9,7 +9,7 @@
 This plugin is bundled with the Salesforce CLI, so you typically don't need to install it. However, if you want to install a specific version of the plugin you can run:
 
 ```bash
-sf plugins:install @salesforce/plugin-packaging@x.y.z
+sf plugins install @salesforce/plugin-packaging@x.y.z
 ```
 
 _NOTE: If you install a specific version of a bundled plugin you will not get an updated packaging plugin when the CLI updates. You must either update to the packaging plugin version you want manually, or uninstall the version of the plugin you have to go back to the CLI bundled version._
@@ -20,7 +20,7 @@ Please report any issues at https://github.com/forcedotcom/cli/issues
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md)
+If you're interested in contributing, take a look at the [CONTRIBUTING](CONTRIBUTING.md) guide.
 
 ## Developing
 
